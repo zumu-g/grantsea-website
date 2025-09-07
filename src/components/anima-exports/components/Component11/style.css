@@ -1,0 +1,23 @@
+.component-11 {
+  align-items: flex-start;
+  display: inline-flex;
+  position: relative;
+}
+
+.component-11 .text-6 {
+  color: #000000;
+  font-family: var(--www-on-com-on-regular-font-family);
+  font-size: var(--www-on-com-on-regular-font-size);
+  font-style: var(--www-on-com-on-regular-font-style);
+  font-weight: var(--www-on-com-on-regular-font-weight);
+  letter-spacing: var(--www-on-com-on-regular-letter-spacing);
+  line-height: var(--www-on-com-on-regular-line-height);
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.component-11 .text-6:hover {
+  color: #4d4d4d;
+}

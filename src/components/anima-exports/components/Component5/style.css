@@ -1,0 +1,26 @@
+.component-5 {
+  align-items: center;
+  display: inline-flex;
+  gap: 12px;
+  position: relative;
+}
+
+.component-5 .text-2 {
+  color: #000000;
+  font-family: var(--www-on-com-on-bold-font-family);
+  font-size: var(--www-on-com-on-bold-font-size);
+  font-style: var(--www-on-com-on-bold-font-style);
+  font-weight: var(--www-on-com-on-bold-font-weight);
+  letter-spacing: var(--www-on-com-on-bold-letter-spacing);
+  line-height: var(--www-on-com-on-bold-line-height);
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.component-5 .component-1-55 {
+  height: 32px !important;
+  position: relative !important;
+  width: 32px !important;
+}

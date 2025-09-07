@@ -1,0 +1,3 @@
+DEPLOYMENT_TRIGGER=v2-full-screen-fix
+DEPLOYMENT_TIME=Sun Sep  7 11:38:00 AEST 2025
+DEPLOYMENT_CHANGES=Full-screen layout fixes with override CSS

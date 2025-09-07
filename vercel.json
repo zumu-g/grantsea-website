@@ -1,0 +1,23 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "git": {
+    "deploymentEnabled": {
+      "main": true
+    }
+  },
+  "github": {
+    "enabled": true
+  },
+  "functions": {
+    "src/app/api/appraisal/route.ts": {
+      "maxDuration": 10
+    },
+    "src/app/api/contact/route.ts": {
+      "maxDuration": 10
+    }
+  }
+}

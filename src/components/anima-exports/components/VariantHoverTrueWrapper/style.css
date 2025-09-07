@@ -1,0 +1,41 @@
+.variant-hover-true-wrapper {
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid;
+  border-color: #ffffff;
+  border-radius: 40px;
+  display: inline-flex;
+  justify-content: center;
+  max-width: 132.25px;
+  padding: 14px 25px;
+  position: relative;
+}
+
+.variant-hover-true-wrapper .container {
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  margin-left: -0.88px;
+  margin-right: -0.88px;
+  position: relative;
+}
+
+.variant-hover-true-wrapper .text {
+  color: #000000;
+  font-family: var(--www-on-com-on-medium-font-family);
+  font-size: var(--www-on-com-on-medium-font-size);
+  font-style: var(--www-on-com-on-medium-font-style);
+  font-weight: var(--www-on-com-on-medium-font-weight);
+  letter-spacing: var(--www-on-com-on-medium-letter-spacing);
+  line-height: var(--www-on-com-on-medium-line-height);
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.variant-hover-true-wrapper:hover {
+  background-color: #e5e5e5;
+  border-color: #e5e5e5;
+}

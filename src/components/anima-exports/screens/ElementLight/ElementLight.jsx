@@ -632,7 +632,7 @@ export const ElementLight = () => {
 
                       <div className="div-2">
                         <p className="text-wrapper-8">
-                          Ignite the human spirit through movement
+                          Empowering Melbourne's Southeast to buy, sell, and manage property with confidence
                         </p>
                       </div>
                     </div>

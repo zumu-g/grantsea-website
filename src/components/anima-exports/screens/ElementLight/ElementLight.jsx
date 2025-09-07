@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Component } from "../../components/Component";
 import { Component4 } from "../../components/Component4";
 import { Component5 } from "../../components/Component5";
@@ -26,6 +26,61 @@ import GrantsAIChatBox from "../../../GrantsAIChatBox";
 import "./style.css";
 
 export const ElementLight = () => {
+  // Carousel state for New Arrivals
+  const [currentPropertyIndex, setCurrentPropertyIndex] = useState(0);
+  
+  const properties = [
+    {
+      id: 1,
+      address: "42 Rosewood Avenue, Berwick",
+      description: "Prized family home on 700sqm",
+      details: "4 bed, 2 bath, 2 garage",
+      price: "$850,000 - $900,000",
+      tag: "NEW"
+    },
+    {
+      id: 2,
+      address: "15 Lakeside Drive, Narre Warren",
+      description: "Modern lakefront masterpiece",
+      details: "5 bed, 3 bath, 3 garage",
+      price: "$1,250,000 - $1,350,000",
+      tag: "LUXURY"
+    },
+    {
+      id: 3,
+      address: "8 Heritage Court, Pakenham",
+      description: "Spacious family entertainer",
+      details: "4 bed, 2 bath, 2 garage",
+      price: "$720,000 - $780,000",
+      tag: "NEW"
+    },
+    {
+      id: 4,
+      address: "23 Parkview Terrace, Officer",
+      description: "Contemporary townhouse living",
+      details: "3 bed, 2 bath, 1 garage",
+      price: "$650,000 - $700,000",
+      tag: "NEW PRICE"
+    }
+  ];
+
+  const nextProperty = () => {
+    setCurrentPropertyIndex((prev) => (prev + 1) % properties.length);
+  };
+
+  const prevProperty = () => {
+    setCurrentPropertyIndex((prev) => (prev - 1 + properties.length) % properties.length);
+  };
+
+  const getVisibleProperties = () => {
+    const visible = [];
+    for (let i = 0; i < 4; i++) {
+      const index = (currentPropertyIndex + i) % properties.length;
+      visible.push(properties[index]);
+    }
+    return visible;
+  };
+
   return (
     <div className="element-light">
       <div className="overlap-group">
@@ -54,15 +109,15 @@ export const ElementLight = () => {
 
             <div className="nav-primary">
               <div className="item-margin">
-                <div className="item-button-menu">Shop</div>
+                <div className="item-button-menu">Buy</div>
               </div>
 
               <div className="item-margin">
-                <div className="item-button-menu">Activities</div>
+                <div className="item-button-menu">Sell</div>
               </div>
 
               <div className="item-margin">
-                <div className="item-button-menu">Explore</div>
+                <div className="item-button-menu">Lease</div>
               </div>
             </div>
           </header>
@@ -72,10 +127,18 @@ export const ElementLight = () => {
           <div className="section-article">
             <div className="container-8">
               <div className="div-wrapper-2">
-                <video className="picture-fw" autoPlay loop muted playsInline>
-                  <source src="/videos/grants-header-video.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+                {/* Video placeholder with styling to match the design */}
+                <div className="picture-fw" style={{
+                  background: 'linear-gradient(to bottom, #333, #111)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#fff',
+                  fontSize: '24px',
+                  fontWeight: '300'
+                }}>
+                  [Video Placeholder - Property Showcase]
+                </div>
               </div>
             </div>
 
@@ -86,7 +149,7 @@ export const ElementLight = () => {
                 <div className="section-wrapper">
                   <div className="section">
                     <div className="div-2">
-                      <div className="text-wrapper-2">You're best move</div>
+                      <div className="text-wrapper-2">Your best move</div>
                     </div>
 
                     <div className="div-2">
@@ -99,7 +162,7 @@ export const ElementLight = () => {
                           <VariantHoverTrueWrapper
                             className="component-3"
                             containerClassName="component-instance"
-                            text="Shop Men"
+                            text="Buy Property"
                             variant="one"
                           />
                         </div>
@@ -110,7 +173,7 @@ export const ElementLight = () => {
                           <VariantHoverTrueWrapper
                             className="component-3"
                             containerClassName="component-instance"
-                            text="Shop Women"
+                            text="Sell Property"
                             variant="one"
                           />
                         </div>
@@ -122,9 +185,77 @@ export const ElementLight = () => {
             </div>
           </div>
 
-          <div className="section-section">
+          {/* Estate Agent Section with Service Buttons */}
+          <div className="section-section" style={{ position: 'relative', paddingBottom: '40px' }}>
+            <div style={{
+              position: 'absolute',
+              right: '40px',
+              top: '-100px',
+              background: 'white',
+              borderRadius: '12px',
+              padding: '24px',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+              width: '320px'
+            }}>
+              <div style={{
+                width: '100%',
+                height: '200px',
+                background: '#f0f0f0',
+                borderRadius: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '20px',
+                color: '#999'
+              }}>
+                [Estate Agent Image]
+              </div>
+              
+              <h3 style={{ 
+                fontSize: '18px', 
+                fontWeight: '600', 
+                marginBottom: '16px',
+                textAlign: 'center' 
+              }}>
+                How can we help?
+              </h3>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <button style={{
+                  width: '100%',
+                  padding: '12px',
+                  background: '#2563eb',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  cursor: 'pointer'
+                }}>I'm looking to buy</button>
+                <button style={{
+                  width: '100%',
+                  padding: '12px',
+                  background: '#1f2937',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  cursor: 'pointer'
+                }}>I'm looking to lease</button>
+                <button style={{
+                  width: '100%',
+                  padding: '12px',
+                  background: '#059669',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  cursor: 'pointer'
+                }}>I'm looking to sell</button>
+              </div>
+            </div>
+
             <div className="div-wrapper-3">
-              <div className="text-wrapper-3">Shop by category</div>
+              <div className="text-wrapper-3">Browse by category</div>
             </div>
 
             <div className="container-11">
@@ -156,7 +287,7 @@ export const ElementLight = () => {
             <div className="container-12">
               <div className="heading-margin">
                 <div className="div-2">
-                  <div className="activities">ACTIVITIES</div>
+                  <div className="activities">SERVICES</div>
                 </div>
               </div>
 
@@ -217,7 +348,7 @@ export const ElementLight = () => {
                     className="component-18"
                     component156StyleOverrideClassName="component-2"
                     hover={false}
-                    text="Ask Grants"
+                    text="Ask Grant's AI"
                     variant="one"
                   />
                 </div>
@@ -237,6 +368,7 @@ export const ElementLight = () => {
             <img className="img" alt="Container" src="/static/img/container.svg" />
           </div>
 
+          {/* Updated Suburb Profiles Section */}
           <div className="section-section-2">
             <div className="container-13">
               <div className="group-margin">
@@ -300,9 +432,9 @@ export const ElementLight = () => {
                     hover={false}
                     text={
                       <>
-                        Hoodies and
+                        More suburbs
                         <br />
-                        sweatshirts
+                        coming soon
                       </>
                     }
                     variant="six"
@@ -319,12 +451,14 @@ export const ElementLight = () => {
                   className="component-7-instance"
                   hover={false}
                   variant="one"
+                  onClick={prevProperty}
                 />
                 <div className="button-next-slide">
                   <Component7
                     className="component-7-instance"
                     hover={false}
                     variant="two"
+                    onClick={nextProperty}
                   />
                 </div>
 
@@ -335,189 +469,70 @@ export const ElementLight = () => {
             </div>
           </div>
 
+          {/* Updated New Arrivals Section with Property Carousel */}
           <div className="section-new-arrivals">
             <div className="div-wrapper-3">
-              <div className="text-wrapper-3">New arrivals</div>
+              <div className="text-wrapper-3">New Property Listings</div>
             </div>
 
             <div className="container-15">
               <div className="container-16">
-                <div className="group-wrapper">
-                  <div className="article-wrapper">
-                    <div className="article">
-                      <div className="container-17">
-                        <Component
-                          className="component-14"
-                          hover={false}
-                          icon={<Variant11 className="icon-instance-node" />}
-                          variant="four"
-                        />
-                      </div>
+                {getVisibleProperties().map((property, index) => (
+                  <div className="group-wrapper" key={`${property.id}-${index}`}>
+                    <div className="article-wrapper">
+                      <div className="article">
+                        <div className="container-17">
+                          <Component
+                            className="component-14"
+                            hover={false}
+                            icon={<Variant11 className="icon-instance-node" />}
+                            variant="four"
+                          />
+                        </div>
 
-                      <div className="container-wrapper-2">
-                        <div className="container-18">
-                          <div className="container-19">
-                            <div className="picture-2" />
+                        <div className="container-wrapper-2">
+                          <div className="container-18">
+                            <div className="container-19">
+                              <div className="picture-2" style={{
+                                background: '#f0f0f0',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: '#999'
+                              }}>
+                                Property Image
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="div-3">
-                        <div className="text-wrapper-4">NEW</div>
+                        <div className="div-3">
+                          <div className="text-wrapper-4">{property.tag}</div>
 
-                        <div className="container-20">
-                          <p className="text-wrapper-5">
-                            42 Rosewood Avenue, Berwick
-                          </p>
-                        </div>
+                          <div className="container-20">
+                            <p className="text-wrapper-5">
+                              {property.address}
+                            </p>
+                          </div>
 
-                        <div className="container-21">
-                          <p className="text-wrapper-6">
-                            Prized family home on 700sqm
-                          </p>
-                        </div>
+                          <div className="container-21">
+                            <p className="text-wrapper-6">
+                              {property.description}
+                            </p>
+                          </div>
 
-                        <div className="container-22">
-                          <div className="text-wrapper-7">4 bed, 2 bath, 2 garage</div>
-                        </div>
+                          <div className="container-22">
+                            <div className="text-wrapper-7">{property.details}</div>
+                          </div>
 
-                        <div className="container-23">
-                          <div className="text-wrapper-7">$850,000 - $900,000</div>
+                          <div className="container-23">
+                            <div className="text-wrapper-7">{property.price}</div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-
-                <div className="group-wrapper">
-                  <div className="article-wrapper">
-                    <div className="article">
-                      <div className="container-17">
-                        <Component
-                          className="component-14"
-                          hover={false}
-                          icon={<Variant11 className="icon-instance-node" />}
-                          variant="four"
-                        />
-                      </div>
-
-                      <div className="container-wrapper-2">
-                        <div className="container-24">
-                          <div className="container-19">
-                            <div className="picture-3" />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="div-3">
-                        <div className="text-wrapper-4">NEW COLOR</div>
-
-                        <div className="container-20">
-                          <div className="text-wrapper-5">Court Cap</div>
-                        </div>
-
-                        <div className="container-21">
-                          <div className="text-wrapper-6">
-                            Tennis, lightweight, ventilated
-                          </div>
-                        </div>
-
-                        <div className="container-22">
-                          <div className="text-wrapper-7">2 Colors</div>
-                        </div>
-
-                        <div className="container-23">
-                          <div className="text-wrapper-7">$75.00</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="group-wrapper">
-                  <div className="article-wrapper">
-                    <div className="article">
-                      <div className="container-17">
-                        <Component
-                          className="component-14"
-                          hover={false}
-                          icon={<Variant11 className="icon-instance-node" />}
-                          variant="four"
-                        />
-                      </div>
-
-                      <div className="container-wrapper-2">
-                        <div className="container-18">
-                          <div className="container-19">
-                            <div className="picture-4" />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="div-3">
-                        <div className="text-wrapper-4">NEW COLOR</div>
-
-                        <div className="container-20">
-                          <div className="text-wrapper-5">Cloud 6</div>
-                        </div>
-
-                        <div className="container-21">
-                          <div className="text-wrapper-6">
-                            All-day wear, CloudTec®
-                          </div>
-                        </div>
-
-                        <div className="container-22">
-                          <div className="text-wrapper-7">9 Colors</div>
-                        </div>
-
-                        <div className="container-23">
-                          <div className="text-wrapper-7">$240.00</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="group-wrapper">
-                  <div className="article-wrapper">
-                    <div className="article">
-                      <div className="container-17">
-                        <div className="container-25" />
-                      </div>
-
-                      <div className="container-wrapper-2">
-                        <div className="container-18">
-                          <div className="container-19">
-                            <div className="picture-5" />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="div-3">
-                        <div className="new">NEW</div>
-
-                        <div className="container-20">
-                          <div className="text-wrapper-5">Cloudsurfer Max</div>
-                        </div>
-
-                        <div className="container-21">
-                          <div className="text-wrapper-6">
-                            Everyday running, long runs
-                          </div>
-                        </div>
-
-                        <div className="container-22">
-                          <div className="text-wrapper-7">4 Colors</div>
-                        </div>
-
-                        <div className="container-23">
-                          <div className="text-wrapper-7">$280.00</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                ))}
 
                 <img
                   className="group-margin-3"
@@ -562,12 +577,14 @@ export const ElementLight = () => {
                     className="component-7-instance"
                     hover={false}
                     variant="one"
+                    onClick={prevProperty}
                   />
                   <div className="button-next-slide">
                     <Component7
                       className="component-7-instance"
                       hover={false}
                       variant="two"
+                      onClick={nextProperty}
                     />
                   </div>
 
@@ -583,7 +600,7 @@ export const ElementLight = () => {
             <div className="container-26">
               <div className="section-3">
                 <div className="div-wrapper-3">
-                  <div className="text-wrapper-3">Stories that move</div>
+                  <div className="text-wrapper-3">Success Stories</div>
                 </div>
 
                 <div className="container-11">
@@ -591,28 +608,28 @@ export const ElementLight = () => {
                     className="component-19"
                     component186StyleOverrideClassName="design-component-instance-node"
                     hover={false}
-                    text="Tenniscore styling"
+                    text="Recent sales"
                     variant="four"
                   />
                   <Component4
                     className="component-20"
                     component186StyleOverrideClassName="design-component-instance-node"
                     hover={false}
-                    text="How should a sports bra fit?"
+                    text="Happy clients"
                     variant="five"
                   />
                   <Component4
                     className="component-21"
                     component186StyleOverrideClassName="design-component-instance-node"
                     hover={false}
-                    text="How to play tennis like a pro"
+                    text="Market insights"
                     variant="six"
                   />
                   <Component4
                     className="component-22"
                     component186StyleOverrideClassName="design-component-instance-node"
                     hover={false}
-                    text="Discover our athletes"
+                    text="Meet our team"
                     variant="seven"
                   />
                 </div>
@@ -632,7 +649,7 @@ export const ElementLight = () => {
 
                       <div className="div-2">
                         <p className="text-wrapper-8">
-                          Ignite the human spirit through movement
+                          Helping families find their perfect home
                         </p>
                       </div>
                     </div>
@@ -663,7 +680,7 @@ export const ElementLight = () => {
                               <div className="container-33">
                                 <div className="div-2">
                                   <div className="text-wrapper-9">
-                                    Inspired by athletes.
+                                    Trusted by locals.
                                   </div>
                                 </div>
                               </div>
@@ -681,9 +698,9 @@ export const ElementLight = () => {
                               <div className="container-34">
                                 <div className="div-2">
                                   <div className="text-wrapper-9">
-                                    Powered by Swiss
+                                    Expert market
                                     <br />
-                                    engineering.
+                                    knowledge.
                                   </div>
                                 </div>
                               </div>
@@ -703,11 +720,11 @@ export const ElementLight = () => {
                               <div className="container-35">
                                 <div className="div-2">
                                   <p className="text-wrapper-9">
-                                    We believe amazing
+                                    We believe everyone
                                     <br />
-                                    things happen when we
+                                    deserves to find their
                                     <br />
-                                    move.
+                                    dream home.
                                   </p>
                                 </div>
                               </div>
@@ -725,9 +742,9 @@ export const ElementLight = () => {
                               <div className="container-34">
                                 <div className="div-2">
                                   <p className="text-wrapper-9">
-                                    Whether that’s breaking
+                                    Whether that's your first
                                     <br />
-                                    records on the track…
+                                    home or forever home…
                                   </p>
                                 </div>
                               </div>
@@ -753,9 +770,9 @@ export const ElementLight = () => {
           <div className="container-36">
             <div className="div-2">
               <p className="stay-in-the-loop">
-                Stay in the loop, with exclusive offers and product
+                Stay updated with new listings and market
                 <br />
-                previews.
+                insights from Grant's Estate Agents.
               </p>
             </div>
 
@@ -811,7 +828,7 @@ export const ElementLight = () => {
             <div className="div-2">
               <Component10
                 className="component-14"
-                text="Become a member"
+                text="Property alerts"
                 variant="one"
               />
             </div>
@@ -819,7 +836,7 @@ export const ElementLight = () => {
             <div className="div-2">
               <Component10
                 className="component-14"
-                text="Refer a friend"
+                text="Market reports"
                 variant="one"
               />
             </div>
@@ -827,7 +844,7 @@ export const ElementLight = () => {
             <div className="div-2">
               <Component10
                 className="component-14"
-                text="Gift cards"
+                text="Selling guide"
                 variant="one"
               />
             </div>
@@ -835,7 +852,7 @@ export const ElementLight = () => {
             <div className="div-2">
               <Component10
                 className="component-14"
-                text="On stores"
+                text="Buying guide"
                 variant="one"
               />
             </div>
@@ -843,7 +860,7 @@ export const ElementLight = () => {
             <div className="div-2">
               <Component10
                 className="component-14"
-                text="Shop locator"
+                text="Our offices"
                 variant="one"
               />
             </div>
@@ -851,7 +868,7 @@ export const ElementLight = () => {
             <div className="div-2">
               <Component10
                 className="component-14"
-                text="Supplier portal"
+                text="Client portal"
                 variant="one"
               />
             </div>
@@ -863,7 +880,7 @@ export const ElementLight = () => {
             <div className="div-2">
               <Component10
                 className="component-14"
-                text="About On"
+                text="About Grant's"
                 variant="one"
               />
             </div>
@@ -879,7 +896,7 @@ export const ElementLight = () => {
             <div className="div-2">
               <Component10
                 className="component-14"
-                text="Investors"
+                text="Community"
                 variant="one"
               />
             </div>
@@ -895,7 +912,7 @@ export const ElementLight = () => {
             <div className="div-2">
               <Component10
                 className="component-14"
-                text="Backstage"
+                text="Blog"
                 variant="one"
               />
             </div>
@@ -925,7 +942,7 @@ export const ElementLight = () => {
             <div className="container-39">
               <div className="margin-5">
                 <div className="container-40">
-                  <div className="text-wrapper-13">© On 2025</div>
+                  <div className="text-wrapper-13">© Grant's Estate Agents 2025</div>
                 </div>
               </div>
 
@@ -965,7 +982,7 @@ export const ElementLight = () => {
                     <div className="component-11-wrapper">
                       <Component11
                         className="component-14"
-                        text="Imprint"
+                        text="Contact"
                         variant="one"
                       />
                     </div>
@@ -975,7 +992,7 @@ export const ElementLight = () => {
                     <div className="component-11-wrapper">
                       <Component11
                         className="component-14"
-                        text="Vulnerability reporting"
+                        text="Sitemap"
                         variant="one"
                       />
                     </div>
@@ -987,7 +1004,7 @@ export const ElementLight = () => {
                     <div className="component-11-wrapper">
                       <Component11
                         className="component-14"
-                        text="Modern Slavery Act"
+                        text="Agency Agreement"
                         variant="one"
                       />
                     </div>
@@ -997,7 +1014,7 @@ export const ElementLight = () => {
                     <div className="component-11-wrapper">
                       <Component11
                         className="component-14"
-                        text="Student Discount"
+                        text="Commission Rates"
                         variant="one"
                       />
                     </div>
@@ -1007,7 +1024,7 @@ export const ElementLight = () => {
                     <div className="component-11-wrapper">
                       <Component11
                         className="component-14"
-                        text="Community Discounts"
+                        text="Reviews"
                         variant="one"
                       />
                     </div>

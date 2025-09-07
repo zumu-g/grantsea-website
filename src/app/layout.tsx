@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import '@/lib/performance';
 
 export const metadata: Metadata = {
   title: "Grant's Estate Agents | South East Melbourne Real Estate",

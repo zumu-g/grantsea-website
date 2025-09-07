@@ -1,5 +1,4 @@
 // Performance Optimization Utilities
-import { lazy } from 'react';
 
 // Image Optimization
 export const imageOptimization = {
@@ -119,8 +118,9 @@ export const performanceMetrics = {
       // Largest Contentful Paint
       new PerformanceObserver((entryList) => {
         const entries = entryList.getEntries();
-        const lastEntry = entries[entries.length - 1];
-        console.log('LCP:', lastEntry.startTime);
+        const lastEntry = entries[entries.length - 1] as any;
+        const lcp = lastEntry?.startTime ?? 0;
+        performanceMonitoring.reportPerformance('LCP', lcp);
       }).observe({ entryTypes: ['largest-contentful-paint'] });
 
       // First Input Delay
@@ -129,7 +129,7 @@ export const performanceMetrics = {
           const fidEntry = entry as any;
           if (fidEntry.processingStart) {
             const fid = fidEntry.processingStart - fidEntry.startTime;
-            console.log('FID:', fid);
+            performanceMonitoring.reportPerformance('FID', fid);
           }
         }
       }).observe({ entryTypes: ['first-input'] });
@@ -143,7 +143,7 @@ export const performanceMetrics = {
             clsValue += clsEntry.value;
           }
         }
-        console.log('CLS:', clsValue);
+        performanceMonitoring.reportPerformance('CLS', clsValue);
       }).observe({ entryTypes: ['layout-shift'] });
     }
   },
@@ -326,6 +326,30 @@ export const performanceMonitoring = {
     // Console logging for development
     if (process.env.NODE_ENV === 'development') {
       console.log(`Performance metric: ${metric} = ${value}`, tags);
+    }
+
+    // Send to internal RUM endpoint for local storage/analysis
+    try {
+      const payload = {
+        metric,
+        value,
+        tags: tags || {},
+        ts: Date.now(),
+        href: typeof window !== 'undefined' ? window.location.href : '',
+      };
+      if (typeof navigator !== 'undefined' && 'sendBeacon' in navigator) {
+        const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+        (navigator as any).sendBeacon('/api/web-vitals', blob);
+      } else if (typeof fetch !== 'undefined') {
+        fetch('/api/web-vitals', {
+          method: 'POST',
+          keepalive: true,
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).catch(() => {});
+      }
+    } catch {
+      // noop
     }
   },
 

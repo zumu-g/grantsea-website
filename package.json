@@ -9,7 +9,10 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "style-check": "node scripts/pre-commit-style-check.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "perf:psi": "node scripts/page-speed-agent.js --url=http://localhost:3000 --strategy=mobile",
+    "perf:psi:desktop": "node scripts/page-speed-agent.js --url=http://localhost:3000 --strategy=desktop",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -27,8 +30,9 @@
     "yup": "^1.7.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.5.2",
     "@playwright/test": "^1.55.0",
-    "@types/node": "^18.15.0",
+    "@types/node": "^18.19.124",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "autoprefixer": "^10.4.0",

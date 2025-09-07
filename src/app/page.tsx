@@ -1,7 +1,7 @@
 'use client';
 
-import { ElementLight } from '@/components/anima-exports/screens/ElementLight/ElementLight';
+import EnhancedHomepage from '@/components/EnhancedHomepage';
 
 export default function HomePage() {
-  return <ElementLight />;
+  return <EnhancedHomepage />;
 }

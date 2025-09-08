@@ -231,7 +231,28 @@ export const propertyAPI = {
 
   // Get single property by ID
   async getPropertyById(id: string): Promise<ApiResponse<Property>> {
-    const response = await fetchFromCRM<any>(`/listings/${id}`);
+    // Use our API route to avoid CORS issues
+    if (typeof window !== 'undefined') {
+      try {
+        const response = await fetch(`/api/properties/${id}`);
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to fetch property');
+        }
+        
+        return {
+          success: true,
+          data: transformVaultREProperty(data.data)
+        };
+      } catch (error) {
+        console.error('Error fetching property:', error);
+        throw error;
+      }
+    }
+    
+    // Server-side: try to fetch directly from VaultRE
+    const response = await fetchFromCRM<any>(`/properties/${id}`);
     
     if (response.data) {
       return {

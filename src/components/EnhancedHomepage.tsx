@@ -278,7 +278,7 @@ export default function EnhancedHomepage() {
                 <p className="mt-4 text-gray-600">Loading properties...</p>
               </div>
             ) : (
-            getVisibleProperties().map((property, index) => (
+            getVisibleProperties().map((property: any, index: number) => (
               <Link
                 key={`${property.id}-${index}`}
                 href={`/property/${property.id}`}

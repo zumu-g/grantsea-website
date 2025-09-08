@@ -14,7 +14,7 @@ export default function Header() {
   return (
     <>
       <header className="bg-white shadow-sm sticky top-0 z-40">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link href="/" className="text-2xl font-bold text-blue-600">
@@ -22,14 +22,14 @@ export default function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="text-gray-600 hover:text-blue-600">Home</Link>
-              <Link href="/listings" className="text-gray-600 hover:text-blue-600">Listings</Link>
-              <Link href="/properties" className="text-gray-600 hover:text-blue-600">Buy</Link>
-              <Link href="/properties?type=rent" className="text-gray-600 hover:text-blue-600">Rent</Link>
-              <Link href="/sell" className="text-gray-600 hover:text-blue-600">Sell</Link>
-              <Link href="/agents" className="text-gray-600 hover:text-blue-600">Our Team</Link>
-              <Link href="/contact" className="text-gray-600 hover:text-blue-600">Contact</Link>
+            <nav className="hidden md:flex items-center space-x-10">
+              <Link href="/" className="text-gray-700 hover:text-blue-600 font-medium text-sm transition-colors duration-200">Home</Link>
+              <Link href="/listings" className="text-gray-700 hover:text-blue-600 font-medium text-sm transition-colors duration-200">Listings</Link>
+              <Link href="/properties" className="text-gray-700 hover:text-blue-600 font-medium text-sm transition-colors duration-200">Buy</Link>
+              <Link href="/properties?type=rent" className="text-gray-700 hover:text-blue-600 font-medium text-sm transition-colors duration-200">Rent</Link>
+              <Link href="/sell" className="text-gray-700 hover:text-blue-600 font-medium text-sm transition-colors duration-200">Sell</Link>
+              <Link href="/agents" className="text-gray-700 hover:text-blue-600 font-medium text-sm transition-colors duration-200">Our Team</Link>
+              <Link href="/contact" className="text-gray-700 hover:text-blue-600 font-medium text-sm transition-colors duration-200">Contact</Link>
             </nav>
 
             {/* Navigation Icons */}
@@ -37,7 +37,7 @@ export default function Header() {
               {/* Search Icon */}
               <button 
                 onClick={() => setShowSearchModal(true)}
-                className="p-2 hover:bg-gray-100 rounded-full transition"
+                className="p-3 hover:bg-gray-100 rounded-full transition-all duration-200"
                 aria-label="Search"
               >
                 <Component1_39 className="w-5 h-5 text-gray-600" />
@@ -46,7 +46,7 @@ export default function Header() {
               {/* Favorites Icon */}
               <Link 
                 href="/favorites"
-                className="p-2 hover:bg-gray-100 rounded-full transition"
+                className="p-3 hover:bg-gray-100 rounded-full transition-all duration-200"
                 aria-label="Favorites"
               >
                 <Component1_51 className="w-5 h-5 text-gray-600" />
@@ -55,7 +55,7 @@ export default function Header() {
               {/* User Profile Icon */}
               <Link 
                 href="/profile"
-                className="p-2 hover:bg-gray-100 rounded-full transition"
+                className="p-3 hover:bg-gray-100 rounded-full transition-all duration-200"
                 aria-label="Profile"
               >
                 <Component1_20 className="w-5 h-5 text-gray-600" />
@@ -64,7 +64,7 @@ export default function Header() {
               {/* Mobile Menu Icon */}
               <button 
                 onClick={() => setShowMobileMenu(!showMobileMenu)}
-                className="md:hidden p-2 hover:bg-gray-100 rounded-full transition"
+                className="md:hidden p-3 hover:bg-gray-100 rounded-full transition-all duration-200"
                 aria-label="Menu"
               >
                 <Variant9 className="w-6 h-6 text-gray-600" />
@@ -76,14 +76,14 @@ export default function Header() {
         {/* Mobile Menu */}
         {showMobileMenu && (
           <div className="md:hidden border-t">
-            <nav className="container mx-auto px-4 py-4 space-y-4">
-              <Link href="/" className="block text-gray-600 hover:text-blue-600">Home</Link>
-              <Link href="/listings" className="block text-gray-600 hover:text-blue-600">Listings</Link>
-              <Link href="/properties" className="block text-gray-600 hover:text-blue-600">Buy</Link>
-              <Link href="/properties?type=rent" className="block text-gray-600 hover:text-blue-600">Rent</Link>
-              <Link href="/sell" className="block text-gray-600 hover:text-blue-600">Sell</Link>
-              <Link href="/agents" className="block text-gray-600 hover:text-blue-600">Our Team</Link>
-              <Link href="/contact" className="block text-gray-600 hover:text-blue-600">Contact</Link>
+            <nav className="container mx-auto px-4 py-6 space-y-5">
+              <Link href="/" className="block text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors duration-200">Home</Link>
+              <Link href="/listings" className="block text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors duration-200">Listings</Link>
+              <Link href="/properties" className="block text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors duration-200">Buy</Link>
+              <Link href="/properties?type=rent" className="block text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors duration-200">Rent</Link>
+              <Link href="/sell" className="block text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors duration-200">Sell</Link>
+              <Link href="/agents" className="block text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors duration-200">Our Team</Link>
+              <Link href="/contact" className="block text-gray-700 hover:text-blue-600 font-medium py-2 transition-colors duration-200">Contact</Link>
             </nav>
           </div>
         )}

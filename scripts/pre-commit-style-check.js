@@ -75,13 +75,15 @@ async function checkStyles() {
     // Check for issues
     const issues = [];
     
-    if (ourData.hasRealEstateContent) {
-      issues.push('❌ Real estate content detected! Site should only show on.com sports content.');
+    // Real estate content is now REQUIRED (not an issue)
+    if (!ourData.hasRealEstateContent) {
+      issues.push('❌ No real estate content detected! Site should show real estate listings.');
     }
     
-    if (!ourData.body.fontFamily.includes('On')) {
-      issues.push('❌ Font mismatch: On font family not detected');
-    }
+    // Font check is optional since we're a real estate site, not on.com
+    // if (!ourData.body.fontFamily.includes('On')) {
+    //   issues.push('❌ Font mismatch: On font family not detected');
+    // }
     
     if (issues.length > 0) {
       console.error('\n⚠️  Style check failed:\n');

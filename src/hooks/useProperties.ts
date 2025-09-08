@@ -51,6 +51,11 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
       console.log('API Response:', response);
       if (response.success && response.data) {
         console.log(`Successfully fetched ${response.data.length} properties from API`);
+        // Always set the properties, even if empty array
+        setProperties(response.data);
+      } else if (response.data && Array.isArray(response.data)) {
+        // Handle case where success flag might be missing but data exists
+        console.log(`Fetched ${response.data.length} properties (no success flag)`);
         setProperties(response.data);
       } else {
         throw new Error(response.error || 'Failed to fetch properties');
@@ -59,12 +64,13 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
       console.error('Error fetching properties:', err);
       setError(err instanceof Error ? err.message : 'An error occurred');
       
-      // Fallback to mock data if API is not configured yet
+      // Don't automatically fall back to mock data - let the component decide
+      // Only use mock data if explicitly needed for development
       const errorMessage = err instanceof Error ? err.message : String(err);
-      if (errorMessage.includes('API Error') || errorMessage.includes('Network') || errorMessage.includes('401')) {
-        console.log('Using mock data due to API error');
-        setProperties(getMockProperties());
-      }
+      console.log('API error details:', errorMessage);
+      
+      // Set empty array instead of mock data
+      setProperties([]);
     } finally {
       setLoading(false);
     }
@@ -72,7 +78,7 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
 
   useEffect(() => {
     fetchProperties();
-  }, [options?.suburb, options?.limit, options?.featured]);
+  }, [options?.suburb, options?.limit, options?.featured, options?.type]);
 
   return {
     properties,
@@ -105,14 +111,8 @@ export function useProperty(id: string) {
         console.error('Error fetching property:', err);
         setError(err instanceof Error ? err.message : 'An error occurred');
         
-        // Fallback to mock data if API is not configured yet
-        const errorMessage = err instanceof Error ? err.message : String(err);
-        if (errorMessage.includes('API Error') || errorMessage.includes('Network')) {
-          const mockProperty = getMockProperties().find(p => p.id === id);
-          if (mockProperty) {
-            setProperty(mockProperty);
-          }
-        }
+        // Don't use mock data - let the error bubble up
+        // The component can decide how to handle the error
       } finally {
         setLoading(false);
       }

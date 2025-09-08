@@ -5,9 +5,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
+import DebugAPIStatus from '@/components/DebugAPIStatus';
 
 // Remove the local Property interface since we'll use the one from the API
 
+// Mock data removed - only use API data
+const mockProperties: any[] = []; // Empty array to prevent any mock data usage
+
+/* Original mock data commented out:
 const mockProperties = [
   {
     id: '1',
@@ -90,20 +95,30 @@ const mockProperties = [
     image: '/api/placeholder/400/300',
   },
 ];
+*/
 
 export default function PropertyListings() {
   const [filter, setFilter] = useState<'all' | 'buy' | 'lease'>('all');
   const [propertyType, setPropertyType] = useState<string>('all');
   
-  // Get properties from API
+  // Get properties from API - remove featured filter for now
   const { properties, loading, error } = useProperties({ 
-    featured: true, 
-    limit: 6,
+    limit: 20, // Get more properties
     type: filter === 'buy' ? 'sale' : filter === 'lease' ? 'lease' : 'all'
   });
 
-  // Use API properties if available, otherwise fall back to mock data
-  const displayProperties = properties.length > 0 ? properties : mockProperties;
+  // Always use API data - no fallback to mock
+  const displayProperties = properties;
+  
+  console.log('PropertyListings debug:', {
+    apiUrl: process.env.NEXT_PUBLIC_CRM_API_URL,
+    apiKeySet: !!process.env.NEXT_PUBLIC_CRM_API_KEY,
+    propertiesCount: properties.length,
+    loading,
+    error,
+    filter,
+    displayPropertiesCount: displayProperties.length
+  });
   
   const filteredProperties = displayProperties.filter((property: any) => {
     const statusMatch = 
@@ -174,6 +189,15 @@ export default function PropertyListings() {
             <option value="Land">Land</option>
           </select>
         </div>
+
+        {/* Error Message */}
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-6">
+            <p className="font-semibold">Unable to load properties from API</p>
+            <p className="text-sm">{error}</p>
+            <p className="text-xs mt-2">Check browser console for details</p>
+          </div>
+        )}
 
         {/* Property Grid */}
         {loading ? (
@@ -262,17 +286,29 @@ export default function PropertyListings() {
             </Link>
           ))}
         </div>
-
         )}
         
         {!loading && filteredProperties.length === 0 && (
           <div className="text-center py-12">
             <p className="text-gray-500 text-lg">
-              No properties found matching your criteria.
+              {error ? 'Unable to load properties at this time.' : 'No properties found matching your criteria.'}
             </p>
+            {error && (
+              <p className="text-gray-400 text-sm mt-2">
+                Please try again later or contact us for assistance.
+              </p>
+            )}
           </div>
         )}
       </div>
+      
+      {/* Debug Component - only shows in development */}
+      <DebugAPIStatus 
+        properties={properties}
+        loading={loading}
+        error={error}
+        source="PropertyListings"
+      />
     </section>
   );
 }

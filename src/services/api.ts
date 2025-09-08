@@ -1,8 +1,8 @@
 // Vault RE API Service
 // This service handles all API calls to Vault RE CRM system
 
-// VaultRE API v1.3 - Updated endpoint
-const API_BASE_URL = process.env.NEXT_PUBLIC_CRM_API_URL || 'https://ap-southeast-2.api.vaultre.com.au/api/v1.3';
+// VaultRE API - Using documented endpoints
+const API_BASE_URL = process.env.NEXT_PUBLIC_CRM_API_URL || 'https://ap-southeast-2.api.vaultre.com.au/api/v1.2';
 const API_KEY = process.env.NEXT_PUBLIC_CRM_API_KEY || '';
 
 // Property interface matching Vault RE structure
@@ -120,20 +120,35 @@ async function fetchFromCRM<T>(
     headers,
   };
 
-  console.log('Fetching from CRM:', `${API_BASE_URL}${endpoint}`);
-  console.log('Using API Key:', API_KEY ? 'Key is set' : 'No API key!');
+  const url = `${API_BASE_URL}${endpoint}`;
+  console.log('Fetching from CRM:', url);
+  console.log('Using API Key:', API_KEY ? `${API_KEY.substring(0, 10)}...` : 'No API key!');
   
   try {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
+    const response = await fetch(url, config);
+    
+    // Log response details for debugging
+    console.log('Response status:', response.status);
+    console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+    
+    const responseText = await response.text();
+    let data;
+    
+    try {
+      data = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error('Failed to parse response as JSON:', responseText);
+      throw new Error(`Invalid JSON response from API: ${responseText.substring(0, 200)}`);
+    }
     
     if (!response.ok) {
+      console.error('API Error Response:', data);
       throw new ApiError(
         response.status,
-        `API Error: ${response.status} ${response.statusText}`
+        data.message || data.error || `API Error: ${response.status} ${response.statusText}`
       );
     }
 
-    const data = await response.json();
     return data;
   } catch (error) {
     if (error instanceof ApiError) {
@@ -168,26 +183,17 @@ export const propertyAPI = {
       if (filters.bedrooms) params.append('bedrooms_min', filters.bedrooms.toString());
       if (filters.bathrooms) params.append('bathrooms_min', filters.bathrooms.toString());
       if (filters.propertyType) params.append('property_type', filters.propertyType);
-      // Map 'active' to 'current' for Vault RE
+      // Use the status as-is based on documentation
       if (filters.status) {
-        const vaultStatus = filters.status === 'active' ? 'current' : filters.status;
-        params.append('listing_status', vaultStatus);
+        params.append('listing_status', filters.status);
       }
       if (filters.page) params.append('page', filters.page.toString());
       if (filters.limit) params.append('per_page', filters.limit.toString());
     }
 
-    // VaultRE uses specific endpoints based on property type
-    // Try residential properties first (most common)
-    let response;
-    try {
-      response = await fetchFromCRM<any>(`/properties/residential/sale?${params.toString()}`);
-      console.log('Raw Vault RE response (residential/sale):', response);
-    } catch (error) {
-      console.log('Residential/sale endpoint failed, trying general properties endpoint');
-      response = await fetchFromCRM<any>(`/properties?${params.toString()}`);
-      console.log('Raw Vault RE response (properties):', response);
-    }
+    // Use the documented /listings endpoint
+    const response = await fetchFromCRM<any>(`/listings?${params.toString()}`);
+    console.log('Raw Vault RE response (/listings):', response);
     
     // Transform Vault RE response - handle different response formats
     const properties = response.data || response.properties || response.results || response;
@@ -234,7 +240,44 @@ export const propertyAPI = {
 
   // Get featured properties
   async getFeaturedProperties(): Promise<ApiResponse<Property[]>> {
-    return fetchFromCRM<ApiResponse<Property[]>>('/listings?featured=true');
+    try {
+      // Use the documented featured=true parameter
+      const response = await fetchFromCRM<any>('/listings?featured=true&per_page=12');
+      console.log('Featured properties raw response:', response);
+      
+      // Transform the response
+      const properties = response.data || response.properties || response.results || response.listings || response;
+      
+      if (Array.isArray(properties)) {
+        return {
+          success: true,
+          data: properties.map(transformVaultREProperty),
+          pagination: response.pagination
+        };
+      } else if (properties && typeof properties === 'object') {
+        const propertyList = properties.data || properties.listings || properties.items || [];
+        return {
+          success: true,
+          data: Array.isArray(propertyList) ? propertyList.map(transformVaultREProperty) : [],
+          pagination: response.pagination
+        };
+      }
+      
+      return {
+        success: true,
+        data: [],
+        error: 'No properties found'
+      };
+    } catch (error) {
+      console.error('Error fetching featured properties:', error);
+      // If featured endpoint fails, try getting all active listings
+      try {
+        const fallbackResponse = await this.getProperties({ limit: 12, status: 'active' });
+        return fallbackResponse;
+      } catch (fallbackError) {
+        throw error;
+      }
+    }
   },
 
   // Get properties by agent
@@ -347,58 +390,71 @@ export function formatPrice(price: string | number): string {
 
 // Transform Vault RE response to our Property interface
 export function transformVaultREProperty(vaultProperty: any): Property {
-  // Handle different possible response structures from Vault RE
-  const address = vaultProperty.address || vaultProperty.addressParts || {};
+  // Handle the documented Vault RE structure
+  const address = vaultProperty.address || {};
+  const price = vaultProperty.price || {};
+  
+  // Build the full address string
+  const addressString = vaultProperty.display_address || 
+                       `${address.street_number || ''} ${address.street_name || ''}`.trim() ||
+                       vaultProperty.address_display ||
+                       'Address Available Upon Request';
   
   return {
-    id: vaultProperty.id || vaultProperty.listing_id,
-    address: vaultProperty.display_address || 
-             `${address.street_number || ''} ${address.street_name || ''}`.trim() ||
-             vaultProperty.address,
-    suburb: address.suburb || vaultProperty.suburb,
+    id: vaultProperty.id || vaultProperty.listing_id || '',
+    address: addressString,
+    suburb: address.suburb || vaultProperty.suburb || '',
     state: address.state || vaultProperty.state || 'VIC',
-    postcode: address.postcode || vaultProperty.postcode,
-    price: vaultProperty.price?.value?.toString() || vaultProperty.price || '0',
-    priceDisplay: vaultProperty.price?.display || 
+    postcode: address.postcode || vaultProperty.postcode || '',
+    price: price.value?.toString() || vaultProperty.price_value || '0',
+    priceDisplay: price.display || 
                   vaultProperty.price_display ||
-                  vaultProperty.display_price ||
-                  formatPrice(vaultProperty.price?.value || vaultProperty.price || 0),
-    leasePrice: vaultProperty.lease_price?.value?.toString() || vaultProperty.lease_price || '',
-    leasePriceDisplay: vaultProperty.lease_price?.display || 
-                       vaultProperty.lease_price_display ||
-                       (vaultProperty.lease_price ? `$${vaultProperty.lease_price} per week` : ''),
-    listingType: vaultProperty.listing_type || 
-                 (vaultProperty.lease_price ? 'lease' : 'sale'),
+                  (price.price_from && price.price_to ? 
+                    `${formatPrice(price.price_from)} - ${formatPrice(price.price_to)}` :
+                    formatPrice(price.value || 0)),
+    leasePrice: vaultProperty.lease_price?.value?.toString() || '',
+    leasePriceDisplay: vaultProperty.lease_price?.display || '',
+    listingType: vaultProperty.listing_type || 'sale',
     bedrooms: vaultProperty.bedrooms || 0,
     bathrooms: vaultProperty.bathrooms || 0,
-    carSpaces: vaultProperty.car_spaces || vaultProperty.garages || 0,
-    landSize: vaultProperty.land_area || vaultProperty.land_size,
-    buildingSize: vaultProperty.building_area || vaultProperty.building_size,
-    propertyType: vaultProperty.property_type || vaultProperty.propertyType || 'House',
+    carSpaces: vaultProperty.car_spaces || 0,
+    landSize: vaultProperty.land_area,
+    buildingSize: vaultProperty.building_area,
+    propertyType: vaultProperty.property_type || 'House',
     status: vaultProperty.status || vaultProperty.listing_status || 'active',
-    saleMethod: vaultProperty.sale_method || vaultProperty.saleMethod,
-    availableDate: vaultProperty.available_date || vaultProperty.availableDate,
-    leaseTerm: vaultProperty.lease_term || vaultProperty.leaseTerm,
+    saleMethod: vaultProperty.sale_method,
+    availableDate: vaultProperty.available_date,
+    leaseTerm: vaultProperty.lease_term,
     bond: vaultProperty.bond,
     description: vaultProperty.description || '',
-    features: vaultProperty.features || [],
-    images: (vaultProperty.images || []).map((img: any) => ({
-      id: img.id,
-      url: img.url || img.image_url,
-      caption: img.caption || img.description,
-      order: img.order || img.sort_order || 0,
+    features: Array.isArray(vaultProperty.features) ? vaultProperty.features : [],
+    images: (vaultProperty.images || []).map((img: any, index: number) => ({
+      id: img.id || `img-${index}`,
+      url: img.url || '',
+      caption: img.caption || '',
+      order: img.order !== undefined ? img.order : index,
       type: 'photo' as const
     })),
-    agent: {
-      id: vaultProperty.agent?.id || '',
-      name: vaultProperty.agent?.name || '',
-      email: vaultProperty.agent?.email || '',
-      phone: vaultProperty.agent?.phone || '',
-      mobile: vaultProperty.agent?.mobile || ''
+    agent: vaultProperty.agent ? {
+      id: vaultProperty.agent.id || '',
+      name: vaultProperty.agent.name || '',
+      email: vaultProperty.agent.email || '',
+      phone: vaultProperty.agent.phone || '',
+      mobile: vaultProperty.agent.mobile
+    } : {
+      id: '',
+      name: 'Grant & Segal Estate Agents',
+      email: 'info@grantsea.com',
+      phone: '03 9702 4222'
     },
-    inspectionTimes: vaultProperty.inspection_times || [],
-    coordinates: vaultProperty.coordinates || vaultProperty.location,
-    createdAt: vaultProperty.created_at || vaultProperty.createdAt || new Date().toISOString(),
-    updatedAt: vaultProperty.updated_at || vaultProperty.updatedAt || new Date().toISOString()
+    inspectionTimes: (vaultProperty.inspection_times || []).map((inspection: any) => ({
+      id: inspection.id,
+      startTime: inspection.start || inspection.startTime,
+      endTime: inspection.end || inspection.endTime,
+      type: inspection.type || 'public'
+    })),
+    coordinates: vaultProperty.coordinates || vaultProperty.geo,
+    createdAt: vaultProperty.created_at || new Date().toISOString(),
+    updatedAt: vaultProperty.updated_at || new Date().toISOString()
   };
 }

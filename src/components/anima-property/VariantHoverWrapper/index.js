@@ -1,0 +1,1 @@
+export { VariantHoverWrapper } from "./VariantHoverWrapper";

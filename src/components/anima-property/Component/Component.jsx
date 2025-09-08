@@ -5,56 +5,19 @@ Please share your feedback here: https://form.asana.com/?k=uvp-HPgd3_hyoXRBw1IcN
 
 import PropTypes from "prop-types";
 import React from "react";
-import { useReducer } from "react";
-import { Component1_79 } from "../../icons/Component1_79";
 import "./style.css";
 
-export const Component = ({
-  variant,
-  hover,
-  className,
-  icon = <Component1_79 className="component-1-79" />,
-}) => {
-  const [state, dispatch] = useReducer(reducer, {
-    variant: variant || "one",
-
-    hover: hover || false,
-  });
-
+export const Component = ({ text = "Add to bag", variant, className }) => {
   return (
-    <div
-      className={`component hover-${state.hover} ${state.variant} ${className}`}
-      onMouseLeave={() => {
-        dispatch("mouse_leave");
-      }}
-      onMouseEnter={() => {
-        dispatch("mouse_enter");
-      }}
-    >
-      {icon}
+    <div className={`component ${className}`}>
+      <div className="container">
+        <div className="text">{text}</div>
+      </div>
     </div>
   );
 };
 
-function reducer(state, action) {
-  switch (action) {
-    case "mouse_enter":
-      return {
-        ...state,
-        hover: true,
-      };
-
-    case "mouse_leave":
-      return {
-        ...state,
-        hover: false,
-      };
-  }
-
-  return state;
-}
-
 Component.propTypes = {
-  variant: PropTypes.oneOf(["two", "three", "four", "one", "five", "six"]),
-  hover: PropTypes.bool,
+  text: PropTypes.string,
+  variant: PropTypes.oneOf(["one"]),
 };

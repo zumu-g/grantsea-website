@@ -6,7 +6,7 @@ export default {
 
   argTypes: {
     variant: {
-      options: ["two", "three", "four", "one", "five", "six"],
+      options: ["one"],
       control: { type: "select" },
     },
   },
@@ -14,8 +14,8 @@ export default {
 
 export const Default = {
   args: {
-    variant: "two",
-    hover: true,
+    text: "Add to bag",
+    variant: "one",
     className: {},
   },
 };

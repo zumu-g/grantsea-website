@@ -1,0 +1,79 @@
+.component-2 {
+  position: relative;
+}
+
+.component-2 .instance-node {
+  height: 24px !important;
+  position: relative !important;
+  width: 24px !important;
+}
+
+.component-2 .component-4 {
+  height: 80px !important;
+  position: relative !important;
+  width: 80px !important;
+}
+
+.component-2 .component-9-79 {
+  height: 16px !important;
+  position: relative !important;
+  width: 16px !important;
+}
+
+.component-2.hover-0-true {
+  background-color: #0000000d;
+}
+
+.component-2.four {
+  align-items: flex-start;
+  display: inline-flex;
+  flex-direction: column;
+  height: 80px;
+  padding: 0px 16px 0px 0px;
+  width: 48px;
+}
+
+.component-2.three {
+  align-items: center;
+  border-radius: 24px;
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  width: 48px;
+}
+
+.component-2.five {
+  align-items: flex-start;
+  display: inline-flex;
+  flex-direction: column;
+  height: 80px;
+  padding: 0px 16px 0px 0px;
+  width: 48px;
+}
+
+.component-2.six {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 16px;
+  justify-content: center;
+  width: 16px;
+}
+
+.component-2.two {
+  align-items: center;
+  border-radius: 24px;
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  width: 48px;
+}
+
+.component-2.one {
+  align-items: center;
+  border-radius: 24px;
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  width: 48px;
+}

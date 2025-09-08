@@ -1,0 +1,56 @@
+.div-wrapper {
+  height: 107px;
+  position: relative;
+  width: 330px;
+}
+
+.div-wrapper .component-13 {
+  align-items: center;
+  background-color: #f5f5f5b2;
+  border: 0.5px dashed;
+  border-color: #000000;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  padding: 30px;
+  position: absolute;
+  top: 30px;
+  width: 330px;
+}
+
+.div-wrapper .component-9-instance {
+  flex: 0 0 auto !important;
+}
+
+.div-wrapper .x-axis-legend-2 {
+  height: 30px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 330px;
+}
+
+.div-wrapper .text-wrapper-5 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 40px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -1px;
+}
+
+.div-wrapper .text-wrapper-6 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 194px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -1px;
+}

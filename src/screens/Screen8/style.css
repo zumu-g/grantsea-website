@@ -1,0 +1,269 @@
+.screen-8 {
+  height: 690px;
+  position: relative;
+  width: 450px;
+}
+
+.screen-8 .component-34 {
+  background-color: #f5f5f5b2;
+  border: 0.5px dashed;
+  border-color: #000000;
+  border-radius: 5px;
+  height: 660px;
+  left: 120px;
+  position: absolute;
+  top: 30px;
+  width: 330px;
+}
+
+.screen-8 .component-10-instance {
+  left: 180px !important;
+  position: absolute !important;
+  top: 30px !important;
+}
+
+.screen-8 .variant-hover-10 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 30px !important;
+}
+
+.screen-8 .variant-hover-true-6 {
+  left: 180px !important;
+  position: absolute !important;
+  top: 100px !important;
+}
+
+.screen-8 .variant-hover-11 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 100px !important;
+}
+
+.screen-8 .variant-hover-true-7 {
+  left: 180px !important;
+  position: absolute !important;
+  top: 170px !important;
+}
+
+.screen-8 .variant-hover-12 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 170px !important;
+}
+
+.screen-8 .variant-hover-true-8 {
+  left: 180px !important;
+  position: absolute !important;
+  top: 240px !important;
+}
+
+.screen-8 .variant-hover-13 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 240px !important;
+}
+
+.screen-8 .variant-hover-true-9 {
+  left: 180px !important;
+  position: absolute !important;
+  top: 310px !important;
+}
+
+.screen-8 .variant-hover-14 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 310px !important;
+}
+
+.screen-8 .variant-hover-true-10 {
+  left: 180px !important;
+  position: absolute !important;
+  top: 380px !important;
+}
+
+.screen-8 .variant-hover-15 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 380px !important;
+}
+
+.screen-8 .variant-hover-true-11 {
+  left: 180px !important;
+  position: absolute !important;
+  top: 450px !important;
+}
+
+.screen-8 .variant-hover-16 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 450px !important;
+}
+
+.screen-8 .variant-hover-17 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 520px !important;
+}
+
+.screen-8 .variant-hover-18 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 590px !important;
+}
+
+.screen-8 .x-axis-legend-7 {
+  height: 30px;
+  left: 120px;
+  position: absolute;
+  top: 0;
+  width: 330px;
+}
+
+.screen-8 .text-wrapper-36 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 40px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -1px;
+}
+
+.screen-8 .text-wrapper-37 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 194px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -1px;
+}
+
+.screen-8 .y-axis-legend-3 {
+  height: 660px;
+  left: 0;
+  position: absolute;
+  top: 30px;
+  width: 120px;
+}
+
+.screen-8 .variant-45 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 34px;
+}
+
+.screen-8 .text-wrapper-38 {
+  color: #00000080;
+}
+
+.screen-8 .text-wrapper-39 {
+  color: #000000;
+}
+
+.screen-8 .variant-46 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 104px;
+}
+
+.screen-8 .variant-47 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 174px;
+}
+
+.screen-8 .variant-48 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 244px;
+}
+
+.screen-8 .variant-49 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 314px;
+}
+
+.screen-8 .variant-50 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 384px;
+}
+
+.screen-8 .variant-51 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 454px;
+}
+
+.screen-8 .variant-52 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 524px;
+}
+
+.screen-8 .variant-53 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 594px;
+}

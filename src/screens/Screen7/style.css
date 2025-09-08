@@ -1,0 +1,191 @@
+.screen-7 {
+  height: 720px;
+  position: relative;
+  width: 450px;
+}
+
+.screen-7 .component-33 {
+  background-color: #f5f5f5b2;
+  border: 0.5px dashed;
+  border-color: #000000;
+  border-radius: 5px;
+  height: 690px;
+  left: 120px;
+  position: absolute;
+  top: 30px;
+  width: 330px;
+}
+
+.screen-7 .component-2-instance {
+  left: 180px !important;
+  position: absolute !important;
+  top: 30px !important;
+}
+
+.screen-7 .variant-hover-4 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 30px !important;
+}
+
+.screen-7 .variant-hover-true-4 {
+  left: 180px !important;
+  position: absolute !important;
+  top: 140px !important;
+}
+
+.screen-7 .variant-hover-5 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 140px !important;
+}
+
+.screen-7 .variant-hover-true-5 {
+  left: 180px !important;
+  position: absolute !important;
+  top: 250px !important;
+}
+
+.screen-7 .variant-hover-6 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 250px !important;
+}
+
+.screen-7 .variant-hover-7 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 360px !important;
+}
+
+.screen-7 .variant-hover-8 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 470px !important;
+}
+
+.screen-7 .variant-hover-9 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 580px !important;
+}
+
+.screen-7 .x-axis-legend-6 {
+  height: 30px;
+  left: 120px;
+  position: absolute;
+  top: 0;
+  width: 330px;
+}
+
+.screen-7 .text-wrapper-32 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 40px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -1px;
+}
+
+.screen-7 .text-wrapper-33 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 194px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -1px;
+}
+
+.screen-7 .y-axis-legend-2 {
+  height: 690px;
+  left: 0;
+  position: absolute;
+  top: 30px;
+  width: 120px;
+}
+
+.screen-7 .variant-39 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 54px;
+}
+
+.screen-7 .text-wrapper-34 {
+  color: #00000080;
+}
+
+.screen-7 .text-wrapper-35 {
+  color: #000000;
+}
+
+.screen-7 .variant-40 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 164px;
+}
+
+.screen-7 .variant-41 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 274px;
+}
+
+.screen-7 .variant-42 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 384px;
+}
+
+.screen-7 .variant-43 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 494px;
+}
+
+.screen-7 .variant-44 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 604px;
+}

@@ -14,8 +14,9 @@ export default {
 
 export const Default = {
   args: {
-    text: "Terms & conditions",
+    text: "Select a size",
     variant: "one",
+    hover: true,
     className: {},
   },
 };

@@ -1,0 +1,61 @@
+.screen-4 {
+  height: 107px;
+  position: relative;
+  width: 330px;
+}
+
+.screen-4 .component-16 {
+  background-color: #f5f5f5b2;
+  border: 0.5px dashed;
+  border-color: #000000;
+  border-radius: 5px;
+  height: 77px;
+  left: 0;
+  position: absolute;
+  top: 30px;
+  width: 330px;
+}
+
+.screen-4 .variant-hover-true-9 {
+  left: 180px !important;
+  position: absolute !important;
+  top: 30px !important;
+}
+
+.screen-4 .variant-hover-16 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 30px !important;
+}
+
+.screen-4 .x-axis-legend-3 {
+  height: 30px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 330px;
+}
+
+.screen-4 .text-wrapper-35 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 40px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -1px;
+}
+
+.screen-4 .text-wrapper-36 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 194px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -1px;
+}

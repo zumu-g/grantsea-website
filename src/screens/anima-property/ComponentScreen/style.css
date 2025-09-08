@@ -1,0 +1,733 @@
+.component-screen {
+  height: 3880px;
+  position: relative;
+  width: 300px;
+}
+
+.component-screen .component-2 {
+  background-color: #f5f5f5b2;
+  border: 0.5px dashed;
+  border-color: #000000;
+  border-radius: 5px;
+  height: 3880px;
+  left: 120px;
+  position: absolute;
+  top: 0;
+  width: 180px;
+}
+
+.component-screen .variant {
+  height: 64px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 30px !important;
+  width: 64px !important;
+}
+
+.component-screen .component-1-39 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 140px !important;
+  width: 24px !important;
+}
+
+.component-screen .variant-3 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 250px !important;
+  width: 24px !important;
+}
+
+.component-screen .variant-4 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 360px !important;
+  width: 24px !important;
+}
+
+.component-screen .component-1-69 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 470px !important;
+  width: 24px !important;
+}
+
+.component-screen .component-1-42 {
+  height: 18px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 580px !important;
+  width: 18px !important;
+}
+
+.component-screen .component-1-43 {
+  height: 18px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 690px !important;
+  width: 18px !important;
+}
+
+.component-screen .variant-8 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 800px !important;
+  width: 24px !important;
+}
+
+.component-screen .variant-9 {
+  height: 80px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 910px !important;
+  width: 80px !important;
+}
+
+.component-screen .variant-10 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 1020px !important;
+  width: 24px !important;
+}
+
+.component-screen .variant-11 {
+  height: 80px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 1130px !important;
+  width: 80px !important;
+}
+
+.component-screen .component-1-51 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 1240px !important;
+  width: 24px !important;
+}
+
+.component-screen .variant-13 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 1350px !important;
+  width: 24px !important;
+}
+
+.component-screen .variant-14 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 1460px !important;
+  width: 24px !important;
+}
+
+.component-screen .component-1-52 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 1570px !important;
+  width: 24px !important;
+}
+
+.component-screen .component-1-56 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 1680px !important;
+  width: 24px !important;
+}
+
+.component-screen .component-1-53 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 1790px !important;
+  width: 24px !important;
+}
+
+.component-screen .component-1-49 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 1900px !important;
+  width: 24px !important;
+}
+
+.component-screen .component-1-14-instance {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 2010px !important;
+  width: 24px !important;
+}
+
+.component-screen .component-1-60 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 2120px !important;
+  width: 24px !important;
+}
+
+.component-screen .variant-21 {
+  height: 16px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 2230px !important;
+  width: 16px !important;
+}
+
+.component-screen .component-1-61 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 2340px !important;
+  width: 24px !important;
+}
+
+.component-screen .component-1-1 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 2450px !important;
+  width: 24px !important;
+}
+
+.component-screen .component-1-62 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 2560px !important;
+  width: 24px !important;
+}
+
+.component-screen .variant-24 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 2670px !important;
+  width: 24px !important;
+}
+
+.component-screen .component-1-4 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 2780px !important;
+  width: 24px !important;
+}
+
+.component-screen .component-1-5 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 2890px !important;
+  width: 24px !important;
+}
+
+.component-screen .component-1-64 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 3000px !important;
+  width: 24px !important;
+}
+
+.component-screen .component-1-7 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 3110px !important;
+  width: 24px !important;
+}
+
+.component-screen .variant-30 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 3220px !important;
+  width: 24px !important;
+}
+
+.component-screen .component-1-8 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 3330px !important;
+  width: 24px !important;
+}
+
+.component-screen .component-1-10 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 3440px !important;
+  width: 24px !important;
+}
+
+.component-screen .component-1-66 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 3550px !important;
+  width: 24px !important;
+}
+
+.component-screen .component-1-67 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 3660px !important;
+  width: 24px !important;
+}
+
+.component-screen .variant-34 {
+  height: 24px !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 3770px !important;
+  width: 24px !important;
+}
+
+.component-screen .y-axis-legend {
+  height: 3880px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 120px;
+}
+
+.component-screen .variant-2 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 54px;
+}
+
+.component-screen .span {
+  color: #00000080;
+}
+
+.component-screen .text-wrapper-26 {
+  color: #000000;
+}
+
+.component-screen .variant-5 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 164px;
+}
+
+.component-screen .variant-6 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 274px;
+}
+
+.component-screen .variant-7 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 384px;
+}
+
+.component-screen .variant-12 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 494px;
+}
+
+.component-screen .variant-15 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 604px;
+}
+
+.component-screen .variant-17 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 714px;
+}
+
+.component-screen .variant-18 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 824px;
+}
+
+.component-screen .variant-19 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 934px;
+}
+
+.component-screen .variant-20 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 1044px;
+}
+
+.component-screen .variant-22 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 1154px;
+}
+
+.component-screen .variant-23 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 1264px;
+}
+
+.component-screen .variant-25 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 1374px;
+}
+
+.component-screen .variant-26 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 1484px;
+}
+
+.component-screen .variant-27 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 1594px;
+}
+
+.component-screen .variant-28 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 1704px;
+}
+
+.component-screen .variant-29 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 1814px;
+}
+
+.component-screen .variant-31 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 1924px;
+}
+
+.component-screen .variant-32 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 2034px;
+}
+
+.component-screen .variant-33 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 2144px;
+}
+
+.component-screen .variant-35 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 2254px;
+}
+
+.component-screen .variant-36 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 2364px;
+}
+
+.component-screen .variant-37 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 2474px;
+}
+
+.component-screen .variant-38 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 2584px;
+}
+
+.component-screen .variant-39 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 2694px;
+}
+
+.component-screen .variant-40 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 2804px;
+}
+
+.component-screen .variant-41 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 2914px;
+}
+
+.component-screen .variant-42 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 3024px;
+}
+
+.component-screen .variant-43 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 3134px;
+}
+
+.component-screen .variant-44 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 3244px;
+}
+
+.component-screen .variant-45 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 3354px;
+}
+
+.component-screen .variant-46 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 3464px;
+}
+
+.component-screen .variant-47 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 3574px;
+}
+
+.component-screen .variant-48 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 3684px;
+}
+
+.component-screen .variant-49 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 3794px;
+}

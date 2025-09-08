@@ -3,27 +3,41 @@
 import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
-import AIChatWidget from '@/components/AIChatWidget';
-import Header from '@/components/Header';
 import { useProperty } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
+import '../../../components/anima/Component/style.css';
+import '../../../components/anima/VariantHoverTrueWrapper/style.css';
+import '../../anima-property-detail.css';
 
 export default function PropertyDetailPage() {
   const params = useParams();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showInquiryForm, setShowInquiryForm] = useState(false);
+  const [activeTab, setActiveTab] = useState('details');
   
   const propertyId = params.id as string;
-  console.log('Property Detail Page - ID:', propertyId);
   const { property, loading, error } = useProperty(propertyId);
   
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading property details...</p>
+      <div style={{ 
+        minHeight: '100vh', 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center',
+        fontFamily: '"On", Helvetica'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{
+            width: '48px',
+            height: '48px',
+            border: '3px solid #e5e5e5',
+            borderTopColor: '#000',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite',
+            margin: '0 auto 24px'
+          }} />
+          <p style={{ fontSize: '16px', color: '#797971' }}>Loading property details...</p>
         </div>
       </div>
     );
@@ -31,11 +45,39 @@ export default function PropertyDetailPage() {
 
   if (error || !property) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Property not found</h2>
-          <p className="text-gray-600 mb-4">{error || 'The property you are looking for does not exist.'}</p>
-          <Link href="/" className="text-blue-600 hover:underline">
+      <div style={{ 
+        minHeight: '100vh', 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center',
+        fontFamily: '"On", Helvetica'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <h2 style={{ 
+            fontSize: '42px', 
+            fontWeight: '700',
+            marginBottom: '16px' 
+          }}>Property not found</h2>
+          <p style={{ 
+            fontSize: '16px', 
+            color: '#797971',
+            marginBottom: '32px' 
+          }}>
+            {error || 'The property you are looking for does not exist.'}
+          </p>
+          <Link href="/" style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '0 24px',
+            height: '48px',
+            backgroundColor: '#000',
+            color: '#fff',
+            borderRadius: '40px',
+            textDecoration: 'none',
+            fontSize: '16px',
+            fontWeight: '500'
+          }}>
             Return to homepage
           </Link>
         </div>
@@ -44,256 +86,746 @@ export default function PropertyDetailPage() {
   }
 
   const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % property.images.length);
+    if (property.images && property.images.length > 1) {
+      setCurrentImageIndex((prev) => (prev + 1) % property.images.length);
+    }
   };
 
   const prevImage = () => {
-    setCurrentImageIndex((prev) => 
-      prev === 0 ? property.images.length - 1 : prev - 1
-    );
+    if (property.images && property.images.length > 1) {
+      setCurrentImageIndex((prev) => 
+        prev === 0 ? property.images.length - 1 : prev - 1
+      );
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
+    <div className="property-detail-anima" style={{ backgroundColor: '#ffffff', minHeight: '100vh' }}>
+      {/* Header */}
+      <header style={{
+        position: 'sticky',
+        top: 0,
+        height: '90px',
+        backgroundColor: 'white',
+        borderBottom: '1px solid #e5e5e5',
+        zIndex: 1001,
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 48px'
+      }}>
+        <Link href="/" style={{
+          fontSize: '24px',
+          fontWeight: '700',
+          color: '#000',
+          textDecoration: 'none',
+          letterSpacing: '-0.5px'
+        }}>
+          Grant's Estate Agents
+        </Link>
+        
+        <nav style={{
+          display: 'flex',
+          gap: '48px',
+          marginLeft: '80px'
+        }}>
+          <Link href="/search" style={{
+            fontSize: '16px',
+            fontWeight: '400',
+            color: '#000',
+            textDecoration: 'none',
+            fontFamily: '"On", Helvetica'
+          }}>Properties</Link>
+          <Link href="/agents" style={{
+            fontSize: '16px',
+            fontWeight: '400',
+            color: '#000',
+            textDecoration: 'none',
+            fontFamily: '"On", Helvetica'
+          }}>Agents</Link>
+          <Link href="/about" style={{
+            fontSize: '16px',
+            fontWeight: '400',
+            color: '#000',
+            textDecoration: 'none',
+            fontFamily: '"On", Helvetica'
+          }}>About</Link>
+        </nav>
 
-      {/* Breadcrumb */}
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center space-x-2 text-sm text-gray-600">
-          <Link href="/" className="hover:text-blue-600">Home</Link>
-          <span>/</span>
-          <Link href="/properties" className="hover:text-blue-600">Properties</Link>
-          <span>/</span>
-          <span className="text-gray-900">{property.address}, {property.suburb}</span>
+        <div style={{
+          marginLeft: 'auto',
+          display: 'flex',
+          gap: '24px'
+        }}>
+          <button style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '8px'
+          }}>
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+          <button style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '8px'
+          }}>
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </button>
         </div>
-      </div>
+      </header>
 
-      <main className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Image Gallery */}
-          <div className="lg:col-span-2">
-            <div className="relative bg-gray-200 rounded-lg overflow-hidden" style={{ height: '500px' }}>
-              {/* Main Image */}
-              {property.images && property.images.length > 0 ? (
-                <Image
-                  src={property.images[currentImageIndex].url}
-                  alt={property.images[currentImageIndex].caption || `${property.address}, ${property.suburb} - Image ${currentImageIndex + 1}`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 66vw"
-                  priority={currentImageIndex === 0}
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <span className="text-gray-500">No Image Available</span>
-                </div>
-              )}
-              
-              {/* Navigation Buttons - Only show if multiple images */}
-              {property.images && property.images.length > 1 && (
-                <>
-                  <button
-                    onClick={prevImage}
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100"
-                  >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
-                  </button>
-                  <button
-                    onClick={nextImage}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100"
-                  >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                  </button>
-                  
-                  {/* Image Counter */}
-                  <div className="absolute bottom-4 right-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded">
-                    {currentImageIndex + 1} / {property.images.length}
-                  </div>
-                </>
-              )}
-            </div>
-
-            {/* Thumbnail Gallery */}
-            {property.images && property.images.length > 1 && (
-              <div className="grid grid-cols-6 gap-2 mt-4">
-                {property.images.map((image, index) => (
-                <button
-                  key={image.id || index}
-                  onClick={() => setCurrentImageIndex(index)}
-                  className={`relative bg-gray-200 rounded overflow-hidden h-20 ${
-                    currentImageIndex === index ? 'ring-2 ring-blue-600' : ''
-                  }`}
-                >
-                  <Image
-                    src={image.url}
-                    alt={image.caption || `Thumbnail ${index + 1}`}
-                    fill
-                    className="object-cover"
-                    sizes="120px"
-                  />
-                </button>
-              ))}
+      {/* Main Content */}
+      <main style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 520px',
+        maxWidth: '1920px',
+        margin: '0 auto',
+        backgroundColor: '#fff'
+      }}>
+        {/* Left Column - Images */}
+        <div style={{
+          position: 'sticky',
+          top: '90px',
+          height: 'calc(100vh - 90px)',
+          overflowY: 'auto'
+        }}>
+          {/* Main Image */}
+          <div style={{
+            position: 'relative',
+            width: '100%',
+            paddingTop: '66.67%',
+            backgroundColor: '#f5f5f5',
+            overflow: 'hidden'
+          }}>
+            {property.images && property.images.length > 0 ? (
+              <img
+                src={property.images[currentImageIndex].url}
+                alt={`${property.address} - Image ${currentImageIndex + 1}`}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover'
+                }}
+              />
+            ) : (
+              <div style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                color: '#797971',
+                fontSize: '16px',
+                fontFamily: '"On", Helvetica'
+              }}>
+                No images available
               </div>
             )}
 
-            {/* Property Description */}
-            <div className="mt-8 bg-white rounded-lg p-6 shadow-sm">
-              <h2 className="text-2xl font-bold mb-4">Property Description</h2>
-              <p className="text-gray-600 mb-6">{property.description}</p>
-              
-              <h3 className="text-xl font-semibold mb-3">Features</h3>
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {property.features.map((feature, index) => (
-                  <li key={index} className="flex items-start">
-                    <svg className="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-gray-600">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Property Details Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg p-6 shadow-sm sticky top-24">
-              <div className="mb-6">
-                <h1 className="text-2xl font-bold mb-2">{property.address}, {property.suburb}</h1>
-                <p className="text-3xl font-bold text-blue-600">{property.priceDisplay || formatPrice(property.price)}</p>
-              </div>
-
-              {/* Property Stats */}
-              <div className="grid grid-cols-3 gap-4 mb-6 pb-6 border-b">
-                <div className="text-center">
-                  <div className="text-2xl font-bold">{property.bedrooms}</div>
-                  <div className="text-sm text-gray-600">Bedrooms</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold">{property.bathrooms}</div>
-                  <div className="text-sm text-gray-600">Bathrooms</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold">{property.carSpaces}</div>
-                  <div className="text-sm text-gray-600">Car Spaces</div>
-                </div>
-              </div>
-
-              {/* Additional Details */}
-              <div className="space-y-3 mb-6">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Property Type</span>
-                  <span className="font-semibold">{property.propertyType}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Land Size</span>
-                  <span className="font-semibold">{property.landSize ? `${property.landSize} sqm` : 'N/A'}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Building Size</span>
-                  <span className="font-semibold">{property.buildingSize ? `${property.buildingSize} sqm` : 'N/A'}</span>
-                </div>
-              </div>
-
-              {/* Agent Contact */}
-              <div className="bg-gray-50 rounded-lg p-4 mb-6">
-                <h3 className="font-semibold mb-3">Contact Agent</h3>
-                <div className="space-y-2">
-                  <Link href={`/agent/${property.agent.id}`} className="font-semibold text-blue-600 hover:underline block">
-                    {property.agent.name}
-                  </Link>
-                  <a href={`tel:${property.agent.phone}`} className="text-gray-600 hover:text-blue-600 block">
-                    {property.agent.phone}
-                  </a>
-                  <a href={`mailto:${property.agent.email}`} className="text-gray-600 hover:text-blue-600 block">
-                    {property.agent.email}
-                  </a>
-                  <Link href={`/agent/${property.agent.id}`} className="inline-block mt-2 text-sm text-blue-600 hover:underline">
-                    View agent profile →
-                  </Link>
-                </div>
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="space-y-3">
+            {/* Navigation Arrows */}
+            {property.images && property.images.length > 1 && (
+              <>
                 <button
-                  onClick={() => setShowInquiryForm(true)}
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+                  onClick={prevImage}
+                  style={{
+                    position: 'absolute',
+                    left: '24px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '50%',
+                    backgroundColor: 'rgba(255,255,255,0.9)',
+                    border: 'none',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                  }}
                 >
-                  Make an Inquiry
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
                 </button>
-                <button className="w-full border border-blue-600 text-blue-600 py-3 rounded-lg hover:bg-blue-50 transition">
-                  Book Inspection
+                <button
+                  onClick={nextImage}
+                  style={{
+                    position: 'absolute',
+                    right: '24px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '50%',
+                    backgroundColor: 'rgba(255,255,255,0.9)',
+                    border: 'none',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                  }}
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
                 </button>
-                <button className="w-full border border-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-50 transition">
-                  Download Brochure
-                </button>
+              </>
+            )}
+
+            {/* Image Counter */}
+            {property.images && property.images.length > 1 && (
+              <div style={{
+                position: 'absolute',
+                bottom: '24px',
+                right: '24px',
+                padding: '8px 16px',
+                backgroundColor: 'rgba(0,0,0,0.8)',
+                color: 'white',
+                borderRadius: '20px',
+                fontSize: '14px',
+                fontFamily: '"On Mono", Helvetica'
+              }}>
+                {currentImageIndex + 1} / {property.images.length}
               </div>
-            </div>
+            )}
           </div>
+
+          {/* Virtual Tour Button */}
+          <button style={{
+            width: '100%',
+            padding: '24px',
+            backgroundColor: '#000',
+            color: '#fff',
+            border: 'none',
+            fontSize: '16px',
+            fontWeight: '500',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '12px',
+            fontFamily: '"On", Helvetica',
+            textTransform: 'uppercase',
+            letterSpacing: '1.2px'
+          }}>
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+            VIRTUAL TOUR
+          </button>
         </div>
 
-        {/* Map Section */}
-        <div className="mt-12 bg-white rounded-lg p-6 shadow-sm">
-          <h2 className="text-2xl font-bold mb-4">Location</h2>
-          <div className="bg-gray-200 rounded-lg h-96 flex items-center justify-center">
-            <span className="text-gray-500">Map View - {property.address}</span>
+        {/* Right Column - Details */}
+        <div style={{
+          padding: '48px',
+          overflowY: 'auto',
+          height: 'calc(100vh - 90px)',
+          fontFamily: '"On", Helvetica'
+        }}>
+          {/* Breadcrumbs */}
+          <div style={{
+            display: 'flex',
+            gap: '12px',
+            marginBottom: '32px',
+            fontSize: '14px',
+            color: '#797971',
+            fontFamily: '"On Mono", Helvetica',
+            textTransform: 'uppercase',
+            letterSpacing: '1.44px'
+          }}>
+            <Link href="/search" style={{ color: '#797971', textDecoration: 'none' }}>
+              PROPERTIES
+            </Link>
+            <span>/</span>
+            <span>{property.suburb}</span>
+          </div>
+
+          {/* Title and Price */}
+          <div style={{ marginBottom: '48px' }}>
+            <h1 style={{
+              fontSize: 'clamp(42px, 4vw, 68px)',
+              fontWeight: '700',
+              lineHeight: '1.1',
+              marginBottom: '16px',
+              letterSpacing: '-1.36px'
+            }}>
+              {property.address}
+            </h1>
+            
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '16px',
+              marginBottom: '24px'
+            }}>
+              <span style={{
+                display: 'inline-block',
+                padding: '4px 12px',
+                backgroundColor: property.listingType === 'lease' ? '#000' : '#666',
+                color: 'white',
+                fontSize: '12px',
+                fontWeight: '600',
+                borderRadius: '16px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                fontFamily: '"On Mono", Helvetica'
+              }}>
+                {property.listingType === 'lease' ? 'FOR RENT' : 'FOR SALE'}
+              </span>
+            </div>
+
+            <div style={{
+              fontSize: '42px',
+              fontWeight: '700',
+              marginBottom: '32px',
+              letterSpacing: '-0.42px'
+            }}>
+              {property.listingType === 'lease' 
+                ? (property.leasePriceDisplay || `$${property.leasePrice} per week`)
+                : (property.priceDisplay || formatPrice(property.price))}
+            </div>
+          </div>
+
+          {/* Property Summary */}
+          <div style={{
+            padding: '32px',
+            backgroundColor: '#f8f8f8',
+            borderRadius: '8px',
+            marginBottom: '48px'
+          }}>
+            <p style={{
+              fontSize: '20px',
+              lineHeight: '1.5',
+              color: '#000',
+              marginBottom: '24px'
+            }}>
+              {property.description || 'Exceptional property in the heart of ' + property.suburb}
+            </p>
+
+            <div style={{
+              display: 'flex',
+              gap: '32px',
+              paddingTop: '24px',
+              borderTop: '1px solid #e5e5e5'
+            }}>
+              <div>
+                <div style={{ fontSize: '26px', fontWeight: '700' }}>{property.bedrooms}</div>
+                <div style={{ fontSize: '14px', color: '#797971', fontFamily: '"On Mono", Helvetica' }}>Bedrooms</div>
+              </div>
+              <div>
+                <div style={{ fontSize: '26px', fontWeight: '700' }}>{property.bathrooms}</div>
+                <div style={{ fontSize: '14px', color: '#797971', fontFamily: '"On Mono", Helvetica' }}>Bathrooms</div>
+              </div>
+              <div>
+                <div style={{ fontSize: '26px', fontWeight: '700' }}>{property.carSpaces}</div>
+                <div style={{ fontSize: '14px', color: '#797971', fontFamily: '"On Mono", Helvetica' }}>Car Spaces</div>
+              </div>
+              {property.landSize && (
+                <div>
+                  <div style={{ fontSize: '26px', fontWeight: '700' }}>{property.landSize}</div>
+                  <div style={{ fontSize: '14px', color: '#797971', fontFamily: '"On Mono", Helvetica' }}>Land (sqm)</div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Property Type Tabs */}
+          <div style={{ marginBottom: '48px' }}>
+            <div style={{
+              display: 'flex',
+              gap: '0',
+              borderBottom: '1px solid #e5e5e5',
+              marginBottom: '32px'
+            }}>
+              <button
+                onClick={() => setActiveTab('details')}
+                style={{
+                  padding: '16px 32px',
+                  background: 'none',
+                  border: 'none',
+                  borderBottom: activeTab === 'details' ? '2px solid #000' : '2px solid transparent',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1.44px',
+                  cursor: 'pointer',
+                  color: activeTab === 'details' ? '#000' : '#797971',
+                  fontFamily: '"On Mono", Helvetica'
+                }}
+              >
+                Property Details
+              </button>
+              <button
+                onClick={() => setActiveTab('features')}
+                style={{
+                  padding: '16px 32px',
+                  background: 'none',
+                  border: 'none',
+                  borderBottom: activeTab === 'features' ? '2px solid #000' : '2px solid transparent',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1.44px',
+                  cursor: 'pointer',
+                  color: activeTab === 'features' ? '#000' : '#797971',
+                  fontFamily: '"On Mono", Helvetica'
+                }}
+              >
+                Features & Amenities
+              </button>
+              <button
+                onClick={() => setActiveTab('location')}
+                style={{
+                  padding: '16px 32px',
+                  background: 'none',
+                  border: 'none',
+                  borderBottom: activeTab === 'location' ? '2px solid #000' : '2px solid transparent',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1.44px',
+                  cursor: 'pointer',
+                  color: activeTab === 'location' ? '#000' : '#797971',
+                  fontFamily: '"On Mono", Helvetica'
+                }}
+              >
+                Location
+              </button>
+            </div>
+
+            {/* Tab Content */}
+            {activeTab === 'details' && (
+              <div>
+                <h3 style={{
+                  fontSize: '20px',
+                  fontWeight: '700',
+                  marginBottom: '24px'
+                }}>Key features</h3>
+                <ul style={{ listStyle: 'none', padding: 0 }}>
+                  {property.features && property.features.map((feature, index) => (
+                    <li key={index} style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      marginBottom: '16px',
+                      fontSize: '16px',
+                      lineHeight: '1.5'
+                    }}>
+                      <span style={{ marginRight: '12px', color: '#000' }}>•</span>
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {activeTab === 'features' && (
+              <div>
+                <h3 style={{
+                  fontSize: '20px',
+                  fontWeight: '700',
+                  marginBottom: '24px'
+                }}>Property Features</h3>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(2, 1fr)',
+                  gap: '24px'
+                }}>
+                  <div>
+                    <h4 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '12px' }}>Interior</h4>
+                    <ul style={{ listStyle: 'none', padding: 0 }}>
+                      <li style={{ marginBottom: '8px' }}>• Modern kitchen with stone benchtops</li>
+                      <li style={{ marginBottom: '8px' }}>• Open plan living and dining</li>
+                      <li style={{ marginBottom: '8px' }}>• Master bedroom with ensuite</li>
+                      <li style={{ marginBottom: '8px' }}>• Built-in wardrobes</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '12px' }}>Exterior</h4>
+                    <ul style={{ listStyle: 'none', padding: 0 }}>
+                      <li style={{ marginBottom: '8px' }}>• Landscaped gardens</li>
+                      <li style={{ marginBottom: '8px' }}>• Outdoor entertainment area</li>
+                      <li style={{ marginBottom: '8px' }}>• Double garage with internal access</li>
+                      <li style={{ marginBottom: '8px' }}>• Fully fenced yard</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'location' && (
+              <div>
+                <h3 style={{
+                  fontSize: '20px',
+                  fontWeight: '700',
+                  marginBottom: '24px'
+                }}>Location & Surroundings</h3>
+                <p style={{
+                  fontSize: '16px',
+                  lineHeight: '1.6',
+                  marginBottom: '24px'
+                }}>
+                  Located in the sought-after suburb of {property.suburb}, this property offers 
+                  convenient access to local amenities, schools, and public transport. 
+                  Just minutes from shopping centers and parks.
+                </p>
+                <div style={{
+                  backgroundColor: '#f5f5f5',
+                  height: '300px',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#797971'
+                }}>
+                  Map View
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Contact Agent Section */}
+          <div style={{
+            position: 'sticky',
+            bottom: '0',
+            backgroundColor: 'white',
+            padding: '32px 0',
+            borderTop: '1px solid #e5e5e5'
+          }}>
+            <div style={{
+              display: 'flex',
+              gap: '16px',
+              marginBottom: '24px'
+            }}>
+              <button
+                onClick={() => setShowInquiryForm(true)}
+                style={{
+                  flex: 1,
+                  padding: '0 24px',
+                  height: '56px',
+                  backgroundColor: '#000',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '40px',
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'transform 0.2s ease',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1.2px',
+                  fontFamily: '"On Mono", Helvetica'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                Contact Agent
+              </button>
+              <button style={{
+                flex: 1,
+                padding: '0 24px',
+                height: '56px',
+                backgroundColor: 'transparent',
+                color: '#000',
+                border: '1px solid #000',
+                borderRadius: '40px',
+                fontSize: '16px',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                textTransform: 'uppercase',
+                letterSpacing: '1.2px',
+                fontFamily: '"On Mono", Helvetica'
+              }}>
+                Book Inspection
+              </button>
+            </div>
+
+            {/* Agent Info */}
+            {property.agent && (
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px',
+                padding: '16px',
+                backgroundColor: '#f8f8f8',
+                borderRadius: '8px'
+              }}>
+                <div style={{
+                  width: '64px',
+                  height: '64px',
+                  borderRadius: '50%',
+                  backgroundColor: '#e5e5e5'
+                }} />
+                <div>
+                  <div style={{ fontSize: '18px', fontWeight: '600' }}>{property.agent.name}</div>
+                  <div style={{ fontSize: '14px', color: '#797971' }}>{property.agent.phone}</div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </main>
 
+      {/* Similar Properties Section */}
+      <section style={{
+        maxWidth: '1920px',
+        margin: '0 auto',
+        padding: '96px 48px',
+        backgroundColor: '#f8f8f8'
+      }}>
+        <h2 style={{
+          fontSize: '42px',
+          fontWeight: '700',
+          marginBottom: '48px',
+          letterSpacing: '-0.42px',
+          fontFamily: '"On", Helvetica'
+        }}>Similar Properties</h2>
+        
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))',
+          gap: '32px'
+        }}>
+          {/* Similar property cards would go here */}
+        </div>
+      </section>
+
       {/* Inquiry Form Modal */}
       {showInquiryForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full">
-            <h3 className="text-xl font-bold mb-4">Property Inquiry</h3>
-            <form className="space-y-4">
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 2000,
+          padding: '20px'
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            borderRadius: '8px',
+            padding: '48px',
+            maxWidth: '600px',
+            width: '100%',
+            position: 'relative'
+          }}>
+            <button
+              onClick={() => setShowInquiryForm(false)}
+              style={{
+                position: 'absolute',
+                top: '24px',
+                right: '24px',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '8px'
+              }}
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            </button>
+
+            <h3 style={{
+              fontSize: '32px',
+              fontWeight: '700',
+              marginBottom: '32px',
+              fontFamily: '"On", Helvetica'
+            }}>Property Inquiry</h3>
+
+            <form style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
               <input
                 type="text"
                 placeholder="Your Name"
-                className="w-full p-3 border rounded-lg"
+                style={{
+                  width: '100%',
+                  padding: '16px',
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '4px',
+                  fontSize: '16px',
+                  fontFamily: '"On", Helvetica'
+                }}
               />
               <input
                 type="email"
                 placeholder="Your Email"
-                className="w-full p-3 border rounded-lg"
+                style={{
+                  width: '100%',
+                  padding: '16px',
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '4px',
+                  fontSize: '16px',
+                  fontFamily: '"On", Helvetica'
+                }}
               />
               <input
                 type="tel"
                 placeholder="Your Phone"
-                className="w-full p-3 border rounded-lg"
+                style={{
+                  width: '100%',
+                  padding: '16px',
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '4px',
+                  fontSize: '16px',
+                  fontFamily: '"On", Helvetica'
+                }}
               />
               <textarea
                 placeholder="Your Message"
                 rows={4}
-                className="w-full p-3 border rounded-lg"
-                defaultValue={`I'm interested in ${property.address}`}
+                style={{
+                  width: '100%',
+                  padding: '16px',
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '4px',
+                  fontSize: '16px',
+                  resize: 'vertical',
+                  fontFamily: '"On", Helvetica'
+                }}
+                defaultValue={`I'm interested in ${property.address}, ${property.suburb}`}
               />
-              <div className="flex gap-3">
-                <button
-                  type="submit"
-                  className="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
-                >
-                  Send Inquiry
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowInquiryForm(false)}
-                  className="flex-1 border border-gray-300 py-3 rounded-lg hover:bg-gray-50"
-                >
-                  Cancel
-                </button>
-              </div>
+              <button
+                type="submit"
+                style={{
+                  padding: '0 24px',
+                  height: '56px',
+                  backgroundColor: '#000',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '40px',
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1.2px',
+                  fontFamily: '"On Mono", Helvetica'
+                }}
+              >
+                Send Inquiry
+              </button>
             </form>
           </div>
         </div>
       )}
 
-      <AIChatWidget />
+      <style jsx global>{`
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 }

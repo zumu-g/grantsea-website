@@ -30,7 +30,7 @@ export default function APITestPage() {
       // Test 1: Try the crmAPI service directly
       console.log('Testing crmAPI.properties.getProperties()...');
       try {
-        const properties = await crmAPI.properties.getProperties({ type: 'all' });
+        const properties = await crmAPI.properties.getProperties({});
         results.push({
           test: 'crmAPI.properties.getProperties()',
           success: true,

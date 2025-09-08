@@ -46,7 +46,8 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
       setError(err instanceof Error ? err.message : 'An error occurred');
       
       // Fallback to mock data if API is not configured yet
-      if (err.message.includes('API Error') || err.message.includes('Network') || err.message.includes('401')) {
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      if (errorMessage.includes('API Error') || errorMessage.includes('Network') || errorMessage.includes('401')) {
         console.log('Using mock data due to API error');
         setProperties(getMockProperties());
       }
@@ -91,7 +92,8 @@ export function useProperty(id: string) {
         setError(err instanceof Error ? err.message : 'An error occurred');
         
         // Fallback to mock data if API is not configured yet
-        if (err.message.includes('API Error') || err.message.includes('Network')) {
+        const errorMessage = err instanceof Error ? err.message : String(err);
+        if (errorMessage.includes('API Error') || errorMessage.includes('Network')) {
           const mockProperty = getMockProperties().find(p => p.id === id);
           if (mockProperty) {
             setProperty(mockProperty);

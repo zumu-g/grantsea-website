@@ -271,41 +271,6 @@ export const propertyAPI = {
     );
   },
 
-  // Get single property by ID
-  async getPropertyById(id: string): Promise<ApiResponse<Property>> {
-    try {
-      // Use the Next.js API route that handles CORS
-      const response = await fetch(`/api/properties/${id}`);
-      
-      if (!response.ok) {
-        const errorData = await response.text();
-        console.error('Property fetch error:', errorData);
-        throw new Error(`Failed to fetch property: ${response.statusText}`);
-      }
-      
-      const result = await response.json();
-      
-      // The API route returns { success: true, data: property }
-      if (result.success && result.data) {
-        // Transform the raw VaultRE property data
-        const transformedProperty = transformVaultREProperty(result.data);
-        return {
-          success: true,
-          data: transformedProperty
-        };
-      } else {
-        throw new Error(result.error || 'Failed to fetch property');
-      }
-    } catch (error) {
-      console.error('Error fetching property:', error);
-      return {
-        success: false,
-        data: null as any,
-        error: error instanceof Error ? error.message : 'Failed to fetch property'
-      };
-    }
-  },
-
   // Get properties for sale
   async getPropertiesForSale(filters?: any): Promise<ApiResponse<Property[]>> {
     // Use our API route to avoid CORS issues

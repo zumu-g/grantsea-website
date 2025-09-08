@@ -252,13 +252,40 @@ export const propertyAPI = {
 
   // Get properties for sale
   async getPropertiesForSale(filters?: any): Promise<ApiResponse<Property[]>> {
+    // Use our API route to avoid CORS issues
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams();
+      params.append('type', 'sale');
+      params.append('limit', filters?.limit?.toString() || '20');
+      
+      try {
+        const response = await fetch(`/api/properties?${params.toString()}`);
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to fetch properties');
+        }
+        
+        return {
+          success: true,
+          data: Array.isArray(data.data) ? data.data.map(transformVaultREProperty) : [],
+          pagination: {
+            total: data.total || 0,
+            page: 1,
+            limit: parseInt(params.get('limit') || '20'),
+            totalPages: Math.ceil((data.total || 0) / parseInt(params.get('limit') || '20'))
+          }
+        };
+      } catch (error) {
+        console.error('Error fetching sale properties:', error);
+        throw error;
+      }
+    }
+    
+    // Server-side: call VaultRE directly
     const params = new URLSearchParams();
     params.append('published', 'true');
     params.append('limit', filters?.limit?.toString() || '20');
-    
-    if (filters?.suburb) params.append('suburb', filters.suburb);
-    if (filters?.minPrice) params.append('minPrice', filters.minPrice.toString());
-    if (filters?.maxPrice) params.append('maxPrice', filters.maxPrice.toString());
     
     const response = await fetchFromCRM<any>(`/properties/residential/sale?${params.toString()}`);
     const properties = response.items || response.data || [];
@@ -272,13 +299,40 @@ export const propertyAPI = {
 
   // Get properties for lease
   async getPropertiesForLease(filters?: any): Promise<ApiResponse<Property[]>> {
+    // Use our API route to avoid CORS issues
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams();
+      params.append('type', 'lease');
+      params.append('limit', filters?.limit?.toString() || '20');
+      
+      try {
+        const response = await fetch(`/api/properties?${params.toString()}`);
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to fetch properties');
+        }
+        
+        return {
+          success: true,
+          data: Array.isArray(data.data) ? data.data.map(transformVaultREProperty) : [],
+          pagination: {
+            total: data.total || 0,
+            page: 1,
+            limit: parseInt(params.get('limit') || '20'),
+            totalPages: Math.ceil((data.total || 0) / parseInt(params.get('limit') || '20'))
+          }
+        };
+      } catch (error) {
+        console.error('Error fetching lease properties:', error);
+        throw error;
+      }
+    }
+    
+    // Server-side: call VaultRE directly
     const params = new URLSearchParams();
     params.append('published', 'true');
     params.append('limit', filters?.limit?.toString() || '20');
-    
-    if (filters?.suburb) params.append('suburb', filters.suburb);
-    if (filters?.minPrice) params.append('minRent', filters.minPrice.toString());
-    if (filters?.maxPrice) params.append('maxRent', filters.maxPrice.toString());
     
     const response = await fetchFromCRM<any>(`/properties/residential/lease?${params.toString()}`);
     const properties = response.items || response.data || [];
@@ -434,62 +488,63 @@ export function formatPrice(price: string | number): string {
 
 // Transform Vault RE response to our Property interface
 export function transformVaultREProperty(vaultProperty: any): Property {
-  // Handle the documented Vault RE structure
+  // Handle the actual Vault RE response structure
   const address = vaultProperty.address || {};
-  const price = vaultProperty.price || {};
+  const suburb = address.suburb || {};
+  const state = address.state || suburb.state || {};
   
   // Build the full address string
-  const addressString = vaultProperty.display_address || 
-                       `${address.street_number || ''} ${address.street_name || ''}`.trim() ||
-                       vaultProperty.address_display ||
+  const addressString = vaultProperty.displayAddress || 
+                       `${address.streetNumber || ''} ${address.street || ''}`.trim() ||
                        'Address Available Upon Request';
   
   return {
-    id: vaultProperty.id || vaultProperty.listing_id || '',
+    id: vaultProperty.id?.toString() || '',
     address: addressString,
-    suburb: address.suburb || vaultProperty.suburb || '',
-    state: address.state || vaultProperty.state || 'VIC',
-    postcode: address.postcode || vaultProperty.postcode || '',
-    price: price.value?.toString() || vaultProperty.price_value || '0',
-    priceDisplay: price.display || 
-                  vaultProperty.price_display ||
-                  (price.price_from && price.price_to ? 
-                    `${formatPrice(price.price_from)} - ${formatPrice(price.price_to)}` :
-                    formatPrice(price.value || 0)),
-    leasePrice: vaultProperty.lease_price?.value?.toString() || '',
-    leasePriceDisplay: vaultProperty.lease_price?.display || '',
-    listingType: vaultProperty.listing_type || 'sale',
-    bedrooms: vaultProperty.bedrooms || 0,
-    bathrooms: vaultProperty.bathrooms || 0,
-    carSpaces: vaultProperty.car_spaces || 0,
-    landSize: vaultProperty.land_area,
-    buildingSize: vaultProperty.building_area,
-    propertyType: vaultProperty.property_type || 'House',
-    status: vaultProperty.status || vaultProperty.listing_status || 'active',
-    saleMethod: vaultProperty.sale_method,
-    availableDate: vaultProperty.available_date,
-    leaseTerm: vaultProperty.lease_term,
+    suburb: suburb.name || vaultProperty.suburb || '',
+    state: state.abbreviation || state.name || 'VIC',
+    postcode: suburb.postcode || vaultProperty.postcode || '',
+    price: vaultProperty.searchPrice?.toString() || vaultProperty.priceFrom?.toString() || '0',
+    priceDisplay: vaultProperty.displayPrice || 
+                  vaultProperty.priceDisplay ||
+                  (vaultProperty.priceFrom && vaultProperty.priceTo ? 
+                    `${formatPrice(vaultProperty.priceFrom)} - ${formatPrice(vaultProperty.priceTo)}` :
+                    'Contact Agent'),
+    leasePrice: vaultProperty.commercialLeasePrice?.toString() || '',
+    leasePriceDisplay: vaultProperty.commercialLeasePrice ? 
+                       `${formatPrice(vaultProperty.commercialLeasePrice)} per week` : '',
+    listingType: vaultProperty.commercialListingType || 'sale',
+    bedrooms: vaultProperty.bed || 0,
+    bathrooms: vaultProperty.bath || 0,
+    carSpaces: (vaultProperty.garages || 0) + (vaultProperty.carports || 0) + (vaultProperty.openSpaces || 0),
+    landSize: vaultProperty.landArea?.value,
+    buildingSize: vaultProperty.floorArea?.value,
+    propertyType: vaultProperty.type?.name || 'House',
+    status: vaultProperty.status || 'active',
+    saleMethod: vaultProperty.methodOfSale?.name,
+    availableDate: vaultProperty.availableDate,
+    leaseTerm: vaultProperty.leaseTerm,
     bond: vaultProperty.bond,
-    description: vaultProperty.description || '',
+    description: vaultProperty.description || vaultProperty.heading || '',
     features: Array.isArray(vaultProperty.features) ? vaultProperty.features : [],
-    images: (vaultProperty.images || []).map((img: any, index: number) => ({
+    images: (vaultProperty.photos || []).map((img: any, index: number) => ({
       id: img.id || `img-${index}`,
-      url: img.url || '',
+      url: img.url || img.original || '',
       caption: img.caption || '',
       order: img.order !== undefined ? img.order : index,
       type: 'photo' as const
     })),
-    agent: vaultProperty.agent ? {
-      id: vaultProperty.agent.id || '',
-      name: vaultProperty.agent.name || '',
-      email: vaultProperty.agent.email || '',
-      phone: vaultProperty.agent.phone || '',
-      mobile: vaultProperty.agent.mobile
+    agent: vaultProperty.contactStaff && vaultProperty.contactStaff[0] ? {
+      id: vaultProperty.contactStaff[0].id?.toString() || '',
+      name: `${vaultProperty.contactStaff[0].firstName} ${vaultProperty.contactStaff[0].lastName}`.trim(),
+      email: vaultProperty.contactStaff[0].email || '',
+      phone: vaultProperty.contactStaff[0].phoneNumbers?.[0]?.number || '',
+      mobile: vaultProperty.contactStaff[0].phoneNumbers?.find((p: any) => p.type === 'Mobile')?.number
     } : {
       id: '',
-      name: 'Grant & Segal Estate Agents',
-      email: 'info@grantsea.com',
-      phone: '03 9702 4222'
+      name: 'Grant\'s Estate Agents',
+      email: 'info@grantsea.com.au',
+      phone: '03 9707 5555'
     },
     inspectionTimes: (vaultProperty.inspection_times || []).map((inspection: any) => ({
       id: inspection.id,

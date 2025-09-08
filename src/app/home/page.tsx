@@ -1,7 +1,6 @@
 'use client';
 
 import HeroSection from '@/components/HeroSection';
-import PropertyListings from '@/components/PropertyListings';
 import ContactForm from '@/components/ContactForm';
 import AIChatWidget from '@/components/AIChatWidget';
 
@@ -50,8 +49,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      
-      <PropertyListings />
       
       {/* Why Choose Us Section */}
       <section className="py-20 px-4 bg-blue-50">

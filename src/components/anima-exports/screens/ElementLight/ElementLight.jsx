@@ -39,6 +39,10 @@ export const ElementLight = () => {
   const { properties: apiProperties, loading, error } = useProperties({ limit: 8 });
   
   // Fallback mock data in case API fails
+  // Mock data removed - only use API data
+  const mockProperties = []; // Empty array to prevent any mock data usage
+  
+  /* Original mock data commented out:
   const mockProperties = [
     {
       id: 1,
@@ -73,21 +77,27 @@ export const ElementLight = () => {
       tag: "NEW PRICE"
     }
   ];
+  */
   
-  // Use API data if available, otherwise fall back to mock data
-  const properties = apiProperties.length > 0 ? apiProperties : mockProperties;
+  // Only use API data - no fallback to mock
+  const properties = apiProperties;
 
   const nextProperty = () => {
-    setCurrentPropertyIndex((prev) => (prev + 1) % properties.length);
+    if (properties.length > 0) {
+      setCurrentPropertyIndex((prev) => (prev + 1) % properties.length);
+    }
   };
 
   const prevProperty = () => {
-    setCurrentPropertyIndex((prev) => (prev - 1 + properties.length) % properties.length);
+    if (properties.length > 0) {
+      setCurrentPropertyIndex((prev) => (prev - 1 + properties.length) % properties.length);
+    }
   };
 
   const getVisibleProperties = () => {
+    if (properties.length === 0) return [];
     const visible = [];
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < Math.min(4, properties.length); i++) {
       const index = (currentPropertyIndex + i) % properties.length;
       visible.push(properties[index]);
     }
@@ -519,6 +529,23 @@ export const ElementLight = () => {
                 <div style={{ textAlign: 'center', padding: '60px 0' }}>
                   <div style={{ display: 'inline-block', width: '40px', height: '40px', border: '3px solid #f0f0f0', borderTop: '3px solid #2563eb', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
                   <p style={{ marginTop: '20px', color: '#666' }}>Loading properties...</p>
+                </div>
+              ) : properties.length === 0 ? (
+                <div style={{ 
+                  textAlign: 'center', 
+                  padding: '60px 20px', 
+                  color: '#666',
+                  backgroundColor: '#f9f9f9',
+                  borderRadius: '8px',
+                  margin: '20px'
+                }}>
+                  <h3 style={{ fontSize: '20px', marginBottom: '10px', color: '#333' }}>No Properties Available</h3>
+                  <p>Please check back later or contact us for more information.</p>
+                  {error && (
+                    <p style={{ fontSize: '14px', color: '#dc2626', marginTop: '10px' }}>
+                      Error: {error}
+                    </p>
+                  )}
                 </div>
               ) : (
               <div className="container-16">

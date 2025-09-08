@@ -7,6 +7,10 @@ import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 
 // Mock property data for carousel
+// Mock data removed - only use API data
+const mockProperties: any[] = []; // Empty array to prevent any mock data usage
+
+/* Original mock data commented out:
 const mockProperties = [
   {
     id: 1,
@@ -64,6 +68,7 @@ const mockProperties = [
     type: 'Apartment',
   },
 ];
+*/
 
 export default function EnhancedHomepage() {
   const [currentPropertyIndex, setCurrentPropertyIndex] = useState(0);
@@ -71,8 +76,8 @@ export default function EnhancedHomepage() {
   // Get properties from API
   const { properties: apiProperties, loading, error } = useProperties({ limit: 6 });
   
-  // Use API data if available, otherwise fall back to mock data
-  const properties = apiProperties.length > 0 ? apiProperties : mockProperties;
+  // Only use API data - no fallback to mock
+  const properties = apiProperties;
   
   const nextProperty = () => {
     setCurrentPropertyIndex((prev) => (prev + 1) % properties.length);

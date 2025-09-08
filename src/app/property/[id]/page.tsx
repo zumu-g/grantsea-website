@@ -74,8 +74,8 @@ export default function PropertyDetailPage() {
               {/* Main Image */}
               {property.images && property.images.length > 0 ? (
                 <Image
-                  src={property.images[currentImageIndex].url}
-                  alt={property.images[currentImageIndex].caption || `${property.title} - Image ${currentImageIndex + 1}`}
+                  src={property.images[currentImageIndex]}
+                  alt={`${property.address}, ${property.suburb} - Image ${currentImageIndex + 1}`}
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 66vw"
@@ -120,15 +120,15 @@ export default function PropertyDetailPage() {
               <div className="grid grid-cols-6 gap-2 mt-4">
                 {property.images.map((image, index) => (
                 <button
-                  key={image.id || index}
+                  key={index}
                   onClick={() => setCurrentImageIndex(index)}
                   className={`relative bg-gray-200 rounded overflow-hidden h-20 ${
                     currentImageIndex === index ? 'ring-2 ring-blue-600' : ''
                   }`}
                 >
                   <Image
-                    src={image.url}
-                    alt={image.caption || `Thumbnail ${index + 1}`}
+                    src={image}
+                    alt={`Thumbnail ${index + 1}`}
                     fill
                     className="object-cover"
                     sizes="120px"
@@ -204,8 +204,8 @@ export default function PropertyDetailPage() {
                   <Link href={`/agent/${property.agent.id}`} className="font-semibold text-blue-600 hover:underline block">
                     {property.agent.name}
                   </Link>
-                  <a href={`tel:${property.agent.phone || property.agent.mobile}`} className="text-gray-600 hover:text-blue-600 block">
-                    {property.agent.phone || property.agent.mobile}
+                  <a href={`tel:${property.agent.phone}`} className="text-gray-600 hover:text-blue-600 block">
+                    {property.agent.phone}
                   </a>
                   <a href={`mailto:${property.agent.email}`} className="text-gray-600 hover:text-blue-600 block">
                     {property.agent.email}

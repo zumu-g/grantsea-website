@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import GrantsAIChatBox from './GrantsAIChatBox';
+import AIChatWidget from './AIChatWidget';
 
 // Mock property data for carousel
 const properties = [
@@ -327,7 +327,7 @@ export default function EnhancedHomepage() {
       </section>
 
       {/* Grant's AI Chat - Now with ChatGPT style */}
-      <GrantsAIChatBox />
+      <AIChatWidget />
     </div>
   );
 }

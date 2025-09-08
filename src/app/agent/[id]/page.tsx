@@ -10,7 +10,7 @@ import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 
 // Mock agent data - in production this would come from the API
-const mockAgents = {
+const mockAgents: Record<string, any> = {
   '1': {
     id: '1',
     name: 'Sarah Thompson',

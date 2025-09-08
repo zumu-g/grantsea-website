@@ -96,7 +96,11 @@ export default function PropertyListings() {
   const [propertyType, setPropertyType] = useState<string>('all');
   
   // Get properties from API
-  const { properties, loading, error } = useProperties({ featured: true, limit: 6 });
+  const { properties, loading, error } = useProperties({ 
+    featured: true, 
+    limit: 6,
+    type: filter === 'buy' ? 'sale' : filter === 'lease' ? 'lease' : 'all'
+  });
 
   // Use API properties if available, otherwise fall back to mock data
   const displayProperties = properties.length > 0 ? properties : mockProperties;

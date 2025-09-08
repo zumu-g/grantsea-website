@@ -5,6 +5,7 @@ interface UsePropertiesOptions {
   suburb?: string;
   limit?: number;
   featured?: boolean;
+  type?: 'all' | 'sale' | 'lease' | 'rent';
 }
 
 interface UsePropertiesReturn {

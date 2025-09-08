@@ -102,8 +102,20 @@ export default function Header() {
                 ✕
               </button>
             </div>
-            <form className="space-y-4">
+            <form 
+              className="space-y-4"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const formData = new FormData(e.currentTarget);
+                const searchQuery = formData.get('search') as string;
+                if (searchQuery) {
+                  window.location.href = `/search?q=${encodeURIComponent(searchQuery)}`;
+                }
+                setShowSearchModal(false);
+              }}
+            >
               <input
+                name="search"
                 type="text"
                 placeholder="Search by suburb, postcode, or address..."
                 className="w-full p-3 border rounded-lg focus:border-blue-600 focus:outline-none"

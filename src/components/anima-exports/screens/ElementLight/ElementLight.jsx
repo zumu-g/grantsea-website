@@ -1369,8 +1369,20 @@ export const ElementLight = () => {
                 ×
               </button>
             </div>
-            <form style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <form 
+              style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
+              onSubmit={(e) => {
+                e.preventDefault();
+                const formData = new FormData(e.currentTarget);
+                const searchQuery = formData.get('search');
+                if (searchQuery) {
+                  window.location.href = `/search?q=${encodeURIComponent(searchQuery)}`;
+                }
+                setShowSearchModal(false);
+              }}
+            >
               <input
+                name="search"
                 type="text"
                 placeholder="Search by suburb, postcode, or address..."
                 style={{

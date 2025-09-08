@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Component } from "../../components/Component";
 import { Component4 } from "../../components/Component4";
 import { Component5 } from "../../components/Component5";
@@ -27,13 +27,19 @@ import { Variant1 } from "../../icons/Variant1";
 import { Variant11 } from "../../icons/Variant11";
 import { Variant25 } from "../../icons/Variant25";
 import AIChatWidget from "../../../AIChatWidget";
+import { useProperties } from "@/hooks/useProperties";
+import { formatPrice } from "@/services/api";
 import "./style.css";
 
 export const ElementLight = () => {
   // Carousel state for New Arrivals
   const [currentPropertyIndex, setCurrentPropertyIndex] = useState(0);
   
-  const properties = [
+  // Get properties from API
+  const { properties: apiProperties, loading, error } = useProperties({ limit: 8 });
+  
+  // Fallback mock data in case API fails
+  const mockProperties = [
     {
       id: 1,
       address: "42 Rosewood Avenue, Berwick",
@@ -67,6 +73,9 @@ export const ElementLight = () => {
       tag: "NEW PRICE"
     }
   ];
+  
+  // Use API data if available, otherwise fall back to mock data
+  const properties = apiProperties.length > 0 ? apiProperties : mockProperties;
 
   const nextProperty = () => {
     setCurrentPropertyIndex((prev) => (prev + 1) % properties.length);
@@ -506,6 +515,12 @@ export const ElementLight = () => {
             </div>
 
             <div className="container-15">
+              {loading ? (
+                <div style={{ textAlign: 'center', padding: '60px 0' }}>
+                  <div style={{ display: 'inline-block', width: '40px', height: '40px', border: '3px solid #f0f0f0', borderTop: '3px solid #2563eb', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
+                  <p style={{ marginTop: '20px', color: '#666' }}>Loading properties...</p>
+                </div>
+              ) : (
               <div className="container-16">
                 {getVisibleProperties().map((property, index) => (
                   <div className="group-wrapper" key={`${property.id}-${index}`}>
@@ -538,26 +553,26 @@ export const ElementLight = () => {
                         </div>
 
                         <div className="div-3">
-                          <div className="text-wrapper-4">{property.tag}</div>
+                          <div className="text-wrapper-4">{property.tag || (property.status === 'active' ? 'NEW' : property.status?.toUpperCase()) || 'NEW'}</div>
 
                           <div className="container-20">
                             <p className="text-wrapper-5">
-                              {property.address}
+                              {property.address}{property.suburb ? `, ${property.suburb}` : ''}
                             </p>
                           </div>
 
                           <div className="container-21">
                             <p className="text-wrapper-6">
-                              {property.description}
+                              {property.description || `${property.propertyType || 'Property'} in ${property.suburb || 'prime location'}`}
                             </p>
                           </div>
 
                           <div className="container-22">
-                            <div className="text-wrapper-7">{property.details}</div>
+                            <div className="text-wrapper-7">{property.details || `${property.bedrooms || 0} bed, ${property.bathrooms || 0} bath, ${property.carSpaces || 0} car`}</div>
                           </div>
 
                           <div className="container-23">
-                            <div className="text-wrapper-7">{property.price}</div>
+                            <div className="text-wrapper-7">{property.priceDisplay || property.price || formatPrice(property.price)}</div>
                           </div>
                         </div>
                       </a>
@@ -601,6 +616,7 @@ export const ElementLight = () => {
                   src="/static/img/group-10-10-margin.png"
                 />
               </div>
+              )}
 
               <div className="margin-3">
                 <div className="container-14">

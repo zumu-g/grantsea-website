@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import AIChatWidget from './AIChatWidget';
+import { useProperties } from '@/hooks/useProperties';
+import { formatPrice } from '@/services/api';
 
 // Mock property data for carousel
-const properties = [
+const mockProperties = [
   {
     id: 1,
     title: 'Modern Family Residence',
@@ -65,6 +67,12 @@ const properties = [
 
 export default function EnhancedHomepage() {
   const [currentPropertyIndex, setCurrentPropertyIndex] = useState(0);
+  
+  // Get properties from API
+  const { properties: apiProperties, loading, error } = useProperties({ limit: 6 });
+  
+  // Use API data if available, otherwise fall back to mock data
+  const properties = apiProperties.length > 0 ? apiProperties : mockProperties;
   
   const nextProperty = () => {
     setCurrentPropertyIndex((prev) => (prev + 1) % properties.length);
@@ -264,7 +272,13 @@ export default function EnhancedHomepage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {getVisibleProperties().map((property, index) => (
+            {loading ? (
+              <div className="col-span-3 text-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+                <p className="mt-4 text-gray-600">Loading properties...</p>
+              </div>
+            ) : (
+            getVisibleProperties().map((property, index) => (
               <Link
                 key={`${property.id}-${index}`}
                 href={`/property/${property.id}`}
@@ -278,19 +292,19 @@ export default function EnhancedHomepage() {
                     NEW
                   </div>
                   <div className="absolute top-4 right-4 bg-white text-gray-800 px-3 py-1 rounded-full text-sm">
-                    {property.type}
+                    {property.propertyType || property.type || 'Property'}
                   </div>
                 </div>
                 
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">{property.title}</h3>
-                  <p className="text-3xl font-bold text-blue-600 mb-3">{property.price}</p>
-                  <p className="text-gray-600 mb-4">{property.location}</p>
+                  <h3 className="text-xl font-semibold mb-2">{property.title || property.address || 'Property'}</h3>
+                  <p className="text-3xl font-bold text-blue-600 mb-3">{property.priceDisplay || property.price || formatPrice(property.price)}</p>
+                  <p className="text-gray-600 mb-4">{property.location || property.suburb || 'Location'}</p>
                   
                   <div className="flex gap-4 text-sm text-gray-600 mb-4">
-                    <span>🛏️ {property.bedrooms} Beds</span>
-                    <span>🚿 {property.bathrooms} Baths</span>
-                    <span>🚗 {property.carSpaces} Cars</span>
+                    <span>🛏️ {property.bedrooms || 0} Beds</span>
+                    <span>🚿 {property.bathrooms || 0} Baths</span>
+                    <span>🚗 {property.carSpaces || 0} Cars</span>
                   </div>
                   
                   <div className="w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-800 transition-colors text-center">
@@ -298,7 +312,8 @@ export default function EnhancedHomepage() {
                   </div>
                 </div>
               </Link>
-            ))}
+            ))
+            )}
           </div>
         </div>
       </section>

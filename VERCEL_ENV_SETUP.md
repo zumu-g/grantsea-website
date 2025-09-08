@@ -15,7 +15,7 @@ The API is not working because the environment variables are not set in Vercel. 
 ### Required Environment Variables:
 
 ```
-NEXT_PUBLIC_CRM_API_URL=https://api.vaultre.com.au/api/v1.2
+NEXT_PUBLIC_CRM_API_URL=https://ap-southeast-2.api.vaultre.com.au/api/v1.3
 NEXT_PUBLIC_CRM_API_KEY=nzinklyrqutvcdodhyaqyizcjflohlayxezuthan
 ```
 
@@ -39,9 +39,16 @@ NEXT_PUBLIC_ENABLE_API_CACHE=true
 After redeployment, visit: https://grantsea-website.vercel.app/api-test
 
 You should see:
-- API URL: https://api.vaultre.com.au/api/v1.2
+- API URL: https://ap-southeast-2.api.vaultre.com.au/api/v1.3
 - API Key Set: Yes
 - And hopefully a successful API response with your properties
+
+### Note on VaultRE Authentication:
+VaultRE uses two types of authentication:
+1. **API Key**: Provided when you register as an integrator
+2. **Access Token**: Provided by each client for their account (this is what we have)
+
+The key provided appears to be an Access Token for your VaultRE account.
 
 ## Property Types Supported:
 

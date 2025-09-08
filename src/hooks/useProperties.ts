@@ -29,11 +29,21 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
       
       if (options?.featured) {
         response = await crmAPI.properties.getFeaturedProperties();
-      } else {
+      } else if (options?.type === 'lease' || options?.type === 'rent') {
+        // For rental properties, we need to modify our API call
+        // VaultRE may have specific endpoints for lease properties
         response = await crmAPI.properties.getProperties({
           suburb: options?.suburb,
           limit: options?.limit,
-          // Remove status filter to get all properties
+          propertyType: 'residential', // or could be commercial
+          status: 'lease'
+        });
+      } else {
+        // Default to all properties
+        response = await crmAPI.properties.getProperties({
+          suburb: options?.suburb,
+          limit: options?.limit,
+          status: options?.type === 'sale' ? 'sale' : undefined
         });
       }
 

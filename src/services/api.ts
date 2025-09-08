@@ -1,7 +1,8 @@
 // Vault RE API Service
 // This service handles all API calls to Vault RE CRM system
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_CRM_API_URL || 'https://api.vaultre.com.au/api/v1.2';
+// VaultRE API v1.3 - Updated endpoint
+const API_BASE_URL = process.env.NEXT_PUBLIC_CRM_API_URL || 'https://ap-southeast-2.api.vaultre.com.au/api/v1.3';
 const API_KEY = process.env.NEXT_PUBLIC_CRM_API_KEY || '';
 
 // Property interface matching Vault RE structure
@@ -176,10 +177,17 @@ export const propertyAPI = {
       if (filters.limit) params.append('per_page', filters.limit.toString());
     }
 
-    // Vault RE uses /properties endpoint
-    const response = await fetchFromCRM<any>(`/properties?${params.toString()}`);
-    
-    console.log('Raw Vault RE response:', response);
+    // VaultRE uses specific endpoints based on property type
+    // Try residential properties first (most common)
+    let response;
+    try {
+      response = await fetchFromCRM<any>(`/properties/residential/sale?${params.toString()}`);
+      console.log('Raw Vault RE response (residential/sale):', response);
+    } catch (error) {
+      console.log('Residential/sale endpoint failed, trying general properties endpoint');
+      response = await fetchFromCRM<any>(`/properties?${params.toString()}`);
+      console.log('Raw Vault RE response (properties):', response);
+    }
     
     // Transform Vault RE response - handle different response formats
     const properties = response.data || response.properties || response.results || response;

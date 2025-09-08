@@ -74,8 +74,8 @@ export default function PropertyDetailPage() {
               {/* Main Image */}
               {property.images && property.images.length > 0 ? (
                 <Image
-                  src={property.images[currentImageIndex]}
-                  alt={`${property.address}, ${property.suburb} - Image ${currentImageIndex + 1}`}
+                  src={property.images[currentImageIndex].url}
+                  alt={property.images[currentImageIndex].caption || `${property.address}, ${property.suburb} - Image ${currentImageIndex + 1}`}
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 66vw"
@@ -120,15 +120,15 @@ export default function PropertyDetailPage() {
               <div className="grid grid-cols-6 gap-2 mt-4">
                 {property.images.map((image, index) => (
                 <button
-                  key={index}
+                  key={image.id || index}
                   onClick={() => setCurrentImageIndex(index)}
                   className={`relative bg-gray-200 rounded overflow-hidden h-20 ${
                     currentImageIndex === index ? 'ring-2 ring-blue-600' : ''
                   }`}
                 >
                   <Image
-                    src={image}
-                    alt={`Thumbnail ${index + 1}`}
+                    src={image.url}
+                    alt={image.caption || `Thumbnail ${index + 1}`}
                     fill
                     className="object-cover"
                     sizes="120px"

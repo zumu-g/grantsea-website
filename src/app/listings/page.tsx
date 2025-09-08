@@ -397,35 +397,44 @@ export default function PropertyListingsPage() {
                 return (
                 <div
                   key={property.id}
-                  onClick={() => {
-                    console.log('Property clicked:', {
-                      id: property.id,
-                      url: propertyUrl,
-                      fullProperty: property
-                    });
-                    try {
-                      router.push(propertyUrl);
-                    } catch (error) {
-                      console.error('Navigation error:', error);
-                      // Fallback to window.location
-                      window.location.href = propertyUrl;
-                    }
-                  }}
                   style={{
                     textDecoration: 'none',
                     color: 'inherit',
                     display: 'block',
-                    cursor: 'pointer'
+                    position: 'relative'
                   }}
                 >
-                  <article style={{
-                    backgroundColor: 'white',
-                    borderRadius: '8px',
-                    overflow: 'hidden',
-                    transition: 'all 0.3s',
-                    cursor: 'pointer',
-                    border: '1px solid #e2e8f0'
-                  }}>
+                  <article 
+                    onClick={(e) => {
+                      // Prevent click if it's from the save button
+                      if (e.target.closest('button')) return;
+                      
+                      console.log('=== PROPERTY CARD CLICKED ===');
+                      console.log('Event target:', e.target);
+                      console.log('Property ID:', property.id);
+                      console.log('Property URL:', propertyUrl);
+                      console.log('Current pathname:', window.location.pathname);
+                      console.log('Router available:', !!router);
+                      
+                      try {
+                        console.log('Attempting router.push...');
+                        router.push(propertyUrl);
+                        console.log('router.push called successfully');
+                      } catch (error) {
+                        console.error('Router navigation failed:', error);
+                        console.log('Falling back to window.location...');
+                        window.location.href = propertyUrl;
+                      }
+                    }}
+                    style={{
+                      backgroundColor: 'white',
+                      borderRadius: '8px',
+                      overflow: 'hidden',
+                      transition: 'all 0.3s',
+                      cursor: 'pointer',
+                      border: '1px solid #e2e8f0',
+                      userSelect: 'none'
+                    }}>
                     {/* Property Image */}
                     <div style={{
                       position: 'relative',

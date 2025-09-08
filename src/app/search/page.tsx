@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 
-export default function PropertySearchPage() {
+export default function PropertySearchPageOncomStyle() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get('q') || '';
   
@@ -17,7 +17,7 @@ export default function PropertySearchPage() {
   const [bathrooms, setBathrooms] = useState<string>('any');
   const [propertyTypes, setPropertyTypes] = useState<string[]>([]);
   const [suburbs, setSuburbs] = useState<string[]>([]);
-  const [showMobileFilters, setShowMobileFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
   const [sortBy, setSortBy] = useState<'relevance' | 'price-asc' | 'price-desc' | 'newest'>('relevance');
   
   const { properties, loading, error } = useProperties({ 
@@ -27,7 +27,6 @@ export default function PropertySearchPage() {
 
   // Filter properties based on search and filters
   const filteredProperties = properties.filter((property) => {
-    // Search query filter
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       const matchesSearch = 
@@ -39,20 +38,11 @@ export default function PropertySearchPage() {
       if (!matchesSearch) return false;
     }
 
-    // Price range filter
     if (priceRange.min && parseInt(property.price) < parseInt(priceRange.min)) return false;
     if (priceRange.max && parseInt(property.price) > parseInt(priceRange.max)) return false;
-
-    // Bedrooms filter
     if (bedrooms !== 'any' && property.bedrooms.toString() !== bedrooms) return false;
-
-    // Bathrooms filter
     if (bathrooms !== 'any' && property.bathrooms.toString() !== bathrooms) return false;
-
-    // Property type filter
     if (propertyTypes.length > 0 && !propertyTypes.includes(property.propertyType)) return false;
-
-    // Suburb filter
     if (suburbs.length > 0 && !suburbs.includes(property.suburb)) return false;
 
     return true;
@@ -68,19 +58,290 @@ export default function PropertySearchPage() {
       case 'newest':
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
       default:
-        return 0; // Relevance - keep original order
+        return 0;
     }
   });
 
   // Get unique suburbs from properties
   const uniqueSuburbs = [...new Set(properties.map(p => p.suburb))].sort();
 
+  // Close filters on escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && showFilters) {
+        setShowFilters(false);
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [showFilters]);
+
   return (
-    <div style={{ backgroundColor: '#f7fafc', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: '#f8f8f8', minHeight: '100vh' }}>
+      {/* Overlay */}
+      {showFilters && (
+        <div
+          onClick={() => setShowFilters(false)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(0,0,0,0.3)',
+            zIndex: 49,
+            cursor: 'pointer'
+          }}
+        />
+      )}
+
+      {/* Slide-out Filter Panel */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: showFilters ? 0 : '-400px',
+        width: '400px',
+        height: '100vh',
+        backgroundColor: 'white',
+        boxShadow: '2px 0 8px rgba(0,0,0,0.1)',
+        transition: 'left 0.3s ease-out',
+        zIndex: 50,
+        overflowY: 'auto'
+      }}>
+        {/* Filter Header */}
+        <div style={{
+          padding: '24px',
+          borderBottom: '1px solid #e5e5e5',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          <h2 style={{
+            fontSize: '20px',
+            fontWeight: '600',
+            margin: 0
+          }}>Filters</h2>
+          <button
+            onClick={() => setShowFilters(false)}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '8px'
+            }}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div style={{ padding: '24px' }}>
+          {/* Listing Type */}
+          <div style={{ marginBottom: '32px' }}>
+            <h3 style={{
+              fontSize: '14px',
+              fontWeight: '600',
+              marginBottom: '16px',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px'
+            }}>Listing Type</h3>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              {(['all', 'sale', 'lease'] as const).map((type) => (
+                <button
+                  key={type}
+                  onClick={() => setFilter(type)}
+                  style={{
+                    padding: '8px 16px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '24px',
+                    backgroundColor: filter === type ? '#000' : 'transparent',
+                    color: filter === type ? '#fff' : '#000',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  {type === 'all' ? 'All' : type === 'sale' ? 'For Sale' : 'For Rent'}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Price Range */}
+          <div style={{ marginBottom: '32px' }}>
+            <h3 style={{
+              fontSize: '14px',
+              fontWeight: '600',
+              marginBottom: '16px',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px'
+            }}>Price Range</h3>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <input
+                type="number"
+                placeholder="Min"
+                value={priceRange.min}
+                onChange={(e) => setPriceRange({ ...priceRange, min: e.target.value })}
+                style={{
+                  flex: 1,
+                  padding: '10px',
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '4px',
+                  fontSize: '14px'
+                }}
+              />
+              <span style={{ color: '#999' }}>—</span>
+              <input
+                type="number"
+                placeholder="Max"
+                value={priceRange.max}
+                onChange={(e) => setPriceRange({ ...priceRange, max: e.target.value })}
+                style={{
+                  flex: 1,
+                  padding: '10px',
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '4px',
+                  fontSize: '14px'
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Bedrooms */}
+          <div style={{ marginBottom: '32px' }}>
+            <h3 style={{
+              fontSize: '14px',
+              fontWeight: '600',
+              marginBottom: '16px',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px'
+            }}>Bedrooms</h3>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+              {['any', '1', '2', '3', '4', '5+'].map((bed) => (
+                <button
+                  key={bed}
+                  onClick={() => setBedrooms(bed)}
+                  style={{
+                    padding: '8px 16px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '24px',
+                    backgroundColor: bedrooms === bed ? '#000' : 'transparent',
+                    color: bedrooms === bed ? '#fff' : '#000',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  {bed === 'any' ? 'Any' : bed}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Bathrooms */}
+          <div style={{ marginBottom: '32px' }}>
+            <h3 style={{
+              fontSize: '14px',
+              fontWeight: '600',
+              marginBottom: '16px',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px'
+            }}>Bathrooms</h3>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+              {['any', '1', '2', '3', '4+'].map((bath) => (
+                <button
+                  key={bath}
+                  onClick={() => setBathrooms(bath)}
+                  style={{
+                    padding: '8px 16px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '24px',
+                    backgroundColor: bathrooms === bath ? '#000' : 'transparent',
+                    color: bathrooms === bath ? '#fff' : '#000',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  {bath === 'any' ? 'Any' : bath}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Property Types */}
+          <div style={{ marginBottom: '32px' }}>
+            <h3 style={{
+              fontSize: '14px',
+              fontWeight: '600',
+              marginBottom: '16px',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px'
+            }}>Property Type</h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {['House', 'Apartment', 'Townhouse', 'Land', 'Unit'].map((type) => (
+                <label key={type} style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  fontSize: '14px'
+                }}>
+                  <input
+                    type="checkbox"
+                    checked={propertyTypes.includes(type)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setPropertyTypes([...propertyTypes, type]);
+                      } else {
+                        setPropertyTypes(propertyTypes.filter(t => t !== type));
+                      }
+                    }}
+                    style={{
+                      marginRight: '12px',
+                      width: '18px',
+                      height: '18px',
+                      cursor: 'pointer'
+                    }}
+                  />
+                  <span>{type}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Clear All Button */}
+          <button
+            onClick={() => {
+              setFilter('all');
+              setPriceRange({ min: '', max: '' });
+              setBedrooms('any');
+              setBathrooms('any');
+              setPropertyTypes([]);
+              setSuburbs([]);
+            }}
+            style={{
+              width: '100%',
+              padding: '12px',
+              border: '1px solid #000',
+              borderRadius: '24px',
+              backgroundColor: 'transparent',
+              color: '#000',
+              fontSize: '14px',
+              fontWeight: '500',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            Clear All Filters
+          </button>
+        </div>
+      </div>
+
       {/* Header */}
       <header style={{
         backgroundColor: 'white',
-        borderBottom: '1px solid #e2e8f0',
+        borderBottom: '1px solid #e5e5e5',
         position: 'sticky',
         top: 0,
         zIndex: 40
@@ -88,20 +349,21 @@ export default function PropertySearchPage() {
         <div style={{
           maxWidth: '1440px',
           margin: '0 auto',
-          padding: '0 24px'
+          padding: '0 20px'
         }}>
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            height: '72px',
-            gap: '48px'
+            height: '64px',
+            gap: '40px'
           }}>
             {/* Logo */}
             <Link href="/" style={{
-              fontSize: '24px',
-              fontWeight: 'bold',
-              color: '#1a202c',
-              textDecoration: 'none'
+              fontSize: '20px',
+              fontWeight: '600',
+              color: '#000',
+              textDecoration: 'none',
+              letterSpacing: '-0.5px'
             }}>
               Grant's Estate Agents
             </Link>
@@ -120,53 +382,53 @@ export default function PropertySearchPage() {
                   placeholder="Search by suburb, postcode, or address..."
                   style={{
                     width: '100%',
-                    padding: '12px 48px 12px 16px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    fontSize: '16px',
-                    backgroundColor: '#f7fafc'
+                    padding: '10px 48px 10px 16px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '24px',
+                    fontSize: '14px',
+                    backgroundColor: '#f8f8f8'
                   }}
                 />
                 <button
                   type="submit"
                   style={{
                     position: 'absolute',
-                    right: '4px',
+                    right: '6px',
                     top: '50%',
                     transform: 'translateY(-50%)',
-                    padding: '8px 16px',
-                    backgroundColor: '#3182ce',
-                    color: 'white',
+                    padding: '6px',
+                    backgroundColor: 'transparent',
                     border: 'none',
-                    borderRadius: '6px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px'
+                    cursor: 'pointer'
                   }}
                 >
                   <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
-                  Search
                 </button>
               </div>
             </form>
 
-            {/* Navigation Icons */}
+            {/* Right Navigation */}
             <div style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '16px'
+              gap: '20px'
             }}>
-              <Link href="/saved-properties" style={{ padding: '8px' }}>
+              <Link href="/saved-properties" style={{
+                padding: '8px',
+                color: '#000'
+              }}>
                 <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
               </Link>
-              <Link href="/profile" style={{ padding: '8px' }}>
+              <Link href="/profile" style={{
+                padding: '8px',
+                color: '#000'
+              }}>
                 <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
               </Link>
             </div>
@@ -178,585 +440,266 @@ export default function PropertySearchPage() {
       <div style={{
         maxWidth: '1440px',
         margin: '0 auto',
-        padding: '24px',
-        display: 'flex',
-        gap: '32px'
+        padding: '20px'
       }}>
-        {/* Filters Sidebar */}
-        <aside style={{
-          width: '320px',
-          backgroundColor: 'white',
-          borderRadius: '8px',
-          padding: '24px',
-          height: 'fit-content',
-          position: 'sticky',
-          top: '96px'
+        {/* Results Header */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: '24px'
         }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginBottom: '24px'
-          }}>
-            <h2 style={{
-              fontSize: '20px',
-              fontWeight: '600'
-            }}>Filters</h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <button
-              onClick={() => {
-                setFilter('all');
-                setPriceRange({ min: '', max: '' });
-                setBedrooms('any');
-                setBathrooms('any');
-                setPropertyTypes([]);
-                setSuburbs([]);
-              }}
+              onClick={() => setShowFilters(true)}
               style={{
-                color: '#3182ce',
-                background: 'none',
-                border: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 20px',
+                border: '1px solid #e5e5e5',
+                borderRadius: '24px',
+                backgroundColor: 'white',
+                fontSize: '14px',
+                fontWeight: '500',
                 cursor: 'pointer',
-                fontSize: '14px'
+                transition: 'all 0.2s ease'
               }}
             >
-              Clear all
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+              </svg>
+              Filters
             </button>
+            <p style={{
+              color: '#666',
+              fontSize: '14px'
+            }}>
+              {sortedProperties.length} properties found
+            </p>
           </div>
 
-          {/* Property Type Filter */}
-          <div style={{ marginBottom: '32px' }}>
-            <h3 style={{
-              fontSize: '16px',
-              fontWeight: '600',
-              marginBottom: '16px'
-            }}>Listing Type</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {['all', 'sale', 'lease'].map((type) => (
-                <label key={type} style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  cursor: 'pointer'
-                }}>
-                  <input
-                    type="radio"
-                    name="listingType"
-                    checked={filter === type}
-                    onChange={() => setFilter(type as any)}
-                    style={{
-                      marginRight: '8px',
-                      width: '16px',
-                      height: '16px'
-                    }}
-                  />
-                  <span style={{ fontSize: '14px' }}>
-                    {type === 'all' ? 'All' : type === 'sale' ? 'For Sale' : 'For Rent'}
-                  </span>
-                </label>
-              ))}
-            </div>
-          </div>
+          {/* Sort Dropdown */}
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as any)}
+            style={{
+              padding: '10px 16px',
+              border: '1px solid #e5e5e5',
+              borderRadius: '24px',
+              fontSize: '14px',
+              backgroundColor: 'white',
+              cursor: 'pointer'
+            }}
+          >
+            <option value="relevance">Most Relevant</option>
+            <option value="newest">Newest First</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+          </select>
+        </div>
 
-          {/* Price Range */}
-          <div style={{ marginBottom: '32px' }}>
-            <h3 style={{
-              fontSize: '16px',
-              fontWeight: '600',
-              marginBottom: '16px'
-            }}>Price Range</h3>
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <input
-                type="number"
-                placeholder="Min"
-                value={priceRange.min}
-                onChange={(e) => setPriceRange({ ...priceRange, min: e.target.value })}
-                style={{
-                  flex: 1,
-                  padding: '8px',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '4px',
-                  fontSize: '14px'
-                }}
-              />
-              <span>-</span>
-              <input
-                type="number"
-                placeholder="Max"
-                value={priceRange.max}
-                onChange={(e) => setPriceRange({ ...priceRange, max: e.target.value })}
-                style={{
-                  flex: 1,
-                  padding: '8px',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '4px',
-                  fontSize: '14px'
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Bedrooms */}
-          <div style={{ marginBottom: '32px' }}>
-            <h3 style={{
-              fontSize: '16px',
-              fontWeight: '600',
-              marginBottom: '16px'
-            }}>Bedrooms</h3>
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              {['any', '1', '2', '3', '4', '5+'].map((bed) => (
-                <button
-                  key={bed}
-                  onClick={() => setBedrooms(bed)}
-                  style={{
-                    padding: '8px 16px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '4px',
-                    backgroundColor: bedrooms === bed ? '#3182ce' : 'white',
-                    color: bedrooms === bed ? 'white' : '#4a5568',
-                    fontSize: '14px',
-                    cursor: 'pointer'
-                  }}
-                >
-                  {bed === 'any' ? 'Any' : bed}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Bathrooms */}
-          <div style={{ marginBottom: '32px' }}>
-            <h3 style={{
-              fontSize: '16px',
-              fontWeight: '600',
-              marginBottom: '16px'
-            }}>Bathrooms</h3>
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              {['any', '1', '2', '3', '4+'].map((bath) => (
-                <button
-                  key={bath}
-                  onClick={() => setBathrooms(bath)}
-                  style={{
-                    padding: '8px 16px',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '4px',
-                    backgroundColor: bathrooms === bath ? '#3182ce' : 'white',
-                    color: bathrooms === bath ? 'white' : '#4a5568',
-                    fontSize: '14px',
-                    cursor: 'pointer'
-                  }}
-                >
-                  {bath === 'any' ? 'Any' : bath}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Property Types */}
-          <div style={{ marginBottom: '32px' }}>
-            <h3 style={{
-              fontSize: '16px',
-              fontWeight: '600',
-              marginBottom: '16px'
-            }}>Property Type</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {['House', 'Apartment', 'Townhouse', 'Land', 'Unit'].map((type) => (
-                <label key={type} style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  cursor: 'pointer'
-                }}>
-                  <input
-                    type="checkbox"
-                    checked={propertyTypes.includes(type)}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setPropertyTypes([...propertyTypes, type]);
-                      } else {
-                        setPropertyTypes(propertyTypes.filter(t => t !== type));
-                      }
-                    }}
-                    style={{
-                      marginRight: '8px',
-                      width: '16px',
-                      height: '16px'
-                    }}
-                  />
-                  <span style={{ fontSize: '14px' }}>{type}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          {/* Suburbs */}
-          {uniqueSuburbs.length > 0 && (
-            <div>
-              <h3 style={{
-                fontSize: '16px',
-                fontWeight: '600',
-                marginBottom: '16px'
-              }}>Suburbs</h3>
-              <div style={{
-                maxHeight: '200px',
-                overflowY: 'auto',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '12px'
-              }}>
-                {uniqueSuburbs.map((suburb) => (
-                  <label key={suburb} style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    cursor: 'pointer'
-                  }}>
-                    <input
-                      type="checkbox"
-                      checked={suburbs.includes(suburb)}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setSuburbs([...suburbs, suburb]);
-                        } else {
-                          setSuburbs(suburbs.filter(s => s !== suburb));
-                        }
-                      }}
-                      style={{
-                        marginRight: '8px',
-                        width: '16px',
-                        height: '16px'
-                      }}
-                    />
-                    <span style={{ fontSize: '14px' }}>{suburb}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-          )}
-        </aside>
-
-        {/* Results Section */}
-        <main style={{ flex: 1 }}>
-          {/* Results Header */}
+        {/* Loading State */}
+        {loading ? (
           <div style={{
-            backgroundColor: 'white',
-            borderRadius: '8px',
-            padding: '24px',
-            marginBottom: '24px'
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '400px'
           }}>
             <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '16px'
-            }}>
-              <div>
-                <h1 style={{
-                  fontSize: '24px',
-                  fontWeight: '600',
-                  marginBottom: '8px'
-                }}>
-                  {searchQuery ? `Search results for "${searchQuery}"` : 'All Properties'}
-                </h1>
-                <p style={{
-                  color: '#718096',
-                  fontSize: '14px'
-                }}>
-                  {sortedProperties.length} properties found
-                </p>
-              </div>
-              
-              {/* Sort Dropdown */}
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as any)}
+              width: '40px',
+              height: '40px',
+              border: '3px solid #f3f4f6',
+              borderTopColor: '#000',
+              borderRadius: '50%',
+              animation: 'spin 1s linear infinite'
+            }} />
+          </div>
+        ) : sortedProperties.length === 0 ? (
+          <div style={{
+            textAlign: 'center',
+            padding: '80px 20px'
+          }}>
+            <h3 style={{ fontSize: '18px', marginBottom: '8px', fontWeight: '500' }}>No properties found</h3>
+            <p style={{ color: '#666', fontSize: '14px' }}>Try adjusting your filters or search criteria</p>
+          </div>
+        ) : (
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+            gap: '20px'
+          }}>
+            {sortedProperties.map((property) => (
+              <div
+                key={property.id}
                 style={{
-                  padding: '8px 16px',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '6px',
-                  fontSize: '14px',
-                  backgroundColor: 'white'
+                  position: 'relative'
                 }}
               >
-                <option value="relevance">Most Relevant</option>
-                <option value="newest">Newest First</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
-              </select>
-            </div>
-
-            {/* Active Filters */}
-            {(filter !== 'all' || priceRange.min || priceRange.max || bedrooms !== 'any' || 
-              bathrooms !== 'any' || propertyTypes.length > 0 || suburbs.length > 0) && (
-              <div style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '8px'
-              }}>
-                {filter !== 'all' && (
-                  <span style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                    padding: '4px 12px',
-                    backgroundColor: '#e6f2ff',
-                    color: '#3182ce',
-                    borderRadius: '16px',
-                    fontSize: '14px'
-                  }}>
-                    {filter === 'sale' ? 'For Sale' : 'For Rent'}
-                    <button
-                      onClick={() => setFilter('all')}
-                      style={{
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer',
-                        padding: '0 4px'
-                      }}
-                    >
-                      ×
-                    </button>
-                  </span>
-                )}
-                {bedrooms !== 'any' && (
-                  <span style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                    padding: '4px 12px',
-                    backgroundColor: '#e6f2ff',
-                    color: '#3182ce',
-                    borderRadius: '16px',
-                    fontSize: '14px'
-                  }}>
-                    {bedrooms} bed{bedrooms !== '1' ? 's' : ''}
-                    <button
-                      onClick={() => setBedrooms('any')}
-                      style={{
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer',
-                        padding: '0 4px'
-                      }}
-                    >
-                      ×
-                    </button>
-                  </span>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* Results Grid */}
-          {loading ? (
-            <div style={{
-              backgroundColor: 'white',
-              borderRadius: '8px',
-              padding: '80px',
-              textAlign: 'center'
-            }}>
-              <div style={{
-                width: '48px',
-                height: '48px',
-                border: '3px solid #e2e8f0',
-                borderTopColor: '#3182ce',
-                borderRadius: '50%',
-                animation: 'spin 1s linear infinite',
-                margin: '0 auto 24px'
-              }} />
-              <p>Loading properties...</p>
-            </div>
-          ) : sortedProperties.length === 0 ? (
-            <div style={{
-              backgroundColor: 'white',
-              borderRadius: '8px',
-              padding: '80px',
-              textAlign: 'center'
-            }}>
-              <svg
-                width="64"
-                height="64"
-                fill="none"
-                stroke="#cbd5e0"
-                viewBox="0 0 24 24"
-                style={{ margin: '0 auto 24px' }}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                />
-              </svg>
-              <h3 style={{ fontSize: '18px', marginBottom: '8px' }}>No properties found</h3>
-              <p style={{ color: '#718096' }}>Try adjusting your filters or search criteria</p>
-            </div>
-          ) : (
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
-              gap: '24px'
-            }}>
-              {sortedProperties.map((property) => (
-                <div
-                  key={property.id}
-                  onClick={() => {
+                <article 
+                  onClick={(e) => {
+                    if (e.target.closest('button')) return;
                     const propertyUrl = `/property/${property.id}`;
-                    console.log('Property clicked:', property.id, 'Navigating to:', propertyUrl);
                     window.location.href = propertyUrl;
                   }}
                   style={{
-                    textDecoration: 'none',
-                    color: 'inherit',
-                    display: 'block',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <article style={{
                     backgroundColor: 'white',
-                    borderRadius: '8px',
+                    borderRadius: '4px',
                     overflow: 'hidden',
-                    transition: 'all 0.3s',
                     cursor: 'pointer',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                    transition: 'all 0.2s ease'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
                   }}
-                  >
-                    {/* Property Image */}
+                >
+                  {/* Property Image */}
+                  <div style={{
+                    position: 'relative',
+                    paddingTop: '66.67%',
+                    backgroundColor: '#f8f8f8'
+                  }}>
+                    {/* Save Button */}
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('Save property:', property.id);
+                      }}
+                      style={{
+                        position: 'absolute',
+                        top: '12px',
+                        right: '12px',
+                        width: '36px',
+                        height: '36px',
+                        backgroundColor: 'white',
+                        border: 'none',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                        zIndex: 10,
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.1)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                      }}
+                    >
+                      <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                      </svg>
+                    </button>
+
+                    {/* Status Badge */}
                     <div style={{
-                      position: 'relative',
-                      paddingTop: '60%',
-                      backgroundColor: '#f7fafc'
+                      position: 'absolute',
+                      top: '12px',
+                      left: '12px',
+                      padding: '4px 12px',
+                      backgroundColor: property.listingType === 'lease' ? '#000' : '#666',
+                      color: 'white',
+                      fontSize: '12px',
+                      fontWeight: '600',
+                      borderRadius: '16px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.5px'
                     }}>
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          console.log('Save button clicked for property:', property.id);
-                          // Handle save
-                        }}
+                      {property.listingType === 'lease' ? 'For Rent' : 'For Sale'}
+                    </div>
+                    
+                    {property.images && property.images[0] ? (
+                      <img
+                        src={property.images[0].url}
+                        alt={property.address}
                         style={{
                           position: 'absolute',
-                          top: '12px',
-                          right: '12px',
-                          width: '36px',
-                          height: '36px',
-                          backgroundColor: 'white',
-                          border: 'none',
-                          borderRadius: '50%',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          cursor: 'pointer',
-                          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                          zIndex: 10
+                          top: 0,
+                          left: 0,
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover'
                         }}
-                      >
-                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
-                      </button>
-                      
-                      {property.images && property.images[0] ? (
-                        <img
-                          src={property.images[0].url}
-                          alt={property.address}
-                          style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover'
-                          }}
-                        />
-                      ) : (
-                        <div style={{
-                          position: 'absolute',
-                          inset: 0,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: '#cbd5e0'
-                        }}>
-                          Property Image
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Property Details */}
-                    <div style={{ padding: '20px' }}>
-                      <div style={{ marginBottom: '12px' }}>
-                        <h3 style={{
-                          fontSize: '18px',
-                          fontWeight: '600',
-                          marginBottom: '4px'
-                        }}>
-                          {property.address}
-                        </h3>
-                        <p style={{
-                          fontSize: '14px',
-                          color: '#718096'
-                        }}>
-                          {property.suburb}, {property.state} {property.postcode}
-                        </p>
-                      </div>
-
+                      />
+                    ) : (
                       <div style={{
+                        position: 'absolute',
+                        inset: 0,
                         display: 'flex',
-                        gap: '16px',
-                        marginBottom: '12px',
-                        fontSize: '14px',
-                        color: '#4a5568'
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#ccc',
+                        fontSize: '14px'
                       }}>
-                        <span>{property.bedrooms} bed</span>
-                        <span>{property.bathrooms} bath</span>
-                        <span>{property.carSpaces} car</span>
-                        <span>{property.propertyType}</span>
+                        No Image Available
                       </div>
+                    )}
+                  </div>
 
-                      <div style={{
-                        fontSize: '20px',
-                        fontWeight: '600',
-                        color: '#1a202c'
-                      }}>
-                        {property.listingType === 'lease' 
-                          ? (property.leasePriceDisplay || `$${property.leasePrice} per week`)
-                          : (property.priceDisplay || formatPrice(property.price))}
-                      </div>
+                  {/* Property Details */}
+                  <div style={{ padding: '20px' }}>
+                    {/* Price */}
+                    <div style={{
+                      fontSize: '20px',
+                      fontWeight: '600',
+                      marginBottom: '8px',
+                      letterSpacing: '-0.5px'
+                    }}>
+                      {property.listingType === 'lease' 
+                        ? (property.leasePriceDisplay || `$${property.leasePrice} per week`)
+                        : (property.priceDisplay || formatPrice(property.price))}
                     </div>
-                  </article>
-                </div>
-              ))}
-            </div>
-          )}
-        </main>
-      </div>
 
-      {/* Mobile Filter Button */}
-      <button
-        onClick={() => setShowMobileFilters(true)}
-        style={{
-          display: 'none',
-          position: 'fixed',
-          bottom: '24px',
-          right: '24px',
-          padding: '16px',
-          backgroundColor: '#3182ce',
-          color: 'white',
-          borderRadius: '50%',
-          border: 'none',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-          cursor: 'pointer'
-        }}
-      >
-        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-        </svg>
-      </button>
+                    {/* Address */}
+                    <h3 style={{
+                      fontSize: '16px',
+                      fontWeight: '500',
+                      marginBottom: '4px',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap'
+                    }}>
+                      {property.address}
+                    </h3>
+
+                    {/* Suburb */}
+                    <p style={{
+                      fontSize: '14px',
+                      color: '#666',
+                      marginBottom: '12px'
+                    }}>
+                      {property.suburb}, {property.state} {property.postcode}
+                    </p>
+
+                    {/* Features */}
+                    <div style={{
+                      display: 'flex',
+                      gap: '16px',
+                      fontSize: '14px',
+                      color: '#666'
+                    }}>
+                      <span>{property.bedrooms} bed</span>
+                      <span>{property.bathrooms} bath</span>
+                      <span>{property.carSpaces} car</span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
 
       <style jsx global>{`
         @keyframes spin {

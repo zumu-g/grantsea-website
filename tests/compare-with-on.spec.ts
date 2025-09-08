@@ -87,8 +87,8 @@ test.describe('Compare with on.com design', () => {
     // Generate report
     const report = {
       fontMatch: onComData.fonts === ourData.styles.fontFamily,
-      differences: [],
-      recommendations: []
+      differences: [] as string[],
+      recommendations: [] as string[]
     };
     
     if (!ourData.hasElementLight) {

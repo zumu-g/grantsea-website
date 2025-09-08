@@ -606,7 +606,7 @@ export default function PropertySearchPage() {
                   <article 
                     onClick={(e) => {
                       // Prevent click if it's from the save button
-                      if (e.target.closest('button')) return;
+                      if ((e.target as HTMLElement).closest('button')) return;
                       
                       const propertyUrl = `/property/${property.id}`;
                       console.log('=== SEARCH PAGE PROPERTY CLICKED ===');

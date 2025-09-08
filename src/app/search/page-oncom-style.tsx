@@ -539,7 +539,7 @@ export default function PropertySearchPageOncomStyle() {
               >
                 <article 
                   onClick={(e) => {
-                    if (e.target.closest('button')) return;
+                    if ((e.target as HTMLElement).closest('button')) return;
                     const propertyUrl = `/property/${property.id}`;
                     window.location.href = propertyUrl;
                   }}

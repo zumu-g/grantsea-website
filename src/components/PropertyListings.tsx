@@ -194,9 +194,19 @@ export default function PropertyListings() {
               )}
               
               <div className="relative h-48 bg-gray-200">
-                <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                  Property Image
-                </div>
+                {property.images && property.images.length > 0 ? (
+                  <Image
+                    src={property.images[0].url}
+                    alt={property.images[0].caption || property.title || 'Property Image'}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center text-gray-400">
+                    No Image Available
+                  </div>
+                )}
                 {(property.status === 'sold' || property.status === 'Sold') && (
                   <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
                     <span className="text-white text-3xl font-bold rotate-[-15deg]">SOLD</span>

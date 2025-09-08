@@ -13,6 +13,9 @@ export interface Property {
   postcode: string;
   price: string;
   priceDisplay?: string;
+  leasePrice?: string;
+  leasePriceDisplay?: string;
+  listingType?: 'sale' | 'lease' | 'both';
   bedrooms: number;
   bathrooms: number;
   carSpaces: number;
@@ -20,6 +23,10 @@ export interface Property {
   buildingSize?: number;
   propertyType: string;
   status: string;
+  saleMethod?: 'auction' | 'private' | 'tender' | 'eoi';
+  availableDate?: string;
+  leaseTerm?: string;
+  bond?: string;
   description: string;
   features: string[];
   images: PropertyImage[];
@@ -348,6 +355,12 @@ export function transformVaultREProperty(vaultProperty: any): Property {
                   vaultProperty.price_display ||
                   vaultProperty.display_price ||
                   formatPrice(vaultProperty.price?.value || vaultProperty.price || 0),
+    leasePrice: vaultProperty.lease_price?.value?.toString() || vaultProperty.lease_price || '',
+    leasePriceDisplay: vaultProperty.lease_price?.display || 
+                       vaultProperty.lease_price_display ||
+                       (vaultProperty.lease_price ? `$${vaultProperty.lease_price} per week` : ''),
+    listingType: vaultProperty.listing_type || 
+                 (vaultProperty.lease_price ? 'lease' : 'sale'),
     bedrooms: vaultProperty.bedrooms || 0,
     bathrooms: vaultProperty.bathrooms || 0,
     carSpaces: vaultProperty.car_spaces || vaultProperty.garages || 0,
@@ -355,6 +368,10 @@ export function transformVaultREProperty(vaultProperty: any): Property {
     buildingSize: vaultProperty.building_area || vaultProperty.building_size,
     propertyType: vaultProperty.property_type || vaultProperty.propertyType || 'House',
     status: vaultProperty.status || vaultProperty.listing_status || 'active',
+    saleMethod: vaultProperty.sale_method || vaultProperty.saleMethod,
+    availableDate: vaultProperty.available_date || vaultProperty.availableDate,
+    leaseTerm: vaultProperty.lease_term || vaultProperty.leaseTerm,
+    bond: vaultProperty.bond,
     description: vaultProperty.description || '',
     features: vaultProperty.features || [],
     images: (vaultProperty.images || []).map((img: any) => ({

@@ -572,7 +572,11 @@ export const ElementLight = () => {
                           </div>
 
                           <div className="container-23">
-                            <div className="text-wrapper-7">{property.priceDisplay || property.price || formatPrice(property.price)}</div>
+                            <div className="text-wrapper-7">
+                              {property.listingType === 'lease' 
+                                ? (property.leasePriceDisplay || property.leasePrice || 'Contact Agent')
+                                : (property.priceDisplay || property.price || formatPrice(property.price))}
+                            </div>
                           </div>
                         </div>
                       </a>

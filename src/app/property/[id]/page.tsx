@@ -72,50 +72,71 @@ export default function PropertyDetailPage() {
           <div className="lg:col-span-2">
             <div className="relative bg-gray-200 rounded-lg overflow-hidden" style={{ height: '500px' }}>
               {/* Main Image */}
-              <div className="w-full h-full flex items-center justify-center">
-                <span className="text-gray-500">Property Image {currentImageIndex + 1}</span>
-              </div>
+              {property.images && property.images.length > 0 ? (
+                <Image
+                  src={property.images[currentImageIndex].url}
+                  alt={property.images[currentImageIndex].caption || `${property.title} - Image ${currentImageIndex + 1}`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 66vw"
+                  priority={currentImageIndex === 0}
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <span className="text-gray-500">No Image Available</span>
+                </div>
+              )}
               
-              {/* Navigation Buttons */}
-              <button
-                onClick={prevImage}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-              </button>
-              <button
-                onClick={nextImage}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-              </button>
-              
-              {/* Image Counter */}
-              <div className="absolute bottom-4 right-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded">
-                {currentImageIndex + 1} / {property.images.length}
-              </div>
+              {/* Navigation Buttons - Only show if multiple images */}
+              {property.images && property.images.length > 1 && (
+                <>
+                  <button
+                    onClick={prevImage}
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100"
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                  </button>
+                  <button
+                    onClick={nextImage}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100"
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </button>
+                  
+                  {/* Image Counter */}
+                  <div className="absolute bottom-4 right-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded">
+                    {currentImageIndex + 1} / {property.images.length}
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Thumbnail Gallery */}
-            <div className="grid grid-cols-6 gap-2 mt-4">
-              {property.images.map((image, index) => (
+            {property.images && property.images.length > 1 && (
+              <div className="grid grid-cols-6 gap-2 mt-4">
+                {property.images.map((image, index) => (
                 <button
                   key={image.id || index}
                   onClick={() => setCurrentImageIndex(index)}
-                  className={`bg-gray-200 rounded overflow-hidden h-20 ${
+                  className={`relative bg-gray-200 rounded overflow-hidden h-20 ${
                     currentImageIndex === index ? 'ring-2 ring-blue-600' : ''
                   }`}
                 >
-                  <div className="w-full h-full flex items-center justify-center text-xs text-gray-500">
-                    {image.caption || `Image ${index + 1}`}
-                  </div>
+                  <Image
+                    src={image.url}
+                    alt={image.caption || `Thumbnail ${index + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="120px"
+                  />
                 </button>
               ))}
-            </div>
+              </div>
+            )}
 
             {/* Property Description */}
             <div className="mt-8 bg-white rounded-lg p-6 shadow-sm">

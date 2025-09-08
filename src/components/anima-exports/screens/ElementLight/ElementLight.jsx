@@ -108,106 +108,6 @@ export const ElementLight = () => {
 
   return (
     <div className="element-light">
-      {/* Modern Navigation Header */}
-      <div style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 50,
-        backgroundColor: 'white',
-        boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
-      }}>
-        <div style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          padding: '0 16px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          height: '64px'
-        }}>
-          {/* Logo */}
-          <Link href="/" style={{ 
-            fontSize: '24px', 
-            fontWeight: 'bold', 
-            color: '#2563eb',
-            textDecoration: 'none'
-          }}>
-            Grant's Estate Agents
-          </Link>
-
-          {/* Center Navigation */}
-          <nav style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '32px'
-          }}>
-            <Link href="/search" style={{ 
-              color: '#374151', 
-              textDecoration: 'none',
-              fontWeight: '500'
-            }}>
-              Search
-            </Link>
-            <Link href="/about" style={{ 
-              color: '#374151', 
-              textDecoration: 'none',
-              fontWeight: '500'
-            }}>
-              About
-            </Link>
-            <Link href="/explore" style={{ 
-              color: '#374151', 
-              textDecoration: 'none',
-              fontWeight: '500'
-            }}>
-              Explore
-            </Link>
-          </nav>
-
-          {/* Right Icons */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '16px'
-          }}>
-            {/* Search Icon */}
-            <button 
-              onClick={() => setShowSearchModal(true)}
-              style={{ 
-                padding: '8px', 
-                backgroundColor: 'transparent',
-                border: 'none',
-                borderRadius: '50%',
-                cursor: 'pointer'
-              }}>
-              <Component1_39 className="icon-instance-node" style={{ width: '20px', height: '20px' }} />
-            </button>
-            
-            {/* Heart Icon for Saved Properties */}
-            <Link href="/saved-properties" style={{ 
-              padding: '8px', 
-              backgroundColor: 'transparent',
-              borderRadius: '50%',
-              display: 'inline-block'
-            }}>
-              <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-            </Link>
-            
-            {/* User/Profile Icon */}
-            <Link href="/profile" style={{ 
-              padding: '8px', 
-              backgroundColor: 'transparent',
-              borderRadius: '50%',
-              display: 'inline-block'
-            }}>
-              <Component1_20 className="icon-instance-node" style={{ width: '20px', height: '20px' }} />
-            </Link>
-          </div>
-        </div>
-      </div>
-
       <div className="overlap-group">
         <div className="container-4">
           <Variant1 className="variant-1" />
@@ -227,19 +127,35 @@ export const ElementLight = () => {
                     {/* Navigation icons container */}
                     <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '20px' }}>
                       {/* Search icon */}
-                      <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px' }}>
+                      <button 
+                        onClick={() => setShowSearchModal(true)}
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px' }}>
                         <Component1_39 className="icon-instance-node" style={{ width: '20px', height: '20px' }} />
                       </button>
                       
-                      {/* Favorites icon */}
-                      <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px' }}>
-                        <Component1_51 className="icon-instance-node" style={{ width: '20px', height: '20px' }} />
-                      </button>
+                      {/* Heart Icon for Saved Properties */}
+                      <Link href="/saved-properties" style={{ 
+                        background: 'none', 
+                        border: 'none', 
+                        cursor: 'pointer', 
+                        padding: '8px',
+                        display: 'inline-block'
+                      }}>
+                        <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                      </Link>
                       
                       {/* User/Profile icon */}
-                      <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px' }}>
+                      <Link href="/profile" style={{ 
+                        background: 'none', 
+                        border: 'none', 
+                        cursor: 'pointer', 
+                        padding: '8px',
+                        display: 'inline-block'
+                      }}>
                         <Component1_20 className="icon-instance-node" style={{ width: '20px', height: '20px' }} />
-                      </button>
+                      </Link>
                       
                       {/* Help/Chat - keeping existing icons */}
                       <Component
@@ -260,15 +176,15 @@ export const ElementLight = () => {
 
             <div className="nav-primary">
               <div className="item-margin">
-                <div className="item-button-menu">Buy</div>
+                <Link href="/search" className="item-button-menu" style={{ textDecoration: 'none', color: 'inherit' }}>Search</Link>
               </div>
 
               <div className="item-margin">
-                <div className="item-button-menu">Sell</div>
+                <Link href="/about" className="item-button-menu" style={{ textDecoration: 'none', color: 'inherit' }}>About</Link>
               </div>
 
               <div className="item-margin">
-                <div className="item-button-menu">Lease</div>
+                <Link href="/explore" className="item-button-menu" style={{ textDecoration: 'none', color: 'inherit' }}>Explore</Link>
               </div>
             </div>
           </header>

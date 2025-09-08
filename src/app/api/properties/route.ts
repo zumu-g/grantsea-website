@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_CRM_API_URL || 'https://ap-southeast-2.api.vaultre.com.au/api/v1.3';
-const API_KEY = process.env.NEXT_PUBLIC_CRM_API_KEY || '';
-const ACCESS_TOKEN = process.env.NEXT_PUBLIC_CRM_ACCESS_TOKEN || '';
+// In API routes, we can't access NEXT_PUBLIC_ variables on the server
+// We need to use regular env vars or duplicate them without the prefix
+const API_BASE_URL = process.env.CRM_API_URL || process.env.NEXT_PUBLIC_CRM_API_URL || 'https://ap-southeast-2.api.vaultre.com.au/api/v1.3';
+const API_KEY = process.env.CRM_API_KEY || process.env.NEXT_PUBLIC_CRM_API_KEY || '';
+const ACCESS_TOKEN = process.env.CRM_ACCESS_TOKEN || process.env.NEXT_PUBLIC_CRM_ACCESS_TOKEN || '';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -11,8 +13,16 @@ export async function GET(request: NextRequest) {
   const published = searchParams.get('published') || 'true';
   
   if (!API_KEY || !ACCESS_TOKEN) {
+    console.error('API credentials missing:', {
+      hasApiKey: !!API_KEY,
+      hasAccessToken: !!ACCESS_TOKEN,
+      apiUrl: API_BASE_URL
+    });
     return NextResponse.json(
-      { error: 'API credentials not configured' },
+      { 
+        error: 'API credentials not configured',
+        details: 'Missing API key or access token in environment variables'
+      },
       { status: 500 }
     );
   }

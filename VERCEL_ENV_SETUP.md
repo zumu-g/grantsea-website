@@ -14,10 +14,20 @@ The API is not working because the environment variables are not set in Vercel. 
 
 ### Required Environment Variables:
 
+**IMPORTANT**: You need to add BOTH sets of variables:
+
+#### Client-side variables (for browser):
 ```
 NEXT_PUBLIC_CRM_API_URL=https://ap-southeast-2.api.vaultre.com.au/api/v1.3
 NEXT_PUBLIC_CRM_API_KEY=igLctQ47aj3qYl1vvHitt8gx3S9u59dpaW2m9ixE
 NEXT_PUBLIC_CRM_ACCESS_TOKEN=nzinklyrqutvcdodhyaqyizcjflohlayxezuthan
+```
+
+#### Server-side variables (for API routes):
+```
+CRM_API_URL=https://ap-southeast-2.api.vaultre.com.au/api/v1.3
+CRM_API_KEY=igLctQ47aj3qYl1vvHitt8gx3S9u59dpaW2m9ixE
+CRM_ACCESS_TOKEN=nzinklyrqutvcdodhyaqyizcjflohlayxezuthan
 ```
 
 ### Optional Environment Variables:

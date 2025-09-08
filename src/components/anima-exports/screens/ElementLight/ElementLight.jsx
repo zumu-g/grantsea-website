@@ -35,6 +35,7 @@ import "./style.css";
 export const ElementLight = () => {
   // Carousel state for New Arrivals
   const [currentPropertyIndex, setCurrentPropertyIndex] = useState(0);
+  const [showSearchModal, setShowSearchModal] = useState(false);
   
   // Get properties from API - get both sale and lease properties
   const { properties: apiProperties, loading, error } = useProperties({ limit: 8, type: 'all' });
@@ -107,6 +108,106 @@ export const ElementLight = () => {
 
   return (
     <div className="element-light">
+      {/* Modern Navigation Header */}
+      <div style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 50,
+        backgroundColor: 'white',
+        boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
+      }}>
+        <div style={{
+          maxWidth: '1280px',
+          margin: '0 auto',
+          padding: '0 16px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          height: '64px'
+        }}>
+          {/* Logo */}
+          <Link href="/" style={{ 
+            fontSize: '24px', 
+            fontWeight: 'bold', 
+            color: '#2563eb',
+            textDecoration: 'none'
+          }}>
+            Grant's Estate Agents
+          </Link>
+
+          {/* Center Navigation */}
+          <nav style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '32px'
+          }}>
+            <Link href="/search" style={{ 
+              color: '#374151', 
+              textDecoration: 'none',
+              fontWeight: '500'
+            }}>
+              Search
+            </Link>
+            <Link href="/about" style={{ 
+              color: '#374151', 
+              textDecoration: 'none',
+              fontWeight: '500'
+            }}>
+              About
+            </Link>
+            <Link href="/explore" style={{ 
+              color: '#374151', 
+              textDecoration: 'none',
+              fontWeight: '500'
+            }}>
+              Explore
+            </Link>
+          </nav>
+
+          {/* Right Icons */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px'
+          }}>
+            {/* Search Icon */}
+            <button 
+              onClick={() => setShowSearchModal(true)}
+              style={{ 
+                padding: '8px', 
+                backgroundColor: 'transparent',
+                border: 'none',
+                borderRadius: '50%',
+                cursor: 'pointer'
+              }}>
+              <Component1_39 className="icon-instance-node" style={{ width: '20px', height: '20px' }} />
+            </button>
+            
+            {/* Heart Icon for Saved Properties */}
+            <Link href="/saved-properties" style={{ 
+              padding: '8px', 
+              backgroundColor: 'transparent',
+              borderRadius: '50%',
+              display: 'inline-block'
+            }}>
+              <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </Link>
+            
+            {/* User/Profile Icon */}
+            <Link href="/profile" style={{ 
+              padding: '8px', 
+              backgroundColor: 'transparent',
+              borderRadius: '50%',
+              display: 'inline-block'
+            }}>
+              <Component1_20 className="icon-instance-node" style={{ width: '20px', height: '20px' }} />
+            </Link>
+          </div>
+        </div>
+      </div>
+
       <div className="overlap-group">
         <div className="container-4">
           <Variant1 className="variant-1" />
@@ -1226,6 +1327,119 @@ export const ElementLight = () => {
         </div>
       </footer>
       <AIChatWidget />
+      
+      {/* Search Modal */}
+      {showSearchModal && (
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'center',
+          zIndex: 50,
+          paddingTop: '80px'
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            borderRadius: '8px',
+            padding: '24px',
+            maxWidth: '672px',
+            width: '100%',
+            margin: '0 16px',
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: '16px'
+            }}>
+              <h2 style={{ fontSize: '20px', fontWeight: 'bold' }}>Search Properties</h2>
+              <button 
+                onClick={() => setShowSearchModal(false)}
+                style={{
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  color: '#6b7280',
+                  cursor: 'pointer',
+                  fontSize: '24px'
+                }}
+              >
+                ×
+              </button>
+            </div>
+            <form style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <input
+                type="text"
+                placeholder="Search by suburb, postcode, or address..."
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '8px',
+                  fontSize: '16px'
+                }}
+                autoFocus
+              />
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: '16px'
+              }}>
+                <select style={{
+                  padding: '12px',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '8px',
+                  fontSize: '16px'
+                }}>
+                  <option>Property Type</option>
+                  <option>House</option>
+                  <option>Apartment</option>
+                  <option>Townhouse</option>
+                  <option>Land</option>
+                </select>
+                <input
+                  type="number"
+                  placeholder="Min Price"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '8px',
+                    fontSize: '16px'
+                  }}
+                />
+                <input
+                  type="number"
+                  placeholder="Max Price"
+                  style={{
+                    padding: '12px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '8px',
+                    fontSize: '16px'
+                  }}
+                />
+              </div>
+              <button
+                type="submit"
+                style={{
+                  width: '100%',
+                  backgroundColor: '#2563eb',
+                  color: 'white',
+                  padding: '12px',
+                  borderRadius: '8px',
+                  border: 'none',
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+              >
+                Search Properties
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

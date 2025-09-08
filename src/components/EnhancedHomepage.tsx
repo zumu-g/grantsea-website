@@ -265,9 +265,10 @@ export default function EnhancedHomepage() {
 
           <div className="grid md:grid-cols-3 gap-6">
             {getVisibleProperties().map((property, index) => (
-              <div
+              <Link
                 key={`${property.id}-${index}`}
-                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all transform hover:scale-105"
+                href={`/property/${property.id}`}
+                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all transform hover:scale-105 block"
               >
                 <div className="relative h-64 bg-gray-200">
                   <div className="absolute inset-0 flex items-center justify-center text-gray-400">
@@ -292,11 +293,11 @@ export default function EnhancedHomepage() {
                     <span>🚗 {property.carSpaces} Cars</span>
                   </div>
                   
-                  <button className="w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-800 transition-colors">
+                  <div className="w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-800 transition-colors text-center">
                     View Details
-                  </button>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

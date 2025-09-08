@@ -2,23 +2,13 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useProperties } from '@/hooks/useProperties';
+import { formatPrice } from '@/services/api';
 
-interface Property {
-  id: string;
-  title: string;
-  price: string;
-  bedrooms: number;
-  bathrooms: number;
-  carSpaces: number;
-  address: string;
-  suburb: string;
-  type: 'House' | 'Apartment' | 'Townhouse' | 'Land';
-  status: 'For Sale' | 'For Lease' | 'Sold' | 'Leased';
-  image: string;
-  featured?: boolean;
-}
+// Remove the local Property interface since we'll use the one from the API
 
-const mockProperties: Property[] = [
+const mockProperties = [
   {
     id: '1',
     title: 'Modern Family Home with Pool',
@@ -104,14 +94,20 @@ const mockProperties: Property[] = [
 export default function PropertyListings() {
   const [filter, setFilter] = useState<'all' | 'buy' | 'lease'>('all');
   const [propertyType, setPropertyType] = useState<string>('all');
+  
+  // Get properties from API
+  const { properties, loading, error } = useProperties({ featured: true, limit: 6 });
 
-  const filteredProperties = mockProperties.filter((property) => {
+  // Use API properties if available, otherwise fall back to mock data
+  const displayProperties = properties.length > 0 ? properties : mockProperties;
+  
+  const filteredProperties = displayProperties.filter((property) => {
     const statusMatch = 
       filter === 'all' ||
-      (filter === 'buy' && (property.status === 'For Sale' || property.status === 'Sold')) ||
-      (filter === 'lease' && (property.status === 'For Lease' || property.status === 'Leased'));
+      (filter === 'buy' && (property.status === 'active' || property.status === 'For Sale' || property.status === 'sold' || property.status === 'Sold')) ||
+      (filter === 'lease' && (property.status === 'lease' || property.status === 'For Lease' || property.status === 'leased' || property.status === 'Leased'));
     
-    const typeMatch = propertyType === 'all' || property.type === propertyType;
+    const typeMatch = propertyType === 'all' || property.propertyType === propertyType || property.type === propertyType;
     
     return statusMatch && typeMatch;
   });
@@ -175,11 +171,18 @@ export default function PropertyListings() {
         </div>
 
         {/* Property Grid */}
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading properties...</p>
+          </div>
+        ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProperties.map((property) => (
-            <div
+            <Link
               key={property.id}
-              className={`bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer ${
+              href={`/property/${property.id}`}
+              className={`bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer block ${
                 property.featured ? 'ring-2 ring-blue-500' : ''
               }`}
             >
@@ -193,12 +196,12 @@ export default function PropertyListings() {
                 <div className="absolute inset-0 flex items-center justify-center text-gray-400">
                   Property Image
                 </div>
-                {property.status === 'Sold' && (
+                {(property.status === 'sold' || property.status === 'Sold') && (
                   <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
                     <span className="text-white text-3xl font-bold rotate-[-15deg]">SOLD</span>
                   </div>
                 )}
-                {property.status === 'Leased' && (
+                {(property.status === 'leased' || property.status === 'Leased') && (
                   <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
                     <span className="text-white text-3xl font-bold rotate-[-15deg]">LEASED</span>
                   </div>
@@ -208,44 +211,46 @@ export default function PropertyListings() {
               <div className="p-6">
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="text-xl font-semibold line-clamp-2 flex-1">
-                    {property.title}
+                    {property.title || property.address || 'Property'}
                   </h3>
                   <span className="bg-gray-100 text-xs px-2 py-1 rounded ml-2">
-                    {property.type}
+                    {property.propertyType || property.type || 'Property'}
                   </span>
                 </div>
                 
                 <p className="text-2xl font-bold text-blue-600 mb-3">
-                  {property.price}
+                  {property.priceDisplay || property.price || formatPrice(property.price)}
                 </p>
                 
                 <p className="text-gray-600 mb-4">
-                  {property.address}, {property.suburb}
+                  {property.address}, {property.suburb}{property.state ? `, ${property.state}` : ''}
                 </p>
                 
-                {property.type !== 'Land' && (
+                {(property.propertyType || property.type) !== 'Land' && (
                   <div className="flex gap-4 text-sm text-gray-600">
                     <span className="flex items-center gap-1">
-                      🛏️ {property.bedrooms}
+                      🛏️ {property.bedrooms || 0}
                     </span>
                     <span className="flex items-center gap-1">
-                      🚿 {property.bathrooms}
+                      🚿 {property.bathrooms || 0}
                     </span>
                     <span className="flex items-center gap-1">
-                      🚗 {property.carSpaces}
+                      🚗 {property.carSpaces || 0}
                     </span>
                   </div>
                 )}
                 
-                <button className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                <div className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors text-center">
                   View Details
-                </button>
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
-        {filteredProperties.length === 0 && (
+        )}
+        
+        {!loading && filteredProperties.length === 0 && (
           <div className="text-center py-12">
             <p className="text-gray-500 text-lg">
               No properties found matching your criteria.

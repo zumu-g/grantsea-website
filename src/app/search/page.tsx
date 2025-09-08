@@ -594,13 +594,18 @@ export default function PropertySearchPage() {
               gap: '24px'
             }}>
               {sortedProperties.map((property) => (
-                <Link
+                <div
                   key={property.id}
-                  href={`/property/${property.id}`}
+                  onClick={() => {
+                    const propertyUrl = `/property/${property.id}`;
+                    console.log('Property clicked:', property.id, 'Navigating to:', propertyUrl);
+                    window.location.href = propertyUrl;
+                  }}
                   style={{
                     textDecoration: 'none',
                     color: 'inherit',
-                    display: 'block'
+                    display: 'block',
+                    cursor: 'pointer'
                   }}
                 >
                   <article style={{
@@ -629,6 +634,8 @@ export default function PropertySearchPage() {
                       <button
                         onClick={(e) => {
                           e.preventDefault();
+                          e.stopPropagation();
+                          console.log('Save button clicked for property:', property.id);
                           // Handle save
                         }}
                         style={{
@@ -722,7 +729,7 @@ export default function PropertySearchPage() {
                       </div>
                     </div>
                   </article>
-                </Link>
+                </div>
               ))}
             </div>
           )}

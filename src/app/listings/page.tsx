@@ -2,10 +2,12 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 
 export default function PropertyListingsPage() {
+  const router = useRouter();
   const [filter, setFilter] = useState<'all' | 'sale' | 'lease'>('all');
   const [sortBy, setSortBy] = useState<'newest' | 'price-asc' | 'price-desc'>('newest');
   const [showFilters, setShowFilters] = useState(false);
@@ -306,6 +308,83 @@ export default function PropertyListingsPage() {
               </p>
             </div>
 
+            {/* Test Navigation Buttons */}
+            <div style={{ 
+              marginBottom: '24px', 
+              padding: '20px', 
+              backgroundColor: '#fef3c7', 
+              borderRadius: '8px',
+              border: '1px solid #fbbf24'
+            }}>
+              <h3 style={{ marginBottom: '10px' }}>Debug Navigation (Remove when fixed)</h3>
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                <button
+                  onClick={() => {
+                    console.log('Test: Navigating to /property/test');
+                    router.push('/property/test');
+                  }}
+                  style={{
+                    padding: '8px 16px',
+                    backgroundColor: '#3b82f6',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Go to /property/test
+                </button>
+                <button
+                  onClick={() => {
+                    console.log('Test: Using window.location to /property/123');
+                    window.location.href = '/property/123';
+                  }}
+                  style={{
+                    padding: '8px 16px',
+                    backgroundColor: '#10b981',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  window.location to /property/123
+                </button>
+                <Link 
+                  href="/property/456"
+                  style={{
+                    padding: '8px 16px',
+                    backgroundColor: '#f59e0b',
+                    color: 'white',
+                    textDecoration: 'none',
+                    borderRadius: '4px',
+                    display: 'inline-block'
+                  }}
+                >
+                  Link to /property/456
+                </Link>
+                {properties.length > 0 && (
+                  <button
+                    onClick={() => {
+                      const firstId = properties[0].id;
+                      console.log('Test: Navigate to first property ID:', firstId);
+                      router.push(`/property/${firstId}`);
+                    }}
+                    style={{
+                      padding: '8px 16px',
+                      backgroundColor: '#ef4444',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '4px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Go to First Property (ID: {properties[0]?.id || 'none'})
+                  </button>
+                )}
+              </div>
+            </div>
+
             {/* Property Grid */}
             <div style={{
               display: 'grid',
@@ -314,14 +393,29 @@ export default function PropertyListingsPage() {
             }}>
               {sortedProperties.map((property) => {
                 console.log('Property ID:', property.id, 'Full property:', property);
+                const propertyUrl = `/property/${property.id}`;
                 return (
-                <Link
+                <div
                   key={property.id}
-                  href={`/property/${property.id}`}
+                  onClick={() => {
+                    console.log('Property clicked:', {
+                      id: property.id,
+                      url: propertyUrl,
+                      fullProperty: property
+                    });
+                    try {
+                      router.push(propertyUrl);
+                    } catch (error) {
+                      console.error('Navigation error:', error);
+                      // Fallback to window.location
+                      window.location.href = propertyUrl;
+                    }
+                  }}
                   style={{
                     textDecoration: 'none',
                     color: 'inherit',
-                    display: 'block'
+                    display: 'block',
+                    cursor: 'pointer'
                   }}
                 >
                   <article style={{
@@ -343,6 +437,8 @@ export default function PropertyListingsPage() {
                       <button
                         onClick={(e) => {
                           e.preventDefault();
+                          e.stopPropagation();
+                          console.log('Save button clicked for property:', property.id);
                           // Handle save property
                         }}
                         style={{
@@ -452,7 +548,7 @@ export default function PropertyListingsPage() {
                       </div>
                     </div>
                   </article>
-                </Link>
+                </div>
                 );
               })}
             </div>

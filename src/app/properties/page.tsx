@@ -8,22 +8,20 @@ import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 
 export default function PropertiesPage() {
-  const [filter, setFilter] = useState<'all' | 'buy' | 'rent'>('all');
+  const [filter, setFilter] = useState<'all' | 'sale' | 'lease'>('all');
   const [propertyType, setPropertyType] = useState<string>('all');
   const [sortBy, setSortBy] = useState<'price-asc' | 'price-desc' | 'newest'>('newest');
   
-  const { properties, loading, error } = useProperties();
+  // Use the filter in the API call for more accurate results
+  const { properties, loading, error } = useProperties({ 
+    type: filter === 'sale' ? 'sale' : filter === 'lease' ? 'lease' : 'all',
+    limit: 50 
+  });
 
-  // Filter properties based on user selection
+  // Filter properties by property type (House, Townhouse, etc.)
   const filteredProperties = properties.filter((property) => {
-    const statusMatch = 
-      filter === 'all' ||
-      (filter === 'buy' && property.status === 'active') ||
-      (filter === 'rent' && property.status === 'lease');
-    
-    const typeMatch = propertyType === 'all' || property.propertyType === propertyType;
-    
-    return statusMatch && typeMatch;
+    const typeMatch = propertyType === 'all' || property.propertyType?.toLowerCase() === propertyType.toLowerCase();
+    return typeMatch;
   });
 
   // Sort properties
@@ -70,9 +68,9 @@ export default function PropertiesPage() {
                   All
                 </button>
                 <button
-                  onClick={() => setFilter('buy')}
+                  onClick={() => setFilter('sale')}
                   className={`flex-1 py-2 px-4 rounded-lg transition ${
-                    filter === 'buy' 
+                    filter === 'sale' 
                       ? 'bg-blue-600 text-white' 
                       : 'bg-gray-100 hover:bg-gray-200'
                   }`}
@@ -80,9 +78,9 @@ export default function PropertiesPage() {
                   Buy
                 </button>
                 <button
-                  onClick={() => setFilter('rent')}
+                  onClick={() => setFilter('lease')}
                   className={`flex-1 py-2 px-4 rounded-lg transition ${
-                    filter === 'rent' 
+                    filter === 'lease' 
                       ? 'bg-blue-600 text-white' 
                       : 'bg-gray-100 hover:bg-gray-200'
                   }`}
@@ -181,7 +179,9 @@ export default function PropertiesPage() {
                   <p className="text-gray-600 mb-3">{property.suburb}, {property.state} {property.postcode}</p>
                   
                   <p className="text-2xl font-bold text-blue-600 mb-4">
-                    {property.priceDisplay || formatPrice(property.price)}
+                    {property.listingType === 'lease' 
+                      ? (property.leasePriceDisplay || (property.leasePrice ? `$${property.leasePrice} per week` : 'Contact Agent'))
+                      : (property.priceDisplay || formatPrice(property.price))}
                   </p>
                   
                   <div className="flex gap-4 text-sm text-gray-600 mb-4">

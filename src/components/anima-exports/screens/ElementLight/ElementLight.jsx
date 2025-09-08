@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { Component } from "../../components/Component";
 import { Component4 } from "../../components/Component4";
 import { Component5 } from "../../components/Component5";
@@ -35,8 +36,8 @@ export const ElementLight = () => {
   // Carousel state for New Arrivals
   const [currentPropertyIndex, setCurrentPropertyIndex] = useState(0);
   
-  // Get properties from API
-  const { properties: apiProperties, loading, error } = useProperties({ limit: 8 });
+  // Get properties from API - get both sale and lease properties
+  const { properties: apiProperties, loading, error } = useProperties({ limit: 8, type: 'all' });
   
   // Fallback mock data in case API fails
   // Mock data removed - only use API data
@@ -552,7 +553,7 @@ export const ElementLight = () => {
                 {getVisibleProperties().map((property, index) => (
                   <div className="group-wrapper" key={`${property.id}-${index}`}>
                     <div className="article-wrapper">
-                      <a href={`/property/${property.id}`} className="article" style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
+                      <Link href={`/property/${property.id}`} className="article" style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
                         <div className="container-17">
                           <Component
                             className="component-14"
@@ -606,7 +607,7 @@ export const ElementLight = () => {
                             </div>
                           </div>
                         </div>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 ))}

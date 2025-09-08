@@ -308,7 +308,8 @@ export const propertyAPI = {
         pagination: {
           total: allProperties.length,
           page: 1,
-          limit: 12
+          limit: 12,
+          totalPages: Math.ceil(allProperties.length / 12)
         }
       };
     } catch (error) {

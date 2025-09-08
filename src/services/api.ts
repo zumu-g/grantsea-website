@@ -125,7 +125,8 @@ async function fetchFromCRM<T>(
     if (error instanceof ApiError) {
       throw error;
     }
-    throw new Error(`Network error: ${error.message}`);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+    throw new Error(`Network error: ${errorMessage}`);
   }
 }
 

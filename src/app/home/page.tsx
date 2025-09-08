@@ -3,7 +3,7 @@
 import HeroSection from '@/components/HeroSection';
 import PropertyListings from '@/components/PropertyListings';
 import ContactForm from '@/components/ContactForm';
-import GrantsAIChatBox from '@/components/GrantsAIChatBox';
+import AIChatWidget from '@/components/AIChatWidget';
 
 export default function HomePage() {
   return (
@@ -80,7 +80,7 @@ export default function HomePage() {
       
       <ContactForm />
       
-      <GrantsAIChatBox />
+      <AIChatWidget />
     </div>
   );
 }

@@ -19,6 +19,10 @@ import { Component1_91 } from "../../icons/Component1_91";
 import { Component1_92 } from "../../icons/Component1_92";
 import { Component1_96 } from "../../icons/Component1_96";
 import { Component1_98 } from "../../icons/Component1_98";
+import { Component1_39 } from "../../icons/Component1_39";
+import { Component1_20 } from "../../icons/Component1_20";
+import { Variant9 } from "../../icons/Variant9";
+import { Component1_51 } from "../../icons/Component1_51";
 import { Variant1 } from "../../icons/Variant1";
 import { Variant11 } from "../../icons/Variant11";
 import { Variant25 } from "../../icons/Variant25";
@@ -90,18 +94,44 @@ export const ElementLight = () => {
             <div className="container-5">
               <div className="container-6">
                 <div className="container-7">
-                  <div className="nav-navigation">
+                  <div className="nav-navigation" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    {/* Mobile menu icon */}
+                    <button className="mobile-menu-icon" style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer' }}>
+                      <Variant9 className="icon-instance-node" style={{ width: '24px', height: '24px' }} />
+                    </button>
+                    
+                    {/* Logo/Home */}
                     <Component hover={false} variant="one" />
-                    <Component
-                      hover={false}
-                      icon={<Component1_59 className="icon-instance-node" />}
-                      variant="two"
-                    />
-                    <Component
-                      hover={false}
-                      icon={<Component1_60 className="icon-instance-node" />}
-                      variant="three"
-                    />
+                    
+                    {/* Navigation icons container */}
+                    <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '20px' }}>
+                      {/* Search icon */}
+                      <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px' }}>
+                        <Component1_39 className="icon-instance-node" style={{ width: '20px', height: '20px' }} />
+                      </button>
+                      
+                      {/* Favorites icon */}
+                      <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px' }}>
+                        <Component1_51 className="icon-instance-node" style={{ width: '20px', height: '20px' }} />
+                      </button>
+                      
+                      {/* User/Profile icon */}
+                      <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px' }}>
+                        <Component1_20 className="icon-instance-node" style={{ width: '20px', height: '20px' }} />
+                      </button>
+                      
+                      {/* Help/Chat - keeping existing icons */}
+                      <Component
+                        hover={false}
+                        icon={<Component1_59 className="icon-instance-node" />}
+                        variant="two"
+                      />
+                      <Component
+                        hover={false}
+                        icon={<Component1_60 className="icon-instance-node" />}
+                        variant="three"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

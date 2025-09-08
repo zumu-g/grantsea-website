@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import AIChatWidget from '@/components/AIChatWidget';
+import Header from '@/components/Header';
 import { useProperty } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 
@@ -52,21 +53,7 @@ export default function PropertyDetailPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-40">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="text-2xl font-bold text-blue-600">
-              Grant's Estate Agents
-            </Link>
-            <nav className="hidden md:flex space-x-8">
-              <Link href="/" className="text-gray-600 hover:text-blue-600">Home</Link>
-              <Link href="/properties" className="text-gray-600 hover:text-blue-600">Properties</Link>
-              <Link href="/contact" className="text-gray-600 hover:text-blue-600">Contact</Link>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Breadcrumb */}
       <div className="container mx-auto px-4 py-4">
@@ -193,13 +180,18 @@ export default function PropertyDetailPage() {
               <div className="bg-gray-50 rounded-lg p-4 mb-6">
                 <h3 className="font-semibold mb-3">Contact Agent</h3>
                 <div className="space-y-2">
-                  <div className="font-semibold">{property.agent.name}</div>
-                  <a href={`tel:${property.agent.phone || property.agent.mobile}`} className="text-blue-600 hover:underline block">
+                  <Link href={`/agent/${property.agent.id}`} className="font-semibold text-blue-600 hover:underline block">
+                    {property.agent.name}
+                  </Link>
+                  <a href={`tel:${property.agent.phone || property.agent.mobile}`} className="text-gray-600 hover:text-blue-600 block">
                     {property.agent.phone || property.agent.mobile}
                   </a>
-                  <a href={`mailto:${property.agent.email}`} className="text-blue-600 hover:underline block">
+                  <a href={`mailto:${property.agent.email}`} className="text-gray-600 hover:text-blue-600 block">
                     {property.agent.email}
                   </a>
+                  <Link href={`/agent/${property.agent.id}`} className="inline-block mt-2 text-sm text-blue-600 hover:underline">
+                    View agent profile →
+                  </Link>
                 </div>
               </div>
 

@@ -110,82 +110,115 @@ export const ElementLight = () => {
     <div className="element-light">
       <div className="overlap-group">
         <div className="container-4">
-          <Variant1 className="variant-1" />
-          <header className="header">
-            <div className="container-5">
-              <div className="container-6">
-                <div className="container-7">
-                  <div className="nav-navigation" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                    {/* Mobile menu icon */}
-                    <button className="mobile-menu-icon" style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer' }}>
-                      <Variant9 className="icon-instance-node" style={{ width: '24px', height: '24px' }} />
-                    </button>
-                    
-                    {/* Logo/Home */}
-                    <Component hover={false} variant="one" />
-                    
-                    {/* Navigation icons container */}
-                    <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '20px' }}>
-                      {/* Search icon */}
-                      <button 
-                        onClick={() => setShowSearchModal(true)}
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px' }}>
-                        <Component1_39 className="icon-instance-node" style={{ width: '20px', height: '20px' }} />
-                      </button>
-                      
-                      {/* Heart Icon for Saved Properties */}
-                      <Link href="/saved-properties" style={{ 
-                        background: 'none', 
-                        border: 'none', 
-                        cursor: 'pointer', 
-                        padding: '8px',
-                        display: 'inline-block'
-                      }}>
-                        <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
-                      </Link>
-                      
-                      {/* User/Profile icon */}
-                      <Link href="/profile" style={{ 
-                        background: 'none', 
-                        border: 'none', 
-                        cursor: 'pointer', 
-                        padding: '8px',
-                        display: 'inline-block'
-                      }}>
-                        <Component1_20 className="icon-instance-node" style={{ width: '20px', height: '20px' }} />
-                      </Link>
-                      
-                      {/* Help/Chat - keeping existing icons */}
-                      <Component
-                        hover={false}
-                        icon={<Component1_59 className="icon-instance-node" />}
-                        variant="two"
-                      />
-                      <Component
-                        hover={false}
-                        icon={<Component1_60 className="icon-instance-node" />}
-                        variant="three"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <header style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: 'transparent',
+            padding: '20px 40px',
+            zIndex: 10,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+          }}>
+            {/* Logo - positioned on left */}
+            <div style={{ position: 'absolute', left: '40px' }}>
+              <Variant1 style={{ width: '64px', height: '64px' }} />
             </div>
-
-            <div className="nav-primary">
-              <div className="item-margin">
-                <Link href="/search" className="item-button-menu" style={{ textDecoration: 'none', color: 'inherit' }}>Search</Link>
-              </div>
-
-              <div className="item-margin">
-                <Link href="/about" className="item-button-menu" style={{ textDecoration: 'none', color: 'inherit' }}>About</Link>
-              </div>
-
-              <div className="item-margin">
-                <Link href="/explore" className="item-button-menu" style={{ textDecoration: 'none', color: 'inherit' }}>Explore</Link>
-              </div>
+            
+            {/* Center Navigation */}
+            <nav style={{ 
+              display: 'flex',
+              alignItems: 'center',
+              gap: '48px',
+              margin: '0 auto',
+              paddingTop: '10px'
+            }}>
+              <Link href="/search" style={{ 
+                textDecoration: 'none', 
+                color: '#1a1a1a',
+                fontSize: '16px',
+                fontWeight: '500',
+                letterSpacing: '0.5px',
+                transition: 'color 0.2s'
+              }}>Search</Link>
+              
+              <Link href="/about" style={{ 
+                textDecoration: 'none', 
+                color: '#1a1a1a',
+                fontSize: '16px',
+                fontWeight: '500',
+                letterSpacing: '0.5px',
+                transition: 'color 0.2s'
+              }}>About</Link>
+              
+              <Link href="/explore" style={{ 
+                textDecoration: 'none', 
+                color: '#1a1a1a',
+                fontSize: '16px',
+                fontWeight: '500',
+                letterSpacing: '0.5px',
+                transition: 'color 0.2s'
+              }}>Explore</Link>
+            </nav>
+            
+            {/* Right Icons */}
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '24px',
+              paddingTop: '10px'
+            }}>
+              {/* Search icon */}
+              <button 
+                onClick={() => setShowSearchModal(true)}
+                style={{ 
+                  background: 'none', 
+                  border: 'none', 
+                  cursor: 'pointer', 
+                  padding: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                <Component1_39 style={{ width: '20px', height: '20px' }} />
+              </button>
+              
+              {/* Heart Icon for Saved Properties */}
+              <Link href="/saved-properties" style={{ 
+                padding: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </Link>
+              
+              {/* User/Profile icon */}
+              <Link href="/profile" style={{ 
+                padding: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <Component1_20 style={{ width: '20px', height: '20px' }} />
+              </Link>
+              
+              {/* Menu icon */}
+              <button style={{ 
+                background: 'none', 
+                border: 'none', 
+                cursor: 'pointer', 
+                padding: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <Variant9 style={{ width: '24px', height: '24px' }} />
+              </button>
             </div>
           </header>
         </div>

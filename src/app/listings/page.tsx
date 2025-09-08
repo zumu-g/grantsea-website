@@ -14,6 +14,8 @@ export default function PropertyListingsPage() {
     type: filter,
     limit: 20 
   });
+  
+  console.log('Listings page properties:', properties);
 
   // Sort properties
   const sortedProperties = [...properties].sort((a, b) => {
@@ -310,7 +312,9 @@ export default function PropertyListingsPage() {
               gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))',
               gap: '32px'
             }}>
-              {sortedProperties.map((property) => (
+              {sortedProperties.map((property) => {
+                console.log('Property ID:', property.id, 'Full property:', property);
+                return (
                 <Link
                   key={property.id}
                   href={`/property/${property.id}`}
@@ -449,7 +453,8 @@ export default function PropertyListingsPage() {
                     </div>
                   </article>
                 </Link>
-              ))}
+                );
+              })}
             </div>
           </>
         )}

@@ -271,6 +271,41 @@ export const propertyAPI = {
     );
   },
 
+  // Get single property by ID
+  async getPropertyById(id: string): Promise<ApiResponse<Property>> {
+    try {
+      // Use the Next.js API route that handles CORS
+      const response = await fetch(`/api/properties/${id}`);
+      
+      if (!response.ok) {
+        const errorData = await response.text();
+        console.error('Property fetch error:', errorData);
+        throw new Error(`Failed to fetch property: ${response.statusText}`);
+      }
+      
+      const result = await response.json();
+      
+      // The API route returns { success: true, data: property }
+      if (result.success && result.data) {
+        // Transform the raw VaultRE property data
+        const transformedProperty = transformVaultREProperty(result.data);
+        return {
+          success: true,
+          data: transformedProperty
+        };
+      } else {
+        throw new Error(result.error || 'Failed to fetch property');
+      }
+    } catch (error) {
+      console.error('Error fetching property:', error);
+      return {
+        success: false,
+        data: null as any,
+        error: error instanceof Error ? error.message : 'Failed to fetch property'
+      };
+    }
+  },
+
   // Get properties for sale
   async getPropertiesForSale(filters?: any): Promise<ApiResponse<Property[]>> {
     // Use our API route to avoid CORS issues
@@ -509,6 +544,17 @@ export function formatPrice(price: string | number): string {
 
 // Transform Vault RE response to our Property interface
 export function transformVaultREProperty(vaultProperty: any): Property {
+  // Debug log to see what fields are available
+  console.log('Raw VaultRE property data:', {
+    id: vaultProperty.id,
+    hasPhotos: !!vaultProperty.photos,
+    hasImages: !!vaultProperty.images,
+    hasMedia: !!vaultProperty.media,
+    photoCount: vaultProperty.photos?.length || 0,
+    samplePhoto: vaultProperty.photos?.[0],
+    allKeys: Object.keys(vaultProperty)
+  });
+  
   // Handle the actual Vault RE response structure
   const address = vaultProperty.address || {};
   const suburb = address.suburb || {};
@@ -548,10 +594,10 @@ export function transformVaultREProperty(vaultProperty: any): Property {
     bond: vaultProperty.bond,
     description: vaultProperty.description || vaultProperty.heading || '',
     features: Array.isArray(vaultProperty.features) ? vaultProperty.features : [],
-    images: (vaultProperty.photos || []).map((img: any, index: number) => ({
+    images: (vaultProperty.photos || vaultProperty.images || vaultProperty.media || []).map((img: any, index: number) => ({
       id: img.id || `img-${index}`,
-      url: img.url || img.original || '',
-      caption: img.caption || '',
+      url: img.url || img.original || img.fullUrl || img.large || '',
+      caption: img.caption || img.description || '',
       order: img.order !== undefined ? img.order : index,
       type: 'photo' as const
     })),

@@ -14,7 +14,9 @@ export default function PropertyDetailPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showInquiryForm, setShowInquiryForm] = useState(false);
   
-  const { property, loading, error } = useProperty(params.id as string);
+  const propertyId = params.id as string;
+  console.log('Property Detail Page - ID:', propertyId);
+  const { property, loading, error } = useProperty(propertyId);
   
   if (loading) {
     return (

@@ -112,8 +112,10 @@ export function useProperty(id: string) {
       try {
         setLoading(true);
         setError(null);
+        console.log('useProperty hook - Fetching property with ID:', id);
 
         const response = await crmAPI.properties.getPropertyById(id);
+        console.log('useProperty hook - API response:', response);
         
         if (response.success && response.data) {
           setProperty(response.data);

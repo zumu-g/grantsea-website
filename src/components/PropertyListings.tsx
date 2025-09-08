@@ -101,13 +101,14 @@ export default function PropertyListings() {
   // Use API properties if available, otherwise fall back to mock data
   const displayProperties = properties.length > 0 ? properties : mockProperties;
   
-  const filteredProperties = displayProperties.filter((property) => {
+  const filteredProperties = displayProperties.filter((property: any) => {
     const statusMatch = 
       filter === 'all' ||
       (filter === 'buy' && (property.status === 'active' || property.status === 'For Sale' || property.status === 'sold' || property.status === 'Sold')) ||
       (filter === 'lease' && (property.status === 'lease' || property.status === 'For Lease' || property.status === 'leased' || property.status === 'Leased'));
     
-    const typeMatch = propertyType === 'all' || property.propertyType === propertyType || property.type === propertyType;
+    const propType = property.propertyType || property.type;
+    const typeMatch = propertyType === 'all' || propType === propertyType;
     
     return statusMatch && typeMatch;
   });

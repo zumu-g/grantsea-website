@@ -24,6 +24,7 @@ export default function Header() {
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               <Link href="/" className="text-gray-600 hover:text-blue-600">Home</Link>
+              <Link href="/listings" className="text-gray-600 hover:text-blue-600">Listings</Link>
               <Link href="/properties" className="text-gray-600 hover:text-blue-600">Buy</Link>
               <Link href="/properties?type=rent" className="text-gray-600 hover:text-blue-600">Rent</Link>
               <Link href="/sell" className="text-gray-600 hover:text-blue-600">Sell</Link>
@@ -77,6 +78,7 @@ export default function Header() {
           <div className="md:hidden border-t">
             <nav className="container mx-auto px-4 py-4 space-y-4">
               <Link href="/" className="block text-gray-600 hover:text-blue-600">Home</Link>
+              <Link href="/listings" className="block text-gray-600 hover:text-blue-600">Listings</Link>
               <Link href="/properties" className="block text-gray-600 hover:text-blue-600">Buy</Link>
               <Link href="/properties?type=rent" className="block text-gray-600 hover:text-blue-600">Rent</Link>
               <Link href="/sell" className="block text-gray-600 hover:text-blue-600">Sell</Link>

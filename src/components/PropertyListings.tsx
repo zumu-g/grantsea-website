@@ -179,7 +179,7 @@ export default function PropertyListings() {
           </div>
         ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProperties.map((property) => (
+          {filteredProperties.map((property: any) => (
             <Link
               key={property.id}
               href={`/property/${property.id}`}

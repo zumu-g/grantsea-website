@@ -407,7 +407,7 @@ export default function PropertyListingsPage() {
                   <article 
                     onClick={(e) => {
                       // Prevent click if it's from the save button
-                      if (e.target.closest('button')) return;
+                      if ((e.target as HTMLElement).closest('button')) return;
                       
                       console.log('=== PROPERTY CARD CLICKED ===');
                       console.log('Event target:', e.target);

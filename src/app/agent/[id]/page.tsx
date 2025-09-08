@@ -238,7 +238,7 @@ export default function AgentProfilePage() {
                 <div>
                   <h3 className="font-semibold mb-2">Languages</h3>
                   <div className="flex flex-wrap gap-2">
-                    {agent.languages.map((lang, index) => (
+                    {agent.languages.map((lang: string, index: number) => (
                       <span key={index} className="bg-gray-100 px-3 py-1 rounded-full text-sm">
                         {lang}
                       </span>
@@ -343,7 +343,7 @@ export default function AgentProfilePage() {
           <div className="max-w-4xl">
             <h2 className="text-2xl font-bold mb-6">About {agent.name}</h2>
             <div className="prose prose-lg">
-              {agent.bio.split('\n\n').map((paragraph, index) => (
+              {agent.bio.split('\n\n').map((paragraph: string, index: number) => (
                 <p key={index} className="mb-4 text-gray-700">
                   {paragraph}
                 </p>
@@ -353,7 +353,7 @@ export default function AgentProfilePage() {
             <div className="mt-8">
               <h3 className="text-xl font-semibold mb-4">Specialties</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {agent.specialties.map((specialty, index) => (
+                {agent.specialties.map((specialty: string, index: number) => (
                   <div key={index} className="flex items-center gap-2">
                     <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -370,7 +370,7 @@ export default function AgentProfilePage() {
           <div className="max-w-4xl">
             <h2 className="text-2xl font-bold mb-6">Achievements & Recognition</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {agent.achievements.map((achievement, index) => (
+              {agent.achievements.map((achievement: string, index: number) => (
                 <div key={index} className="bg-white p-6 rounded-lg border">
                   <div className="flex items-start gap-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
@@ -395,7 +395,7 @@ export default function AgentProfilePage() {
               <p>Loading properties...</p>
             ) : agentProperties.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {agentProperties.map((property) => (
+                {agentProperties.map((property: any) => (
                   <Link
                     key={property.id}
                     href={`/property/${property.id}`}
@@ -438,7 +438,7 @@ export default function AgentProfilePage() {
           <div className="max-w-4xl">
             <h2 className="text-2xl font-bold mb-6">Client Testimonials</h2>
             <div className="space-y-6">
-              {agent.testimonials.map((testimonial) => (
+              {agent.testimonials.map((testimonial: any) => (
                 <div key={testimonial.id} className="bg-white p-6 rounded-lg border">
                   <div className="flex items-start gap-4">
                     <div className="flex-shrink-0">
@@ -451,7 +451,7 @@ export default function AgentProfilePage() {
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
                         <div className="flex text-yellow-400">
-                          {[...Array(testimonial.rating)].map((_, i) => (
+                          {[...Array(testimonial.rating)].map((_: any, i: number) => (
                             <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
                               <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                             </svg>

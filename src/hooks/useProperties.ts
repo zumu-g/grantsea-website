@@ -31,21 +31,34 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
       if (options?.featured) {
         response = await crmAPI.properties.getFeaturedProperties();
       } else if (options?.type === 'lease' || options?.type === 'rent') {
-        // For rental properties, we need to modify our API call
-        // VaultRE may have specific endpoints for lease properties
-        response = await crmAPI.properties.getProperties({
+        // Use the specific lease endpoint
+        response = await crmAPI.properties.getPropertiesForLease({
           suburb: options?.suburb,
-          limit: options?.limit,
-          propertyType: 'residential', // or could be commercial
-          status: 'lease'
+          limit: options?.limit
+        });
+      } else if (options?.type === 'sale') {
+        // Use the specific sale endpoint
+        response = await crmAPI.properties.getPropertiesForSale({
+          suburb: options?.suburb,
+          limit: options?.limit
         });
       } else {
-        // Default to all properties
-        response = await crmAPI.properties.getProperties({
-          suburb: options?.suburb,
-          limit: options?.limit,
-          status: options?.type === 'sale' ? 'sale' : undefined
-        });
+        // Get all properties (both sale and lease)
+        const [saleResponse, leaseResponse] = await Promise.all([
+          crmAPI.properties.getPropertiesForSale({
+            suburb: options?.suburb,
+            limit: options?.limit ? Math.floor(options.limit / 2) : 10
+          }),
+          crmAPI.properties.getPropertiesForLease({
+            suburb: options?.suburb,
+            limit: options?.limit ? Math.floor(options.limit / 2) : 10
+          })
+        ]);
+        
+        response = {
+          success: true,
+          data: [...(saleResponse.data || []), ...(leaseResponse.data || [])]
+        };
       }
 
       console.log('API Response:', response);

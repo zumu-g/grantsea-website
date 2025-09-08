@@ -2,8 +2,10 @@
 // This service handles all API calls to Vault RE CRM system
 
 // VaultRE API - Using documented endpoints
-const API_BASE_URL = process.env.NEXT_PUBLIC_CRM_API_URL || 'https://ap-southeast-2.api.vaultre.com.au/api/v1.2';
-const API_KEY = process.env.NEXT_PUBLIC_CRM_API_KEY || '';
+const API_BASE_URL = process.env.NEXT_PUBLIC_CRM_API_URL || 'https://ap-southeast-2.api.vaultre.com.au/api/v1.3';
+// VaultRE requires both API Key and Access Token
+const API_KEY = process.env.NEXT_PUBLIC_CRM_API_KEY || 'igLctQ47aj3qYl1vvHitt8gx3S9u59dpaW2m9ixE';
+const ACCESS_TOKEN = process.env.NEXT_PUBLIC_CRM_ACCESS_TOKEN || 'nzinklyrqutvcdodhyaqyizcjflohlayxezuthan';
 
 // Property interface matching Vault RE structure
 export interface Property {
@@ -106,12 +108,11 @@ async function fetchFromCRM<T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<T> {
-  // Vault RE may use API key in different formats
+  // VaultRE requires both API Key and Access Token
   const headers = {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${API_KEY}`,
-    'X-API-Key': API_KEY, // Alternative header
-    'Api-Key': API_KEY,   // Another alternative
+    'Authorization': `Bearer ${ACCESS_TOKEN}`, // Access Token for client access
+    'X-Api-Key': API_KEY, // API Key for integrator identification
     ...options.headers,
   };
 
@@ -191,12 +192,23 @@ export const propertyAPI = {
       if (filters.limit) params.append('per_page', filters.limit.toString());
     }
 
-    // Use the documented /listings endpoint
-    const response = await fetchFromCRM<any>(`/listings?${params.toString()}`);
-    console.log('Raw Vault RE response (/listings):', response);
+    // VaultRE uses specific endpoints based on property type
+    // Add published=true to get only active listings
+    params.append('published', 'true');
     
-    // Transform Vault RE response - handle different response formats
-    const properties = response.data || response.properties || response.results || response;
+    // Try residential properties first (most common)
+    let response;
+    try {
+      response = await fetchFromCRM<any>(`/properties/residential/sale?${params.toString()}`);
+      console.log('Raw Vault RE response (residential/sale):', response);
+    } catch (error) {
+      console.log('Residential/sale endpoint failed, trying general properties endpoint');
+      response = await fetchFromCRM<any>(`/properties?${params.toString()}`);
+      console.log('Raw Vault RE response (properties):', response);
+    }
+    
+    // VaultRE API returns data in 'items' array
+    const properties = response.items || response.data || response.properties || response.results || response;
     
     if (Array.isArray(properties)) {
       return {
@@ -238,35 +250,66 @@ export const propertyAPI = {
     );
   },
 
+  // Get properties for sale
+  async getPropertiesForSale(filters?: any): Promise<ApiResponse<Property[]>> {
+    const params = new URLSearchParams();
+    params.append('published', 'true');
+    params.append('limit', filters?.limit?.toString() || '20');
+    
+    if (filters?.suburb) params.append('suburb', filters.suburb);
+    if (filters?.minPrice) params.append('minPrice', filters.minPrice.toString());
+    if (filters?.maxPrice) params.append('maxPrice', filters.maxPrice.toString());
+    
+    const response = await fetchFromCRM<any>(`/properties/residential/sale?${params.toString()}`);
+    const properties = response.items || response.data || [];
+    
+    return {
+      success: true,
+      data: Array.isArray(properties) ? properties.map(transformVaultREProperty) : [],
+      pagination: response.pagination
+    };
+  },
+
+  // Get properties for lease
+  async getPropertiesForLease(filters?: any): Promise<ApiResponse<Property[]>> {
+    const params = new URLSearchParams();
+    params.append('published', 'true');
+    params.append('limit', filters?.limit?.toString() || '20');
+    
+    if (filters?.suburb) params.append('suburb', filters.suburb);
+    if (filters?.minPrice) params.append('minRent', filters.minPrice.toString());
+    if (filters?.maxPrice) params.append('maxRent', filters.maxPrice.toString());
+    
+    const response = await fetchFromCRM<any>(`/properties/residential/lease?${params.toString()}`);
+    const properties = response.items || response.data || [];
+    
+    return {
+      success: true,
+      data: Array.isArray(properties) ? properties.map(transformVaultREProperty) : [],
+      pagination: response.pagination
+    };
+  },
+
   // Get featured properties
   async getFeaturedProperties(): Promise<ApiResponse<Property[]>> {
     try {
-      // Use the documented featured=true parameter
-      const response = await fetchFromCRM<any>('/listings?featured=true&per_page=12');
-      console.log('Featured properties raw response:', response);
+      // Get a mix of sale and lease properties
+      const [saleResponse, leaseResponse] = await Promise.all([
+        this.getPropertiesForSale({ limit: 6 }),
+        this.getPropertiesForLease({ limit: 6 })
+      ]);
       
-      // Transform the response
-      const properties = response.data || response.properties || response.results || response.listings || response;
-      
-      if (Array.isArray(properties)) {
-        return {
-          success: true,
-          data: properties.map(transformVaultREProperty),
-          pagination: response.pagination
-        };
-      } else if (properties && typeof properties === 'object') {
-        const propertyList = properties.data || properties.listings || properties.items || [];
-        return {
-          success: true,
-          data: Array.isArray(propertyList) ? propertyList.map(transformVaultREProperty) : [],
-          pagination: response.pagination
-        };
-      }
+      const allProperties = [...(saleResponse.data || []), ...(leaseResponse.data || [])];
+      console.log('Featured properties combined:', allProperties.length);
       
       return {
         success: true,
-        data: [],
-        error: 'No properties found'
+        data: allProperties.slice(0, 12), // Limit to 12 properties
+        pagination: {
+          total: allProperties.length,
+          page: 1,
+          limit: 12
+        }
       };
     } catch (error) {
       console.error('Error fetching featured properties:', error);

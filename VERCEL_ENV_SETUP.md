@@ -16,7 +16,8 @@ The API is not working because the environment variables are not set in Vercel. 
 
 ```
 NEXT_PUBLIC_CRM_API_URL=https://ap-southeast-2.api.vaultre.com.au/api/v1.3
-NEXT_PUBLIC_CRM_API_KEY=nzinklyrqutvcdodhyaqyizcjflohlayxezuthan
+NEXT_PUBLIC_CRM_API_KEY=igLctQ47aj3qYl1vvHitt8gx3S9u59dpaW2m9ixE
+NEXT_PUBLIC_CRM_ACCESS_TOKEN=nzinklyrqutvcdodhyaqyizcjflohlayxezuthan
 ```
 
 ### Optional Environment Variables:
@@ -45,10 +46,10 @@ You should see:
 
 ### Note on VaultRE Authentication:
 VaultRE uses two types of authentication:
-1. **API Key**: Provided when you register as an integrator
-2. **Access Token**: Provided by each client for their account (this is what we have)
+1. **API Key**: `igLctQ47aj3qYl1vvHitt8gx3S9u59dpaW2m9ixE` (Integrator identification)
+2. **Access Token**: `nzinklyrqutvcdodhyaqyizcjflohlayxezuthan` (Client access)
 
-The key provided appears to be an Access Token for your VaultRE account.
+Both are required for API access. The API Key identifies "Grant's Estate Agents - Berwick" as the integrator.
 
 ## Property Types Supported:
 

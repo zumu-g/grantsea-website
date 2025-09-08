@@ -98,9 +98,12 @@ async function fetchFromCRM<T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<T> {
+  // Vault RE may use API key in different formats
   const headers = {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${API_KEY}`,
+    'X-API-Key': API_KEY, // Alternative header
+    'Api-Key': API_KEY,   // Another alternative
     ...options.headers,
   };
 
@@ -109,6 +112,9 @@ async function fetchFromCRM<T>(
     headers,
   };
 
+  console.log('Fetching from CRM:', `${API_BASE_URL}${endpoint}`);
+  console.log('Using API Key:', API_KEY ? 'Key is set' : 'No API key!');
+  
   try {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
     
@@ -154,18 +160,35 @@ export const propertyAPI = {
       if (filters.bedrooms) params.append('bedrooms_min', filters.bedrooms.toString());
       if (filters.bathrooms) params.append('bathrooms_min', filters.bathrooms.toString());
       if (filters.propertyType) params.append('property_type', filters.propertyType);
-      if (filters.status) params.append('listing_status', filters.status);
+      // Map 'active' to 'current' for Vault RE
+      if (filters.status) {
+        const vaultStatus = filters.status === 'active' ? 'current' : filters.status;
+        params.append('listing_status', vaultStatus);
+      }
       if (filters.page) params.append('page', filters.page.toString());
       if (filters.limit) params.append('per_page', filters.limit.toString());
     }
 
-    const response = await fetchFromCRM<any>(`/listings?${params.toString()}`);
+    // Vault RE uses /properties endpoint
+    const response = await fetchFromCRM<any>(`/properties?${params.toString()}`);
     
-    // Transform Vault RE response
-    if (response.data && Array.isArray(response.data)) {
+    console.log('Raw Vault RE response:', response);
+    
+    // Transform Vault RE response - handle different response formats
+    const properties = response.data || response.properties || response.results || response;
+    
+    if (Array.isArray(properties)) {
       return {
         success: true,
-        data: response.data.map(transformVaultREProperty),
+        data: properties.map(transformVaultREProperty),
+        pagination: response.pagination
+      };
+    } else if (properties && typeof properties === 'object') {
+      // If response is wrapped in an object
+      const propertyList = properties.data || properties.listings || properties.items || [];
+      return {
+        success: true,
+        data: Array.isArray(propertyList) ? propertyList.map(transformVaultREProperty) : [],
         pagination: response.pagination
       };
     }

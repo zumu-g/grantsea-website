@@ -23,6 +23,7 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
     try {
       setLoading(true);
       setError(null);
+      console.log('Fetching properties from API...');
 
       let response;
       
@@ -32,11 +33,13 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
         response = await crmAPI.properties.getProperties({
           suburb: options?.suburb,
           limit: options?.limit,
-          status: 'active', // Only show active listings
+          // Remove status filter to get all properties
         });
       }
 
+      console.log('API Response:', response);
       if (response.success && response.data) {
+        console.log(`Successfully fetched ${response.data.length} properties from API`);
         setProperties(response.data);
       } else {
         throw new Error(response.error || 'Failed to fetch properties');

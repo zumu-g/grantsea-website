@@ -1,0 +1,69 @@
+/* Import On.com styleguide */
+@import './styleguide.css';
+
+/* Import full-screen override styles */
+@import './full-screen-override.css';
+
+/* Reset for On.com styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: "On", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+#__next, main {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Override Anima fixed widths */
+.element-light,
+.element-light > div {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* Fix header to be responsive and full width */
+.element-light .header {
+  max-width: 100% !important;
+  width: 100% !important;
+  right: 0 !important;
+  left: 0 !important;
+  padding: 0 20px;
+}
+
+/* Ensure all containers use full width */
+.element-light .container-11,
+.element-light .div-wrapper-3,
+.element-light .section-wrapper,
+.element-light .section {
+  max-width: 100% !important;
+}
+
+/* Remove fixed widths from sections */
+.element-light .section-2 {
+  padding: 20px !important;
+  gap: 32px !important;
+}
+
+/* Make images and containers responsive */
+.element-light .picture-fw,
+.element-light .container-8 {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Footer adjustments for full width */
+.element-light .footer {
+  width: 100% !important;
+  max-width: 100% !important;
+}

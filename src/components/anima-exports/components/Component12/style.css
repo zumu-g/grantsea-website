@@ -1,0 +1,23 @@
+.component-12 {
+  align-items: flex-start;
+  display: inline-flex;
+  flex-direction: column;
+  padding: 8px;
+  position: relative;
+}
+
+.component-12 .component-1 {
+  height: 24px !important;
+  position: relative !important;
+  width: 24px !important;
+}
+
+.component-12.eight {
+  background-color: #0000001a;
+  border-radius: 20px;
+}
+
+.component-12.nine {
+  background-color: #0000001a;
+  border-radius: 20px;
+}

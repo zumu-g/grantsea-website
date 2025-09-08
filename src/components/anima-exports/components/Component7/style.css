@@ -1,0 +1,33 @@
+.component-7 {
+  align-items: center;
+  border: 1px solid;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  height: 48px;
+  justify-content: center;
+  max-width: 1792.16px;
+  padding: 1px;
+  position: relative;
+  width: 48px;
+}
+
+.component-7 .instance-node {
+  height: 24px !important;
+  position: relative !important;
+  width: 24px !important;
+}
+
+.component-7.hover-3-true {
+  background-color: #e5e5e5;
+  border-color: #e5e5e5;
+}
+
+.component-7.variant-13-one {
+  opacity: 0.25;
+}
+
+.component-7.hover-3-false {
+  background-color: #ffffff;
+  border-color: #ffffff;
+}

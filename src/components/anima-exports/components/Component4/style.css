@@ -1,0 +1,448 @@
+.component-4 {
+  align-items: flex-start;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  position: relative;
+}
+
+.component-4 .picture-wrapper {
+  align-items: flex-start;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  flex-grow: 1;
+  position: relative;
+  width: 100%;
+}
+
+.component-4 .picture {
+  background-position: 50% 50%;
+  background-size: cover;
+  position: relative;
+  width: 100%;
+}
+
+.component-4 .gradient {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 30%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  left: 0;
+  opacity: 0.5;
+  position: absolute;
+}
+
+.component-4 .container-wrapper {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  left: 16px;
+  position: absolute;
+}
+
+.component-4 .shoes-wrapper {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.component-4 .shoes {
+  align-items: flex-end;
+  align-self: stretch;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  justify-content: center;
+  position: relative;
+}
+
+.component-4 .margin {
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.component-4 .text-wrapper {
+  flex: 1;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.component-4 .div {
+  color: #ffffff;
+  font-family: "On-Bold", Helvetica;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 31.2px;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.component-4 .variant-5 {
+  height: 24px !important;
+  position: relative !important;
+  width: 24px !important;
+  z-index: 0 !important;
+}
+
+.component-4.variant-four {
+  height: 698px;
+  max-width: 424.03px;
+  width: 424px;
+}
+
+.component-4.variant-three {
+  height: 853px;
+  max-width: 576.05px;
+  width: 576px;
+}
+
+.component-4.variant-five {
+  height: 698px;
+  max-width: 424.05px;
+  width: 424px;
+}
+
+.component-4.variant-six {
+  height: 698px;
+  max-width: 424.03px;
+  width: 424px;
+}
+
+.component-4.variant-seven {
+  height: 698px;
+  max-width: 424.05px;
+  width: 424px;
+}
+
+.component-4.variant-two {
+  height: 853px;
+  max-width: 576.05px;
+  width: 576px;
+}
+
+.component-4.variant-one {
+  height: 853px;
+  max-width: 576.05px;
+  width: 576px;
+}
+
+.component-4 .hover-0-true {
+  align-items: flex-start;
+  background-color: #ffffff;
+  display: inline-flex;
+  position: relative;
+  top: -1px;
+}
+
+.component-4 .hover-0-false {
+  color: #ffffff;
+  font-family: "On-Bold", Helvetica;
+  font-size: 26px;
+  font-weight: 700;
+  height: 32px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: 31.2px;
+  position: absolute;
+  top: -2px;
+  white-space: nowrap;
+}
+
+.component-4 .variant-7-three.hover-0-false {
+  width: 146px;
+}
+
+.component-4 .variant-7-one.hover-0-false {
+  width: 74px;
+}
+
+.component-4 .variant-7-six.hover-0-false {
+  width: 329px;
+}
+
+.component-4 .variant-7-two.hover-0-false {
+  width: 93px;
+}
+
+.component-4 .variant-7-four.hover-0-false {
+  width: 216px;
+}
+
+.component-4 .variant-7-five.hover-0-false {
+  width: 329px;
+}
+
+.component-4 .variant-7-seven.hover-0-false {
+  width: 251px;
+}
+
+.component-4.variant-four .picture-wrapper {
+  max-height: 698.17px;
+  max-width: 424.03px;
+}
+
+.component-4.variant-three .picture-wrapper {
+  max-height: 853.33px;
+  max-width: 576.05px;
+}
+
+.component-4.variant-five .picture-wrapper {
+  max-height: 698.17px;
+  max-width: 424.05px;
+}
+
+.component-4.variant-six .picture-wrapper {
+  max-height: 698.17px;
+  max-width: 424.03px;
+}
+
+.component-4.variant-seven .picture-wrapper {
+  max-height: 698.17px;
+  max-width: 424.05px;
+}
+
+.component-4.variant-two .picture-wrapper {
+  max-height: 853.33px;
+  max-width: 576.05px;
+}
+
+.component-4.variant-one .picture-wrapper {
+  max-height: 853.33px;
+  max-width: 576.05px;
+}
+
+.component-4.variant-four .picture {
+  background-image: url(/static/img/picture-ss25-the-roger-clubhouse-pte-portrait-still-rgb-18-png.png);
+  height: 698.17px;
+  max-width: 424.03px;
+}
+
+.component-4.variant-three .picture {
+  background-image: url(/static/img/picture-fw25-marathon-pr-head-to-toe-still-key-visual-group-cl.png);
+  height: 853.33px;
+  max-width: 576.05px;
+}
+
+.component-4.variant-five .picture {
+  background-image: url(/static/img/picture-ss25-trade-assets-pr-product-still-look-23-web-06-jpg.png);
+  height: 698.17px;
+  max-width: 424.05px;
+}
+
+.component-4.variant-six .picture {
+  background-image: url(/static/img/picture-athletes-iga-swiatek-palm-springs-finals-2024-16-jpg.png);
+  height: 698.17px;
+  max-width: 424.03px;
+}
+
+.component-4.variant-seven .picture {
+  background-image: url(/static/img/picture-oac-europe-training-castellon-zero-collection-athlete.png);
+  height: 698.17px;
+  max-width: 424.05px;
+}
+
+.component-4.variant-two .picture {
+  background-image: url(/static/img/picture-fw25-marathon-pr-product-still-cloudboom-max-02-2-jp.png);
+  height: 853.33px;
+  max-width: 576.05px;
+}
+
+.component-4.variant-one .picture {
+  background-image: url(/static/img/picture-fw25-marathon-pr-product-still-cloudboom-max-01-1-jp.png);
+  height: 853.33px;
+  max-width: 576.05px;
+}
+
+.component-4.variant-four .gradient {
+  height: 349px;
+  top: 349px;
+  width: 424px;
+}
+
+.component-4.variant-three .gradient {
+  height: 427px;
+  top: 427px;
+  width: 576px;
+}
+
+.component-4.variant-five .gradient {
+  height: 349px;
+  top: 349px;
+  width: 424px;
+}
+
+.component-4.variant-six .gradient {
+  height: 349px;
+  top: 349px;
+  width: 424px;
+}
+
+.component-4.variant-seven .gradient {
+  height: 349px;
+  top: 349px;
+  width: 424px;
+}
+
+.component-4.variant-two .gradient {
+  height: 427px;
+  top: 427px;
+  width: 576px;
+}
+
+.component-4.variant-one .gradient {
+  height: 427px;
+  top: 427px;
+  width: 576px;
+}
+
+.component-4.variant-four .container-wrapper {
+  top: 647px;
+  width: 392px;
+}
+
+.component-4.variant-three .container-wrapper {
+  top: 802px;
+  width: 544px;
+}
+
+.component-4.variant-five .container-wrapper {
+  top: 647px;
+  width: 392px;
+}
+
+.component-4.variant-six .container-wrapper {
+  top: 647px;
+  width: 392px;
+}
+
+.component-4.variant-seven .container-wrapper {
+  top: 647px;
+  width: 392px;
+}
+
+.component-4.variant-two .container-wrapper {
+  top: 802px;
+  width: 544px;
+}
+
+.component-4.variant-one .container-wrapper {
+  top: 802px;
+  width: 544px;
+}
+
+.component-4.variant-four .shoes {
+  gap: 8px;
+  max-width: 392.03px;
+}
+
+.component-4.variant-three .shoes {
+  gap: 7.99px;
+  max-width: 544.05px;
+}
+
+.component-4.variant-five .shoes {
+  gap: 8px;
+  max-width: 392.05px;
+}
+
+.component-4.variant-six .shoes {
+  gap: 8px;
+  max-width: 392.03px;
+}
+
+.component-4.variant-seven .shoes {
+  gap: 8px;
+  max-width: 392.05px;
+}
+
+.component-4.variant-two .shoes {
+  gap: 8px;
+  max-width: 544.05px;
+}
+
+.component-4.variant-one .shoes {
+  gap: 8px;
+  max-width: 544.05px;
+}
+
+.component-4.variant-four .margin {
+  min-width: 213.03px;
+  padding: 0px 147px 0px 0px;
+}
+
+.component-4.variant-three .margin {
+  min-width: 145.69px;
+  padding: 0px 366.36px 0px 0px;
+}
+
+.component-4.variant-five .margin {
+  min-width: 328.72px;
+  padding: 0px 31.33px 0px 0px;
+}
+
+.component-4.variant-six .margin {
+  min-width: 325.78px;
+  padding: 0px 34.25px 0px 0px;
+}
+
+.component-4.variant-seven .margin {
+  min-width: 249.03px;
+  padding: 0px 111.02px 0px 0px;
+}
+
+.component-4.variant-two .margin {
+  min-width: 92.83px;
+  padding: 0px 419.22px 0px 0px;
+}
+
+.component-4.variant-one .margin {
+  min-width: 74.08px;
+  padding: 0px 437.97px 0px 0px;
+}
+
+.component-4.variant-four .text-wrapper {
+  width: 213.03px;
+}
+
+.component-4.variant-three .text-wrapper {
+  width: 145.69px;
+}
+
+.component-4.variant-five .text-wrapper {
+  width: 328.72px;
+}
+
+.component-4.variant-six .text-wrapper {
+  width: 325.78px;
+}
+
+.component-4.variant-seven .text-wrapper {
+  width: 249.03px;
+}
+
+.component-4.variant-two .text-wrapper {
+  width: 92.83px;
+}
+
+.component-4.variant-one .text-wrapper {
+  width: 74.08px;
+}

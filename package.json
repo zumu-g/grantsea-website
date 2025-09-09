@@ -29,7 +29,6 @@
     "yup": "^1.7.0"
   },
   "devDependencies": {
-    "@next/swc-darwin-x64": "^15.5.2",
     "@playwright/test": "^1.55.0",
     "@types/node": "^18.15.0",
     "@types/react": "^18.2.0",

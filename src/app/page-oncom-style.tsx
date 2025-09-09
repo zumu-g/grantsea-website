@@ -131,7 +131,7 @@ export default function HomePageOncom() {
           maxWidth: '1200px',
           margin: '0 auto',
           padding: '0 40px',
-          textAlign: 'center'
+          textAlign: 'left'
         }}>
           <h1 style={{
             fontSize: 'clamp(3rem, 5vw, 6rem)',
@@ -150,8 +150,7 @@ export default function HomePageOncom() {
             lineHeight: '1.5',
             marginBottom: '48px',
             color: 'rgba(255,255,255,0.9)',
-            maxWidth: '600px',
-            margin: '0 auto 48px'
+            maxWidth: '600px'
           }}>
             Casey and Cardinia's trusted real estate experts
           </p>
@@ -159,7 +158,7 @@ export default function HomePageOncom() {
             display: 'flex', 
             gap: '16px', 
             flexWrap: 'wrap',
-            justifyContent: 'center'
+            justifyContent: 'flex-start'
           }}>
             <Link href="/buy" style={{
               display: 'inline-flex',
@@ -222,31 +221,33 @@ export default function HomePageOncom() {
       {/* Shop by Category - ON.COM exact style */}
       <section style={{
         backgroundColor: '#fff',
-        paddingTop: '80px',
-        paddingBottom: '80px'
+        paddingTop: '120px',
+        paddingBottom: '120px'
       }}>
         <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          padding: '0 20px'
+          width: '100%',
+          padding: '0'
         }}>
           <h2 style={{
-            fontSize: '48px',
+            fontSize: '48.448px',
             fontWeight: '700',
-            letterSpacing: '-0.48px',
+            letterSpacing: '-0.48448px',
             textTransform: 'none',
-            textAlign: 'left',
-            margin: '0 0 32px',
+            textAlign: 'start',
+            margin: '0 0 48px',
             color: '#000',
-            lineHeight: '1.1'
+            lineHeight: '53.2928px',
+            paddingLeft: '64px',
+            paddingRight: '64px'
           }}>
             Shop by category
           </h2>
           
-          {/* Category Grid - ON.COM exact style */}
+          {/* Category Layout - ON.COM exact style (Flexbox, not Grid) */}
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
+            display: 'flex',
+            paddingLeft: '64px',
+            paddingRight: '64px',
             gap: '32px',
             position: 'relative'
           }}>
@@ -256,7 +257,8 @@ export default function HomePageOncom() {
               display: 'block',
               textDecoration: 'none',
               overflow: 'hidden',
-              borderRadius: '4px'
+              borderRadius: '0px',
+              flex: '1'
             }}>
               <div style={{
                 position: 'relative',
@@ -306,7 +308,8 @@ export default function HomePageOncom() {
               display: 'block',
               textDecoration: 'none',
               overflow: 'hidden',
-              borderRadius: '4px'
+              borderRadius: '0px',
+              flex: '1'
             }}>
               <div style={{
                 position: 'relative',
@@ -356,7 +359,8 @@ export default function HomePageOncom() {
               display: 'block',
               textDecoration: 'none',
               overflow: 'hidden',
-              borderRadius: '4px'
+              borderRadius: '0px',
+              flex: '1'
             }}>
               <div style={{
                 position: 'relative',

@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-09-09T04:53:31.193Z",
+  "timestamp": "2025-09-09T06:46:40.550Z",
   "passed": false,
   "issues": [
-    "❌ Header icons (heart, sign in) should NOT be visible at top of page"
+    "❌ Shop categories should be in 3 columns, found: null"
   ],
   "checks": {
     "header": {
@@ -16,14 +16,14 @@
     },
     "categoryData": {
       "aspectRatio": "148.15%",
-      "gridColumns": "392px 392px 392px",
+      "gridColumns": null,
       "categoryCount": 3,
       "heading": {
         "fontSize": 48,
         "fontWeight": 700,
-        "letterSpacing": "-0.48px",
+        "letterSpacing": "-0.48448px",
         "textTransform": "none",
-        "textAlign": "left"
+        "textAlign": "start"
       }
     },
     "typography": {

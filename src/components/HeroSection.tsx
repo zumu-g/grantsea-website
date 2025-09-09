@@ -36,12 +36,10 @@ export default function HeroSection() {
   }, [slides.length]);
 
   return (
-    <section className="relative h-screen overflow-hidden">
-      {/* Hero Background Image */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-blue-700">
-          <div className="absolute inset-0 bg-black opacity-40"></div>
-        </div>
+    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Video Background Placeholder */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-blue-700">
+        <div className="absolute inset-0 bg-black opacity-40"></div>
       </div>
       
       {/* Navigation */}
@@ -90,23 +88,21 @@ export default function HeroSection() {
         </div>
       </nav>
 
-      {/* Hero Content - Centered with proper overlay positioning */}
-      <div className="absolute inset-0 flex items-center justify-center z-10">
-        <div className="text-center text-white px-4 max-w-4xl">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 transition-all duration-500">
-            {slides[currentSlide].title}
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 transition-all duration-500">
-            {slides[currentSlide].subtitle}
-          </p>
-          
-          <Link
-            href={slides[currentSlide].link}
-            className="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all transform hover:scale-105 shadow-lg"
-          >
-            {slides[currentSlide].cta}
-          </Link>
-        </div>
+      {/* Hero Content */}
+      <div className="relative z-10 text-center text-white px-4 max-w-4xl">
+        <h1 className="text-5xl md:text-6xl font-bold mb-6 transition-all duration-500">
+          {slides[currentSlide].title}
+        </h1>
+        <p className="text-xl md:text-2xl mb-8 transition-all duration-500">
+          {slides[currentSlide].subtitle}
+        </p>
+        
+        <Link
+          href={slides[currentSlide].link}
+          className="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all transform hover:scale-105"
+        >
+          {slides[currentSlide].cta}
+        </Link>
       </div>
 
       {/* Slide Indicators */}

@@ -32,7 +32,6 @@ import { formatPrice } from "@/services/api";
 import "./style.css";
 import "./navigation-override.css";
 import "./on-style-header.css";
-import "./on-style-categories.css";
 
 export const ElementLight = () => {
   // Scroll state for header

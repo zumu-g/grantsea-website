@@ -8,24 +8,26 @@ import SavePropertyButton from '@/components/SavePropertyButton';
 
 export default function HomePageOncom() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [categoryScroll, setCategoryScroll] = useState(0);
   const { properties, loading } = useProperties({ limit: 12 });
 
   return (
     <>
-      {/* ON.COM Style Header - Exact clone */}
+      {/* ON.COM Style Header - Transparent overlay */}
       <header style={{
-        position: 'fixed',
+        position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
-        height: '72px',
-        backgroundColor: '#fff',
-        borderBottom: '1px solid #e5e7eb',
+        height: '80px',
+        backgroundColor: 'transparent',
         zIndex: 1000
       }}>
         <div style={{
           height: '100%',
-          padding: '0 24px',
+          maxWidth: '1440px',
+          margin: '0 auto',
+          padding: '0 40px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between'
@@ -34,11 +36,11 @@ export default function HomePageOncom() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
             {/* Logo */}
             <Link href="/" style={{ 
-              fontSize: '24px', 
-              fontWeight: '800', 
-              color: '#000',
+              fontSize: '28px', 
+              fontWeight: '900', 
+              color: '#fff',
               textDecoration: 'none',
-              letterSpacing: '-0.025em'
+              letterSpacing: '-0.03em'
             }}>
               GRANT'S
             </Link>
@@ -50,71 +52,109 @@ export default function HomePageOncom() {
               alignItems: 'center'
             }}>
               <Link href="/buy" style={{
-                color: '#000',
+                color: '#fff',
                 textDecoration: 'none',
-                fontSize: '16px',
-                fontWeight: '500'
+                fontSize: '15px',
+                fontWeight: '500',
+                opacity: 0.9,
+                transition: 'opacity 0.2s'
               }}>Buy</Link>
               <Link href="/rent" style={{
-                color: '#000',
+                color: '#fff',
                 textDecoration: 'none',
-                fontSize: '16px',
-                fontWeight: '500'
+                fontSize: '15px',
+                fontWeight: '500',
+                opacity: 0.9,
+                transition: 'opacity 0.2s'
               }}>Rent</Link>
               <Link href="/sold" style={{
-                color: '#000',
+                color: '#fff',
                 textDecoration: 'none',
-                fontSize: '16px',
-                fontWeight: '500'
+                fontSize: '15px',
+                fontWeight: '500',
+                opacity: 0.9,
+                transition: 'opacity 0.2s'
               }}>Sold</Link>
               <Link href="/agents" style={{
-                color: '#000',
+                color: '#fff',
                 textDecoration: 'none',
-                fontSize: '16px',
-                fontWeight: '500'
+                fontSize: '15px',
+                fontWeight: '500',
+                opacity: 0.9,
+                transition: 'opacity 0.2s'
               }}>Find agents</Link>
               <Link href="/new-homes" style={{
-                color: '#000',
+                color: '#fff',
                 textDecoration: 'none',
-                fontSize: '16px',
-                fontWeight: '500'
+                fontSize: '15px',
+                fontWeight: '500',
+                opacity: 0.9,
+                transition: 'opacity 0.2s'
               }}>New homes</Link>
             </nav>
           </div>
 
           {/* Right Icons */}
-          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+            <button style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#fff',
+              opacity: 0.9,
+              transition: 'opacity 0.2s'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+            onMouseLeave={(e) => e.currentTarget.style.opacity = '0.9'}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </button>
             <Link href="/saved-properties" style={{
               padding: '8px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#000'
-            }}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              color: '#fff',
+              opacity: 0.9,
+              transition: 'opacity 0.2s'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+            onMouseLeave={(e) => e.currentTarget.style.opacity = '0.9'}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
               </svg>
             </Link>
             <Link href="/sign-in" style={{
               padding: '8px 16px',
-              fontSize: '16px',
+              fontSize: '15px',
               fontWeight: '500',
-              color: '#000',
-              textDecoration: 'none'
-            }}>
+              color: '#fff',
+              textDecoration: 'none',
+              opacity: 0.9,
+              transition: 'opacity 0.2s'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+            onMouseLeave={(e) => e.currentTarget.style.opacity = '0.9'}
+            >
               Sign in
             </Link>
           </div>
         </div>
       </header>
 
-      {/* Hero Section - ON.COM exact style */}
+      {/* Hero Section - Full screen with header overlay */}
       <section style={{
-        height: 'calc(100vh - 72px)',
+        height: '100vh',
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
-        marginTop: '72px',
         backgroundImage: 'url("https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=1080&fit=crop")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -130,12 +170,11 @@ export default function HomePageOncom() {
         <div style={{
           position: 'relative',
           width: '100%',
-          padding: '0 24px'
+          maxWidth: '1440px',
+          margin: '0 auto',
+          padding: '0 40px'
         }}>
-          <div style={{ 
-            maxWidth: '1200px',
-            margin: '0 auto'
-          }}>
+          <div>
             <h1 style={{
               fontSize: '72px',
               fontWeight: '900',
@@ -209,202 +248,451 @@ export default function HomePageOncom() {
         </div>
       </section>
 
-      {/* Shop by Category - ON.COM exact style */}
+      {/* Shop by Category - ON.COM exact style with carousel */}
       <section style={{
-        padding: '0',
         backgroundColor: '#fff',
-        marginTop: '0' // Normal spacing
+        paddingTop: '64px',
+        paddingBottom: '64px',
+        position: 'relative',
+        overflow: 'hidden'
       }}>
         <div style={{
-          maxWidth: '100%',
-          margin: '0'
+          width: '100%',
+          position: 'relative'
         }}>
           <h2 style={{
-            fontSize: '14px',
-            fontWeight: '400',
+            fontSize: '12px',
+            fontWeight: '700',
             letterSpacing: '2px',
             textTransform: 'uppercase',
             textAlign: 'center',
-            margin: '40px 0 24px',
+            margin: '0 0 32px',
             color: '#000'
           }}>
             Shop by category
           </h2>
           
+          {/* Carousel Container */}
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '2px',
-            maxWidth: '1480px',
-            margin: '0 auto'
+            position: 'relative',
+            maxWidth: '1200px',
+            margin: '0 auto',
+            padding: '0 40px'
           }}>
-            {/* Buy Category */}
-            <Link href="/buy" style={{
-              position: 'relative',
-              aspectRatio: '1',
-              overflow: 'hidden',
-              display: 'block',
-              textDecoration: 'none',
-              backgroundColor: '#000'
-            }}>
-              <img 
-                src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=800&fit=crop"
-                alt="Buy property"
+            {/* Previous Button */}
+            {categoryScroll > 0 && (
+              <button
+                onClick={() => setCategoryScroll(Math.max(0, categoryScroll - 1))}
                 style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  opacity: '0.8',
-                  transition: 'opacity 0.3s ease'
+                  position: 'absolute',
+                  left: '0',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                  backgroundColor: 'rgba(255,255,255,0.9)',
+                  border: '1px solid #e5e7eb',
+                  cursor: 'pointer',
+                  zIndex: 10,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.2s',
+                  backdropFilter: 'blur(10px)'
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                onMouseLeave={(e) => e.currentTarget.style.opacity = '0.8'}
-              />
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#fff';
+                  e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.9)';
+                  e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+            )}
+            
+            {/* Next Button */}
+            {categoryScroll < 2 && (
+              <button
+                onClick={() => setCategoryScroll(Math.min(2, categoryScroll + 1))}
+                style={{
+                  position: 'absolute',
+                  right: '0',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                  backgroundColor: 'rgba(255,255,255,0.9)',
+                  border: '1px solid #e5e7eb',
+                  cursor: 'pointer',
+                  zIndex: 10,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.2s',
+                  backdropFilter: 'blur(10px)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#fff';
+                  e.currentTarget.style.transform = 'translateY(-50%) scale(1.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.9)';
+                  e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            )}
+          
+            {/* Scrollable Content */}
+            <div style={{
+              overflow: 'hidden'
+            }}>
               <div style={{
-                position: 'absolute',
-                bottom: '24px',
-                left: '24px',
-                right: '24px'
+                display: 'flex',
+                gap: '12px',
+                transform: `translateX(-${categoryScroll * 25}%)`,
+                transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
               }}>
-                <h3 style={{
-                  color: '#fff',
-                  fontSize: '24px',
-                  fontWeight: '700',
-                  marginBottom: '4px'
-                }}>Houses for sale</h3>
-                <p style={{
-                  color: '#fff',
-                  fontSize: '14px',
-                  opacity: '0.8'
-                }}>Find your dream home</p>
-              </div>
-            </Link>
+                {/* Buy Category */}
+                <Link href="/buy" style={{
+                  position: 'relative',
+                  display: 'block',
+                  textDecoration: 'none',
+                  backgroundColor: '#000',
+                  overflow: 'hidden',
+                  flex: '0 0 calc(25% - 9px)',
+                  borderRadius: '8px',
+                  minWidth: '280px'
+                }}>
+                  <div style={{
+                    position: 'relative',
+                    paddingBottom: '56.25%' // 16:9 aspect ratio
+                  }}>
+                    <img 
+                      src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=450&fit=crop"
+                      alt="Buy"
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        filter: 'brightness(0.7)'
+                      }}
+                    />
+                    <div style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%)'
+                    }} />
+                    <div style={{
+                      position: 'absolute',
+                      bottom: '20px',
+                      left: '20px',
+                      right: '20px'
+                    }}>
+                      <h3 style={{
+                        color: '#fff',
+                        fontSize: '24px',
+                        fontWeight: '700',
+                        marginBottom: '2px',
+                        letterSpacing: '-0.01em'
+                      }}>Buy</h3>
+                      <p style={{
+                        color: 'rgba(255,255,255,0.8)',
+                        fontSize: '13px',
+                        fontWeight: '400'
+                      }}>Browse homes for sale</p>
+                    </div>
+                  </div>
+                </Link>
 
-            {/* Rent Category */}
-            <Link href="/rent" style={{
-              position: 'relative',
-              aspectRatio: '1',
-              overflow: 'hidden',
-              display: 'block',
-              textDecoration: 'none',
-              backgroundColor: '#000'
-            }}>
-              <img 
-                src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=800&fit=crop"
-                alt="Rent property"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  opacity: '0.8',
-                  transition: 'opacity 0.3s ease'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                onMouseLeave={(e) => e.currentTarget.style.opacity = '0.8'}
-              />
-              <div style={{
-                position: 'absolute',
-                bottom: '24px',
-                left: '24px',
-                right: '24px'
-              }}>
-                <h3 style={{
-                  color: '#fff',
-                  fontSize: '24px',
-                  fontWeight: '700',
-                  marginBottom: '4px'
-                }}>Apartments for rent</h3>
-                <p style={{
-                  color: '#fff',
-                  fontSize: '14px',
-                  opacity: '0.8'
-                }}>Premium rentals available</p>
-              </div>
-            </Link>
+                {/* Rent Category */}
+                <Link href="/rent" style={{
+                  position: 'relative',
+                  display: 'block',
+                  textDecoration: 'none',
+                  backgroundColor: '#000',
+                  overflow: 'hidden',
+                  flex: '0 0 calc(25% - 9px)',
+                  borderRadius: '8px',
+                  minWidth: '280px'
+                }}>
+                  <div style={{
+                    position: 'relative',
+                    paddingBottom: '56.25%'
+                  }}>
+                    <img 
+                      src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800&h=450&fit=crop"
+                      alt="Rent"
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        filter: 'brightness(0.7)'
+                      }}
+                    />
+                    <div style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%)'
+                    }} />
+                    <div style={{
+                      position: 'absolute',
+                      bottom: '20px',
+                      left: '20px',
+                      right: '20px'
+                    }}>
+                      <h3 style={{
+                        color: '#fff',
+                        fontSize: '24px',
+                        fontWeight: '700',
+                        marginBottom: '2px',
+                        letterSpacing: '-0.01em'
+                      }}>Rent</h3>
+                      <p style={{
+                        color: 'rgba(255,255,255,0.8)',
+                        fontSize: '13px',
+                        fontWeight: '400'
+                      }}>Find your next rental</p>
+                    </div>
+                  </div>
+                </Link>
 
-            {/* Sell Category */}
-            <Link href="/sell" style={{
-              position: 'relative',
-              aspectRatio: '1',
-              overflow: 'hidden',
-              display: 'block',
-              textDecoration: 'none',
-              backgroundColor: '#000'
-            }}>
-              <img 
-                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=800&fit=crop"
-                alt="Sell property"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  opacity: '0.8',
-                  transition: 'opacity 0.3s ease'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                onMouseLeave={(e) => e.currentTarget.style.opacity = '0.8'}
-              />
-              <div style={{
-                position: 'absolute',
-                bottom: '24px',
-                left: '24px',
-                right: '24px'
-              }}>
-                <h3 style={{
-                  color: '#fff',
-                  fontSize: '24px',
-                  fontWeight: '700',
-                  marginBottom: '4px'
-                }}>Sell your property</h3>
-                <p style={{
-                  color: '#fff',
-                  fontSize: '14px',
-                  opacity: '0.8'
-                }}>Get the best price</p>
-              </div>
-            </Link>
+                {/* Sell Category */}
+                <Link href="/sell" style={{
+                  position: 'relative',
+                  display: 'block',
+                  textDecoration: 'none',
+                  backgroundColor: '#000',
+                  overflow: 'hidden',
+                  flex: '0 0 calc(25% - 9px)',
+                  borderRadius: '8px',
+                  minWidth: '280px'
+                }}>
+                  <div style={{
+                    position: 'relative',
+                    paddingBottom: '56.25%'
+                  }}>
+                    <img 
+                      src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&h=450&fit=crop"
+                      alt="Sell"
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        filter: 'brightness(0.7)'
+                      }}
+                    />
+                    <div style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%)'
+                    }} />
+                    <div style={{
+                      position: 'absolute',
+                      bottom: '20px',
+                      left: '20px',
+                      right: '20px'
+                    }}>
+                      <h3 style={{
+                        color: '#fff',
+                        fontSize: '24px',
+                        fontWeight: '700',
+                        marginBottom: '2px',
+                        letterSpacing: '-0.01em'
+                      }}>Sell</h3>
+                      <p style={{
+                        color: 'rgba(255,255,255,0.8)',
+                        fontSize: '13px',
+                        fontWeight: '400'
+                      }}>List your property</p>
+                    </div>
+                  </div>
+                </Link>
 
-            {/* Recently Sold Category */}
-            <Link href="/sold" style={{
-              position: 'relative',
-              aspectRatio: '1',
-              overflow: 'hidden',
-              display: 'block',
-              textDecoration: 'none',
-              backgroundColor: '#000'
-            }}>
-              <img 
-                src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&h=800&fit=crop"
-                alt="Recently sold"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  opacity: '0.8',
-                  transition: 'opacity 0.3s ease'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                onMouseLeave={(e) => e.currentTarget.style.opacity = '0.8'}
-              />
-              <div style={{
-                position: 'absolute',
-                bottom: '24px',
-                left: '24px',
-                right: '24px'
-              }}>
-                <h3 style={{
-                  color: '#fff',
-                  fontSize: '24px',
-                  fontWeight: '700',
-                  marginBottom: '4px'
-                }}>Recently sold</h3>
-                <p style={{
-                  color: '#fff',
-                  fontSize: '14px',
-                  opacity: '0.8'
-                }}>View market trends</p>
+                {/* Sold Category */}
+                <Link href="/sold" style={{
+                  position: 'relative',
+                  display: 'block',
+                  textDecoration: 'none',
+                  backgroundColor: '#000',
+                  overflow: 'hidden',
+                  flex: '0 0 calc(25% - 9px)',
+                  borderRadius: '8px',
+                  minWidth: '280px'
+                }}>
+                  <div style={{
+                    position: 'relative',
+                    paddingBottom: '56.25%'
+                  }}>
+                    <img 
+                      src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=800&h=450&fit=crop"
+                      alt="Sold"
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        filter: 'brightness(0.7)'
+                      }}
+                    />
+                    <div style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%)'
+                    }} />
+                    <div style={{
+                      position: 'absolute',
+                      bottom: '20px',
+                      left: '20px',
+                      right: '20px'
+                    }}>
+                      <h3 style={{
+                        color: '#fff',
+                        fontSize: '24px',
+                        fontWeight: '700',
+                        marginBottom: '2px',
+                        letterSpacing: '-0.01em'
+                      }}>Sold</h3>
+                      <p style={{
+                        color: 'rgba(255,255,255,0.8)',
+                        fontSize: '13px',
+                        fontWeight: '400'
+                      }}>View recent sales</p>
+                    </div>
+                  </div>
+                </Link>
+
+                {/* Additional Categories for carousel */}
+                <Link href="/new-homes" style={{
+                  position: 'relative',
+                  display: 'block',
+                  textDecoration: 'none',
+                  backgroundColor: '#000',
+                  overflow: 'hidden',
+                  flex: '0 0 calc(25% - 9px)',
+                  borderRadius: '8px',
+                  minWidth: '280px'
+                }}>
+                  <div style={{
+                    position: 'relative',
+                    paddingBottom: '56.25%'
+                  }}>
+                    <img 
+                      src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=450&fit=crop"
+                      alt="New homes"
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        filter: 'brightness(0.7)'
+                      }}
+                    />
+                    <div style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%)'
+                    }} />
+                    <div style={{
+                      position: 'absolute',
+                      bottom: '20px',
+                      left: '20px',
+                      right: '20px'
+                    }}>
+                      <h3 style={{
+                        color: '#fff',
+                        fontSize: '24px',
+                        fontWeight: '700',
+                        marginBottom: '2px',
+                        letterSpacing: '-0.01em'
+                      }}>New homes</h3>
+                      <p style={{
+                        color: 'rgba(255,255,255,0.8)',
+                        fontSize: '13px',
+                        fontWeight: '400'
+                      }}>Explore new developments</p>
+                    </div>
+                  </div>
+                </Link>
+
+                <Link href="/agents" style={{
+                  position: 'relative',
+                  display: 'block',
+                  textDecoration: 'none',
+                  backgroundColor: '#000',
+                  overflow: 'hidden',
+                  flex: '0 0 calc(25% - 9px)',
+                  borderRadius: '8px',
+                  minWidth: '280px'
+                }}>
+                  <div style={{
+                    position: 'relative',
+                    paddingBottom: '56.25%'
+                  }}>
+                    <img 
+                      src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=450&fit=crop"
+                      alt="Find agents"
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        filter: 'brightness(0.7)'
+                      }}
+                    />
+                    <div style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%)'
+                    }} />
+                    <div style={{
+                      position: 'absolute',
+                      bottom: '20px',
+                      left: '20px',
+                      right: '20px'
+                    }}>
+                      <h3 style={{
+                        color: '#fff',
+                        fontSize: '24px',
+                        fontWeight: '700',
+                        marginBottom: '2px',
+                        letterSpacing: '-0.01em'
+                      }}>Find agents</h3>
+                      <p style={{
+                        color: 'rgba(255,255,255,0.8)',
+                        fontSize: '13px',
+                        fontWeight: '400'
+                      }}>Connect with experts</p>
+                    </div>
+                  </div>
+                </Link>
               </div>
-            </Link>
+            </div>
           </div>
         </div>
       </section>

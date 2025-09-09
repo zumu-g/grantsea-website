@@ -1,0 +1,36 @@
+{
+  "timestamp": "2025-09-09T04:04:05.720Z",
+  "passed": false,
+  "issues": [
+    "❌ Shop categories should be in 4 columns, found: 298px 298px 298px 298px"
+  ],
+  "checks": {
+    "header": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "height": 64,
+      "position": "fixed"
+    },
+    "headerScrolled": {
+      "backgroundColor": "rgb(255, 255, 255)",
+      "iconsVisible": true
+    },
+    "categoryData": {
+      "aspectRatio": "133.33%",
+      "gridColumns": "298px 298px 298px 298px",
+      "categoryCount": 4
+    },
+    "typography": {
+      "logo": {
+        "fontSize": 24,
+        "fontWeight": 800
+      },
+      "nav": {
+        "fontSize": 14,
+        "fontWeight": 500
+      },
+      "hero": {
+        "fontSize": 64
+      }
+    }
+  }
+}

@@ -1,5 +1,13 @@
 #!/usr/bin/env sh
 . "$(dirname "$0")/_/husky.sh"
 
+# Validate style changes against Brand Styling Agent rules
+echo "🔍 Validating style changes..."
+node scripts/validate-style-changes.js || {
+    echo "❌ Style validation failed! Please review the Brand Styling Agent guide."
+    echo "📖 See: docs/BRAND_STYLING_AGENT.md"
+    exit 1
+}
+
 echo "Running style check before commit..."
 node scripts/pre-commit-style-check.js

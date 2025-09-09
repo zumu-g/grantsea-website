@@ -1,0 +1,327 @@
+/* Grant's Estate Agents - Style System
+   Based on property page analysis from https://grantsea-website.vercel.app/property/27311391
+   Generated: 2025-09-09
+*/
+
+/* ===== COLOR PALETTE ===== */
+:root {
+  /* Primary Colors */
+  --grant-primary-black: rgb(0, 0, 0);
+  --grant-primary-white: rgb(255, 255, 255);
+  
+  /* Text Colors */
+  --grant-text-primary: rgb(0, 0, 0);
+  --grant-text-secondary: rgb(77, 77, 77);
+  --grant-text-accent: rgb(153, 92, 0);
+  
+  /* Background Colors */
+  --grant-bg-primary: rgb(255, 255, 255);
+  --grant-bg-secondary: rgb(0, 0, 0);
+  --grant-bg-tertiary: rgb(102, 102, 102);
+  --grant-bg-light-overlay: rgba(0, 0, 0, 0.05);
+  --grant-bg-medium-overlay: rgba(0, 0, 0, 0.1);
+  
+  /* Border Colors */
+  --grant-border-primary: rgb(0, 0, 0);
+  --grant-border-secondary: rgb(77, 77, 77);
+  --grant-border-light: rgb(229, 229, 229);
+  --grant-border-medium: rgb(204, 204, 204);
+  --grant-border-accent: rgb(153, 92, 0);
+}
+
+/* ===== TYPOGRAPHY ===== */
+:root {
+  /* Font Families */
+  --grant-font-primary: "On-Regular", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --grant-font-bold: "On-Bold", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  /* Heading Styles */
+  --grant-h1-size: 53px;
+  --grant-h1-weight: 700;
+  --grant-h1-line-height: 58.3px;
+  --grant-h1-letter-spacing: -0.53px;
+  
+  --grant-h2-size: 40px;
+  --grant-h2-weight: 700;
+  --grant-h2-line-height: 48px;
+  --grant-h2-letter-spacing: -0.4px;
+  
+  --grant-h3-size: 32px;
+  --grant-h3-weight: 700;
+  --grant-h3-line-height: 38px;
+  --grant-h3-letter-spacing: -0.32px;
+  
+  --grant-h4-size: 24px;
+  --grant-h4-weight: 700;
+  --grant-h4-line-height: 30px;
+  --grant-h4-letter-spacing: normal;
+  
+  --grant-h5-size: 20px;
+  --grant-h5-weight: 700;
+  --grant-h5-line-height: 26px;
+  --grant-h5-letter-spacing: normal;
+  
+  --grant-h6-size: 18px;
+  --grant-h6-weight: 700;
+  --grant-h6-line-height: 24px;
+  --grant-h6-letter-spacing: normal;
+  
+  /* Body Text */
+  --grant-body-size: 16px;
+  --grant-body-weight: 400;
+  --grant-body-line-height: 24px;
+  --grant-body-letter-spacing: normal;
+  
+  --grant-body-bold-weight: 700;
+  
+  /* Small Text */
+  --grant-small-size: 14px;
+  --grant-small-line-height: 20px;
+  
+  /* Caption Text */
+  --grant-caption-size: 12px;
+  --grant-caption-line-height: 18px;
+}
+
+/* ===== SPACING SYSTEM ===== */
+:root {
+  /* Base spacing unit: 8px */
+  --grant-space-xs: 4px;
+  --grant-space-sm: 8px;
+  --grant-space-md: 16px;
+  --grant-space-lg: 24px;
+  --grant-space-xl: 32px;
+  --grant-space-2xl: 48px;
+  --grant-space-3xl: 64px;
+  --grant-space-4xl: 96px;
+  
+  /* Container widths */
+  --grant-container-max: 1280px;
+  --grant-container-padding: 20px;
+}
+
+/* ===== COMPONENT STYLES ===== */
+:root {
+  /* Buttons */
+  --grant-button-padding: 12px 24px;
+  --grant-button-border-radius: 40px;
+  --grant-button-font-size: 16px;
+  --grant-button-font-weight: 400;
+  --grant-button-transition: all 0.3s ease;
+  
+  /* Cards */
+  --grant-card-border-radius: 8px;
+  --grant-card-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --grant-card-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --grant-card-padding: 20px;
+  --grant-card-border: 1px solid var(--grant-border-light);
+  
+  /* Badges */
+  --grant-badge-padding: 4px 12px;
+  --grant-badge-border-radius: 20px;
+  --grant-badge-font-size: 14px;
+  --grant-badge-font-weight: 500;
+  
+  /* Forms */
+  --grant-input-padding: 12px 16px;
+  --grant-input-border-radius: 4px;
+  --grant-input-border: 1px solid var(--grant-border-medium);
+  --grant-input-font-size: 16px;
+  --grant-input-line-height: 24px;
+}
+
+/* ===== UTILITY CLASSES ===== */
+
+/* Typography */
+.grant-h1 {
+  font-family: var(--grant-font-bold);
+  font-size: var(--grant-h1-size);
+  font-weight: var(--grant-h1-weight);
+  line-height: var(--grant-h1-line-height);
+  letter-spacing: var(--grant-h1-letter-spacing);
+  color: var(--grant-text-primary);
+}
+
+.grant-h2 {
+  font-family: var(--grant-font-bold);
+  font-size: var(--grant-h2-size);
+  font-weight: var(--grant-h2-weight);
+  line-height: var(--grant-h2-line-height);
+  letter-spacing: var(--grant-h2-letter-spacing);
+  color: var(--grant-text-primary);
+}
+
+.grant-h3 {
+  font-family: var(--grant-font-bold);
+  font-size: var(--grant-h3-size);
+  font-weight: var(--grant-h3-weight);
+  line-height: var(--grant-h3-line-height);
+  letter-spacing: var(--grant-h3-letter-spacing);
+  color: var(--grant-text-primary);
+}
+
+.grant-h4 {
+  font-family: var(--grant-font-bold);
+  font-size: var(--grant-h4-size);
+  font-weight: var(--grant-h4-weight);
+  line-height: var(--grant-h4-line-height);
+  letter-spacing: var(--grant-h4-letter-spacing);
+  color: var(--grant-text-primary);
+}
+
+.grant-body {
+  font-family: var(--grant-font-primary);
+  font-size: var(--grant-body-size);
+  font-weight: var(--grant-body-weight);
+  line-height: var(--grant-body-line-height);
+  letter-spacing: var(--grant-body-letter-spacing);
+  color: var(--grant-text-primary);
+}
+
+.grant-body-bold {
+  font-family: var(--grant-font-bold);
+  font-weight: var(--grant-body-bold-weight);
+}
+
+.grant-small {
+  font-size: var(--grant-small-size);
+  line-height: var(--grant-small-line-height);
+}
+
+.grant-caption {
+  font-size: var(--grant-caption-size);
+  line-height: var(--grant-caption-line-height);
+  color: var(--grant-text-secondary);
+}
+
+/* Buttons */
+.grant-button {
+  font-family: var(--grant-font-primary);
+  font-size: var(--grant-button-font-size);
+  font-weight: var(--grant-button-font-weight);
+  padding: var(--grant-button-padding);
+  border-radius: var(--grant-button-border-radius);
+  border: none;
+  cursor: pointer;
+  transition: var(--grant-button-transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.grant-button-primary {
+  background-color: var(--grant-primary-black);
+  color: var(--grant-primary-white);
+}
+
+.grant-button-primary:hover {
+  background-color: var(--grant-text-secondary);
+}
+
+.grant-button-secondary {
+  background-color: transparent;
+  color: var(--grant-text-primary);
+  border: 1px solid var(--grant-border-primary);
+}
+
+.grant-button-secondary:hover {
+  background-color: var(--grant-bg-light-overlay);
+}
+
+.grant-button-accent {
+  background-color: var(--grant-text-accent);
+  color: var(--grant-primary-white);
+}
+
+.grant-button-accent:hover {
+  opacity: 0.9;
+}
+
+/* Cards */
+.grant-card {
+  background-color: var(--grant-bg-primary);
+  border-radius: var(--grant-card-border-radius);
+  box-shadow: var(--grant-card-shadow);
+  padding: var(--grant-card-padding);
+  border: var(--grant-card-border);
+  transition: box-shadow 0.3s ease;
+}
+
+.grant-card:hover {
+  box-shadow: var(--grant-card-shadow-hover);
+}
+
+/* Badges */
+.grant-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--grant-badge-padding);
+  border-radius: var(--grant-badge-border-radius);
+  font-size: var(--grant-badge-font-size);
+  font-weight: var(--grant-badge-font-weight);
+  font-family: var(--grant-font-primary);
+}
+
+.grant-badge-primary {
+  background-color: var(--grant-bg-light-overlay);
+  color: var(--grant-text-primary);
+}
+
+.grant-badge-accent {
+  background-color: var(--grant-text-accent);
+  color: var(--grant-primary-white);
+}
+
+/* Form Elements */
+.grant-input {
+  width: 100%;
+  padding: var(--grant-input-padding);
+  border: var(--grant-input-border);
+  border-radius: var(--grant-input-border-radius);
+  font-family: var(--grant-font-primary);
+  font-size: var(--grant-input-font-size);
+  line-height: var(--grant-input-line-height);
+  color: var(--grant-text-primary);
+  background-color: var(--grant-bg-primary);
+  transition: border-color 0.3s ease;
+}
+
+.grant-input:focus {
+  outline: none;
+  border-color: var(--grant-text-accent);
+}
+
+/* Container */
+.grant-container {
+  width: 100%;
+  max-width: var(--grant-container-max);
+  margin: 0 auto;
+  padding: 0 var(--grant-container-padding);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  :root {
+    --grant-h1-size: 40px;
+    --grant-h1-line-height: 44px;
+    --grant-h2-size: 32px;
+    --grant-h2-line-height: 38px;
+    --grant-h3-size: 24px;
+    --grant-h3-line-height: 30px;
+    --grant-container-padding: 16px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Invert primary colors for dark mode */
+    --grant-text-primary: rgb(255, 255, 255);
+    --grant-text-secondary: rgb(200, 200, 200);
+    --grant-bg-primary: rgb(0, 0, 0);
+    --grant-bg-secondary: rgb(255, 255, 255);
+    --grant-border-light: rgb(50, 50, 50);
+    --grant-border-medium: rgb(100, 100, 100);
+  }
+}

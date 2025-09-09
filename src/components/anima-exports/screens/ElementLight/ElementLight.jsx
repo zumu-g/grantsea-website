@@ -225,22 +225,6 @@ export const ElementLight = () => {
 
         <div className="section-main">
           <div className="section-article">
-            <div className="container-8">
-              <div className="div-wrapper-2">
-                {/* Video placeholder with styling to match the design */}
-                <div className="picture-fw" style={{
-                  background: 'linear-gradient(to bottom, #333, #111)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#fff',
-                  fontSize: '24px',
-                  fontWeight: '300'
-                }}>
-                  [Video Placeholder - Property Showcase]
-                </div>
-              </div>
-            </div>
 
             <div className="container-9">
               <div className="gradient-2" />
@@ -465,7 +449,7 @@ export const ElementLight = () => {
               </div>
             </div>
 
-            <img className="img" alt="Container" src="/static/img/container.svg" />
+            <img className="img" alt="Container" src="/anima/container.svg" />
           </div>
 
           {/* Updated Suburb Profiles Section */}

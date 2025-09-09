@@ -1,0 +1,111 @@
+{
+  "metadata": {
+    "url": "https://grantsea-website.vercel.app/property/27311391",
+    "timestamp": "2025-09-09T00:26:05.160Z",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "typography": {
+    "headings": {},
+    "body": {
+      "p-1": {
+        "selector": "p",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontFamily": "On-Regular, Helvetica",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "color": "rgb(0, 0, 0)",
+        "example": "Unisex – Cold weather, road racing, reflective details"
+      },
+      "p-2": {
+        "selector": "p",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "fontFamily": "On-Bold, Helvetica",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "color": "rgb(0, 0, 0)",
+        "example": "Core Run Sock Mid 2P"
+      },
+      "p-3": {
+        "selector": "p",
+        "fontSize": "53px",
+        "fontWeight": "700",
+        "fontFamily": "On-Bold, Helvetica",
+        "lineHeight": "58.3px",
+        "letterSpacing": "-0.53px",
+        "color": "rgb(0, 0, 0)",
+        "example": "You may be interested in"
+      }
+    },
+    "captions": {},
+    "links": {}
+  },
+  "colors": {
+    "primary": [],
+    "text": [
+      "rgb(77, 77, 77)",
+      "rgb(153, 92, 0)"
+    ],
+    "background": [
+      "rgb(255, 255, 255)",
+      "rgb(0, 0, 0)",
+      "rgb(102, 102, 102)",
+      "rgba(0, 0, 0, 0.05)",
+      "rgba(0, 0, 0, 0.1)"
+    ],
+    "borders": [
+      "rgb(0, 0, 0)",
+      "rgb(77, 77, 77)",
+      "rgb(229, 229, 229)",
+      "rgb(204, 204, 204)",
+      "rgb(153, 92, 0)"
+    ],
+    "shadows": []
+  },
+  "spacing": {
+    "containers": [],
+    "sections": [],
+    "components": [],
+    "grid": []
+  },
+  "components": {
+    "buttons": [
+      {
+        "type": "button-variant-1",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "fontFamily": "On, Helvetica, sans-serif",
+        "padding": "0px",
+        "margin": "0px",
+        "borderRadius": "40px",
+        "border": "0px none rgb(0, 0, 0)",
+        "boxShadow": "none",
+        "textTransform": "none",
+        "transition": "all",
+        "minWidth": "80px",
+        "height": "48px",
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "cursor": "auto",
+        "example": "All",
+        "className": "button"
+      }
+    ],
+    "cards": [],
+    "badges": [],
+    "forms": [],
+    "navigation": []
+  },
+  "layout": {
+    "breakpoints": [],
+    "containers": [],
+    "grid": []
+  }
+}

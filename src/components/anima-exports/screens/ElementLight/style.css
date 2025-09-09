@@ -985,7 +985,8 @@
   margin-top: -2.27e-13px;
   padding: 31px 0px 8.53e-14px;
   position: relative;
-  width: 659.5px;
+  width: 100%;
+  max-width: 800px;
 }
 
 .element-light .section-5 {
@@ -994,7 +995,7 @@
   flex: 0 0 auto;
   flex-direction: column;
   gap: 16.47px;
-  max-width: 659.5px;
+  max-width: 100%;
   position: relative;
   width: 100%;
 }
@@ -1003,12 +1004,14 @@
   align-self: stretch;
   color: #000000;
   font-family: "On-Regular", Helvetica;
-  font-size: 33px;
+  font-size: 40px;
   font-weight: 400;
   letter-spacing: 0;
-  line-height: 42.8px;
+  line-height: 48px;
   margin-top: -1.00px;
   position: relative;
+  max-width: 100%;
+  word-wrap: break-word;
 }
 
 .element-light .component-wrapper {

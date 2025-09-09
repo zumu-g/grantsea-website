@@ -1,6 +1,9 @@
 /* Import On.com styleguide */
 @import './styleguide.css';
 
+/* Import Grant's Estate Agents Style System */
+@import './grants-style-system.css';
+
 /* Import full-screen override styles */
 @import './full-screen-override.css';
 

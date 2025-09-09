@@ -926,12 +926,13 @@ export default function HomePageOncom() {
         paddingTop: '64px',
         paddingBottom: '64px',
         overflow: 'hidden',
-        position: 'relative'
+        position: 'relative',
+        width: 'calc(100vw - 15px)'
       }}>
         <div style={{
-          maxWidth: '100%',
-          paddingLeft: '64px',
-          paddingRight: '0'
+          width: '100%',
+          paddingLeft: '47.952px',
+          paddingRight: '47.952px'
         }}>
           <h2 style={{
             fontSize: 'clamp(1.625rem, 1.52rem + 0.45vw, 2.0625rem)',
@@ -939,8 +940,7 @@ export default function HomePageOncom() {
             letterSpacing: '-0.02em',
             marginBottom: '2.5rem',
             color: '#000',
-            lineHeight: '1.2',
-            paddingRight: '64px'
+            lineHeight: '1.2'
           }}>
             You may be interested in
           </h2>
@@ -967,14 +967,14 @@ export default function HomePageOncom() {
               WebkitOverflowScrolling: 'touch',
               msOverflowStyle: 'none',
               scrollbarWidth: 'none',
-              marginLeft: '-64px',
-              marginRight: '-64px',
-              paddingLeft: '64px'
+              marginLeft: '-47.952px',
+              marginRight: '-47.952px',
+              paddingLeft: '47.952px'
             }}>
               <div style={{
                 display: 'flex',
-                gap: '0.5rem',
-                paddingRight: '64px'
+                gap: '24.0005px',
+                paddingRight: '47.952px'
               }}>
                 {properties.slice(0, 6).map((property) => (
                 <div key={property.id} style={{
@@ -1140,12 +1140,12 @@ export default function HomePageOncom() {
       <section style={{
         backgroundColor: '#fff',
         paddingTop: '64px',
-        paddingBottom: '64px'
+        paddingBottom: '64px',
+        width: 'calc(100vw - 15px)'
       }}>
         <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          padding: '0 64px'
+          width: '100%',
+          padding: '0 47.952px'
         }}>
           <h2 style={{
             fontSize: 'clamp(1.625rem, 1.52rem + 0.45vw, 2.0625rem)',
@@ -1161,7 +1161,7 @@ export default function HomePageOncom() {
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '20px'
+            gap: '24.0005px'
           }}>
             {/* Story 1 */}
             <article style={{

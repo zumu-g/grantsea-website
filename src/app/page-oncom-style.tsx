@@ -237,7 +237,7 @@ export default function HomePageOncom() {
             lineHeight: '53.2928px',
             paddingLeft: '0px',
             paddingRight: '0px'
-          }}>Shop by category</h2>
+          }}>
             Shop by category
           </h2>
           

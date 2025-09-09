@@ -1118,6 +1118,458 @@ export default function HomePageOncom() {
         </div>
       </section>
 
+      {/* Stories that move - ON.COM style */}
+      <section style={{
+        backgroundColor: '#fff',
+        paddingTop: '64px',
+        paddingBottom: '64px'
+      }}>
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          padding: '0 64px'
+        }}>
+          <h2 style={{
+            fontSize: 'clamp(1.625rem, 1.52rem + 0.45vw, 2.0625rem)',
+            fontWeight: '700',
+            letterSpacing: '-0.02em',
+            marginBottom: '2.5rem',
+            color: '#000',
+            lineHeight: '1.2'
+          }}>
+            Stories that move
+          </h2>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '20px',
+            '@media (min-width: 1200px)': {
+              gridTemplateColumns: 'repeat(4, 1fr)'
+            }
+          }}>
+            {/* Story 1 */}
+            <article style={{
+              display: 'flex',
+              flexDirection: 'column',
+              cursor: 'pointer',
+              transition: 'transform 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}>
+              <Link href="/suburbs/berwick" style={{
+                textDecoration: 'none',
+                color: 'inherit',
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%'
+              }}>
+                <div style={{
+                  position: 'relative',
+                  aspectRatio: '3/2',
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  marginBottom: '16px',
+                  border: '1px solid #e5e5e5'
+                }}>
+                  <img 
+                    src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400&h=267&fit=crop"
+                    alt="Family in new home"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    top: '12px',
+                    left: '12px',
+                    padding: '4px 10px',
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    color: '#fff',
+                    borderRadius: '4px',
+                    fontSize: '11px',
+                    fontWeight: '600',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px'
+                  }}>
+                    Success Story
+                  </div>
+                </div>
+                <h3 style={{
+                  fontSize: '18px',
+                  fontWeight: '700',
+                  marginBottom: '8px',
+                  color: '#000',
+                  letterSpacing: '-0.01em',
+                  lineHeight: '1.3',
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical'
+                }}>
+                  From first home to forever home in Berwick
+                </h3>
+                <p style={{
+                  fontSize: '14px',
+                  lineHeight: '1.5',
+                  color: '#666',
+                  marginBottom: '16px',
+                  flex: '1',
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: 'vertical'
+                }}>
+                  How the Chen family found their dream home in Berwick's family-friendly community, with top schools and parks at their doorstep.
+                </p>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '13px',
+                  fontWeight: '600',
+                  color: '#000',
+                  marginTop: 'auto'
+                }}>
+                  <span>Read their story</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </div>
+              </Link>
+            </article>
+
+            {/* Story 2 */}
+            <article style={{
+              display: 'flex',
+              flexDirection: 'column',
+              cursor: 'pointer',
+              transition: 'transform 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}>
+              <Link href="/suburbs/cranbourne" style={{
+                textDecoration: 'none',
+                color: 'inherit',
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%'
+              }}>
+                <div style={{
+                  position: 'relative',
+                  aspectRatio: '3/2',
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  marginBottom: '16px',
+                  border: '1px solid #e5e5e5'
+                }}>
+                  <img 
+                    src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=267&fit=crop"
+                    alt="Modern development"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    top: '12px',
+                    left: '12px',
+                    padding: '4px 10px',
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    color: '#fff',
+                    borderRadius: '4px',
+                    fontSize: '11px',
+                    fontWeight: '600',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px'
+                  }}>
+                    Market Update
+                  </div>
+                </div>
+                <h3 style={{
+                  fontSize: '18px',
+                  fontWeight: '700',
+                  marginBottom: '8px',
+                  color: '#000',
+                  letterSpacing: '-0.01em',
+                  lineHeight: '1.3',
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical'
+                }}>
+                  Cranbourne: The suburb that's redefining growth
+                </h3>
+                <p style={{
+                  fontSize: '14px',
+                  lineHeight: '1.5',
+                  color: '#666',
+                  marginBottom: '16px',
+                  flex: '1',
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: 'vertical'
+                }}>
+                  Discover why Cranbourne is Melbourne's fastest-growing suburb and what this means for property investors and homeowners.
+                </p>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '13px',
+                  fontWeight: '600',
+                  color: '#000',
+                  marginTop: 'auto'
+                }}>
+                  <span>Explore Cranbourne</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </div>
+              </Link>
+            </article>
+
+            {/* Story 3 */}
+            <article style={{
+              display: 'flex',
+              flexDirection: 'column',
+              cursor: 'pointer',
+              transition: 'transform 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}>
+              <Link href="/sell" style={{
+                textDecoration: 'none',
+                color: 'inherit',
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%'
+              }}>
+                <div style={{
+                  position: 'relative',
+                  aspectRatio: '3/2',
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  marginBottom: '16px',
+                  border: '1px solid #e5e5e5'
+                }}>
+                  <img 
+                    src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=400&h=267&fit=crop"
+                    alt="Selling success"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    top: '12px',
+                    left: '12px',
+                    padding: '4px 10px',
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    color: '#fff',
+                    borderRadius: '4px',
+                    fontSize: '11px',
+                    fontWeight: '600',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px'
+                  }}>
+                    Selling Guide
+                  </div>
+                </div>
+                <h3 style={{
+                  fontSize: '18px',
+                  fontWeight: '700',
+                  marginBottom: '8px',
+                  color: '#000',
+                  letterSpacing: '-0.01em',
+                  lineHeight: '1.3',
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical'
+                }}>
+                  5 secrets to selling above reserve in 2025
+                </h3>
+                <p style={{
+                  fontSize: '14px',
+                  lineHeight: '1.5',
+                  color: '#666',
+                  marginBottom: '16px',
+                  flex: '1',
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: 'vertical'
+                }}>
+                  Expert tips from Grant's top agents on how to maximize your property's value in today's competitive market.
+                </p>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '13px',
+                  fontWeight: '600',
+                  color: '#000',
+                  marginTop: 'auto'
+                }}>
+                  <span>Get selling tips</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </div>
+              </Link>
+            </article>
+
+            {/* Story 4 */}
+            <article style={{
+              display: 'flex',
+              flexDirection: 'column',
+              cursor: 'pointer',
+              transition: 'transform 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}>
+              <Link href="/buying-guide" style={{
+                textDecoration: 'none',
+                color: 'inherit',
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%'
+              }}>
+                <div style={{
+                  position: 'relative',
+                  aspectRatio: '3/2',
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  marginBottom: '16px',
+                  border: '1px solid #e5e5e5'
+                }}>
+                  <img 
+                    src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=400&h=267&fit=crop"
+                    alt="First home buyers"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    top: '12px',
+                    left: '12px',
+                    padding: '4px 10px',
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    color: '#fff',
+                    borderRadius: '4px',
+                    fontSize: '11px',
+                    fontWeight: '600',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px'
+                  }}>
+                    Buying Tips
+                  </div>
+                </div>
+                <h3 style={{
+                  fontSize: '18px',
+                  fontWeight: '700',
+                  marginBottom: '8px',
+                  color: '#000',
+                  letterSpacing: '-0.01em',
+                  lineHeight: '1.3',
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical'
+                }}>
+                  First home buyer's guide to Casey & Cardinia
+                </h3>
+                <p style={{
+                  fontSize: '14px',
+                  lineHeight: '1.5',
+                  color: '#666',
+                  marginBottom: '16px',
+                  flex: '1',
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: 'vertical'
+                }}>
+                  Everything you need to know about buying your first home in Melbourne's growth corridor, from grants to great suburbs.
+                </p>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '13px',
+                  fontWeight: '600',
+                  color: '#000',
+                  marginTop: 'auto'
+                }}>
+                  <span>Start your journey</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </div>
+              </Link>
+            </article>
+          </div>
+
+          {/* View all stories link */}
+          <div style={{
+            marginTop: '48px'
+          }}>
+            <Link href="/stories" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              color: '#000',
+              fontSize: '14px',
+              fontWeight: '600',
+              textDecoration: 'none',
+              borderBottom: '2px solid #000',
+              paddingBottom: '4px',
+              transition: 'opacity 0.2s ease'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
+            onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+            >
+              View all stories
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Community Section - ON.COM style */}
       <section style={{
         backgroundColor: '#000',

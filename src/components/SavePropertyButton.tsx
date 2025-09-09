@@ -15,7 +15,7 @@ interface SavePropertyButtonProps {
     bathrooms: number;
     carSpaces: number;
     propertyType: string;
-    listingType: 'sale' | 'lease' | 'both';
+    listingType?: 'sale' | 'lease' | 'both';
     leasePrice?: number | string;
     leasePriceDisplay?: string;
     images?: any[];

@@ -255,7 +255,7 @@ export default function HomePageOncom() {
             }}>
               <div style={{
                 position: 'relative',
-                paddingBottom: '60%' // Aspect ratio similar to on.com
+                paddingBottom: '100%' // 1:1 Square aspect ratio like on.com
               }}>
                 <img 
                   src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=480&fit=crop"
@@ -303,7 +303,7 @@ export default function HomePageOncom() {
             }}>
               <div style={{
                 position: 'relative',
-                paddingBottom: '60%'
+                paddingBottom: '100%'
               }}>
                 <img 
                   src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800&h=480&fit=crop"
@@ -351,7 +351,7 @@ export default function HomePageOncom() {
             }}>
               <div style={{
                 position: 'relative',
-                paddingBottom: '60%'
+                paddingBottom: '100%'
               }}>
                 <img 
                   src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&h=480&fit=crop"
@@ -399,7 +399,7 @@ export default function HomePageOncom() {
             }}>
               <div style={{
                 position: 'relative',
-                paddingBottom: '60%'
+                paddingBottom: '100%'
               }}>
                 <img 
                   src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=800&h=480&fit=crop"

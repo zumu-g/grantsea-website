@@ -56,7 +56,11 @@ This document contains the exact design specifications from on.com that must be 
 - **Gradient**: Only on bottom portion for text readability
 
 ### Typography
-- **Section Title**: 13px, uppercase, letter-spacing 2px, font-weight 700
+- **Section Heading**: 48px, font-weight 700, letter-spacing -0.48px
+- **Not uppercase**: Normal case ("Shop by category")
+- **Text align**: Left-aligned, not centered
+- **Line height**: 1.1
+- **Bottom margin**: 32px
 - **Category Title**: 28px, font-weight 700
 - **Category Subtitle**: 14px, regular weight
 

@@ -215,13 +215,14 @@ export default function HomePageOncom() {
           padding: '0 20px'
         }}>
           <h2 style={{
-            fontSize: '13px',
+            fontSize: '48px',
             fontWeight: '700',
-            letterSpacing: '2px',
-            textTransform: 'uppercase',
-            textAlign: 'center',
-            margin: '0 0 48px',
-            color: '#000'
+            letterSpacing: '-0.48px',
+            textTransform: 'none',
+            textAlign: 'left',
+            margin: '0 0 32px',
+            color: '#000',
+            lineHeight: '1.1'
           }}>
             Shop by category
           </h2>

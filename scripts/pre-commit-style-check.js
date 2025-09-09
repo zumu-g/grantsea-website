@@ -28,7 +28,14 @@ const ON_COM_DESIGN_SYSTEM = {
     columns: 3,
     gap: 32,
     imageFilter: 'none', // on.com doesn't use dark filters
-    borderRadius: 4
+    borderRadius: 4,
+    heading: {
+      fontSize: 48,
+      fontWeight: 700,
+      letterSpacing: '-0.48px',
+      textTransform: 'none',
+      textAlign: 'left'
+    }
   },
   colors: {
     primary: '#000',
@@ -150,6 +157,9 @@ async function checkStyles() {
       );
       if (!categorySection) return null;
       
+      const heading = categorySection.querySelector('h2');
+      const headingStyles = heading ? window.getComputedStyle(heading) : null;
+      
       const categoryLinks = categorySection.querySelectorAll('a');
       const firstCategory = categoryLinks[0];
       if (!firstCategory) return null;
@@ -164,7 +174,14 @@ async function checkStyles() {
       return {
         aspectRatio: paddingBottom,
         gridColumns: gridStyle ? gridStyle.gridTemplateColumns : null,
-        categoryCount: categoryLinks.length
+        categoryCount: categoryLinks.length,
+        heading: headingStyles ? {
+          fontSize: parseInt(headingStyles.fontSize),
+          fontWeight: parseInt(headingStyles.fontWeight),
+          letterSpacing: headingStyles.letterSpacing,
+          textTransform: headingStyles.textTransform,
+          textAlign: headingStyles.textAlign
+        } : null
       };
     });
     
@@ -185,6 +202,21 @@ async function checkStyles() {
       if (categoryData.categoryCount !== 3) {
         issues.push(`❌ Shop by category should have exactly 3 items, found: ${categoryData.categoryCount}`);
         passed = false;
+      }
+      // Check heading styles
+      if (categoryData.heading) {
+        if (categoryData.heading.fontSize !== ON_COM_DESIGN_SYSTEM.shopByCategory.heading.fontSize) {
+          issues.push(`❌ Shop by category heading font size should be ${ON_COM_DESIGN_SYSTEM.shopByCategory.heading.fontSize}px, found: ${categoryData.heading.fontSize}px`);
+          passed = false;
+        }
+        if (categoryData.heading.fontWeight !== ON_COM_DESIGN_SYSTEM.shopByCategory.heading.fontWeight) {
+          issues.push(`❌ Shop by category heading font weight should be ${ON_COM_DESIGN_SYSTEM.shopByCategory.heading.fontWeight}, found: ${categoryData.heading.fontWeight}`);
+          passed = false;
+        }
+        if (categoryData.heading.textTransform !== ON_COM_DESIGN_SYSTEM.shopByCategory.heading.textTransform) {
+          issues.push(`❌ Shop by category heading should not be uppercase, found: ${categoryData.heading.textTransform}`);
+          passed = false;
+        }
       }
     }
     

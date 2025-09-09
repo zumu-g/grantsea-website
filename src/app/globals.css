@@ -1,11 +1,11 @@
 /* Import On.com styleguide */
 @import './styleguide.css';
 
-/* Import Grant's Estate Agents Style System */
-@import './grants-style-system.css';
-
 /* Import full-screen override styles */
 @import './full-screen-override.css';
+
+/* Import Grant's Estate Agents Style System - available but not overriding Anima */
+/* @import './grants-style-system.css'; */
 
 /* Reset for On.com styling */
 * {

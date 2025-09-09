@@ -78,8 +78,8 @@ export default function PropertySearchPageOncomStyle() {
   }, [showFilters]);
 
   return (
-    <div style={{ backgroundColor: '#f8f8f8', minHeight: '100vh' }}>
-      {/* Overlay */}
+    <div style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
+      {/* Overlay for mobile filters */}
       {showFilters && (
         <div
           onClick={() => setShowFilters(false)}
@@ -88,24 +88,11 @@ export default function PropertySearchPageOncomStyle() {
             inset: 0,
             backgroundColor: 'rgba(0,0,0,0.3)',
             zIndex: 49,
-            cursor: 'pointer'
+            cursor: 'pointer',
+            display: window.innerWidth < 1024 ? 'block' : 'none'
           }}
         />
       )}
-
-      {/* Slide-out Filter Panel */}
-      <div style={{
-        position: 'fixed',
-        top: 0,
-        left: showFilters ? 0 : '-400px',
-        width: '400px',
-        height: '100vh',
-        backgroundColor: 'white',
-        boxShadow: '2px 0 8px rgba(0,0,0,0.1)',
-        transition: 'left 0.3s ease-out',
-        zIndex: 50,
-        overflowY: 'auto'
-      }}>
         {/* Filter Header */}
         <div style={{
           padding: '24px',
@@ -342,7 +329,7 @@ export default function PropertySearchPageOncomStyle() {
       {/* Header */}
       <header style={{
         backgroundColor: 'white',
-        borderBottom: '1px solid #e5e5e5',
+        borderBottom: '1px solid #e0e0e0',
         position: 'sticky',
         top: 0,
         zIndex: 40
@@ -350,23 +337,23 @@ export default function PropertySearchPageOncomStyle() {
         <div style={{
           maxWidth: '1440px',
           margin: '0 auto',
-          padding: '0 20px'
+          padding: '0 32px'
         }}>
           <div style={{
             display: 'flex',
             alignItems: 'center',
             height: '64px',
-            gap: '40px'
+            gap: '48px'
           }}>
             {/* Logo */}
             <Link href="/" style={{
-              fontSize: '20px',
-              fontWeight: '600',
+              fontSize: '24px',
+              fontWeight: '800',
               color: '#000',
               textDecoration: 'none',
-              letterSpacing: '-0.5px'
+              letterSpacing: '-0.02em'
             }}>
-              Grant's Estate Agents
+              GRANT'S
             </Link>
 
             {/* Search Bar */}
@@ -441,63 +428,327 @@ export default function PropertySearchPageOncomStyle() {
       <div style={{
         maxWidth: '1440px',
         margin: '0 auto',
-        padding: '20px'
+        display: 'flex',
+        gap: '32px',
+        padding: '32px'
       }}>
-        {/* Results Header */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: '24px'
+        {/* Left Sidebar Filters - Desktop */}
+        <aside style={{
+          width: '280px',
+          flexShrink: 0,
+          display: window.innerWidth >= 1024 ? 'block' : 'none'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div style={{ marginBottom: '32px' }}>
+            {/* Listing Type */}
+            <div style={{ marginBottom: '32px' }}>
+              <h3 style={{
+                fontSize: '14px',
+                fontWeight: '600',
+                marginBottom: '16px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
+              }}>Listing Type</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {(['all', 'sale', 'lease'] as const).map((type) => (
+                  <label key={type} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    cursor: 'pointer',
+                    fontSize: '14px'
+                  }}>
+                    <input
+                      type="radio"
+                      name="listingType"
+                      checked={filter === type}
+                      onChange={() => setFilter(type)}
+                      style={{
+                        marginRight: '12px',
+                        width: '16px',
+                        height: '16px'
+                      }}
+                    />
+                    <span>{type === 'all' ? 'All' : type === 'sale' ? 'For Sale' : 'For Rent'}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Price Range */}
+            <div style={{ marginBottom: '32px' }}>
+              <h3 style={{
+                fontSize: '14px',
+                fontWeight: '600',
+                marginBottom: '16px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
+              }}>Price Range</h3>
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <input
+                  type="number"
+                  placeholder="Min"
+                  value={priceRange.min}
+                  onChange={(e) => setPriceRange({ ...priceRange, min: e.target.value })}
+                  style={{
+                    flex: 1,
+                    padding: '8px',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: '4px',
+                    fontSize: '14px'
+                  }}
+                />
+                <span style={{ color: '#999' }}>—</span>
+                <input
+                  type="number"
+                  placeholder="Max"
+                  value={priceRange.max}
+                  onChange={(e) => setPriceRange({ ...priceRange, max: e.target.value })}
+                  style={{
+                    flex: 1,
+                    padding: '8px',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: '4px',
+                    fontSize: '14px'
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Bedrooms */}
+            <div style={{ marginBottom: '32px' }}>
+              <h3 style={{
+                fontSize: '14px',
+                fontWeight: '600',
+                marginBottom: '16px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
+              }}>Bedrooms</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {['any', '1', '2', '3', '4', '5+'].map((bed) => (
+                  <label key={bed} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    cursor: 'pointer',
+                    fontSize: '14px'
+                  }}>
+                    <input
+                      type="radio"
+                      name="bedrooms"
+                      checked={bedrooms === bed}
+                      onChange={() => setBedrooms(bed)}
+                      style={{
+                        marginRight: '12px',
+                        width: '16px',
+                        height: '16px'
+                      }}
+                    />
+                    <span>{bed === 'any' ? 'Any' : bed + ' Bedroom' + (bed !== '1' ? 's' : '')}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Bathrooms */}
+            <div style={{ marginBottom: '32px' }}>
+              <h3 style={{
+                fontSize: '14px',
+                fontWeight: '600',
+                marginBottom: '16px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
+              }}>Bathrooms</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {['any', '1', '2', '3', '4+'].map((bath) => (
+                  <label key={bath} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    cursor: 'pointer',
+                    fontSize: '14px'
+                  }}>
+                    <input
+                      type="radio"
+                      name="bathrooms"
+                      checked={bathrooms === bath}
+                      onChange={() => setBathrooms(bath)}
+                      style={{
+                        marginRight: '12px',
+                        width: '16px',
+                        height: '16px'
+                      }}
+                    />
+                    <span>{bath === 'any' ? 'Any' : bath + ' Bathroom' + (bath !== '1' ? 's' : '')}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Property Types */}
+            <div style={{ marginBottom: '32px' }}>
+              <h3 style={{
+                fontSize: '14px',
+                fontWeight: '600',
+                marginBottom: '16px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
+              }}>Property Type</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {['House', 'Apartment', 'Townhouse', 'Land', 'Unit'].map((type) => (
+                  <label key={type} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    cursor: 'pointer',
+                    fontSize: '14px'
+                  }}>
+                    <input
+                      type="checkbox"
+                      checked={propertyTypes.includes(type)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setPropertyTypes([...propertyTypes, type]);
+                        } else {
+                          setPropertyTypes(propertyTypes.filter(t => t !== type));
+                        }
+                      }}
+                      style={{
+                        marginRight: '12px',
+                        width: '18px',
+                        height: '18px'
+                      }}
+                    />
+                    <span>{type}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Clear All Button */}
             <button
-              onClick={() => setShowFilters(true)}
+              onClick={() => {
+                setFilter('all');
+                setPriceRange({ min: '', max: '' });
+                setBedrooms('any');
+                setBathrooms('any');
+                setPropertyTypes([]);
+                setSuburbs([]);
+              }}
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '10px 20px',
-                border: '1px solid #e5e5e5',
-                borderRadius: '24px',
-                backgroundColor: 'white',
+                width: '100%',
+                padding: '10px',
+                border: 'none',
+                borderRadius: '4px',
+                backgroundColor: '#f0f0f0',
+                color: '#000',
                 fontSize: '14px',
                 fontWeight: '500',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease'
               }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#e0e0e0';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#f0f0f0';
+              }}
             >
-              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-              </svg>
-              Filters
+              Clear All Filters
             </button>
-            <p style={{
-              color: '#666',
-              fontSize: '14px'
-            }}>
-              {sortedProperties.length} properties found
-            </p>
           </div>
+        </aside>
+
+        {/* Mobile Filter Slide-out */}
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: showFilters ? 0 : '-100%',
+          width: '100%',
+          height: '100vh',
+          backgroundColor: 'white',
+          transition: 'left 0.3s ease-out',
+          zIndex: 50,
+          overflowY: 'auto',
+          display: window.innerWidth < 1024 ? 'block' : 'none'
+        }}>
+          {/* Mobile filter content - same as desktop */}
+        </div>
+
+        {/* Right Content Area */}
+        <div style={{ flex: 1 }}>
+          {/* Results Header */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '24px',
+            paddingBottom: '24px',
+            borderBottom: '1px solid #e0e0e0'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              {/* Mobile Filter Button */}
+              <button
+                onClick={() => setShowFilters(true)}
+                style={{
+                  display: window.innerWidth < 1024 ? 'flex' : 'none',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '8px 16px',
+                  border: '1px solid #e0e0e0',
+                  borderRadius: '4px',
+                  backgroundColor: 'white',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+              >
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                </svg>
+                Filters
+              </button>
+              <p style={{
+                color: '#666',
+                fontSize: '14px'
+              }}>
+                {sortedProperties.length} results
+              </p>
+            </div>
 
           {/* Sort Dropdown */}
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as any)}
-            style={{
-              padding: '10px 16px',
-              border: '1px solid #e5e5e5',
-              borderRadius: '24px',
-              fontSize: '14px',
-              backgroundColor: 'white',
-              cursor: 'pointer'
-            }}
-          >
-            <option value="relevance">Most Relevant</option>
-            <option value="newest">Newest First</option>
-            <option value="price-asc">Price: Low to High</option>
-            <option value="price-desc">Price: High to Low</option>
-          </select>
+          <div style={{ position: 'relative' }}>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as any)}
+              style={{
+                padding: '8px 32px 8px 12px',
+                border: '1px solid #e0e0e0',
+                borderRadius: '0',
+                fontSize: '14px',
+                backgroundColor: 'white',
+                cursor: 'pointer',
+                appearance: 'none',
+                minWidth: '200px'
+              }}
+            >
+              <option value="relevance">Most Relevant</option>
+              <option value="newest">Newest First</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </select>
+            <svg
+              style={{
+                position: 'absolute',
+                right: '12px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                pointerEvents: 'none'
+              }}
+              width="12"
+              height="12"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
         </div>
 
         {/* Loading State */}
@@ -528,8 +779,8 @@ export default function PropertySearchPageOncomStyle() {
         ) : (
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-            gap: '20px'
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '24px'
           }}>
             {sortedProperties.map((property) => (
               <div
@@ -546,25 +797,27 @@ export default function PropertySearchPageOncomStyle() {
                   }}
                   style={{
                     backgroundColor: 'white',
-                    borderRadius: '4px',
+                    borderRadius: '0',
                     overflow: 'hidden',
                     cursor: 'pointer',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                    transition: 'all 0.2s ease'
+                    border: '1px solid transparent',
+                    transition: 'all 0.3s ease'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)';
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)';
+                    e.currentTarget.style.borderColor = '#f0f0f0';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+                    e.currentTarget.style.boxShadow = 'none';
+                    e.currentTarget.style.borderColor = 'transparent';
                   }}
                 >
                   {/* Property Image */}
                   <div style={{
                     position: 'relative',
-                    paddingTop: '66.67%',
+                    paddingTop: '100%',
                     backgroundColor: '#f8f8f8'
                   }}>
                     {/* Save Button */}
@@ -572,14 +825,6 @@ export default function PropertySearchPageOncomStyle() {
                         position: 'absolute',
                         top: '12px',
                         right: '12px',
-                        width: '36px',
-                        height: '36px',
-                        backgroundColor: 'white',
-                        borderRadius: '50%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
                         zIndex: 10
                       }}>
                       <SavePropertyButton property={property} />
@@ -591,13 +836,13 @@ export default function PropertySearchPageOncomStyle() {
                       top: '12px',
                       left: '12px',
                       padding: '4px 12px',
-                      backgroundColor: property.listingType === 'lease' ? '#000' : '#666',
+                      backgroundColor: '#000',
                       color: 'white',
-                      fontSize: '12px',
-                      fontWeight: '600',
-                      borderRadius: '16px',
+                      fontSize: '11px',
+                      fontWeight: '500',
+                      borderRadius: '0',
                       textTransform: 'uppercase',
-                      letterSpacing: '0.5px'
+                      letterSpacing: '0.05em'
                     }}>
                       {property.listingType === 'lease' ? 'For Rent' : 'For Sale'}
                     </div>
@@ -631,49 +876,49 @@ export default function PropertySearchPageOncomStyle() {
                   </div>
 
                   {/* Property Details */}
-                  <div style={{ padding: '20px' }}>
-                    {/* Price */}
-                    <div style={{
-                      fontSize: '20px',
-                      fontWeight: '600',
-                      marginBottom: '8px',
-                      letterSpacing: '-0.5px'
-                    }}>
-                      {property.listingType === 'lease' 
-                        ? (property.leasePriceDisplay || `$${property.leasePrice} per week`)
-                        : (property.priceDisplay || formatPrice(property.price))}
-                    </div>
-
-                    {/* Address */}
+                  <div style={{ padding: '16px' }}>
+                    {/* Address and Suburb */}
                     <h3 style={{
-                      fontSize: '16px',
+                      fontSize: '14px',
                       fontWeight: '500',
                       marginBottom: '4px',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap'
+                      lineHeight: '1.4',
+                      color: '#000'
                     }}>
                       {property.address}
                     </h3>
-
-                    {/* Suburb */}
                     <p style={{
                       fontSize: '14px',
                       color: '#666',
-                      marginBottom: '12px'
+                      marginBottom: '8px',
+                      fontWeight: '400'
                     }}>
                       {property.suburb}, {property.state} {property.postcode}
                     </p>
 
+                    {/* Price */}
+                    <div style={{
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      marginBottom: '8px',
+                      color: '#000'
+                    }}>
+                      {property.listingType === 'lease' 
+                        ? (property.leasePriceDisplay || `$${property.leasePrice} pw`)
+                        : (property.priceDisplay || formatPrice(property.price))}
+                    </div>
+
                     {/* Features */}
                     <div style={{
                       display: 'flex',
-                      gap: '16px',
-                      fontSize: '14px',
+                      gap: '8px',
+                      fontSize: '12px',
                       color: '#666'
                     }}>
                       <span>{property.bedrooms} bed</span>
+                      <span>•</span>
                       <span>{property.bathrooms} bath</span>
+                      <span>•</span>
                       <span>{property.carSpaces} car</span>
                     </div>
                   </div>

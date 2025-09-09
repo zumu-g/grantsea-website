@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useProperties } from '@/hooks/useProperties';
-import Header from '@/components/shared/header/Header';
+import Header from '@/components/Header';
 import PropertyCard from '@/components/property/PropertyCard';
 import AIChatWidget from '@/components/AIChatWidget';
 

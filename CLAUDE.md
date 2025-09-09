@@ -1,6 +1,6 @@
 # Grant's Estate Agents Website - Development Progress
 
-## Last Updated: 2025-09-08
+## Last Updated: 2025-09-09
 
 ## Current Status
 
@@ -32,12 +32,28 @@
 5. **New Pages Created**
    - `/listings` - Modern property listings page with card layout
    - `/search` - Comprehensive search results page with advanced filters
+   - `/saved-properties` - Page for viewing saved/favorited properties
    - Property search functionality with filters for:
      - Listing type (All/Sale/Lease)
      - Price range
      - Bedrooms and bathrooms
      - Property types
      - Suburbs
+
+6. **Grant's Style Guide Applied**
+   - Created comprehensive style guide from property page analysis
+   - Applied on.com-inspired styling while preserving Anima structure
+   - Fixed hero text positioning to overlay on image
+   - Removed AI chat section from footer
+   - Enhanced typography and spacing throughout
+
+7. **Saved Properties Feature**
+   - Implemented heart icon functionality across all property listings
+   - Created SavePropertyButton component with toggle states
+   - Added useSavedProperties hook for managing favorites
+   - Properties persist in browser localStorage
+   - Saved properties accessible from header heart icon
+   - Works on home page, listings, search, and property detail pages
 
 ### 🔧 Technical Details
 
@@ -52,15 +68,23 @@
 - `src/app/api/properties/route.ts` - API route for properties
 - `src/app/api/properties/[id]/route.ts` - API route for individual property
 - `src/hooks/useProperties.ts` - React hook for fetching properties
-- `src/app/listings/page.tsx` - New modern listings page
-- `src/app/search/page.tsx` - New search results page with filters
+- `src/hooks/useSavedProperties.ts` - React hook for managing saved properties
+- `src/components/SavePropertyButton.tsx` - Reusable save property button component
+- `src/app/listings/page.tsx` - Modern listings page with save functionality
+- `src/app/search/page-oncom-style.tsx` - Search results page with save functionality
+- `src/app/saved-properties/page.tsx` - New saved properties page
+- `src/app/property/[id]/page.tsx` - Property detail page with save button
+- `src/components/anima-exports/screens/ElementLight/hero-text-fix.css` - Hero text positioning fixes
+- `src/components/anima-exports/screens/ElementLight/on-com-safe-overrides.css` - on.com styling
 
 ### 🚀 Recent Changes (Latest Commit)
-- Fixed navigation positioning on homepage
-- Removed duplicate navigation header
-- Integrated navigation into existing header structure
-- Updated nav items to Search, About, Explore
-- Made icons functional (search modal, saved properties, profile)
+- Implemented saved properties functionality with heart icon
+- Created SavePropertyButton component with toggle states
+- Added saved properties page at /saved-properties
+- Integrated save functionality across all property listings
+- Fixed hero text positioning to overlay on hero image
+- Removed AI chat section from footer
+- Applied on.com-inspired styling while preserving Anima structure
 
 ### 📝 Environment Variables Required
 In Vercel, ensure these are set:
@@ -89,12 +113,14 @@ CRM_ACCESS_TOKEN=nzinklyrqutvcdodhyaqyizcjflohlayxezuthan
 - Loading and empty states
 
 ### 📋 Next Steps
-1. Implement saved properties functionality
-2. Add user authentication
-3. Create property comparison feature
-4. Enhance search with map view
-5. Add property alerts/notifications
-6. Implement contact forms for inquiries
+1. Add user authentication system
+2. Create property comparison feature
+3. Enhance search with map view integration
+4. Add property alerts/notifications
+5. Build property inquiry forms with email integration
+6. Implement agent profiles and listings
+7. Add property viewing appointment booking
+8. Create admin dashboard for property management
 
 ### 🐛 Known Issues
 - None currently reported

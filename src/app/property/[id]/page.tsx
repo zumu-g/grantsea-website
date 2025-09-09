@@ -8,6 +8,7 @@ import AIChatWidget from '@/components/AIChatWidget';
 import Header from '@/components/Header';
 import { useProperty } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
+import SavePropertyButton from '@/components/SavePropertyButton';
 
 export default function PropertyDetailPage() {
   const params = useParams();
@@ -161,7 +162,10 @@ export default function PropertyDetailPage() {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg p-6 shadow-sm sticky top-24">
               <div className="mb-6">
-                <h1 className="text-2xl font-bold mb-2">{property.address}, {property.suburb}</h1>
+                <div className="flex items-start justify-between mb-2">
+                  <h1 className="text-2xl font-bold">{property.address}, {property.suburb}</h1>
+                  <SavePropertyButton property={property} showLabel={true} className="ml-4" />
+                </div>
                 <p className="text-3xl font-bold text-blue-600">{property.priceDisplay || formatPrice(property.price)}</p>
               </div>
 

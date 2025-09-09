@@ -29,9 +29,12 @@ import { Variant11 } from "../../icons/Variant11";
 import { Variant25 } from "../../icons/Variant25";
 import { useProperties } from "@/hooks/useProperties";
 import { formatPrice } from "@/services/api";
+import SavePropertyButton from "@/components/SavePropertyButton";
 import "./style.css";
 import "./navigation-override.css";
 import "./on-style-header.css";
+import "./on-com-safe-overrides.css";
+import "./hero-text-fix.css";
 
 export const ElementLight = () => {
   // Scroll state for header
@@ -525,13 +528,16 @@ export const ElementLight = () => {
                   <div className="group-wrapper" key={`${property.id}-${index}`}>
                     <div className="article-wrapper">
                       <Link href={`/property/${property.id}`} className="article" style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
-                        <div className="container-17">
+                        <div className="container-17" style={{ position: 'relative' }}>
                           <Component
                             className="component-14"
                             hover={false}
                             icon={<Variant11 className="icon-instance-node" />}
                             variant="four"
                           />
+                          <div style={{ position: 'absolute', top: '8px', right: '8px', zIndex: 10 }}>
+                            <SavePropertyButton property={property} />
+                          </div>
                         </div>
 
                         <div className="container-wrapper-2">

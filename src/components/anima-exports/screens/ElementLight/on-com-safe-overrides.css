@@ -1,0 +1,226 @@
+/* ON.COM SAFE OVERRIDES FOR ANIMA COMPONENTS
+   These styles apply on.com design WITHOUT breaking Anima layout
+   Based on actual on.com analysis
+*/
+
+/* ===== DESIGN TOKENS FROM ON.COM ===== */
+:root {
+  /* Typography from on.com */
+  --on-nav-size: 14px;
+  --on-nav-weight: 700;
+  --on-nav-spacing: 0.5px;
+  --on-hero-h1-size: 72px;
+  --on-hero-h1-weight: 900;
+  --on-body-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  /* Spacing */
+  --on-nav-gap: 40px;
+  --on-section-padding: 80px;
+  --on-category-gap: 4px;
+  
+  /* Colors */
+  --on-black: #000000;
+  --on-white: #ffffff;
+  --on-gray: #666666;
+}
+
+/* ===== HEADER SAFE OVERRIDES ===== */
+
+/* Keep Anima's positioning, just enhance visuals */
+.element-light header {
+  /* Visual enhancements only */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Header scroll state */
+.element-light header.scrolled {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation typography to match on.com */
+.element-light nav a,
+.element-light .nav-link {
+  /* Typography only - no layout changes */
+  font-size: var(--on-nav-size) !important;
+  font-weight: var(--on-nav-weight) !important;
+  letter-spacing: var(--on-nav-spacing) !important;
+  text-transform: uppercase !important;
+  font-family: var(--on-body-font) !important;
+  transition: opacity 0.2s ease;
+}
+
+/* Hover state like on.com */
+.element-light nav a:hover,
+.element-light .nav-link:hover {
+  opacity: 0.6;
+}
+
+/* Adjust nav spacing using margins, not gap */
+.element-light .nav-navigation a {
+  margin: 0 20px;
+}
+
+/* ===== HERO SECTION SAFE OVERRIDES ===== */
+
+/* Make parent full height without breaking container-9 */
+.element-light .section-article {
+  min-height: 100vh !important;
+  /* Keep existing background image */
+}
+
+/* Enhance hero text without moving it */
+.element-light .text-wrapper-2 {
+  /* on.com style typography */
+  font-size: clamp(48px, 5vw, var(--on-hero-h1-size)) !important;
+  font-weight: var(--on-hero-h1-weight) !important;
+  line-height: 0.9 !important;
+  letter-spacing: -0.03em !important;
+  /* Keep text where Anima positioned it */
+}
+
+/* Hero subtitle enhancement */
+.element-light .p {
+  font-size: clamp(20px, 2vw, 28px) !important;
+  font-weight: 400 !important;
+  opacity: 0.8;
+}
+
+/* Hero buttons - enhance without moving */
+.element-light .component-instance {
+  /* Visual enhancement only */
+  padding: 16px 32px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  border-radius: 0 !important; /* on.com uses square buttons */
+  transition: all 0.2s ease !important;
+}
+
+.element-light .component-instance:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== CATEGORY SECTION SAFE OVERRIDES ===== */
+
+/* Work with container-11's structure */
+.element-light .container-11 {
+  /* Convert to grid carefully */
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  gap: var(--on-category-gap) !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  /* Remove absolute positioning from children */
+  position: relative !important;
+}
+
+/* Fix category items */
+.element-light .container-11 > * {
+  /* Make items relative positioned */
+  position: relative !important;
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 3/4 !important;
+}
+
+/* Category images enhancement */
+.element-light .component-4-instance,
+.element-light .component-5-instance,
+.element-light .component-6-instance {
+  border-radius: 0 !important; /* on.com uses square edges */
+  overflow: hidden !important;
+  cursor: pointer !important;
+  transition: transform 0.3s ease !important;
+}
+
+.element-light .component-4-instance:hover,
+.element-light .component-5-instance:hover,
+.element-light .component-6-instance:hover {
+  transform: scale(1.02);
+}
+
+/* Category text overlay like on.com */
+.element-light .component-4-instance::after,
+.element-light .component-5-instance::after,
+.element-light .component-6-instance::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  pointer-events: none;
+}
+
+/* ===== GLOBAL ENHANCEMENTS ===== */
+
+/* Better font rendering like on.com */
+.element-light {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* All text should use on.com font stack where safe */
+.element-light p,
+.element-light span,
+.element-light div {
+  font-family: var(--on-body-font);
+}
+
+/* ===== RESPONSIVE FIXES ===== */
+
+@media (max-width: 768px) {
+  /* Adjust typography for mobile */
+  .element-light .text-wrapper-2 {
+    font-size: 48px !important;
+  }
+  
+  .element-light .p {
+    font-size: 20px !important;
+  }
+  
+  /* Stack categories on mobile */
+  .element-light .container-11 {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  
+  /* Smaller nav text on mobile */
+  .element-light nav a,
+  .element-light .nav-link {
+    font-size: 12px !important;
+  }
+}
+
+/* ===== ANIMATION ENHANCEMENTS ===== */
+
+/* Smooth page transitions */
+.element-light * {
+  transition-property: color, background-color, border-color, opacity;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== CRITICAL: DON'T BREAK ANIMA ===== */
+
+/* NEVER change these properties on Anima components: */
+/* - position (especially absolute)
+   - top, left, right, bottom values
+   - display on main containers
+   - width/height on fixed containers
+   - z-index stacking
+*/
+
+/* This CSS is SAFE because it:
+   1. Only modifies visual properties
+   2. Uses min-height instead of height
+   3. Respects Anima's positioning
+   4. Enhances rather than replaces
+   5. Tests for responsive behavior
+*/

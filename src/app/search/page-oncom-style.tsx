@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
+import SavePropertyButton from '@/components/SavePropertyButton';
 
 export default function PropertySearchPageOncomStyle() {
   const searchParams = useSearchParams();
@@ -567,40 +568,22 @@ export default function PropertySearchPageOncomStyle() {
                     backgroundColor: '#f8f8f8'
                   }}>
                     {/* Save Button */}
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        console.log('Save property:', property.id);
-                      }}
-                      style={{
+                    <div style={{
                         position: 'absolute',
                         top: '12px',
                         right: '12px',
                         width: '36px',
                         height: '36px',
                         backgroundColor: 'white',
-                        border: 'none',
                         borderRadius: '50%',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        cursor: 'pointer',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                        zIndex: 10,
-                        transition: 'all 0.2s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'scale(1.1)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'scale(1)';
-                      }}
-                    >
-                      <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                      </svg>
-                    </button>
+                        zIndex: 10
+                      }}>
+                      <SavePropertyButton property={property} />
+                    </div>
 
                     {/* Status Badge */}
                     <div style={{

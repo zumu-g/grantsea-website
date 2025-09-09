@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
+import SavePropertyButton from '@/components/SavePropertyButton';
 
 export default function PropertyListingsPage() {
   const router = useRouter();
@@ -443,34 +444,22 @@ export default function PropertyListingsPage() {
                       overflow: 'hidden'
                     }}>
                       {/* Save Button */}
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          console.log('Save button clicked for property:', property.id);
-                          // Handle save property
-                        }}
-                        style={{
+                      <div style={{
                           position: 'absolute',
                           top: '16px',
                           right: '16px',
                           width: '40px',
                           height: '40px',
                           backgroundColor: 'white',
-                          border: 'none',
                           borderRadius: '50%',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          cursor: 'pointer',
                           boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
                           zIndex: 10
-                        }}
-                      >
-                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
-                      </button>
+                        }}>
+                        <SavePropertyButton property={property} />
+                      </div>
                       
                       {property.images && property.images[0] ? (
                         <img

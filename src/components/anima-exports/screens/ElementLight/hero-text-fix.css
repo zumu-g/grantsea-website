@@ -1,0 +1,101 @@
+/* Fix Hero Text Positioning */
+
+/* Make hero section full viewport height */
+.element-light .section-article {
+  min-height: 100vh !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Center the content container */
+.element-light .container-9 {
+  position: relative !important;
+  top: auto !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+/* Ensure gradient overlay works */
+.element-light .gradient-2 {
+  position: absolute;
+  bottom: 0;
+  top: auto !important;
+  height: 60% !important;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    transparent 100%
+  ) !important;
+}
+
+/* Center the text content */
+.element-light .div-wrapper-3 {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  z-index: 2;
+  position: relative;
+}
+
+.element-light .section-wrapper {
+  text-align: center;
+}
+
+/* Style the hero text */
+.element-light .text-wrapper-2 {
+  font-size: 72px !important;
+  font-weight: 900 !important;
+  line-height: 1.1 !important;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.element-light .p {
+  font-size: 24px !important;
+  font-weight: 400 !important;
+  margin-bottom: 40px;
+  opacity: 0.9;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Center buttons */
+.element-light .container-10 {
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Hide AI Chat Section */
+.element-light .list-wrapper {
+  display: none !important;
+}
+
+/* Alternative: Hide just the chat items */
+.element-light .item-link-help,
+.element-light .div-6:has(.text-wrapper-11) {
+  display: none !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .element-light .text-wrapper-2 {
+    font-size: 48px !important;
+  }
+  
+  .element-light .p {
+    font-size: 20px !important;
+  }
+  
+  .element-light .container-10 {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .element-light .container-10 .item {
+    width: 100%;
+  }
+}

@@ -106,12 +106,13 @@ export default function HomePageOncom() {
         </div>
       </header>
 
-      {/* Hero Section - Full screen with transparent header overlay */}
+      {/* Hero Section - Full screen with centered text like ON.COM */}
       <section style={{
         height: '100vh',
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'center',
         backgroundImage: 'url("https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=1080&fit=crop")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -121,86 +122,99 @@ export default function HomePageOncom() {
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5))'
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%)'
         }} />
         
         <div style={{
           position: 'relative',
           width: '100%',
-          maxWidth: '1400px',
+          maxWidth: '1200px',
           margin: '0 auto',
-          padding: '0 40px'
+          padding: '0 40px',
+          textAlign: 'center'
         }}>
-          <div>
-            <h1 style={{
-              fontSize: 'clamp(2.5rem, 5vw, 5.375rem)',
-              fontWeight: '700',
-              lineHeight: '1.1',
-              marginBottom: '20px',
+          <h1 style={{
+            fontSize: 'clamp(3rem, 5vw, 6rem)',
+            fontWeight: '800',
+            lineHeight: '1.1',
+            marginBottom: '24px',
+            color: '#fff',
+            letterSpacing: '-0.02em',
+            textShadow: '0 2px 4px rgba(0,0,0,0.1)'
+          }}>
+            Your best move starts here
+          </h1>
+          <p style={{
+            fontSize: 'clamp(1.125rem, 2vw, 1.5rem)',
+            fontWeight: '400',
+            lineHeight: '1.5',
+            marginBottom: '48px',
+            color: 'rgba(255,255,255,0.9)',
+            maxWidth: '600px',
+            margin: '0 auto 48px'
+          }}>
+            Casey and Cardinia's trusted real estate experts
+          </p>
+          <div style={{ 
+            display: 'flex', 
+            gap: '16px', 
+            flexWrap: 'wrap',
+            justifyContent: 'center'
+          }}>
+            <Link href="/buy" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              padding: '18px 40px',
+              backgroundColor: '#fff',
+              color: '#000',
+              textDecoration: 'none',
+              fontSize: '18px',
+              fontWeight: '600',
+              borderRadius: '50px',
+              transition: 'all 0.2s ease',
+              minWidth: '180px',
+              justifyContent: 'center',
+              boxShadow: '0 4px 14px rgba(0,0,0,0.1)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,0,0,0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.1)';
+            }}
+            >
+              Browse properties
+            </Link>
+            <Link href="/appraisal" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              padding: '18px 40px',
+              backgroundColor: 'transparent',
               color: '#fff',
-              letterSpacing: '-0.03em',
-              maxWidth: '700px'
-            }}>
-              Your best move starts here
-            </h1>
-            <p style={{
-              fontSize: '20px',
-              fontWeight: '400',
-              lineHeight: '1.5',
-              marginBottom: '40px',
-              color: '#fff',
-              maxWidth: '500px'
-            }}>
-              Casey and Cardinia's trusted real estate experts
-            </p>
-            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-              <Link href="/buy" style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                padding: '16px 32px',
-                backgroundColor: '#fff',
-                color: '#000',
-                textDecoration: 'none',
-                fontSize: '16px',
-                fontWeight: '600',
-                borderRadius: '32px',
-                transition: 'transform 0.2s ease',
-                minWidth: '160px',
-                justifyContent: 'center'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-              >
-                Browse properties
-              </Link>
-              <Link href="/appraisal" style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                padding: '16px 32px',
-                backgroundColor: 'rgba(255,255,255,0.2)',
-                backdropFilter: 'blur(10px)',
-                color: '#fff',
-                textDecoration: 'none',
-                fontSize: '16px',
-                fontWeight: '600',
-                borderRadius: '32px',
-                border: '1px solid rgba(255,255,255,0.3)',
-                transition: 'all 0.2s ease',
-                minWidth: '160px',
-                justifyContent: 'center'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.3)';
-                e.currentTarget.style.transform = 'scale(1.05)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)';
-                e.currentTarget.style.transform = 'scale(1)';
-              }}
-              >
-                Get appraisal
-              </Link>
-            </div>
+              textDecoration: 'none',
+              fontSize: '18px',
+              fontWeight: '600',
+              borderRadius: '50px',
+              border: '2px solid rgba(255,255,255,0.8)',
+              transition: 'all 0.2s ease',
+              minWidth: '180px',
+              justifyContent: 'center'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#fff';
+              e.currentTarget.style.color = '#000';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = '#fff';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+            >
+              Get appraisal
+            </Link>
           </div>
         </div>
       </section>

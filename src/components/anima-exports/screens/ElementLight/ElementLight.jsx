@@ -27,13 +27,16 @@ import { Component1_51 } from "../../icons/Component1_51";
 import { Variant1 } from "../../icons/Variant1";
 import { Variant11 } from "../../icons/Variant11";
 import { Variant25 } from "../../icons/Variant25";
-import AIChatWidget from "../../../AIChatWidget";
 import { useProperties } from "@/hooks/useProperties";
 import { formatPrice } from "@/services/api";
 import "./style.css";
 import "./navigation-override.css";
+import "./on-style-header.css";
 
 export const ElementLight = () => {
+  // Scroll state for header
+  const [isScrolled, setIsScrolled] = useState(false);
+  
   // Carousel state for New Arrivals
   const [currentPropertyIndex, setCurrentPropertyIndex] = useState(0);
   const [showSearchModal, setShowSearchModal] = useState(false);
@@ -97,6 +100,15 @@ export const ElementLight = () => {
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const getVisibleProperties = () => {
     if (properties.length === 0) return [];
     const visible = [];
@@ -111,7 +123,7 @@ export const ElementLight = () => {
     <div className="element-light">
       <div className="overlap-group">
         <div className="container-4">
-          <header style={{
+          <header className={`header ${isScrolled ? 'scrolled' : ''}`} style={{
             position: 'absolute',
             top: 0,
             left: 0,
@@ -361,15 +373,6 @@ export const ElementLight = () => {
                   />
                 </div>
 
-                <div className="div-2">
-                  <Component5
-                    className="component-18"
-                    component156StyleOverrideClassName="component-2"
-                    hover={false}
-                    text="Ask Grant's AI"
-                    variant="one"
-                  />
-                </div>
 
                 <div className="div-2">
                   <Component5
@@ -1193,7 +1196,6 @@ export const ElementLight = () => {
           </div>
         </div>
       </footer>
-      <AIChatWidget />
       
       {/* Search Modal */}
       {showSearchModal && (

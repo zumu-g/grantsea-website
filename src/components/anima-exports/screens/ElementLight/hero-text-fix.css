@@ -1,72 +1,96 @@
-/* Fix Hero Text Positioning */
+/* Fix Hero Text Positioning - ON.COM Style */
 
 /* Make hero section full viewport height */
 .element-light .section-article {
   min-height: 100vh !important;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;  /* Align to bottom like on.com */
+  justify-content: flex-start;
+  position: relative;
 }
 
-/* Center the content container */
+/* Fix the content container positioning */
 .element-light .container-9 {
   position: relative !important;
   top: auto !important;
+  bottom: 0 !important;
+  width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
-  min-height: 100vh;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 80px 60px;  /* Generous padding like on.com */
+  min-height: auto !important;
 }
 
-/* Ensure gradient overlay works */
+/* Gradient overlay from bottom */
 .element-light .gradient-2 {
   position: absolute;
   bottom: 0;
   top: auto !important;
-  height: 60% !important;
+  height: 70% !important;
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.7) 0%,
-    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.5) 40%,
+    rgba(0, 0, 0, 0.2) 70%,
     transparent 100%
   ) !important;
+  pointer-events: none;
 }
 
-/* Center the text content */
+/* Left align the text content */
 .element-light .div-wrapper-3 {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1400px;
+  margin: 0;
+  padding: 0;
   z-index: 2;
   position: relative;
 }
 
 .element-light .section-wrapper {
-  text-align: center;
+  text-align: left !important;  /* Left align like on.com */
 }
 
-/* Style the hero text */
+.element-light .section {
+  max-width: 600px;  /* Limit text width */
+}
+
+/* Style the hero text - larger and bolder */
 .element-light .text-wrapper-2 {
-  font-size: 72px !important;
+  font-size: 80px !important;
   font-weight: 900 !important;
-  line-height: 1.1 !important;
-  margin-bottom: 20px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  line-height: 0.9 !important;  /* Tighter line height like on.com */
+  margin-bottom: 24px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.02em;
 }
 
 .element-light .p {
-  font-size: 24px !important;
+  font-size: 28px !important;
   font-weight: 400 !important;
-  margin-bottom: 40px;
+  margin-bottom: 48px;
   opacity: 0.9;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
 }
 
-/* Center buttons */
+/* Left align buttons */
 .element-light .container-10 {
-  justify-content: center;
-  gap: 20px;
+  justify-content: flex-start !important;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Button styling */
+.element-light .container-10 .component-instance {
+  padding: 18px 40px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  border-radius: 0 !important;
+  min-width: 180px;
 }
 
 /* Hide AI Chat Section */
@@ -81,21 +105,41 @@
 }
 
 /* Responsive adjustments */
+@media (max-width: 1200px) {
+  .element-light .container-9 {
+    padding: 60px 40px;
+  }
+}
+
 @media (max-width: 768px) {
+  .element-light .container-9 {
+    padding: 50px 20px;
+    align-items: center;  /* Center on mobile */
+  }
+  
+  .element-light .section-wrapper {
+    text-align: center !important;  /* Center text on mobile */
+  }
+  
   .element-light .text-wrapper-2 {
-    font-size: 48px !important;
+    font-size: 56px !important;
+    line-height: 1 !important;
   }
   
   .element-light .p {
     font-size: 20px !important;
+    margin-bottom: 32px;
+    max-width: 100%;
   }
   
   .element-light .container-10 {
+    justify-content: center !important;
     flex-direction: column;
     width: 100%;
   }
   
   .element-light .container-10 .item {
     width: 100%;
+    max-width: 300px;
   }
 }

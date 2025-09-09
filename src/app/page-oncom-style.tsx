@@ -8,20 +8,30 @@ import SavePropertyButton from '@/components/SavePropertyButton';
 
 export default function HomePageOncom() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { properties, loading } = useProperties({ limit: 12 });
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
-      {/* ON.COM Style Header - White background */}
+      {/* ON.COM Style Header - Transparent at top, white when scrolled */}
       <header style={{
         position: 'fixed',
         top: 0,
         left: 0,
         right: 0,
         height: '64px',
-        backgroundColor: '#fff',
-        borderBottom: '1px solid #e5e5e5',
-        zIndex: 1000
+        backgroundColor: isScrolled ? '#fff' : 'transparent',
+        borderBottom: isScrolled ? '1px solid #e5e5e5' : 'none',
+        zIndex: 1000,
+        transition: 'all 0.3s ease'
       }}>
         <div style={{
           height: '100%',
@@ -38,9 +48,10 @@ export default function HomePageOncom() {
             <Link href="/" style={{ 
               fontSize: '24px', 
               fontWeight: '800', 
-              color: '#000',
+              color: isScrolled ? '#000' : '#fff',
               textDecoration: 'none',
-              letterSpacing: '-0.02em'
+              letterSpacing: '-0.02em',
+              transition: 'color 0.3s ease'
             }}>
               GRANT'S
             </Link>
@@ -52,73 +63,74 @@ export default function HomePageOncom() {
               alignItems: 'center'
             }}>
               <Link href="/buy" style={{
-                color: '#000',
+                color: isScrolled ? '#000' : '#fff',
                 textDecoration: 'none',
                 fontSize: '14px',
                 fontWeight: '500',
-                transition: 'opacity 0.2s'
+                transition: 'color 0.3s ease'
               }}>Buy</Link>
               <Link href="/rent" style={{
-                color: '#000',
+                color: isScrolled ? '#000' : '#fff',
                 textDecoration: 'none',
                 fontSize: '14px',
                 fontWeight: '500',
-                transition: 'opacity 0.2s'
+                transition: 'color 0.3s ease'
               }}>Rent</Link>
               <Link href="/sold" style={{
-                color: '#000',
+                color: isScrolled ? '#000' : '#fff',
                 textDecoration: 'none',
                 fontSize: '14px',
                 fontWeight: '500',
-                transition: 'opacity 0.2s'
+                transition: 'color 0.3s ease'
               }}>Sold</Link>
               <Link href="/agents" style={{
-                color: '#000',
+                color: isScrolled ? '#000' : '#fff',
                 textDecoration: 'none',
                 fontSize: '14px',
                 fontWeight: '500',
-                transition: 'opacity 0.2s'
+                transition: 'color 0.3s ease'
               }}>Find agents</Link>
               <Link href="/new-homes" style={{
-                color: '#000',
+                color: isScrolled ? '#000' : '#fff',
                 textDecoration: 'none',
                 fontSize: '14px',
                 fontWeight: '500',
-                transition: 'opacity 0.2s'
+                transition: 'color 0.3s ease'
               }}>New homes</Link>
             </nav>
           </div>
 
-          {/* Right Icons */}
-          <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
-            <Link href="/saved-properties" style={{
-              padding: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#000'
-            }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-              </svg>
-            </Link>
-            <Link href="/sign-in" style={{
-              padding: '8px 16px',
-              fontSize: '14px',
-              fontWeight: '500',
-              color: '#000',
-              textDecoration: 'none'
-            }}>
-              Sign in
-            </Link>
-          </div>
+          {/* Right Icons - Only visible when scrolled */}
+          {isScrolled && (
+            <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+              <Link href="/saved-properties" style={{
+                padding: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#000'
+              }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                </svg>
+              </Link>
+              <Link href="/sign-in" style={{
+                padding: '8px 16px',
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#000',
+                textDecoration: 'none'
+              }}>
+                Sign in
+              </Link>
+            </div>
+          )}
         </div>
       </header>
 
-      {/* Hero Section - Full screen minus header */}
+      {/* Hero Section - Full screen with transparent header overlay */}
       <section style={{
-        height: 'calc(100vh - 64px)',
-        marginTop: '64px',
+        height: '100vh',
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
@@ -255,7 +267,7 @@ export default function HomePageOncom() {
             }}>
               <div style={{
                 position: 'relative',
-                paddingBottom: '100%' // 1:1 Square aspect ratio like on.com
+                paddingBottom: '133.33%' // 3:4 Portrait aspect ratio like on.com
               }}>
                 <img 
                   src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=480&fit=crop"
@@ -303,7 +315,7 @@ export default function HomePageOncom() {
             }}>
               <div style={{
                 position: 'relative',
-                paddingBottom: '100%'
+                paddingBottom: '133.33%'
               }}>
                 <img 
                   src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800&h=480&fit=crop"
@@ -351,7 +363,7 @@ export default function HomePageOncom() {
             }}>
               <div style={{
                 position: 'relative',
-                paddingBottom: '100%'
+                paddingBottom: '133.33%'
               }}>
                 <img 
                   src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&h=480&fit=crop"
@@ -399,7 +411,7 @@ export default function HomePageOncom() {
             }}>
               <div style={{
                 position: 'relative',
-                paddingBottom: '100%'
+                paddingBottom: '133.33%'
               }}>
                 <img 
                   src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=800&h=480&fit=crop"

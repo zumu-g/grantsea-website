@@ -50,11 +50,34 @@ async function checkStyles() {
     // Start dev server
     console.log('Starting development server...');
     devServer = exec('npm run dev', { cwd: process.cwd() });
-    await new Promise(resolve => setTimeout(resolve, 5000));
+    
+    // Wait longer for server to start
+    await new Promise(resolve => setTimeout(resolve, 8000));
     
     browser = await chromium.launch({ headless: true });
     const page = await browser.newPage();
-    await page.goto('http://localhost:3000');
+    
+    // Try to connect with retries
+    let connected = false;
+    let attempts = 0;
+    while (!connected && attempts < 3) {
+      try {
+        await page.goto('http://localhost:3000', { 
+          waitUntil: 'domcontentloaded',
+          timeout: 10000 
+        });
+        connected = true;
+      } catch (error) {
+        attempts++;
+        console.log(`Connection attempt ${attempts} failed, retrying...`);
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      }
+    }
+    
+    if (!connected) {
+      throw new Error('Failed to connect to development server after 3 attempts');
+    }
+    
     await page.waitForTimeout(2000);
     
     // Check 1: Header behavior
@@ -114,7 +137,11 @@ async function checkStyles() {
     
     // Check 2: Shop by category aspect ratios
     console.log('Checking shop by category...');
-    await page.goto('http://localhost:3000');
+    // Navigate back to home page
+    await page.goto('http://localhost:3000', { 
+      waitUntil: 'domcontentloaded',
+      timeout: 10000 
+    });
     await page.waitForTimeout(2000);
     
     const categoryData = await page.evaluate(() => {
@@ -239,7 +266,16 @@ async function checkStyles() {
     console.error('Error during style validation:', error);
     process.exit(1);
   } finally {
-    if (devServer) devServer.kill();
+    // Ensure dev server is properly killed
+    if (devServer) {
+      try {
+        devServer.kill('SIGTERM');
+        // Also kill any orphaned node processes
+        exec('pkill -f "next dev"');
+      } catch (e) {
+        // Ignore errors
+      }
+    }
     if (browser) await browser.close();
   }
 }

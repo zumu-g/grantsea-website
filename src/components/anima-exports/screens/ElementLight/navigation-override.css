@@ -1,0 +1,150 @@
+/* Navigation overrides to match Grant's website design */
+
+/* Main header adjustments */
+.element-light .header {
+  height: 90px;
+  align-items: center;
+  padding: 0 40px;
+  z-index: 100;
+}
+
+/* Logo positioning */
+.element-light .variant-1 {
+  height: 48px !important;
+  width: 48px !important;
+  left: 40px !important;
+  top: 21px !important;
+}
+
+/* Center navigation container */
+.element-light .container-5 {
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Navigation links styling */
+.element-light .nav-navigation {
+  gap: 40px;
+  align-items: center;
+  height: 100%;
+}
+
+.element-light .nav-link {
+  font-family: "On", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.element-light .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* Right side navigation icons */
+.element-light .container-6 {
+  gap: 20px;
+  padding-right: 40px;
+  align-items: center;
+  height: 100%;
+}
+
+/* Icon buttons styling */
+.element-light .container-6 button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.element-light .container-6 button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Hero section with overlaid icons */
+.element-light .container-9 {
+  position: relative;
+  height: 600px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Gradient overlay adjustment */
+.element-light .gradient-2 {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 100%);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Hero content positioning */
+.element-light .div-wrapper-3 {
+  position: relative;
+  z-index: 2;
+  padding: 0 60px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Hero text styling */
+.element-light .text-wrapper-2 {
+  font-size: 64px !important;
+  line-height: 1.1 !important;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.element-light .p {
+  font-size: 24px !important;
+  line-height: 1.4 !important;
+  opacity: 0.95;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Hero buttons */
+.element-light .container-10 {
+  margin-top: 30px;
+  gap: 16px;
+}
+
+/* Remove absolute positioning from nav-primary */
+.element-light .nav-primary {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .element-light .header {
+    padding: 0 20px;
+  }
+  
+  .element-light .nav-navigation {
+    gap: 20px;
+  }
+  
+  .element-light .text-wrapper-2 {
+    font-size: 40px !important;
+  }
+  
+  .element-light .p {
+    font-size: 20px !important;
+  }
+  
+  .element-light .div-wrapper-3 {
+    padding: 0 20px;
+  }
+}

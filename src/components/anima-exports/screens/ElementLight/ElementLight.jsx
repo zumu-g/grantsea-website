@@ -31,6 +31,7 @@ import AIChatWidget from "../../../AIChatWidget";
 import { useProperties } from "@/hooks/useProperties";
 import { formatPrice } from "@/services/api";
 import "./style.css";
+import "./navigation-override.css";
 
 export const ElementLight = () => {
   // Carousel state for New Arrivals
@@ -269,74 +270,7 @@ export const ElementLight = () => {
             </div>
           </div>
 
-          {/* Estate Agent Section with Service Buttons */}
           <div className="section-section" style={{ position: 'relative', paddingBottom: '40px' }}>
-            <div style={{
-              position: 'absolute',
-              right: '40px',
-              top: '-100px',
-              background: 'white',
-              borderRadius: '12px',
-              padding: '24px',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
-              width: '320px'
-            }}>
-              <div style={{
-                width: '100%',
-                height: '200px',
-                background: '#f0f0f0',
-                borderRadius: '8px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '20px',
-                color: '#999'
-              }}>
-                [Estate Agent Image]
-              </div>
-              
-              <h3 style={{ 
-                fontSize: '18px', 
-                fontWeight: '600', 
-                marginBottom: '16px',
-                textAlign: 'center' 
-              }}>
-                How can we help?
-              </h3>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <button style={{
-                  width: '100%',
-                  padding: '12px',
-                  background: '#2563eb',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '8px',
-                  fontSize: '14px',
-                  cursor: 'pointer'
-                }}>I'm looking to buy</button>
-                <button style={{
-                  width: '100%',
-                  padding: '12px',
-                  background: '#1f2937',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '8px',
-                  fontSize: '14px',
-                  cursor: 'pointer'
-                }}>I'm looking to lease</button>
-                <button style={{
-                  width: '100%',
-                  padding: '12px',
-                  background: '#059669',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '8px',
-                  fontSize: '14px',
-                  cursor: 'pointer'
-                }}>I'm looking to sell</button>
-              </div>
-            </div>
 
             <div className="div-wrapper-3">
               <div className="text-wrapper-3">Browse by category</div>

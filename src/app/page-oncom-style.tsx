@@ -904,25 +904,25 @@ export default function HomePageOncom() {
 
       {/* You may be interested in - ON.COM style */}
       <section style={{
-        backgroundColor: '#fff',
-        paddingTop: '80px',
-        paddingBottom: '80px',
-        overflow: 'hidden'
+        backgroundColor: '#f8f9fa',
+        paddingTop: '64px',
+        paddingBottom: '64px',
+        overflow: 'hidden',
+        position: 'relative'
       }}>
         <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          paddingLeft: '20px',
+          maxWidth: '100%',
+          paddingLeft: '64px',
           paddingRight: '0'
         }}>
           <h2 style={{
-            fontSize: 'clamp(2.0625rem, 1.93rem + .58vw, 2.625rem)',
+            fontSize: 'clamp(1.625rem, 1.52rem + 0.45vw, 2.0625rem)',
             fontWeight: '700',
-            letterSpacing: '-0.01em',
-            marginBottom: '40px',
+            letterSpacing: '-0.02em',
+            marginBottom: '2.5rem',
             color: '#000',
             lineHeight: '1.2',
-            paddingRight: '20px'
+            paddingRight: '64px'
           }}>
             You may be interested in
           </h2>
@@ -948,47 +948,53 @@ export default function HomePageOncom() {
               scrollBehavior: 'smooth',
               WebkitOverflowScrolling: 'touch',
               msOverflowStyle: 'none',
-              scrollbarWidth: 'none'
+              scrollbarWidth: 'none',
+              marginLeft: '-64px',
+              marginRight: '-64px',
+              paddingLeft: '64px'
             }}>
               <div style={{
                 display: 'flex',
-                gap: '16px',
-                paddingRight: '20px'
+                gap: '0.5rem',
+                paddingRight: '64px'
               }}>
                 {properties.slice(0, 6).map((property) => (
                 <div key={property.id} style={{
-                  flex: '0 0 calc(28.57% - 12px)', // 3.5 items: 100% / 3.5 = 28.57%
-                  minWidth: '260px',
-                  backgroundColor: 'transparent',
+                  flex: '0 0 calc(25% - 0.375rem)', // Adjusted for 4 items visible with small gap
+                  minWidth: '280px',
+                  backgroundColor: '#fff',
+                  borderRadius: '12px',
                   overflow: 'hidden',
-                  transition: 'opacity 0.2s ease',
+                  transition: 'transform 0.2s ease',
                   cursor: 'pointer',
-                  scrollSnapAlign: 'start'
+                  scrollSnapAlign: 'start',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.opacity = '0.8';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.opacity = '1';
+                  e.currentTarget.style.transform = 'translateY(0)';
                 }}>
                   <Link href={`/property/${property.id}`} style={{
                     textDecoration: 'none',
                     color: 'inherit',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '12px'
+                    height: '100%'
                   }}>
                     <div style={{
                       position: 'relative',
-                      paddingTop: '100%', // 1:1 square aspect ratio like on.com
-                      backgroundColor: '#f6f7f8',
-                      borderRadius: '8px',
+                      paddingTop: '100%', // 1:1 square aspect ratio
+                      backgroundColor: '#fff',
                       overflow: 'hidden'
                     }}>
                       <div style={{
                         position: 'absolute',
-                        inset: '1rem',
-                        background: 'radial-gradient(circle at center, #fff 0%, #f6f7f8 100%)'
+                        inset: '1.5rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
                       }}>
                         {property.images && property.images[0] ? (
                           <img
@@ -1028,31 +1034,48 @@ export default function HomePageOncom() {
                     </div>
                     
                     <div style={{ 
+                      padding: '1rem',
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: '4px'
+                      gap: '0.25rem',
+                      flex: '1'
                     }}>
+                      <p style={{
+                        fontSize: '0.75rem',
+                        color: '#666',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                        fontWeight: '500',
+                        marginBottom: '0.25rem'
+                      }}>
+                        {property.suburb}
+                      </p>
                       <h3 style={{
-                        fontSize: 'clamp(1rem, 0.94rem + 0.26vw, 1.25rem)',
-                        fontWeight: '700',
+                        fontSize: '1rem',
+                        fontWeight: '600',
                         color: '#000',
                         letterSpacing: '-0.01em',
-                        lineHeight: '1.2'
+                        lineHeight: '1.3',
+                        marginBottom: '0.5rem'
                       }}>
                         {property.address}
                       </h3>
-                      <p style={{
+                      <div style={{
+                        display: 'flex',
+                        gap: '0.75rem',
                         fontSize: '0.875rem',
                         color: '#666',
-                        lineHeight: '1.4'
+                        marginBottom: '0.5rem'
                       }}>
-                        {property.suburb} • {property.bedrooms} bed {property.bathrooms} bath
-                      </p>
+                        <span>{property.bedrooms} bed</span>
+                        <span>{property.bathrooms} bath</span>
+                        <span>{property.carSpaces} car</span>
+                      </div>
                       <p style={{
-                        fontSize: '0.875rem',
-                        fontWeight: '600',
+                        fontSize: '1.125rem',
+                        fontWeight: '700',
                         color: '#000',
-                        marginTop: '4px'
+                        marginTop: 'auto'
                       }}>
                         {property.priceDisplay || formatPrice(property.price)}
                       </p>
@@ -1067,7 +1090,8 @@ export default function HomePageOncom() {
           <div style={{
             textAlign: 'center',
             marginTop: '48px',
-            paddingRight: '20px'
+            paddingLeft: '64px',
+            paddingRight: '64px'
           }}>
             <Link href="/buy" style={{
               display: 'inline-flex',

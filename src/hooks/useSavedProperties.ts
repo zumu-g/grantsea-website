@@ -7,16 +7,16 @@ interface Property {
   address: string;
   suburb: string;
   state: string;
-  price?: number;
+  price?: number | string;
   priceDisplay?: string;
   bedrooms: number;
   bathrooms: number;
   carSpaces: number;
   propertyType: string;
-  listingType: 'sale' | 'lease';
-  leasePrice?: number;
+  listingType: 'sale' | 'lease' | 'both';
+  leasePrice?: number | string;
   leasePriceDisplay?: string;
-  images?: string[];
+  images?: any[];
 }
 
 export const useSavedProperties = () => {

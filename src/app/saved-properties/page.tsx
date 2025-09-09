@@ -11,16 +11,16 @@ interface SavedProperty {
   address: string;
   suburb: string;
   state: string;
-  price?: number;
+  price?: number | string;
   priceDisplay?: string;
   bedrooms: number;
   bathrooms: number;
   carSpaces: number;
   propertyType: string;
-  listingType: 'sale' | 'lease';
-  leasePrice?: number;
+  listingType: 'sale' | 'lease' | 'both';
+  leasePrice?: number | string;
   leasePriceDisplay?: string;
-  images?: string[];
+  images?: any[];
 }
 
 export default function SavedPropertiesPage() {
@@ -100,7 +100,7 @@ export default function SavedPropertiesPage() {
                   <div className="relative h-48 bg-gray-200">
                     {property.images && property.images[0] ? (
                       <Image
-                        src={property.images[0]}
+                        src={typeof property.images[0] === 'string' ? property.images[0] : property.images[0].url}
                         alt={property.address}
                         fill
                         className="object-cover"

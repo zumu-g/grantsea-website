@@ -570,8 +570,7 @@ export default function HomePageOncom() {
               borderRadius: '8px',
               overflow: 'hidden',
               textDecoration: 'none',
-              aspectRatio: '16/9',
-              group: true
+              aspectRatio: '16/9'
             }}>
               <img 
                 src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=800&h=450&fit=crop"

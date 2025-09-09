@@ -4,8 +4,8 @@
 /* Import full-screen override styles */
 @import './full-screen-override.css';
 
-/* Import Grant's Estate Agents Style System - available but not overriding Anima */
-/* @import './grants-style-system.css'; */
+/* Import Grant's Estate Agents Style System - enhances Anima components */
+@import './grants-style-system.css';
 
 /* Reset for On.com styling */
 * {

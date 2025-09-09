@@ -1,13 +1,45 @@
 /* Grant's Estate Agents - Style System
+   Designed to work with Anima ElementLight components
    Based on property page analysis from https://grantsea-website.vercel.app/property/27311391
    Generated: 2025-09-09
+   
+   This style system is designed to:
+   1. Extend and enhance Anima components without breaking them
+   2. Override Anima CSS variables for consistent branding
+   3. Provide utility classes for custom components
+   4. Maintain compatibility with existing ElementLight structure
 */
 
-/* ===== COLOR PALETTE ===== */
+/* ===== ANIMA CSS VARIABLE OVERRIDES ===== */
+/* These override the Anima styleguide.css variables for consistent branding */
+:root {
+  /* Override Anima heading styles with Grant's branding */
+  --www-on-com-semantic-heading-1-font-size: 53px;
+  --www-on-com-semantic-heading-1-line-height: 58.3px;
+  --www-on-com-semantic-heading-1-letter-spacing: -0.53px;
+  
+  --www-on-com-semantic-heading-2-font-size: 40px;
+  --www-on-com-semantic-heading-2-line-height: 48px;
+  --www-on-com-semantic-heading-2-letter-spacing: -0.4px;
+  
+  --www-on-com-semantic-heading-3-font-size: 32px;
+  --www-on-com-semantic-heading-3-line-height: 38px;
+  --www-on-com-semantic-heading-3-letter-spacing: -0.32px;
+  
+  /* Button overrides */
+  --www-on-com-semantic-button-font-size: 16px;
+  --www-on-com-semantic-button-line-height: 24px;
+}
+
+/* ===== GRANT'S BRAND COLORS ===== */
 :root {
   /* Primary Colors */
   --grant-primary-black: rgb(0, 0, 0);
   --grant-primary-white: rgb(255, 255, 255);
+  
+  /* Brand Colors */
+  --grant-brand-primary: rgb(153, 92, 0); /* Warm brown/gold accent */
+  --grant-brand-secondary: rgb(77, 77, 77); /* Dark gray */
   
   /* Text Colors */
   --grant-text-primary: rgb(0, 0, 0);
@@ -29,299 +61,254 @@
   --grant-border-accent: rgb(153, 92, 0);
 }
 
-/* ===== TYPOGRAPHY ===== */
-:root {
-  /* Font Families */
-  --grant-font-primary: "On-Regular", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --grant-font-bold: "On-Bold", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  
-  /* Heading Styles */
-  --grant-h1-size: 53px;
-  --grant-h1-weight: 700;
-  --grant-h1-line-height: 58.3px;
-  --grant-h1-letter-spacing: -0.53px;
-  
-  --grant-h2-size: 40px;
-  --grant-h2-weight: 700;
-  --grant-h2-line-height: 48px;
-  --grant-h2-letter-spacing: -0.4px;
-  
-  --grant-h3-size: 32px;
-  --grant-h3-weight: 700;
-  --grant-h3-line-height: 38px;
-  --grant-h3-letter-spacing: -0.32px;
-  
-  --grant-h4-size: 24px;
-  --grant-h4-weight: 700;
-  --grant-h4-line-height: 30px;
-  --grant-h4-letter-spacing: normal;
-  
-  --grant-h5-size: 20px;
-  --grant-h5-weight: 700;
-  --grant-h5-line-height: 26px;
-  --grant-h5-letter-spacing: normal;
-  
-  --grant-h6-size: 18px;
-  --grant-h6-weight: 700;
-  --grant-h6-line-height: 24px;
-  --grant-h6-letter-spacing: normal;
-  
-  /* Body Text */
-  --grant-body-size: 16px;
-  --grant-body-weight: 400;
-  --grant-body-line-height: 24px;
-  --grant-body-letter-spacing: normal;
-  
-  --grant-body-bold-weight: 700;
-  
-  /* Small Text */
-  --grant-small-size: 14px;
-  --grant-small-line-height: 20px;
-  
-  /* Caption Text */
-  --grant-caption-size: 12px;
-  --grant-caption-line-height: 18px;
+/* ===== ANIMA COMPONENT ENHANCEMENTS ===== */
+
+/* Enhance ElementLight main container */
+.element-light {
+  /* Ensure full width on all screens */
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
-/* ===== SPACING SYSTEM ===== */
-:root {
-  /* Base spacing unit: 8px */
-  --grant-space-xs: 4px;
-  --grant-space-sm: 8px;
-  --grant-space-md: 16px;
-  --grant-space-lg: 24px;
-  --grant-space-xl: 32px;
-  --grant-space-2xl: 48px;
-  --grant-space-3xl: 64px;
-  --grant-space-4xl: 96px;
-  
-  /* Container widths */
-  --grant-container-max: 1280px;
-  --grant-container-padding: 20px;
-}
-
-/* ===== COMPONENT STYLES ===== */
-:root {
-  /* Buttons */
-  --grant-button-padding: 12px 24px;
-  --grant-button-border-radius: 40px;
-  --grant-button-font-size: 16px;
-  --grant-button-font-weight: 400;
-  --grant-button-transition: all 0.3s ease;
-  
-  /* Cards */
-  --grant-card-border-radius: 8px;
-  --grant-card-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --grant-card-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.15);
-  --grant-card-padding: 20px;
-  --grant-card-border: 1px solid var(--grant-border-light);
-  
-  /* Badges */
-  --grant-badge-padding: 4px 12px;
-  --grant-badge-border-radius: 20px;
-  --grant-badge-font-size: 14px;
-  --grant-badge-font-weight: 500;
-  
-  /* Forms */
-  --grant-input-padding: 12px 16px;
-  --grant-input-border-radius: 4px;
-  --grant-input-border: 1px solid var(--grant-border-medium);
-  --grant-input-font-size: 16px;
-  --grant-input-line-height: 24px;
-}
-
-/* ===== UTILITY CLASSES ===== */
-
-/* Typography */
-.grant-h1 {
-  font-family: var(--grant-font-bold);
-  font-size: var(--grant-h1-size);
-  font-weight: var(--grant-h1-weight);
-  line-height: var(--grant-h1-line-height);
-  letter-spacing: var(--grant-h1-letter-spacing);
+/* Style Anima headings with Grant's branding */
+.element-light h1,
+.element-light .heading-1,
+.element-light [class*="semantic-heading-1"] {
   color: var(--grant-text-primary);
+  font-family: "On", Helvetica;
 }
 
-.grant-h2 {
-  font-family: var(--grant-font-bold);
-  font-size: var(--grant-h2-size);
-  font-weight: var(--grant-h2-weight);
-  line-height: var(--grant-h2-line-height);
-  letter-spacing: var(--grant-h2-letter-spacing);
-  color: var(--grant-text-primary);
-}
-
-.grant-h3 {
-  font-family: var(--grant-font-bold);
-  font-size: var(--grant-h3-size);
-  font-weight: var(--grant-h3-weight);
-  line-height: var(--grant-h3-line-height);
-  letter-spacing: var(--grant-h3-letter-spacing);
-  color: var(--grant-text-primary);
-}
-
-.grant-h4 {
-  font-family: var(--grant-font-bold);
-  font-size: var(--grant-h4-size);
-  font-weight: var(--grant-h4-weight);
-  line-height: var(--grant-h4-line-height);
-  letter-spacing: var(--grant-h4-letter-spacing);
-  color: var(--grant-text-primary);
-}
-
-.grant-body {
-  font-family: var(--grant-font-primary);
-  font-size: var(--grant-body-size);
-  font-weight: var(--grant-body-weight);
-  line-height: var(--grant-body-line-height);
-  letter-spacing: var(--grant-body-letter-spacing);
-  color: var(--grant-text-primary);
-}
-
-.grant-body-bold {
-  font-family: var(--grant-font-bold);
-  font-weight: var(--grant-body-bold-weight);
-}
-
-.grant-small {
-  font-size: var(--grant-small-size);
-  line-height: var(--grant-small-line-height);
-}
-
-.grant-caption {
-  font-size: var(--grant-caption-size);
-  line-height: var(--grant-caption-line-height);
-  color: var(--grant-text-secondary);
-}
-
-/* Buttons */
-.grant-button {
-  font-family: var(--grant-font-primary);
-  font-size: var(--grant-button-font-size);
-  font-weight: var(--grant-button-font-weight);
-  padding: var(--grant-button-padding);
-  border-radius: var(--grant-button-border-radius);
-  border: none;
+/* Enhance Anima buttons */
+.element-light button,
+.element-light .button,
+.element-light [role="button"] {
+  transition: all 0.3s ease;
   cursor: pointer;
-  transition: var(--grant-button-transition);
+}
+
+.element-light button:hover,
+.element-light .button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* Style Anima property cards */
+.element-light .property-card,
+.element-light [class*="property-card"] {
+  transition: box-shadow 0.3s ease;
+}
+
+.element-light .property-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhance Anima links with Grant's accent color */
+.element-light a:hover {
+  color: var(--grant-text-accent);
+}
+
+/* ===== UTILITY CLASSES FOR NEW COMPONENTS ===== */
+/* These can be used alongside Anima components */
+
+/* Typography utilities */
+.grant-heading-xl {
+  font-size: 53px;
+  font-weight: 700;
+  line-height: 58.3px;
+  letter-spacing: -0.53px;
+  font-family: "On", Helvetica;
+  color: var(--grant-text-primary);
+}
+
+.grant-heading-lg {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 48px;
+  letter-spacing: -0.4px;
+  font-family: "On", Helvetica;
+  color: var(--grant-text-primary);
+}
+
+.grant-heading-md {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 38px;
+  letter-spacing: -0.32px;
+  font-family: "On", Helvetica;
+  color: var(--grant-text-primary);
+}
+
+.grant-text-body {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  font-family: "On", Helvetica;
+  color: var(--grant-text-primary);
+}
+
+.grant-text-accent {
+  color: var(--grant-text-accent) !important;
+}
+
+/* Button utilities */
+.grant-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  padding: 12px 24px;
+  border-radius: 40px;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "On", Helvetica;
   text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
 }
 
-.grant-button-primary {
+.grant-btn-primary {
   background-color: var(--grant-primary-black);
   color: var(--grant-primary-white);
 }
 
-.grant-button-primary:hover {
+.grant-btn-primary:hover {
   background-color: var(--grant-text-secondary);
 }
 
-.grant-button-secondary {
+.grant-btn-secondary {
   background-color: transparent;
   color: var(--grant-text-primary);
   border: 1px solid var(--grant-border-primary);
 }
 
-.grant-button-secondary:hover {
+.grant-btn-secondary:hover {
   background-color: var(--grant-bg-light-overlay);
 }
 
-.grant-button-accent {
-  background-color: var(--grant-text-accent);
+.grant-btn-accent {
+  background-color: var(--grant-brand-primary);
   color: var(--grant-primary-white);
 }
 
-.grant-button-accent:hover {
+.grant-btn-accent:hover {
   opacity: 0.9;
 }
 
-/* Cards */
-.grant-card {
-  background-color: var(--grant-bg-primary);
-  border-radius: var(--grant-card-border-radius);
-  box-shadow: var(--grant-card-shadow);
-  padding: var(--grant-card-padding);
-  border: var(--grant-card-border);
-  transition: box-shadow 0.3s ease;
+/* Card utilities */
+.grant-card-enhancement {
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
-.grant-card:hover {
-  box-shadow: var(--grant-card-shadow-hover);
+.grant-card-enhancement:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-/* Badges */
+/* Badge utilities */
 .grant-badge {
   display: inline-flex;
   align-items: center;
-  padding: var(--grant-badge-padding);
-  border-radius: var(--grant-badge-border-radius);
-  font-size: var(--grant-badge-font-size);
-  font-weight: var(--grant-badge-font-weight);
-  font-family: var(--grant-font-primary);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "On", Helvetica;
 }
 
-.grant-badge-primary {
+.grant-badge-accent {
+  background-color: var(--grant-brand-primary);
+  color: var(--grant-primary-white);
+}
+
+.grant-badge-light {
   background-color: var(--grant-bg-light-overlay);
   color: var(--grant-text-primary);
 }
 
-.grant-badge-accent {
-  background-color: var(--grant-text-accent);
-  color: var(--grant-primary-white);
-}
+/* ===== RESPONSIVE ENHANCEMENTS ===== */
+/* Ensure Anima components work well on mobile */
 
-/* Form Elements */
-.grant-input {
-  width: 100%;
-  padding: var(--grant-input-padding);
-  border: var(--grant-input-border);
-  border-radius: var(--grant-input-border-radius);
-  font-family: var(--grant-font-primary);
-  font-size: var(--grant-input-font-size);
-  line-height: var(--grant-input-line-height);
-  color: var(--grant-text-primary);
-  background-color: var(--grant-bg-primary);
-  transition: border-color 0.3s ease;
-}
-
-.grant-input:focus {
-  outline: none;
-  border-color: var(--grant-text-accent);
-}
-
-/* Container */
-.grant-container {
-  width: 100%;
-  max-width: var(--grant-container-max);
-  margin: 0 auto;
-  padding: 0 var(--grant-container-padding);
-}
-
-/* Responsive adjustments */
 @media (max-width: 768px) {
+  /* Adjust Anima heading sizes for mobile */
   :root {
-    --grant-h1-size: 40px;
-    --grant-h1-line-height: 44px;
-    --grant-h2-size: 32px;
-    --grant-h2-line-height: 38px;
-    --grant-h3-size: 24px;
-    --grant-h3-line-height: 30px;
-    --grant-container-padding: 16px;
+    --www-on-com-semantic-heading-1-font-size: 40px;
+    --www-on-com-semantic-heading-1-line-height: 44px;
+    
+    --www-on-com-semantic-heading-2-font-size: 32px;
+    --www-on-com-semantic-heading-2-line-height: 38px;
+    
+    --www-on-com-semantic-heading-3-font-size: 24px;
+    --www-on-com-semantic-heading-3-line-height: 30px;
+  }
+  
+  /* Ensure Anima containers are responsive */
+  .element-light .container-4,
+  .element-light .container-5,
+  .element-light [class*="container-"] {
+    padding: 16px;
+    width: 100% !important;
+  }
+  
+  /* Stack elements on mobile */
+  .element-light .section-2 {
+    flex-direction: column;
   }
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Invert primary colors for dark mode */
-    --grant-text-primary: rgb(255, 255, 255);
-    --grant-text-secondary: rgb(200, 200, 200);
-    --grant-bg-primary: rgb(0, 0, 0);
-    --grant-bg-secondary: rgb(255, 255, 255);
-    --grant-border-light: rgb(50, 50, 50);
-    --grant-border-medium: rgb(100, 100, 100);
-  }
+/* ===== ANIMA OVERRIDE HELPERS ===== */
+/* Use these classes to customize Anima components */
+
+/* Remove fixed positioning */
+.grant-position-relative {
+  position: relative !important;
 }
+
+/* Override fixed widths */
+.grant-full-width {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Add Grant's brand color to any element */
+.grant-brand-bg {
+  background-color: var(--grant-brand-primary) !important;
+}
+
+.grant-brand-text {
+  color: var(--grant-brand-primary) !important;
+}
+
+/* ===== ANIMATION UTILITIES ===== */
+/* Smooth transitions for Anima components */
+
+.grant-smooth-transition {
+  transition: all 0.3s ease;
+}
+
+.grant-hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+.grant-hover-glow:hover {
+  box-shadow: 0 4px 20px rgba(153, 92, 0, 0.2);
+}
+
+/* ===== INTEGRATION NOTES ===== */
+/*
+  To use this style system with Anima components:
+  
+  1. Keep all Anima classes intact
+  2. Add Grant's utility classes as additional classes
+  3. Use CSS variable overrides for global changes
+  4. Test thoroughly as Anima components may have complex interactions
+  
+  Example:
+  <div className="element-light grant-full-width">
+    <h1 className="heading-1 grant-text-accent">Welcome</h1>
+    <button className="button grant-btn grant-btn-accent">
+      View Properties
+    </button>
+  </div>
+*/

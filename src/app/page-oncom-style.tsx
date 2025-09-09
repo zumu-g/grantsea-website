@@ -561,20 +561,8 @@ export default function HomePageOncom() {
         <div style={{
           maxWidth: '1400px',
           margin: '0 auto',
-          padding: '0 20px',
           position: 'relative'
         }}>
-          <h2 style={{
-            fontSize: '48px',
-            fontWeight: '700',
-            letterSpacing: '-0.48px',
-            textAlign: 'left',
-            margin: '0 0 48px',
-            color: '#000'
-          }}>
-            Why Grant's
-          </h2>
-          
           {/* Carousel Container */}
           <div style={{
             position: 'relative'
@@ -582,179 +570,192 @@ export default function HomePageOncom() {
             {/* Carousel Track */}
             <div style={{
               overflow: 'hidden',
-              margin: '0 -12px'
+              padding: '0 60px'
             }}>
               <div style={{
                 display: 'flex',
-                gap: '24px',
+                gap: '16px',
                 transform: `translateX(-${carouselScroll}px)`,
-                transition: 'transform 0.3s ease',
-                padding: '0 12px'
+                transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
               }}>
                 {[
                   {
-                    title: 'Local Expertise',
-                    description: '30+ years serving Casey and Cardinia with unmatched local knowledge',
-                    image: 'https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=400&h=300&fit=crop'
+                    name: 'Premium',
+                    tagline: 'Luxury properties',
+                    image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&h=800&fit=crop',
+                    link: '/buy?type=premium'
                   },
                   {
-                    title: 'Award Winning',
-                    description: 'Recognized excellence in real estate service and customer satisfaction',
-                    image: 'https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=400&h=300&fit=crop'
+                    name: 'Performance',
+                    tagline: 'Investment returns',
+                    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=800&fit=crop',
+                    link: '/buy?type=investment'
                   },
                   {
-                    title: 'Full Service',
-                    description: 'From first inspection to settlement, we handle every detail',
-                    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop'
+                    name: 'Showcase',
+                    tagline: 'Featured listings',
+                    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=800&fit=crop',
+                    link: '/featured'
                   },
                   {
-                    title: 'Marketing Power',
-                    description: 'Premium marketing that gets your property noticed by the right buyers',
-                    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop'
+                    name: 'Core',
+                    tagline: 'Essential homes',
+                    image: 'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=600&h=800&fit=crop',
+                    link: '/buy?type=family'
                   },
                   {
-                    title: 'Proven Results',
-                    description: 'Track record of achieving premium prices in any market',
-                    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop'
-                  },
-                  {
-                    title: 'Community Focus',
-                    description: 'Deeply connected to the communities we serve',
-                    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop'
+                    name: 'The Collection',
+                    tagline: 'Exclusive properties',
+                    image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&h=800&fit=crop',
+                    link: '/exclusive'
                   }
                 ].map((item, index) => (
-                  <div
+                  <Link
                     key={index}
+                    href={item.link}
                     style={{
-                      flex: '0 0 calc(33.333% - 16px)',
-                      minWidth: '300px',
-                      backgroundColor: '#fff',
-                      borderRadius: '8px',
+                      flex: '0 0 calc(20% - 13px)',
+                      minWidth: '240px',
+                      position: 'relative',
+                      textDecoration: 'none',
+                      display: 'block',
                       overflow: 'hidden',
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                      cursor: 'pointer'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-4px)';
-                      e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+                      borderRadius: '4px',
+                      backgroundColor: '#fff'
                     }}
                   >
                     <div style={{
-                      aspectRatio: '4/3',
-                      overflow: 'hidden'
+                      position: 'relative',
+                      paddingBottom: '133.33%', // 3:4 aspect ratio
+                      overflow: 'hidden',
+                      backgroundColor: '#f0f0f0'
                     }}>
                       <img
                         src={item.image}
-                        alt={item.title}
+                        alt={item.name}
                         style={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
                           width: '100%',
                           height: '100%',
                           objectFit: 'cover',
-                          transition: 'transform 0.3s ease'
+                          transition: 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = 'scale(1.08)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = 'scale(1)';
                         }}
                       />
-                    </div>
-                    <div style={{
-                      padding: '24px'
-                    }}>
-                      <h3 style={{
-                        fontSize: '20px',
-                        fontWeight: '700',
-                        marginBottom: '8px',
-                        color: '#000'
+                      <div style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        padding: '24px',
+                        background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%)'
                       }}>
-                        {item.title}
-                      </h3>
-                      <p style={{
-                        fontSize: '14px',
-                        lineHeight: '1.5',
-                        color: '#666',
-                        margin: 0
-                      }}>
-                        {item.description}
-                      </p>
+                        <h3 style={{
+                          fontSize: '24px',
+                          fontWeight: '700',
+                          marginBottom: '4px',
+                          color: '#fff',
+                          letterSpacing: '-0.01em'
+                        }}>
+                          {item.name}
+                        </h3>
+                        <p style={{
+                          fontSize: '14px',
+                          color: 'rgba(255,255,255,0.8)',
+                          margin: 0,
+                          fontWeight: '400'
+                        }}>
+                          {item.tagline}
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
             
             {/* Carousel Controls */}
             <button
-              onClick={() => setCarouselScroll(Math.max(0, carouselScroll - 340))}
+              onClick={() => setCarouselScroll(Math.max(0, carouselScroll - 256))}
               style={{
                 position: 'absolute',
-                left: '-20px',
+                left: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 width: '48px',
                 height: '48px',
-                backgroundColor: '#fff',
-                border: '1px solid #e5e5e5',
+                backgroundColor: 'rgba(255,255,255,0.9)',
+                backdropFilter: 'blur(8px)',
+                border: 'none',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                opacity: carouselScroll === 0 ? 0.5 : 1
+                boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+                opacity: carouselScroll === 0 ? 0 : 1,
+                pointerEvents: carouselScroll === 0 ? 'none' : 'auto',
+                zIndex: 2
               }}
-              disabled={carouselScroll === 0}
               onMouseEnter={(e) => {
                 if (carouselScroll !== 0) {
-                  e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,1)';
+                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)';
                 }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.9)';
+                e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.1)';
               }}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="15 18 9 12 15 6"></polyline>
               </svg>
             </button>
             
             <button
-              onClick={() => setCarouselScroll(Math.min(1020, carouselScroll + 340))}
+              onClick={() => setCarouselScroll(Math.min(256, carouselScroll + 256))}
               style={{
                 position: 'absolute',
-                right: '-20px',
+                right: '0',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 width: '48px',
                 height: '48px',
-                backgroundColor: '#fff',
-                border: '1px solid #e5e5e5',
+                backgroundColor: 'rgba(255,255,255,0.9)',
+                backdropFilter: 'blur(8px)',
+                border: 'none',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                opacity: carouselScroll >= 1020 ? 0.5 : 1
+                boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+                opacity: carouselScroll >= 256 ? 0 : 1,
+                pointerEvents: carouselScroll >= 256 ? 'none' : 'auto',
+                zIndex: 2
               }}
-              disabled={carouselScroll >= 1020}
               onMouseEnter={(e) => {
-                if (carouselScroll < 1020) {
-                  e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                if (carouselScroll < 256) {
+                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,1)';
+                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)';
                 }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
-                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.9)';
+                e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.1)';
               }}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
             </button>
@@ -895,7 +896,7 @@ export default function HomePageOncom() {
         </div>
       </section>
 
-      {/* New Developments Section - ON.COM style */}
+      {/* You may be interested in - ON.COM style */}
       <section style={{
         backgroundColor: '#fff',
         paddingTop: '80px',
@@ -906,183 +907,163 @@ export default function HomePageOncom() {
           margin: '0 auto',
           padding: '0 20px'
         }}>
+          <h2 style={{
+            fontSize: '32px',
+            fontWeight: '700',
+            letterSpacing: '-0.02em',
+            marginBottom: '40px',
+            color: '#000',
+            textAlign: 'center'
+          }}>
+            You may be interested in
+          </h2>
+          
+          {/* Properties Grid - Only 3 items */}
+          {loading ? (
+            <div style={{ textAlign: 'center', padding: '60px 0' }}>
+              <div style={{
+                width: '40px',
+                height: '40px',
+                border: '3px solid #e0e0e0',
+                borderTop: '3px solid #000',
+                borderRadius: '50%',
+                margin: '0 auto',
+                animation: 'spin 1s linear infinite'
+              }} />
+            </div>
+          ) : (
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: '24px'
+            }}>
+              {properties.slice(0, 3).map((property) => (
+                <div key={property.id} style={{
+                  backgroundColor: '#fff',
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer',
+                  border: '1px solid #e5e5e5'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}>
+                  <Link href={`/property/${property.id}`} style={{
+                    textDecoration: 'none',
+                    color: 'inherit',
+                    display: 'block'
+                  }}>
+                    <div style={{
+                      position: 'relative',
+                      aspectRatio: '4/3',
+                      backgroundColor: '#f5f5f5',
+                      overflow: 'hidden'
+                    }}>
+                      {property.images && property.images[0] ? (
+                        <img
+                          src={typeof property.images[0] === 'string' ? property.images[0] : property.images[0].url}
+                          alt={property.address}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+                          }}
+                          onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                          onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                        />
+                      ) : (
+                        <div style={{
+                          width: '100%',
+                          height: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#999',
+                          fontSize: '14px'
+                        }}>
+                          No image available
+                        </div>
+                      )}
+                      <div style={{
+                        position: 'absolute',
+                        top: '16px',
+                        right: '16px'
+                      }}>
+                        <SavePropertyButton property={property} />
+                      </div>
+                    </div>
+                    
+                    <div style={{ 
+                      padding: '24px',
+                      backgroundColor: '#fff'
+                    }}>
+                      <h3 style={{
+                        fontSize: '24px',
+                        fontWeight: '700',
+                        marginBottom: '8px',
+                        color: '#000',
+                        letterSpacing: '-0.01em'
+                      }}>
+                        {property.priceDisplay || formatPrice(property.price)}
+                      </h3>
+                      <p style={{
+                        fontSize: '16px',
+                        color: '#666',
+                        marginBottom: '16px',
+                        lineHeight: '1.5'
+                      }}>
+                        {property.address}, {property.suburb}
+                      </p>
+                      <div style={{
+                        display: 'flex',
+                        gap: '20px',
+                        fontSize: '14px',
+                        color: '#000',
+                        fontWeight: '500'
+                      }}>
+                        <span>{property.bedrooms} beds</span>
+                        <span>{property.bathrooms} baths</span>
+                        <span>{property.carSpaces} cars</span>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          )}
+          
+          {/* View all link */}
           <div style={{
             textAlign: 'center',
-            marginBottom: '64px'
+            marginTop: '48px'
           }}>
-            <h2 style={{
-              fontSize: 'clamp(2.5rem, 4vw, 4rem)',
-              fontWeight: '700',
-              letterSpacing: '-0.03em',
-              marginBottom: '16px',
+            <Link href="/buy" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
               color: '#000',
-              lineHeight: '1.1'
-            }}>
-              New developments
-            </h2>
-            <p style={{
-              fontSize: '20px',
-              lineHeight: '1.5',
-              color: '#666',
-              maxWidth: '600px',
-              margin: '0 auto'
-            }}>
-              Be first to explore exclusive new communities in Casey and Cardinia
-            </p>
-          </div>
-          
-          {/* Development Cards Grid */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '32px'
-          }}>
-            {/* Card 1 */}
-            <Link href="/new-homes/parkside-estate" style={{
-              position: 'relative',
-              display: 'block',
-              borderRadius: '8px',
-              overflow: 'hidden',
+              fontSize: '16px',
+              fontWeight: '600',
               textDecoration: 'none',
-              aspectRatio: '16/9'
-            }}>
-              <img 
-                src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=800&h=450&fit=crop"
-                alt="Parkside Estate"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  transition: 'transform 0.6s ease'
-                }}
-              />
-              <div style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%)'
-              }} />
-              <div style={{
-                position: 'absolute',
-                bottom: '32px',
-                left: '32px',
-                right: '32px'
-              }}>
-                <div style={{
-                  display: 'inline-block',
-                  padding: '6px 12px',
-                  backgroundColor: '#fff',
-                  borderRadius: '4px',
-                  marginBottom: '16px'
-                }}>
-                  <span style={{
-                    fontSize: '12px',
-                    fontWeight: '600',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px',
-                    color: '#000'
-                  }}>Coming Soon</span>
-                </div>
-                <h3 style={{
-                  fontSize: '32px',
-                  fontWeight: '700',
-                  color: '#fff',
-                  marginBottom: '8px',
-                  letterSpacing: '-0.02em'
-                }}>Parkside Estate</h3>
-                <p style={{
-                  fontSize: '16px',
-                  color: 'rgba(255,255,255,0.9)',
-                  marginBottom: '16px'
-                }}>Premium land releases from $450,000</p>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  color: '#fff',
-                  fontSize: '14px',
-                  fontWeight: '500'
-                }}>
-                  <span>Explore development</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </div>
-              </div>
-            </Link>
-
-            {/* Card 2 */}
-            <Link href="/new-homes/waterfront-residences" style={{
-              position: 'relative',
-              display: 'block',
-              borderRadius: '8px',
-              overflow: 'hidden',
-              textDecoration: 'none',
-              aspectRatio: '16/9'
-            }}>
-              <img 
-                src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=450&fit=crop"
-                alt="Waterfront Residences"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  transition: 'transform 0.6s ease'
-                }}
-              />
-              <div style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%)'
-              }} />
-              <div style={{
-                position: 'absolute',
-                bottom: '32px',
-                left: '32px',
-                right: '32px'
-              }}>
-                <div style={{
-                  display: 'inline-block',
-                  padding: '6px 12px',
-                  backgroundColor: '#fff',
-                  borderRadius: '4px',
-                  marginBottom: '16px'
-                }}>
-                  <span style={{
-                    fontSize: '12px',
-                    fontWeight: '600',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px',
-                    color: '#000'
-                  }}>Now Selling</span>
-                </div>
-                <h3 style={{
-                  fontSize: '32px',
-                  fontWeight: '700',
-                  color: '#fff',
-                  marginBottom: '8px',
-                  letterSpacing: '-0.02em'
-                }}>Waterfront Residences</h3>
-                <p style={{
-                  fontSize: '16px',
-                  color: 'rgba(255,255,255,0.9)',
-                  marginBottom: '16px'
-                }}>Luxury apartments from $650,000</p>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  color: '#fff',
-                  fontSize: '14px',
-                  fontWeight: '500'
-                }}>
-                  <span>View apartments</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </div>
-              </div>
+              borderBottom: '2px solid #000',
+              paddingBottom: '4px',
+              transition: 'opacity 0.2s ease'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
+            onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+            >
+              View all properties
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
             </Link>
           </div>
         </div>

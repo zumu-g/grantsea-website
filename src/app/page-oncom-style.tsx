@@ -1142,11 +1142,8 @@ export default function HomePageOncom() {
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '20px',
-            '@media (min-width: 1200px)': {
-              gridTemplateColumns: 'repeat(4, 1fr)'
-            }
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: '20px'
           }}>
             {/* Story 1 */}
             <article style={{

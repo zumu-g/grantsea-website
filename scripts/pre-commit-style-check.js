@@ -181,6 +181,11 @@ async function checkStyles() {
         issues.push(`❌ Shop categories should be in 3 columns, found: ${categoryData.gridColumns}`);
         passed = false;
       }
+      // Check that we have exactly 3 category items
+      if (categoryData.categoryCount !== 3) {
+        issues.push(`❌ Shop by category should have exactly 3 items, found: ${categoryData.categoryCount}`);
+        passed = false;
+      }
     }
     
     // Check 3: Typography sizes

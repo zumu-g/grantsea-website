@@ -84,12 +84,6 @@ export default function HomePageOncom() {
                 fontSize: '14px',
                 fontWeight: '500'
               }}>Rent</Link>
-              <Link href="/sold" style={{
-                color: '#fff',
-                textDecoration: 'none',
-                fontSize: '14px',
-                fontWeight: '500'
-              }}>Sold</Link>
               <Link href="/agents" style={{
                 color: '#fff',
                 textDecoration: 'none',
@@ -221,12 +215,12 @@ export default function HomePageOncom() {
           padding: '0 20px'
         }}>
           <h2 style={{
-            fontSize: '12px',
-            fontWeight: '600',
-            letterSpacing: '1.5px',
+            fontSize: '13px',
+            fontWeight: '700',
+            letterSpacing: '2px',
             textTransform: 'uppercase',
             textAlign: 'center',
-            margin: '0 0 40px',
+            margin: '0 0 48px',
             color: '#000'
           }}>
             Shop by category
@@ -383,53 +377,6 @@ export default function HomePageOncom() {
               </div>
             </Link>
 
-            {/* Sold Category */}
-            <Link href="/sold" style={{
-              position: 'relative',
-              display: 'block',
-              textDecoration: 'none',
-              overflow: 'hidden',
-              borderRadius: '4px'
-            }}>
-              <div style={{
-                position: 'relative',
-                paddingBottom: '148.15%'
-              }}>
-                <img 
-                  src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=800&h=480&fit=crop"
-                  alt="Sold"
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover'
-                  }}
-                />
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)'
-                }} />
-                <div style={{
-                  position: 'absolute',
-                  bottom: '24px',
-                  left: '24px'
-                }}>
-                  <h3 style={{
-                    color: '#fff',
-                    fontSize: '28px',
-                    fontWeight: '700',
-                    marginBottom: '4px'
-                  }}>Sold</h3>
-                  <p style={{
-                    color: 'rgba(255,255,255,0.9)',
-                    fontSize: '14px'
-                  }}>View recent sales</p>
-                </div>
-              </div>
-            </Link>
           </div>
         </div>
       </section>

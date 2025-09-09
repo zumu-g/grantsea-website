@@ -56,9 +56,13 @@ This document contains the exact design specifications from on.com that must be 
 - **Gradient**: Only on bottom portion for text readability
 
 ### Typography
-- **Section Title**: 12px, uppercase, letter-spacing 1.5px, font-weight 600
+- **Section Title**: 13px, uppercase, letter-spacing 2px, font-weight 700
 - **Category Title**: 28px, font-weight 700
 - **Category Subtitle**: 14px, regular weight
+
+### Category Items
+- **Count**: Exactly 3 items (Buy, Rent, Sell)
+- **No "Sold" category** in the shop by category section
 
 ## Property Cards
 

@@ -7,7 +7,13 @@ import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
 
 export default function BuyPageOncom() {
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<{
+    type: 'all' | 'sale' | 'lease';
+    priceMin: string;
+    priceMax: string;
+    bedrooms: string;
+    propertyType: string;
+  }>({
     type: 'all',
     priceMin: '',
     priceMax: '',
@@ -22,8 +28,9 @@ export default function BuyPageOncom() {
 
   // Filter properties based on criteria
   const filteredProperties = properties.filter(property => {
-    if (filters.priceMin && property.price < parseInt(filters.priceMin)) return false;
-    if (filters.priceMax && property.price > parseInt(filters.priceMax)) return false;
+    const propertyPrice = typeof property.price === 'string' ? parseInt(property.price) : property.price;
+    if (filters.priceMin && propertyPrice < parseInt(filters.priceMin)) return false;
+    if (filters.priceMax && propertyPrice > parseInt(filters.priceMax)) return false;
     if (filters.bedrooms && property.bedrooms !== parseInt(filters.bedrooms)) return false;
     if (filters.propertyType && property.propertyType !== filters.propertyType) return false;
     return true;
@@ -31,9 +38,11 @@ export default function BuyPageOncom() {
 
   // Sort properties
   const sortedProperties = [...filteredProperties].sort((a, b) => {
-    if (sortBy === 'newest') return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    if (sortBy === 'price-low') return (a.price || 0) - (b.price || 0);
-    if (sortBy === 'price-high') return (b.price || 0) - (a.price || 0);
+    if (sortBy === 'newest') return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime();
+    const priceA = typeof a.price === 'string' ? parseInt(a.price) : (a.price || 0);
+    const priceB = typeof b.price === 'string' ? parseInt(b.price) : (b.price || 0);
+    if (sortBy === 'price-low') return priceA - priceB;
+    if (sortBy === 'price-high') return priceB - priceA;
     return 0;
   });
 

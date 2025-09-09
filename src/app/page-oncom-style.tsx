@@ -10,6 +10,8 @@ export default function HomePageOncom() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [hoveredActivity, setHoveredActivity] = useState<string | null>(null);
+  const [carouselScroll, setCarouselScroll] = useState(0);
   const { properties, loading } = useProperties({ limit: 12 });
 
   React.useEffect(() => {
@@ -384,6 +386,378 @@ export default function HomePageOncom() {
               </div>
             </Link>
 
+          </div>
+        </div>
+      </section>
+
+      {/* Activities Section - ON.COM style */}
+      <section style={{
+        backgroundColor: '#fff',
+        paddingTop: '80px',
+        paddingBottom: '80px',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          padding: '0 20px'
+        }}>
+          <h2 style={{
+            fontSize: '48px',
+            fontWeight: '700',
+            letterSpacing: '-0.48px',
+            textAlign: 'left',
+            margin: '0 0 48px',
+            color: '#000'
+          }}>
+            Find your perfect property
+          </h2>
+          
+          <div style={{
+            display: 'flex',
+            gap: '0'
+          }}>
+            {/* Activities List */}
+            <div style={{
+              flex: '0 0 40%',
+              paddingRight: '60px'
+            }}>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0'
+              }}>
+                {[
+                  { id: 'family-homes', name: 'Family Homes', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop' },
+                  { id: 'apartments', name: 'Apartments & Units', image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop' },
+                  { id: 'townhouses', name: 'Townhouses', image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=600&fit=crop' },
+                  { id: 'land', name: 'Land & Development', image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop' },
+                  { id: 'rural', name: 'Rural & Acreage', image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=600&fit=crop' },
+                  { id: 'commercial', name: 'Commercial', image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop' },
+                  { id: 'investment', name: 'Investment Properties', image: 'https://images.unsplash.com/photo-1560472355-536de3962603?w=800&h=600&fit=crop' }
+                ].map((activity) => (
+                  <Link 
+                    key={activity.id}
+                    href={`/buy?type=${activity.id}`}
+                    style={{
+                      display: 'block',
+                      padding: '20px 0',
+                      borderBottom: '1px solid #e5e5e5',
+                      textDecoration: 'none',
+                      transition: 'all 0.3s ease',
+                      backgroundColor: hoveredActivity === activity.id ? '#f8f8f8' : 'transparent'
+                    }}
+                    onMouseEnter={() => setHoveredActivity(activity.id)}
+                    onMouseLeave={() => setHoveredActivity(null)}
+                  >
+                    <h3 style={{
+                      fontSize: '24px',
+                      fontWeight: '600',
+                      color: '#000',
+                      margin: 0,
+                      transition: 'transform 0.3s ease',
+                      transform: hoveredActivity === activity.id ? 'translateX(8px)' : 'translateX(0)'
+                    }}>
+                      {activity.name}
+                    </h3>
+                  </Link>
+                ))}
+              </div>
+              
+              <Link href="/buy" style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                marginTop: '32px',
+                color: '#000',
+                fontSize: '16px',
+                fontWeight: '600',
+                textDecoration: 'none',
+                borderBottom: '2px solid #000',
+                paddingBottom: '4px',
+                transition: 'opacity 0.2s ease'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
+              onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+              >
+                View all properties
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginLeft: '8px' }}>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </Link>
+            </div>
+            
+            {/* Activity Image */}
+            <div style={{
+              flex: '1',
+              position: 'relative',
+              minHeight: '500px',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              backgroundColor: '#f5f5f5'
+            }}>
+              {[
+                { id: 'family-homes', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop' },
+                { id: 'apartments', image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop' },
+                { id: 'townhouses', image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=600&fit=crop' },
+                { id: 'land', image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop' },
+                { id: 'rural', image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=600&fit=crop' },
+                { id: 'commercial', image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop' },
+                { id: 'investment', image: 'https://images.unsplash.com/photo-1560472355-536de3962603?w=800&h=600&fit=crop' }
+              ].map((activity) => (
+                <div
+                  key={activity.id}
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    opacity: hoveredActivity === activity.id ? 1 : 0,
+                    transition: 'opacity 0.3s ease',
+                    pointerEvents: 'none'
+                  }}
+                >
+                  <img 
+                    src={activity.image}
+                    alt=""
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                  />
+                </div>
+              ))}
+              
+              {!hoveredActivity && (
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: '#f8f8f8'
+                }}>
+                  <p style={{
+                    fontSize: '18px',
+                    color: '#999',
+                    textAlign: 'center'
+                  }}>
+                    Hover over a property type to preview
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Carousel Section - ON.COM style */}
+      <section style={{
+        backgroundColor: '#f8f8f8',
+        paddingTop: '80px',
+        paddingBottom: '80px',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          padding: '0 20px',
+          position: 'relative'
+        }}>
+          <h2 style={{
+            fontSize: '48px',
+            fontWeight: '700',
+            letterSpacing: '-0.48px',
+            textAlign: 'left',
+            margin: '0 0 48px',
+            color: '#000'
+          }}>
+            Why Grant's
+          </h2>
+          
+          {/* Carousel Container */}
+          <div style={{
+            position: 'relative'
+          }}>
+            {/* Carousel Track */}
+            <div style={{
+              overflow: 'hidden',
+              margin: '0 -12px'
+            }}>
+              <div style={{
+                display: 'flex',
+                gap: '24px',
+                transform: `translateX(-${carouselScroll}px)`,
+                transition: 'transform 0.3s ease',
+                padding: '0 12px'
+              }}>
+                {[
+                  {
+                    title: 'Local Expertise',
+                    description: '30+ years serving Casey and Cardinia with unmatched local knowledge',
+                    image: 'https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=400&h=300&fit=crop'
+                  },
+                  {
+                    title: 'Award Winning',
+                    description: 'Recognized excellence in real estate service and customer satisfaction',
+                    image: 'https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=400&h=300&fit=crop'
+                  },
+                  {
+                    title: 'Full Service',
+                    description: 'From first inspection to settlement, we handle every detail',
+                    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop'
+                  },
+                  {
+                    title: 'Marketing Power',
+                    description: 'Premium marketing that gets your property noticed by the right buyers',
+                    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop'
+                  },
+                  {
+                    title: 'Proven Results',
+                    description: 'Track record of achieving premium prices in any market',
+                    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop'
+                  },
+                  {
+                    title: 'Community Focus',
+                    description: 'Deeply connected to the communities we serve',
+                    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop'
+                  }
+                ].map((item, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      flex: '0 0 calc(33.333% - 16px)',
+                      minWidth: '300px',
+                      backgroundColor: '#fff',
+                      borderRadius: '8px',
+                      overflow: 'hidden',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                      cursor: 'pointer'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-4px)';
+                      e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+                    }}
+                  >
+                    <div style={{
+                      aspectRatio: '4/3',
+                      overflow: 'hidden'
+                    }}>
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          transition: 'transform 0.3s ease'
+                        }}
+                      />
+                    </div>
+                    <div style={{
+                      padding: '24px'
+                    }}>
+                      <h3 style={{
+                        fontSize: '20px',
+                        fontWeight: '700',
+                        marginBottom: '8px',
+                        color: '#000'
+                      }}>
+                        {item.title}
+                      </h3>
+                      <p style={{
+                        fontSize: '14px',
+                        lineHeight: '1.5',
+                        color: '#666',
+                        margin: 0
+                      }}>
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Carousel Controls */}
+            <button
+              onClick={() => setCarouselScroll(Math.max(0, carouselScroll - 340))}
+              style={{
+                position: 'absolute',
+                left: '-20px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: '48px',
+                height: '48px',
+                backgroundColor: '#fff',
+                border: '1px solid #e5e5e5',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                opacity: carouselScroll === 0 ? 0.5 : 1
+              }}
+              disabled={carouselScroll === 0}
+              onMouseEnter={(e) => {
+                if (carouselScroll !== 0) {
+                  e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            
+            <button
+              onClick={() => setCarouselScroll(Math.min(1020, carouselScroll + 340))}
+              style={{
+                position: 'absolute',
+                right: '-20px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: '48px',
+                height: '48px',
+                backgroundColor: '#fff',
+                border: '1px solid #e5e5e5',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                opacity: carouselScroll >= 1020 ? 0.5 : 1
+              }}
+              disabled={carouselScroll >= 1020}
+              onMouseEnter={(e) => {
+                if (carouselScroll < 1020) {
+                  e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
           </div>
         </div>
       </section>

@@ -131,12 +131,12 @@ export default function HomePageOncom() {
         }}>
           <div>
             <h1 style={{
-              fontSize: '64px',
-              fontWeight: '800',
+              fontSize: 'clamp(2.5rem, 5vw, 5.375rem)',
+              fontWeight: '700',
               lineHeight: '1.1',
               marginBottom: '20px',
               color: '#fff',
-              letterSpacing: '-0.02em',
+              letterSpacing: '-0.03em',
               maxWidth: '700px'
             }}>
               Your best move starts here
@@ -265,14 +265,16 @@ export default function HomePageOncom() {
                 }} />
                 <div style={{
                   position: 'absolute',
-                  bottom: '24px',
-                  left: '24px'
+                  bottom: '32px',
+                  left: '32px',
+                  right: '32px'
                 }}>
                   <h3 style={{
                     color: '#fff',
-                    fontSize: '28px',
-                    fontWeight: '700',
-                    marginBottom: '4px'
+                    fontSize: 'clamp(1.625rem, 1.52rem + .45vw, 2.0625rem)',
+                    fontWeight: '600',
+                    marginBottom: '4px',
+                    letterSpacing: '-0.01em'
                   }}>Buy</h3>
                   <p style={{
                     color: 'rgba(255,255,255,0.9)',
@@ -313,14 +315,16 @@ export default function HomePageOncom() {
                 }} />
                 <div style={{
                   position: 'absolute',
-                  bottom: '24px',
-                  left: '24px'
+                  bottom: '32px',
+                  left: '32px',
+                  right: '32px'
                 }}>
                   <h3 style={{
                     color: '#fff',
-                    fontSize: '28px',
-                    fontWeight: '700',
-                    marginBottom: '4px'
+                    fontSize: 'clamp(1.625rem, 1.52rem + .45vw, 2.0625rem)',
+                    fontWeight: '600',
+                    marginBottom: '4px',
+                    letterSpacing: '-0.01em'
                   }}>Rent</h3>
                   <p style={{
                     color: 'rgba(255,255,255,0.9)',
@@ -361,14 +365,16 @@ export default function HomePageOncom() {
                 }} />
                 <div style={{
                   position: 'absolute',
-                  bottom: '24px',
-                  left: '24px'
+                  bottom: '32px',
+                  left: '32px',
+                  right: '32px'
                 }}>
                   <h3 style={{
                     color: '#fff',
-                    fontSize: '28px',
-                    fontWeight: '700',
-                    marginBottom: '4px'
+                    fontSize: 'clamp(1.625rem, 1.52rem + .45vw, 2.0625rem)',
+                    fontWeight: '600',
+                    marginBottom: '4px',
+                    letterSpacing: '-0.01em'
                   }}>Sell</h3>
                   <p style={{
                     color: 'rgba(255,255,255,0.9)',
@@ -380,6 +386,521 @@ export default function HomePageOncom() {
 
           </div>
         </div>
+      </section>
+
+      {/* Featured Section - ON.COM style */}
+      <section style={{
+        backgroundColor: '#f5f5f5',
+        paddingTop: '80px',
+        paddingBottom: '80px'
+      }}>
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          padding: '0 20px'
+        }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '64px',
+            alignItems: 'center'
+          }}>
+            {/* Left Content */}
+            <div>
+              <h2 style={{
+                fontSize: 'clamp(2rem, 3vw, 3rem)',
+                fontWeight: '700',
+                letterSpacing: '-0.02em',
+                marginBottom: '24px',
+                color: '#000',
+                lineHeight: '1.2'
+              }}>
+                Your property journey starts with confidence
+              </h2>
+              <p style={{
+                fontSize: '18px',
+                lineHeight: '1.6',
+                color: '#666',
+                marginBottom: '32px',
+                maxWidth: '480px'
+              }}>
+                Experience the difference with Casey and Cardinia's most trusted agents. From first inspection to final settlement, we're with you every step.
+              </p>
+              <div style={{
+                display: 'flex',
+                gap: '16px',
+                flexWrap: 'wrap'
+              }}>
+                <Link href="/appraisal" style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: '14px 28px',
+                  backgroundColor: '#000',
+                  color: '#fff',
+                  textDecoration: 'none',
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  borderRadius: '32px',
+                  transition: 'all 0.2s ease',
+                  border: '2px solid #000'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#333';
+                  e.currentTarget.style.borderColor = '#333';
+                  e.currentTarget.style.transform = 'scale(1.02)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#000';
+                  e.currentTarget.style.borderColor = '#000';
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
+                >
+                  Get free appraisal
+                  <svg 
+                    width="20" 
+                    height="20" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                    style={{ marginLeft: '8px' }}
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </Link>
+                <Link href="/selling-guide" style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: '14px 28px',
+                  backgroundColor: 'transparent',
+                  color: '#000',
+                  textDecoration: 'none',
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  borderRadius: '32px',
+                  transition: 'all 0.2s ease',
+                  border: '2px solid #000'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#000';
+                  e.currentTarget.style.color = '#fff';
+                  e.currentTarget.style.transform = 'scale(1.02)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.color = '#000';
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
+                >
+                  Selling guide
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Image */}
+            <div style={{
+              position: 'relative',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              aspectRatio: '4/3'
+            }}>
+              <img 
+                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop"
+                alt="Happy homeowners"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover'
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* New Developments Section - ON.COM style */}
+      <section style={{
+        backgroundColor: '#fff',
+        paddingTop: '80px',
+        paddingBottom: '80px'
+      }}>
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          padding: '0 20px'
+        }}>
+          <div style={{
+            textAlign: 'center',
+            marginBottom: '64px'
+          }}>
+            <h2 style={{
+              fontSize: 'clamp(2.5rem, 4vw, 4rem)',
+              fontWeight: '700',
+              letterSpacing: '-0.03em',
+              marginBottom: '16px',
+              color: '#000',
+              lineHeight: '1.1'
+            }}>
+              New developments
+            </h2>
+            <p style={{
+              fontSize: '20px',
+              lineHeight: '1.5',
+              color: '#666',
+              maxWidth: '600px',
+              margin: '0 auto'
+            }}>
+              Be first to explore exclusive new communities in Casey and Cardinia
+            </p>
+          </div>
+          
+          {/* Development Cards Grid */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '32px'
+          }}>
+            {/* Card 1 */}
+            <Link href="/new-homes/parkside-estate" style={{
+              position: 'relative',
+              display: 'block',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              textDecoration: 'none',
+              aspectRatio: '16/9',
+              group: true
+            }}>
+              <img 
+                src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=800&h=450&fit=crop"
+                alt="Parkside Estate"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  transition: 'transform 0.6s ease'
+                }}
+              />
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%)'
+              }} />
+              <div style={{
+                position: 'absolute',
+                bottom: '32px',
+                left: '32px',
+                right: '32px'
+              }}>
+                <div style={{
+                  display: 'inline-block',
+                  padding: '6px 12px',
+                  backgroundColor: '#fff',
+                  borderRadius: '4px',
+                  marginBottom: '16px'
+                }}>
+                  <span style={{
+                    fontSize: '12px',
+                    fontWeight: '600',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                    color: '#000'
+                  }}>Coming Soon</span>
+                </div>
+                <h3 style={{
+                  fontSize: '32px',
+                  fontWeight: '700',
+                  color: '#fff',
+                  marginBottom: '8px',
+                  letterSpacing: '-0.02em'
+                }}>Parkside Estate</h3>
+                <p style={{
+                  fontSize: '16px',
+                  color: 'rgba(255,255,255,0.9)',
+                  marginBottom: '16px'
+                }}>Premium land releases from $450,000</p>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  color: '#fff',
+                  fontSize: '14px',
+                  fontWeight: '500'
+                }}>
+                  <span>Explore development</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </Link>
+
+            {/* Card 2 */}
+            <Link href="/new-homes/waterfront-residences" style={{
+              position: 'relative',
+              display: 'block',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              textDecoration: 'none',
+              aspectRatio: '16/9'
+            }}>
+              <img 
+                src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=450&fit=crop"
+                alt="Waterfront Residences"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  transition: 'transform 0.6s ease'
+                }}
+              />
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%)'
+              }} />
+              <div style={{
+                position: 'absolute',
+                bottom: '32px',
+                left: '32px',
+                right: '32px'
+              }}>
+                <div style={{
+                  display: 'inline-block',
+                  padding: '6px 12px',
+                  backgroundColor: '#fff',
+                  borderRadius: '4px',
+                  marginBottom: '16px'
+                }}>
+                  <span style={{
+                    fontSize: '12px',
+                    fontWeight: '600',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                    color: '#000'
+                  }}>Now Selling</span>
+                </div>
+                <h3 style={{
+                  fontSize: '32px',
+                  fontWeight: '700',
+                  color: '#fff',
+                  marginBottom: '8px',
+                  letterSpacing: '-0.02em'
+                }}>Waterfront Residences</h3>
+                <p style={{
+                  fontSize: '16px',
+                  color: 'rgba(255,255,255,0.9)',
+                  marginBottom: '16px'
+                }}>Luxury apartments from $650,000</p>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  color: '#fff',
+                  fontSize: '14px',
+                  fontWeight: '500'
+                }}>
+                  <span>View apartments</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Community Section - ON.COM style */}
+      <section style={{
+        backgroundColor: '#000',
+        color: '#fff',
+        paddingTop: '120px',
+        paddingBottom: '120px',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          padding: '0 20px',
+          position: 'relative',
+          zIndex: 1
+        }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '80px',
+            alignItems: 'center'
+          }}>
+            <div>
+              <h2 style={{
+                fontSize: 'clamp(3rem, 5vw, 6rem)',
+                fontWeight: '800',
+                letterSpacing: '-0.04em',
+                marginBottom: '32px',
+                lineHeight: '0.9'
+              }}>
+                Join our<br />community
+              </h2>
+              <p style={{
+                fontSize: '20px',
+                lineHeight: '1.6',
+                marginBottom: '48px',
+                color: 'rgba(255,255,255,0.8)',
+                maxWidth: '450px'
+              }}>
+                Get exclusive access to new listings, market insights, and property news delivered to your inbox.
+              </p>
+              <div style={{
+                display: 'flex',
+                gap: '16px',
+                marginBottom: '32px'
+              }}>
+                <input 
+                  type="email" 
+                  placeholder="Enter your email"
+                  style={{
+                    flex: 1,
+                    padding: '16px 24px',
+                    backgroundColor: 'rgba(255,255,255,0.1)',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    borderRadius: '32px',
+                    color: '#fff',
+                    fontSize: '16px',
+                    outline: 'none',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.backgroundColor = 'rgba(255,255,255,0.15)';
+                    e.target.style.borderColor = 'rgba(255,255,255,0.4)';
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                    e.target.style.borderColor = 'rgba(255,255,255,0.2)';
+                  }}
+                />
+                <button style={{
+                  padding: '16px 32px',
+                  backgroundColor: '#fff',
+                  color: '#000',
+                  border: 'none',
+                  borderRadius: '32px',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'transform 0.2s ease',
+                  whiteSpace: 'nowrap'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                >
+                  Subscribe
+                </button>
+              </div>
+              <p style={{
+                fontSize: '14px',
+                color: 'rgba(255,255,255,0.6)'
+              }}>
+                Join 10,000+ subscribers. Unsubscribe anytime.
+              </p>
+            </div>
+            
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '24px'
+            }}>
+              <div style={{
+                padding: '32px',
+                backgroundColor: 'rgba(255,255,255,0.05)',
+                borderRadius: '8px',
+                border: '1px solid rgba(255,255,255,0.1)',
+                backdropFilter: 'blur(10px)'
+              }}>
+                <div style={{
+                  fontSize: '48px',
+                  fontWeight: '700',
+                  marginBottom: '8px'
+                }}>250+</div>
+                <p style={{
+                  fontSize: '16px',
+                  color: 'rgba(255,255,255,0.7)'
+                }}>Properties sold monthly</p>
+              </div>
+              
+              <div style={{
+                padding: '32px',
+                backgroundColor: 'rgba(255,255,255,0.05)',
+                borderRadius: '8px',
+                border: '1px solid rgba(255,255,255,0.1)',
+                backdropFilter: 'blur(10px)'
+              }}>
+                <div style={{
+                  fontSize: '48px',
+                  fontWeight: '700',
+                  marginBottom: '8px'
+                }}>4.9</div>
+                <p style={{
+                  fontSize: '16px',
+                  color: 'rgba(255,255,255,0.7)'
+                }}>Average rating</p>
+              </div>
+              
+              <div style={{
+                padding: '32px',
+                backgroundColor: 'rgba(255,255,255,0.05)',
+                borderRadius: '8px',
+                border: '1px solid rgba(255,255,255,0.1)',
+                backdropFilter: 'blur(10px)'
+              }}>
+                <div style={{
+                  fontSize: '48px',
+                  fontWeight: '700',
+                  marginBottom: '8px'
+                }}>98%</div>
+                <p style={{
+                  fontSize: '16px',
+                  color: 'rgba(255,255,255,0.7)'
+                }}>Success rate</p>
+              </div>
+              
+              <div style={{
+                padding: '32px',
+                backgroundColor: 'rgba(255,255,255,0.05)',
+                borderRadius: '8px',
+                border: '1px solid rgba(255,255,255,0.1)',
+                backdropFilter: 'blur(10px)'
+              }}>
+                <div style={{
+                  fontSize: '48px',
+                  fontWeight: '700',
+                  marginBottom: '8px'
+                }}>15+</div>
+                <p style={{
+                  fontSize: '16px',
+                  color: 'rgba(255,255,255,0.7)'
+                }}>Expert agents</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Background decoration */}
+        <div style={{
+          position: 'absolute',
+          top: '-20%',
+          right: '-10%',
+          width: '600px',
+          height: '600px',
+          background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)',
+          borderRadius: '50%',
+          filter: 'blur(100px)'
+        }} />
       </section>
 
       {/* Latest Properties Section */}

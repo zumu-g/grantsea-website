@@ -906,25 +906,28 @@ export default function HomePageOncom() {
       <section style={{
         backgroundColor: '#fff',
         paddingTop: '80px',
-        paddingBottom: '80px'
+        paddingBottom: '80px',
+        overflow: 'hidden'
       }}>
         <div style={{
           maxWidth: '1400px',
           margin: '0 auto',
-          padding: '0 20px'
+          paddingLeft: '20px',
+          paddingRight: '0'
         }}>
           <h2 style={{
-            fontSize: 'clamp(1.25rem, 1.5vw, 1.75rem)',
+            fontSize: 'clamp(2.0625rem, 1.93rem + .58vw, 2.625rem)',
             fontWeight: '700',
             letterSpacing: '-0.01em',
-            marginBottom: '32px',
+            marginBottom: '40px',
             color: '#000',
-            textAlign: 'center'
+            lineHeight: '1.2',
+            paddingRight: '20px'
           }}>
             You may be interested in
           </h2>
           
-          {/* Properties Grid - Only 3 items with smaller images */}
+          {/* Properties Carousel - Shows 3.5 items */}
           {loading ? (
             <div style={{ textAlign: 'center', padding: '40px 0' }}>
               <div style={{
@@ -939,18 +942,28 @@ export default function HomePageOncom() {
             </div>
           ) : (
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '16px',
-              maxWidth: '960px',
-              margin: '0 auto'
+              overflowX: 'auto',
+              overflowY: 'hidden',
+              scrollSnapType: 'x mandatory',
+              scrollBehavior: 'smooth',
+              WebkitOverflowScrolling: 'touch',
+              msOverflowStyle: 'none',
+              scrollbarWidth: 'none'
             }}>
-              {properties.slice(0, 3).map((property) => (
+              <div style={{
+                display: 'flex',
+                gap: '16px',
+                paddingRight: '20px'
+              }}>
+                {properties.slice(0, 6).map((property) => (
                 <div key={property.id} style={{
+                  flex: '0 0 calc(28.57% - 12px)', // 3.5 items: 100% / 3.5 = 28.57%
+                  minWidth: '260px',
                   backgroundColor: 'transparent',
                   overflow: 'hidden',
                   transition: 'opacity 0.2s ease',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  scrollSnapAlign: 'start'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.opacity = '0.8';
@@ -1047,13 +1060,14 @@ export default function HomePageOncom() {
                   </Link>
                 </div>
               ))}
+              </div>
             </div>
           )}
-          
           {/* View all link */}
           <div style={{
             textAlign: 'center',
-            marginTop: '48px'
+            marginTop: '48px',
+            paddingRight: '20px'
           }}>
             <Link href="/buy" style={{
               display: 'inline-flex',

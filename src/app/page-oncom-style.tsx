@@ -128,9 +128,7 @@ export default function HomePageOncom() {
         <div style={{
           position: 'relative',
           width: '100%',
-          maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '0 40px',
+          padding: '0 48px',
           textAlign: 'left'
         }}>
           <h1 style={{
@@ -237,8 +235,8 @@ export default function HomePageOncom() {
             margin: '0 0 48px',
             color: '#000',
             lineHeight: '53.2928px',
-            paddingLeft: '64px',
-            paddingRight: '64px'
+            paddingLeft: '48px',
+            paddingRight: '48px'
           }}>
             Shop by category
           </h2>
@@ -246,8 +244,8 @@ export default function HomePageOncom() {
           {/* Category Layout - ON.COM exact style (Flexbox, not Grid) */}
           <div style={{
             display: 'flex',
-            paddingLeft: '64px',
-            paddingRight: '64px',
+            paddingLeft: '48px',
+            paddingRight: '48px',
             gap: '32px',
             position: 'relative'
           }}>
@@ -417,9 +415,8 @@ export default function HomePageOncom() {
         overflow: 'hidden'
       }}>
         <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          padding: '0 20px'
+          width: '100%',
+          padding: '0 48px'
         }}>
           <h2 style={{
             fontSize: '48px',
@@ -794,9 +791,8 @@ export default function HomePageOncom() {
         paddingBottom: '80px'
       }}>
         <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          padding: '0 20px'
+          width: '100%',
+          padding: '0 48px'
         }}>
           <div style={{
             display: 'grid',
@@ -931,8 +927,8 @@ export default function HomePageOncom() {
       }}>
         <div style={{
           width: '100%',
-          paddingLeft: '47.952px',
-          paddingRight: '47.952px'
+          paddingLeft: '48px',
+          paddingRight: '48px'
         }}>
           <h2 style={{
             fontSize: 'clamp(1.625rem, 1.52rem + 0.45vw, 2.0625rem)',
@@ -967,14 +963,14 @@ export default function HomePageOncom() {
               WebkitOverflowScrolling: 'touch',
               msOverflowStyle: 'none',
               scrollbarWidth: 'none',
-              marginLeft: '-47.952px',
-              marginRight: '-47.952px',
-              paddingLeft: '47.952px'
+              marginLeft: '-48px',
+              marginRight: '-48px',
+              paddingLeft: '48px'
             }}>
               <div style={{
                 display: 'flex',
-                gap: '24.0005px',
-                paddingRight: '47.952px'
+                gap: '24px',
+                paddingRight: '48px'
               }}>
                 {properties.slice(0, 6).map((property) => (
                 <div key={property.id} style={{
@@ -1145,7 +1141,7 @@ export default function HomePageOncom() {
       }}>
         <div style={{
           width: '100%',
-          padding: '0 47.952px'
+          padding: '0 48px'
         }}>
           <h2 style={{
             fontSize: 'clamp(1.625rem, 1.52rem + 0.45vw, 2.0625rem)',
@@ -1161,7 +1157,7 @@ export default function HomePageOncom() {
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '24.0005px'
+            gap: '24px'
           }}>
             {/* Story 1 */}
             <article style={{
@@ -1595,9 +1591,8 @@ export default function HomePageOncom() {
         overflow: 'hidden'
       }}>
         <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          padding: '0 20px',
+          width: '100%',
+          padding: '0 48px',
           position: 'relative',
           zIndex: 1
         }}>

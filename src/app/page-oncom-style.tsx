@@ -200,29 +200,34 @@ export default function HomePageOncom() {
         </div>
       </section>
 
-      {/* Browse by Category - Clean grid layout */}
+      {/* Shop by Category - ON.COM exact style */}
       <section style={{
-        padding: '80px 0',
-        backgroundColor: '#fff'
+        padding: '0',
+        backgroundColor: '#fff',
+        marginTop: '-64px' // Pull up to be right under hero
       }}>
         <div style={{
-          maxWidth: '1480px',
-          margin: '0 auto',
-          padding: '0 40px'
+          maxWidth: '100%',
+          margin: '0'
         }}>
           <h2 style={{
-            fontSize: '48px',
-            fontWeight: '700',
-            marginBottom: '48px',
-            textAlign: 'center'
+            fontSize: '14px',
+            fontWeight: '400',
+            letterSpacing: '2px',
+            textTransform: 'uppercase',
+            textAlign: 'center',
+            margin: '40px 0 24px',
+            color: '#000'
           }}>
-            Start your search
+            Shop by category
           </h2>
           
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '8px'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '2px',
+            maxWidth: '1480px',
+            margin: '0 auto'
           }}>
             {/* Buy Category */}
             <Link href="/buy" style={{
@@ -231,24 +236,38 @@ export default function HomePageOncom() {
               overflow: 'hidden',
               display: 'block',
               textDecoration: 'none',
-              backgroundColor: '#f5f5f5'
+              backgroundColor: '#000'
             }}>
+              <img 
+                src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=800&fit=crop"
+                alt="Buy property"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  opacity: '0.8',
+                  transition: 'opacity 0.3s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+                onMouseLeave={(e) => e.currentTarget.style.opacity = '0.8'}
+              />
               <div style={{
                 position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5))',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'transform 0.3s ease'
+                bottom: '24px',
+                left: '24px',
+                right: '24px'
               }}>
-                <span style={{
+                <h3 style={{
                   color: '#fff',
-                  fontSize: '32px',
+                  fontSize: '24px',
                   fontWeight: '700',
-                  textTransform: 'uppercase',
-                  letterSpacing: '2px'
-                }}>Buy</span>
+                  marginBottom: '4px'
+                }}>Houses for sale</h3>
+                <p style={{
+                  color: '#fff',
+                  fontSize: '14px',
+                  opacity: '0.8'
+                }}>Find your dream home</p>
               </div>
             </Link>
 
@@ -259,24 +278,38 @@ export default function HomePageOncom() {
               overflow: 'hidden',
               display: 'block',
               textDecoration: 'none',
-              backgroundColor: '#f5f5f5'
+              backgroundColor: '#000'
             }}>
+              <img 
+                src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=800&fit=crop"
+                alt="Rent property"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  opacity: '0.8',
+                  transition: 'opacity 0.3s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+                onMouseLeave={(e) => e.currentTarget.style.opacity = '0.8'}
+              />
               <div style={{
                 position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5))',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'transform 0.3s ease'
+                bottom: '24px',
+                left: '24px',
+                right: '24px'
               }}>
-                <span style={{
+                <h3 style={{
                   color: '#fff',
-                  fontSize: '32px',
+                  fontSize: '24px',
                   fontWeight: '700',
-                  textTransform: 'uppercase',
-                  letterSpacing: '2px'
-                }}>Rent</span>
+                  marginBottom: '4px'
+                }}>Apartments for rent</h3>
+                <p style={{
+                  color: '#fff',
+                  fontSize: '14px',
+                  opacity: '0.8'
+                }}>Premium rentals available</p>
               </div>
             </Link>
 
@@ -287,24 +320,38 @@ export default function HomePageOncom() {
               overflow: 'hidden',
               display: 'block',
               textDecoration: 'none',
-              backgroundColor: '#f5f5f5'
+              backgroundColor: '#000'
             }}>
+              <img 
+                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=800&fit=crop"
+                alt="Sell property"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  opacity: '0.8',
+                  transition: 'opacity 0.3s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+                onMouseLeave={(e) => e.currentTarget.style.opacity = '0.8'}
+              />
               <div style={{
                 position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5))',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'transform 0.3s ease'
+                bottom: '24px',
+                left: '24px',
+                right: '24px'
               }}>
-                <span style={{
+                <h3 style={{
                   color: '#fff',
-                  fontSize: '32px',
+                  fontSize: '24px',
                   fontWeight: '700',
-                  textTransform: 'uppercase',
-                  letterSpacing: '2px'
-                }}>Sell</span>
+                  marginBottom: '4px'
+                }}>Sell your property</h3>
+                <p style={{
+                  color: '#fff',
+                  fontSize: '14px',
+                  opacity: '0.8'
+                }}>Get the best price</p>
               </div>
             </Link>
 
@@ -315,24 +362,38 @@ export default function HomePageOncom() {
               overflow: 'hidden',
               display: 'block',
               textDecoration: 'none',
-              backgroundColor: '#f5f5f5'
+              backgroundColor: '#000'
             }}>
+              <img 
+                src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&h=800&fit=crop"
+                alt="Recently sold"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  opacity: '0.8',
+                  transition: 'opacity 0.3s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+                onMouseLeave={(e) => e.currentTarget.style.opacity = '0.8'}
+              />
               <div style={{
                 position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5))',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'transform 0.3s ease'
+                bottom: '24px',
+                left: '24px',
+                right: '24px'
               }}>
-                <span style={{
+                <h3 style={{
                   color: '#fff',
-                  fontSize: '32px',
+                  fontSize: '24px',
                   fontWeight: '700',
-                  textTransform: 'uppercase',
-                  letterSpacing: '2px'
-                }}>Sold</span>
+                  marginBottom: '4px'
+                }}>Recently sold</h3>
+                <p style={{
+                  color: '#fff',
+                  fontSize: '14px',
+                  opacity: '0.8'
+                }}>View market trends</p>
               </div>
             </Link>
           </div>

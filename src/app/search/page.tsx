@@ -1,4 +1,4 @@
 'use client';
 
-// Temporarily export the on.com style version which has proper search functionality
-export { default } from './page-oncom-style';
+// Use the exact on.com style search page
+export { default } from './page-oncom-exact';

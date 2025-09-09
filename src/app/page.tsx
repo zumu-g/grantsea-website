@@ -1,7 +1,4 @@
 'use client';
 
-import { ElementLight } from '@/components/anima-exports/screens/ElementLight/ElementLight';
-
-export default function HomePage() {
-  return <ElementLight />;
-}
+// Use the on.com style homepage
+export { default } from './page-oncom-style';

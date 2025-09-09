@@ -13,8 +13,8 @@ const ON_COM_DESIGN_SYSTEM = {
   header: {
     height: 64,
     transparentAtTop: true,
-    whiteOnScroll: true,
-    iconsVisibleOnlyOnScroll: true
+    hiddenOnScroll: true,
+    visibleOnlyAtTop: true
   },
   typography: {
     logo: { fontSize: 24, fontWeight: 800 },
@@ -24,9 +24,9 @@ const ON_COM_DESIGN_SYSTEM = {
     propertyPrice: { fontSize: 20, fontWeight: 600 }
   },
   shopByCategory: {
-    aspectRatio: 1.33, // 4:3 portrait ratio (133.33% padding)
-    columns: 4,
-    gap: 16,
+    aspectRatio: 1.48, // 2:3 portrait ratio (148.15% padding)
+    columns: 3,
+    gap: 32,
     imageFilter: 'none', // on.com doesn't use dark filters
     borderRadius: 4
   },
@@ -92,7 +92,7 @@ async function checkStyles() {
       passed = false;
     }
     
-    // Scroll and check header changes
+    // Scroll and check header disappears
     await page.evaluate(() => window.scrollTo(0, 100));
     await page.waitForTimeout(500);
     
@@ -100,22 +100,16 @@ async function checkStyles() {
       const header = document.querySelector('header');
       if (!header) return null;
       const styles = window.getComputedStyle(header);
-      const icons = document.querySelectorAll('header a[href*="saved"], header a[href*="sign"]');
+      const transform = styles.transform;
       return {
-        backgroundColor: styles.backgroundColor,
-        iconsVisible: icons.length > 0
+        transform: transform,
+        isHidden: transform.includes('translateY(-100%)') || transform.includes('matrix')
       };
     });
     
-    if (headerScrolled) {
-      if (headerScrolled.backgroundColor !== 'rgb(255, 255, 255)' && headerScrolled.backgroundColor !== '#fff') {
-        issues.push(`❌ Header should be white when scrolled, found: ${headerScrolled.backgroundColor}`);
-        passed = false;
-      }
-      if (!headerScrolled.iconsVisible) {
-        issues.push('❌ Header icons should be visible when scrolled');
-        passed = false;
-      }
+    if (headerScrolled && !headerScrolled.isHidden) {
+      issues.push(`❌ Header should be hidden when scrolled down (translateY(-100%)), found: ${headerScrolled.transform}`);
+      passed = false;
     }
     
     // Check 2: Shop by category aspect ratios
@@ -148,16 +142,16 @@ async function checkStyles() {
     });
     
     if (categoryData) {
-      if (!categoryData.aspectRatio.includes('133')) {
-        issues.push(`❌ Shop category images should have 133.33% padding (3:4 ratio), found: ${categoryData.aspectRatio}`);
+      if (!categoryData.aspectRatio.includes('148')) {
+        issues.push(`❌ Shop category images should have 148.15% padding (2:3 ratio), found: ${categoryData.aspectRatio}`);
         passed = false;
       }
-      // Check if it's 4 columns (either repeat(4) or 4 explicit values)
+      // Check if it's 3 columns (either repeat(3) or 3 explicit values)
       const columnCount = categoryData.gridColumns ? 
         (categoryData.gridColumns.match(/\d+px/g) || []).length : 0;
       if (!categoryData.gridColumns || 
-          (!categoryData.gridColumns.includes('repeat(4') && columnCount !== 4)) {
-        issues.push(`❌ Shop categories should be in 4 columns, found: ${categoryData.gridColumns}`);
+          (!categoryData.gridColumns.includes('repeat(3') && columnCount !== 3)) {
+        issues.push(`❌ Shop categories should be in 3 columns, found: ${categoryData.gridColumns}`);
         passed = false;
       }
     }

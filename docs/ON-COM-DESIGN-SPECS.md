@@ -44,14 +44,15 @@ This document contains the exact design specifications from on.com that must be 
 ## Shop by Category
 
 ### Grid Layout
-- **Columns**: 4 (desktop)
-- **Gap**: 16px
+- **Columns**: 3 (desktop)
+- **Gap**: 32px
 - **Container**: Max-width 1400px
 
 ### Category Cards
-- **Aspect Ratio**: 3:4 portrait (133.33% padding-bottom)
+- **Aspect Ratio**: 2:3 portrait (148.15% padding-bottom)
+- **Exact dimensions**: 571px × 847px per image
 - **Border Radius**: 4px
-- **Image**: No filter/overlay on image itself
+- **Image**: object-fit: cover, no filter/overlay
 - **Gradient**: Only on bottom portion for text readability
 
 ### Typography

@@ -8,30 +8,41 @@ import SavePropertyButton from '@/components/SavePropertyButton';
 
 export default function HomePageOncom() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [showHeader, setShowHeader] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const { properties, loading } = useProperties({ limit: 12 });
 
   React.useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
+      const currentScrollY = window.scrollY;
+      
+      // Show header only at the very top
+      if (currentScrollY === 0) {
+        setShowHeader(true);
+      } else {
+        setShowHeader(false);
+      }
+      
+      setLastScrollY(currentScrollY);
     };
-    window.addEventListener('scroll', handleScroll);
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   return (
     <>
-      {/* ON.COM Style Header - Transparent at top, white when scrolled */}
+      {/* ON.COM Style Header - Only visible at top */}
       <header style={{
         position: 'fixed',
         top: 0,
         left: 0,
         right: 0,
         height: '64px',
-        backgroundColor: isScrolled ? '#fff' : 'transparent',
-        borderBottom: isScrolled ? '1px solid #e5e5e5' : 'none',
+        backgroundColor: 'transparent',
         zIndex: 1000,
-        transition: 'all 0.3s ease'
+        transform: showHeader ? 'translateY(0)' : 'translateY(-100%)',
+        transition: 'transform 0.3s ease'
       }}>
         <div style={{
           height: '100%',
@@ -48,10 +59,9 @@ export default function HomePageOncom() {
             <Link href="/" style={{ 
               fontSize: '24px', 
               fontWeight: '800', 
-              color: isScrolled ? '#000' : '#fff',
+              color: '#fff',
               textDecoration: 'none',
-              letterSpacing: '-0.02em',
-              transition: 'color 0.3s ease'
+              letterSpacing: '-0.02em'
             }}>
               GRANT'S
             </Link>
@@ -63,68 +73,40 @@ export default function HomePageOncom() {
               alignItems: 'center'
             }}>
               <Link href="/buy" style={{
-                color: isScrolled ? '#000' : '#fff',
+                color: '#fff',
                 textDecoration: 'none',
                 fontSize: '14px',
-                fontWeight: '500',
-                transition: 'color 0.3s ease'
+                fontWeight: '500'
               }}>Buy</Link>
               <Link href="/rent" style={{
-                color: isScrolled ? '#000' : '#fff',
+                color: '#fff',
                 textDecoration: 'none',
                 fontSize: '14px',
-                fontWeight: '500',
-                transition: 'color 0.3s ease'
+                fontWeight: '500'
               }}>Rent</Link>
               <Link href="/sold" style={{
-                color: isScrolled ? '#000' : '#fff',
+                color: '#fff',
                 textDecoration: 'none',
                 fontSize: '14px',
-                fontWeight: '500',
-                transition: 'color 0.3s ease'
+                fontWeight: '500'
               }}>Sold</Link>
               <Link href="/agents" style={{
-                color: isScrolled ? '#000' : '#fff',
+                color: '#fff',
                 textDecoration: 'none',
                 fontSize: '14px',
-                fontWeight: '500',
-                transition: 'color 0.3s ease'
+                fontWeight: '500'
               }}>Find agents</Link>
               <Link href="/new-homes" style={{
-                color: isScrolled ? '#000' : '#fff',
+                color: '#fff',
                 textDecoration: 'none',
                 fontSize: '14px',
-                fontWeight: '500',
-                transition: 'color 0.3s ease'
+                fontWeight: '500'
               }}>New homes</Link>
             </nav>
           </div>
 
-          {/* Right Icons - Only visible when scrolled */}
-          {isScrolled && (
-            <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
-              <Link href="/saved-properties" style={{
-                padding: '8px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#000'
-              }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                </svg>
-              </Link>
-              <Link href="/sign-in" style={{
-                padding: '8px 16px',
-                fontSize: '14px',
-                fontWeight: '500',
-                color: '#000',
-                textDecoration: 'none'
-              }}>
-                Sign in
-              </Link>
-            </div>
-          )}
+          {/* Right section - empty space to balance layout */}
+          <div style={{ width: '120px' }} />
         </div>
       </header>
 
@@ -250,11 +232,11 @@ export default function HomePageOncom() {
             Shop by category
           </h2>
           
-          {/* Category Grid */}
+          {/* Category Grid - ON.COM exact style */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '16px',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '32px',
             position: 'relative'
           }}>
             {/* Buy Category */}
@@ -267,7 +249,7 @@ export default function HomePageOncom() {
             }}>
               <div style={{
                 position: 'relative',
-                paddingBottom: '133.33%' // 3:4 Portrait aspect ratio like on.com
+                paddingBottom: '148.15%' // 2:3 Portrait aspect ratio (847/571 = 1.4815)
               }}>
                 <img 
                   src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=480&fit=crop"
@@ -315,7 +297,7 @@ export default function HomePageOncom() {
             }}>
               <div style={{
                 position: 'relative',
-                paddingBottom: '133.33%'
+                paddingBottom: '148.15%'
               }}>
                 <img 
                   src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800&h=480&fit=crop"
@@ -363,7 +345,7 @@ export default function HomePageOncom() {
             }}>
               <div style={{
                 position: 'relative',
-                paddingBottom: '133.33%'
+                paddingBottom: '148.15%'
               }}>
                 <img 
                   src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&h=480&fit=crop"
@@ -411,7 +393,7 @@ export default function HomePageOncom() {
             }}>
               <div style={{
                 position: 'relative',
-                paddingBottom: '133.33%'
+                paddingBottom: '148.15%'
               }}>
                 <img 
                   src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=800&h=480&fit=crop"

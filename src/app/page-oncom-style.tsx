@@ -608,14 +608,20 @@ export default function HomePageOncom() {
                     tagline: 'Exclusive properties',
                     image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&h=800&fit=crop',
                     link: '/exclusive'
+                  },
+                  {
+                    name: 'Waterfront',
+                    tagline: 'Coastal living',
+                    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&h=800&fit=crop',
+                    link: '/buy?type=waterfront'
                   }
                 ].map((item, index) => (
                   <Link
                     key={index}
                     href={item.link}
                     style={{
-                      flex: '0 0 calc(20% - 13px)',
-                      minWidth: '240px',
+                      flex: '0 0 calc((100% - 5 * 16px) / 6.5)',
+                      minWidth: '180px',
                       position: 'relative',
                       textDecoration: 'none',
                       display: 'block',
@@ -683,7 +689,7 @@ export default function HomePageOncom() {
             
             {/* Carousel Controls */}
             <button
-              onClick={() => setCarouselScroll(Math.max(0, carouselScroll - 256))}
+              onClick={() => setCarouselScroll(Math.max(0, carouselScroll - 196))}
               style={{
                 position: 'absolute',
                 left: '0',
@@ -722,7 +728,7 @@ export default function HomePageOncom() {
             </button>
             
             <button
-              onClick={() => setCarouselScroll(Math.min(256, carouselScroll + 256))}
+              onClick={() => setCarouselScroll(Math.min(980, carouselScroll + 196))}
               style={{
                 position: 'absolute',
                 right: '0',
@@ -740,12 +746,12 @@ export default function HomePageOncom() {
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
                 boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
-                opacity: carouselScroll >= 256 ? 0 : 1,
-                pointerEvents: carouselScroll >= 256 ? 'none' : 'auto',
+                opacity: carouselScroll >= 980 ? 0 : 1,
+                pointerEvents: carouselScroll >= 980 ? 'none' : 'auto',
                 zIndex: 2
               }}
               onMouseEnter={(e) => {
-                if (carouselScroll < 256) {
+                if (carouselScroll < 980) {
                   e.currentTarget.style.backgroundColor = 'rgba(255,255,255,1)';
                   e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)';
                 }
@@ -908,24 +914,24 @@ export default function HomePageOncom() {
           padding: '0 20px'
         }}>
           <h2 style={{
-            fontSize: '32px',
+            fontSize: 'clamp(1.25rem, 1.5vw, 1.75rem)',
             fontWeight: '700',
-            letterSpacing: '-0.02em',
-            marginBottom: '40px',
+            letterSpacing: '-0.01em',
+            marginBottom: '32px',
             color: '#000',
             textAlign: 'center'
           }}>
             You may be interested in
           </h2>
           
-          {/* Properties Grid - Only 3 items */}
+          {/* Properties Grid - Only 3 items with smaller images */}
           {loading ? (
-            <div style={{ textAlign: 'center', padding: '60px 0' }}>
+            <div style={{ textAlign: 'center', padding: '40px 0' }}>
               <div style={{
-                width: '40px',
-                height: '40px',
-                border: '3px solid #e0e0e0',
-                borderTop: '3px solid #000',
+                width: '32px',
+                height: '32px',
+                border: '2px solid #e0e0e0',
+                borderTop: '2px solid #000',
                 borderRadius: '50%',
                 margin: '0 auto',
                 animation: 'spin 1s linear infinite'
@@ -934,104 +940,109 @@ export default function HomePageOncom() {
           ) : (
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: '24px'
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '16px',
+              maxWidth: '960px',
+              margin: '0 auto'
             }}>
               {properties.slice(0, 3).map((property) => (
                 <div key={property.id} style={{
-                  backgroundColor: '#fff',
-                  borderRadius: '8px',
+                  backgroundColor: 'transparent',
                   overflow: 'hidden',
-                  transition: 'all 0.3s ease',
-                  cursor: 'pointer',
-                  border: '1px solid #e5e5e5'
+                  transition: 'opacity 0.2s ease',
+                  cursor: 'pointer'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-4px)';
-                  e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.1)';
+                  e.currentTarget.style.opacity = '0.8';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.opacity = '1';
                 }}>
                   <Link href={`/property/${property.id}`} style={{
                     textDecoration: 'none',
                     color: 'inherit',
-                    display: 'block'
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '12px'
                   }}>
                     <div style={{
                       position: 'relative',
-                      aspectRatio: '4/3',
-                      backgroundColor: '#f5f5f5',
+                      paddingTop: '100%', // 1:1 square aspect ratio like on.com
+                      backgroundColor: '#f6f7f8',
+                      borderRadius: '8px',
                       overflow: 'hidden'
                     }}>
-                      {property.images && property.images[0] ? (
-                        <img
-                          src={typeof property.images[0] === 'string' ? property.images[0] : property.images[0].url}
-                          alt={property.address}
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                            transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-                          }}
-                          onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                          onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                        />
-                      ) : (
-                        <div style={{
-                          width: '100%',
-                          height: '100%',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: '#999',
-                          fontSize: '14px'
-                        }}>
-                          No image available
-                        </div>
-                      )}
                       <div style={{
                         position: 'absolute',
-                        top: '16px',
-                        right: '16px'
+                        inset: '1rem',
+                        background: 'radial-gradient(circle at center, #fff 0%, #f6f7f8 100%)'
+                      }}>
+                        {property.images && property.images[0] ? (
+                          <img
+                            src={typeof property.images[0] === 'string' ? property.images[0] : property.images[0].url}
+                            alt={property.address}
+                            style={{
+                              position: 'absolute',
+                              inset: 0,
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                              borderRadius: '4px'
+                            }}
+                          />
+                        ) : (
+                          <div style={{
+                            position: 'absolute',
+                            inset: 0,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#999',
+                            fontSize: '12px'
+                          }}>
+                            No image
+                          </div>
+                        )}
+                      </div>
+                      <div style={{
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                        zIndex: 1
                       }}>
                         <SavePropertyButton property={property} />
                       </div>
                     </div>
                     
                     <div style={{ 
-                      padding: '24px',
-                      backgroundColor: '#fff'
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '4px'
                     }}>
                       <h3 style={{
-                        fontSize: '24px',
+                        fontSize: 'clamp(1rem, 0.94rem + 0.26vw, 1.25rem)',
                         fontWeight: '700',
-                        marginBottom: '8px',
                         color: '#000',
-                        letterSpacing: '-0.01em'
+                        letterSpacing: '-0.01em',
+                        lineHeight: '1.2'
                       }}>
-                        {property.priceDisplay || formatPrice(property.price)}
+                        {property.address}
                       </h3>
                       <p style={{
-                        fontSize: '16px',
+                        fontSize: '0.875rem',
                         color: '#666',
-                        marginBottom: '16px',
-                        lineHeight: '1.5'
+                        lineHeight: '1.4'
                       }}>
-                        {property.address}, {property.suburb}
+                        {property.suburb} • {property.bedrooms} bed {property.bathrooms} bath
                       </p>
-                      <div style={{
-                        display: 'flex',
-                        gap: '20px',
-                        fontSize: '14px',
+                      <p style={{
+                        fontSize: '0.875rem',
+                        fontWeight: '600',
                         color: '#000',
-                        fontWeight: '500'
+                        marginTop: '4px'
                       }}>
-                        <span>{property.bedrooms} beds</span>
-                        <span>{property.bathrooms} baths</span>
-                        <span>{property.carSpaces} cars</span>
-                      </div>
+                        {property.priceDisplay || formatPrice(property.price)}
+                      </p>
                     </div>
                   </Link>
                 </div>

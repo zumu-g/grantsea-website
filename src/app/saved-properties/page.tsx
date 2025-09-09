@@ -135,8 +135,8 @@ export default function SavedPropertiesPage() {
                   <div className="flex items-center justify-between">
                     <div className="text-lg font-bold text-gray-900">
                       {property.listingType === 'lease' 
-                        ? (property.leasePriceDisplay || `$${property.leasePrice}/week`)
-                        : (property.priceDisplay || formatPrice(property.price))}
+                        ? (property.leasePriceDisplay || (property.leasePrice ? `$${property.leasePrice}/week` : 'Contact Agent'))
+                        : (property.priceDisplay || (property.price ? formatPrice(property.price) : 'Contact Agent'))}
                     </div>
                     <button
                       onClick={(e) => {

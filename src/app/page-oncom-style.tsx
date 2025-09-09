@@ -12,188 +12,197 @@ export default function HomePageOncom() {
 
   return (
     <>
-      {/* ON.COM Style Header - 64px height, clean design */}
+      {/* ON.COM Style Header - Exact clone */}
       <header style={{
         position: 'fixed',
         top: 0,
         left: 0,
         right: 0,
-        height: '64px',
+        height: '72px',
         backgroundColor: '#fff',
-        borderBottom: '1px solid #e5e5e5',
-        zIndex: 1000,
-        transition: 'all 0.3s ease'
+        borderBottom: '1px solid #e5e7eb',
+        zIndex: 1000
       }}>
         <div style={{
-          maxWidth: '1480px',
-          margin: '0 auto',
           height: '100%',
-          padding: '0 40px',
+          padding: '0 24px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between'
         }}>
-          {/* Logo */}
-          <Link href="/" style={{ 
-            fontSize: '28px', 
-            fontWeight: '900', 
-            color: '#000',
-            textDecoration: 'none',
-            letterSpacing: '-0.5px'
-          }}>
-            GRANT'S
-          </Link>
+          {/* Left section */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
+            {/* Logo */}
+            <Link href="/" style={{ 
+              fontSize: '24px', 
+              fontWeight: '800', 
+              color: '#000',
+              textDecoration: 'none',
+              letterSpacing: '-0.025em'
+            }}>
+              GRANT'S
+            </Link>
 
-          {/* Navigation - Desktop */}
-          <nav style={{
-            display: 'flex',
-            gap: '40px',
-            alignItems: 'center',
-            position: 'absolute',
-            left: '50%',
-            transform: 'translateX(-50%)'
-          }}>
-            <Link href="/buy" style={{
-              color: '#000',
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: '500',
-              transition: 'opacity 0.2s ease'
-            }}>Buy</Link>
-            <Link href="/sell" style={{
-              color: '#000',
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: '500',
-              transition: 'opacity 0.2s ease'
-            }}>Sell</Link>
-            <Link href="/rent" style={{
-              color: '#000',
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: '500',
-              transition: 'opacity 0.2s ease'
-            }}>Rent</Link>
-            <Link href="/agents" style={{
-              color: '#000',
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: '500',
-              transition: 'opacity 0.2s ease'
-            }}>Find Agents</Link>
-          </nav>
+            {/* Navigation - Desktop */}
+            <nav style={{
+              display: 'flex',
+              gap: '32px',
+              alignItems: 'center'
+            }}>
+              <Link href="/buy" style={{
+                color: '#000',
+                textDecoration: 'none',
+                fontSize: '16px',
+                fontWeight: '500'
+              }}>Buy</Link>
+              <Link href="/rent" style={{
+                color: '#000',
+                textDecoration: 'none',
+                fontSize: '16px',
+                fontWeight: '500'
+              }}>Rent</Link>
+              <Link href="/sold" style={{
+                color: '#000',
+                textDecoration: 'none',
+                fontSize: '16px',
+                fontWeight: '500'
+              }}>Sold</Link>
+              <Link href="/agents" style={{
+                color: '#000',
+                textDecoration: 'none',
+                fontSize: '16px',
+                fontWeight: '500'
+              }}>Find agents</Link>
+              <Link href="/new-homes" style={{
+                color: '#000',
+                textDecoration: 'none',
+                fontSize: '16px',
+                fontWeight: '500'
+              }}>New homes</Link>
+            </nav>
+          </div>
 
           {/* Right Icons */}
-          <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
-            <button style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </button>
+          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
             <Link href="/saved-properties" style={{
               padding: '8px',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              color: '#000'
             }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
               </svg>
             </Link>
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              style={{
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: '8px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M3 12h18M3 6h18M3 18h18" />
-              </svg>
-            </button>
+            <Link href="/sign-in" style={{
+              padding: '8px 16px',
+              fontSize: '16px',
+              fontWeight: '500',
+              color: '#000',
+              textDecoration: 'none'
+            }}>
+              Sign in
+            </Link>
           </div>
         </div>
       </header>
 
-      {/* Hero Section - Full height, left-aligned text */}
+      {/* Hero Section - ON.COM exact style */}
       <section style={{
-        height: '100vh',
+        height: 'calc(100vh - 72px)',
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
-        marginTop: '64px',
-        background: 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url("https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=1080&fit=crop") center/cover'
+        marginTop: '72px',
+        backgroundImage: 'url("https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=1080&fit=crop")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundColor: '#000'
       }}>
+        {/* Gradient overlay */}
         <div style={{
-          maxWidth: '1480px',
-          margin: '0 auto',
-          padding: '0 40px',
-          width: '100%'
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5))'
+        }} />
+        
+        <div style={{
+          position: 'relative',
+          width: '100%',
+          padding: '0 24px'
         }}>
-          <div style={{ maxWidth: '600px' }}>
+          <div style={{ 
+            maxWidth: '1200px',
+            margin: '0 auto'
+          }}>
             <h1 style={{
-              fontSize: 'clamp(48px, 6vw, 86px)',
+              fontSize: '72px',
               fontWeight: '900',
-              lineHeight: '0.9',
+              lineHeight: '1',
               marginBottom: '24px',
               color: '#fff',
-              letterSpacing: '-0.03em'
+              letterSpacing: '-0.02em',
+              maxWidth: '800px'
             }}>
-              Your dream home awaits
+              Your best move starts here
             </h1>
             <p style={{
-              fontSize: 'clamp(20px, 2vw, 28px)',
+              fontSize: '24px',
               fontWeight: '400',
-              lineHeight: '1.3',
-              marginBottom: '40px',
+              lineHeight: '1.4',
+              marginBottom: '48px',
               color: '#fff',
-              opacity: '0.9'
+              maxWidth: '600px'
             }}>
-              Casey and Cardinia's premier real estate
+              Casey and Cardinia's trusted real estate experts
             </p>
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
               <Link href="/buy" style={{
-                display: 'inline-block',
-                padding: '16px 48px',
-                backgroundColor: '#000',
-                color: '#fff',
+                display: 'inline-flex',
+                alignItems: 'center',
+                padding: '16px 32px',
+                backgroundColor: '#fff',
+                color: '#000',
                 textDecoration: 'none',
-                fontSize: '14px',
+                fontSize: '16px',
                 fontWeight: '600',
-                letterSpacing: '0.5px',
-                textTransform: 'uppercase',
-                border: '2px solid #000',
-                transition: 'all 0.2s ease'
-              }}>
-                Browse Properties
+                borderRadius: '32px',
+                transition: 'transform 0.2s ease',
+                minWidth: '160px',
+                justifyContent: 'center'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+              >
+                Browse properties
               </Link>
               <Link href="/appraisal" style={{
-                display: 'inline-block',
-                padding: '16px 48px',
-                backgroundColor: 'transparent',
+                display: 'inline-flex',
+                alignItems: 'center',
+                padding: '16px 32px',
+                backgroundColor: 'rgba(255,255,255,0.2)',
+                backdropFilter: 'blur(10px)',
                 color: '#fff',
                 textDecoration: 'none',
-                fontSize: '14px',
+                fontSize: '16px',
                 fontWeight: '600',
-                letterSpacing: '0.5px',
-                textTransform: 'uppercase',
-                border: '2px solid #fff',
-                transition: 'all 0.2s ease'
-              }}>
-                Get Appraisal
+                borderRadius: '32px',
+                border: '1px solid rgba(255,255,255,0.3)',
+                transition: 'all 0.2s ease',
+                minWidth: '160px',
+                justifyContent: 'center'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.3)';
+                e.currentTarget.style.transform = 'scale(1.05)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)';
+                e.currentTarget.style.transform = 'scale(1)';
+              }}
+              >
+                Get appraisal
               </Link>
             </div>
           </div>
@@ -204,7 +213,7 @@ export default function HomePageOncom() {
       <section style={{
         padding: '0',
         backgroundColor: '#fff',
-        marginTop: '-64px' // Pull up to be right under hero
+        marginTop: '0' // Normal spacing
       }}>
         <div style={{
           maxWidth: '100%',

@@ -182,14 +182,14 @@
 }
 
 .element-light .container-9 {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  left: 0;
+  align-items: center;
   position: absolute;
-  top: 930px;
+  height: 100%;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  top: 0;
 }
 
 .element-light .gradient-2 {

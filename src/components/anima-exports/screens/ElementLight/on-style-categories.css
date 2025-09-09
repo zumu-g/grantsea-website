@@ -1,0 +1,182 @@
+/* Category section styling to match on.com */
+
+/* Browse by category section */
+.element-light .section-section {
+  position: relative !important;
+  padding: 80px 0 !important;
+  background-color: #ffffff;
+}
+
+/* Category title */
+.element-light .text-wrapper-3 {
+  font-size: 40px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 40px !important;
+  text-align: center;
+}
+
+/* Category grid container */
+.element-light .container-11 {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 4px !important;
+  width: 100% !important;
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+
+/* Category items - match on.com's aspect ratio */
+.element-light .component-4-instance,
+.element-light .component-5-instance,
+.element-light .component-6-instance,
+.element-light .component-7-instance,
+.element-light .component-8-instance,
+.element-light .component-9-instance,
+.element-light .component-10-instance,
+.element-light .component-11-instance {
+  width: 100% !important;
+  height: 400px !important;
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 4px !important;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* Hover effect on category items */
+.element-light .component-4-instance:hover,
+.element-light .component-5-instance:hover,
+.element-light .component-6-instance:hover,
+.element-light .component-7-instance:hover,
+.element-light .component-8-instance:hover,
+.element-light .component-9-instance:hover,
+.element-light .component-10-instance:hover,
+.element-light .component-11-instance:hover {
+  transform: scale(1.02);
+}
+
+/* Category images */
+.element-light .component-4-instance img,
+.element-light .component-5-instance img,
+.element-light .component-6-instance img,
+.element-light .component-7-instance img,
+.element-light .component-8-instance img,
+.element-light .component-9-instance img,
+.element-light .component-10-instance img,
+.element-light .component-11-instance img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+/* Category text overlay */
+.element-light .component-4-instance .text,
+.element-light .component-5-instance .text,
+.element-light .component-6-instance .text,
+.element-light .component-7-instance .text,
+.element-light .component-8-instance .text,
+.element-light .component-9-instance .text,
+.element-light .component-10-instance .text,
+.element-light .component-11-instance .text {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  padding: 24px !important;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent) !important;
+  color: white !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  z-index: 1 !important;
+}
+
+/* Featured categories (first two) - larger height */
+.element-light .component-4-instance,
+.element-light .component-5-instance {
+  grid-column: span 2 !important;
+  height: 500px !important;
+}
+
+/* Hide the absolute positioned help box */
+.element-light .section-section > div[style*="position: absolute"][style*="right: 40px"] {
+  display: none !important;
+}
+
+/* New Arrivals section adjustments */
+.element-light .property-grid-container {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  gap: 20px !important;
+  padding: 0 20px !important;
+}
+
+/* Property cards in grid */
+.element-light .container-20,
+.element-light .container-21,
+.element-light .container-22 {
+  width: 100% !important;
+  height: 400px !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+.element-light .container-20:hover,
+.element-light .container-21:hover,
+.element-light .container-22:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .element-light .container-11 {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  
+  .element-light .component-4-instance,
+  .element-light .component-5-instance {
+    grid-column: span 3 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .element-light .container-11 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+  
+  .element-light .component-4-instance,
+  .element-light .component-5-instance {
+    grid-column: span 2 !important;
+    height: 300px !important;
+  }
+  
+  .element-light .component-6-instance,
+  .element-light .component-7-instance,
+  .element-light .component-8-instance,
+  .element-light .component-9-instance,
+  .element-light .component-10-instance,
+  .element-light .component-11-instance {
+    height: 250px !important;
+  }
+  
+  .element-light .text-wrapper-3 {
+    font-size: 32px !important;
+    margin-bottom: 24px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .element-light .container-11 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .element-light .component-4-instance,
+  .element-light .component-5-instance {
+    grid-column: span 1 !important;
+  }
+}

@@ -7,6 +7,9 @@
 /* Import Grant's Estate Agents Style System - enhances Anima components */
 @import './grants-style-system.css';
 
+/* Import Category Grid styles */
+@import '../styles/category-grid.css';
+
 /* Reset for On.com styling */
 * {
   margin: 0;

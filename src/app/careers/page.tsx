@@ -60,7 +60,7 @@ export default function CareersPage() {
     setTimeout(() => {
       setSubmitStatus({
         type: 'success',
-        message: 'Thank you for your application. We'll be in touch soon.'
+        message: 'Thank you for your application. We will be in touch soon.'
       });
       setIsSubmitting(false);
       setFormData({
@@ -104,7 +104,7 @@ export default function CareersPage() {
             fontWeight: '300',
             lineHeight: '1.6'
           }}>
-            Join Melbourne's most innovative real estate team and build your career with industry leaders
+            Join Melbourne\'s most innovative real estate team and build your career with industry leaders
           </p>
         </div>
       </section>
@@ -120,7 +120,7 @@ export default function CareersPage() {
             textAlign: 'center',
             letterSpacing: '-1px'
           }}>
-            Why Grant's?
+            Why Grants?
           </h2>
           <div style={{
             display: 'grid',
@@ -284,7 +284,7 @@ export default function CareersPage() {
             marginBottom: '48px',
             lineHeight: '1.6'
           }}>
-            Submit your application and we'll be in touch within 48 hours
+            Submit your application and we will be in touch within 48 hours
           </p>
 
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
@@ -490,7 +490,7 @@ export default function CareersPage() {
                   resize: 'vertical',
                   minHeight: '100px'
                 }}
-                placeholder="Why do you want to join Grant's Estate Agents?"
+                placeholder="Why do you want to join Grants Estate Agents?"
                 className="form-input"
               />
             </div>
@@ -572,6 +572,6 @@ export default function CareersPage() {
 }
 
 export const metadata = {
-  title: 'Careers | Grant\'s Estate Agents',
-  description: 'Join our growing team of real estate professionals. Explore career opportunities at Grant\'s Estate Agents.',
+  title: 'Careers | Grants Estate Agents',
+  description: 'Join our growing team of real estate professionals. Explore career opportunities at Grants Estate Agents.',
 };

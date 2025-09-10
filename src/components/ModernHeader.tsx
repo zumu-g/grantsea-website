@@ -27,6 +27,9 @@ export default function ModernHeader() {
               <Link href="/explore" className="text-gray-700 hover:text-blue-600 font-medium">
                 Explore
               </Link>
+              <Link href="/help" className="text-gray-700 hover:text-blue-600 font-medium">
+                Help
+              </Link>
             </nav>
 
             {/* Right Icons */}

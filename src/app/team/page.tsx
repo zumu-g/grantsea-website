@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import './team.css';
 
 const teamMembers = [
   {
@@ -368,31 +369,6 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* CSS for hover effects */}
-      <style jsx>{`
-        .contact-button:hover {
-          background-color: #000 !important;
-          color: #fff !important;
-        }
-        
-        .contact-button-solid:hover {
-          background-color: #333 !important;
-        }
-        
-        .careers-button:hover {
-          background-color: #333 !important;
-        }
-        
-        @media (max-width: 768px) {
-          h1 {
-            font-size: 48px !important;
-          }
-          
-          .team-member-card {
-            margin: 0 auto;
-          }
-        }
-      `}</style>
     </div>
   );
 }

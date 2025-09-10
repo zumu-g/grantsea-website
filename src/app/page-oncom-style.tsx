@@ -128,7 +128,7 @@ export default function HomePageOncom() {
         <div style={{
           position: 'relative',
           width: 'calc(100vw - 15px)',
-          padding: '0 48px',
+          padding: '0 47.952px',
           textAlign: 'left'
         }}>
           <h1 style={{
@@ -232,11 +232,11 @@ export default function HomePageOncom() {
             letterSpacing: '-0.48448px',
             textTransform: 'none',
             textAlign: 'start',
-            margin: '0 0 48px',
+            margin: '0 0 32.2296px',
             color: '#000',
             lineHeight: '53.2928px',
-            paddingLeft: '48px',
-            paddingRight: '48px'
+            paddingLeft: '47.952px',
+            paddingRight: '47.952px'
           }}>
             Shop by category
           </h2>
@@ -244,8 +244,8 @@ export default function HomePageOncom() {
           {/* Category Layout - ON.COM exact style (Flexbox, not Grid) */}
           <div style={{
             display: 'flex',
-            paddingLeft: '48px',
-            paddingRight: '48px',
+            paddingLeft: '47.952px',
+            paddingRight: '47.952px',
             gap: '32px',
             position: 'relative'
           }}>
@@ -437,7 +437,7 @@ export default function HomePageOncom() {
             {/* Activities List */}
             <div style={{
               flex: '0 0 40%',
-              paddingLeft: '48px',
+              paddingLeft: '47.952px',
               paddingRight: '60px'
             }}>
               <div style={{
@@ -905,7 +905,7 @@ export default function HomePageOncom() {
               borderRadius: '8px',
               overflow: 'hidden',
               aspectRatio: '4/3',
-              marginRight: '48px'
+              marginRight: '47.952px'
             }}>
               <img 
                 src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop"
@@ -932,8 +932,8 @@ export default function HomePageOncom() {
       }}>
         <div style={{
           width: 'calc(100vw - 15px)',
-          paddingLeft: '48px',
-          paddingRight: '48px'
+          paddingLeft: '47.952px',
+          paddingRight: '47.952px'
         }}>
           <h2 style={{
             fontSize: 'clamp(1.625rem, 1.52rem + 0.45vw, 2.0625rem)',
@@ -968,14 +968,14 @@ export default function HomePageOncom() {
               WebkitOverflowScrolling: 'touch',
               msOverflowStyle: 'none',
               scrollbarWidth: 'none',
-              marginLeft: '-48px',
-              marginRight: '-48px',
+              marginLeft: '-47.952px',
+              marginRight: '-47.952px',
               paddingLeft: '48px'
             }}>
               <div style={{
                 display: 'flex',
                 gap: '24px',
-                paddingRight: '48px'
+                paddingRight: '47.952px'
               }}>
                 {properties.slice(0, 6).map((property) => (
                 <div key={property.id} style={{
@@ -1597,7 +1597,7 @@ export default function HomePageOncom() {
       }}>
         <div style={{
           width: 'calc(100vw - 15px)',
-          padding: '0 48px',
+          padding: '0 47.952px',
           position: 'relative',
           zIndex: 1
         }}>

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import './careers.css';
 
 const positions = [
   {
@@ -9,7 +10,7 @@ const positions = [
     title: 'Senior Sales Agent',
     location: 'Berwick Office',
     type: 'Full Time',
-    description: 'We're seeking an experienced sales agent to join our growing Berwick team. The ideal candidate will have 5+ years in residential sales.'
+    description: 'We are seeking an experienced sales agent to join our growing Berwick team. The ideal candidate will have 5+ years in residential sales.'
   },
   {
     id: 2,
@@ -566,41 +567,6 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* CSS for hover effects and form interactions */}
-      <style jsx>{`
-        .position-card:hover {
-          transform: translateX(8px);
-          box-shadow: -4px 0 20px rgba(0,0,0,0.05);
-        }
-        
-        .apply-link:hover {
-          background-color: #000 !important;
-          color: #fff !important;
-        }
-        
-        .form-input:focus {
-          border-bottom-color: #000 !important;
-        }
-        
-        .submit-button:hover:not(:disabled) {
-          background-color: #333 !important;
-        }
-        
-        @media (max-width: 768px) {
-          h1 {
-            font-size: 48px !important;
-          }
-          
-          .position-card {
-            padding: 24px !important;
-          }
-          
-          form > div:first-child,
-          form > div:nth-child(2) {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }

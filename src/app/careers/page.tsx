@@ -399,7 +399,6 @@ export default function CareersPage() {
                   style={{
                     width: '100%',
                     padding: '12px 0',
-                    borderBottom: '1px solid #e0e0e0',
                     border: 'none',
                     borderBottom: '1px solid #e0e0e0',
                     fontSize: '16px',

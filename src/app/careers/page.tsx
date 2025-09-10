@@ -571,7 +571,4 @@ export default function CareersPage() {
   );
 }
 
-export const metadata = {
-  title: 'Careers | Grants Estate Agents',
-  description: 'Join our growing team of real estate professionals. Explore career opportunities at Grants Estate Agents.',
-};
+// Note: Metadata cannot be exported from client components

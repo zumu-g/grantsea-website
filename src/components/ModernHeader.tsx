@@ -30,6 +30,9 @@ export default function ModernHeader() {
               <Link href="/help" className="text-gray-700 hover:text-blue-600 font-medium">
                 Help
               </Link>
+              <Link href="/appraisal" className="text-gray-700 hover:text-blue-600 font-medium">
+                Appraisal
+              </Link>
             </nav>
 
             {/* Right Icons */}

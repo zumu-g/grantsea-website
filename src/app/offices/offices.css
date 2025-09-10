@@ -1,0 +1,355 @@
+/* Offices Page - Minimalist Designer Style */
+
+.offices-page {
+  min-height: 100vh;
+  background-color: #fff;
+  font-family: "On-Regular", Helvetica, Arial, sans-serif;
+}
+
+/* Container with proper padding */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* Hero Section */
+.offices-hero {
+  padding: 128px 0 80px;
+  text-align: center;
+}
+
+.offices-title {
+  font-size: 72px;
+  font-weight: 300;
+  color: #000;
+  margin-bottom: 24px;
+  line-height: 1.1;
+  letter-spacing: -2px;
+}
+
+.offices-divider {
+  width: 96px;
+  height: 2px;
+  background-color: #000;
+  margin: 0 auto 32px;
+}
+
+.offices-subtitle {
+  font-size: 18px;
+  color: #666;
+  max-width: 640px;
+  margin: 0 auto;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* Offices Grid Section */
+.offices-grid-section {
+  padding: 0 0 128px;
+}
+
+.offices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 64px;
+}
+
+/* Office Card */
+.office-card {
+  transition: transform 0.3s ease;
+}
+
+.office-card:hover {
+  transform: translateY(-4px);
+}
+
+.office-image {
+  height: 256px;
+  margin-bottom: 32px;
+  background-color: #f5f5f5;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.office-card:hover .office-image {
+  transform: scale(1.02);
+}
+
+.office-image-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+}
+
+.office-initial {
+  font-size: 96px;
+  font-weight: 200;
+  color: #ccc;
+}
+
+/* Office Details */
+.office-details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.office-header {
+  margin-bottom: 0;
+}
+
+.office-name {
+  font-size: 36px;
+  font-weight: 300;
+  color: #000;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.office-address {
+  color: #666;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Office Info */
+.office-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.office-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.office-phone,
+.office-email {
+  color: #000;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.office-phone {
+  font-size: 18px;
+}
+
+.office-email {
+  font-size: 14px;
+}
+
+.office-phone:hover,
+.office-email:hover {
+  color: #666;
+}
+
+/* Office Hours */
+.office-hours {
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.office-hours p {
+  color: #666;
+  margin: 0;
+}
+
+/* Office Manager */
+.office-manager {
+  padding-top: 16px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.manager-label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 4px;
+  margin-top: 0;
+}
+
+.manager-name {
+  color: #000;
+  font-weight: 500;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Office Actions */
+.office-actions {
+  display: flex;
+  gap: 16px;
+  padding-top: 16px;
+}
+
+.office-button {
+  flex: 1;
+  padding: 12px 16px;
+  text-align: center;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.office-button-outline {
+  border: 1px solid #000;
+  color: #000;
+  background-color: transparent;
+}
+
+.office-button-outline:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.office-button-solid {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #000;
+}
+
+.office-button-solid:hover {
+  background-color: #333;
+  border-color: #333;
+}
+
+/* CTA Section */
+.offices-cta {
+  border-top: 1px solid #e5e5e5;
+  padding: 80px 0;
+}
+
+.cta-content {
+  text-align: center;
+  max-width: 768px;
+  margin: 0 auto;
+}
+
+.cta-title {
+  font-size: 36px;
+  font-weight: 300;
+  color: #000;
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
+}
+
+.cta-text {
+  color: #666;
+  margin-bottom: 40px;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 12px 32px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.cta-button-outline {
+  border: 1px solid #000;
+  color: #000;
+  background-color: transparent;
+}
+
+.cta-button-outline:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.cta-button-solid {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #000;
+}
+
+.cta-button-solid:hover {
+  background-color: #333;
+  border-color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 32px;
+  }
+  
+  .offices-grid {
+    gap: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
+  
+  .offices-title {
+    font-size: 48px;
+  }
+  
+  .offices-hero {
+    padding: 96px 0 64px;
+  }
+  
+  .offices-grid-section {
+    padding-bottom: 96px;
+  }
+  
+  .offices-grid {
+    grid-template-columns: 1fr;
+    gap: 64px;
+  }
+  
+  .office-card {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cta-button {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+  
+  .offices-title {
+    font-size: 40px;
+  }
+  
+  .office-name {
+    font-size: 28px;
+  }
+}

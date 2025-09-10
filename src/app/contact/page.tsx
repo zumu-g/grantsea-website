@@ -1,9 +1,10 @@
-import AnimatedContactForm from '@/components/AnimatedContactForm';
+import MinimalistContactForm from '@/components/MinimalistContactForm';
+import './contact.css';
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen">
-      <AnimatedContactForm />
+    <div className="contact-page">
+      <MinimalistContactForm />
     </div>
   );
 }

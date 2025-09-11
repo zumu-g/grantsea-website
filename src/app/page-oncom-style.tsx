@@ -2036,7 +2036,7 @@ export default function HomePageOncom() {
                 letterSpacing: '0.5px'
               }}>Sell</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <Link href="/sell/appraisal" style={{ color: '#666', textDecoration: 'none', fontSize: '14px' }}>Get an appraisal</Link>
+                <Link href="/appraisal" style={{ color: '#666', textDecoration: 'none', fontSize: '14px' }}>Get an appraisal</Link>
                 <Link href="/sell/guide" style={{ color: '#666', textDecoration: 'none', fontSize: '14px' }}>Selling guide</Link>
                 <Link href="/sell/marketing" style={{ color: '#666', textDecoration: 'none', fontSize: '14px' }}>Marketing</Link>
                 <Link href="/sell/results" style={{ color: '#666', textDecoration: 'none', fontSize: '14px' }}>Recent sales</Link>

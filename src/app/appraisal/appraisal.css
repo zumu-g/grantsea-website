@@ -6,13 +6,13 @@
   padding: 40px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .appraisal-container {
     padding: 24px;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .appraisal-container {
     padding: 16px;
   }
@@ -55,8 +55,13 @@
 }
 
 .benefit-icon {
-  font-size: 48px;
   margin-bottom: 16px;
+  color: #000;
+}
+
+.benefit-icon svg {
+  width: 48px;
+  height: 48px;
 }
 
 .benefit-card h3 {
@@ -80,9 +85,15 @@
   margin-bottom: 64px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .appraisal-form {
     padding: 32px 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .appraisal-form {
+    padding: 24px 16px;
   }
 }
 

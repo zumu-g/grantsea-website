@@ -48,22 +48,48 @@ export default function AppraisalPage() {
       <div className="appraisal-benefits">
         <div className="benefit-grid">
           <div className="benefit-card">
-            <div className="benefit-icon">📊</div>
+            <div className="benefit-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="7" y1="13" x2="7" y2="18"></line>
+                <line x1="12" y1="9" x2="12" y2="18"></line>
+                <line x1="17" y1="11" x2="17" y2="18"></line>
+              </svg>
+            </div>
             <h3>Market Analysis</h3>
             <p>Comprehensive analysis of recent sales in your area</p>
           </div>
           <div className="benefit-card">
-            <div className="benefit-icon">🏆</div>
+            <div className="benefit-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M12 15l-8 5V5a2 2 0 012-2h12a2 2 0 012 2v15l-8-5z"></path>
+                <path d="M12 4v11"></path>
+              </svg>
+            </div>
             <h3>Expert Agents</h3>
             <p>Local knowledge from experienced professionals</p>
           </div>
           <div className="benefit-card">
-            <div className="benefit-icon">💡</div>
+            <div className="benefit-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M9 21h6"></path>
+                <path d="M9 18h6"></path>
+                <path d="M10 2v4"></path>
+                <path d="M14 2v4"></path>
+                <path d="M12 18v-7"></path>
+                <path d="M12 11V6a4 4 0 10-8 0c0 3 2.5 5.5 5.5 6.5"></path>
+                <path d="M12 6a4 4 0 118 0c0 3-2.5 5.5-5.5 6.5"></path>
+              </svg>
+            </div>
             <h3>Selling Strategy</h3>
             <p>Tailored advice to maximize your property value</p>
           </div>
           <div className="benefit-card">
-            <div className="benefit-icon">✨</div>
+            <div className="benefit-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            </div>
             <h3>Free Service</h3>
             <p>No cost, no obligation property appraisal</p>
           </div>

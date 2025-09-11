@@ -598,10 +598,10 @@ export default function HomePageOncom() {
               }}>
                 {[
                   {
-                    name: 'Premium',
-                    tagline: 'Luxury properties',
-                    image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&h=800&fit=crop',
-                    link: '/buy?type=premium'
+                    name: 'Berwick',
+                    tagline: 'Family-friendly suburb',
+                    image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&h=800&fit=crop',
+                    link: '/suburbs/berwick'
                   },
                   {
                     name: 'Performance',

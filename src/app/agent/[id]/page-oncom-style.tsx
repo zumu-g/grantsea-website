@@ -157,12 +157,14 @@ export default function AgentDetailPageOncom() {
             left: 0,
             right: 0,
             background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
-            padding: '80px 0 40px'
+            paddingTop: '80px',
+            paddingBottom: '40px'
           }}>
             <div style={{
               maxWidth: '1480px',
               margin: '0 auto',
-              padding: '0 40px',
+              paddingLeft: 'max(2rem, 3.33vw)',
+              paddingRight: 'max(2rem, 3.33vw)',
               display: 'flex',
               gap: '40px',
               alignItems: 'flex-end'
@@ -270,7 +272,8 @@ export default function AgentDetailPageOncom() {
         <div style={{
           backgroundColor: '#fff',
           borderBottom: '1px solid #e5e5e5',
-          padding: '40px 0'
+          paddingTop: '40px',
+          paddingBottom: '40px'
         }}>
           <div style={{
             maxWidth: '1480px',
@@ -411,7 +414,10 @@ export default function AgentDetailPageOncom() {
         <div style={{
           maxWidth: '1480px',
           margin: '0 auto',
-          padding: '60px 40px'
+          paddingTop: '60px',
+          paddingBottom: '60px',
+          paddingLeft: 'max(2rem, 3.33vw)',
+          paddingRight: 'max(2rem, 3.33vw)'
         }}>
           {activeTab === 'about' && (
             <div style={{

@@ -73,7 +73,8 @@ export default function BuyPageOncom() {
           maxWidth: '1480px',
           margin: '0 auto',
           height: '100%',
-          padding: '0 40px',
+          paddingLeft: 'max(2rem, 3.33vw)',
+          paddingRight: 'max(2rem, 3.33vw)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between'
@@ -300,12 +301,14 @@ export default function BuyPageOncom() {
         <div style={{
           backgroundColor: '#fff',
           borderBottom: '1px solid #e5e5e5',
-          padding: '60px 0 40px'
+          paddingTop: '60px',
+          paddingBottom: '40px'
         }}>
           <div style={{
             maxWidth: '1480px',
             margin: '0 auto',
-            padding: '0 40px'
+            paddingLeft: 'max(2rem, 3.33vw)',
+            paddingRight: 'max(2rem, 3.33vw)'
           }}>
             <h1 style={{
               fontSize: '48px',
@@ -333,7 +336,8 @@ export default function BuyPageOncom() {
           <div style={{
             maxWidth: '1480px',
             margin: '0 auto',
-            padding: '0 40px',
+            paddingLeft: 'max(2rem, 3.33vw)',
+            paddingRight: 'max(2rem, 3.33vw)',
             display: 'flex',
             gap: '16px',
             alignItems: 'center',
@@ -510,7 +514,10 @@ export default function BuyPageOncom() {
         <div style={{
           maxWidth: '1480px',
           margin: '0 auto',
-          padding: '40px'
+          paddingLeft: 'max(2rem, 3.33vw)',
+          paddingRight: 'max(2rem, 3.33vw)',
+          paddingTop: '40px',
+          paddingBottom: '40px'
         }}>
           {loading ? (
             <div style={{ textAlign: 'center', padding: '80px 0' }}>

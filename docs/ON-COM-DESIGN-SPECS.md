@@ -94,9 +94,34 @@ This document contains the exact design specifications from on.com that must be 
 --overlay: rgba(0,0,0,0.6)
 ```
 
-## Container Widths
-- **Maximum**: 1400px
-- **Padding**: 20px (mobile), 40px (desktop)
+## Container Widths & Padding System
+
+### Viewport-Based Padding
+on.com uses a fluid, responsive padding system that scales with viewport width:
+
+```css
+/* Desktop (≥1024px) */
+padding-left: max(2rem, 3.33vw);
+padding-right: max(2rem, 3.33vw);
+
+/* Mobile (<1024px) */
+padding-left: clamp(1rem, 4.2667vw, 2rem);
+padding-right: clamp(1rem, 4.2667vw, 2rem);
+```
+
+### Calculated Padding Values
+| Viewport Width | Padding Per Side | Total Horizontal |
+|----------------|------------------|------------------|
+| 375px (mobile) | 16px            | 32px            |
+| 768px (tablet) | 32px            | 64px            |
+| 1440px         | 48px            | 96px            |
+| 1920px         | 64px            | 128px           |
+| 2560px         | 85px            | 170px           |
+| 3840px (4K)    | 128px           | 256px           |
+
+### Container Maximum Width
+- **Maximum**: 1400px (for content blocks)
+- **Centering**: margin: 0 auto
 
 ## Common Patterns
 

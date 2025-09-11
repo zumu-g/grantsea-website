@@ -165,7 +165,8 @@ export default function AgentsPageOncom() {
           <div style={{
             maxWidth: '1480px',
             margin: '0 auto',
-            padding: '0 40px',
+            paddingLeft: 'max(2rem, 3.33vw)',
+            paddingRight: 'max(2rem, 3.33vw)',
             textAlign: 'center'
           }}>
             <h1 style={{
@@ -197,7 +198,8 @@ export default function AgentsPageOncom() {
           <div style={{
             maxWidth: '1480px',
             margin: '0 auto',
-            padding: '0 40px',
+            paddingLeft: 'max(2rem, 3.33vw)',
+            paddingRight: 'max(2rem, 3.33vw)',
             display: 'flex',
             gap: '16px',
             alignItems: 'center',
@@ -261,7 +263,10 @@ export default function AgentsPageOncom() {
         <div style={{
           maxWidth: '1480px',
           margin: '0 auto',
-          padding: '60px 40px'
+          paddingTop: '60px',
+          paddingBottom: '60px',
+          paddingLeft: 'max(2rem, 3.33vw)',
+          paddingRight: 'max(2rem, 3.33vw)'
         }}>
           <div style={{
             display: 'grid',

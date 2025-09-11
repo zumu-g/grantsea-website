@@ -62,7 +62,8 @@ export default function PropertyDetailPageOncom() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '0 40px'
+        paddingLeft: 'max(2rem, 3.33vw)',
+        paddingRight: 'max(2rem, 3.33vw)'
       }}>
         <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
           <span style={{ fontSize: '24px', fontWeight: '900' }}>GRANT'S</span>
@@ -92,7 +93,7 @@ export default function PropertyDetailPageOncom() {
       {/* Main Content */}
       <main style={{ paddingTop: '64px', minHeight: '100vh', backgroundColor: '#fff' }}>
         {/* Breadcrumb */}
-        <div style={{ padding: '24px 40px 0', maxWidth: '1400px', margin: '0 auto' }}>
+        <div style={{ paddingTop: '24px', paddingLeft: 'max(2rem, 3.33vw)', paddingRight: 'max(2rem, 3.33vw)', maxWidth: '1400px', margin: '0 auto' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#666' }}>
             <Link href="/" style={{ color: '#666', textDecoration: 'none' }}>Home</Link>
             <span>/</span>
@@ -111,7 +112,7 @@ export default function PropertyDetailPageOncom() {
         </div>
 
         {/* Property Header */}
-        <div style={{ padding: '32px 40px 24px', maxWidth: '1400px', margin: '0 auto' }}>
+        <div style={{ paddingTop: '32px', paddingBottom: '24px', paddingLeft: 'max(2rem, 3.33vw)', paddingRight: 'max(2rem, 3.33vw)', maxWidth: '1400px', margin: '0 auto' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
             <div>
               <h1 style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px' }}>
@@ -178,7 +179,7 @@ export default function PropertyDetailPageOncom() {
         </div>
 
         {/* Image Gallery */}
-        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 40px' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', paddingLeft: 'max(2rem, 3.33vw)', paddingRight: 'max(2rem, 3.33vw)' }}>
           <div style={{ 
             display: 'grid', 
             gridTemplateColumns: displayImages.length === 1 ? '1fr' : 'repeat(2, 1fr)',
@@ -254,7 +255,7 @@ export default function PropertyDetailPageOncom() {
         </div>
 
         {/* Property Details Section */}
-        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 40px 80px' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', paddingLeft: 'max(2rem, 3.33vw)', paddingRight: 'max(2rem, 3.33vw)', paddingBottom: '80px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '80px' }}>
             {/* Left Column - Details */}
             <div>

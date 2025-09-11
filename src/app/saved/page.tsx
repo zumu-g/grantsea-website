@@ -113,7 +113,8 @@ export default function SavedPage() {
           <div style={{
             maxWidth: '1480px',
             margin: '0 auto',
-            padding: '0 40px'
+            paddingLeft: 'max(2rem, 3.33vw)',
+            paddingRight: 'max(2rem, 3.33vw)'
           }}>
             <h1 style={{
               fontSize: '48px',
@@ -140,7 +141,8 @@ export default function SavedPage() {
           <div style={{
             maxWidth: '1480px',
             margin: '0 auto',
-            padding: '0 40px',
+            paddingLeft: 'max(2rem, 3.33vw)',
+            paddingRight: 'max(2rem, 3.33vw)',
             display: 'flex',
             gap: '40px'
           }}>
@@ -201,7 +203,10 @@ export default function SavedPage() {
         <div style={{
           maxWidth: '1480px',
           margin: '0 auto',
-          padding: '40px'
+          paddingLeft: 'max(2rem, 3.33vw)',
+          paddingRight: 'max(2rem, 3.33vw)',
+          paddingTop: '40px',
+          paddingBottom: '40px'
         }}>
           {loading ? (
             <div style={{

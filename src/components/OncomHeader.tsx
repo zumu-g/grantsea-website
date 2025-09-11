@@ -25,7 +25,8 @@ export default function OncomHeader() {
           maxWidth: '1480px',
           margin: '0 auto',
           height: '100%',
-          padding: '0 40px',
+          paddingLeft: 'max(2rem, 3.33vw)',
+          paddingRight: 'max(2rem, 3.33vw)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between'

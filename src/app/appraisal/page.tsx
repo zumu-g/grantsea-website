@@ -39,7 +39,8 @@ export default function AppraisalPage() {
   };
 
   return (
-    <main className="appraisal-container">
+    <main style={{ width: '100%', minHeight: '100vh' }}>
+      <div className="appraisal-container">
       <div className="appraisal-header">
         <h1>Request a Free Property Appraisal</h1>
         <p className="appraisal-subtitle">Get an accurate market valuation from our expert agents</p>
@@ -400,6 +401,7 @@ export default function AppraisalPage() {
             <cite>- Lisa & John R., Sellers</cite>
           </div>
         </div>
+      </div>
       </div>
     </main>
   );

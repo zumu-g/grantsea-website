@@ -1,0 +1,306 @@
+{
+  "Homepage": {
+    "Desktop": {
+      "summary": [
+        {
+          "value": "47.952px",
+          "count": 2,
+          "types": [
+            "section",
+            "footer"
+          ]
+        }
+      ],
+      "details": [
+        {
+          "type": "section",
+          "selector": "section",
+          "tagName": "section",
+          "className": "_shortStory_sbem7_59 _close_sbem7_110 _block_1ukun_81 _isFullWidth_1ukun_159",
+          "id": "KuKbou370vGyinlBZA1Sv",
+          "paddingLeft": "47.952px",
+          "paddingRight": "47.952px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "width": 1425,
+          "maxWidth": "none",
+          "position": "relative",
+          "display": "flex"
+        },
+        {
+          "type": "footer",
+          "selector": "footer",
+          "tagName": "footer",
+          "className": "_container_81yet_60 _lightTheme_81yet_87",
+          "id": "",
+          "paddingLeft": "47.952px",
+          "paddingRight": "47.952px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "width": 1425,
+          "maxWidth": "none",
+          "position": "relative",
+          "display": "grid"
+        }
+      ]
+    },
+    "Tablet": {
+      "summary": [
+        {
+          "value": "32px",
+          "count": 2,
+          "types": [
+            "section",
+            "footer"
+          ]
+        }
+      ],
+      "details": [
+        {
+          "type": "section",
+          "selector": "section",
+          "tagName": "section",
+          "className": "_shortStory_sbem7_59 _close_sbem7_110 _block_1ukun_81 _isFullWidth_1ukun_159",
+          "id": "KuKbou370vGyinlBZA1Sv",
+          "paddingLeft": "32px",
+          "paddingRight": "32px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "width": 753,
+          "maxWidth": "none",
+          "position": "relative",
+          "display": "flex"
+        },
+        {
+          "type": "footer",
+          "selector": "footer",
+          "tagName": "footer",
+          "className": "_container_81yet_60 _lightTheme_81yet_87",
+          "id": "",
+          "paddingLeft": "32px",
+          "paddingRight": "32px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "width": 753,
+          "maxWidth": "none",
+          "position": "relative",
+          "display": "grid"
+        }
+      ]
+    },
+    "Mobile": {
+      "summary": [
+        {
+          "value": "16.0001px",
+          "count": 2,
+          "types": [
+            "section",
+            "footer"
+          ]
+        }
+      ],
+      "details": [
+        {
+          "type": "section",
+          "selector": "section",
+          "tagName": "section",
+          "className": "_shortStory_sbem7_59 _close_sbem7_110 _block_1ukun_81 _isFullWidth_1ukun_159",
+          "id": "KuKbou370vGyinlBZA1Sv",
+          "paddingLeft": "16.0001px",
+          "paddingRight": "16.0001px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "width": 360,
+          "maxWidth": "none",
+          "position": "relative",
+          "display": "flex"
+        },
+        {
+          "type": "footer",
+          "selector": "footer",
+          "tagName": "footer",
+          "className": "_container_81yet_60 _lightTheme_81yet_87",
+          "id": "",
+          "paddingLeft": "16.0001px",
+          "paddingRight": "16.0001px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "width": 360,
+          "maxWidth": "none",
+          "position": "relative",
+          "display": "grid"
+        }
+      ]
+    }
+  },
+  "Shop Page": {
+    "Desktop": {
+      "summary": [],
+      "details": []
+    },
+    "Tablet": {
+      "summary": [],
+      "details": []
+    },
+    "Mobile": {
+      "summary": [],
+      "details": []
+    }
+  },
+  "Product Page": {
+    "Desktop": {
+      "summary": [],
+      "details": []
+    },
+    "Tablet": {
+      "summary": [
+        {
+          "value": "32px",
+          "count": 4,
+          "types": [
+            "navigation",
+            "section",
+            "footer"
+          ]
+        }
+      ],
+      "details": [
+        {
+          "type": "navigation",
+          "selector": "nav",
+          "tagName": "nav",
+          "className": "_nav_h3zrq_59",
+          "id": "",
+          "paddingLeft": "32px",
+          "paddingRight": "32px",
+          "marginLeft": "-32px",
+          "marginRight": "-32px",
+          "width": 753,
+          "maxWidth": "none",
+          "position": "static",
+          "display": "flex"
+        },
+        {
+          "type": "navigation",
+          "selector": "nav",
+          "tagName": "nav",
+          "className": "_wrapper_1vi4v_59",
+          "id": "",
+          "paddingLeft": "32px",
+          "paddingRight": "32px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "width": 753,
+          "maxWidth": "none",
+          "position": "static",
+          "display": "block"
+        },
+        {
+          "type": "section",
+          "selector": "section",
+          "tagName": "section",
+          "className": "_titleBottomWrapper_1u7x8_88",
+          "id": "",
+          "paddingLeft": "32px",
+          "paddingRight": "32px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "width": 753,
+          "maxWidth": "none",
+          "position": "static",
+          "display": "block"
+        },
+        {
+          "type": "footer",
+          "selector": "footer",
+          "tagName": "footer",
+          "className": "_container_81yet_60 _lightTheme_81yet_87",
+          "id": "",
+          "paddingLeft": "32px",
+          "paddingRight": "32px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "width": 753,
+          "maxWidth": "none",
+          "position": "relative",
+          "display": "grid"
+        }
+      ]
+    },
+    "Mobile": {
+      "summary": [
+        {
+          "value": "16.0001px",
+          "count": 4,
+          "types": [
+            "navigation",
+            "section",
+            "footer"
+          ]
+        }
+      ],
+      "details": [
+        {
+          "type": "navigation",
+          "selector": "nav",
+          "tagName": "nav",
+          "className": "_nav_h3zrq_59",
+          "id": "",
+          "paddingLeft": "16.0001px",
+          "paddingRight": "16.0001px",
+          "marginLeft": "-16.0001px",
+          "marginRight": "-16.0001px",
+          "width": 360,
+          "maxWidth": "none",
+          "position": "static",
+          "display": "flex"
+        },
+        {
+          "type": "navigation",
+          "selector": "nav",
+          "tagName": "nav",
+          "className": "_wrapper_1vi4v_59",
+          "id": "",
+          "paddingLeft": "16.0001px",
+          "paddingRight": "16.0001px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "width": 360,
+          "maxWidth": "none",
+          "position": "static",
+          "display": "block"
+        },
+        {
+          "type": "section",
+          "selector": "section",
+          "tagName": "section",
+          "className": "_titleBottomWrapper_1u7x8_88",
+          "id": "",
+          "paddingLeft": "16.0001px",
+          "paddingRight": "16.0001px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "width": 360,
+          "maxWidth": "none",
+          "position": "static",
+          "display": "block"
+        },
+        {
+          "type": "footer",
+          "selector": "footer",
+          "tagName": "footer",
+          "className": "_container_81yet_60 _lightTheme_81yet_87",
+          "id": "",
+          "paddingLeft": "16.0001px",
+          "paddingRight": "16.0001px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "width": 360,
+          "maxWidth": "none",
+          "position": "relative",
+          "display": "grid"
+        }
+      ]
+    }
+  }
+}

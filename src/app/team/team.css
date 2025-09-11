@@ -13,12 +13,18 @@
   background-color: #333 !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   h1 {
     font-size: 48px !important;
   }
   
   .team-member-card {
     margin: 0 auto;
+  }
+}
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: 40px !important;
   }
 }

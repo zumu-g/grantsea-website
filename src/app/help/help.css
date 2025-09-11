@@ -3,16 +3,16 @@
 .help-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px;
+  padding: 48px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .help-container {
-    padding: 24px;
+    padding: 32px;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .help-container {
     padding: 16px;
   }

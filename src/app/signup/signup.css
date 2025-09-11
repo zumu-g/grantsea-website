@@ -5,13 +5,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 48px;
   background-color: #f8f8f8;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .signup-container {
-    padding: 24px;
+    padding: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .signup-container {
+    padding: 16px;
   }
 }
 
@@ -24,9 +30,15 @@
   padding: 48px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .signup-box {
-    padding: 32px 24px;
+    padding: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .signup-box {
+    padding: 24px 16px;
   }
 }
 
@@ -323,7 +335,7 @@
   gap: 12px;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .social-buttons {
     grid-template-columns: 1fr;
   }

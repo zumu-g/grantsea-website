@@ -18,17 +18,27 @@
   background-color: #333 !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   h1 {
     font-size: 48px !important;
   }
   
   .position-card {
-    padding: 24px !important;
+    padding: 32px !important;
   }
   
   form > div:first-child,
   form > div:nth-child(2) {
     grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: 40px !important;
+  }
+  
+  .position-card {
+    padding: 16px !important;
   }
 }

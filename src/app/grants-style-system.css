@@ -31,6 +31,18 @@
   --www-on-com-semantic-button-line-height: 24px;
 }
 
+/* ===== ON.COM EXACT PADDING SYSTEM ===== */
+:root {
+  /* On.com Exact Padding Values */
+  --grants-padding-desktop: 48px;
+  --grants-padding-tablet: 32px; 
+  --grants-padding-mobile: 16px;
+  
+  /* Breakpoints */
+  --grants-breakpoint-tablet: 1024px;
+  --grants-breakpoint-mobile: 640px;
+}
+
 /* ===== GRANT'S BRAND COLORS ===== */
 :root {
   /* Primary Colors */
@@ -225,6 +237,53 @@
 .grant-badge-light {
   background-color: var(--grant-bg-light-overlay);
   color: var(--grant-text-primary);
+}
+
+/* ===== ON.COM PADDING IMPLEMENTATION ===== */
+/* Global Container Class - Matches On.com exactly */
+.grants-container {
+  width: 100%;
+  padding-left: var(--grants-padding-desktop);
+  padding-right: var(--grants-padding-desktop);
+  box-sizing: border-box;
+}
+
+@media (max-width: 1024px) {
+  .grants-container {
+    padding-left: var(--grants-padding-tablet);
+    padding-right: var(--grants-padding-tablet);
+  }
+}
+
+@media (max-width: 640px) {
+  .grants-container {
+    padding-left: var(--grants-padding-mobile);
+    padding-right: var(--grants-padding-mobile);
+  }
+}
+
+/* Max Width Container with On.com Padding */
+.grants-max-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: var(--grants-padding-desktop);
+  padding-right: var(--grants-padding-desktop);
+  box-sizing: border-box;
+}
+
+@media (max-width: 1024px) {
+  .grants-max-container {
+    padding-left: var(--grants-padding-tablet);
+    padding-right: var(--grants-padding-tablet);
+  }
+}
+
+@media (max-width: 640px) {
+  .grants-max-container {
+    padding-left: var(--grants-padding-mobile);
+    padding-right: var(--grants-padding-mobile);
+  }
 }
 
 /* ===== RESPONSIVE ENHANCEMENTS ===== */

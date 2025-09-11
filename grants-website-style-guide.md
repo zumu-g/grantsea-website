@@ -142,10 +142,12 @@ On mobile devices (< 768px):
 
 ## Layout & Spacing
 
-### Container
-- **Max Width:** 1280px (or 100% for Anima components)
-- **Padding:** 20px (16px on mobile)
-- **Utility Class:** `.grant-full-width`
+### Container (On.com Exact Match)
+- **Max Width:** 100% (no max-width restriction like on.com)
+- **Desktop Padding:** 48px (matches on.com exactly)
+- **Tablet Padding:** 32px (≤1024px breakpoint)
+- **Mobile Padding:** 16px (≤640px breakpoint)
+- **Utility Class:** `.grant-container`
 
 ### Spacing Scale
 - **XS:** 4px
@@ -155,6 +157,31 @@ On mobile devices (< 768px):
 - **XL:** 32px
 - **2XL:** 48px
 - **3XL:** 64px
+
+### Padding System (On.com Match)
+```css
+/* Desktop - Default */
+.grant-container {
+  padding-left: 48px;
+  padding-right: 48px;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .grant-container {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .grant-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+```
 
 ## Animation & Interactions
 

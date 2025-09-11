@@ -155,14 +155,32 @@ export default function AgentsPageOncom() {
       <main style={{ paddingTop: '64px', minHeight: '100vh', backgroundColor: '#fafafa' }}>
         {/* Hero Section */}
         <div style={{
-          backgroundColor: '#000',
+          backgroundColor: '#002b7f', // Royal blue
           color: '#fff',
           padding: '120px 0',
-          backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("/office-hero.jpg")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
+          position: 'relative',
+          overflow: 'hidden',
+          backgroundImage: `repeating-linear-gradient(
+            45deg,
+            #002b7f,
+            #002b7f 10px,
+            #003a9f 10px,
+            #003a9f 20px
+          )`,
+          backgroundSize: '28.28px 28.28px' // sqrt(2) * 20px for proper 45deg stripe width
         }}>
+          {/* Subtle overlay for better text readability */}
           <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            pointerEvents: 'none'
+          }} />
+          <div style={{
+            position: 'relative',
             maxWidth: '1480px',
             margin: '0 auto',
             paddingLeft: 'max(2rem, 3.33vw)',

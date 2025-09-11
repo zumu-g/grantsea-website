@@ -73,8 +73,9 @@ export default function BerwickSuburbGuide() {
             }}>Suburb Guide</p>
             
             <h1 style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
               fontSize: 'clamp(3rem, 8vw, 6rem)',
-              fontWeight: '900',
+              fontWeight: '400',
               lineHeight: '1',
               marginBottom: '32px',
               letterSpacing: '-0.02em'

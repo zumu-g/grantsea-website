@@ -90,7 +90,7 @@ export default function PropertyCarousel() {
                   {property.address}
                 </h3>
                 <p className="text-gray-600 text-sm mb-2">
-                  {property.suburb} {property.postcode}
+                  {property.suburb}
                 </p>
                 <p className="text-gray-700 mb-3">
                   {property.description}

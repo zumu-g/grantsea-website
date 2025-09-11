@@ -307,7 +307,7 @@ export default function SearchPageOncomExact() {
                         color: '#6b7280',
                         marginBottom: '12px'
                       }}>
-                        {property.suburb} {property.postcode}
+                        {property.suburb}
                       </div>
                       <div style={{
                         display: 'flex',

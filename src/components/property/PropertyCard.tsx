@@ -9,7 +9,8 @@ interface PropertyCardProps {
 const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   const imageUrl = property.images?.[0]?.url || '/images/placeholder-property.jpg';
   const price = property.priceText || property.price || 'Contact for price';
-  const address = `${property.address?.streetNumber || ''} ${property.address?.street || ''}, ${property.address?.suburb || ''}`.trim();
+  const address = `${property.address?.streetNumber || ''} ${property.address?.street || ''}`.trim();
+  const suburb = property.address?.suburb || '';
   
   return (
     <Link href={`/property/${property.id}`} className="block">
@@ -34,7 +35,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
           </h3>
           
           <p className="grant-body text-gray-600 mb-4 line-clamp-2">
-            {address}
+            {suburb}
           </p>
           
           <div className="flex items-center justify-between">

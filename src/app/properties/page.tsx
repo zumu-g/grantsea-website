@@ -176,7 +176,7 @@ export default function PropertiesPage() {
                   <h3 className="text-xl font-semibold mb-2 line-clamp-1">
                     {property.address}
                   </h3>
-                  <p className="text-gray-600 mb-3">{property.suburb} {property.postcode}</p>
+                  <p className="text-gray-600 mb-3">{property.suburb}</p>
                   
                   <p className="text-2xl font-bold text-blue-600 mb-4">
                     {property.listingType === 'lease' 

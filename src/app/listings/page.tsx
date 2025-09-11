@@ -522,7 +522,7 @@ export default function PropertyListingsPage() {
                         color: '#718096',
                         marginBottom: '16px'
                       }}>
-                        {property.suburb} {property.postcode}
+                        {property.suburb}
                       </p>
 
                       {/* Property Type and Features */}

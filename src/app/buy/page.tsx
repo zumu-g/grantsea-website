@@ -12,13 +12,19 @@ export default function BuyPageOncom() {
     priceMin: string;
     priceMax: string;
     bedrooms: string;
+    bathrooms: string;
+    parking: string;
     propertyType: string;
+    suburb: string;
   }>({
     type: 'all',
     priceMin: '',
     priceMax: '',
     bedrooms: '',
-    propertyType: ''
+    bathrooms: '',
+    parking: '',
+    propertyType: '',
+    suburb: ''
   });
   const [sortBy, setSortBy] = useState('newest');
   
@@ -32,7 +38,10 @@ export default function BuyPageOncom() {
     if (filters.priceMin && propertyPrice < parseInt(filters.priceMin)) return false;
     if (filters.priceMax && propertyPrice > parseInt(filters.priceMax)) return false;
     if (filters.bedrooms && property.bedrooms !== parseInt(filters.bedrooms)) return false;
+    if (filters.bathrooms && property.bathrooms !== parseInt(filters.bathrooms)) return false;
+    if (filters.parking && property.parking !== parseInt(filters.parking)) return false;
     if (filters.propertyType && property.propertyType !== filters.propertyType) return false;
+    if (filters.suburb && !property.suburb?.toLowerCase().includes(filters.suburb.toLowerCase())) return false;
     return true;
   });
 
@@ -150,7 +159,7 @@ export default function BuyPageOncom() {
         <div style={{
           backgroundColor: '#fff',
           borderBottom: '1px solid #e5e5e5',
-          padding: '40px 0'
+          padding: '60px 0 40px'
         }}>
           <div style={{
             maxWidth: '1480px',
@@ -229,6 +238,44 @@ export default function BuyPageOncom() {
                 <option value="5">5+ beds</option>
               </select>
 
+              {/* Bathrooms */}
+              <select
+                value={filters.bathrooms}
+                onChange={(e) => setFilters({ ...filters, bathrooms: e.target.value })}
+                style={{
+                  padding: '8px 16px',
+                  border: '1px solid #e5e5e5',
+                  backgroundColor: '#fff',
+                  fontSize: '14px',
+                  cursor: 'pointer'
+                }}
+              >
+                <option value="">Any baths</option>
+                <option value="1">1 bath</option>
+                <option value="2">2 baths</option>
+                <option value="3">3 baths</option>
+                <option value="4">4+ baths</option>
+              </select>
+
+              {/* Parking */}
+              <select
+                value={filters.parking}
+                onChange={(e) => setFilters({ ...filters, parking: e.target.value })}
+                style={{
+                  padding: '8px 16px',
+                  border: '1px solid #e5e5e5',
+                  backgroundColor: '#fff',
+                  fontSize: '14px',
+                  cursor: 'pointer'
+                }}
+              >
+                <option value="">Any parking</option>
+                <option value="0">No parking</option>
+                <option value="1">1 car</option>
+                <option value="2">2 cars</option>
+                <option value="3">3+ cars</option>
+              </select>
+
               {/* Price Range */}
               <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                 <input
@@ -258,15 +305,32 @@ export default function BuyPageOncom() {
                 />
               </div>
 
+              {/* Suburb */}
+              <input
+                type="text"
+                placeholder="Suburb"
+                value={filters.suburb}
+                onChange={(e) => setFilters({ ...filters, suburb: e.target.value })}
+                style={{
+                  padding: '8px 16px',
+                  border: '1px solid #e5e5e5',
+                  fontSize: '14px',
+                  width: '150px'
+                }}
+              />
+
               {/* Clear Filters */}
-              {(filters.propertyType || filters.bedrooms || filters.priceMin || filters.priceMax) && (
+              {(filters.propertyType || filters.bedrooms || filters.bathrooms || filters.parking || filters.priceMin || filters.priceMax || filters.suburb) && (
                 <button
                   onClick={() => setFilters({
                     type: 'all',
                     priceMin: '',
                     priceMax: '',
                     bedrooms: '',
-                    propertyType: ''
+                    bathrooms: '',
+                    parking: '',
+                    propertyType: '',
+                    suburb: ''
                   })}
                   style={{
                     padding: '8px 16px',
@@ -429,7 +493,7 @@ export default function BuyPageOncom() {
                         color: '#666',
                         marginBottom: '16px'
                       }}>
-                        {property.suburb}, {property.state} {property.postcode}
+                        {property.suburb} {property.postcode}
                       </p>
                       <div style={{
                         display: 'flex',
@@ -440,22 +504,23 @@ export default function BuyPageOncom() {
                         borderTop: '1px solid #e5e5e5'
                       }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-                            <polyline points="9 22 9 12 15 12 15 22" />
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M21 10.78V8c0-1.65-1.35-3-3-3h-4c-.77 0-1.47.3-2 .78-.53-.48-1.23-.78-2-.78H6C4.35 5 3 6.35 3 8v2.78c-.61.55-1 1.34-1 2.22v6c0 .55.45 1 1 1s1-.45 1-1v-1h16v1c0 .55.45 1 1 1s1-.45 1-1v-6c0-.88-.39-1.67-1-2.22zM14 7h4c.55 0 1 .45 1 1v2h-6V8c0-.55.45-1 1-1zM5 8c0-.55.45-1 1-1h4c.55 0 1 .45 1 1v2H5V8zm-1 7v-2c0-.55.45-1 1-1h14c.55 0 1 .45 1 1v2H4z"/>
                           </svg>
                           <span>{property.bedrooms}</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h2v2c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-2h2c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-4 18c0 .01-.01 0 0 0H8v-2h8v2zm2-4H6V4h12v12z"/>
+                            <circle cx="8" cy="6" r="1"/>
+                            <circle cx="16" cy="6" r="1"/>
+                            <path d="M8 9h8v5H8z"/>
                           </svg>
                           <span>{property.bathrooms}</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <rect x="3" y="11" width="18" height="10" rx="2" ry="2" />
-                            <path d="M7 11V7a5 5 0 0110 0v4" />
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
                           </svg>
                           <span>{property.carSpaces}</span>
                         </div>

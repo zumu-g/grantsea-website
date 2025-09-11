@@ -75,7 +75,7 @@ export default function TeamPage() {
     <div className="min-h-screen bg-white" style={{ fontFamily: '"On-Regular", Helvetica, Arial, sans-serif' }}>
       {/* Hero Section - Minimal with lots of white space */}
       <section className="relative" style={{ paddingTop: '128px', paddingBottom: '80px' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 16px', textAlign: 'center' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', paddingLeft: 'max(2rem, 3.33vw)', paddingRight: 'max(2rem, 3.33vw)', textAlign: 'center' }}>
           <h1 style={{ 
             fontSize: '72px', 
             fontWeight: '300', 
@@ -106,7 +106,7 @@ export default function TeamPage() {
       </section>
 
       {/* Team Grid - Minimalist cards */}
-      <section style={{ paddingBottom: '128px', padding: '0 16px 128px 16px' }}>
+      <section style={{ paddingLeft: 'max(2rem, 3.33vw)', paddingRight: 'max(2rem, 3.33vw)', paddingBottom: '128px' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <div style={{ 
             display: 'grid', 
@@ -274,7 +274,10 @@ export default function TeamPage() {
       {/* Values Section - Minimalist design */}
       <section style={{ 
         borderTop: '1px solid #e5e5e5',
-        padding: '80px 16px'
+        paddingTop: '80px',
+        paddingBottom: '80px',
+        paddingLeft: 'max(2rem, 3.33vw)',
+        paddingRight: 'max(2rem, 3.33vw)'
       }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <h3 style={{ 
@@ -325,7 +328,10 @@ export default function TeamPage() {
       {/* Join Our Team CTA */}
       <section style={{ 
         backgroundColor: '#fafafa',
-        padding: '80px 16px'
+        paddingTop: '80px',
+        paddingBottom: '80px',
+        paddingLeft: 'max(2rem, 3.33vw)',
+        paddingRight: 'max(2rem, 3.33vw)'
       }}>
         <div style={{ 
           maxWidth: '800px',

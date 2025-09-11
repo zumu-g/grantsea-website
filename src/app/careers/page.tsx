@@ -79,7 +79,7 @@ export default function CareersPage() {
     <div className="min-h-screen bg-white" style={{ fontFamily: '"On-Regular", Helvetica, Arial, sans-serif' }}>
       {/* Hero Section - Minimal with lots of white space */}
       <section className="relative" style={{ paddingTop: '128px', paddingBottom: '80px' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 16px', textAlign: 'center' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', paddingLeft: 'max(2rem, 3.33vw)', paddingRight: 'max(2rem, 3.33vw)', textAlign: 'center' }}>
           <h1 style={{ 
             fontSize: '72px', 
             fontWeight: '300', 
@@ -110,7 +110,7 @@ export default function CareersPage() {
       </section>
 
       {/* Why Join Us Section */}
-      <section style={{ paddingBottom: '80px', padding: '0 16px 80px 16px' }}>
+      <section style={{ paddingLeft: 'max(2rem, 3.33vw)', paddingRight: 'max(2rem, 3.33vw)', paddingBottom: '80px' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <h2 style={{
             fontSize: '48px',
@@ -184,7 +184,10 @@ export default function CareersPage() {
       {/* Current Openings */}
       <section style={{ 
         backgroundColor: '#fafafa',
-        padding: '80px 16px'
+        paddingTop: '80px',
+        paddingBottom: '80px',
+        paddingLeft: 'max(2rem, 3.33vw)',
+        paddingRight: 'max(2rem, 3.33vw)'
       }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
           <h2 style={{
@@ -264,7 +267,7 @@ export default function CareersPage() {
       </section>
 
       {/* Application Form */}
-      <section id="apply" style={{ padding: '80px 16px' }}>
+      <section id="apply" style={{ paddingTop: '80px', paddingBottom: '80px', paddingLeft: 'max(2rem, 3.33vw)', paddingRight: 'max(2rem, 3.33vw)' }}>
         <div style={{ maxWidth: '600px', margin: '0 auto' }}>
           <h2 style={{
             fontSize: '36px',

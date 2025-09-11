@@ -62,7 +62,8 @@ export default function SearchPageOncomExact() {
         <div style={{
           height: '100%',
           maxWidth: '100%',
-          padding: '0 24px',
+          paddingLeft: 'max(2rem, 3.33vw)',
+          paddingRight: 'max(2rem, 3.33vw)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between'
@@ -205,9 +206,9 @@ export default function SearchPageOncomExact() {
       <div style={{ display: 'flex', minHeight: 'calc(100vh - 128px)' }}>
         {/* Property Grid */}
         <div style={{ flex: 1, backgroundColor: '#f9fafb' }}>
-          <div style={{ padding: '24px' }}>
+          <div style={{ paddingLeft: 'max(2rem, 3.33vw)', paddingRight: 'max(2rem, 3.33vw)', paddingTop: '24px', paddingBottom: '24px' }}>
             {loading ? (
-              <div style={{ textAlign: 'center', padding: '48px' }}>
+              <div style={{ textAlign: 'center', paddingLeft: 'max(2rem, 3.33vw)', paddingRight: 'max(2rem, 3.33vw)', paddingTop: '48px', paddingBottom: '48px' }}>
                 <div style={{
                   width: '40px',
                   height: '40px',

@@ -50,7 +50,8 @@ export default function HomePageOncom() {
           height: '100%',
           maxWidth: '1400px',
           margin: '0 auto',
-          padding: '0 20px',
+          paddingLeft: 'max(2rem, 3.33vw)',
+          paddingRight: 'max(2rem, 3.33vw)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between'
@@ -948,7 +949,7 @@ export default function HomePageOncom() {
           
           {/* Properties Carousel - Shows 3.5 items */}
           {loading ? (
-            <div style={{ textAlign: 'center', padding: '40px 0' }}>
+            <div style={{ textAlign: 'center', paddingTop: '40px', paddingBottom: '40px' }}>
               <div style={{
                 width: '32px',
                 height: '32px',
@@ -1781,7 +1782,8 @@ export default function HomePageOncom() {
         <div style={{
           maxWidth: '1400px',
           margin: '0 auto',
-          padding: '0 20px'
+          paddingLeft: 'max(2rem, 3.33vw)',
+          paddingRight: 'max(2rem, 3.33vw)'
         }}>
           <div style={{
             display: 'flex',
@@ -1933,7 +1935,8 @@ export default function HomePageOncom() {
         <div style={{
           maxWidth: '1480px',
           margin: '0 auto',
-          padding: '0 40px',
+          paddingLeft: 'max(2rem, 3.33vw)',
+          paddingRight: 'max(2rem, 3.33vw)',
           textAlign: 'center'
         }}>
           <h2 style={{

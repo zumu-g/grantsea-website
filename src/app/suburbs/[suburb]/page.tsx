@@ -178,7 +178,8 @@ export default function SuburbPage() {
             <div style={{
               maxWidth: '800px',
               margin: '0 auto',
-              padding: '0 20px'
+              paddingLeft: 'max(2rem, 3.33vw)',
+              paddingRight: 'max(2rem, 3.33vw)'
             }}>
               <div style={{
                 display: 'inline-block',
@@ -226,7 +227,10 @@ export default function SuburbPage() {
           <div style={{
             maxWidth: '1200px',
             margin: '0 auto',
-            padding: '40px 20px',
+            paddingTop: '40px',
+            paddingBottom: '40px',
+            paddingLeft: 'max(2rem, 3.33vw)',
+            paddingRight: 'max(2rem, 3.33vw)',
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
             gap: '32px',
@@ -287,7 +291,10 @@ export default function SuburbPage() {
         <section style={{
           maxWidth: '740px',
           margin: '0 auto',
-          padding: '80px 20px'
+          paddingTop: '80px',
+          paddingBottom: '80px',
+          paddingLeft: 'max(2rem, 3.33vw)',
+          paddingRight: 'max(2rem, 3.33vw)'
         }}>
           {data.content.map((block: any, index: number) => {
             switch (block.type) {
@@ -336,7 +343,8 @@ export default function SuburbPage() {
                         color: '#666',
                         textAlign: 'center',
                         marginTop: '16px',
-                        padding: '0 20px'
+                        paddingLeft: 'max(2rem, 3.33vw)',
+              paddingRight: 'max(2rem, 3.33vw)'
                       }}>
                         {block.caption}
                       </figcaption>
@@ -550,7 +558,10 @@ export default function SuburbPage() {
             ) : (
               <div style={{
                 textAlign: 'center',
-                padding: '60px 20px',
+                paddingTop: '60px',
+                paddingBottom: '60px',
+                paddingLeft: 'max(2rem, 3.33vw)',
+                paddingRight: 'max(2rem, 3.33vw)',
                 backgroundColor: '#f8f8f8',
                 borderRadius: '8px',
                 marginBottom: '48px'

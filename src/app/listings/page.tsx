@@ -46,7 +46,8 @@ export default function PropertyListingsPage() {
         <div style={{
           maxWidth: '1400px',
           margin: '0 auto',
-          padding: '0 40px'
+          paddingLeft: 'max(2rem, 3.33vw)',
+          paddingRight: 'max(2rem, 3.33vw)'
         }}>
           <div style={{
             display: 'flex',
@@ -130,7 +131,10 @@ export default function PropertyListingsPage() {
 
       {/* Hero Section */}
       <section style={{
-        padding: '80px 40px',
+        paddingTop: '80px',
+        paddingBottom: '80px',
+        paddingLeft: 'max(2rem, 3.33vw)',
+        paddingRight: 'max(2rem, 3.33vw)',
         textAlign: 'center',
         backgroundColor: '#f7fafc',
         borderBottom: '1px solid #e2e8f0'
@@ -162,7 +166,10 @@ export default function PropertyListingsPage() {
         <div style={{
           maxWidth: '1400px',
           margin: '0 auto',
-          padding: '32px 40px',
+          paddingTop: '32px',
+          paddingBottom: '32px',
+          paddingLeft: 'max(2rem, 3.33vw)',
+          paddingRight: 'max(2rem, 3.33vw)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between'
@@ -264,7 +271,10 @@ export default function PropertyListingsPage() {
       <main style={{
         maxWidth: '1400px',
         margin: '0 auto',
-        padding: '40px'
+        paddingLeft: 'max(2rem, 3.33vw)',
+        paddingRight: 'max(2rem, 3.33vw)',
+        paddingTop: '40px',
+        paddingBottom: '40px'
       }}>
         {loading ? (
           <div style={{ textAlign: 'center', padding: '80px 0' }}>

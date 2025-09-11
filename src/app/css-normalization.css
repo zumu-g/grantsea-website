@@ -1,0 +1,143 @@
+/* CSS Normalization and Rendering Locks for Visual Regression Testing */
+
+/* Reset & rendering locks */
+*,
+*::before,
+*::after { 
+  box-sizing: border-box;
+}
+
+html { 
+  -webkit-text-size-adjust: 100%; 
+  text-size-adjust: 100%;
+  /* Lock font-size for consistent rem calculations */
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  /* Prevent font synthesis to avoid auto-bolding */
+  font-synthesis-weight: none;
+  /* Consistent font rendering across platforms */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Prevent text size adjustments on mobile */
+  text-rendering: optimizeLegibility;
+  /* Lock line-height */
+  line-height: 1;
+}
+
+/* Normalize form elements */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+
+/* Remove default button styles */
+button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Normalize links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Prevent img distortion */
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Lock sub-pixel rendering */
+svg {
+  shape-rendering: geometricPrecision;
+  text-rendering: geometricPrecision;
+}
+
+/* Reset heading margins */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: normal;
+}
+
+/* Reset list styles */
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Normalize tables */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Lock scrollbar rendering */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Disable animations for testing */
+@media (prefers-reduced-motion: reduce), (update: slow) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Visual regression test mode - activated by data attribute */
+[data-visual-test="true"] *,
+[data-visual-test="true"] *::before,
+[data-visual-test="true"] *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* Ensure consistent focus styles */
+:focus {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+/* Lock print styles */
+@media print {
+  * {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}

@@ -142,9 +142,9 @@ On mobile devices (< 768px):
 
 ## Layout & Spacing
 
-### Container (On.com Exact Match)
-- **Max Width:** 100% (no max-width restriction like on.com)
-- **Desktop Padding:** 48px (matches on.com exactly)
+### Container
+- **Max Width:** 100% (no max-width restriction)
+- **Desktop Padding:** 100px
 - **Tablet Padding:** 32px (≤1024px breakpoint)
 - **Mobile Padding:** 16px (≤640px breakpoint)
 - **Utility Class:** `.grant-container`
@@ -158,12 +158,12 @@ On mobile devices (< 768px):
 - **2XL:** 48px
 - **3XL:** 64px
 
-### Padding System (On.com Match)
+### Padding System
 ```css
 /* Desktop - Default */
 .grant-container {
-  padding-left: 48px;
-  padding-right: 48px;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 /* Tablet */

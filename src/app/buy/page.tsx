@@ -39,7 +39,7 @@ export default function BuyPageOncom() {
     if (filters.priceMax && propertyPrice > parseInt(filters.priceMax)) return false;
     if (filters.bedrooms && property.bedrooms !== parseInt(filters.bedrooms)) return false;
     if (filters.bathrooms && property.bathrooms !== parseInt(filters.bathrooms)) return false;
-    if (filters.parking && property.parking !== parseInt(filters.parking)) return false;
+    if (filters.parking && property.carSpaces !== parseInt(filters.parking)) return false;
     if (filters.propertyType && property.propertyType !== filters.propertyType) return false;
     if (filters.suburb && !property.suburb?.toLowerCase().includes(filters.suburb.toLowerCase())) return false;
     return true;
@@ -493,7 +493,7 @@ export default function BuyPageOncom() {
                         color: '#666',
                         marginBottom: '16px'
                       }}>
-                        {property.suburb} {property.postcode}
+                        {property.suburb}
                       </p>
                       <div style={{
                         display: 'flex',

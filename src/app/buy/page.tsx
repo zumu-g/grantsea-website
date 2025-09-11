@@ -7,6 +7,7 @@ import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
 
 export default function BuyPageOncom() {
+  const [showDropdown, setShowDropdown] = useState(false);
   const [filters, setFilters] = useState<{
     type: 'all' | 'sale' | 'lease';
     priceMin: string;
@@ -139,16 +140,156 @@ export default function BuyPageOncom() {
                 <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </Link>
-            <button style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: '8px'
-            }}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M3 12h18M3 6h18M3 18h18" />
-              </svg>
-            </button>
+            <div style={{ position: 'relative' }}>
+              <button 
+                onClick={() => setShowDropdown(!showDropdown)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: '8px'
+                }}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M3 12h18M3 6h18M3 18h18" />
+                </svg>
+              </button>
+              
+              {showDropdown && (
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  right: 0,
+                  marginTop: '8px',
+                  backgroundColor: '#fff',
+                  border: '1px solid #e5e5e5',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                  borderRadius: '8px',
+                  minWidth: '220px',
+                  zIndex: 1001
+                }}>
+                  <Link href="/" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Home
+                  </Link>
+                  <Link href="/buy" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Buy
+                  </Link>
+                  <Link href="/rent" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Rent
+                  </Link>
+                  <Link href="/sell" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Sell
+                  </Link>
+                  <Link href="/agents" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Find Agents
+                  </Link>
+                  <Link href="/appraisal" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Appraisal
+                  </Link>
+                  <Link href="/offices" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Offices
+                  </Link>
+                  <Link href="/contact" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Contact
+                  </Link>
+                  <Link href="/help" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Help & Support
+                  </Link>
+                  <Link href="/careers" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    transition: 'background 0.2s',
+                    borderRadius: '0 0 8px 8px'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Careers
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </header>

@@ -1,9 +1,5 @@
-'use client';
-
-import React from 'react';
-import Link from 'next/link';
-import AIChatWidget from '@/components/AIChatWidget';
-import Header from '@/components/Header';
+import AgentsPageOncom from './page-oncom-style';
+export default AgentsPageOncom;
 
 // Mock agents data - in production this would come from the API
 const agents = [

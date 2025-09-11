@@ -1,13 +1,5 @@
-'use client';
-
-import React, { useState } from 'react';
-import { useParams } from 'next/navigation';
-import Link from 'next/link';
-import Image from 'next/image';
-import AIChatWidget from '@/components/AIChatWidget';
-import Header from '@/components/Header';
-import { useProperties } from '@/hooks/useProperties';
-import { formatPrice } from '@/services/api';
+import AgentDetailPageOncom from './page-oncom-style';
+export default AgentDetailPageOncom;
 
 // Mock agent data - in production this would come from the API
 const mockAgents: Record<string, any> = {

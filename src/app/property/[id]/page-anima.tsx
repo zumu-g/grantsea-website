@@ -586,14 +586,14 @@ export default function PropertyDetailPageAnima() {
                 alt={property.agent.name}
                 style={{
                   width: '100%',
-                  height: '500px',
+                  height: '1000px',
                   objectFit: 'cover'
                 }}
               />
             ) : (
               <div style={{
                 width: '100%',
-                height: '500px',
+                height: '1000px',
                 backgroundColor: '#f5f5f5',
                 display: 'flex',
                 alignItems: 'center',
@@ -603,31 +603,31 @@ export default function PropertyDetailPageAnima() {
                   textAlign: 'center'
                 }}>
                   <div style={{
-                    width: '150px',
-                    height: '150px',
+                    width: '250px',
+                    height: '250px',
                     borderRadius: '50%',
                     backgroundColor: '#e5e5e5',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '60px',
+                    fontSize: '100px',
                     fontWeight: '700',
-                    margin: '0 auto 24px',
+                    margin: '0 auto 40px',
                     color: '#797971'
                   }}>
                     {property.agent?.name?.charAt(0) || 'G'}
                   </div>
-                  <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px' }}>
+                  <div style={{ fontSize: '48px', fontWeight: '700', marginBottom: '16px' }}>
                     {property.agent?.name || 'Grant\'s Agent'}
                   </div>
-                  <div style={{ fontSize: '20px', color: '#797971', marginBottom: '4px' }}>
+                  <div style={{ fontSize: '32px', color: '#797971', marginBottom: '8px' }}>
                     Grant\'s Estate Agents
                   </div>
-                  <div style={{ fontSize: '18px', color: '#797971' }}>
+                  <div style={{ fontSize: '28px', color: '#797971' }}>
                     {property.agent?.phone || '1300 GRANTS'}
                   </div>
                   {property.agent?.email && (
-                    <div style={{ fontSize: '18px', color: '#797971', marginTop: '4px' }}>
+                    <div style={{ fontSize: '24px', color: '#797971', marginTop: '8px' }}>
                       {property.agent.email}
                     </div>
                   )}

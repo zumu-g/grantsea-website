@@ -1,0 +1,476 @@
+/* Profile Page Styles */
+
+.profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+  min-height: 80vh;
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    padding: 16px;
+  }
+}
+
+/* Header */
+.profile-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.profile-header h1 {
+  font-size: 48px;
+  font-weight: 300;
+  color: #000;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.profile-subtitle {
+  font-size: 20px;
+  color: #666;
+  font-weight: 300;
+}
+
+/* Tabs */
+.profile-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 48px;
+  border-bottom: 1px solid #e0e0e0;
+  overflow-x: auto;
+}
+
+.tab-button {
+  padding: 16px 0;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 400;
+  color: #666;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.tab-button:hover {
+  color: #000;
+}
+
+.tab-button.active {
+  color: #000;
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #000;
+}
+
+/* Profile Section */
+.profile-section {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.profile-section h2 {
+  font-size: 28px;
+  font-weight: 300;
+  color: #000;
+  margin-bottom: 32px;
+}
+
+.profile-form {
+  background-color: #f8f8f8;
+  padding: 40px;
+  border-radius: 8px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.form-group input {
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background-color: transparent;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #000;
+}
+
+.save-button {
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 400;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.save-button:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+}
+
+/* Properties Section */
+.properties-section {
+  width: 100%;
+}
+
+.properties-section h2 {
+  font-size: 28px;
+  font-weight: 300;
+  color: #000;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 0;
+}
+
+.empty-state p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.browse-link {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.browse-link:hover {
+  background-color: #333;
+}
+
+.properties-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 32px;
+}
+
+.property-card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.property-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.property-card a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.property-image {
+  position: relative;
+  padding-bottom: 66.67%; /* 3:2 aspect ratio */
+  overflow: hidden;
+}
+
+.property-image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.property-details {
+  padding: 24px;
+}
+
+.property-details h3 {
+  font-size: 18px;
+  font-weight: 400;
+  color: #000;
+  margin-bottom: 8px;
+}
+
+.property-price {
+  font-size: 20px;
+  font-weight: 300;
+  color: #000;
+  margin-bottom: 12px;
+}
+
+.property-features {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Searches Section */
+.searches-section {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.searches-section h2 {
+  font-size: 28px;
+  font-weight: 300;
+  color: #000;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.searches-list {
+  display: grid;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.search-card {
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  padding: 32px;
+}
+
+.search-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.search-header h3 {
+  font-size: 20px;
+  font-weight: 400;
+  color: #000;
+}
+
+.new-badge {
+  background-color: #ff4444;
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.search-criteria {
+  margin-bottom: 24px;
+}
+
+.search-criteria p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.search-criteria strong {
+  color: #333;
+}
+
+.search-actions {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.view-button {
+  padding: 10px 20px;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.view-button:hover {
+  background-color: #333;
+}
+
+.delete-button {
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #666;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-button:hover {
+  border-color: #ff4444;
+  color: #ff4444;
+}
+
+.search-date {
+  font-size: 12px;
+  color: #999;
+}
+
+.create-search-link {
+  display: block;
+  text-align: center;
+  padding: 16px;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  color: #666;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.create-search-link:hover {
+  border-color: #000;
+  color: #000;
+}
+
+/* Settings Section */
+.settings-section {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.settings-section h2 {
+  font-size: 28px;
+  font-weight: 300;
+  color: #000;
+  margin-bottom: 32px;
+}
+
+.settings-form {
+  margin-bottom: 48px;
+}
+
+.setting-item {
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #000;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+.checkbox-label span {
+  font-weight: 400;
+}
+
+.setting-description {
+  font-size: 14px;
+  color: #666;
+  margin-top: 8px;
+  margin-left: 32px;
+}
+
+/* Danger Zone */
+.danger-zone {
+  padding: 32px;
+  background-color: #fff5f5;
+  border: 1px solid #ffdddd;
+  border-radius: 8px;
+}
+
+.danger-zone h3 {
+  font-size: 20px;
+  font-weight: 400;
+  color: #cc0000;
+  margin-bottom: 16px;
+}
+
+.danger-button {
+  padding: 12px 24px;
+  background-color: #cc0000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.danger-button:hover {
+  background-color: #990000;
+}
+
+.danger-text {
+  font-size: 12px;
+  color: #999;
+  margin-top: 8px;
+}
+
+/* Login Prompt */
+.login-prompt {
+  text-align: center;
+  padding: 80px 0;
+}
+
+.login-prompt p {
+  font-size: 18px;
+  color: #666;
+}
+
+.login-prompt a {
+  color: #000;
+  text-decoration: underline;
+}

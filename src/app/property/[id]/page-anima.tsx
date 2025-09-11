@@ -572,6 +572,86 @@ export default function PropertyDetailPageAnima() {
             )}
           </div>
 
+          {/* Large Agent Photo Box */}
+          <div style={{
+            backgroundColor: '#fff',
+            border: '1px solid #e5e5e5',
+            marginBottom: '48px',
+            overflow: 'hidden',
+            borderRadius: '8px'
+          }}>
+            {property.agent?.photo ? (
+              <img
+                src={property.agent.photo}
+                alt={property.agent.name}
+                style={{
+                  width: '100%',
+                  height: '500px',
+                  objectFit: 'cover'
+                }}
+              />
+            ) : (
+              <div style={{
+                width: '100%',
+                height: '500px',
+                backgroundColor: '#f5f5f5',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <div style={{
+                  textAlign: 'center'
+                }}>
+                  <div style={{
+                    width: '150px',
+                    height: '150px',
+                    borderRadius: '50%',
+                    backgroundColor: '#e5e5e5',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '60px',
+                    fontWeight: '700',
+                    margin: '0 auto 24px',
+                    color: '#797971'
+                  }}>
+                    {property.agent?.name?.charAt(0) || 'G'}
+                  </div>
+                  <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px' }}>
+                    {property.agent?.name || 'Grant\'s Agent'}
+                  </div>
+                  <div style={{ fontSize: '20px', color: '#797971', marginBottom: '4px' }}>
+                    Grant\'s Estate Agents
+                  </div>
+                  <div style={{ fontSize: '18px', color: '#797971' }}>
+                    {property.agent?.phone || '1300 GRANTS'}
+                  </div>
+                  {property.agent?.email && (
+                    <div style={{ fontSize: '18px', color: '#797971', marginTop: '4px' }}>
+                      {property.agent.email}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+            {/* Agent Name Overlay (if photo exists) */}
+            {property.agent?.photo && (
+              <div style={{
+                padding: '32px',
+                backgroundColor: 'rgba(0,0,0,0.7)',
+                color: '#fff',
+                marginTop: '-100px',
+                position: 'relative',
+                zIndex: 1
+              }}>
+                <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '4px' }}>
+                  {property.agent?.name || 'Grant\'s Agent'}
+                </div>
+                <div style={{ fontSize: '20px' }}>Grant\'s Estate Agents</div>
+              </div>
+            )}
+          </div>
+
           {/* Contact Agent Section */}
           <div style={{
             position: 'sticky',

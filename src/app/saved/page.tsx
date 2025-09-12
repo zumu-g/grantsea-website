@@ -5,6 +5,7 @@ import Link from 'next/link';
 import OncomHeader from '@/components/OncomHeader';
 import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
+import { motion } from 'framer-motion';
 
 interface SavedProperty {
   id: string;

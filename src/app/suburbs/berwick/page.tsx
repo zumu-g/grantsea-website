@@ -27,7 +27,8 @@ export default function BerwickSuburbGuide() {
     { id: 'education', title: 'Schools & Education' },
     { id: 'housing', title: 'Housing & Market' },
     { id: 'community', title: 'Community & Culture' },
-    { id: 'properties', title: 'Current Listings' }
+    { id: 'properties', title: 'Current Listings' },
+    { id: 'tips', title: 'Buyer Tips' }
   ];
 
   return (
@@ -208,16 +209,22 @@ export default function BerwickSuburbGuide() {
                   marginBottom: '24px',
                   color: '#333'
                 }}>
-                  Berwick perfectly balances heritage charm with modern convenience. This thriving suburb in Melbourne's 
-                  south-east has transformed from a quiet country town into one of the region's most desirable residential areas.
+                  Berwick stands as one of Melbourne's most charming and well-established southeastern suburbs, perfectly balancing historic village character with modern suburban convenience. Located approximately 46 kilometres from Melbourne's CBD within the Shire of Cardinia, Berwick has maintained its distinctive identity as a leafy, family-friendly community while adapting to contemporary lifestyle needs.
+                </p>
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.8',
+                  marginBottom: '24px',
+                  color: '#333'
+                }}>
+                  What makes Berwick particularly appealing is its successful preservation of village atmosphere within a metropolitan context. The historic town centre along Old Princes Highway retains its character with heritage shopfronts, local cafes, and community facilities, while surrounding residential areas feature established homes on generous blocks with mature gardens.
                 </p>
                 <p style={{
                   fontSize: '18px',
                   lineHeight: '1.8',
                   color: '#333'
                 }}>
-                  With its tree-lined streets, historic architecture, and strong sense of community, Berwick offers 
-                  residents the best of both worlds: a village atmosphere with all the amenities of modern suburban living.
+                  The suburb offers excellent connectivity to Melbourne via the Berwick railway station, while maintaining the tranquil, tree-lined streetscapes and community spirit that define its enduring appeal. Named after Benjamin Disraeli, the Earl of Berwick, the town has evolved from its 1870s railway origins into a sophisticated suburban community that preserves its heritage while embracing modern amenities.
                 </p>
               </div>
               <div style={{
@@ -270,8 +277,7 @@ export default function BerwickSuburbGuide() {
               }}>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>By Car</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
-                  45km south-east of Melbourne CBD via the Monash Freeway (M1) and Princes Highway. 
-                  Journey time approximately 50 minutes in normal traffic.
+                  Located 46km south-east of Melbourne CBD, Berwick is accessible via the Princes Highway and connections to the Monash Freeway. Journey time is approximately 50-60 minutes in normal traffic. The suburb is strategically positioned between Officer to the east, Narre Warren to the north, and Beaconsfield to the south.
                 </p>
               </div>
               
@@ -283,8 +289,7 @@ export default function BerwickSuburbGuide() {
               }}>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Public Transport</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
-                  Regular bus services connect to Berwick Station on the Pakenham line. 
-                  Express trains reach the CBD in under an hour.
+                  Berwick railway station provides regular services on the Pakenham line to Melbourne's CBD and major employment centres. Recent infrastructure improvements have enhanced reliability and reduced travel times, with services typically taking 55-70 minutes to the CBD depending on service type.
                 </p>
               </div>
               
@@ -296,8 +301,7 @@ export default function BerwickSuburbGuide() {
               }}>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Local Access</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
-                  Well-connected to Fountain Gate, Cranbourne, and Officer. 
-                  Easy access to Peninsula Link for Mornington Peninsula trips.
+                  Local bus services complement train connectivity, linking residential areas to the railway station, shopping areas, and neighbouring suburbs. The established road network supports local travel while connecting to major arterials. The suburb's relatively flat terrain makes cycling and walking viable for local trips.
                 </p>
               </div>
             </div>
@@ -323,13 +327,13 @@ export default function BerwickSuburbGuide() {
               <div>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Shopping & Dining</h3>
                 <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
-                  The famous Berwick Village offers a unique shopping experience with boutique stores, 
-                  artisan cafes, and the monthly farmers' market. Modern shopping needs are met at 
-                  Eden Rise Village and Casey Central, while Fountain Gate is just minutes away.
+                  Berwick's retail and dining scene reflects its village character, with local businesses concentrated along the historic main street providing essential services and community gathering places. The heritage streetscape along Old Princes Highway creates an attractive environment for shopping, dining, and social activities.
+                </p>
+                <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
+                  The village shopping precinct features heritage buildings housing contemporary businesses, including cafes, restaurants, specialty stores, and professional services. Local cafes and restaurants provide venues for community interaction and social dining that strengthen neighbourhood connections.
                 </p>
                 <p style={{ fontSize: '18px', lineHeight: '1.8', color: '#333' }}>
-                  High Street's dining scene ranges from award-winning restaurants to cozy cafes, 
-                  with cuisines from around the world represented alongside modern Australian fare.
+                  For major shopping needs, residents typically travel to nearby centres in Narre Warren, Officer, or Fountain Gate, all accessible within reasonable driving distances. This arrangement allows Berwick to maintain its village character while ensuring residents have access to comprehensive retail and service options.
                 </p>
               </div>
               <div style={{
@@ -367,8 +371,13 @@ export default function BerwickSuburbGuide() {
             <div>
               <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Parks & Recreation</h3>
               <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
-                Wilson Botanic Park spans 39 hectares of stunning landscapes, walking trails, and lakes. 
-                The park hosts events throughout the year and features the popular Quarry amphitheatre.
+                Berwick's lifestyle appeal centres on its village atmosphere, established parks, and strong community connections. The suburb features several well-maintained parks and reserves that provide venues for family activities, organized sport, and community events throughout the year.
+              </p>
+              <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
+                Berwick Recreation Reserve serves as a major community hub, featuring sporting facilities, clubrooms, and spaces for various recreational activities. The reserve hosts local football, cricket, and tennis clubs, providing opportunities for residents to engage in organized sport and social activities.
+              </p>
+              <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
+                Community events and festivals regularly take place in local parks and community facilities, celebrating the suburb's heritage and fostering connections among residents. The active community groups and volunteer organizations provide numerous opportunities for civic engagement and social participation.
               </p>
               <div style={{
                 display: 'grid',
@@ -471,9 +480,9 @@ export default function BerwickSuburbGuide() {
               }}>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Private Schools</h3>
                 <ul style={{ listStyle: 'none', padding: 0, fontSize: '18px', lineHeight: '2' }}>
+                  <li>🎓 St Margaret's School</li>
                   <li>🎓 Haileybury (Berwick Campus)</li>
                   <li>🎓 Beaconhills College</li>
-                  <li>🎓 St Margaret's School</li>
                   <li>🎓 St Francis Xavier College</li>
                 </ul>
               </div>
@@ -486,9 +495,9 @@ export default function BerwickSuburbGuide() {
               }}>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Public Schools</h3>
                 <ul style={{ listStyle: 'none', padding: 0, fontSize: '18px', lineHeight: '2' }}>
+                  <li>🏫 Berwick Primary School</li>
                   <li>🏫 Berwick College</li>
                   <li>🏫 Kambrya College</li>
-                  <li>🏫 Berwick Primary School</li>
                   <li>🏫 Berwick Fields Primary</li>
                 </ul>
               </div>
@@ -503,8 +512,7 @@ export default function BerwickSuburbGuide() {
             }}>
               <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Tertiary Education</h4>
               <p style={{ fontSize: '18px', opacity: 0.9 }}>
-                Chisholm Institute Berwick campus offers TAFE courses, while Federation University 
-                and Monash University campuses are within 30 minutes.
+                Education facilities in Berwick are comprehensive and well-regarded, contributing significantly to the suburb's appeal among families. The established community and family-oriented demographic create supportive environments for student achievement and development. Secondary education options include access to schools in nearby suburbs such as Officer and Pakenham, with school bus services and public transport supporting various choices.
               </p>
             </div>
           </section>
@@ -583,8 +591,13 @@ export default function BerwickSuburbGuide() {
             <div style={{ marginBottom: '60px' }}>
               <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Housing Styles</h3>
               <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '32px', color: '#333' }}>
-                Berwick offers diverse housing options from heritage homes on generous blocks to modern estates. 
-                The Old Town features character properties, while newer developments provide contemporary family homes.
+                Berwick's housing market is characterized by established homes on generous blocks, heritage properties, and quality residential developments that respect the suburb's character. The housing stock primarily consists of homes built from the 1960s onwards, many featuring large gardens, established trees, and the spacious layouts that appeal to families.
+              </p>
+              <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '32px', color: '#333' }}>
+                The suburb includes a mix of original weatherboard cottages, brick veneer homes from various decades, and contemporary houses designed to complement the established streetscapes. Many properties have been renovated or extended, creating modern family homes that retain character elements and benefit from mature landscaping.
+              </p>
+              <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '32px', color: '#333' }}>
+                Heritage properties near the town centre offer unique character and historical significance, often featuring period details and established gardens on substantial blocks. Contemporary developments throughout the suburb provide modern housing options while respecting established character through design guidelines and landscaping requirements.
               </p>
               
               <div style={{
@@ -656,10 +669,18 @@ export default function BerwickSuburbGuide() {
                 fontSize: '20px',
                 lineHeight: '1.8',
                 textAlign: 'center',
+                color: '#333',
+                marginBottom: '24px'
+              }}>
+                Berwick maintains an exceptionally strong community spirit that reflects its village character and established residential base. Active community groups, sporting clubs, and volunteer organizations provide extensive opportunities for social connection, civic engagement, and mutual support among residents.
+              </p>
+              <p style={{
+                fontSize: '20px',
+                lineHeight: '1.8',
+                textAlign: 'center',
                 color: '#333'
               }}>
-                Berwick's strong community spirit is evident in its many clubs, organizations, 
-                and annual events that bring residents together throughout the year.
+                The suburb's established character and engaged community contribute to high levels of safety and security, with neighbourhood watch programs, community policing efforts, and natural surveillance through active street life and community involvement.
               </p>
             </div>
             
@@ -743,19 +764,26 @@ export default function BerwickSuburbGuide() {
               borderRadius: '16px',
               textAlign: 'center'
             }}>
-              <blockquote style={{
-                fontSize: '24px',
-                fontWeight: '300',
-                lineHeight: '1.6',
-                marginBottom: '24px',
-                fontStyle: 'italic'
+              <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '32px', fontWeight: '400', marginBottom: '24px' }}>Who Will Love Berwick?</h3>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gap: '20px',
+                textAlign: 'left',
+                maxWidth: '800px',
+                margin: '0 auto'
               }}>
-                "Berwick has that rare combination of country charm and city convenience. 
-                It's a place where neighbors know each other and community still matters."
-              </blockquote>
-              <p style={{ fontSize: '16px', opacity: 0.9 }}>
-                - Long-time Berwick resident
-              </p>
+                <div>
+                  <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Heritage enthusiasts</strong> who value historical connection</p>
+                  <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Community-minded families</strong> seeking neighbourhood connections</p>
+                  <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Train commuters</strong> wanting village living with CBD access</p>
+                </div>
+                <div>
+                  <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Established professionals</strong> seeking lifestyle balance</p>
+                  <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Quality seekers</strong> who value mature gardens and established infrastructure</p>
+                  <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Retirees and downsizers</strong> wanting established community living</p>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -779,7 +807,7 @@ export default function BerwickSuburbGuide() {
               color: '#666',
               marginBottom: '48px'
             }}>
-              Discover your perfect home in this sought-after suburb
+              Discover your perfect home in this sought-after suburb. Property values in Berwick reflect the suburb's established reputation, heritage character, and quality amenities. The market tends to attract buyers seeking long-term residence rather than short-term investment.
             </p>
             
             {properties.length > 0 ? (
@@ -893,6 +921,105 @@ export default function BerwickSuburbGuide() {
                 </Link>
               </div>
             )}
+          </section>
+
+          {/* Buyer Tips */}
+          <section id="section-7" style={{
+            backgroundColor: '#f8f8f8',
+            paddingLeft: 'max(2rem, 3.33vw)',
+            paddingRight: 'max(2rem, 3.33vw)',
+            paddingTop: '80px',
+            paddingBottom: '80px'
+          }}>
+            <h2 style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+              fontSize: 'clamp(2rem, 4vw, 3rem)',
+              fontWeight: '400',
+              marginBottom: '48px',
+              textAlign: 'center'
+            }}>
+              Tips for Buyers and Renters
+            </h2>
+            
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '32px',
+              maxWidth: '1000px',
+              margin: '0 auto'
+            }}>
+              <div style={{
+                backgroundColor: '#fff',
+                padding: '32px',
+                borderRadius: '12px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+              }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🏛️ Heritage Considerations</h3>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
+                  Some properties may have heritage overlays affecting renovation and development options. Always check before purchasing if you plan modifications.
+                </p>
+              </div>
+              
+              <div style={{
+                backgroundColor: '#fff',
+                padding: '32px',
+                borderRadius: '12px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+              }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🤝 Community Integration</h3>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
+                  The village character and established community benefit from active participation in local activities and organizations. Get involved early!
+                </p>
+              </div>
+              
+              <div style={{
+                backgroundColor: '#fff',
+                padding: '32px',
+                borderRadius: '12px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+              }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🚂 Transport Planning</h3>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
+                  While train access is excellent, consider peak travel times and specific commuting requirements. Test your commute before committing.
+                </p>
+              </div>
+              
+              <div style={{
+                backgroundColor: '#fff',
+                padding: '32px',
+                borderRadius: '12px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+              }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🛍️ Village Services</h3>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
+                  Local shopping and services are limited - consider proximity to larger centres for major needs. The village charm comes with this trade-off.
+                </p>
+              </div>
+              
+              <div style={{
+                backgroundColor: '#fff',
+                padding: '32px',
+                borderRadius: '12px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+              }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🏡 Property Character</h3>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
+                  Established homes may require maintenance and updates - factor renovation potential into purchase decisions and budget accordingly.
+                </p>
+              </div>
+              
+              <div style={{
+                backgroundColor: '#fff',
+                padding: '32px',
+                borderRadius: '12px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+              }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🎓 School Access</h3>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
+                  Check catchment areas and transport options if education is a priority. Some excellent schools may require specific zoning.
+                </p>
+              </div>
+            </div>
           </section>
         </article>
 

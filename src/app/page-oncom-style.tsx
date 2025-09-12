@@ -292,9 +292,10 @@ export default function HomePageOncom() {
             Shop by category
           </h2>
           
-          {/* Category Layout - ON.COM exact style (Flexbox, not Grid) */}
+          {/* Category Layout - Grid for 3 columns */}
           <div style={{
-            display: 'flex',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
             paddingLeft: '47.952px',
             paddingRight: '47.952px',
             gap: '32px',
@@ -306,8 +307,7 @@ export default function HomePageOncom() {
               display: 'block',
               textDecoration: 'none',
               overflow: 'hidden',
-              borderRadius: '0px',
-              flex: '1'
+              borderRadius: '0px'
             }}>
               <div style={{
                 position: 'relative',
@@ -357,8 +357,7 @@ export default function HomePageOncom() {
               display: 'block',
               textDecoration: 'none',
               overflow: 'hidden',
-              borderRadius: '0px',
-              flex: '1'
+              borderRadius: '0px'
             }}>
               <div style={{
                 position: 'relative',
@@ -408,8 +407,7 @@ export default function HomePageOncom() {
               display: 'block',
               textDecoration: 'none',
               overflow: 'hidden',
-              borderRadius: '0px',
-              flex: '1'
+              borderRadius: '0px'
             }}>
               <div style={{
                 position: 'relative',

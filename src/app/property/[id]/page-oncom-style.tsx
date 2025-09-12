@@ -599,15 +599,14 @@ export default function PropertyDetailPageOncom() {
                               }}
                             />
                           )}
-                          <SavePropertyButton
-                            propertyId={similarProperty.id}
-                            style={{
-                              position: 'absolute',
-                              top: '16px',
-                              right: '16px',
-                              zIndex: 10
-                            }}
-                          />
+                          <div style={{
+                            position: 'absolute',
+                            top: '16px',
+                            right: '16px',
+                            zIndex: 10
+                          }}>
+                            <SavePropertyButton property={similarProperty} />
+                          </div>
                         </div>
                         <div style={{ padding: '24px' }}>
                           <h3 style={{

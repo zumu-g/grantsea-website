@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import './team.css';
 
@@ -374,8 +376,3 @@ export default function TeamPage() {
     </div>
   );
 }
-
-export const metadata = {
-  title: 'Our Team | Grant\'s Estate Agents',
-  description: 'Meet our experienced team of real estate professionals. Dedicated to providing exceptional service in Casey and Cardinia.',
-};

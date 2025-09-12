@@ -65,6 +65,7 @@ export default function BerwickSuburbGuide() {
             padding: '0 20px'
           }}>
             <p style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
               fontSize: '14px',
               textTransform: 'uppercase',
               letterSpacing: '2px',
@@ -152,11 +153,12 @@ export default function BerwickSuburbGuide() {
                 key={section.id}
                 onClick={() => scrollToSection(index)}
                 style={{
+                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
                   padding: '20px 0',
                   background: 'none',
                   border: 'none',
                   fontSize: '14px',
-                  fontWeight: activeSection === index ? '700' : '500',
+                  fontWeight: '400',
                   color: activeSection === index ? '#000' : '#666',
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
@@ -192,8 +194,9 @@ export default function BerwickSuburbGuide() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
               <div>
                 <h2 style={{
+                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
                   fontSize: 'clamp(2rem, 4vw, 3rem)',
-                  fontWeight: '800',
+                  fontWeight: '400',
                   marginBottom: '32px',
                   lineHeight: '1.2'
                 }}>
@@ -245,8 +248,9 @@ export default function BerwickSuburbGuide() {
             paddingBottom: '80px'
           }}>
             <h2 style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
               fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '800',
+              fontWeight: '400',
               marginBottom: '48px',
               textAlign: 'center'
             }}>
@@ -264,7 +268,7 @@ export default function BerwickSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontSize: '24px', marginBottom: '16px' }}>By Car</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>By Car</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   45km south-east of Melbourne CBD via the Monash Freeway (M1) and Princes Highway. 
                   Journey time approximately 50 minutes in normal traffic.
@@ -277,7 +281,7 @@ export default function BerwickSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontSize: '24px', marginBottom: '16px' }}>Public Transport</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Public Transport</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Regular bus services connect to Berwick Station on the Pakenham line. 
                   Express trains reach the CBD in under an hour.
@@ -290,7 +294,7 @@ export default function BerwickSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontSize: '24px', marginBottom: '16px' }}>Local Access</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Local Access</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Well-connected to Fountain Gate, Cranbourne, and Officer. 
                   Easy access to Peninsula Link for Mornington Peninsula trips.
@@ -307,8 +311,9 @@ export default function BerwickSuburbGuide() {
             paddingBottom: '80px'
           }}>
             <h2 style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
               fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '800',
+              fontWeight: '400',
               marginBottom: '48px'
             }}>
               Living the Berwick Life
@@ -316,7 +321,7 @@ export default function BerwickSuburbGuide() {
             
             <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '60px', marginBottom: '60px' }}>
               <div>
-                <h3 style={{ fontSize: '28px', marginBottom: '24px' }}>Shopping & Dining</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Shopping & Dining</h3>
                 <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
                   The famous Berwick Village offers a unique shopping experience with boutique stores, 
                   artisan cafes, and the monthly farmers' market. Modern shopping needs are met at 
@@ -332,7 +337,7 @@ export default function BerwickSuburbGuide() {
                 padding: '32px',
                 borderRadius: '16px'
               }}>
-                <h4 style={{ fontSize: '20px', marginBottom: '20px' }}>Local Favorites</h4>
+                <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '20px', fontWeight: '400', marginBottom: '20px' }}>Local Favorites</h4>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                   <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
                     <span style={{ position: 'absolute', left: 0 }}>☕</span> The General Food Store
@@ -360,7 +365,7 @@ export default function BerwickSuburbGuide() {
             }} />
             
             <div>
-              <h3 style={{ fontSize: '28px', marginBottom: '24px' }}>Parks & Recreation</h3>
+              <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Parks & Recreation</h3>
               <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
                 Wilson Botanic Park spans 39 hectares of stunning landscapes, walking trails, and lakes. 
                 The park hosts events throughout the year and features the popular Quarry amphitheatre.
@@ -385,7 +390,7 @@ export default function BerwickSuburbGuide() {
                   }}>
                     🌳
                   </div>
-                  <h4 style={{ fontSize: '18px', marginBottom: '8px' }}>15+ Parks</h4>
+                  <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>15+ Parks</h4>
                   <p style={{ fontSize: '14px', color: '#666' }}>Green spaces for every occasion</p>
                 </div>
                 <div style={{ textAlign: 'center' }}>
@@ -402,7 +407,7 @@ export default function BerwickSuburbGuide() {
                   }}>
                     🏃‍♀️
                   </div>
-                  <h4 style={{ fontSize: '18px', marginBottom: '8px' }}>Sports Facilities</h4>
+                  <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Sports Facilities</h4>
                   <p style={{ fontSize: '14px', color: '#666' }}>Tennis, cricket, football & more</p>
                 </div>
                 <div style={{ textAlign: 'center' }}>
@@ -419,7 +424,7 @@ export default function BerwickSuburbGuide() {
                   }}>
                     🎭
                   </div>
-                  <h4 style={{ fontSize: '18px', marginBottom: '8px' }}>Arts & Culture</h4>
+                  <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Arts & Culture</h4>
                   <p style={{ fontSize: '14px', color: '#666' }}>Gallery, events & festivals</p>
                 </div>
               </div>
@@ -436,8 +441,9 @@ export default function BerwickSuburbGuide() {
             paddingBottom: '80px'
           }}>
             <h2 style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
               fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '800',
+              fontWeight: '400',
               marginBottom: '16px',
               textAlign: 'center'
             }}>
@@ -463,7 +469,7 @@ export default function BerwickSuburbGuide() {
                 borderRadius: '12px',
                 backdropFilter: 'blur(10px)'
               }}>
-                <h3 style={{ fontSize: '28px', marginBottom: '24px' }}>Private Schools</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Private Schools</h3>
                 <ul style={{ listStyle: 'none', padding: 0, fontSize: '18px', lineHeight: '2' }}>
                   <li>🎓 Haileybury (Berwick Campus)</li>
                   <li>🎓 Beaconhills College</li>
@@ -478,7 +484,7 @@ export default function BerwickSuburbGuide() {
                 borderRadius: '12px',
                 backdropFilter: 'blur(10px)'
               }}>
-                <h3 style={{ fontSize: '28px', marginBottom: '24px' }}>Public Schools</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Public Schools</h3>
                 <ul style={{ listStyle: 'none', padding: 0, fontSize: '18px', lineHeight: '2' }}>
                   <li>🏫 Berwick College</li>
                   <li>🏫 Kambrya College</li>
@@ -495,7 +501,7 @@ export default function BerwickSuburbGuide() {
               borderRadius: '12px',
               textAlign: 'center'
             }}>
-              <h4 style={{ fontSize: '24px', marginBottom: '16px' }}>Tertiary Education</h4>
+              <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Tertiary Education</h4>
               <p style={{ fontSize: '18px', opacity: 0.9 }}>
                 Chisholm Institute Berwick campus offers TAFE courses, while Federation University 
                 and Monash University campuses are within 30 minutes.
@@ -511,8 +517,9 @@ export default function BerwickSuburbGuide() {
             paddingBottom: '80px'
           }}>
             <h2 style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
               fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '800',
+              fontWeight: '400',
               marginBottom: '48px'
             }}>
               Property Market Insights
@@ -530,7 +537,7 @@ export default function BerwickSuburbGuide() {
                 backgroundColor: '#f8f8f8',
                 borderRadius: '12px'
               }}>
-                <h3 style={{ fontSize: '36px', fontWeight: '800', color: '#002b7f', marginBottom: '8px' }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '36px', fontWeight: '400', color: '#002b7f', marginBottom: '8px' }}>
                   $1.1M
                 </h3>
                 <p style={{ fontSize: '14px', color: '#666' }}>Median House Price</p>
@@ -542,7 +549,7 @@ export default function BerwickSuburbGuide() {
                 backgroundColor: '#f8f8f8',
                 borderRadius: '12px'
               }}>
-                <h3 style={{ fontSize: '36px', fontWeight: '800', color: '#28a745', marginBottom: '8px' }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '36px', fontWeight: '400', color: '#28a745', marginBottom: '8px' }}>
                   +15.2%
                 </h3>
                 <p style={{ fontSize: '14px', color: '#666' }}>12 Month Growth</p>
@@ -554,7 +561,7 @@ export default function BerwickSuburbGuide() {
                 backgroundColor: '#f8f8f8',
                 borderRadius: '12px'
               }}>
-                <h3 style={{ fontSize: '36px', fontWeight: '800', color: '#ff6b35', marginBottom: '8px' }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '36px', fontWeight: '400', color: '#ff6b35', marginBottom: '8px' }}>
                   28
                 </h3>
                 <p style={{ fontSize: '14px', color: '#666' }}>Days on Market</p>
@@ -566,7 +573,7 @@ export default function BerwickSuburbGuide() {
                 backgroundColor: '#f8f8f8',
                 borderRadius: '12px'
               }}>
-                <h3 style={{ fontSize: '36px', fontWeight: '800', color: '#6c757d', marginBottom: '8px' }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '36px', fontWeight: '400', color: '#6c757d', marginBottom: '8px' }}>
                   3.2%
                 </h3>
                 <p style={{ fontSize: '14px', color: '#666' }}>Rental Yield</p>
@@ -574,7 +581,7 @@ export default function BerwickSuburbGuide() {
             </div>
             
             <div style={{ marginBottom: '60px' }}>
-              <h3 style={{ fontSize: '28px', marginBottom: '24px' }}>Housing Styles</h3>
+              <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Housing Styles</h3>
               <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '32px', color: '#333' }}>
                 Berwick offers diverse housing options from heritage homes on generous blocks to modern estates. 
                 The Old Town features character properties, while newer developments provide contemporary family homes.
@@ -631,8 +638,9 @@ export default function BerwickSuburbGuide() {
             paddingBottom: '80px'
           }}>
             <h2 style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
               fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '800',
+              fontWeight: '400',
               marginBottom: '48px',
               textAlign: 'center'
             }}>
@@ -662,7 +670,7 @@ export default function BerwickSuburbGuide() {
               marginBottom: '60px'
             }}>
               <div>
-                <h3 style={{ fontSize: '24px', marginBottom: '20px' }}>Annual Events</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '20px' }}>Annual Events</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <div style={{
                     padding: '20px',
@@ -670,7 +678,7 @@ export default function BerwickSuburbGuide() {
                     borderRadius: '8px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                   }}>
-                    <h4 style={{ fontSize: '18px', marginBottom: '8px' }}>🎪 Berwick Show</h4>
+                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>🎪 Berwick Show</h4>
                     <p style={{ fontSize: '14px', color: '#666' }}>February - Agricultural show with rides and exhibits</p>
                   </div>
                   <div style={{
@@ -679,7 +687,7 @@ export default function BerwickSuburbGuide() {
                     borderRadius: '8px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                   }}>
-                    <h4 style={{ fontSize: '18px', marginBottom: '8px' }}>🎄 Christmas Festival</h4>
+                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>🎄 Christmas Festival</h4>
                     <p style={{ fontSize: '14px', color: '#666' }}>December - Street parade and community celebrations</p>
                   </div>
                   <div style={{
@@ -688,14 +696,14 @@ export default function BerwickSuburbGuide() {
                     borderRadius: '8px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                   }}>
-                    <h4 style={{ fontSize: '18px', marginBottom: '8px' }}>🎺 Winter Music Festival</h4>
+                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>🎺 Winter Music Festival</h4>
                     <p style={{ fontSize: '14px', color: '#666' }}>July - Live performances at Wilson Botanic Park</p>
                   </div>
                 </div>
               </div>
               
               <div>
-                <h3 style={{ fontSize: '24px', marginBottom: '20px' }}>Community Groups</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '20px' }}>Community Groups</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <div style={{
                     padding: '20px',
@@ -703,7 +711,7 @@ export default function BerwickSuburbGuide() {
                     borderRadius: '8px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                   }}>
-                    <h4 style={{ fontSize: '18px', marginBottom: '8px' }}>⚽ Sports Clubs</h4>
+                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>⚽ Sports Clubs</h4>
                     <p style={{ fontSize: '14px', color: '#666' }}>Football, netball, cricket, tennis, and more</p>
                   </div>
                   <div style={{
@@ -712,7 +720,7 @@ export default function BerwickSuburbGuide() {
                     borderRadius: '8px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                   }}>
-                    <h4 style={{ fontSize: '18px', marginBottom: '8px' }}>🎨 Arts & Crafts</h4>
+                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>🎨 Arts & Crafts</h4>
                     <p style={{ fontSize: '14px', color: '#666' }}>Berwick Arts Society and craft groups</p>
                   </div>
                   <div style={{
@@ -721,7 +729,7 @@ export default function BerwickSuburbGuide() {
                     borderRadius: '8px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                   }}>
-                    <h4 style={{ fontSize: '18px', marginBottom: '8px' }}>🌱 Garden Clubs</h4>
+                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>🌱 Garden Clubs</h4>
                     <p style={{ fontSize: '14px', color: '#666' }}>Horticultural society and community gardens</p>
                   </div>
                 </div>
@@ -759,8 +767,9 @@ export default function BerwickSuburbGuide() {
             paddingBottom: '80px'
           }}>
             <h2 style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
               fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '800',
+              fontWeight: '400',
               marginBottom: '16px'
             }}>
               Properties in Berwick
@@ -825,8 +834,9 @@ export default function BerwickSuburbGuide() {
                       
                       <div style={{ padding: '24px' }}>
                         <h3 style={{
+                          fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
                           fontSize: '24px',
-                          fontWeight: '700',
+                          fontWeight: '400',
                           marginBottom: '8px'
                         }}>
                           {formatPrice(property.price)}
@@ -897,8 +907,9 @@ export default function BerwickSuburbGuide() {
           textAlign: 'center'
         }}>
           <h2 style={{
+            fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
             fontSize: 'clamp(2rem, 4vw, 3rem)',
-            fontWeight: '800',
+            fontWeight: '400',
             marginBottom: '24px'
           }}>
             Ready to call Berwick home?

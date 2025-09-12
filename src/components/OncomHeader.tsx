@@ -10,8 +10,23 @@ export default function OncomHeader() {
   const [showSearch, setShowSearch] = useState(false);
   const [showSavedPanel, setShowSavedPanel] = useState(false);
   const [showAccountPanel, setShowAccountPanel] = useState(false);
+  const [savedProperties, setSavedProperties] = useState<any[]>([]);
   const router = useRouter();
-  const { savedProperties } = useSavedProperties();
+  const { savedPropertyIds } = useSavedProperties();
+
+  // Load saved properties data when panel opens
+  useEffect(() => {
+    if (showSavedPanel && typeof window !== 'undefined') {
+      try {
+        const savedData = localStorage.getItem('savedPropertiesData');
+        if (savedData) {
+          setSavedProperties(JSON.parse(savedData));
+        }
+      } catch (error) {
+        console.error('Error loading saved properties data:', error);
+      }
+    }
+  }, [showSavedPanel]);
 
   return (
     <>
@@ -112,7 +127,7 @@ export default function OncomHeader() {
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
-              {savedProperties.length > 0 && (
+              {savedPropertyIds.length > 0 && (
                 <span style={{
                   position: 'absolute',
                   top: '-4px',
@@ -128,7 +143,7 @@ export default function OncomHeader() {
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}>
-                  {savedProperties.length}
+                  {savedPropertyIds.length}
                 </span>
               )}
             </button>

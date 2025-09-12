@@ -146,8 +146,8 @@ export default function HomePageOncom() {
             margin: '0 0 32.2296px',
             color: '#000',
             lineHeight: '53.2928px',
-            paddingLeft: '47.952px',
-            paddingRight: '47.952px'
+            paddingLeft: '120px',
+            paddingRight: '120px'
           }}>
             Shop by category
           </h2>
@@ -156,8 +156,8 @@ export default function HomePageOncom() {
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
-            paddingLeft: '47.952px',
-            paddingRight: '47.952px',
+            paddingLeft: '120px',
+            paddingRight: '120px',
             gap: '32px',
             position: 'relative'
           }}>

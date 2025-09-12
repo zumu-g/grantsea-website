@@ -11,7 +11,8 @@ const teamMembers = [
     specialties: ['Residential Sales', 'Development Sites', 'Investment Properties'],
     email: 'grant@grantsea.com.au',
     phone: '0412 345 678',
-    bio: 'With over 25 years in real estate, Grant founded Grant\'s Estate Agents with a vision to provide exceptional service to the Casey and Cardinia communities.'
+    bio: 'With over 25 years in real estate, Grant founded Grant\'s Estate Agents with a vision to provide exceptional service to the Casey and Cardinia communities.',
+    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&h=960&fit=crop&q=80'
   },
   {
     id: 2,
@@ -22,7 +23,8 @@ const teamMembers = [
     specialties: ['First Home Buyers', 'Family Homes', 'Customer Service'],
     email: 'sarah@grantsea.com.au',
     phone: '0423 456 789',
-    bio: 'Sarah brings extensive knowledge of the local market and a passion for helping families find their perfect home.'
+    bio: 'Sarah brings extensive knowledge of the local market and a passion for helping families find their perfect home.',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&h=960&fit=crop&q=80'
   },
   {
     id: 3,
@@ -33,7 +35,8 @@ const teamMembers = [
     specialties: ['Luxury Properties', 'Negotiations', 'Market Analysis'],
     email: 'michael@grantsea.com.au',
     phone: '0434 567 890',
-    bio: 'Michael\'s expertise in luxury properties and strong negotiation skills consistently deliver outstanding results for clients.'
+    bio: 'Michael\'s expertise in luxury properties and strong negotiation skills consistently deliver outstanding results for clients.',
+    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=800&h=960&fit=crop&q=80'
   },
   {
     id: 4,
@@ -44,7 +47,8 @@ const teamMembers = [
     specialties: ['Property Management', 'Tenant Relations', 'Investment Advisory'],
     email: 'emma@grantsea.com.au',
     phone: '0445 678 901',
-    bio: 'Emma specializes in property management, ensuring landlords and tenants receive professional, efficient service.'
+    bio: 'Emma specializes in property management, ensuring landlords and tenants receive professional, efficient service.',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&h=960&fit=crop&q=80'
   },
   {
     id: 5,
@@ -55,7 +59,8 @@ const teamMembers = [
     specialties: ['New Developments', 'Off-Plan Sales', 'First Home Buyers'],
     email: 'david@grantsea.com.au',
     phone: '0456 789 012',
-    bio: 'David\'s enthusiasm and knowledge of new developments make him the go-to agent for off-plan properties.'
+    bio: 'David\'s enthusiasm and knowledge of new developments make him the go-to agent for off-plan properties.',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=960&fit=crop&q=80'
   },
   {
     id: 6,
@@ -66,7 +71,8 @@ const teamMembers = [
     specialties: ['Digital Marketing', 'Property Presentation', 'Brand Strategy'],
     email: 'lisa@grantsea.com.au',
     phone: '0467 890 123',
-    bio: 'Lisa ensures every property receives maximum exposure through innovative marketing strategies.'
+    bio: 'Lisa ensures every property receives maximum exposure through innovative marketing strategies.',
+    image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=800&h=960&fit=crop&q=80'
   }
 ];
 
@@ -115,7 +121,7 @@ export default function TeamPage() {
           }}>
             {teamMembers.map((member) => (
               <div key={member.id} className="team-member-card" style={{ maxWidth: '420px' }}>
-                {/* Member Photo Placeholder - Minimalist style */}
+                {/* Member Photo - Professional headshot */}
                 <div style={{ 
                   paddingBottom: '120%',
                   marginBottom: '32px',
@@ -123,35 +129,25 @@ export default function TeamPage() {
                   position: 'relative',
                   overflow: 'hidden'
                 }}>
-                  <div style={{
-                    position: 'absolute',
-                    inset: 0,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: 'linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%)'
-                  }}>
-                    <div style={{ textAlign: 'center' }}>
-                      <div style={{
-                        width: '120px',
-                        height: '120px',
-                        borderRadius: '50%',
-                        backgroundColor: '#fff',
-                        margin: '0 auto 16px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}>
-                        <span style={{
-                          fontSize: '48px',
-                          fontWeight: '200',
-                          color: '#999'
-                        }}>
-                          {member.name.split(' ').map(n => n[0]).join('')}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                  <img 
+                    src={member.image}
+                    alt={member.name}
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      filter: 'grayscale(100%)',
+                      transition: 'filter 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.filter = 'grayscale(0%)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.filter = 'grayscale(100%)';
+                    }}
+                  />
                 </div>
 
                 {/* Member Details - Clean typography */}

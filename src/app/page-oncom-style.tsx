@@ -12,6 +12,7 @@ export default function HomePageOncom() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [hoveredActivity, setHoveredActivity] = useState<string | null>(null);
   const [carouselScroll, setCarouselScroll] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const { properties, loading } = useProperties({ limit: 12 });
 
   React.useEffect(() => {
@@ -31,6 +32,16 @@ export default function HomePageOncom() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
+
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <>
@@ -69,12 +80,13 @@ export default function HomePageOncom() {
               GRANT'S
             </Link>
 
-            {/* Navigation - Desktop */}
-            <nav style={{
-              display: 'flex',
-              gap: '32px',
-              alignItems: 'center'
-            }}>
+            {/* Navigation - Desktop only */}
+            {!isMobile && (
+              <nav style={{
+                display: 'flex',
+                gap: '32px',
+                alignItems: 'center'
+              }}>
               <Link href="/buy" style={{
                 color: '#fff',
                 textDecoration: 'none',
@@ -99,11 +111,49 @@ export default function HomePageOncom() {
                 fontSize: '14px',
                 fontWeight: '500'
               }}>New homes</Link>
-            </nav>
+              </nav>
+            )}
           </div>
 
-          {/* Right section - empty space to balance layout */}
-          <div style={{ width: '120px' }} />
+          {/* Right section - Search and Menu */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+            {/* Search Icon */}
+            <button
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '8px',
+                color: '#fff'
+              }}
+              aria-label="Search"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+              </svg>
+            </button>
+            
+            {/* Burger Menu */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '8px',
+                color: '#fff',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '4px'
+              }}
+              aria-label="Menu"
+            >
+              <span style={{ display: 'block', width: '20px', height: '2px', backgroundColor: '#fff' }} />
+              <span style={{ display: 'block', width: '20px', height: '2px', backgroundColor: '#fff' }} />
+              <span style={{ display: 'block', width: '20px', height: '2px', backgroundColor: '#fff' }} />
+            </button>
+          </div>
         </div>
       </header>
 

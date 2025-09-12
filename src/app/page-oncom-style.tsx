@@ -167,11 +167,12 @@ export default function HomePageOncom() {
               display: 'block',
               textDecoration: 'none',
               overflow: 'hidden',
-              borderRadius: '0px'
+              borderRadius: '0px',
+              height: '200px'
             }}>
               <div style={{
                 position: 'relative',
-                paddingBottom: '148.15%' // 2:3 Portrait aspect ratio (847/571 = 1.4815)
+                height: '100%'
               }}>
                 <img 
                   src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=480&fit=crop"
@@ -217,11 +218,12 @@ export default function HomePageOncom() {
               display: 'block',
               textDecoration: 'none',
               overflow: 'hidden',
-              borderRadius: '0px'
+              borderRadius: '0px',
+              height: '200px'
             }}>
               <div style={{
                 position: 'relative',
-                paddingBottom: '148.15%'
+                height: '100%'
               }}>
                 <img 
                   src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800&h=480&fit=crop"
@@ -267,11 +269,12 @@ export default function HomePageOncom() {
               display: 'block',
               textDecoration: 'none',
               overflow: 'hidden',
-              borderRadius: '0px'
+              borderRadius: '0px',
+              height: '200px'
             }}>
               <div style={{
                 position: 'relative',
-                paddingBottom: '148.15%'
+                height: '100%'
               }}>
                 <img 
                   src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&h=480&fit=crop"

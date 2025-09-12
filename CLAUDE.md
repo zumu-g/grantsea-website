@@ -1,6 +1,6 @@
 # Grant's Estate Agents Website - Development Progress
 
-## Last Updated: 2025-09-11
+## Last Updated: 2025-09-12
 
 ## Current Status
 
@@ -100,7 +100,16 @@
 - `docs/ON-COM-DESIGN-SPECS.md` - Updated with viewport-based padding
 - All major pages updated with responsive padding system
 
-### 🚀 Recent Changes (September 11, 2025)
+### 🚀 Recent Changes (September 12, 2025)
+- Fixed OncomHeader sliding panels - now properly slide from right using position animation
+- Unified header across all pages - replaced custom homepage header with OncomHeader
+- Added transparent header on homepage with scroll-based color changes
+- Updated Shop by category padding to 120px and box height to 200px
+- Fixed mobile responsiveness - header no longer overlaps on iPhone
+- Made sliding panels full width on mobile devices
+- Created continuation prompt for tomorrow's work
+
+### Previous Changes (September 11, 2025)
 - Created Berwick suburb guide page with on.com tennis guide template
 - Implemented viewport-based padding system across all pages
 - Added Bengal stripe pattern with royal blue to agents page
@@ -136,17 +145,19 @@ CRM_ACCESS_TOKEN=nzinklyrqutvcdodhyaqyizcjflohlayxezuthan
 - Loading and empty states
 
 ### 📋 Next Steps
-1. Add user authentication system
-2. Create property comparison feature
-3. Enhance search with map view integration
-4. Add property alerts/notifications
-5. Build property inquiry forms with email integration
-6. Implement agent profiles and listings
-7. Add property viewing appointment booking
+1. Fix rental property weekly rent calculations (reported as incorrect)
+2. Update property card images to be square with new typography
+3. Add user authentication system
+4. Create property comparison feature
+5. Enhance search with map view integration
+6. Add property alerts/notifications
+7. Build property inquiry forms with email integration
 8. Create admin dashboard for property management
 
 ### 🐛 Known Issues
-- None currently reported
+- Rental properties showing incorrect weekly rent amounts
+- Pre-commit style validation hook occasionally fails to connect to dev server
+- Property card images need to be square with updated typography
 
 ### 📚 Resources
 - VaultRE API Documentation: https://api.vaultre.com.au/docs

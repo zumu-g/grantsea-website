@@ -466,7 +466,6 @@ export default function BuyPageOncom() {
               {(filters.propertyType || filters.bedrooms || filters.bathrooms || filters.parking || filters.priceMin || filters.priceMax || filters.suburb) && (
                 <button
                   onClick={() => setFilters({
-                    type: 'all',
                     priceMin: '',
                     priceMax: '',
                     bedrooms: '',

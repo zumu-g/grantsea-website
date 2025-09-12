@@ -9,7 +9,6 @@ import SavePropertyButton from '@/components/SavePropertyButton';
 export default function BuyPageOncom() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [filters, setFilters] = useState<{
-    type: 'all' | 'sale' | 'lease';
     priceMin: string;
     priceMax: string;
     bedrooms: string;
@@ -18,7 +17,6 @@ export default function BuyPageOncom() {
     propertyType: string;
     suburb: string;
   }>({
-    type: 'all',
     priceMin: '',
     priceMax: '',
     bedrooms: '',
@@ -30,7 +28,7 @@ export default function BuyPageOncom() {
   const [sortBy, setSortBy] = useState('newest');
   
   const { properties, loading } = useProperties({ 
-    type: filters.type === 'all' ? undefined : filters.type 
+    type: 'sale' 
   });
 
   // Filter properties based on criteria

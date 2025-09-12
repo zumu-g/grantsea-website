@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useSavedProperties } from '@/hooks/useSavedProperties';
 
 export default function OncomHeader() {
@@ -11,8 +11,13 @@ export default function OncomHeader() {
   const [showSavedPanel, setShowSavedPanel] = useState(false);
   const [showAccountPanel, setShowAccountPanel] = useState(false);
   const [savedProperties, setSavedProperties] = useState<any[]>([]);
+  const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
   const { savedPropertyIds } = useSavedProperties();
+  
+  // Check if we're on the homepage
+  const isHomePage = pathname === '/';
 
   // Load saved properties data when panel opens
   useEffect(() => {
@@ -28,6 +33,17 @@ export default function OncomHeader() {
     }
   }, [showSavedPanel]);
 
+  // Handle scroll for homepage transparency
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 0);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
       <header style={{
@@ -36,9 +52,11 @@ export default function OncomHeader() {
         left: 0,
         right: 0,
         height: '64px',
-        backgroundColor: '#fff',
-        borderBottom: '1px solid #e5e5e5',
-        zIndex: 1000
+        backgroundColor: isHomePage && !isScrolled ? 'transparent' : '#fff',
+        borderBottom: isHomePage && !isScrolled ? 'none' : '1px solid #e5e5e5',
+        zIndex: 1000,
+        transform: isHomePage && isScrolled ? 'translateY(-100%)' : 'translateY(0)',
+        transition: 'all 0.3s ease'
       }}>
         <div style={{
           maxWidth: '1480px',
@@ -51,11 +69,12 @@ export default function OncomHeader() {
           justifyContent: 'space-between'
         }}>
           <Link href="/" style={{
-            fontSize: '28px',
-            fontWeight: '900',
-            color: '#000',
+            fontSize: '24px',
+            fontWeight: '800',
+            color: isHomePage && !isScrolled ? '#fff' : '#000',
             textDecoration: 'none',
-            letterSpacing: '-0.5px'
+            letterSpacing: '-0.5px',
+            transition: 'color 0.3s ease'
           }}>
             GRANT'S
           </Link>
@@ -69,28 +88,32 @@ export default function OncomHeader() {
             transform: 'translateX(-50%)'
           }}>
             <Link href="/buy" style={{
-              color: '#000',
+              color: isHomePage && !isScrolled ? '#fff' : '#000',
               textDecoration: 'none',
               fontSize: '14px',
-              fontWeight: '500'
+              fontWeight: '500',
+              transition: 'color 0.3s ease'
             }}>Buy</Link>
             <Link href="/sell" style={{
-              color: '#000',
+              color: isHomePage && !isScrolled ? '#fff' : '#000',
               textDecoration: 'none',
               fontSize: '14px',
-              fontWeight: '500'
+              fontWeight: '500',
+              transition: 'color 0.3s ease'
             }}>Sell</Link>
             <Link href="/rent" style={{
-              color: '#000',
+              color: isHomePage && !isScrolled ? '#fff' : '#000',
               textDecoration: 'none',
               fontSize: '14px',
-              fontWeight: '500'
+              fontWeight: '500',
+              transition: 'color 0.3s ease'
             }}>Rent</Link>
             <Link href="/agents" style={{
-              color: '#000',
+              color: isHomePage && !isScrolled ? '#fff' : '#000',
               textDecoration: 'none',
               fontSize: '14px',
-              fontWeight: '500'
+              fontWeight: '500',
+              transition: 'color 0.3s ease'
             }}>Find Agents</Link>
           </nav>
 
@@ -105,7 +128,9 @@ export default function OncomHeader() {
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
-                padding: '8px'
+                padding: '8px',
+                color: isHomePage && !isScrolled ? '#fff' : '#000',
+                transition: 'color 0.3s ease'
               }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -122,7 +147,9 @@ export default function OncomHeader() {
                 border: 'none',
                 cursor: 'pointer',
                 padding: '8px',
-                position: 'relative'
+                position: 'relative',
+                color: isHomePage && !isScrolled ? '#fff' : '#000',
+                transition: 'color 0.3s ease'
               }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -157,7 +184,9 @@ export default function OncomHeader() {
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
-                padding: '8px'
+                padding: '8px',
+                color: isHomePage && !isScrolled ? '#fff' : '#000',
+                transition: 'color 0.3s ease'
               }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
@@ -171,7 +200,9 @@ export default function OncomHeader() {
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
-                  padding: '8px'
+                  padding: '8px',
+                  color: isHomePage && !isScrolled ? '#fff' : '#000',
+                  transition: 'color 0.3s ease'
                 }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M3 12h18M3 6h18M3 18h18" />
@@ -419,7 +450,7 @@ export default function OncomHeader() {
             right: 0,
             bottom: 0,
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            zIndex: 998,
+            zIndex: 9998,
             transition: 'opacity 0.3s ease'
           }}
           onClick={() => {
@@ -434,16 +465,16 @@ export default function OncomHeader() {
       <div style={{
         position: 'fixed',
         top: 0,
-        right: 0,
+        right: showSearch ? 0 : '-480px',
         bottom: 0,
         width: '480px',
         backgroundColor: '#fff',
         boxShadow: '-4px 0 24px rgba(0,0,0,0.1)',
-        transform: showSearch ? 'translateX(0)' : 'translateX(100%)',
-        transition: 'transform 0.3s ease',
-        zIndex: 999,
+        transition: 'right 0.3s ease',
+        zIndex: 9999,
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        overflow: 'hidden'
       }}>
         <div style={{
           padding: '24px',
@@ -541,16 +572,16 @@ export default function OncomHeader() {
       <div style={{
         position: 'fixed',
         top: 0,
-        right: 0,
+        right: showSavedPanel ? 0 : '-480px',
         bottom: 0,
         width: '480px',
         backgroundColor: '#fff',
         boxShadow: '-4px 0 24px rgba(0,0,0,0.1)',
-        transform: showSavedPanel ? 'translateX(0)' : 'translateX(100%)',
-        transition: 'transform 0.3s ease',
-        zIndex: 999,
+        transition: 'right 0.3s ease',
+        zIndex: 9999,
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        overflow: 'hidden'
       }}>
         <div style={{
           padding: '24px',
@@ -688,16 +719,16 @@ export default function OncomHeader() {
       <div style={{
         position: 'fixed',
         top: 0,
-        right: 0,
+        right: showAccountPanel ? 0 : '-400px',
         bottom: 0,
         width: '400px',
         backgroundColor: '#fff',
         boxShadow: '-4px 0 24px rgba(0,0,0,0.1)',
-        transform: showAccountPanel ? 'translateX(0)' : 'translateX(100%)',
-        transition: 'transform 0.3s ease',
-        zIndex: 999,
+        transition: 'right 0.3s ease',
+        zIndex: 9999,
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        overflow: 'hidden'
       }}>
         <div style={{
           padding: '24px',

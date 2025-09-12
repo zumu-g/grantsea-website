@@ -1,8 +1,9 @@
 {
-  "timestamp": "2025-09-12T04:11:26.662Z",
+  "timestamp": "2025-09-12T04:22:17.821Z",
   "passed": false,
   "issues": [
-    "❌ Shop categories should be in 3 columns, found: null"
+    "❌ Header should be hidden when scrolled down (translateY(-100%)), found: none",
+    "❌ Logo font size should be 24px, found: 28px"
   ],
   "checks": {
     "header": {
@@ -11,12 +12,12 @@
       "position": "fixed"
     },
     "headerScrolled": {
-      "transform": "matrix(1, 0, 0, 1, 0, -64)",
-      "isHidden": true
+      "transform": "none",
+      "isHidden": false
     },
     "categoryData": {
       "aspectRatio": "148.15%",
-      "gridColumns": null,
+      "gridColumns": "368.375px 368.375px 368.375px",
       "categoryCount": 3,
       "heading": {
         "fontSize": 48,
@@ -28,8 +29,8 @@
     },
     "typography": {
       "logo": {
-        "fontSize": 24,
-        "fontWeight": 800
+        "fontSize": 28,
+        "fontWeight": 900
       },
       "nav": {
         "fontSize": 14,

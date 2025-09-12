@@ -5,157 +5,17 @@ import Link from 'next/link';
 import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
+import OncomHeader from '@/components/OncomHeader';
 
 export default function HomePageOncom() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showHeader, setShowHeader] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [hoveredActivity, setHoveredActivity] = useState<string | null>(null);
   const [carouselScroll, setCarouselScroll] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
   const { properties, loading } = useProperties({ limit: 12 });
 
-  React.useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      // Show header only at the very top
-      if (currentScrollY === 0) {
-        setShowHeader(true);
-      } else {
-        setShowHeader(false);
-      }
-      
-      setLastScrollY(currentScrollY);
-    };
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
-
-  React.useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   return (
     <>
-      {/* ON.COM Style Header - Only visible at top */}
-      <header style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        height: '64px',
-        backgroundColor: 'transparent',
-        zIndex: 1000,
-        transform: showHeader ? 'translateY(0)' : 'translateY(-100%)',
-        transition: 'transform 0.3s ease'
-      }}>
-        <div style={{
-          height: '100%',
-          maxWidth: '1400px',
-          margin: '0 auto',
-          paddingLeft: 'max(2rem, 3.33vw)',
-          paddingRight: 'max(2rem, 3.33vw)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between'
-        }}>
-          {/* Left section */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-            {/* Logo */}
-            <Link href="/" style={{ 
-              fontSize: '24px', 
-              fontWeight: '800', 
-              color: '#fff',
-              textDecoration: 'none',
-              letterSpacing: '-0.02em'
-            }}>
-              GRANT'S
-            </Link>
-
-            {/* Navigation - Desktop only */}
-            {!isMobile && (
-              <nav style={{
-                display: 'flex',
-                gap: '32px',
-                alignItems: 'center'
-              }}>
-              <Link href="/buy" style={{
-                color: '#fff',
-                textDecoration: 'none',
-                fontSize: '14px',
-                fontWeight: '500'
-              }}>Buy</Link>
-              <Link href="/rent" style={{
-                color: '#fff',
-                textDecoration: 'none',
-                fontSize: '14px',
-                fontWeight: '500'
-              }}>Rent</Link>
-              <Link href="/agents" style={{
-                color: '#fff',
-                textDecoration: 'none',
-                fontSize: '14px',
-                fontWeight: '500'
-              }}>Find agents</Link>
-              <Link href="/new-homes" style={{
-                color: '#fff',
-                textDecoration: 'none',
-                fontSize: '14px',
-                fontWeight: '500'
-              }}>New homes</Link>
-              </nav>
-            )}
-          </div>
-
-          {/* Right section - Search and Menu */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-            {/* Search Icon */}
-            <button
-              style={{
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: '8px',
-                color: '#fff'
-              }}
-              aria-label="Search"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.35-4.35"></path>
-              </svg>
-            </button>
-            
-            {/* Burger Menu */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              style={{
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: '8px',
-                color: '#fff',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '4px'
-              }}
-              aria-label="Menu"
-            >
-              <span style={{ display: 'block', width: '20px', height: '2px', backgroundColor: '#fff' }} />
-              <span style={{ display: 'block', width: '20px', height: '2px', backgroundColor: '#fff' }} />
-              <span style={{ display: 'block', width: '20px', height: '2px', backgroundColor: '#fff' }} />
-            </button>
-          </div>
-        </div>
-      </header>
+      <OncomHeader />
 
       {/* Hero Section - Full screen with centered text like ON.COM */}
       <section style={{

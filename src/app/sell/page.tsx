@@ -39,7 +39,7 @@ export default function SellPage() {
   };
 
   return (
-    <React.Fragment>
+    <div>
       <OncomHeader />
       
       <main style={{ paddingTop: '64px', minHeight: '100vh', backgroundColor: '#FAFAFA' }}>
@@ -1062,6 +1062,6 @@ export default function SellPage() {
           </motion.div>
         </motion.div>
       )}
-    </React.Fragment>
+    </div>
   );
 }

@@ -615,7 +615,7 @@ export default function PropertyDetailPageOncom() {
                             marginBottom: '8px',
                             letterSpacing: '-0.01em'
                           }}>
-                            {formatPrice(similarProperty.priceDetails)}
+                            {formatPrice(similarProperty.priceDetails?.display || similarProperty.price || 'Contact Agent')}
                           </h3>
                           <p style={{
                             fontSize: '16px',

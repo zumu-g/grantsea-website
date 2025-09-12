@@ -44,7 +44,7 @@ export default function SellPage() {
   };
 
   return (
-    <>
+    <React.Fragment>
       <OncomHeader />
       
       <main style={{ paddingTop: '64px', minHeight: '100vh', backgroundColor: '#FAFAFA' }}>
@@ -154,7 +154,7 @@ export default function SellPage() {
               {[
                 {
                   title: 'Local Market Expertise',
-                  description: 'Deep understanding of Melbourne's South East property market with proven results in your area',
+                  description: "Deep understanding of Melbourne's South East property market with proven results in your area",
                   icon: '📊'
                 },
                 {
@@ -652,8 +652,7 @@ export default function SellPage() {
       {/* Appraisal Modal */}
       <AnimatePresence>
         {showAppraisalModal && (
-          <>
-            <motion.div
+          <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -1065,17 +1064,16 @@ export default function SellPage() {
                         }}
                       >
                         {isSubmitting ? (
-                          <>
+                          <span style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                             <div style={{
                               width: '20px',
                               height: '20px',
                               border: '2px solid #FFF',
                               borderTop: '2px solid transparent',
-                              borderRadius: '50%',
-                              animation: 'spin 1s linear infinite'
-                            }} />
+                              borderRadius: '50%'
+                            }} className="spinner" />
                             Submitting...
-                          </>
+                          </span>
                         ) : (
                           'Submit Request'
                         )}
@@ -1085,16 +1083,8 @@ export default function SellPage() {
                 )}
               </motion.div>
             </motion.div>
-          </>
         )}
       </AnimatePresence>
-
-      <style jsx>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-      `}</style>
-    </>
+    </React.Fragment>
   );
 }

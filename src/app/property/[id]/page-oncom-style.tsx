@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { useProperty } from '@/hooks/useProperties';
+import { useProperty, useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
 
@@ -12,6 +12,13 @@ export default function PropertyDetailPageOncom() {
   const { property, loading, error } = useProperty(params.id as string);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showAllPhotos, setShowAllPhotos] = useState(false);
+  
+  // Fetch similar properties from the same suburb
+  const { properties: similarProperties } = useProperties({
+    suburb: property?.suburb,
+    limit: 4,
+    type: property?.listingType === 'Sale' ? 'sale' : 'lease'
+  });
 
   if (loading) {
     return (
@@ -523,6 +530,147 @@ export default function PropertyDetailPageOncom() {
             </div>
           </div>
         </div>
+
+        {/* You might also like Section */}
+        {similarProperties && similarProperties.length > 0 && (
+          <div style={{
+            marginTop: '80px',
+            paddingTop: '80px',
+            borderTop: '1px solid #e5e5e5'
+          }}>
+            <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+              <h2 style={{
+                fontSize: '36px',
+                fontWeight: '300',
+                fontFamily: "'Essonnes Display', 'On', Helvetica, sans-serif",
+                marginBottom: '48px',
+                letterSpacing: '-0.02em'
+              }}>
+                You might also like
+              </h2>
+
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                gap: '32px'
+              }}>
+                {similarProperties
+                  .filter(p => p.id !== property.id) // Exclude current property
+                  .slice(0, 3) // Show max 3 properties
+                  .map((similarProperty) => (
+                    <Link
+                      key={similarProperty.id}
+                      href={`/property/${similarProperty.id}`}
+                      style={{ textDecoration: 'none', color: 'inherit' }}
+                    >
+                      <div style={{
+                        backgroundColor: '#fff',
+                        borderRadius: '8px',
+                        overflow: 'hidden',
+                        border: '1px solid #e5e5e5',
+                        transition: 'all 0.3s ease',
+                        cursor: 'pointer'
+                      }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-4px)';
+                        e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.1)';
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = 'none';
+                      }}
+                      >
+                        <div style={{
+                          position: 'relative',
+                          paddingTop: '66.67%',
+                          backgroundColor: '#f5f5f5'
+                        }}>
+                          {similarProperty.images?.[0] && (
+                            <img 
+                              src={similarProperty.images[0].url} 
+                              alt={similarProperty.address}
+                              style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover'
+                              }}
+                            />
+                          )}
+                          <SavePropertyButton
+                            propertyId={similarProperty.id}
+                            style={{
+                              position: 'absolute',
+                              top: '16px',
+                              right: '16px',
+                              zIndex: 10
+                            }}
+                          />
+                        </div>
+                        <div style={{ padding: '24px' }}>
+                          <h3 style={{
+                            fontSize: '24px',
+                            fontWeight: '600',
+                            marginBottom: '8px',
+                            letterSpacing: '-0.01em'
+                          }}>
+                            {formatPrice(similarProperty.priceDetails)}
+                          </h3>
+                          <p style={{
+                            fontSize: '16px',
+                            color: '#666',
+                            marginBottom: '16px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap'
+                          }}>
+                            {similarProperty.address}
+                          </p>
+                          <div style={{
+                            display: 'flex',
+                            gap: '24px',
+                            fontSize: '15px',
+                            color: '#333'
+                          }}>
+                            {similarProperty.bedrooms && <span>{similarProperty.bedrooms} beds</span>}
+                            {similarProperty.bathrooms && <span>{similarProperty.bathrooms} baths</span>}
+                            {similarProperty.carSpaces && <span>{similarProperty.carSpaces} cars</span>}
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+              </div>
+
+              {/* View More Button */}
+              <div style={{ textAlign: 'center', marginTop: '48px' }}>
+                <Link href={`/search?suburb=${encodeURIComponent(property.suburb)}`} style={{
+                  display: 'inline-block',
+                  padding: '16px 32px',
+                  backgroundColor: '#000',
+                  color: '#fff',
+                  textDecoration: 'none',
+                  fontWeight: '600',
+                  fontSize: '16px',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.2)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+                >
+                  View all properties in {property.suburb}
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Add CSS animation */}

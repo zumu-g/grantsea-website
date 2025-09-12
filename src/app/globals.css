@@ -47,6 +47,16 @@ html, body {
   width: 100% !important;
 }
 
+/* Spinner animation for loading states */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
 /* Fix header to be responsive and full width */
 .element-light .header {
   max-width: 100% !important;

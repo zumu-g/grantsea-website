@@ -54,8 +54,10 @@ export default function RentPage() {
   // Sort properties
   const sortedProperties = [...filteredProperties].sort((a, b) => {
     if (sortBy === 'newest') return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime();
-    const priceA = typeof a.leasePrice === 'string' ? parseInt(a.leasePrice) : (a.leasePrice || a.price || 0);
-    const priceB = typeof b.leasePrice === 'string' ? parseInt(b.leasePrice) : (b.leasePrice || b.price || 0);
+    const rentA = a.leasePrice || a.price || 0;
+    const rentB = b.leasePrice || b.price || 0;
+    const priceA = typeof rentA === 'string' ? parseInt(rentA) : rentA;
+    const priceB = typeof rentB === 'string' ? parseInt(rentB) : rentB;
     if (sortBy === 'price-low') return priceA - priceB;
     if (sortBy === 'price-high') return priceB - priceA;
     return 0;

@@ -32,7 +32,9 @@
    - Fixed TypeScript errors in filter functionality
 
 ### In Progress
-- **Sell Page**: Created but has React Fragment syntax error preventing deployment
+- **Sell Page**: Created comprehensive page but has React Fragment syntax error preventing deployment
+  - Need to replace `<>` with `<div>` wrapper or debug the parsing issue
+  - All content and functionality is ready, just needs syntax fix
 
 ### Known Issues
 - Pre-commit style validation checking for irrelevant ON.com shop categories

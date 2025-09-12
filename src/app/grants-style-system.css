@@ -31,10 +31,10 @@
   --www-on-com-semantic-button-line-height: 24px;
 }
 
-/* ===== ON.COM EXACT PADDING SYSTEM ===== */
+/* ===== GRANTS PADDING SYSTEM ===== */
 :root {
-  /* On.com Exact Padding Values */
-  --grants-padding-desktop: 48px;
+  /* Grants Custom Padding Values */
+  --grants-padding-desktop: 100px;
   --grants-padding-tablet: 32px; 
   --grants-padding-mobile: 16px;
   
@@ -239,8 +239,8 @@
   color: var(--grant-text-primary);
 }
 
-/* ===== ON.COM PADDING IMPLEMENTATION ===== */
-/* Global Container Class - Matches On.com exactly */
+/* ===== GRANTS PADDING IMPLEMENTATION ===== */
+/* Global Container Class with Custom Desktop Padding */
 .grants-container {
   width: 100%;
   padding-left: var(--grants-padding-desktop);
@@ -262,7 +262,7 @@
   }
 }
 
-/* Max Width Container with On.com Padding */
+/* Max Width Container with Grants Padding */
 .grants-max-container {
   width: 100%;
   max-width: 1200px;

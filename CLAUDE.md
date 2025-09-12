@@ -1,6 +1,6 @@
 # Grant's Estate Agents Website - Development Progress
 
-## Last Updated: 2025-09-09
+## Last Updated: 2025-09-11
 
 ## Current Status
 
@@ -55,6 +55,34 @@
    - Saved properties accessible from header heart icon
    - Works on home page, listings, search, and property detail pages
 
+8. **Visual Regression Testing Infrastructure**
+   - Implemented Playwright-based visual regression testing
+   - Created baseline capture from on.com for comparison
+   - Added CSS normalization for consistent rendering
+   - Built padding measurement and comparison tools
+   - Created comprehensive test suite for style validation
+
+9. **on.com Style Improvements**
+   - Applied on.com's viewport-based padding system: max(2rem, 3.33vw)
+   - Updated all major pages to use responsive padding
+   - Padding scales from 48px at 1440px to 128px at 4K displays
+   - Added Bengal stripe pattern to agents page hero
+   - Created comprehensive style guide documentation
+
+10. **Enhanced Navigation & UI**
+    - Added dropdown menu to header with links to all pages
+    - Created unified OncomHeader component
+    - Implemented saved properties and searches page with tabs
+    - Fixed search bar functionality in header
+    - Added agent listing and bio pages with on.com styling
+
+11. **Suburb Guide Pages**
+    - Created Berwick suburb guide using on.com tennis guide template
+    - Implemented smooth scrolling editorial-style layout
+    - Added comprehensive suburb information sections
+    - Changed homepage 'Premium' category to 'Berwick'
+    - Integrated property listings for specific suburbs
+
 ### 🔧 Technical Details
 
 #### API Configuration
@@ -64,27 +92,22 @@
 
 #### Key Files Modified
 - `src/services/api.ts` - Core API integration
-- `src/components/anima-exports/screens/ElementLight/ElementLight.jsx` - Homepage with navigation
-- `src/app/api/properties/route.ts` - API route for properties
-- `src/app/api/properties/[id]/route.ts` - API route for individual property
-- `src/hooks/useProperties.ts` - React hook for fetching properties
-- `src/hooks/useSavedProperties.ts` - React hook for managing saved properties
-- `src/components/SavePropertyButton.tsx` - Reusable save property button component
-- `src/app/listings/page.tsx` - Modern listings page with save functionality
-- `src/app/search/page-oncom-style.tsx` - Search results page with save functionality
-- `src/app/saved-properties/page.tsx` - New saved properties page
-- `src/app/property/[id]/page.tsx` - Property detail page with save button
-- `src/components/anima-exports/screens/ElementLight/hero-text-fix.css` - Hero text positioning fixes
-- `src/components/anima-exports/screens/ElementLight/on-com-safe-overrides.css` - on.com styling
+- `src/components/OncomHeader.tsx` - Unified header with dropdown menu
+- `src/app/saved/page.tsx` - Saved properties and searches with tabs
+- `src/app/agents/page-oncom-style.tsx` - Agents listing with Bengal stripes
+- `src/app/agent/[id]/page-oncom-style.tsx` - Agent bio pages
+- `src/app/suburbs/berwick/page.tsx` - Berwick suburb guide
+- `docs/ON-COM-DESIGN-SPECS.md` - Updated with viewport-based padding
+- All major pages updated with responsive padding system
 
-### 🚀 Recent Changes (Latest Commit)
-- Implemented saved properties functionality with heart icon
-- Created SavePropertyButton component with toggle states
-- Added saved properties page at /saved-properties
-- Integrated save functionality across all property listings
-- Fixed hero text positioning to overlay on hero image
-- Removed AI chat section from footer
-- Applied on.com-inspired styling while preserving Anima structure
+### 🚀 Recent Changes (September 11, 2025)
+- Created Berwick suburb guide page with on.com tennis guide template
+- Implemented viewport-based padding system across all pages
+- Added Bengal stripe pattern with royal blue to agents page
+- Created comprehensive saved properties/searches page
+- Fixed search functionality and added dropdown navigation
+- Updated all container padding to use max(2rem, 3.33vw)
+- Created agent bio pages with stats, testimonials, and listings
 
 ### 📝 Environment Variables Required
 In Vercel, ensure these are set:

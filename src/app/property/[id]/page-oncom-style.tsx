@@ -17,7 +17,7 @@ export default function PropertyDetailPageOncom() {
   const { properties: similarProperties } = useProperties({
     suburb: property?.suburb,
     limit: 4,
-    type: property?.listingType === 'Sale' ? 'sale' : 'lease'
+    type: property?.listingType === 'sale' ? 'sale' : 'lease'
   });
 
   if (loading) {

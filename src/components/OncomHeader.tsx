@@ -12,6 +12,7 @@ export default function OncomHeader() {
   const [showAccountPanel, setShowAccountPanel] = useState(false);
   const [savedProperties, setSavedProperties] = useState<any[]>([]);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const { savedPropertyIds } = useSavedProperties();
@@ -44,6 +45,17 @@ export default function OncomHeader() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Detect mobile viewport
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <>
       <header style={{
@@ -69,7 +81,7 @@ export default function OncomHeader() {
           justifyContent: 'space-between'
         }}>
           <Link href="/" style={{
-            fontSize: '24px',
+            fontSize: isMobile ? '20px' : '24px',
             fontWeight: '800',
             color: isHomePage && !isScrolled ? '#fff' : '#000',
             textDecoration: 'none',
@@ -79,14 +91,15 @@ export default function OncomHeader() {
             GRANT'S
           </Link>
 
-          <nav style={{
-            display: 'flex',
-            gap: '40px',
-            alignItems: 'center',
-            position: 'absolute',
-            left: '50%',
-            transform: 'translateX(-50%)'
-          }}>
+          {!isMobile && (
+            <nav style={{
+              display: 'flex',
+              gap: '40px',
+              alignItems: 'center',
+              position: 'absolute',
+              left: '50%',
+              transform: 'translateX(-50%)'
+            }}>
             <Link href="/buy" style={{
               color: isHomePage && !isScrolled ? '#fff' : '#000',
               textDecoration: 'none',
@@ -115,9 +128,10 @@ export default function OncomHeader() {
               fontWeight: '500',
               transition: 'color 0.3s ease'
             }}>Find Agents</Link>
-          </nav>
+            </nav>
+          )}
 
-          <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: isMobile ? '12px' : '24px', alignItems: 'center' }}>
             <button 
               onClick={() => {
                 setShowSearch(true);
@@ -174,25 +188,27 @@ export default function OncomHeader() {
                 </span>
               )}
             </button>
-            <button 
-              onClick={() => {
-                setShowAccountPanel(true);
-                setShowSearch(false);
-                setShowSavedPanel(false);
-              }}
-              style={{
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: '8px',
-                color: isHomePage && !isScrolled ? '#fff' : '#000',
-                transition: 'color 0.3s ease'
-              }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-            </button>
+            {!isMobile && (
+              <button 
+                onClick={() => {
+                  setShowAccountPanel(true);
+                  setShowSearch(false);
+                  setShowSavedPanel(false);
+                }}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: '8px',
+                  color: isHomePage && !isScrolled ? '#fff' : '#000',
+                  transition: 'color 0.3s ease'
+                }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </button>
+            )}
             <div style={{ position: 'relative' }}>
               <button 
                 onClick={() => setShowDropdown(!showDropdown)}
@@ -465,9 +481,9 @@ export default function OncomHeader() {
       <div style={{
         position: 'fixed',
         top: 0,
-        right: showSearch ? 0 : '-480px',
+        right: showSearch ? 0 : (isMobile ? '-100%' : '-480px'),
         bottom: 0,
-        width: '480px',
+        width: isMobile ? '100%' : '480px',
         backgroundColor: '#fff',
         boxShadow: '-4px 0 24px rgba(0,0,0,0.1)',
         transition: 'right 0.3s ease',
@@ -572,9 +588,9 @@ export default function OncomHeader() {
       <div style={{
         position: 'fixed',
         top: 0,
-        right: showSavedPanel ? 0 : '-480px',
+        right: showSavedPanel ? 0 : (isMobile ? '-100%' : '-480px'),
         bottom: 0,
-        width: '480px',
+        width: isMobile ? '100%' : '480px',
         backgroundColor: '#fff',
         boxShadow: '-4px 0 24px rgba(0,0,0,0.1)',
         transition: 'right 0.3s ease',
@@ -719,9 +735,9 @@ export default function OncomHeader() {
       <div style={{
         position: 'fixed',
         top: 0,
-        right: showAccountPanel ? 0 : '-400px',
+        right: showAccountPanel ? 0 : (isMobile ? '-100%' : '-400px'),
         bottom: 0,
-        width: '400px',
+        width: isMobile ? '100%' : '400px',
         backgroundColor: '#fff',
         boxShadow: '-4px 0 24px rgba(0,0,0,0.1)',
         transition: 'right 0.3s ease',

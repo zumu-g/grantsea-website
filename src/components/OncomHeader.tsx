@@ -63,12 +63,13 @@ export default function OncomHeader() {
         top: 0,
         left: 0,
         right: 0,
-        height: '64px',
+        height: isMobile ? '60px' : '64px',
         backgroundColor: isHomePage && !isScrolled ? 'transparent' : '#fff',
         borderBottom: isHomePage && !isScrolled ? 'none' : '1px solid #e5e5e5',
         zIndex: 1000,
-        transform: isHomePage && isScrolled ? 'translateY(-100%)' : 'translateY(0)',
-        transition: 'all 0.3s ease'
+        transform: isHomePage && isScrolled && !isMobile ? 'translateY(-100%)' : 'translateY(0)',
+        transition: 'all 0.3s ease',
+        paddingTop: 'env(safe-area-inset-top, 0px)'
       }}>
         <div style={{
           maxWidth: '1480px',
@@ -81,12 +82,13 @@ export default function OncomHeader() {
           justifyContent: 'space-between'
         }}>
           <Link href="/" style={{
-            fontSize: isMobile ? '20px' : '24px',
+            fontSize: isMobile ? '18px' : '24px',
             fontWeight: '800',
             color: isHomePage && !isScrolled ? '#fff' : '#000',
             textDecoration: 'none',
             letterSpacing: '-0.5px',
-            transition: 'color 0.3s ease'
+            transition: 'color 0.3s ease',
+            whiteSpace: 'nowrap'
           }}>
             GRANT'S
           </Link>
@@ -131,7 +133,7 @@ export default function OncomHeader() {
             </nav>
           )}
 
-          <div style={{ display: 'flex', gap: isMobile ? '12px' : '24px', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: isMobile ? '8px' : '24px', alignItems: 'center' }}>
             <button 
               onClick={() => {
                 setShowSearch(true);
@@ -216,9 +218,14 @@ export default function OncomHeader() {
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
-                  padding: '8px',
+                  padding: isMobile ? '12px' : '8px',
                   color: isHomePage && !isScrolled ? '#fff' : '#000',
-                  transition: 'color 0.3s ease'
+                  transition: 'color 0.3s ease',
+                  minWidth: '44px',
+                  minHeight: '44px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M3 12h18M3 6h18M3 18h18" />

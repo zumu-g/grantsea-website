@@ -1,13 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
+import OncomHeader from '@/components/OncomHeader';
 
 export default function BuyPageOncom() {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<{
     priceMin: string;
     priceMax: string;
@@ -30,6 +34,17 @@ export default function BuyPageOncom() {
   const { properties, loading } = useProperties({ 
     type: 'sale' 
   });
+
+  useEffect(() => {
+    const checkDevice = () => {
+      setIsMobile(window.innerWidth <= 768);
+      setIsTablet(window.innerWidth > 768 && window.innerWidth <= 1024);
+    };
+    
+    checkDevice();
+    window.addEventListener('resize', checkDevice);
+    return () => window.removeEventListener('resize', checkDevice);
+  }, []);
 
   // Filter properties based on criteria
   const filteredProperties = properties.filter(property => {
@@ -56,8 +71,10 @@ export default function BuyPageOncom() {
 
   return (
     <>
-      {/* Header - Same as homepage */}
-      <header style={{
+      <OncomHeader />
+      
+      {/* Delete old header - replaced with OncomHeader */}
+      {false && <header style={{
         position: 'fixed',
         top: 0,
         left: 0,
@@ -294,13 +311,13 @@ export default function BuyPageOncom() {
       </header>
 
       {/* Main Content */}
-      <main style={{ paddingTop: '64px', minHeight: '100vh', backgroundColor: '#fafafa' }}>
+      <main style={{ paddingTop: isMobile ? '60px' : '64px', minHeight: '100vh', backgroundColor: '#fafafa' }}>
         {/* Page Header */}
         <div style={{
           backgroundColor: '#fff',
           borderBottom: '1px solid #e5e5e5',
-          paddingTop: '60px',
-          paddingBottom: '40px'
+          paddingTop: isMobile ? '40px' : '60px',
+          paddingBottom: isMobile ? '24px' : '40px'
         }}>
           <div style={{
             maxWidth: '1480px',
@@ -309,12 +326,12 @@ export default function BuyPageOncom() {
             paddingRight: 'max(2rem, 3.33vw)'
           }}>
             <h1 style={{
-              fontSize: '48px',
+              fontSize: isMobile ? '32px' : '48px',
               fontWeight: '700',
-              marginBottom: '16px'
+              marginBottom: isMobile ? '8px' : '16px'
             }}>Properties for sale</h1>
             <p style={{
-              fontSize: '18px',
+              fontSize: isMobile ? '16px' : '18px',
               color: '#666'
             }}>
               {sortedProperties.length} properties found
@@ -322,14 +339,80 @@ export default function BuyPageOncom() {
           </div>
         </div>
 
-        {/* Filters Bar */}
+        {/* Mobile Filter Button */}
+        {isMobile && (
+          <div style={{
+            backgroundColor: '#fff',
+            borderBottom: '1px solid #e5e5e5',
+            padding: '12px 20px',
+            position: 'sticky',
+            top: '60px',
+            zIndex: 100,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}>
+            <button
+              onClick={() => setShowFilters(true)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '8px 16px',
+                backgroundColor: '#f5f5f5',
+                border: 'none',
+                borderRadius: '20px',
+                fontSize: '14px',
+                fontWeight: '500',
+                cursor: 'pointer'
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" />
+              </svg>
+              Filters
+              {(filters.propertyType || filters.bedrooms || filters.bathrooms || filters.parking || filters.priceMin || filters.priceMax || filters.suburb) && (
+                <span style={{
+                  backgroundColor: '#000',
+                  color: '#fff',
+                  borderRadius: '10px',
+                  padding: '2px 8px',
+                  fontSize: '12px',
+                  fontWeight: '600'
+                }}>
+                  {Object.values(filters).filter(v => v).length}
+                </span>
+              )}
+            </button>
+            
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              style={{
+                padding: '8px 12px',
+                border: '1px solid #e5e5e5',
+                backgroundColor: '#fff',
+                fontSize: '14px',
+                borderRadius: '8px',
+                cursor: 'pointer'
+              }}
+            >
+              <option value="newest">Newest first</option>
+              <option value="price-low">Price: Low to high</option>
+              <option value="price-high">Price: High to low</option>
+            </select>
+          </div>
+        )}
+
+        {/* Desktop Filters Bar */}
         <div style={{
           backgroundColor: '#fff',
           borderBottom: '1px solid #e5e5e5',
-          padding: '24px 0',
+          padding: isMobile ? '16px 0' : '24px 0',
           position: 'sticky',
-          top: '64px',
-          zIndex: 100
+          top: isMobile ? '60px' : '64px',
+          zIndex: 100,
+          display: isMobile ? 'none' : 'block'
         }}>
           <div style={{
             maxWidth: '1480px',
@@ -337,11 +420,16 @@ export default function BuyPageOncom() {
             paddingLeft: 'max(2rem, 3.33vw)',
             paddingRight: 'max(2rem, 3.33vw)',
             display: 'flex',
-            gap: '16px',
+            gap: isMobile ? '8px' : '16px',
             alignItems: 'center',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            flexWrap: isMobile ? 'wrap' : 'nowrap'
           }}>
-            <div style={{ display: 'flex', gap: '16px', flex: 1 }}>
+            <div style={{ 
+              display: isMobile ? 'none' : 'flex', 
+              gap: '16px', 
+              flex: 1 
+            }}>
               {/* Property Type */}
               <select
                 value={filters.propertyType}
@@ -511,10 +599,10 @@ export default function BuyPageOncom() {
         <div style={{
           maxWidth: '1480px',
           margin: '0 auto',
-          paddingLeft: 'max(2rem, 3.33vw)',
-          paddingRight: 'max(2rem, 3.33vw)',
-          paddingTop: '40px',
-          paddingBottom: '40px'
+          paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+          paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+          paddingTop: isMobile ? '24px' : '40px',
+          paddingBottom: isMobile ? '24px' : '40px'
         }}>
           {loading ? (
             <div style={{ textAlign: 'center', padding: '80px 0' }}>
@@ -537,10 +625,10 @@ export default function BuyPageOncom() {
               <p style={{ color: '#666' }}>Try adjusting your filters</p>
             </div>
           ) : (
-            <div style={{
+            <div className="property-grid" style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
-              gap: '24px'
+              gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(auto-fill, minmax(340px, 1fr))',
+              gap: isMobile ? '16px' : '24px'
             }}>
               {sortedProperties.map((property) => (
                 <div key={property.id} style={{
@@ -617,16 +705,16 @@ export default function BuyPageOncom() {
                       )}
                     </div>
                     
-                    <div style={{ padding: '24px' }}>
+                    <div style={{ padding: isMobile ? '16px' : '24px' }}>
                       <h3 style={{
-                        fontSize: '24px',
+                        fontSize: isMobile ? '20px' : '24px',
                         fontWeight: '700',
                         marginBottom: '8px'
                       }}>
                         {property.priceDisplay || formatPrice(property.price)}
                       </h3>
                       <p style={{
-                        fontSize: '16px',
+                        fontSize: isMobile ? '14px' : '16px',
                         color: '#000',
                         marginBottom: '8px',
                         fontWeight: '500'
@@ -704,6 +792,279 @@ export default function BuyPageOncom() {
           )}
         </div>
       </main>
+
+      {/* Mobile Filter Panel */}
+      {isMobile && showFilters && (
+        <>
+          <div 
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              zIndex: 9998,
+              opacity: showFilters ? 1 : 0,
+              transition: 'opacity 0.3s ease'
+            }}
+            onClick={() => setShowFilters(false)}
+          />
+          
+          <div style={{
+            position: 'fixed',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: '#fff',
+            borderTopLeftRadius: '16px',
+            borderTopRightRadius: '16px',
+            boxShadow: '0 -4px 24px rgba(0,0,0,0.1)',
+            transition: 'transform 0.3s ease',
+            transform: showFilters ? 'translateY(0)' : 'translateY(100%)',
+            zIndex: 9999,
+            maxHeight: '80vh',
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            <div style={{
+              padding: '24px 20px 20px',
+              borderBottom: '1px solid #e5e5e5',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}>
+              <h2 style={{ fontSize: '20px', fontWeight: '600' }}>Filters</h2>
+              <button
+                onClick={() => setShowFilters(false)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: '8px'
+                }}
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            
+            <div style={{
+              flex: 1,
+              overflowY: 'auto',
+              padding: '20px'
+            }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                {/* Property Type */}
+                <div>
+                  <label style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', display: 'block' }}>
+                    Property Type
+                  </label>
+                  <select
+                    value={filters.propertyType}
+                    onChange={(e) => setFilters({ ...filters, propertyType: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: '12px',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      fontSize: '16px',
+                      backgroundColor: '#fff'
+                    }}
+                  >
+                    <option value="">All types</option>
+                    <option value="house">House</option>
+                    <option value="apartment">Apartment</option>
+                    <option value="townhouse">Townhouse</option>
+                    <option value="land">Land</option>
+                  </select>
+                </div>
+
+                {/* Price Range */}
+                <div>
+                  <label style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', display: 'block' }}>
+                    Price Range
+                  </label>
+                  <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                    <input
+                      type="number"
+                      placeholder="Min"
+                      value={filters.priceMin}
+                      onChange={(e) => setFilters({ ...filters, priceMin: e.target.value })}
+                      style={{
+                        flex: 1,
+                        padding: '12px',
+                        border: '1px solid #e5e5e5',
+                        borderRadius: '8px',
+                        fontSize: '16px'
+                      }}
+                    />
+                    <span>-</span>
+                    <input
+                      type="number"
+                      placeholder="Max"
+                      value={filters.priceMax}
+                      onChange={(e) => setFilters({ ...filters, priceMax: e.target.value })}
+                      style={{
+                        flex: 1,
+                        padding: '12px',
+                        border: '1px solid #e5e5e5',
+                        borderRadius: '8px',
+                        fontSize: '16px'
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {/* Bedrooms */}
+                <div>
+                  <label style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', display: 'block' }}>
+                    Bedrooms
+                  </label>
+                  <select
+                    value={filters.bedrooms}
+                    onChange={(e) => setFilters({ ...filters, bedrooms: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: '12px',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      fontSize: '16px',
+                      backgroundColor: '#fff'
+                    }}
+                  >
+                    <option value="">Any</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                    <option value="5">5+</option>
+                  </select>
+                </div>
+
+                {/* Bathrooms */}
+                <div>
+                  <label style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', display: 'block' }}>
+                    Bathrooms
+                  </label>
+                  <select
+                    value={filters.bathrooms}
+                    onChange={(e) => setFilters({ ...filters, bathrooms: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: '12px',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      fontSize: '16px',
+                      backgroundColor: '#fff'
+                    }}
+                  >
+                    <option value="">Any</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                  </select>
+                </div>
+
+                {/* Parking */}
+                <div>
+                  <label style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', display: 'block' }}>
+                    Parking
+                  </label>
+                  <select
+                    value={filters.parking}
+                    onChange={(e) => setFilters({ ...filters, parking: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: '12px',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      fontSize: '16px',
+                      backgroundColor: '#fff'
+                    }}
+                  >
+                    <option value="">Any</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                  </select>
+                </div>
+
+                {/* Suburb */}
+                <div>
+                  <label style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', display: 'block' }}>
+                    Suburb
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter suburb"
+                    value={filters.suburb}
+                    onChange={(e) => setFilters({ ...filters, suburb: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: '12px',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      fontSize: '16px'
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+            
+            <div style={{
+              padding: '16px 20px',
+              borderTop: '1px solid #e5e5e5',
+              display: 'flex',
+              gap: '12px'
+            }}>
+              <button
+                onClick={() => {
+                  setFilters({
+                    priceMin: '',
+                    priceMax: '',
+                    bedrooms: '',
+                    bathrooms: '',
+                    parking: '',
+                    propertyType: '',
+                    suburb: ''
+                  });
+                }}
+                style={{
+                  flex: 1,
+                  padding: '16px',
+                  backgroundColor: '#f5f5f5',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  cursor: 'pointer'
+                }}
+              >
+                Clear all
+              </button>
+              <button
+                onClick={() => setShowFilters(false)}
+                style={{
+                  flex: 1,
+                  padding: '16px',
+                  backgroundColor: '#000',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  cursor: 'pointer'
+                }}
+              >
+                Apply filters
+              </button>
+            </div>
+          </div>
+        </>
+      )}
 
       <style jsx>{`
         @keyframes spin {

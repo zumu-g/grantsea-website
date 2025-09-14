@@ -10,6 +10,9 @@
 /* Import Grant's Estate Agents Style System - enhances Anima components */
 @import './grants-style-system.css';
 
+/* Import responsive design overrides for mobile and tablet */
+@import './responsive-overrides.css';
+
 /* Custom Font Declarations */
 @font-face {
   font-family: 'Essonnes Display';

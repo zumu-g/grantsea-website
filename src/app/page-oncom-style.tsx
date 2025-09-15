@@ -58,10 +58,10 @@ export default function HomePageOncom() {
           margin: '0 auto'
         }}>
           <h1 style={{
-            fontSize: isMobile ? '1.75rem' : isTablet ? '2rem' : '2.5rem',
+            fontSize: isMobile ? '24px' : isTablet ? '28px' : '32px',
             fontWeight: '700',
             lineHeight: '1.1',
-            marginBottom: isMobile ? '16px' : '20px',
+            marginBottom: isMobile ? '12px' : '16px',
             color: '#fff',
             letterSpacing: '-0.02em',
             textShadow: '0 2px 4px rgba(0,0,0,0.1)'
@@ -69,10 +69,10 @@ export default function HomePageOncom() {
             Your best move starts here
           </h1>
           <p style={{
-            fontSize: isMobile ? '1rem' : isTablet ? '1.125rem' : '1.375rem',
+            fontSize: isMobile ? '14px' : isTablet ? '16px' : '18px',
             fontWeight: '400',
             lineHeight: '1.5',
-            marginBottom: isMobile ? '32px' : '40px',
+            marginBottom: isMobile ? '24px' : '32px',
             color: 'rgba(255,255,255,0.9)',
             maxWidth: '640px'
           }}>
@@ -185,7 +185,7 @@ export default function HomePageOncom() {
               textDecoration: 'none',
               overflow: 'hidden',
               borderRadius: '8px',
-              height: isMobile ? '280px' : isTablet ? '320px' : '400px',
+              height: isMobile ? '400px' : isTablet ? '500px' : '600px',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
             }}
@@ -250,7 +250,7 @@ export default function HomePageOncom() {
               textDecoration: 'none',
               overflow: 'hidden',
               borderRadius: '8px',
-              height: isMobile ? '280px' : isTablet ? '320px' : '400px',
+              height: isMobile ? '400px' : isTablet ? '500px' : '600px',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
             }}
@@ -315,7 +315,7 @@ export default function HomePageOncom() {
               textDecoration: 'none',
               overflow: 'hidden',
               borderRadius: '8px',
-              height: isMobile ? '280px' : isTablet ? '320px' : '400px',
+              height: isMobile ? '400px' : isTablet ? '500px' : '600px',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
             }}

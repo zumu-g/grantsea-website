@@ -58,20 +58,20 @@ export default function HomePageOncom() {
           margin: '0 auto'
         }}>
           <h1 style={{
-            fontSize: isMobile ? '3rem' : isTablet ? '4rem' : 'clamp(5rem, 6vw, 5.375rem)',
+            fontSize: isMobile ? '32px' : isTablet ? '40px' : '49.584px',
             fontWeight: '700',
-            lineHeight: '1.1',
-            marginBottom: isMobile ? '20px' : '32px',
+            lineHeight: isMobile ? '1.2' : '54.5424px',
+            marginBottom: isMobile ? '20px' : '15px',
             color: '#fff',
-            letterSpacing: '-0.02em',
+            letterSpacing: '-0.49584px',
             textShadow: '0 2px 4px rgba(0,0,0,0.1)'
           }}>
             Your best move starts here
           </h1>
           <p style={{
-            fontSize: isMobile ? '1.25rem' : isTablet ? '1.375rem' : '1.5rem',
+            fontSize: isMobile ? '18px' : isTablet ? '24px' : '30.8px',
             fontWeight: '400',
-            lineHeight: '1.5',
+            lineHeight: isMobile ? '1.4' : '40.04px',
             marginBottom: isMobile ? '40px' : '56px',
             color: 'rgba(255,255,255,0.9)',
             maxWidth: '640px'
@@ -185,7 +185,7 @@ export default function HomePageOncom() {
               textDecoration: 'none',
               overflow: 'hidden',
               borderRadius: '8px',
-              height: isMobile ? '280px' : isTablet ? '320px' : '400px',
+              height: isMobile ? '395px' : isTablet ? '480px' : '640px',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
             }}
@@ -250,7 +250,7 @@ export default function HomePageOncom() {
               textDecoration: 'none',
               overflow: 'hidden',
               borderRadius: '8px',
-              height: isMobile ? '280px' : isTablet ? '320px' : '400px',
+              height: isMobile ? '395px' : isTablet ? '480px' : '640px',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
             }}
@@ -315,7 +315,7 @@ export default function HomePageOncom() {
               textDecoration: 'none',
               overflow: 'hidden',
               borderRadius: '8px',
-              height: isMobile ? '280px' : isTablet ? '320px' : '400px',
+              height: isMobile ? '395px' : isTablet ? '480px' : '640px',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
             }}

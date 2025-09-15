@@ -599,22 +599,46 @@ export default function HomePageOncom() {
                     link: '/suburbs/pakenham'
                   },
                   {
-                    name: 'Narre Warren North',
-                    tagline: 'Tranquil family retreat',
-                    image: 'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=600&h=800&fit=crop',
-                    link: '/suburbs/narre-warren-north'
-                  },
-                  {
                     name: 'Cranbourne',
                     tagline: 'Thriving growth corridor',
                     image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&h=800&fit=crop',
                     link: '/suburbs/cranbourne'
                   },
                   {
-                    name: 'Clyde North',
-                    tagline: 'Modern estate living',
+                    name: 'Narre Warren South',
+                    tagline: 'Established family haven',
+                    image: 'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=600&h=800&fit=crop',
+                    link: '/suburbs/narre-warren-south'
+                  },
+                  {
+                    name: 'Hampton Park',
+                    tagline: 'Diverse community living',
+                    image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&h=800&fit=crop',
+                    link: '/suburbs/hampton-park'
+                  },
+                  {
+                    name: 'Officer',
+                    tagline: 'Modern growth corridor',
                     image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&h=800&fit=crop',
-                    link: '/suburbs/clyde-north'
+                    link: '/suburbs/officer'
+                  },
+                  {
+                    name: 'Clyde',
+                    tagline: 'Emerging community',
+                    image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&h=800&fit=crop',
+                    link: '/suburbs/clyde'
+                  },
+                  {
+                    name: 'Beaconsfield',
+                    tagline: 'Peaceful family suburb',
+                    image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&h=800&fit=crop',
+                    link: '/suburbs/beaconsfield'
+                  },
+                  {
+                    name: 'Hallam',
+                    tagline: 'Convenient suburban living',
+                    image: 'https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=600&h=800&fit=crop',
+                    link: '/suburbs/hallam'
                   }
                 ].map((item, index) => (
                   <Link
@@ -729,7 +753,7 @@ export default function HomePageOncom() {
             </button>
             
             <button
-              onClick={() => setCarouselScroll(Math.min(980, carouselScroll + 196))}
+              onClick={() => setCarouselScroll(Math.min(1568, carouselScroll + 196))}
               style={{
                 position: 'absolute',
                 right: '0',
@@ -747,12 +771,12 @@ export default function HomePageOncom() {
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
                 boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
-                opacity: carouselScroll >= 980 ? 0 : 1,
-                pointerEvents: carouselScroll >= 980 ? 'none' : 'auto',
+                opacity: carouselScroll >= 1568 ? 0 : 1,
+                pointerEvents: carouselScroll >= 1568 ? 'none' : 'auto',
                 zIndex: 2
               }}
               onMouseEnter={(e) => {
-                if (carouselScroll < 980) {
+                if (carouselScroll < 1568) {
                   e.currentTarget.style.backgroundColor = 'rgba(255,255,255,1)';
                   e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)';
                 }

@@ -1033,7 +1033,7 @@ export default function HomePageOncom() {
               }}>
                 <div style={{
                   position: 'relative',
-                  aspectRatio: '16/10',
+                  height: isMobile ? '200px' : '250px',
                   borderRadius: '12px',
                   overflow: 'hidden',
                   marginBottom: '20px',
@@ -1131,7 +1131,7 @@ export default function HomePageOncom() {
               }}>
                 <div style={{
                   position: 'relative',
-                  aspectRatio: '16/10',
+                  height: isMobile ? '200px' : '250px',
                   borderRadius: '12px',
                   overflow: 'hidden',
                   marginBottom: '20px',
@@ -1229,7 +1229,7 @@ export default function HomePageOncom() {
               }}>
                 <div style={{
                   position: 'relative',
-                  aspectRatio: '16/10',
+                  height: isMobile ? '200px' : '250px',
                   borderRadius: '12px',
                   overflow: 'hidden',
                   marginBottom: '20px',
@@ -1327,7 +1327,7 @@ export default function HomePageOncom() {
               }}>
                 <div style={{
                   position: 'relative',
-                  aspectRatio: '16/10',
+                  height: isMobile ? '200px' : '250px',
                   borderRadius: '12px',
                   overflow: 'hidden',
                   marginBottom: '20px',

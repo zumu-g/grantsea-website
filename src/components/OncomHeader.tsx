@@ -130,6 +130,13 @@ export default function OncomHeader() {
               fontWeight: '500',
               transition: 'color 0.3s ease'
             }}>Find Agents</Link>
+            <Link href="/reviews" style={{
+              color: isHomePage && !isScrolled ? '#fff' : '#000',
+              textDecoration: 'none',
+              fontSize: '14px',
+              fontWeight: '500',
+              transition: 'color 0.3s ease'
+            }}>Reviews</Link>
             </nav>
           )}
 
@@ -328,6 +335,18 @@ export default function OncomHeader() {
                   }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
                     Find Agents
+                  </Link>
+                  <Link href="/reviews" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Reviews
                   </Link>
                   <Link href="/team" style={{
                     display: 'block',

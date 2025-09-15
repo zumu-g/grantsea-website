@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import OncomHeader from '@/components/OncomHeader';
 import { useProperties } from '@/hooks/useProperties';
@@ -9,7 +9,20 @@ import SavePropertyButton from '@/components/SavePropertyButton';
 
 export default function BerwickSuburbGuide() {
   const [activeSection, setActiveSection] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
   const { properties } = useProperties({ suburb: 'Berwick', limit: 6 });
+
+  useEffect(() => {
+    const checkDevice = () => {
+      setIsMobile(window.innerWidth <= 768);
+      setIsTablet(window.innerWidth > 768 && window.innerWidth <= 1024);
+    };
+    
+    checkDevice();
+    window.addEventListener('resize', checkDevice);
+    return () => window.removeEventListener('resize', checkDevice);
+  }, []);
 
   // Scroll to section
   const scrollToSection = (index: number) => {
@@ -35,7 +48,7 @@ export default function BerwickSuburbGuide() {
     <>
       <OncomHeader />
       
-      <main style={{ paddingTop: '64px', backgroundColor: '#fff' }}>
+      <main style={{ paddingTop: isMobile ? '60px' : '64px', backgroundColor: '#fff' }}>
         {/* Hero Section - Tennis Guide Style */}
         <section style={{
           position: 'relative',
@@ -132,7 +145,7 @@ export default function BerwickSuburbGuide() {
         {/* Navigation Bar */}
         <nav style={{
           position: 'sticky',
-          top: '64px',
+          top: isMobile ? '60px' : '64px',
           backgroundColor: '#fff',
           borderBottom: '1px solid #e5e5e5',
           zIndex: 100
@@ -187,12 +200,17 @@ export default function BerwickSuburbGuide() {
         <article style={{ maxWidth: '1400px', margin: '0 auto' }}>
           {/* Introduction */}
           <section id="section-0" style={{
-            paddingLeft: 'max(2rem, 3.33vw)',
-            paddingRight: 'max(2rem, 3.33vw)',
-            paddingTop: '80px',
-            paddingBottom: '80px'
+            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingTop: isMobile ? '40px' : '80px',
+            paddingBottom: isMobile ? '40px' : '80px'
           }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', 
+              gap: isMobile ? '32px' : '80px', 
+              alignItems: 'center' 
+            }}>
               <div>
                 <h2 style={{
                   fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
@@ -231,7 +249,8 @@ export default function BerwickSuburbGuide() {
                 position: 'relative',
                 aspectRatio: '4/3',
                 borderRadius: '16px',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                order: isMobile ? -1 : 0
               }}>
                 <img
                   src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop"
@@ -249,10 +268,10 @@ export default function BerwickSuburbGuide() {
           {/* Location & Transport */}
           <section id="section-1" style={{
             backgroundColor: '#f8f8f8',
-            paddingLeft: 'max(2rem, 3.33vw)',
-            paddingRight: 'max(2rem, 3.33vw)',
-            paddingTop: '80px',
-            paddingBottom: '80px'
+            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingTop: isMobile ? '40px' : '80px',
+            paddingBottom: isMobile ? '40px' : '80px'
           }}>
             <h2 style={{
               fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
@@ -266,8 +285,8 @@ export default function BerwickSuburbGuide() {
             
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '40px'
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: isMobile ? '24px' : '40px'
             }}>
               <div style={{
                 backgroundColor: '#fff',
@@ -309,10 +328,10 @@ export default function BerwickSuburbGuide() {
 
           {/* Lifestyle & Amenities */}
           <section id="section-2" style={{
-            paddingLeft: 'max(2rem, 3.33vw)',
-            paddingRight: 'max(2rem, 3.33vw)',
-            paddingTop: '80px',
-            paddingBottom: '80px'
+            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingTop: isMobile ? '40px' : '80px',
+            paddingBottom: isMobile ? '40px' : '80px'
           }}>
             <h2 style={{
               fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
@@ -323,16 +342,21 @@ export default function BerwickSuburbGuide() {
               Living the Berwick Life
             </h2>
             
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '60px', marginBottom: '60px' }}>
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: isMobile ? '1fr' : '2fr 1fr', 
+              gap: isMobile ? '32px' : '60px', 
+              marginBottom: isMobile ? '40px' : '60px' 
+            }}>
               <div>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Shopping & Dining</h3>
-                <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
+                <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
                   Berwick's retail and dining scene reflects its village character, with local businesses concentrated along the historic main street providing essential services and community gathering places. The heritage streetscape along Old Princes Highway creates an attractive environment for shopping, dining, and social activities.
                 </p>
-                <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
+                <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
                   The village shopping precinct features heritage buildings housing contemporary businesses, including cafes, restaurants, specialty stores, and professional services. Local cafes and restaurants provide venues for community interaction and social dining that strengthen neighbourhood connections.
                 </p>
-                <p style={{ fontSize: '18px', lineHeight: '1.8', color: '#333' }}>
+                <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: '1.8', color: '#333' }}>
                   For major shopping needs, residents typically travel to nearby centres in Narre Warren, Officer, or Fountain Gate, all accessible within reasonable driving distances. This arrangement allows Berwick to maintain its village character while ensuring residents have access to comprehensive retail and service options.
                 </p>
               </div>
@@ -381,8 +405,8 @@ export default function BerwickSuburbGuide() {
               </p>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
-                gap: '24px',
+                gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+                gap: isMobile ? '32px' : '24px',
                 marginTop: '40px'
               }}>
                 <div style={{ textAlign: 'center' }}>
@@ -444,10 +468,10 @@ export default function BerwickSuburbGuide() {
           <section id="section-3" style={{
             backgroundColor: '#002b7f',
             color: '#fff',
-            paddingLeft: 'max(2rem, 3.33vw)',
-            paddingRight: 'max(2rem, 3.33vw)',
-            paddingTop: '80px',
-            paddingBottom: '80px'
+            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingTop: isMobile ? '40px' : '80px',
+            paddingBottom: isMobile ? '40px' : '80px'
           }}>
             <h2 style={{
               fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
@@ -469,8 +493,8 @@ export default function BerwickSuburbGuide() {
             
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: '40px'
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+              gap: isMobile ? '24px' : '40px'
             }}>
               <div style={{
                 backgroundColor: 'rgba(255,255,255,0.1)',
@@ -590,20 +614,20 @@ export default function BerwickSuburbGuide() {
             
             <div style={{ marginBottom: '60px' }}>
               <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Housing Styles</h3>
-              <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '32px', color: '#333' }}>
+              <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: '1.8', marginBottom: '32px', color: '#333' }}>
                 Berwick's housing market is characterized by established homes on generous blocks, heritage properties, and quality residential developments that respect the suburb's character. The housing stock primarily consists of homes built from the 1960s onwards, many featuring large gardens, established trees, and the spacious layouts that appeal to families.
               </p>
-              <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '32px', color: '#333' }}>
+              <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: '1.8', marginBottom: '32px', color: '#333' }}>
                 The suburb includes a mix of original weatherboard cottages, brick veneer homes from various decades, and contemporary houses designed to complement the established streetscapes. Many properties have been renovated or extended, creating modern family homes that retain character elements and benefit from mature landscaping.
               </p>
-              <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '32px', color: '#333' }}>
+              <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: '1.8', marginBottom: '32px', color: '#333' }}>
                 Heritage properties near the town centre offer unique character and historical significance, often featuring period details and established gardens on substantial blocks. Contemporary developments throughout the suburb provide modern housing options while respecting established character through design guidelines and landscaping requirements.
               </p>
               
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
-                gap: '24px'
+                gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+                gap: isMobile ? '16px' : '24px'
               }}>
                 <div style={{
                   aspectRatio: '4/3',
@@ -645,10 +669,10 @@ export default function BerwickSuburbGuide() {
           {/* Community */}
           <section id="section-5" style={{
             backgroundColor: '#f8f8f8',
-            paddingLeft: 'max(2rem, 3.33vw)',
-            paddingRight: 'max(2rem, 3.33vw)',
-            paddingTop: '80px',
-            paddingBottom: '80px'
+            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingTop: isMobile ? '40px' : '80px',
+            paddingBottom: isMobile ? '40px' : '80px'
           }}>
             <h2 style={{
               fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
@@ -666,7 +690,7 @@ export default function BerwickSuburbGuide() {
               marginBottom: '60px'
             }}>
               <p style={{
-                fontSize: '20px',
+                fontSize: isMobile ? '16px' : '20px',
                 lineHeight: '1.8',
                 textAlign: 'center',
                 color: '#333',
@@ -675,7 +699,7 @@ export default function BerwickSuburbGuide() {
                 Berwick maintains an exceptionally strong community spirit that reflects its village character and established residential base. Active community groups, sporting clubs, and volunteer organizations provide extensive opportunities for social connection, civic engagement, and mutual support among residents.
               </p>
               <p style={{
-                fontSize: '20px',
+                fontSize: isMobile ? '16px' : '20px',
                 lineHeight: '1.8',
                 textAlign: 'center',
                 color: '#333'
@@ -686,9 +710,9 @@ export default function BerwickSuburbGuide() {
             
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: '40px',
-              marginBottom: '60px'
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+              gap: isMobile ? '24px' : '40px',
+              marginBottom: isMobile ? '40px' : '60px'
             }}>
               <div>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '20px' }}>Annual Events</h3>
@@ -760,14 +784,14 @@ export default function BerwickSuburbGuide() {
             <div style={{
               backgroundColor: '#002b7f',
               color: '#fff',
-              padding: '48px',
+              padding: isMobile ? '32px 20px' : '48px',
               borderRadius: '16px',
               textAlign: 'center'
             }}>
               <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '32px', fontWeight: '400', marginBottom: '24px' }}>Who Will Love Berwick?</h3>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(2, 1fr)',
+                gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
                 gap: '20px',
                 textAlign: 'left',
                 maxWidth: '800px',

@@ -43,26 +43,29 @@ export default function HomePageOncom() {
         backgroundPosition: 'center',
         backgroundColor: '#000'
       }}>
-        {/* Gradient overlay */}
+        {/* Gradient overlay - lighter like on.com */}
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%)'
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%)'
         }} />
         
         <div style={{
           position: 'relative',
           width: '100%',
           padding: isMobile ? '0 20px' : isTablet ? '0 40px' : '0 max(2rem, 3.33vw)',
-          textAlign: 'left',
+          textAlign: 'center',
           maxWidth: '1400px',
-          margin: '0 auto'
+          margin: '0 auto',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
         }}>
           <h1 style={{
-            fontSize: isMobile ? '2rem' : 'clamp(3rem, 5vw, 6rem)',
-            fontWeight: '800',
+            fontSize: isMobile ? '3rem' : isTablet ? '4rem' : 'clamp(5rem, 6vw, 5.375rem)',
+            fontWeight: '700',
             lineHeight: '1.1',
-            marginBottom: isMobile ? '16px' : '24px',
+            marginBottom: isMobile ? '20px' : '32px',
             color: '#fff',
             letterSpacing: '-0.02em',
             textShadow: '0 2px 4px rgba(0,0,0,0.1)'
@@ -70,12 +73,12 @@ export default function HomePageOncom() {
             Your best move starts here
           </h1>
           <p style={{
-            fontSize: isMobile ? '1rem' : 'clamp(1.125rem, 2vw, 1.5rem)',
+            fontSize: isMobile ? '1.25rem' : isTablet ? '1.375rem' : '1.5rem',
             fontWeight: '400',
             lineHeight: '1.5',
-            marginBottom: isMobile ? '32px' : '48px',
+            marginBottom: isMobile ? '40px' : '56px',
             color: 'rgba(255,255,255,0.9)',
-            maxWidth: '600px'
+            maxWidth: '640px'
           }}>
             Casey and Cardinia's trusted real estate experts
           </p>
@@ -83,31 +86,31 @@ export default function HomePageOncom() {
             display: 'flex', 
             gap: isMobile ? '12px' : '16px', 
             flexWrap: 'wrap',
-            justifyContent: 'flex-start',
+            justifyContent: 'center',
             flexDirection: isMobile ? 'column' : 'row'
           }}>
             <Link href="/buy" style={{
               display: 'inline-flex',
               alignItems: 'center',
-              padding: isMobile ? '16px 32px' : '18px 40px',
+              padding: isMobile ? '16px 40px' : '20px 48px',
               backgroundColor: '#fff',
               color: '#000',
               textDecoration: 'none',
-              fontSize: isMobile ? '16px' : '18px',
+              fontSize: isMobile ? '16px' : '17px',
               fontWeight: '600',
-              borderRadius: '50px',
+              borderRadius: '500px',
               transition: 'all 0.2s ease',
-              minWidth: isMobile ? '100%' : '180px',
+              minWidth: isMobile ? '100%' : '200px',
               justifyContent: 'center',
-              boxShadow: '0 4px 14px rgba(0,0,0,0.1)'
+              boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,0,0,0.15)';
+              e.currentTarget.style.boxShadow = '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.1)';
+              e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)';
             }}
             >
               Browse properties
@@ -115,16 +118,16 @@ export default function HomePageOncom() {
             <Link href="/appraisal" style={{
               display: 'inline-flex',
               alignItems: 'center',
-              padding: isMobile ? '16px 32px' : '18px 40px',
+              padding: isMobile ? '16px 40px' : '20px 48px',
               backgroundColor: 'transparent',
               color: '#fff',
               textDecoration: 'none',
-              fontSize: isMobile ? '16px' : '18px',
+              fontSize: isMobile ? '16px' : '17px',
               fontWeight: '600',
-              borderRadius: '50px',
+              borderRadius: '500px',
               border: '2px solid rgba(255,255,255,0.8)',
               transition: 'all 0.2s ease',
-              minWidth: isMobile ? '100%' : '180px',
+              minWidth: isMobile ? '100%' : '200px',
               justifyContent: 'center'
             }}
             onMouseEnter={(e) => {
@@ -147,24 +150,26 @@ export default function HomePageOncom() {
       {/* Shop by Category - ON.COM exact style */}
       <section style={{
         backgroundColor: '#fff',
-        paddingTop: '120px',
-        paddingBottom: '120px'
+        paddingTop: isMobile ? '60px' : isTablet ? '80px' : '96px',
+        paddingBottom: isMobile ? '60px' : isTablet ? '80px' : '96px'
       }}>
         <div style={{
-          width: 'calc(100vw - 15px)',
+          maxWidth: '1440px',
+          margin: '0 auto',
           padding: '0'
         }}>
           <h2 style={{
-            fontSize: '48.448px',
+            fontSize: isMobile ? '32px' : isTablet ? '40px' : '48px',
             fontWeight: '700',
-            letterSpacing: '-0.48448px',
+            letterSpacing: '-0.02em',
             textTransform: 'none',
             textAlign: 'start',
-            margin: '0 0 32.2296px',
+            margin: '0',
+            marginBottom: isMobile ? '24px' : '48px',
             color: '#000',
-            lineHeight: '53.2928px',
-            paddingLeft: '120px',
-            paddingRight: '120px'
+            lineHeight: '1.1',
+            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
           }}>
             Shop by category
           </h2>
@@ -172,10 +177,10 @@ export default function HomePageOncom() {
           {/* Category Layout - Grid for 3 columns */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            paddingLeft: '120px',
-            paddingRight: '120px',
-            gap: '32px',
+            gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+            gap: isMobile ? '16px' : '24px',
             position: 'relative'
           }}>
             {/* Buy Category */}
@@ -184,8 +189,22 @@ export default function HomePageOncom() {
               display: 'block',
               textDecoration: 'none',
               overflow: 'hidden',
-              borderRadius: '0px',
-              height: isMobile ? '160px' : '200px'
+              borderRadius: '8px',
+              height: isMobile ? '280px' : isTablet ? '320px' : '400px',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+            }}
+            onMouseEnter={(e) => {
+              if (!isMobile) {
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15)';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!isMobile) {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+              }
             }}>
               <div style={{
                 position: 'relative',
@@ -210,9 +229,9 @@ export default function HomePageOncom() {
                 }} />
                 <div style={{
                   position: 'absolute',
-                  bottom: isMobile ? '16px' : '32px',
-                  left: isMobile ? '16px' : '32px',
-                  right: isMobile ? '16px' : '32px'
+                  bottom: isMobile ? '20px' : '24px',
+                  left: isMobile ? '20px' : '24px',
+                  right: isMobile ? '20px' : '24px'
                 }}>
                   <h3 style={{
                     color: '#fff',
@@ -235,8 +254,22 @@ export default function HomePageOncom() {
               display: 'block',
               textDecoration: 'none',
               overflow: 'hidden',
-              borderRadius: '0px',
-              height: isMobile ? '160px' : '200px'
+              borderRadius: '8px',
+              height: isMobile ? '280px' : isTablet ? '320px' : '400px',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+            }}
+            onMouseEnter={(e) => {
+              if (!isMobile) {
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15)';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!isMobile) {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+              }
             }}>
               <div style={{
                 position: 'relative',
@@ -261,9 +294,9 @@ export default function HomePageOncom() {
                 }} />
                 <div style={{
                   position: 'absolute',
-                  bottom: isMobile ? '16px' : '32px',
-                  left: isMobile ? '16px' : '32px',
-                  right: isMobile ? '16px' : '32px'
+                  bottom: isMobile ? '20px' : '24px',
+                  left: isMobile ? '20px' : '24px',
+                  right: isMobile ? '20px' : '24px'
                 }}>
                   <h3 style={{
                     color: '#fff',
@@ -286,8 +319,22 @@ export default function HomePageOncom() {
               display: 'block',
               textDecoration: 'none',
               overflow: 'hidden',
-              borderRadius: '0px',
-              height: isMobile ? '160px' : '200px'
+              borderRadius: '8px',
+              height: isMobile ? '280px' : isTablet ? '320px' : '400px',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+            }}
+            onMouseEnter={(e) => {
+              if (!isMobile) {
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15)';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!isMobile) {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+              }
             }}>
               <div style={{
                 position: 'relative',
@@ -312,9 +359,9 @@ export default function HomePageOncom() {
                 }} />
                 <div style={{
                   position: 'absolute',
-                  bottom: isMobile ? '16px' : '32px',
-                  left: isMobile ? '16px' : '32px',
-                  right: isMobile ? '16px' : '32px'
+                  bottom: isMobile ? '20px' : '24px',
+                  left: isMobile ? '20px' : '24px',
+                  right: isMobile ? '20px' : '24px'
                 }}>
                   <h3 style={{
                     color: '#fff',
@@ -338,39 +385,42 @@ export default function HomePageOncom() {
       {/* Activities Section - ON.COM style */}
       <section style={{
         backgroundColor: '#fff',
-        paddingTop: isMobile ? '60px' : '80px',
-        paddingBottom: isMobile ? '60px' : '80px',
+        paddingTop: isMobile ? '60px' : isTablet ? '80px' : '96px',
+        paddingBottom: isMobile ? '60px' : isTablet ? '80px' : '96px',
         position: 'relative',
         overflow: 'hidden',
         display: isMobile ? 'none' : 'block' // Hide on mobile for now
       }}>
         <div style={{
-          width: '100%',
-          padding: '0',
-          maxWidth: '1400px',
-          margin: '0 auto'
+          maxWidth: '1440px',
+          margin: '0 auto',
+          padding: '0'
         }}>
           <h2 style={{
-            fontSize: isMobile ? '28px' : '48px',
+            fontSize: isMobile ? '32px' : isTablet ? '40px' : '48px',
             fontWeight: '700',
-            letterSpacing: '-0.48px',
+            letterSpacing: '-0.02em',
             textAlign: 'left',
-            margin: '0 0 48px',
+            margin: '0',
+            marginBottom: isMobile ? '24px' : '48px',
             color: '#000',
-            paddingLeft: '48px'
+            lineHeight: '1.1',
+            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
           }}>
             Find your perfect property
           </h2>
           
           <div style={{
             display: 'flex',
-            gap: '0'
+            gap: '0',
+            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
           }}>
             {/* Activities List */}
             <div style={{
               flex: '0 0 40%',
-              paddingLeft: '47.952px',
-              paddingRight: '60px'
+              paddingRight: isTablet ? '40px' : '60px'
             }}>
               <div style={{
                 display: 'flex',
@@ -391,7 +441,7 @@ export default function HomePageOncom() {
                     href={`/buy?type=${activity.id}`}
                     style={{
                       display: 'block',
-                      padding: '20px 0',
+                      padding: '24px 0',
                       borderBottom: '1px solid #e5e5e5',
                       textDecoration: 'none',
                       transition: 'all 0.3s ease',
@@ -401,12 +451,13 @@ export default function HomePageOncom() {
                     onMouseLeave={() => setHoveredActivity(null)}
                   >
                     <h3 style={{
-                      fontSize: '24px',
-                      fontWeight: '600',
+                      fontSize: isTablet ? '20px' : '24px',
+                      fontWeight: '500',
                       color: '#000',
                       margin: 0,
                       transition: 'transform 0.3s ease',
-                      transform: hoveredActivity === activity.id ? 'translateX(8px)' : 'translateX(0)'
+                      transform: hoveredActivity === activity.id ? 'translateX(8px)' : 'translateX(0)',
+                      lineHeight: '1.3'
                     }}>
                       {activity.name}
                     </h3>
@@ -417,17 +468,23 @@ export default function HomePageOncom() {
               <Link href="/buy" style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                marginTop: '32px',
+                marginTop: '40px',
                 color: '#000',
                 fontSize: '16px',
-                fontWeight: '600',
+                fontWeight: '500',
                 textDecoration: 'none',
-                borderBottom: '2px solid #000',
-                paddingBottom: '4px',
-                transition: 'opacity 0.2s ease'
+                borderBottom: '1px solid #000',
+                paddingBottom: '2px',
+                transition: 'all 0.2s ease'
               }}
-              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
-              onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderBottomWidth = '2px';
+                e.currentTarget.style.transform = 'translateX(4px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderBottomWidth = '1px';
+                e.currentTarget.style.transform = 'translateX(0)';
+              }}
               >
                 View all properties
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginLeft: '8px' }}>
@@ -441,7 +498,7 @@ export default function HomePageOncom() {
             <div style={{
               flex: '1',
               position: 'relative',
-              minHeight: '500px',
+              minHeight: isTablet ? '400px' : '600px',
               borderRadius: '8px',
               overflow: 'hidden',
               backgroundColor: '#f5f5f5'
@@ -535,34 +592,34 @@ export default function HomePageOncom() {
                     link: '/suburbs/berwick'
                   },
                   {
-                    name: 'Performance',
-                    tagline: 'Investment returns',
+                    name: 'Narre Warren',
+                    tagline: 'Growing community hub',
                     image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=800&fit=crop',
-                    link: '/buy?type=investment'
+                    link: '/suburbs/narre-warren'
                   },
                   {
-                    name: 'Showcase',
-                    tagline: 'Featured listings',
+                    name: 'Pakenham',
+                    tagline: 'Affordable family living',
                     image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=800&fit=crop',
-                    link: '/featured'
+                    link: '/suburbs/pakenham'
                   },
                   {
-                    name: 'Core',
-                    tagline: 'Essential homes',
+                    name: 'Narre Warren North',
+                    tagline: 'Tranquil family retreat',
                     image: 'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=600&h=800&fit=crop',
-                    link: '/buy?type=family'
+                    link: '/suburbs/narre-warren-north'
                   },
                   {
-                    name: 'The Collection',
-                    tagline: 'Exclusive properties',
+                    name: 'Cranbourne',
+                    tagline: 'Thriving growth corridor',
                     image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&h=800&fit=crop',
-                    link: '/exclusive'
+                    link: '/suburbs/cranbourne'
                   },
                   {
-                    name: 'Waterfront',
-                    tagline: 'Coastal living',
+                    name: 'Clyde North',
+                    tagline: 'Modern estate living',
                     image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&h=800&fit=crop',
-                    link: '/buy?type=waterfront'
+                    link: '/suburbs/clyde-north'
                   }
                 ].map((item, index) => (
                   <Link
@@ -718,159 +775,19 @@ export default function HomePageOncom() {
         </div>
       </section>
 
-      {/* Featured Section - ON.COM style */}
-      <section style={{
-        backgroundColor: '#f5f5f5',
-        paddingTop: isMobile ? '60px' : '80px',
-        paddingBottom: isMobile ? '60px' : '80px'
-      }}>
-        <div style={{
-          width: '100%',
-          padding: '0',
-          maxWidth: '1400px',
-          margin: '0 auto'
-        }}>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-            gap: isMobile ? '32px' : '64px',
-            alignItems: 'center'
-          }}>
-            {/* Left Content */}
-            <div style={{
-              paddingLeft: isMobile ? '20px' : isTablet ? '40px' : '48px',
-              paddingRight: isMobile ? '20px' : '0'
-            }}>
-              <h2 style={{
-                fontSize: isMobile ? '1.75rem' : 'clamp(2rem, 3vw, 3rem)',
-                fontWeight: '700',
-                letterSpacing: '-0.02em',
-                marginBottom: '24px',
-                color: '#000',
-                lineHeight: '1.2'
-              }}>
-                Your property journey starts with confidence
-              </h2>
-              <p style={{
-                fontSize: isMobile ? '16px' : '18px',
-                lineHeight: '1.6',
-                color: '#666',
-                marginBottom: '32px',
-                maxWidth: '480px'
-              }}>
-                Experience the difference with Casey and Cardinia's most trusted agents. From first inspection to final settlement, we're with you every step.
-              </p>
-              <div style={{
-                display: 'flex',
-                gap: '16px',
-                flexWrap: 'wrap'
-              }}>
-                <Link href="/appraisal" style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  padding: '14px 28px',
-                  backgroundColor: '#000',
-                  color: '#fff',
-                  textDecoration: 'none',
-                  fontSize: '16px',
-                  fontWeight: '500',
-                  borderRadius: '32px',
-                  transition: 'all 0.2s ease',
-                  border: '2px solid #000'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#333';
-                  e.currentTarget.style.borderColor = '#333';
-                  e.currentTarget.style.transform = 'scale(1.02)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#000';
-                  e.currentTarget.style.borderColor = '#000';
-                  e.currentTarget.style.transform = 'scale(1)';
-                }}
-                >
-                  Get free appraisal
-                  <svg 
-                    width="20" 
-                    height="20" 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round"
-                    style={{ marginLeft: '8px' }}
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </Link>
-                <Link href="/selling-guide" style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  padding: '14px 28px',
-                  backgroundColor: 'transparent',
-                  color: '#000',
-                  textDecoration: 'none',
-                  fontSize: '16px',
-                  fontWeight: '500',
-                  borderRadius: '32px',
-                  transition: 'all 0.2s ease',
-                  border: '2px solid #000'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#000';
-                  e.currentTarget.style.color = '#fff';
-                  e.currentTarget.style.transform = 'scale(1.02)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.color = '#000';
-                  e.currentTarget.style.transform = 'scale(1)';
-                }}
-                >
-                  Selling guide
-                </Link>
-              </div>
-            </div>
-
-            {/* Right Image */}
-            <div style={{
-              position: 'relative',
-              borderRadius: '8px',
-              overflow: 'hidden',
-              aspectRatio: '4/3',
-              marginRight: isMobile ? '20px' : '47.952px',
-              marginLeft: isMobile ? '20px' : '0',
-              order: isMobile ? -1 : 0
-            }}>
-              <img 
-                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop"
-                alt="Happy homeowners"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover'
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* You may be interested in - ON.COM style */}
       <section style={{
         backgroundColor: '#f8f9fa',
-        paddingTop: '64px',
-        paddingBottom: '64px',
+        paddingTop: isMobile ? '60px' : isTablet ? '80px' : '96px',
+        paddingBottom: isMobile ? '60px' : isTablet ? '80px' : '96px',
         overflow: 'hidden',
-        position: 'relative',
-        width: 'calc(100vw - 15px)'
+        position: 'relative'
       }}>
         <div style={{
-          width: 'calc(100vw - 15px)',
-          paddingLeft: '47.952px',
-          paddingRight: '47.952px'
+          maxWidth: '1440px',
+          margin: '0 auto',
+          paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+          paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
         }}>
           <h2 style={{
             fontSize: isMobile ? '1.5rem' : 'clamp(1.625rem, 1.52rem + 0.45vw, 2.0625rem)',
@@ -904,15 +821,12 @@ export default function HomePageOncom() {
               scrollBehavior: 'smooth',
               WebkitOverflowScrolling: 'touch',
               msOverflowStyle: 'none',
-              scrollbarWidth: 'none',
-              marginLeft: isMobile ? '-20px' : '-47.952px',
-              marginRight: isMobile ? '-20px' : '-47.952px',
-              paddingLeft: isMobile ? '20px' : '48px'
+              scrollbarWidth: 'none'
             }}>
               <div style={{
                 display: 'flex',
                 gap: isMobile ? '16px' : '24px',
-                paddingRight: isMobile ? '20px' : '47.952px'
+                paddingBottom: '16px'
               }}>
                 {properties.slice(0, 6).map((property) => (
                 <div key={property.id} style={{
@@ -1077,23 +991,22 @@ export default function HomePageOncom() {
       {/* Stories that move - ON.COM style */}
       <section style={{
         backgroundColor: '#fff',
-        paddingTop: isMobile ? '48px' : '64px',
-        paddingBottom: isMobile ? '48px' : '64px',
-        width: '100%'
+        paddingTop: isMobile ? '60px' : isTablet ? '80px' : '96px',
+        paddingBottom: isMobile ? '60px' : isTablet ? '80px' : '96px'
       }}>
         <div style={{
-          width: '100%',
-          padding: isMobile ? '0 20px' : '0 48px',
-          maxWidth: '1400px',
-          margin: '0 auto'
+          maxWidth: '1440px',
+          margin: '0 auto',
+          paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+          paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
         }}>
           <h2 style={{
-            fontSize: 'clamp(1.625rem, 1.52rem + 0.45vw, 2.0625rem)',
+            fontSize: isMobile ? '32px' : isTablet ? '40px' : '48px',
             fontWeight: '700',
             letterSpacing: '-0.02em',
-            marginBottom: '2.5rem',
+            marginBottom: isMobile ? '24px' : '48px',
             color: '#000',
-            lineHeight: '1.2'
+            lineHeight: '1.1'
           }}>
             Stories that move
           </h2>
@@ -1125,7 +1038,7 @@ export default function HomePageOncom() {
               }}>
                 <div style={{
                   position: 'relative',
-                  aspectRatio: '3/2',
+                  aspectRatio: '16/9',
                   borderRadius: '8px',
                   overflow: 'hidden',
                   marginBottom: '16px',
@@ -1223,7 +1136,7 @@ export default function HomePageOncom() {
               }}>
                 <div style={{
                   position: 'relative',
-                  aspectRatio: '3/2',
+                  aspectRatio: '16/9',
                   borderRadius: '8px',
                   overflow: 'hidden',
                   marginBottom: '16px',
@@ -1321,7 +1234,7 @@ export default function HomePageOncom() {
               }}>
                 <div style={{
                   position: 'relative',
-                  aspectRatio: '3/2',
+                  aspectRatio: '16/9',
                   borderRadius: '8px',
                   overflow: 'hidden',
                   marginBottom: '16px',
@@ -1419,7 +1332,7 @@ export default function HomePageOncom() {
               }}>
                 <div style={{
                   position: 'relative',
-                  aspectRatio: '3/2',
+                  aspectRatio: '16/9',
                   borderRadius: '8px',
                   overflow: 'hidden',
                   marginBottom: '16px',

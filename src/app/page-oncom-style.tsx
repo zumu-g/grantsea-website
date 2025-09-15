@@ -785,12 +785,12 @@ export default function HomePageOncom() {
           paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
         }}>
           <h2 style={{
-            fontSize: isMobile ? '1.5rem' : 'clamp(1.625rem, 1.52rem + 0.45vw, 2.0625rem)',
+            fontSize: isMobile ? '36px' : isTablet ? '44px' : '56px',
             fontWeight: '700',
             letterSpacing: '-0.02em',
-            marginBottom: isMobile ? '1.5rem' : '2.5rem',
+            marginBottom: isMobile ? '32px' : '48px',
             color: '#000',
-            lineHeight: '1.2'
+            lineHeight: '1.1'
           }}>
             You may be interested in
           </h2>
@@ -823,10 +823,10 @@ export default function HomePageOncom() {
                 gap: isMobile ? '16px' : '24px',
                 paddingBottom: '16px'
               }}>
-                {properties.slice(0, 6).map((property) => (
+                {properties.slice(0, 3).map((property) => (
                 <div key={property.id} style={{
-                  flex: isMobile ? '0 0 85%' : isTablet ? '0 0 calc(33.333% - 16px)' : '0 0 calc(25% - 0.375rem)',
-                  minWidth: isMobile ? '280px' : '280px',
+                  flex: isMobile ? '0 0 85%' : isTablet ? '0 0 calc(50% - 12px)' : '0 0 calc(33.333% - 16px)',
+                  minWidth: isMobile ? '320px' : '380px',
                   backgroundColor: '#fff',
                   borderRadius: '12px',
                   overflow: 'hidden',
@@ -1033,11 +1033,11 @@ export default function HomePageOncom() {
               }}>
                 <div style={{
                   position: 'relative',
-                  aspectRatio: '16/9',
-                  borderRadius: '8px',
+                  aspectRatio: '16/10',
+                  borderRadius: '12px',
                   overflow: 'hidden',
-                  marginBottom: '16px',
-                  border: '1px solid #e5e5e5'
+                  marginBottom: '20px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
                 }}>
                   <img 
                     src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400&h=267&fit=crop"
@@ -1065,7 +1065,7 @@ export default function HomePageOncom() {
                   </div>
                 </div>
                 <h3 style={{
-                  fontSize: '18px',
+                  fontSize: '20px',
                   fontWeight: '700',
                   marginBottom: '8px',
                   color: '#000',
@@ -1131,11 +1131,11 @@ export default function HomePageOncom() {
               }}>
                 <div style={{
                   position: 'relative',
-                  aspectRatio: '16/9',
-                  borderRadius: '8px',
+                  aspectRatio: '16/10',
+                  borderRadius: '12px',
                   overflow: 'hidden',
-                  marginBottom: '16px',
-                  border: '1px solid #e5e5e5'
+                  marginBottom: '20px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
                 }}>
                   <img 
                     src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=267&fit=crop"
@@ -1163,7 +1163,7 @@ export default function HomePageOncom() {
                   </div>
                 </div>
                 <h3 style={{
-                  fontSize: '18px',
+                  fontSize: '20px',
                   fontWeight: '700',
                   marginBottom: '8px',
                   color: '#000',
@@ -1229,11 +1229,11 @@ export default function HomePageOncom() {
               }}>
                 <div style={{
                   position: 'relative',
-                  aspectRatio: '16/9',
-                  borderRadius: '8px',
+                  aspectRatio: '16/10',
+                  borderRadius: '12px',
                   overflow: 'hidden',
-                  marginBottom: '16px',
-                  border: '1px solid #e5e5e5'
+                  marginBottom: '20px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
                 }}>
                   <img 
                     src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=400&h=267&fit=crop"
@@ -1261,7 +1261,7 @@ export default function HomePageOncom() {
                   </div>
                 </div>
                 <h3 style={{
-                  fontSize: '18px',
+                  fontSize: '20px',
                   fontWeight: '700',
                   marginBottom: '8px',
                   color: '#000',
@@ -1327,11 +1327,11 @@ export default function HomePageOncom() {
               }}>
                 <div style={{
                   position: 'relative',
-                  aspectRatio: '16/9',
-                  borderRadius: '8px',
+                  aspectRatio: '16/10',
+                  borderRadius: '12px',
                   overflow: 'hidden',
-                  marginBottom: '16px',
-                  border: '1px solid #e5e5e5'
+                  marginBottom: '20px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
                 }}>
                   <img 
                     src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=400&h=267&fit=crop"
@@ -1359,7 +1359,7 @@ export default function HomePageOncom() {
                   </div>
                 </div>
                 <h3 style={{
-                  fontSize: '18px',
+                  fontSize: '20px',
                   fontWeight: '700',
                   marginBottom: '8px',
                   color: '#000',

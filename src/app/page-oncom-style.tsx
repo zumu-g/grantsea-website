@@ -185,7 +185,7 @@ export default function HomePageOncom() {
               textDecoration: 'none',
               overflow: 'hidden',
               borderRadius: '8px',
-              height: isMobile ? '400px' : isTablet ? '500px' : '600px',
+              height: isMobile ? '450px' : isTablet ? '550px' : '650px',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
             }}
@@ -250,7 +250,7 @@ export default function HomePageOncom() {
               textDecoration: 'none',
               overflow: 'hidden',
               borderRadius: '8px',
-              height: isMobile ? '400px' : isTablet ? '500px' : '600px',
+              height: isMobile ? '450px' : isTablet ? '550px' : '650px',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
             }}
@@ -315,7 +315,7 @@ export default function HomePageOncom() {
               textDecoration: 'none',
               overflow: 'hidden',
               borderRadius: '8px',
-              height: isMobile ? '400px' : isTablet ? '500px' : '600px',
+              height: isMobile ? '450px' : isTablet ? '550px' : '650px',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
             }}

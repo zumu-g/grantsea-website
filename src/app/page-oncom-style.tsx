@@ -30,14 +30,13 @@ export default function HomePageOncom() {
     <>
       <OncomHeader />
 
-      {/* Hero Section - Full screen with centered text like ON.COM */}
+      {/* Hero Section - Full screen with bottom-left text like ON.COM */}
       <section className="hero-section" style={{
         height: isMobile ? 'calc(100vh - env(safe-area-inset-top, 0px))' : '100vh',
         minHeight: isMobile ? '600px' : '100vh',
         position: 'relative',
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: 'flex-end',
         backgroundImage: 'url("https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1920&h=1080&fit=crop")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -53,13 +52,10 @@ export default function HomePageOncom() {
         <div style={{
           position: 'relative',
           width: '100%',
-          padding: isMobile ? '0 20px' : isTablet ? '0 40px' : '0 max(2rem, 3.33vw)',
-          textAlign: 'center',
-          maxWidth: '1400px',
-          margin: '0 auto',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center'
+          padding: isMobile ? '40px 20px' : isTablet ? '60px 40px' : '80px max(2rem, 3.33vw)',
+          textAlign: 'left',
+          maxWidth: '1440px',
+          margin: '0 auto'
         }}>
           <h1 style={{
             fontSize: isMobile ? '3rem' : isTablet ? '4rem' : 'clamp(5rem, 6vw, 5.375rem)',
@@ -86,7 +82,6 @@ export default function HomePageOncom() {
             display: 'flex', 
             gap: isMobile ? '12px' : '16px', 
             flexWrap: 'wrap',
-            justifyContent: 'center',
             flexDirection: isMobile ? 'column' : 'row'
           }}>
             <Link href="/buy" style={{

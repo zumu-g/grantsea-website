@@ -165,6 +165,14 @@ CRM_ACCESS_TOKEN=nzinklyrqutvcdodhyaqyizcjflohlayxezuthan
 - Project Repository: https://github.com/zumu-g/grantsea-website
 - Deployed Site: https://grantsea-website.vercel.app
 
+## Important Protocols
+
+### External Site Analysis
+**ALWAYS use Playwright MCP for analyzing external websites like on.com**
+- See `/docs/EXTERNAL_SITE_ANALYSIS_PROTOCOL.md` for detailed instructions
+- Never use WebFetch for visual/layout analysis
+- Use Task agent with specific Playwright MCP instructions
+
 ## Development Commands
 ```bash
 # Install dependencies

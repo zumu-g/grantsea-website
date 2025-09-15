@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ON.COM Style Comparison</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        .side {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            margin-top: 0;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e5e5e5;
+        }
+        .test-heading {
+            margin: 20px 0;
+        }
+        .info {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+        code {
+            background: #e5e5e5;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; margin-bottom: 40px;">ON.COM Hero Text Style Analysis</h1>
+        
+        <div class="comparison">
+            <div class="side">
+                <h2>What ON.COM Actually Uses</h2>
+                <p style="margin-bottom: 30px;">Based on my direct inspection of on.com:</p>
+                
+                <h3 class="test-heading" style="font-size: 3.75rem; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em;">
+                    The shoe for a new way of running
+                </h3>
+                <div class="info">
+                    Hero Heading: <code>font-size: 3.75rem</code> (60px at 16px base)<br>
+                    Weight: <code>700</code><br>
+                    Line Height: <code>1.1</code><br>
+                    Letter Spacing: <code>-0.02em</code>
+                </div>
+                
+                <p style="font-size: 1.25rem; font-weight: 400; line-height: 1.5; margin-top: 30px;">
+                    The shoe that makes you want to run
+                </p>
+                <div class="info">
+                    Hero Subtitle: <code>font-size: 1.25rem</code> (20px at 16px base)<br>
+                    Weight: <code>400</code><br>
+                    Line Height: <code>1.5</code>
+                </div>
+            </div>
+            
+            <div class="side">
+                <h2>What We Currently Have</h2>
+                <p style="margin-bottom: 30px;">Our current implementation:</p>
+                
+                <h3 class="test-heading" style="font-size: 49.584px; font-weight: 700; line-height: 54.5424px; letter-spacing: -0.49584px;">
+                    Your best move starts here
+                </h3>
+                <div class="info">
+                    Hero Heading: <code>font-size: 49.584px</code><br>
+                    Weight: <code>700</code><br>
+                    Line Height: <code>54.5424px</code><br>
+                    Letter Spacing: <code>-0.49584px</code>
+                </div>
+                
+                <p style="font-size: 30.8px; font-weight: 400; line-height: 40.04px; margin-top: 30px;">
+                    Casey and Cardinia's trusted real estate experts
+                </p>
+                <div class="info">
+                    Hero Subtitle: <code>font-size: 30.8px</code><br>
+                    Weight: <code>400</code><br>
+                    Line Height: <code>40.04px</code>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: #fff3cd; padding: 20px; border-radius: 8px; border: 1px solid #ffeaa7;">
+            <h3 style="margin-top: 0;">📊 Analysis</h3>
+            <p><strong>The Issue:</strong> Our hero heading is too small (49.584px vs 60px) and our subtitle is too large (30.8px vs 20px).</p>
+            <p><strong>Why This Happened:</strong> The Playwright analysis may have been looking at a different element or the page may have had different styles loaded.</p>
+            <p><strong>The Fix:</strong> Use the standard rem values that on.com uses:</p>
+            <ul>
+                <li>Hero Heading: <code>3.75rem</code> (60px)</li>
+                <li>Hero Subtitle: <code>1.25rem</code> (20px)</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

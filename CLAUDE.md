@@ -1,6 +1,6 @@
 # Grant's Estate Agents Website - Development Progress
 
-## Last Updated: 2025-09-12
+## Last Updated: 2025-09-15
 
 ## Current Status
 
@@ -100,7 +100,36 @@
 - `docs/ON-COM-DESIGN-SPECS.md` - Updated with viewport-based padding
 - All major pages updated with responsive padding system
 
-### 🚀 Recent Changes (September 12, 2025)
+### 🚀 Recent Changes (September 15, 2025)
+- **Responsive Design Implementation**:
+  - Made entire website responsive for iPhone and iPad devices
+  - Fixed header navigation overlapping on mobile
+  - Created mobile-first CSS with proper breakpoints
+  - Added touch-friendly tap targets (44px minimum)
+  - Implemented mobile filter panels and bottom sheets
+
+- **Homepage Styling Updates to Match on.com**:
+  - Fixed hero text positioning to bottom-left (not centered)
+  - Reduced hero text size to 4rem desktop, 1.25rem subtitle
+  - Updated shop by category boxes to 340px height
+  - Increased activities section indentation and image size
+  - Changed "You may be interested in" to show 3 properties with larger heading (56px)
+  - Updated Stories section with 16:10 aspect ratio and larger titles
+  - Added proper box shadows and 12px border radius
+
+- **Suburb Profiles Enhancement**:
+  - Created suburb profiles data structure with all content
+  - Updated carousel to show all available suburbs
+  - Added Narre Warren South, Officer, Clyde profiles
+  - Removed generic placeholders with actual suburb content
+
+- **Development Standards**:
+  - Established Playwright MCP protocol for external site analysis
+  - Created EXTERNAL_SITE_ANALYSIS_PROTOCOL.md
+  - Fixed hero positioning error by establishing proper analysis methods
+  - Added Reviews tab to header navigation
+
+### Previous Changes (September 12, 2025)
 - Fixed OncomHeader sliding panels - now properly slide from right using position animation
 - Unified header across all pages - replaced custom homepage header with OncomHeader
 - Added transparent header on homepage with scroll-based color changes
@@ -144,20 +173,49 @@ CRM_ACCESS_TOKEN=nzinklyrqutvcdodhyaqyizcjflohlayxezuthan
 - Responsive grid layouts
 - Loading and empty states
 
-### 📋 Next Steps
-1. Fix rental property weekly rent calculations (reported as incorrect)
-2. Update property card images to be square with new typography
-3. Add user authentication system
-4. Create property comparison feature
-5. Enhance search with map view integration
-6. Add property alerts/notifications
-7. Build property inquiry forms with email integration
-8. Create admin dashboard for property management
+### 📋 Next Steps (Priority Order)
+1. **Mobile Responsiveness Testing**:
+   - Test Berwick suburb guide on actual iPhone devices
+   - Fix any remaining mobile layout issues
+   - Ensure all grid layouts stack properly on mobile
+   - Test touch interactions and gestures
+
+2. **Suburb Guide Pages**:
+   - Create individual pages for all suburbs using content files
+   - Implement suburb guide template for consistency
+   - Add property listings for each suburb
+   - Create suburb comparison features
+
+3. **Property Features**:
+   - Fix rental property weekly rent calculations
+   - Update property card images to be square
+   - Add property comparison feature
+   - Implement saved searches functionality
+
+4. **User Features**:
+   - Add user authentication system
+   - Build property inquiry forms with email integration
+   - Add property alerts/notifications
+   - Create user dashboard
+
+5. **Advanced Features**:
+   - Enhance search with map view integration
+   - Create admin dashboard for property management
+   - Add virtual tour integration
+   - Implement mortgage calculator
 
 ### 🐛 Known Issues
 - Rental properties showing incorrect weekly rent amounts
+- Berwick suburb guide reported having text only on left side on mobile (partially fixed)
 - Pre-commit style validation hook occasionally fails to connect to dev server
-- Property card images need to be square with updated typography
+- Need to verify all responsive layouts on actual devices
+
+### 📱 Mobile-Specific TODOs
+- Complete responsive updates for Berwick suburb guide
+- Test all pages on iPhone 12/13/14 Pro and iPad
+- Verify touch targets meet 44px minimum
+- Test landscape orientation layouts
+- Check form input zoom behavior on iOS
 
 ### 📚 Resources
 - VaultRE API Documentation: https://api.vaultre.com.au/docs

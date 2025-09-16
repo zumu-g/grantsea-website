@@ -316,8 +316,8 @@ export default function HomePageOncom() {
               </div>
             </Link>
 
-            {/* Berwick Category */}
-            <Link href="/suburbs/berwick" style={{
+            {/* Appraisal Category */}
+            <Link href="/appraisal" style={{
               position: 'relative',
               display: 'block',
               textDecoration: 'none',
@@ -353,8 +353,8 @@ export default function HomePageOncom() {
                   sizes="(min-width: 1024px) 33vw, 100vw"
                   width="600"
                   height="800"
-                  srcSet="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=300&h=400&fit=crop&q=80 300w"
-                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=800&fit=crop"
+                  srcSet="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=300&h=400&fit=crop&q=80 300w"
+                  src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=800&fit=crop"
                   style={{
                     position: 'absolute',
                     top: 0,
@@ -376,11 +376,11 @@ export default function HomePageOncom() {
                     fontWeight: '600',
                     marginBottom: '4px',
                     letterSpacing: '-0.01em'
-                  }}>Berwick</h3>
+                  }}>Appraisal</h3>
                   <p style={{
                     color: 'rgba(255,255,255,0.9)',
                     fontSize: '14px'
-                  }}>Explore this premium suburb</p>
+                  }}>Get your free property valuation</p>
                 </div>
               </div>
             </Link>

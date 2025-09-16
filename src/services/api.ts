@@ -278,6 +278,9 @@ export const propertyAPI = {
       const params = new URLSearchParams();
       params.append('type', 'sale');
       params.append('limit', filters?.limit?.toString() || '20');
+      if (filters?.suburb) {
+        params.append('suburb', filters.suburb);
+      }
       
       try {
         const response = await fetch(`/api/properties?${params.toString()}`);
@@ -325,6 +328,9 @@ export const propertyAPI = {
       const params = new URLSearchParams();
       params.append('type', 'lease');
       params.append('limit', filters?.limit?.toString() || '20');
+      if (filters?.suburb) {
+        params.append('suburb', filters.suburb);
+      }
       
       try {
         const response = await fetch(`/api/properties?${params.toString()}`);

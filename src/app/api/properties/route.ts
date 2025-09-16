@@ -11,6 +11,7 @@ export async function GET(request: NextRequest) {
   const type = searchParams.get('type') || 'all';
   const limit = searchParams.get('limit') || '20';
   const published = searchParams.get('published') || 'true';
+  const suburb = searchParams.get('suburb');
   
   if (!API_KEY || !ACCESS_TOKEN) {
     console.error('API credentials missing:', {
@@ -39,24 +40,34 @@ export async function GET(request: NextRequest) {
 
     // Fetch based on type
     if (type === 'sale') {
-      const response = await fetch(
-        `${API_BASE_URL}/properties/residential/sale?published=${published}&limit=${limit}`,
-        { headers }
-      );
+      let url = `${API_BASE_URL}/properties/residential/sale?published=${published}&limit=${limit}`;
+      if (suburb) {
+        url += `&suburb=${encodeURIComponent(suburb)}`;
+      }
+      const response = await fetch(url, { headers });
       const data = await response.json();
       allProperties = data.items || [];
     } else if (type === 'lease' || type === 'rent') {
-      const response = await fetch(
-        `${API_BASE_URL}/properties/residential/lease?published=${published}&limit=${limit}`,
-        { headers }
-      );
+      let url = `${API_BASE_URL}/properties/residential/lease?published=${published}&limit=${limit}`;
+      if (suburb) {
+        url += `&suburb=${encodeURIComponent(suburb)}`;
+      }
+      const response = await fetch(url, { headers });
       const data = await response.json();
       allProperties = data.items || [];
     } else {
       // Fetch both sale and lease
+      let saleUrl = `${API_BASE_URL}/properties/residential/sale?published=${published}&limit=${Math.floor(parseInt(limit) / 2)}`;
+      let leaseUrl = `${API_BASE_URL}/properties/residential/lease?published=${published}&limit=${Math.floor(parseInt(limit) / 2)}`;
+      
+      if (suburb) {
+        saleUrl += `&suburb=${encodeURIComponent(suburb)}`;
+        leaseUrl += `&suburb=${encodeURIComponent(suburb)}`;
+      }
+      
       const [saleResponse, leaseResponse] = await Promise.all([
-        fetch(`${API_BASE_URL}/properties/residential/sale?published=${published}&limit=${Math.floor(parseInt(limit) / 2)}`, { headers }),
-        fetch(`${API_BASE_URL}/properties/residential/lease?published=${published}&limit=${Math.floor(parseInt(limit) / 2)}`, { headers })
+        fetch(saleUrl, { headers }),
+        fetch(leaseUrl, { headers })
       ]);
       
       const saleData = await saleResponse.json();
@@ -66,6 +77,17 @@ export async function GET(request: NextRequest) {
         ...(saleData.items || []),
         ...(leaseData.items || [])
       ];
+    }
+
+    // If we have a suburb filter and the API doesn't support it natively,
+    // filter the results client-side as a fallback
+    if (suburb && allProperties.length > 0) {
+      allProperties = allProperties.filter((property: any) => 
+        property.address && 
+        property.address.toLowerCase().includes(suburb.toLowerCase()) ||
+        property.suburb && 
+        property.suburb.toLowerCase().includes(suburb.toLowerCase())
+      );
     }
 
     return NextResponse.json({

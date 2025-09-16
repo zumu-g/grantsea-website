@@ -269,8 +269,51 @@ export default function PropertyDetailPageOncom() {
               {/* Description */}
               <section style={{ marginBottom: '48px' }}>
                 <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '24px' }}>About this property</h2>
-                <div style={{ fontSize: '16px', lineHeight: '1.7', color: '#333', whiteSpace: 'pre-line' }}>
-                  {property.description || 'No description available.'}
+                <div style={{ fontSize: '16px', lineHeight: '1.7', color: '#333' }}>
+                  {property.description ? (
+                    <div>
+                      {property.description.split('\n').map((paragraph, index) => {
+                        // Check if this line contains bullet points
+                        if (paragraph.includes('&#x2022;')) {
+                          // Split by bullet points and create a list
+                          const items = paragraph.split('&#x2022;').filter(item => item.trim());
+                          return (
+                            <ul key={index} style={{ 
+                              listStyle: 'none', 
+                              padding: 0, 
+                              margin: '16px 0',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              gap: '12px'
+                            }}>
+                              {items.map((item, itemIndex) => (
+                                <li key={itemIndex} style={{ 
+                                  display: 'flex', 
+                                  alignItems: 'flex-start', 
+                                  gap: '12px' 
+                                }}>
+                                  <span style={{ 
+                                    color: '#000',
+                                    fontSize: '20px',
+                                    lineHeight: '20px',
+                                    marginTop: '2px',
+                                    flexShrink: 0
+                                  }}>•</span>
+                                  <span>{item.trim()}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          );
+                        } else if (paragraph.trim()) {
+                          // Regular paragraph
+                          return <p key={index} style={{ marginBottom: '16px' }}>{paragraph}</p>;
+                        }
+                        return null;
+                      })}
+                    </div>
+                  ) : (
+                    'No description available.'
+                  )}
                 </div>
               </section>
 

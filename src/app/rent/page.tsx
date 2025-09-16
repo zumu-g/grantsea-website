@@ -716,6 +716,37 @@ export default function RentPage() {
                             {property.propertyType}
                           </div>
                         )}
+                        
+                        {/* Apply Now Button */}
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            window.location.href = `/property/${property.id}#apply`;
+                          }}
+                          style={{
+                            marginTop: '24px',
+                            width: '100%',
+                            padding: '16px',
+                            backgroundColor: '#000',
+                            color: '#fff',
+                            border: 'none',
+                            borderRadius: '8px',
+                            fontSize: '16px',
+                            fontWeight: '600',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = 'translateY(-1px)';
+                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = 'translateY(0)';
+                            e.currentTarget.style.boxShadow = 'none';
+                          }}
+                        >
+                          Apply Now
+                        </button>
                       </div>
                     </Link>
                   </motion.div>

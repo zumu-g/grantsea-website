@@ -8,7 +8,7 @@ import SavePropertyButton from '@/components/SavePropertyButton';
 import OncomHeader from '@/components/OncomHeader';
 
 export default function BuyPageOncom() {
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [showDropdown, setShowDropdown] = useState<string>('');
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
@@ -78,9 +78,8 @@ export default function BuyPageOncom() {
         {/* Page Header */}
         <div style={{
           backgroundColor: '#fff',
-          borderBottom: '1px solid #e5e5e5',
-          paddingTop: isMobile ? '40px' : '60px',
-          paddingBottom: isMobile ? '24px' : '40px'
+          paddingTop: isMobile ? '80px' : '120px',
+          paddingBottom: isMobile ? '40px' : '60px'
         }}>
           <div style={{
             maxWidth: '1480px',
@@ -90,15 +89,9 @@ export default function BuyPageOncom() {
           }}>
             <h1 style={{
               fontSize: isMobile ? '32px' : '48px',
-              fontWeight: '700',
-              marginBottom: isMobile ? '8px' : '16px'
+              fontWeight: '400',
+              marginBottom: 0
             }}>Properties for sale</h1>
-            <p style={{
-              fontSize: isMobile ? '16px' : '18px',
-              color: '#666'
-            }}>
-              {sortedProperties.length} properties found
-            </p>
           </div>
         </div>
 
@@ -171,10 +164,7 @@ export default function BuyPageOncom() {
         <div style={{
           backgroundColor: '#fff',
           borderBottom: '1px solid #e5e5e5',
-          padding: isMobile ? '16px 0' : '24px 0',
-          position: 'sticky',
-          top: isMobile ? '60px' : '64px',
-          zIndex: 100,
+          padding: isMobile ? '16px 0' : '20px 0',
           display: isMobile ? 'none' : 'block'
         }}>
           <div style={{
@@ -183,178 +173,334 @@ export default function BuyPageOncom() {
             paddingLeft: 'max(2rem, 3.33vw)',
             paddingRight: 'max(2rem, 3.33vw)',
             display: 'flex',
-            gap: isMobile ? '8px' : '16px',
             alignItems: 'center',
             justifyContent: 'space-between',
-            flexWrap: isMobile ? 'wrap' : 'nowrap'
+            gap: '32px'
           }}>
             <div style={{ 
-              display: isMobile ? 'none' : 'flex', 
-              gap: '16px', 
-              flex: 1 
+              display: 'flex', 
+              alignItems: 'center',
+              gap: '32px',
+              flex: 1,
+              flexWrap: 'wrap'
             }}>
-              {/* Property Type */}
-              <select
-                value={filters.propertyType}
-                onChange={(e) => setFilters({ ...filters, propertyType: e.target.value })}
+              {/* Properties for sale with X button */}
+              <button
                 style={{
-                  padding: '8px 16px',
-                  border: '1px solid #e5e5e5',
-                  backgroundColor: '#fff',
+                  background: 'none',
+                  border: 'none',
+                  padding: 0,
                   fontSize: '14px',
-                  cursor: 'pointer'
+                  color: '#666',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  transition: 'all 0.2s ease',
+                  borderBottom: '1px solid transparent'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderBottom = '1px solid #666';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderBottom = '1px solid transparent';
                 }}
               >
-                <option value="">All property types</option>
-                <option value="House">House</option>
-                <option value="Apartment">Apartment</option>
-                <option value="Townhouse">Townhouse</option>
-                <option value="Land">Land</option>
-              </select>
+                Properties for sale
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
 
-              {/* Bedrooms */}
-              <select
-                value={filters.bedrooms}
-                onChange={(e) => setFilters({ ...filters, bedrooms: e.target.value })}
-                style={{
-                  padding: '8px 16px',
-                  border: '1px solid #e5e5e5',
-                  backgroundColor: '#fff',
-                  fontSize: '14px',
-                  cursor: 'pointer'
-                }}
-              >
-                <option value="">Any beds</option>
-                <option value="1">1 bed</option>
-                <option value="2">2 beds</option>
-                <option value="3">3 beds</option>
-                <option value="4">4 beds</option>
-                <option value="5">5+ beds</option>
-              </select>
-
-              {/* Bathrooms */}
-              <select
-                value={filters.bathrooms}
-                onChange={(e) => setFilters({ ...filters, bathrooms: e.target.value })}
-                style={{
-                  padding: '8px 16px',
-                  border: '1px solid #e5e5e5',
-                  backgroundColor: '#fff',
-                  fontSize: '14px',
-                  cursor: 'pointer'
-                }}
-              >
-                <option value="">Any baths</option>
-                <option value="1">1 bath</option>
-                <option value="2">2 baths</option>
-                <option value="3">3 baths</option>
-                <option value="4">4+ baths</option>
-              </select>
-
-              {/* Parking */}
-              <select
-                value={filters.parking}
-                onChange={(e) => setFilters({ ...filters, parking: e.target.value })}
-                style={{
-                  padding: '8px 16px',
-                  border: '1px solid #e5e5e5',
-                  backgroundColor: '#fff',
-                  fontSize: '14px',
-                  cursor: 'pointer'
-                }}
-              >
-                <option value="">Any parking</option>
-                <option value="0">No parking</option>
-                <option value="1">1 car</option>
-                <option value="2">2 cars</option>
-                <option value="3">3+ cars</option>
-              </select>
-
-              {/* Price Range */}
-              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                <input
-                  type="number"
-                  placeholder="Min price"
-                  value={filters.priceMin}
-                  onChange={(e) => setFilters({ ...filters, priceMin: e.target.value })}
-                  style={{
-                    padding: '8px 12px',
-                    border: '1px solid #e5e5e5',
-                    fontSize: '14px',
-                    width: '120px'
-                  }}
-                />
-                <span style={{ color: '#666' }}>-</span>
-                <input
-                  type="number"
-                  placeholder="Max price"
-                  value={filters.priceMax}
-                  onChange={(e) => setFilters({ ...filters, priceMax: e.target.value })}
-                  style={{
-                    padding: '8px 12px',
-                    border: '1px solid #e5e5e5',
-                    fontSize: '14px',
-                    width: '120px'
-                  }}
-                />
-              </div>
-
-              {/* Suburb */}
-              <input
-                type="text"
-                placeholder="Suburb"
-                value={filters.suburb}
-                onChange={(e) => setFilters({ ...filters, suburb: e.target.value })}
-                style={{
-                  padding: '8px 16px',
-                  border: '1px solid #e5e5e5',
-                  fontSize: '14px',
-                  width: '150px'
-                }}
-              />
-
-              {/* Clear Filters */}
-              {(filters.propertyType || filters.bedrooms || filters.bathrooms || filters.parking || filters.priceMin || filters.priceMax || filters.suburb) && (
+              {/* Property Type Dropdown */}
+              <div style={{ position: 'relative' }}>
                 <button
-                  onClick={() => setFilters({
-                    priceMin: '',
-                    priceMax: '',
-                    bedrooms: '',
-                    bathrooms: '',
-                    parking: '',
-                    propertyType: '',
-                    suburb: ''
-                  })}
+                  onClick={() => setShowDropdown(showDropdown === 'type' ? '' : 'type')}
                   style={{
-                    padding: '8px 16px',
-                    backgroundColor: '#000',
-                    color: '#fff',
+                    background: 'none',
                     border: 'none',
+                    padding: 0,
                     fontSize: '14px',
-                    cursor: 'pointer'
+                    color: '#000',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    transition: 'all 0.2s ease',
+                    borderBottom: '1px solid transparent'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderBottom = '1px solid #000';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderBottom = '1px solid transparent';
                   }}
                 >
-                  Clear filters
+                  {filters.propertyType || 'All property types'}
                 </button>
-              )}
+                {showDropdown === 'type' && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    marginTop: '16px',
+                    backgroundColor: '#fff',
+                    border: '1px solid #e5e5e5',
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+                    minWidth: '200px',
+                    zIndex: 101,
+                    padding: '16px'
+                  }}>
+                    <div style={{ 
+                      fontWeight: '600', 
+                      fontSize: '14px',
+                      marginBottom: '16px' 
+                    }}>
+                      Property type
+                    </div>
+                    {['House', 'Apartment', 'Townhouse', 'Land'].map(type => (
+                      <label
+                        key={type}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '12px',
+                          padding: '8px 0',
+                          cursor: 'pointer',
+                          fontSize: '14px'
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={filters.propertyType === type}
+                          onChange={() => {
+                            setFilters({ ...filters, propertyType: filters.propertyType === type ? '' : type });
+                          }}
+                          style={{
+                            width: '18px',
+                            height: '18px',
+                            cursor: 'pointer'
+                          }}
+                        />
+                        {type}
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Bedrooms */}
+              <div style={{ position: 'relative' }}>
+                <button
+                  onClick={() => setShowDropdown(showDropdown === 'beds' ? '' : 'beds')}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    padding: 0,
+                    fontSize: '14px',
+                    color: '#000',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    borderBottom: '1px solid transparent'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderBottom = '1px solid #000';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderBottom = '1px solid transparent';
+                  }}
+                >
+                  {filters.bedrooms ? `${filters.bedrooms} bed${filters.bedrooms !== '1' ? 's' : ''}` : 'Bedrooms'}
+                </button>
+                {showDropdown === 'beds' && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    marginTop: '16px',
+                    backgroundColor: '#fff',
+                    border: '1px solid #e5e5e5',
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+                    minWidth: '180px',
+                    zIndex: 101,
+                    padding: '16px'
+                  }}>
+                    <div style={{ 
+                      fontWeight: '600', 
+                      fontSize: '14px',
+                      marginBottom: '16px' 
+                    }}>
+                      Bedrooms
+                    </div>
+                    {['1', '2', '3', '4', '5+'].map(beds => (
+                      <label
+                        key={beds}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '12px',
+                          padding: '8px 0',
+                          cursor: 'pointer',
+                          fontSize: '14px'
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={filters.bedrooms === beds.replace('+', '')}
+                          onChange={() => {
+                            const bedValue = beds.replace('+', '');
+                            setFilters({ ...filters, bedrooms: filters.bedrooms === bedValue ? '' : bedValue });
+                          }}
+                          style={{
+                            width: '18px',
+                            height: '18px',
+                            cursor: 'pointer'
+                          }}
+                        />
+                        {beds}
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Price */}
+              <div style={{ position: 'relative' }}>
+                <button
+                  onClick={() => setShowDropdown(showDropdown === 'price' ? '' : 'price')}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    padding: 0,
+                    fontSize: '14px',
+                    color: '#000',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    borderBottom: '1px solid transparent'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderBottom = '1px solid #000';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderBottom = '1px solid transparent';
+                  }}
+                >
+                  Price
+                </button>
+                {showDropdown === 'price' && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    marginTop: '8px',
+                    backgroundColor: '#fff',
+                    border: '1px solid #e5e5e5',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                    padding: '16px',
+                    minWidth: '300px',
+                    zIndex: 101
+                  }}>
+                    <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                      <input
+                        type="number"
+                        placeholder="Min"
+                        value={filters.priceMin}
+                        onChange={(e) => setFilters({ ...filters, priceMin: e.target.value })}
+                        style={{
+                          flex: 1,
+                          padding: '8px 12px',
+                          border: '1px solid #e5e5e5',
+                          fontSize: '14px'
+                        }}
+                      />
+                      <span>—</span>
+                      <input
+                        type="number"
+                        placeholder="Max"
+                        value={filters.priceMax}
+                        onChange={(e) => setFilters({ ...filters, priceMax: e.target.value })}
+                        style={{
+                          flex: 1,
+                          padding: '8px 12px',
+                          border: '1px solid #e5e5e5',
+                          fontSize: '14px'
+                        }}
+                      />
+                    </div>
+                    <button
+                      onClick={() => setShowDropdown('')}
+                      style={{
+                        marginTop: '12px',
+                        width: '100%',
+                        padding: '8px',
+                        backgroundColor: '#000',
+                        color: '#fff',
+                        border: 'none',
+                        fontSize: '14px',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      Apply
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* More Filters */}
+              <button
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  padding: 0,
+                  fontSize: '14px',
+                  color: '#000',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  borderBottom: '1px solid transparent'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderBottom = '1px solid #000';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderBottom = '1px solid transparent';
+                }}
+              >
+                More filters
+              </button>
             </div>
 
-            {/* Sort */}
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              style={{
-                padding: '8px 16px',
-                border: '1px solid #e5e5e5',
-                backgroundColor: '#fff',
-                fontSize: '14px',
-                cursor: 'pointer'
-              }}
-            >
-              <option value="newest">Newest first</option>
-              <option value="price-low">Price: Low to high</option>
-              <option value="price-high">Price: High to low</option>
-            </select>
+            <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+              {/* Save Search */}
+              <button
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  padding: '8px 16px',
+                  fontSize: '14px',
+                  color: '#000',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  border: '1px solid #000',
+                  borderRadius: '4px'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#000';
+                  e.currentTarget.style.color = '#fff';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.color = '#000';
+                }}
+              >
+                Save search
+              </button>
+
+              {/* Results Count */}
+              <span style={{ fontSize: '14px', color: '#666' }}>
+                {sortedProperties.length} results
+              </span>
+            </div>
           </div>
         </div>
 

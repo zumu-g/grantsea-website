@@ -95,10 +95,7 @@ export default function OncomHeader() {
                 height: isMobile ? '120px' : '150px',
                 width: 'auto',
                 display: 'block',
-                imageRendering: 'crisp-edges',
-                WebkitImageRendering: 'crisp-edges',
-                MozImageRendering: 'crisp-edges',
-                msImageRendering: 'crisp-edges'
+                imageRendering: 'auto'
               }}
             />
           </Link>

@@ -1,571 +1,539 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import './careers.css';
-
-const positions = [
-  {
-    id: 1,
-    title: 'Senior Sales Agent',
-    location: 'Berwick Office',
-    type: 'Full Time',
-    description: 'We are seeking an experienced sales agent to join our growing Berwick team. The ideal candidate will have 5+ years in residential sales.'
-  },
-  {
-    id: 2,
-    title: 'Property Manager',
-    location: 'Narre Warren Office',
-    type: 'Full Time',
-    description: 'Manage a portfolio of residential properties with our supportive team. Experience in property management systems required.'
-  },
-  {
-    id: 3,
-    title: 'Marketing Coordinator',
-    location: 'All Offices',
-    type: 'Part Time',
-    description: 'Support our marketing team with digital campaigns, property presentations, and brand initiatives. Creative mindset essential.'
-  }
-];
+import OncomHeader from '@/components/OncomHeader';
 
 export default function CareersPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    position: '',
-    experience: '',
-    message: '',
-    resume: null
-  });
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{
-    type: 'success' | 'error' | null;
-    message: string;
-  }>({ type: null, message: '' });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  useEffect(() => {
+    const checkDevice = () => {
+      setIsMobile(window.innerWidth <= 768);
+      setIsTablet(window.innerWidth > 768 && window.innerWidth <= 1024);
+    };
     
-    // Simulate form submission
-    setTimeout(() => {
-      setSubmitStatus({
-        type: 'success',
-        message: 'Thank you for your application. We will be in touch soon.'
-      });
-      setIsSubmitting(false);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        position: '',
-        experience: '',
-        message: '',
-        resume: null
-      });
-    }, 1500);
-  };
+    checkDevice();
+    window.addEventListener('resize', checkDevice);
+    return () => window.removeEventListener('resize', checkDevice);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-white" style={{ fontFamily: '"On-Regular", Helvetica, Arial, sans-serif' }}>
-      {/* Hero Section - Minimal with lots of white space */}
-      <section className="relative" style={{ paddingTop: '128px', paddingBottom: '80px' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', paddingLeft: 'max(2rem, 3.33vw)', paddingRight: 'max(2rem, 3.33vw)', textAlign: 'center' }}>
-          <h1 style={{ 
-            fontSize: '72px', 
-            fontWeight: '300', 
-            color: '#000',
-            marginBottom: '24px',
-            lineHeight: '1.1',
-            letterSpacing: '-2px'
-          }}>
-            Careers
-          </h1>
-          <div style={{ 
-            width: '96px', 
-            height: '2px', 
-            backgroundColor: '#000', 
-            margin: '0 auto 32px auto' 
-          }}></div>
-          <p style={{ 
-            fontSize: '18px', 
-            color: '#666',
-            maxWidth: '640px',
-            margin: '0 auto',
-            fontWeight: '300',
-            lineHeight: '1.6'
-          }}>
-            Join Melbourne\'s most innovative real estate team and build your career with industry leaders
-          </p>
-        </div>
-      </section>
-
-      {/* Why Join Us Section */}
-      <section style={{ paddingLeft: 'max(2rem, 3.33vw)', paddingRight: 'max(2rem, 3.33vw)', paddingBottom: '80px' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-          <h2 style={{
-            fontSize: '48px',
-            fontWeight: '300',
-            color: '#000',
-            marginBottom: '64px',
-            textAlign: 'center',
-            letterSpacing: '-1px'
-          }}>
-            Why Grants?
-          </h2>
+    <>
+      <OncomHeader />
+      
+      {/* Main Content */}
+      <main style={{ paddingTop: isMobile ? '60px' : '64px', backgroundColor: '#fff' }}>
+        {/* Hero Section */}
+        <section style={{
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#fff',
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '64px',
-            maxWidth: '1000px',
+            textAlign: 'center',
+            padding: isMobile ? '40px 20px' : '80px 40px',
+            maxWidth: '1200px',
             margin: '0 auto'
           }}>
-            {[
-              { 
-                title: 'Growth', 
-                desc: 'Continuous professional development with industry-leading training programs',
-                icon: '📈'
-              },
-              { 
-                title: 'Culture', 
-                desc: 'Supportive team environment that celebrates success and innovation',
-                icon: '🤝'
-              },
-              { 
-                title: 'Rewards', 
-                desc: 'Competitive commission structure and performance-based incentives',
-                icon: '💎'
-              },
-              { 
-                title: 'Technology', 
-                desc: 'Cutting-edge tools and systems to maximize your productivity',
-                icon: '💻'
-              }
-            ].map((benefit, index) => (
-              <div key={index} style={{ textAlign: 'center' }}>
-                <div style={{
-                  fontSize: '48px',
-                  marginBottom: '24px',
-                  opacity: 0.8
+            <h1 style={{
+              fontSize: isMobile ? '60px' : isTablet ? '80px' : '120px',
+              fontWeight: '700',
+              lineHeight: '0.9',
+              letterSpacing: '-0.04em',
+              marginBottom: '40px',
+              fontFamily: '"On", "Helvetica Neue", Helvetica, Arial, sans-serif'
+            }}>
+              Dream<br />Together.
+            </h1>
+            <p style={{
+              fontSize: isMobile ? '18px' : '24px',
+              color: '#666',
+              maxWidth: '600px',
+              margin: '0 auto',
+              lineHeight: '1.4'
+            }}>
+              Join our team of passionate professionals shaping the future of real estate in Casey and Cardinia.
+            </p>
+          </div>
+        </section>
+
+        {/* Video Section */}
+        <section style={{
+          backgroundColor: '#000',
+          position: 'relative',
+          height: isMobile ? '50vh' : '80vh',
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4)',
+            backgroundSize: '400% 400%',
+            animation: 'gradient 15s ease infinite',
+            opacity: 0.8
+          }} />
+          <div style={{
+            position: 'relative',
+            zIndex: 1,
+            textAlign: 'center',
+            color: '#fff',
+            padding: '40px'
+          }}>
+            <h2 style={{
+              fontSize: isMobile ? '32px' : isTablet ? '48px' : '64px',
+              fontWeight: '700',
+              marginBottom: '20px',
+              letterSpacing: '-0.03em'
+            }}>
+              Where passion meets purpose
+            </h2>
+            <button style={{
+              padding: '16px 48px',
+              backgroundColor: '#fff',
+              color: '#000',
+              border: 'none',
+              borderRadius: '50px',
+              fontSize: '16px',
+              fontWeight: '600',
+              cursor: 'pointer',
+              transition: 'transform 0.2s ease'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              Watch our story
+            </button>
+          </div>
+        </section>
+
+        {/* Values Grid */}
+        <section style={{
+          padding: isMobile ? '60px 20px' : '120px 40px',
+          backgroundColor: '#f8f8f8'
+        }}>
+          <div style={{
+            maxWidth: '1200px',
+            margin: '0 auto'
+          }}>
+            <h2 style={{
+              fontSize: isMobile ? '36px' : isTablet ? '48px' : '56px',
+              fontWeight: '700',
+              marginBottom: '60px',
+              textAlign: 'center',
+              letterSpacing: '-0.02em'
+            }}>
+              Our values
+            </h2>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+              gap: '40px'
+            }}>
+              {[
+                {
+                  title: 'Innovate',
+                  description: 'We push boundaries and embrace new technologies to deliver exceptional experiences.',
+                  color: '#ff6b6b'
+                },
+                {
+                  title: 'Collaborate',
+                  description: 'Success comes from working together, sharing knowledge, and supporting each other.',
+                  color: '#4ecdc4'
+                },
+                {
+                  title: 'Deliver',
+                  description: 'We exceed expectations and create lasting value for our clients and communities.',
+                  color: '#45b7d1'
+                },
+                {
+                  title: 'Grow',
+                  description: 'Continuous learning and development drives personal and professional excellence.',
+                  color: '#96ceb4'
+                },
+                {
+                  title: 'Care',
+                  description: 'We genuinely care about our people, clients, and the communities we serve.',
+                  color: '#f7b731'
+                },
+                {
+                  title: 'Lead',
+                  description: 'We set the standard for ethical practice and market innovation in real estate.',
+                  color: '#5f27cd'
+                }
+              ].map((value, index) => (
+                <div key={index} style={{
+                  backgroundColor: '#fff',
+                  padding: '40px',
+                  borderRadius: '16px',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  transition: 'transform 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-8px)';
+                  e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}>
-                  {benefit.icon}
+                  <div style={{
+                    position: 'absolute',
+                    top: '-20px',
+                    right: '-20px',
+                    width: '100px',
+                    height: '100px',
+                    backgroundColor: value.color,
+                    borderRadius: '50%',
+                    opacity: 0.1
+                  }} />
+                  <h3 style={{
+                    fontSize: '28px',
+                    fontWeight: '700',
+                    marginBottom: '16px',
+                    color: value.color
+                  }}>
+                    {value.title}
+                  </h3>
+                  <p style={{
+                    fontSize: '16px',
+                    lineHeight: '1.6',
+                    color: '#666'
+                  }}>
+                    {value.description}
+                  </p>
                 </div>
-                <h3 style={{
-                  fontSize: '24px',
-                  fontWeight: '400',
-                  color: '#000',
-                  marginBottom: '16px'
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Benefits Section */}
+        <section style={{
+          padding: isMobile ? '60px 20px' : '120px 40px',
+          backgroundColor: '#fff'
+        }}>
+          <div style={{
+            maxWidth: '1200px',
+            margin: '0 auto'
+          }}>
+            <h2 style={{
+              fontSize: isMobile ? '36px' : isTablet ? '48px' : '56px',
+              fontWeight: '700',
+              marginBottom: '24px',
+              textAlign: 'center',
+              letterSpacing: '-0.02em'
+            }}>
+              Why join Grant's?
+            </h2>
+            <p style={{
+              fontSize: isMobile ? '18px' : '20px',
+              color: '#666',
+              textAlign: 'center',
+              maxWidth: '800px',
+              margin: '0 auto 60px',
+              lineHeight: '1.5'
+            }}>
+              We're not just building careers – we're building futures. Our team enjoys industry-leading benefits and a culture that celebrates success.
+            </p>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+              gap: '60px',
+              alignItems: 'center'
+            }}>
+              <div>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '32px'
                 }}>
-                  {benefit.title}
+                  {[
+                    'Competitive commission structure',
+                    'Comprehensive health benefits',
+                    'Professional development programs',
+                    'Flexible working arrangements',
+                    'Latest technology and tools',
+                    'Recognition and rewards program',
+                    'Team building and social events',
+                    'Career progression opportunities'
+                  ].map((benefit, index) => (
+                    <div key={index} style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '16px'
+                    }}>
+                      <div style={{
+                        width: '24px',
+                        height: '24px',
+                        backgroundColor: '#000',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0
+                      }}>
+                        <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M10.5 1.5L4.5 7.5L1.5 4.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                      <span style={{
+                        fontSize: '16px',
+                        color: '#333'
+                      }}>
+                        {benefit}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div style={{
+                backgroundColor: '#f8f8f8',
+                padding: '40px',
+                borderRadius: '16px',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                <div style={{
+                  position: 'absolute',
+                  top: '-40px',
+                  right: '-40px',
+                  width: '200px',
+                  height: '200px',
+                  background: 'radial-gradient(circle, rgba(255,107,107,0.2) 0%, transparent 70%)',
+                  borderRadius: '50%'
+                }} />
+                <h3 style={{
+                  fontSize: '72px',
+                  fontWeight: '700',
+                  marginBottom: '24px',
+                  color: '#ff6b6b'
+                }}>
+                  98%
                 </h3>
                 <p style={{
-                  fontSize: '14px',
-                  color: '#666',
-                  fontWeight: '300',
-                  lineHeight: '1.6'
+                  fontSize: '20px',
+                  fontWeight: '600',
+                  marginBottom: '8px',
+                  color: '#000'
                 }}>
-                  {benefit.desc}
+                  Team satisfaction rate
                 </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Current Openings */}
-      <section style={{ 
-        backgroundColor: '#fafafa',
-        paddingTop: '80px',
-        paddingBottom: '80px',
-        paddingLeft: 'max(2rem, 3.33vw)',
-        paddingRight: 'max(2rem, 3.33vw)'
-      }}>
-        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-          <h2 style={{
-            fontSize: '36px',
-            fontWeight: '300',
-            color: '#000',
-            marginBottom: '48px',
-            textAlign: 'center',
-            letterSpacing: '-0.5px'
-          }}>
-            Current Opportunities
-          </h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            {positions.map((position) => (
-              <div
-                key={position.id}
-                className="position-card"
-                style={{
-                  backgroundColor: '#fff',
-                  padding: '32px',
-                  borderLeft: '2px solid #000',
-                  transition: 'all 0.3s ease'
-                }}
-              >
-                <div style={{ 
-                  display: 'flex', 
-                  justifyContent: 'space-between', 
-                  alignItems: 'start',
-                  flexWrap: 'wrap',
-                  gap: '16px',
-                  marginBottom: '16px'
-                }}>
-                  <div>
-                    <h3 style={{
-                      fontSize: '24px',
-                      fontWeight: '400',
-                      color: '#000',
-                      marginBottom: '8px'
-                    }}>
-                      {position.title}
-                    </h3>
-                    <p style={{
-                      fontSize: '14px',
-                      color: '#666',
-                      fontWeight: '300'
-                    }}>
-                      {position.location} • {position.type}
-                    </p>
-                  </div>
-                  <a
-                    href="#apply"
-                    className="apply-link"
-                    style={{
-                      padding: '8px 24px',
-                      border: '1px solid #000',
-                      color: '#000',
-                      fontSize: '14px',
-                      textDecoration: 'none',
-                      transition: 'all 0.3s ease'
-                    }}
-                  >
-                    Apply Now
-                  </a>
-                </div>
                 <p style={{
-                  fontSize: '14px',
+                  fontSize: '16px',
                   color: '#666',
-                  fontWeight: '300',
-                  lineHeight: '1.6'
+                  lineHeight: '1.5'
                 }}>
-                  {position.description}
+                  Our annual survey shows that our team members love working here, with industry-leading retention rates.
                 </p>
               </div>
-            ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Application Form */}
-      <section id="apply" style={{ paddingTop: '80px', paddingBottom: '80px', paddingLeft: 'max(2rem, 3.33vw)', paddingRight: 'max(2rem, 3.33vw)' }}>
-        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-          <h2 style={{
-            fontSize: '36px',
-            fontWeight: '300',
-            color: '#000',
-            marginBottom: '16px',
-            textAlign: 'center',
-            letterSpacing: '-0.5px'
+        {/* Open Positions */}
+        <section style={{
+          padding: isMobile ? '60px 20px' : '120px 40px',
+          backgroundColor: '#000',
+          color: '#fff'
+        }}>
+          <div style={{
+            maxWidth: '1200px',
+            margin: '0 auto'
           }}>
-            Start Your Journey
-          </h2>
-          <p style={{
-            fontSize: '16px',
-            color: '#666',
-            fontWeight: '300',
-            textAlign: 'center',
-            marginBottom: '48px',
-            lineHeight: '1.6'
-          }}>
-            Submit your application and we will be in touch within 48 hours
-          </p>
-
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-              <div>
-                <label style={{
+            <h2 style={{
+              fontSize: isMobile ? '36px' : isTablet ? '48px' : '56px',
+              fontWeight: '700',
+              marginBottom: '60px',
+              textAlign: 'center',
+              letterSpacing: '-0.02em'
+            }}>
+              Open positions
+            </h2>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+              gap: '24px'
+            }}>
+              {[
+                {
+                  title: 'Senior Sales Agent',
+                  location: 'Berwick',
+                  type: 'Full-time'
+                },
+                {
+                  title: 'Property Manager',
+                  location: 'Narre Warren',
+                  type: 'Full-time'
+                },
+                {
+                  title: 'Marketing Coordinator',
+                  location: 'All offices',
+                  type: 'Part-time'
+                },
+                {
+                  title: 'Sales Associate',
+                  location: 'Cranbourne',
+                  type: 'Full-time'
+                }
+              ].map((position, index) => (
+                <Link key={index} href="/contact" style={{
+                  backgroundColor: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  padding: '32px',
+                  borderRadius: '12px',
                   display: 'block',
-                  fontSize: '14px',
-                  color: '#666',
-                  marginBottom: '8px',
-                  fontWeight: '300'
-                }}>
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  style={{
-                    width: '100%',
-                    padding: '12px 0',
-                    border: 'none',
-                    borderBottom: '1px solid #e0e0e0',
-                    fontSize: '16px',
-                    outline: 'none',
-                    transition: 'border-color 0.3s ease',
-                    backgroundColor: 'transparent'
-                  }}
-                  className="form-input"
-                />
-              </div>
-              
-              <div>
-                <label style={{
-                  display: 'block',
-                  fontSize: '14px',
-                  color: '#666',
-                  marginBottom: '8px',
-                  fontWeight: '300'
-                }}>
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  style={{
-                    width: '100%',
-                    padding: '12px 0',
-                    border: 'none',
-                    borderBottom: '1px solid #e0e0e0',
-                    fontSize: '16px',
-                    outline: 'none',
-                    transition: 'border-color 0.3s ease',
-                    backgroundColor: 'transparent'
-                  }}
-                  className="form-input"
-                />
-              </div>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-              <div>
-                <label style={{
-                  display: 'block',
-                  fontSize: '14px',
-                  color: '#666',
-                  marginBottom: '8px',
-                  fontWeight: '300'
-                }}>
-                  Phone Number *
-                </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                  style={{
-                    width: '100%',
-                    padding: '12px 0',
-                    border: 'none',
-                    borderBottom: '1px solid #e0e0e0',
-                    fontSize: '16px',
-                    outline: 'none',
-                    transition: 'border-color 0.3s ease',
-                    backgroundColor: 'transparent'
-                  }}
-                  className="form-input"
-                />
-              </div>
-              
-              <div>
-                <label style={{
-                  display: 'block',
-                  fontSize: '14px',
-                  color: '#666',
-                  marginBottom: '8px',
-                  fontWeight: '300'
-                }}>
-                  Position of Interest *
-                </label>
-                <select
-                  name="position"
-                  value={formData.position}
-                  onChange={handleChange}
-                  required
-                  style={{
-                    width: '100%',
-                    padding: '12px 0',
-                    border: 'none',
-                    borderBottom: '1px solid #e0e0e0',
-                    fontSize: '16px',
-                    outline: 'none',
-                    transition: 'border-color 0.3s ease',
-                    backgroundColor: 'transparent',
-                    cursor: 'pointer'
-                  }}
-                  className="form-input"
-                >
-                  <option value="">Select Position</option>
-                  {positions.map(pos => (
-                    <option key={pos.id} value={pos.title}>
-                      {pos.title}
-                    </option>
-                  ))}
-                  <option value="general">General Application</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label style={{
-                display: 'block',
-                fontSize: '14px',
-                color: '#666',
-                marginBottom: '8px',
-                fontWeight: '300'
-              }}>
-                Years of Experience *
-              </label>
-              <select
-                name="experience"
-                value={formData.experience}
-                onChange={handleChange}
-                required
-                style={{
-                  width: '100%',
-                  padding: '12px 0',
-                  border: 'none',
-                  borderBottom: '1px solid #e0e0e0',
-                  fontSize: '16px',
-                  outline: 'none',
-                  transition: 'border-color 0.3s ease',
-                  backgroundColor: 'transparent',
+                  textDecoration: 'none',
+                  color: '#fff',
+                  transition: 'all 0.3s ease',
                   cursor: 'pointer'
                 }}
-                className="form-input"
-              >
-                <option value="">Select Experience</option>
-                <option value="0-2">0-2 years</option>
-                <option value="3-5">3-5 years</option>
-                <option value="6-10">6-10 years</option>
-                <option value="10+">10+ years</option>
-              </select>
-            </div>
-
-            <div>
-              <label style={{
-                display: 'block',
-                fontSize: '14px',
-                color: '#666',
-                marginBottom: '8px',
-                fontWeight: '300'
-              }}>
-                Tell us about yourself *
-              </label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows={4}
-                style={{
-                  width: '100%',
-                  padding: '12px 0',
-                  border: 'none',
-                  borderBottom: '1px solid #e0e0e0',
-                  fontSize: '16px',
-                  outline: 'none',
-                  transition: 'border-color 0.3s ease',
-                  backgroundColor: 'transparent',
-                  resize: 'vertical',
-                  minHeight: '100px'
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                  e.currentTarget.style.transform = 'translateY(-4px)';
                 }}
-                placeholder="Why do you want to join Grants Estate Agents?"
-                className="form-input"
-              />
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}>
+                  <h3 style={{
+                    fontSize: '24px',
+                    fontWeight: '600',
+                    marginBottom: '8px'
+                  }}>
+                    {position.title}
+                  </h3>
+                  <p style={{
+                    fontSize: '16px',
+                    opacity: 0.8,
+                    marginBottom: '16px'
+                  }}>
+                    {position.location} • {position.type}
+                  </p>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    fontSize: '14px',
+                    fontWeight: '600'
+                  }}>
+                    <span>Apply now</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </div>
+                </Link>
+              ))}
             </div>
-
             <div style={{
-              padding: '24px',
-              border: '1px dashed #e0e0e0',
               textAlign: 'center',
-              marginTop: '16px'
+              marginTop: '60px'
             }}>
               <p style={{
-                fontSize: '14px',
-                color: '#666',
-                marginBottom: '8px'
+                fontSize: '18px',
+                marginBottom: '24px',
+                opacity: 0.9
               }}>
-                Upload Resume (PDF or DOCX)
+                Don't see the right role? We're always looking for talented people.
               </p>
-              <input
-                type="file"
-                accept=".pdf,.docx"
-                style={{
-                  fontSize: '14px',
-                  color: '#666',
-                  cursor: 'pointer'
-                }}
-              />
-            </div>
-
-            {submitStatus.type && (
-              <div style={{
-                padding: '16px',
-                backgroundColor: submitStatus.type === 'success' ? '#f0f9ff' : '#fef2f2',
-                color: submitStatus.type === 'success' ? '#0369a1' : '#dc2626',
-                fontSize: '14px',
-                textAlign: 'center'
-              }}>
-                {submitStatus.message}
-              </div>
-            )}
-
-            <div style={{ 
-              display: 'flex', 
-              gap: '16px',
-              marginTop: '32px'
-            }}>
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="submit-button"
-                style={{
-                  flex: 1,
-                  padding: '14px 32px',
-                  backgroundColor: isSubmitting ? '#666' : '#000',
-                  color: '#fff',
-                  fontSize: '14px',
-                  border: 'none',
-                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                  transition: 'background-color 0.3s ease'
-                }}
+              <Link href="/contact" style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '16px 48px',
+                backgroundColor: '#fff',
+                color: '#000',
+                borderRadius: '50px',
+                textDecoration: 'none',
+                fontSize: '16px',
+                fontWeight: '600',
+                transition: 'transform 0.2s ease'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
               >
-                {isSubmitting ? 'Submitting...' : 'Submit Application'}
-              </button>
+                Send us your resume
+              </Link>
             </div>
+          </div>
+        </section>
 
-            <p style={{
-              fontSize: '12px',
-              color: '#999',
-              textAlign: 'center',
-              marginTop: '16px'
+        {/* Contact Section */}
+        <section style={{
+          padding: isMobile ? '60px 20px' : '120px 40px',
+          backgroundColor: '#f8f8f8',
+          textAlign: 'center'
+        }}>
+          <div style={{
+            maxWidth: '800px',
+            margin: '0 auto'
+          }}>
+            <h2 style={{
+              fontSize: isMobile ? '36px' : isTablet ? '48px' : '56px',
+              fontWeight: '700',
+              marginBottom: '24px',
+              letterSpacing: '-0.02em'
             }}>
-              By submitting this form, you agree to our privacy policy and consent to be contacted regarding employment opportunities.
+              Ready to make your move?
+            </h2>
+            <p style={{
+              fontSize: isMobile ? '18px' : '20px',
+              color: '#666',
+              marginBottom: '40px',
+              lineHeight: '1.5'
+            }}>
+              Take the first step towards an exciting career in real estate. Our team is ready to welcome you.
             </p>
-          </form>
-        </div>
-      </section>
+            <Link href="/contact" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '16px 48px',
+              backgroundColor: '#000',
+              color: '#fff',
+              borderRadius: '50px',
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '600',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#333';
+              e.currentTarget.style.transform = 'scale(1.05)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#000';
+              e.currentTarget.style.transform = 'scale(1)';
+            }}
+            >
+              Get in touch
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </Link>
+          </div>
+        </section>
+      </main>
 
-    </div>
+      <style jsx>{`
+        @keyframes gradient {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+      `}</style>
+    </>
   );
 }
-
-// Note: Metadata cannot be exported from client components

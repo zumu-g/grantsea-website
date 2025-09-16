@@ -3,37 +3,26 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import { useSavedProperties } from '@/hooks/useSavedProperties';
+import { useAuth } from '@/contexts/AuthContext';
+import AuthModal from './AuthModal';
 
 export default function OncomHeader() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [showSavedPanel, setShowSavedPanel] = useState(false);
   const [showAccountPanel, setShowAccountPanel] = useState(false);
-  const [savedProperties, setSavedProperties] = useState<any[]>([]);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [showBuyDropdown, setShowBuyDropdown] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
-  const { savedPropertyIds } = useSavedProperties();
+  const { user, isAuthenticated, savedProperties, savedSearches, logout } = useAuth();
   
   // Check if we're on the homepage
   const isHomePage = pathname === '/';
 
-  // Load saved properties data when panel opens
-  useEffect(() => {
-    if (showSavedPanel && typeof window !== 'undefined') {
-      try {
-        const savedData = localStorage.getItem('savedPropertiesData');
-        if (savedData) {
-          setSavedProperties(JSON.parse(savedData));
-        }
-      } catch (error) {
-        console.error('Error loading saved properties data:', error);
-      }
-    }
-  }, [showSavedPanel]);
+  // Saved properties data is now managed by AuthContext
 
   // Handle scroll for homepage transparency
   useEffect(() => {
@@ -276,7 +265,7 @@ export default function OncomHeader() {
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
-              {savedPropertyIds.length > 0 && (
+              {savedProperties.length > 0 && (
                 <span style={{
                   position: 'absolute',
                   top: '-4px',
@@ -292,7 +281,7 @@ export default function OncomHeader() {
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}>
-                  {savedPropertyIds.length}
+                  {savedProperties.length}
                 </span>
               )}
             </button>
@@ -807,30 +796,27 @@ export default function OncomHeader() {
                     backgroundColor: '#f5f5f5',
                     borderRadius: '4px',
                     flexShrink: 0,
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#999',
+                    fontSize: '12px'
                   }}>
-                    {property.images?.[0] && (
-                      <img 
-                        src={property.images[0].url || property.images[0]}
-                        alt={property.address}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover'
-                        }}
-                      />
-                    )}
+                    No Image
                   </div>
                   <div style={{ flex: 1 }}>
                     <h4 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '4px' }}>
-                      {property.priceDisplay || `$${property.price?.toLocaleString()}`}
+                      Property {property.propertyId}
                     </h4>
                     <p style={{ fontSize: '14px', color: '#666', marginBottom: '8px' }}>
-                      {property.address}
+                      Saved on {new Date(property.savedAt).toLocaleDateString()}
                     </p>
-                    <p style={{ fontSize: '14px', color: '#999' }}>
-                      {property.bedrooms} bed • {property.bathrooms} bath • {property.carSpaces} car
-                    </p>
+                    {property.notes && (
+                      <p style={{ fontSize: '14px', color: '#999' }}>
+                        {property.notes}
+                      </p>
+                    )}
                   </div>
                 </Link>
               ))}
@@ -894,71 +880,183 @@ export default function OncomHeader() {
           </button>
         </div>
         <div style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
-          <div style={{ 
-            textAlign: 'center',
-            marginBottom: '32px'
-          }}>
-            <div style={{
-              width: '80px',
-              height: '80px',
-              borderRadius: '50%',
-              backgroundColor: '#f5f5f5',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 16px'
-            }}>
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="1.5">
-                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-            </div>
-            <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '4px' }}>Welcome</h3>
-            <p style={{ color: '#666' }}>Sign in to access your account</p>
-          </div>
+          {isAuthenticated ? (
+            // Authenticated user content
+            <>
+              <div style={{ 
+                textAlign: 'center',
+                marginBottom: '32px'
+              }}>
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  borderRadius: '50%',
+                  backgroundColor: '#000',
+                  color: '#fff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 16px',
+                  fontSize: '24px',
+                  fontWeight: '600'
+                }}>
+                  {user?.firstName?.charAt(0)}{user?.lastName?.charAt(0)}
+                </div>
+                <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '4px' }}>
+                  {user?.firstName} {user?.lastName}
+                </h3>
+                <p style={{ color: '#666', fontSize: '14px' }}>{user?.email}</p>
+              </div>
 
-          <div style={{ marginBottom: '24px' }}>
-            <Link
-              href="/signin"
-              onClick={() => setShowAccountPanel(false)}
-              style={{
-                display: 'block',
-                padding: '16px',
-                backgroundColor: '#000',
-                color: '#fff',
+              <div style={{ marginBottom: '24px' }}>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '12px',
+                  marginBottom: '20px'
+                }}>
+                  <div style={{
+                    padding: '16px',
+                    backgroundColor: '#f8f8f8',
+                    borderRadius: '8px',
+                    textAlign: 'center'
+                  }}>
+                    <div style={{ fontSize: '24px', fontWeight: '600', color: '#000' }}>
+                      {savedProperties.length}
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>Saved Properties</div>
+                  </div>
+                  <div style={{
+                    padding: '16px',
+                    backgroundColor: '#f8f8f8',
+                    borderRadius: '8px',
+                    textAlign: 'center'
+                  }}>
+                    <div style={{ fontSize: '24px', fontWeight: '600', color: '#000' }}>
+                      {savedSearches.length}
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>Saved Searches</div>
+                  </div>
+                </div>
+                
+                <button
+                  onClick={() => {
+                    logout();
+                    setShowAccountPanel(false);
+                  }}
+                  style={{
+                    width: '100%',
+                    padding: '16px',
+                    border: '1px solid #000',
+                    backgroundColor: 'transparent',
+                    color: '#000',
+                    textAlign: 'center',
+                    borderRadius: '8px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#000';
+                    e.currentTarget.style.color = '#fff';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.color = '#000';
+                  }}
+                >
+                  Sign Out
+                </button>
+              </div>
+            </>
+          ) : (
+            // Non-authenticated user content
+            <>
+              <div style={{ 
                 textAlign: 'center',
-                textDecoration: 'none',
-                borderRadius: '8px',
-                fontWeight: '600',
-                marginBottom: '12px'
-              }}
-            >
-              Sign In
-            </Link>
-            <Link
-              href="/signup"
-              onClick={() => setShowAccountPanel(false)}
-              style={{
-                display: 'block',
-                padding: '16px',
-                border: '1px solid #000',
-                color: '#000',
-                textAlign: 'center',
-                textDecoration: 'none',
-                borderRadius: '8px',
-                fontWeight: '600'
-              }}
-            >
-              Create Account
-            </Link>
-          </div>
+                marginBottom: '32px'
+              }}>
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  borderRadius: '50%',
+                  backgroundColor: '#f5f5f5',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 16px'
+                }}>
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="1.5">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                </div>
+                <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '4px' }}>Welcome</h3>
+                <p style={{ color: '#666' }}>Sign in to access your account</p>
+              </div>
+
+              <div style={{ marginBottom: '24px' }}>
+                <button
+                  onClick={() => {
+                    setShowAuthModal(true);
+                    setShowAccountPanel(false);
+                  }}
+                  style={{
+                    width: '100%',
+                    padding: '16px',
+                    backgroundColor: '#000',
+                    color: '#fff',
+                    textAlign: 'center',
+                    border: 'none',
+                    borderRadius: '8px',
+                    fontWeight: '600',
+                    marginBottom: '12px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#333'}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#000'}
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={() => {
+                    setShowAuthModal(true);
+                    setShowAccountPanel(false);
+                  }}
+                  style={{
+                    width: '100%',
+                    padding: '16px',
+                    border: '1px solid #000',
+                    backgroundColor: 'transparent',
+                    color: '#000',
+                    textAlign: 'center',
+                    borderRadius: '8px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#000';
+                    e.currentTarget.style.color = '#fff';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.color = '#000';
+                  }}
+                >
+                  Create Account
+                </button>
+              </div>
+            </>
+          )}
 
           <div style={{ paddingTop: '24px', borderTop: '1px solid #e5e5e5' }}>
             <h4 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '16px' }}>Quick Links</h4>
             {[
-              { label: 'Saved Properties', href: '/saved-properties' },
+              { label: 'Saved Properties', href: '/saved' },
               { label: 'Property Alerts', href: '/alerts' },
-              { label: 'Recent Searches', href: '/searches' },
+              { label: 'Recent Searches', href: '/saved' },
               { label: 'Contact Preferences', href: '/preferences' },
               { label: 'Help & Support', href: '/help' }
             ].map((link) => (
@@ -984,6 +1082,13 @@ export default function OncomHeader() {
           </div>
         </div>
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal 
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        initialMode="login"
+      />
     </>
   );
 }

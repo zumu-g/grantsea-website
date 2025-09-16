@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
-import { useSavedProperties } from '@/hooks/useSavedProperties';
+import React, { useState } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
+import AuthModal from './AuthModal';
 
 interface SavePropertyButtonProps {
   property: {
@@ -25,13 +26,24 @@ interface SavePropertyButtonProps {
 }
 
 export default function SavePropertyButton({ property, className = '', showLabel = false }: SavePropertyButtonProps) {
-  const { toggleSaveProperty, isPropertySaved } = useSavedProperties();
+  const { isAuthenticated, saveProperty, unsaveProperty, isPropertySaved } = useAuth();
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const isSaved = isPropertySaved(property.id);
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    toggleSaveProperty(property);
+    
+    if (!isAuthenticated) {
+      setShowAuthModal(true);
+      return;
+    }
+    
+    if (isSaved) {
+      unsaveProperty(property.id);
+    } else {
+      saveProperty(property.id);
+    }
   };
 
   return (
@@ -113,6 +125,12 @@ export default function SavePropertyButton({ property, className = '', showLabel
           {isSaved ? 'SAVED' : 'SAVE'}
         </span>
       )}
+      
+      <AuthModal 
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        initialMode="login"
+      />
     </button>
   );
 }

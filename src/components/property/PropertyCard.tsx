@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import AskAI from '@/components/AskAI';
 
 interface PropertyCardProps {
   property: any;
@@ -13,8 +14,8 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   const suburb = property.address?.suburb || '';
   
   return (
-    <Link href={`/property/${property.id}`} className="block">
-      <article className="grant-card hover:shadow-lg transition-all duration-300 overflow-hidden">
+    <article className="grant-card hover:shadow-lg transition-all duration-300 overflow-hidden relative">
+      <Link href={`/property/${property.id}`} className="block">
         <div className="relative h-48 w-full">
           <Image
             src={imageUrl}
@@ -74,8 +75,21 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
             )}
           </div>
         </div>
-      </article>
-    </Link>
+      </Link>
+      
+      {/* Ask AI Button - positioned outside the Link */}
+      <div 
+        className="absolute bottom-4 right-4" 
+        onClick={(e) => e.stopPropagation()}
+      >
+        <AskAI 
+          propertyId={property.id}
+          propertyAddress={`${address}, ${suburb}`}
+          propertyType="card"
+          size="small"
+        />
+      </div>
+    </article>
   );
 };
 

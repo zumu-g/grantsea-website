@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useProperty, useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
+import AskAI from '@/components/AskAI';
 
 export default function PropertyDetailPageOncom() {
   const params = useParams();
@@ -149,6 +150,12 @@ export default function PropertyDetailPageOncom() {
                 </svg>
                 Share
               </button>
+              <AskAI 
+                propertyId={property.id}
+                propertyAddress={`${property.address}, ${property.suburb}, ${property.state} ${property.postcode}`}
+                propertyType="details"
+                size="large"
+              />
             </div>
           </div>
 

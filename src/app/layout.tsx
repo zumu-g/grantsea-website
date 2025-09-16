@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import './globals.css';
+import FloatingAI from '@/components/FloatingAI';
+import { AuthProvider } from '@/contexts/AuthContext';
 
 export const metadata: Metadata = {
   title: "Grant's Estate Agents | South East Melbourne Real Estate | Berwick, Narre Warren, Cranbourne",
@@ -143,7 +145,10 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
-        {children}
+        <AuthProvider>
+          {children}
+          <FloatingAI />
+        </AuthProvider>
         
         {/* Additional Schema Markup Helper */}
         <Script id="schema-website" type="application/ld+json">

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
+import AskAI from '@/components/AskAI';
 import OncomHeader from '@/components/OncomHeader';
 
 export default function HomePageOncom() {
@@ -899,6 +900,7 @@ export default function HomePageOncom() {
               }}>
                 {properties.slice(0, 3).map((property) => (
                 <div key={property.id} style={{
+                  position: 'relative',
                   flex: isMobile ? '0 0 85%' : isTablet ? '0 0 calc(50% - 12px)' : '0 0 calc(33.333% - 16px)',
                   minWidth: isMobile ? '320px' : '380px',
                   backgroundColor: '#fff',
@@ -1010,15 +1012,41 @@ export default function HomePageOncom() {
                         <span>{property.bathrooms} bath</span>
                         <span>{property.carSpaces} car</span>
                       </div>
-                      <p style={{
-                        fontSize: '0.875rem',
-                        color: '#666',
+                      <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
                         marginTop: 'auto'
                       }}>
-                        {property.priceDisplay || formatPrice(property.price)}
-                      </p>
+                        <p style={{
+                          fontSize: '0.875rem',
+                          color: '#666'
+                        }}>
+                          {property.listingType === 'lease' 
+                            ? (property.leasePriceDisplay || `${formatPrice(property.leasePrice || property.price)} per week`)
+                            : (property.priceDisplay || formatPrice(property.price))}
+                        </p>
+                      </div>
                     </div>
                   </Link>
+                  
+                  {/* Ask AI Button positioned outside the Link */}
+                  <div 
+                    style={{
+                      position: 'absolute',
+                      bottom: '16px',
+                      right: '16px',
+                      zIndex: 2
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <AskAI 
+                      propertyId={property.id}
+                      propertyAddress={`${property.address.replace(', VIC', '')}, ${property.suburb}`}
+                      propertyType="card"
+                      size="small"
+                    />
+                  </div>
                 </div>
               ))}
               </div>
@@ -1081,10 +1109,10 @@ export default function HomePageOncom() {
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+            gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(5, 1fr)',
             gap: isMobile ? '32px' : '24px'
           }}>
-            {/* Story 1 */}
+            {/* Story 1: Sarah's First-Time Buyer Journey */}
             <article style={{
               display: 'flex',
               flexDirection: 'column',
@@ -1097,7 +1125,7 @@ export default function HomePageOncom() {
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
             }}>
-              <Link href="/suburbs/berwick" style={{
+              <Link href="/stories#first-time-buyer" style={{
                 textDecoration: 'none',
                 color: 'inherit',
                 display: 'flex',
@@ -1116,11 +1144,11 @@ export default function HomePageOncom() {
                     alt=""
                     loading="eager"
                     data-allow-mismatch="true"
-                    sizes="(min-width: 1024px) 25vw, 100vw"
+                    sizes="(min-width: 1024px) 20vw, 100vw"
                     width="600"
                     height="800"
-                    srcSet="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=300&h=400&fit=crop&q=80 300w"
-                    src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&h=800&fit=crop"
+                    srcSet="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=300&h=400&fit=crop&q=80 300w"
+                    src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=800&fit=crop"
                     style={{
                       width: '100%',
                       height: '100%',
@@ -1140,7 +1168,7 @@ export default function HomePageOncom() {
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px'
                   }}>
-                    Success Story
+                    First Home
                   </div>
                 </div>
                 <h3 style={{
@@ -1155,7 +1183,7 @@ export default function HomePageOncom() {
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: 'vertical'
                   }}>
-                    From first home to forever home in Berwick
+                    Sarah's Journey: Renter to Homeowner
                   </h3>
                   <p style={{
                     fontSize: '14px',
@@ -1168,7 +1196,111 @@ export default function HomePageOncom() {
                     WebkitLineClamp: 3,
                     WebkitBoxOrient: 'vertical'
                   }}>
-                    How the Chen family found their dream home in Berwick's family-friendly community, with top schools and parks at their doorstep.
+                    How a 28-year-old marketing professional went from feeling overwhelmed by the property market to successfully purchasing her first home in just 6 months.
+                  </p>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    fontSize: '13px',
+                    fontWeight: '600',
+                    color: '#000',
+                    marginTop: 'auto'
+                  }}>
+                    <span>Read her story</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </div>
+              </Link>
+            </article>
+
+            {/* Story 2: The Johnson Family's Strategic Upgrade */}
+            <article style={{
+              display: 'flex',
+              flexDirection: 'column',
+              cursor: 'pointer',
+              transition: 'transform 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}>
+              <Link href="/stories#strategic-upgrade" style={{
+                textDecoration: 'none',
+                color: 'inherit',
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%'
+              }}>
+                <div style={{
+                  position: 'relative',
+                  aspectRatio: '3/4',
+                  overflow: 'hidden',
+                  borderRadius: '8px',
+                  marginBottom: '16px'
+                }}>
+                  <img 
+                    aria-hidden="true"
+                    alt=""
+                    loading="eager"
+                    data-allow-mismatch="true"
+                    sizes="(min-width: 1024px) 20vw, 100vw"
+                    width="600"
+                    height="800"
+                    srcSet="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=300&h=400&fit=crop&q=80 300w"
+                    src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&h=800&fit=crop"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    top: '12px',
+                    left: '12px',
+                    padding: '4px 10px',
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    color: '#fff',
+                    borderRadius: '4px',
+                    fontSize: '11px',
+                    fontWeight: '600',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px'
+                  }}>
+                    Upgrade Story
+                  </div>
+                </div>
+                <h3 style={{
+                    fontSize: '20px',
+                    fontWeight: '700',
+                    marginBottom: '8px',
+                    color: '#000',
+                    letterSpacing: '-0.01em',
+                    lineHeight: '1.3',
+                    overflow: 'hidden',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical'
+                  }}>
+                    The Johnson's Smart Upgrade Strategy
+                  </h3>
+                  <p style={{
+                    fontSize: '14px',
+                    lineHeight: '1.5',
+                    color: '#666',
+                    marginBottom: '16px',
+                    flex: '1',
+                    overflow: 'hidden',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: 'vertical'
+                  }}>
+                    How Mark and Lisa timed their move perfectly, selling for $15,000 above target and finding their dream family home within three months.
                   </p>
                   <div style={{
                     display: 'flex',
@@ -1188,7 +1320,7 @@ export default function HomePageOncom() {
               </Link>
             </article>
 
-            {/* Story 2 */}
+            {/* Story 3: David's Investment Journey */}
             <article style={{
               display: 'flex',
               flexDirection: 'column',
@@ -1201,7 +1333,7 @@ export default function HomePageOncom() {
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
             }}>
-              <Link href="/suburbs/cranbourne" style={{
+              <Link href="/stories#investment-success" style={{
                 textDecoration: 'none',
                 color: 'inherit',
                 display: 'flex',
@@ -1220,11 +1352,11 @@ export default function HomePageOncom() {
                     alt=""
                     loading="eager"
                     data-allow-mismatch="true"
-                    sizes="(min-width: 1024px) 25vw, 100vw"
+                    sizes="(min-width: 1024px) 20vw, 100vw"
                     width="600"
                     height="800"
-                    srcSet="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=400&fit=crop&q=80 300w"
-                    src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=800&fit=crop"
+                    srcSet="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=300&h=400&fit=crop&q=80 300w"
+                    src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=600&h=800&fit=crop"
                     style={{
                       width: '100%',
                       height: '100%',
@@ -1244,7 +1376,7 @@ export default function HomePageOncom() {
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px'
                   }}>
-                    Market Update
+                    Investment
                   </div>
                 </div>
                 <h3 style={{
@@ -1259,7 +1391,7 @@ export default function HomePageOncom() {
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: 'vertical'
                   }}>
-                    Cranbourne: The suburb that's redefining growth
+                    David's Investment Portfolio Success
                   </h3>
                   <p style={{
                     fontSize: '14px',
@@ -1272,7 +1404,7 @@ export default function HomePageOncom() {
                     WebkitLineClamp: 3,
                     WebkitBoxOrient: 'vertical'
                   }}>
-                    Discover why Cranbourne is Melbourne's fastest-growing suburb and what this means for property investors and homeowners.
+                    How a software engineer built a three-property portfolio, starting with one strategic purchase that delivered 15% capital growth and positive cash flow.
                   </p>
                   <div style={{
                     display: 'flex',
@@ -1283,7 +1415,7 @@ export default function HomePageOncom() {
                     color: '#000',
                     marginTop: 'auto'
                   }}>
-                    <span>Explore Cranbourne</span>
+                    <span>Learn his strategy</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <line x1="5" y1="12" x2="19" y2="12"></line>
                       <polyline points="12 5 19 12 12 19"></polyline>
@@ -1292,7 +1424,7 @@ export default function HomePageOncom() {
               </Link>
             </article>
 
-            {/* Story 3 */}
+            {/* Story 4: Margaret's Downsizing Journey */}
             <article style={{
               display: 'flex',
               flexDirection: 'column',
@@ -1305,7 +1437,7 @@ export default function HomePageOncom() {
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
             }}>
-              <Link href="/suburbs/officer" style={{
+              <Link href="/stories#downsizing-success" style={{
                 textDecoration: 'none',
                 color: 'inherit',
                 display: 'flex',
@@ -1324,11 +1456,11 @@ export default function HomePageOncom() {
                     alt=""
                     loading="eager"
                     data-allow-mismatch="true"
-                    sizes="(min-width: 1024px) 25vw, 100vw"
+                    sizes="(min-width: 1024px) 20vw, 100vw"
                     width="600"
                     height="800"
-                    srcSet="https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=300&h=400&fit=crop&q=80 300w"
-                    src="https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=600&h=800&fit=crop"
+                    srcSet="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=300&h=400&fit=crop&q=80 300w"
+                    src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&h=800&fit=crop"
                     style={{
                       width: '100%',
                       height: '100%',
@@ -1348,7 +1480,7 @@ export default function HomePageOncom() {
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px'
                   }}>
-                    Investment Guide
+                    Downsizing
                   </div>
                 </div>
                 <h3 style={{
@@ -1363,7 +1495,7 @@ export default function HomePageOncom() {
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: 'vertical'
                   }}>
-                    Officer's hidden investment opportunities
+                    Margaret's Perfect Retirement Move
                   </h3>
                   <p style={{
                     fontSize: '14px',
@@ -1376,7 +1508,7 @@ export default function HomePageOncom() {
                     WebkitLineClamp: 3,
                     WebkitBoxOrient: 'vertical'
                   }}>
-                    Why savvy investors are turning to Officer for strong capital growth and rental yields in Melbourne's southeast.
+                    How a 65-year-old successfully downsized from her family home, releasing $330,000 for retirement while finding her perfect low-maintenance lifestyle.
                   </p>
                   <div style={{
                     display: 'flex',
@@ -1387,7 +1519,7 @@ export default function HomePageOncom() {
                     color: '#000',
                     marginTop: 'auto'
                   }}>
-                    <span>Learn more</span>
+                    <span>Read her story</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <line x1="5" y1="12" x2="19" y2="12"></line>
                       <polyline points="12 5 19 12 12 19"></polyline>
@@ -1396,7 +1528,7 @@ export default function HomePageOncom() {
               </Link>
             </article>
 
-            {/* Story 4 */}
+            {/* Story 5: The Patel Family's Market Timing Masterclass */}
             <article style={{
               display: 'flex',
               flexDirection: 'column',
@@ -1409,7 +1541,7 @@ export default function HomePageOncom() {
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
             }}>
-              <Link href="/suburbs/narre-warren-south" style={{
+              <Link href="/stories#market-timing" style={{
                 textDecoration: 'none',
                 color: 'inherit',
                 display: 'flex',
@@ -1428,11 +1560,11 @@ export default function HomePageOncom() {
                     alt=""
                     loading="eager"
                     data-allow-mismatch="true"
-                    sizes="(min-width: 1024px) 25vw, 100vw"
+                    sizes="(min-width: 1024px) 20vw, 100vw"
                     width="600"
                     height="800"
-                    srcSet="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=300&h=400&fit=crop&q=80 300w"
-                    src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&h=800&fit=crop"
+                    srcSet="https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=300&h=400&fit=crop&q=80 300w"
+                    src="https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=600&h=800&fit=crop"
                     style={{
                       width: '100%',
                       height: '100%',
@@ -1452,7 +1584,7 @@ export default function HomePageOncom() {
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px'
                   }}>
-                    Family Living
+                    Market Insights
                   </div>
                 </div>
                 <h3 style={{
@@ -1467,7 +1599,7 @@ export default function HomePageOncom() {
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: 'vertical'
                   }}>
-                    Narre Warren South: Perfect for families
+                    The Patel's Market Timing Success
                   </h3>
                   <p style={{
                     fontSize: '14px',
@@ -1480,7 +1612,7 @@ export default function HomePageOncom() {
                     WebkitLineClamp: 3,
                     WebkitBoxOrient: 'vertical'
                   }}>
-                    Discover why families are choosing Narre Warren South for its excellent schools, parks and community atmosphere.
+                    How Raj and Priya stopped waiting for the "perfect time" and learned that time in the market beats timing the market in property investment.
                   </p>
                   <div style={{
                     display: 'flex',
@@ -1491,7 +1623,7 @@ export default function HomePageOncom() {
                     color: '#000',
                     marginTop: 'auto'
                   }}>
-                    <span>Explore the area</span>
+                    <span>Read their story</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                       <line x1="5" y1="12" x2="19" y2="12"></line>
                       <polyline points="12 5 19 12 12 19"></polyline>
@@ -1843,7 +1975,9 @@ export default function HomePageOncom() {
                         fontWeight: '600',
                         marginBottom: '8px'
                       }}>
-                        {property.priceDisplay || formatPrice(property.price)}
+                        {property.listingType === 'lease' 
+                          ? (property.leasePriceDisplay || `${formatPrice(property.leasePrice || property.price)} per week`)
+                          : (property.priceDisplay || formatPrice(property.price))}
                       </h3>
                       <p style={{
                         fontSize: '14px',

@@ -92,7 +92,7 @@ export default function OncomHeader() {
               src="/gea_website_logo_svg.svg" 
               alt="Grant's Estate Agents"
               style={{
-                height: isMobile ? '24px' : '30px',
+                height: isMobile ? '48px' : '60px',
                 width: 'auto',
                 objectFit: 'contain',
                 filter: 'none',

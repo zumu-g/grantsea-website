@@ -10,7 +10,7 @@ interface AskAIProps {
     priceDisplay?: string;
     leasePrice?: string;
     leasePriceDisplay?: string;
-    listingType?: 'sale' | 'lease';
+    listingType?: 'sale' | 'lease' | 'both';
     bedrooms?: number;
     bathrooms?: number;
     carSpaces?: number;
@@ -78,6 +78,16 @@ export default function AskAI({
     if (lowerQuestion.includes('price') || lowerQuestion.includes('cost') || lowerQuestion.includes('how much')) {
       if (property) {
         const isLease = property.listingType === 'lease';
+        const isBoth = property.listingType === 'both';
+        
+        if (isBoth && (property.priceDisplay || property.price) && (property.leasePriceDisplay || property.leasePrice)) {
+          const salePrice = property.priceDisplay || property.price;
+          const leasePrice = property.leasePriceDisplay || property.leasePrice;
+          const leasePriceText = `${leasePrice}${leasePrice?.toString().includes('week') ? '' : ' per week'}`;
+          
+          return `This property is available for both sale and lease. Sale price: ${salePrice}. Lease price: ${leasePriceText}. This gives you flexibility - would you like to know more about purchasing or renting this property?`;
+        }
+        
         const price = isLease ? property.leasePriceDisplay || property.leasePrice : property.priceDisplay || property.price;
         const priceText = isLease ? `${price}${price?.toString().includes('week') ? '' : ' per week'}` : price;
         
@@ -125,6 +135,9 @@ export default function AskAI({
       } else if (property?.listingType === 'lease') {
         const rentPrice = property.leasePriceDisplay || property.leasePrice;
         return `This property is available for lease at ${rentPrice}. The rental market in ${property.suburb || 'this area'} is strong with good tenant demand. Would you like to know about the application process or what's included in the rent?`;
+      } else if (property?.listingType === 'both') {
+        const rentPrice = property.leasePriceDisplay || property.leasePrice;
+        return `This property offers excellent flexibility - you can either purchase it as an investment or lease it. Current lease price is ${rentPrice}. As an investment, it offers strong rental yields and capital growth potential in ${property.suburb || 'this area'}. Would you like to explore the investment returns or discuss the lease terms?`;
       }
       return "This property shows strong investment potential. I can discuss rental yields, capital growth prospects, and market trends for this area. Would you like to know about comparable rental prices or the investment outlook for this suburb?";
     }

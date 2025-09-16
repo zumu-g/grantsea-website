@@ -13,6 +13,7 @@ export default function OncomHeader() {
   const [savedProperties, setSavedProperties] = useState<any[]>([]);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [showBuyDropdown, setShowBuyDropdown] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const { savedPropertyIds } = useSavedProperties();
@@ -102,13 +103,102 @@ export default function OncomHeader() {
               left: '50%',
               transform: 'translateX(-50%)'
             }}>
-            <Link href="/buy" style={{
-              color: isHomePage && !isScrolled ? '#fff' : '#000',
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: '500',
-              transition: 'color 0.3s ease'
-            }}>Buy</Link>
+            <div style={{ position: 'relative' }}
+              onMouseEnter={() => setShowBuyDropdown(true)}
+              onMouseLeave={() => setShowBuyDropdown(false)}>
+              <Link href="/buy" style={{
+                color: isHomePage && !isScrolled ? '#fff' : '#000',
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: '500',
+                transition: 'color 0.3s ease',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}>
+                Buy
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </Link>
+              {showBuyDropdown && (
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  marginTop: '16px',
+                  backgroundColor: '#fff',
+                  border: '1px solid #e5e5e5',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                  borderRadius: '8px',
+                  minWidth: '200px',
+                  zIndex: 1002,
+                  overflow: 'hidden'
+                }}>
+                  <Link href="/buy" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Search Properties
+                  </Link>
+                  <Link href="/buy/calculator" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Buy/Sell Calculator
+                  </Link>
+                  <Link href="/buy/loan-approval" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Get Loan Pre-approval
+                  </Link>
+                  <Link href="/buy/find-broker" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Need a Broker
+                  </Link>
+                  <Link href="/buy/rates" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    transition: 'background 0.2s',
+                    borderRadius: '0 0 8px 8px'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Check Our Rates
+                  </Link>
+                </div>
+              )}
+            </div>
             <Link href="/sell" style={{
               color: isHomePage && !isScrolled ? '#fff' : '#000',
               textDecoration: 'none',

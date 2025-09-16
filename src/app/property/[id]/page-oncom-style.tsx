@@ -320,6 +320,139 @@ export default function PropertyDetailPageOncom() {
                   Map view
                 </div>
               </section>
+
+              {/* Nearby Schools and Childcare */}
+              <section style={{ marginBottom: '48px' }}>
+                <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '24px' }}>Nearby Schools & Childcare</h2>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '24px'
+                }}>
+                  {/* Primary Schools */}
+                  <div>
+                    <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: '#333' }}>Primary Schools</h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                      <div style={{
+                        padding: '16px',
+                        backgroundColor: '#f8f8f8',
+                        borderRadius: '8px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                      }}>
+                        <div>
+                          <div style={{ fontWeight: '600', marginBottom: '4px' }}>Berwick Primary School</div>
+                          <div style={{ fontSize: '14px', color: '#666' }}>Public School • 450 students</div>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                          <div style={{ fontWeight: '600', color: '#000' }}>1.2 km</div>
+                          <div style={{ fontSize: '14px', color: '#666' }}>5 min drive</div>
+                        </div>
+                      </div>
+                      <div style={{
+                        padding: '16px',
+                        backgroundColor: '#f8f8f8',
+                        borderRadius: '8px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                      }}>
+                        <div>
+                          <div style={{ fontWeight: '600', marginBottom: '4px' }}>St Margaret's School</div>
+                          <div style={{ fontSize: '14px', color: '#666' }}>Catholic School • 320 students</div>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                          <div style={{ fontWeight: '600', color: '#000' }}>2.1 km</div>
+                          <div style={{ fontSize: '14px', color: '#666' }}>7 min drive</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Secondary Schools */}
+                  <div>
+                    <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: '#333' }}>Secondary Schools</h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                      <div style={{
+                        padding: '16px',
+                        backgroundColor: '#f8f8f8',
+                        borderRadius: '8px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                      }}>
+                        <div>
+                          <div style={{ fontWeight: '600', marginBottom: '4px' }}>Berwick College</div>
+                          <div style={{ fontSize: '14px', color: '#666' }}>Public School • 1,200 students</div>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                          <div style={{ fontWeight: '600', color: '#000' }}>1.8 km</div>
+                          <div style={{ fontSize: '14px', color: '#666' }}>6 min drive</div>
+                        </div>
+                      </div>
+                      <div style={{
+                        padding: '16px',
+                        backgroundColor: '#f8f8f8',
+                        borderRadius: '8px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                      }}>
+                        <div>
+                          <div style={{ fontWeight: '600', marginBottom: '4px' }}>Nossal High School</div>
+                          <div style={{ fontSize: '14px', color: '#666' }}>Selective Entry • 850 students</div>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                          <div style={{ fontWeight: '600', color: '#000' }}>3.5 km</div>
+                          <div style={{ fontSize: '14px', color: '#666' }}>10 min drive</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Childcare Centers */}
+                  <div>
+                    <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: '#333' }}>Childcare Centers</h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                      <div style={{
+                        padding: '16px',
+                        backgroundColor: '#f8f8f8',
+                        borderRadius: '8px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                      }}>
+                        <div>
+                          <div style={{ fontWeight: '600', marginBottom: '4px' }}>Berwick Early Learning Centre</div>
+                          <div style={{ fontSize: '14px', color: '#666' }}>Ages 0-5 • 120 places</div>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                          <div style={{ fontWeight: '600', color: '#000' }}>800 m</div>
+                          <div style={{ fontSize: '14px', color: '#666' }}>3 min drive</div>
+                        </div>
+                      </div>
+                      <div style={{
+                        padding: '16px',
+                        backgroundColor: '#f8f8f8',
+                        borderRadius: '8px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                      }}>
+                        <div>
+                          <div style={{ fontWeight: '600', marginBottom: '4px' }}>Goodstart Early Learning</div>
+                          <div style={{ fontSize: '14px', color: '#666' }}>Ages 6 weeks-5 years • 90 places</div>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                          <div style={{ fontWeight: '600', color: '#000' }}>1.5 km</div>
+                          <div style={{ fontSize: '14px', color: '#666' }}>5 min drive</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
             </div>
 
             {/* Right Column - Agent & Inquiry */}

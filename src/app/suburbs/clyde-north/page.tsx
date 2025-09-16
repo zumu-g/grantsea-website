@@ -6,12 +6,15 @@ import OncomHeader from '@/components/OncomHeader';
 import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
+import { suburbProfiles } from '@/data/suburbProfiles';
 
 export default function ClydeNorthSuburbGuide() {
   const [activeSection, setActiveSection] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
   const { properties } = useProperties({ suburb: 'Clyde North', limit: 6 });
+  
+  const suburbData = suburbProfiles['clyde-north'];
 
   useEffect(() => {
     const checkDevice = () => {
@@ -104,7 +107,7 @@ export default function ClydeNorthSuburbGuide() {
               opacity: 0.9,
               lineHeight: '1.5'
             }}>
-              Discover modern family living in one of Melbourne's fastest-growing and most vibrant communities
+              {suburbData?.description || 'Discover modern family living in one of Melbourne\'s fastest-growing and most vibrant communities'}
             </p>
             
             <button
@@ -235,14 +238,14 @@ export default function ClydeNorthSuburbGuide() {
                   marginBottom: '24px',
                   color: '#333'
                 }}>
-                  The suburb is renowned for its new housing estates, contemporary infrastructure, quality schools, and strong focus on sustainable development and community amenities. What makes Clyde North particularly appealing is its successful integration of modern residential development with comprehensive planning and community infrastructure.
+                  What makes Clyde North particularly appealing is its successful integration of modern residential development with comprehensive planning and community infrastructure. The suburb features contemporary housing estates with modern design principles, while providing excellent connectivity to Melbourne via the Pakenham railway line.
                 </p>
                 <p style={{
                   fontSize: '18px',
                   lineHeight: '1.8',
                   color: '#333'
                 }}>
-                  The suburb features contemporary housing estates with modern design principles, while providing excellent connectivity to Melbourne via the Pakenham railway line. The area offers a perfect balance of affordability, modern amenities, and family-oriented lifestyle that appeals to those seeking contemporary suburban living in a well-planned environment.
+                  The area offers a perfect balance of affordability, modern amenities, and family-oriented lifestyle that appeals to those seeking contemporary suburban living in a well-planned environment.
                 </p>
               </div>
               <div style={{
@@ -296,7 +299,7 @@ export default function ClydeNorthSuburbGuide() {
               }}>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>By Car</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
-                  Located 50km south-east of Melbourne CBD, Clyde North is accessible via the Princes Highway and connections to the Monash Freeway. Journey time is approximately 60-70 minutes in normal traffic. The suburb is strategically positioned between Cranbourne North to the south, Officer to the north, and Clyde to the west.
+                  Located 50km south-east of Melbourne CBD, Clyde North is accessible via the Princes Highway and connections to the Monash Freeway. Journey time is approximately 60-70 minutes in normal traffic. The suburb is strategically positioned within the southeastern growth corridor.
                 </p>
               </div>
               
@@ -308,7 +311,7 @@ export default function ClydeNorthSuburbGuide() {
               }}>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Public Transport</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
-                  Clyde North benefits from excellent transport connectivity anchored by the Pakenham railway line, which provides regular services to Melbourne's CBD and major employment centres. The train service offers reliable connectivity with modern facilities and regular service frequency.
+                  Clyde North benefits from excellent transport connectivity anchored by the Pakenham railway line, which provides regular services to Melbourne's CBD and major employment centres. The train service offers reliable connectivity with regular service frequency.
                 </p>
               </div>
               
@@ -320,7 +323,7 @@ export default function ClydeNorthSuburbGuide() {
               }}>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Local Access</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
-                  The suburb's modern road network supports local travel while connecting to major arterials for broader access. Local bus services connect residential areas to railway stations, shopping centres, and neighbouring suburbs. The relatively flat terrain makes cycling and walking viable for local trips.
+                  The suburb's modern road network supports local travel while connecting to major arterials. Local bus services connect residential areas to railway stations and shopping centres. The relatively flat terrain makes cycling and walking viable for local trips.
                 </p>
               </div>
             </div>
@@ -349,15 +352,15 @@ export default function ClydeNorthSuburbGuide() {
               marginBottom: isMobile ? '40px' : '60px' 
             }}>
               <div>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Shopping & Dining</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Modern Community</h3>
                 <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
                   Clyde North's retail and dining scene reflects its modern development, with contemporary shopping centres providing comprehensive retail and service options. The suburb features major shopping destinations that cater to all daily needs while offering dining and entertainment experiences.
                 </p>
                 <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
-                  The shopping precincts feature contemporary retail spaces housing major supermarkets, specialty stores, and service providers. Local cafes and restaurants provide venues for community interaction and social dining that strengthen neighbourhood connections.
+                  Local parks and reserves serve as community hubs, featuring playgrounds, sporting facilities, and spaces for various recreational activities. These facilities provide opportunities for residents to engage in organized sport and social activities.
                 </p>
                 <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: '1.8', color: '#333' }}>
-                  For major shopping needs, residents have access to comprehensive facilities within the suburb and nearby centres, ensuring convenience without lengthy travel. This arrangement allows Clyde North to maintain its modern character while ensuring residents have access to all retail and service requirements.
+                  Community events and festivals regularly take place in local parks and community facilities, celebrating the suburb's diversity and fostering connections among residents.
                 </p>
               </div>
               <div style={{
@@ -365,7 +368,7 @@ export default function ClydeNorthSuburbGuide() {
                 padding: '32px',
                 borderRadius: '16px'
               }}>
-                <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '20px', fontWeight: '400', marginBottom: '20px' }}>Local Favorites</h4>
+                <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '20px', fontWeight: '400', marginBottom: '20px' }}>Local Highlights</h4>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                   <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
                     <span style={{ position: 'absolute', left: 0 }}>🛍️</span> Shopping on Clyde
@@ -374,10 +377,10 @@ export default function ClydeNorthSuburbGuide() {
                     <span style={{ position: 'absolute', left: 0 }}>☕</span> Local Cafes
                   </li>
                   <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>🍕</span> Family Restaurants
+                    <span style={{ position: 'absolute', left: 0 }}>🏃</span> Sports Facilities
                   </li>
                   <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>🏪</span> Casey Central
+                    <span style={{ position: 'absolute', left: 0 }}>🌳</span> Modern Parks
                   </li>
                 </ul>
               </div>
@@ -393,15 +396,9 @@ export default function ClydeNorthSuburbGuide() {
             }} />
             
             <div>
-              <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Parks & Recreation</h3>
+              <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Recreation & Community</h3>
               <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
-                Clyde North's lifestyle appeal centres on its modern amenities, contemporary parks, and strong community connections. The suburb features several well-designed parks and reserves that provide venues for family activities, organized sport, and community events throughout the year.
-              </p>
-              <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
-                Recreation reserves serve as major community hubs, featuring sporting facilities, playgrounds, and spaces for various recreational activities. These facilities host local sports clubs, providing opportunities for residents to engage in organized sport and social activities.
-              </p>
-              <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
-                Community events and festivals regularly take place in local parks and community facilities, celebrating the suburb's diversity and fostering connections among residents. The active community groups and volunteer organizations provide numerous opportunities for civic engagement and social participation.
+                Clyde North's lifestyle appeal centres on its modern amenities, contemporary parks, and strong community connections. The suburb features several well-designed parks and reserves that provide venues for family activities and community events throughout the year.
               </p>
               <div style={{
                 display: 'grid',
@@ -536,7 +533,7 @@ export default function ClydeNorthSuburbGuide() {
             }}>
               <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Educational Environment</h4>
               <p style={{ fontSize: '18px', opacity: 0.9 }}>
-                Education facilities in Clyde North are comprehensive and modern, contributing significantly to the suburb's appeal among families. The suburb is home to several primary and secondary schools that offer quality programs in modern facilities with strong community connections and comprehensive educational opportunities.
+                Education facilities in Clyde North are comprehensive and modern, contributing significantly to the suburb's appeal among families. The suburb is home to several primary and secondary schools that offer quality programs in modern facilities with strong community connections.
               </p>
             </div>
           </section>
@@ -620,9 +617,6 @@ export default function ClydeNorthSuburbGuide() {
               <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: '1.8', marginBottom: '32px', color: '#333' }}>
                 The suburb includes a mix of contemporary houses, modern townhouse developments, and apartment complexes designed to meet current lifestyle needs. Many properties feature modern amenities, contemporary design elements, and integration with the suburb's growing infrastructure and services.
               </p>
-              <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: '1.8', marginBottom: '32px', color: '#333' }}>
-                Contemporary developments throughout the suburb provide modern housing options with quality construction, modern amenities, and proximity to major facilities. These developments typically feature energy-efficient design, contemporary finishes, and integration with established community infrastructure.
-              </p>
               
               <div style={{
                 display: 'grid',
@@ -698,87 +692,6 @@ export default function ClydeNorthSuburbGuide() {
               }}>
                 Clyde North maintains a strong community spirit that reflects its planned development and diverse residential base. Active community groups, sporting clubs, and volunteer organizations provide extensive opportunities for social connection, civic engagement, and mutual support among residents.
               </p>
-              <p style={{
-                fontSize: isMobile ? '16px' : '20px',
-                lineHeight: '1.8',
-                textAlign: 'center',
-                color: '#333'
-              }}>
-                The suburb's modern character and engaged community contribute to high levels of safety and security, with contemporary planning principles supporting safe streetscapes and community involvement.
-              </p>
-            </div>
-            
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-              gap: isMobile ? '24px' : '40px',
-              marginBottom: isMobile ? '40px' : '60px'
-            }}>
-              <div>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '20px' }}>Community Features</h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <div style={{
-                    padding: '20px',
-                    backgroundColor: '#fff',
-                    borderRadius: '8px',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
-                  }}>
-                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>🏘️ Modern Community</h4>
-                    <p style={{ fontSize: '14px', color: '#666' }}>Diverse and welcoming neighbourhood</p>
-                  </div>
-                  <div style={{
-                    padding: '20px',
-                    backgroundColor: '#fff',
-                    borderRadius: '8px',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
-                  }}>
-                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>👨‍👩‍👧‍👦 Family Focus</h4>
-                    <p style={{ fontSize: '14px', color: '#666' }}>Strong family-oriented community</p>
-                  </div>
-                  <div style={{
-                    padding: '20px',
-                    backgroundColor: '#fff',
-                    borderRadius: '8px',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
-                  }}>
-                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>🎉 Events & Activities</h4>
-                    <p style={{ fontSize: '14px', color: '#666' }}>Regular community gatherings</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '20px' }}>Local Groups</h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <div style={{
-                    padding: '20px',
-                    backgroundColor: '#fff',
-                    borderRadius: '8px',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
-                  }}>
-                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>⚽ Sports Clubs</h4>
-                    <p style={{ fontSize: '14px', color: '#666' }}>Football, cricket, netball clubs</p>
-                  </div>
-                  <div style={{
-                    padding: '20px',
-                    backgroundColor: '#fff',
-                    borderRadius: '8px',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
-                  }}>
-                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>🤝 Community Groups</h4>
-                    <p style={{ fontSize: '14px', color: '#666' }}>Residents associations & social groups</p>
-                  </div>
-                  <div style={{
-                    padding: '20px',
-                    backgroundColor: '#fff',
-                    borderRadius: '8px',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
-                  }}>
-                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>🌱 Environmental Groups</h4>
-                    <p style={{ fontSize: '14px', color: '#666' }}>Sustainability initiatives</p>
-                  </div>
-                </div>
-              </div>
             </div>
             
             <div style={{
@@ -800,11 +713,11 @@ export default function ClydeNorthSuburbGuide() {
                 <div>
                   <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Young families</strong> seeking modern amenities</p>
                   <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>First-home buyers</strong> entering the market</p>
-                  <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Growing families</strong> needing space</p>
+                  <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Growing families</strong> needing space and facilities</p>
                 </div>
                 <div>
-                  <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Professionals</strong> with CBD commute</p>
-                  <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Investors</strong> in growth areas</p>
+                  <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Train commuters</strong> wanting modern lifestyle</p>
+                  <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Investors</strong> focused on growth areas</p>
                   <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Community seekers</strong> wanting connections</p>
                 </div>
               </div>

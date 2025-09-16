@@ -97,6 +97,39 @@ export const suburbProfiles = {
       'Competitive land prices',
       'Room to grow'
     ]
+  },
+  beaconsfield: {
+    name: 'Beaconsfield',
+    tagline: 'Historic township charm',
+    description: 'Beaconsfield perfectly embodies the transition between Melbourne\'s established middle suburbs and the expanding southeast.',
+    highlights: [
+      'Historic village character preserved',
+      'Quality schools including St Francis Xavier',
+      'Semi-rural lifestyle options',
+      'Excellent train connectivity'
+    ]
+  },
+  hallam: {
+    name: 'Hallam',
+    tagline: 'Affordable family living',
+    description: 'Hallam embodies the essence of affordable family living in Melbourne\'s southeast with exceptional transport connectivity.',
+    highlights: [
+      'Exceptional train connectivity',
+      'Multicultural community',
+      'Affordable housing options',
+      'Established suburban amenities'
+    ]
+  },
+  'hampton-park': {
+    name: 'Hampton Park',
+    tagline: 'Growing family community',
+    description: 'Hampton Park offers modern family living with quality amenities and strong community connections.',
+    highlights: [
+      'Modern housing developments',
+      'Quality recreational facilities',
+      'Strong community spirit',
+      'Convenient shopping and services'
+    ]
   }
 };
 

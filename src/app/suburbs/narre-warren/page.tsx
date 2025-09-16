@@ -11,7 +11,7 @@ export default function NarreWarrenSuburbGuide() {
   const [activeSection, setActiveSection] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
-  const { properties, loading } = useProperties({ suburb: 'Narre Warren', limit: 6 });
+  const { properties } = useProperties({ suburb: 'Narre Warren', limit: 6 });
 
   useEffect(() => {
     const checkDevice = () => {
@@ -99,24 +99,46 @@ export default function NarreWarrenSuburbGuide() {
             <p style={{
               fontSize: 'clamp(1.125rem, 2vw, 1.5rem)',
               fontWeight: '300',
-              opacity: 0.9,
               maxWidth: '800px',
+              marginBottom: '48px',
+              opacity: 0.9,
               lineHeight: '1.5'
             }}>
               Melbourne's dynamic southeastern hub blending modern convenience with established community spirit
             </p>
             
-            <div style={{
-              position: 'absolute',
-              bottom: '40px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              animation: 'bounce 2s infinite'
-            }}>
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </div>
+            <button
+              onClick={() => scrollToSection(0)}
+              style={{
+                padding: '16px 32px',
+                fontSize: '16px',
+                fontWeight: '600',
+                backgroundColor: '#fff',
+                color: '#000',
+                border: 'none',
+                borderRadius: '32px',
+                cursor: 'pointer',
+                transition: 'transform 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              Start exploring
+            </button>
+          </div>
+          
+          {/* Scroll Indicator */}
+          <div style={{
+            position: 'absolute',
+            bottom: '40px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            animation: 'bounce 2s infinite'
+          }}>
+            <svg width="24" height="40" viewBox="0 0 24 40" fill="none" stroke="#fff" strokeWidth="2">
+              <rect x="6" y="6" width="12" height="20" rx="6" />
+              <circle cx="12" cy="12" r="2" fill="#fff" />
+            </svg>
           </div>
         </section>
 
@@ -126,84 +148,113 @@ export default function NarreWarrenSuburbGuide() {
           top: isMobile ? '60px' : '64px',
           backgroundColor: '#fff',
           borderBottom: '1px solid #e5e5e5',
-          zIndex: 100,
-          overflowX: 'auto',
-          WebkitOverflowScrolling: 'touch'
+          zIndex: 100
         }}>
           <div style={{
-            display: 'flex',
-            maxWidth: '1200px',
+            maxWidth: '1400px',
             margin: '0 auto',
-            padding: '0 20px'
+            paddingLeft: 'max(2rem, 3.33vw)',
+            paddingRight: 'max(2rem, 3.33vw)',
+            display: 'flex',
+            gap: '32px',
+            overflowX: 'auto',
+            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none'
           }}>
             {sections.map((section, index) => (
               <button
                 key={section.id}
                 onClick={() => scrollToSection(index)}
                 style={{
-                  padding: '20px 24px',
-                  border: 'none',
+                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                  padding: '20px 0',
                   background: 'none',
+                  border: 'none',
                   fontSize: '14px',
-                  fontWeight: activeSection === index ? '600' : '400',
+                  fontWeight: '400',
                   color: activeSection === index ? '#000' : '#666',
-                  borderBottom: activeSection === index ? '2px solid #000' : '2px solid transparent',
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
-                  transition: 'all 0.3s ease'
+                  position: 'relative',
+                  transition: 'color 0.2s'
                 }}
               >
                 {section.title}
+                {activeSection === index && (
+                  <div style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: '2px',
+                    backgroundColor: '#000'
+                  }} />
+                )}
               </button>
             ))}
           </div>
         </nav>
 
         {/* Content Sections */}
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 20px' }}>
-          
+        <article style={{ maxWidth: '1400px', margin: '0 auto' }}>
           {/* Introduction */}
-          <section id="section-0" style={{ marginBottom: '80px' }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-              gap: '60px',
-              alignItems: 'center'
+          <section id="section-0" style={{
+            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingTop: isMobile ? '40px' : '80px',
+            paddingBottom: isMobile ? '40px' : '80px'
+          }}>
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', 
+              gap: isMobile ? '32px' : '80px', 
+              alignItems: 'center' 
             }}>
               <div>
                 <h2 style={{
+                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
                   fontSize: 'clamp(2rem, 4vw, 3rem)',
-                  fontWeight: '700',
+                  fontWeight: '400',
                   marginBottom: '32px',
-                  letterSpacing: '-0.02em'
+                  lineHeight: '1.2'
                 }}>
                   Welcome to Narre Warren
                 </h2>
                 <p style={{
                   fontSize: '18px',
                   lineHeight: '1.8',
-                  color: '#333',
-                  marginBottom: '24px'
+                  marginBottom: '24px',
+                  color: '#333'
                 }}>
                   Narre Warren stands as one of Melbourne's most dynamic and rapidly growing southeastern suburbs, perfectly balancing modern suburban convenience with established community character. Located approximately 38 kilometres from Melbourne's CBD within the City of Casey, Narre Warren has evolved into a vibrant hub that attracts families, professionals, and young couples seeking contemporary amenities within a well-connected suburban setting.
                 </p>
                 <p style={{
                   fontSize: '18px',
                   lineHeight: '1.8',
+                  marginBottom: '24px',
                   color: '#333'
                 }}>
-                  The suburb is renowned for its major shopping precinct, excellent transport links, diverse community, and strong focus on modern infrastructure and services. What makes Narre Warren particularly appealing is its successful integration of major metropolitan amenities within a suburban context.
+                  What makes Narre Warren particularly appealing is its successful integration of major metropolitan amenities within a suburban context. The suburb is renowned for its major shopping precinct, excellent transport links, diverse community, and strong focus on modern infrastructure and services.
+                </p>
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.8',
+                  color: '#333'
+                }}>
+                  Home to Westfield Fountain Gate, one of Australia's largest shopping centres, and the cultural hub of Bunjil Place, Narre Warren offers residents access to comprehensive retail, entertainment, and cultural facilities that serve the entire southeastern region.
                 </p>
               </div>
               <div style={{
                 position: 'relative',
-                height: isMobile ? '300px' : '400px',
-                borderRadius: '12px',
-                overflow: 'hidden'
+                aspectRatio: '4/3',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                order: isMobile ? -1 : 0
               }}>
-                <img 
+                <img
                   src="https://images.unsplash.com/photo-1609825488888-3a766db05542?w=800&h=600&fit=crop"
-                  alt="Narre Warren streets"
+                  alt="Narre Warren streetscape"
                   style={{
                     width: '100%',
                     height: '100%',
@@ -215,759 +266,872 @@ export default function NarreWarrenSuburbGuide() {
           </section>
 
           {/* Location & Transport */}
-          <section id="section-1" style={{ marginBottom: '80px' }}>
+          <section id="section-1" style={{
+            backgroundColor: '#f8f8f8',
+            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingTop: isMobile ? '40px' : '80px',
+            paddingBottom: isMobile ? '40px' : '80px'
+          }}>
             <h2 style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
               fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '700',
-              marginBottom: '32px',
-              letterSpacing: '-0.02em'
+              fontWeight: '400',
+              marginBottom: '48px',
+              textAlign: 'center'
             }}>
-              Location & Transport
+              Getting Around
             </h2>
+            
             <div style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : '2fr 1fr',
-              gap: '40px'
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: isMobile ? '24px' : '40px'
             }}>
-              <div>
-                <p style={{
-                  fontSize: '18px',
-                  lineHeight: '1.8',
-                  color: '#333',
-                  marginBottom: '24px'
-                }}>
-                  Narre Warren occupies a strategic position in Melbourne's southeast growth corridor, bordered by Berwick to the south, Hallam to the north, and Doveton to the west. This location provides residents with excellent connectivity to both Melbourne's CBD and the expanding outer southeastern suburbs, while serving as a major service centre for the broader Casey region.
-                </p>
-                <p style={{
-                  fontSize: '18px',
-                  lineHeight: '1.8',
-                  color: '#333',
-                  marginBottom: '24px'
-                }}>
-                  The suburb benefits from excellent transport connectivity anchored by the Narre Warren railway station, which provides regular services on the Pakenham line to Melbourne's CBD and major employment centres. The train service offers reliable connectivity with modern facilities and regular service frequency.
-                </p>
-                <div style={{
-                  backgroundColor: '#f8f8f8',
-                  padding: '24px',
-                  borderRadius: '8px',
-                  marginTop: '32px'
-                }}>
-                  <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '16px' }}>Transport Options</h3>
-                  <ul style={{ listStyle: 'none', padding: 0 }}>
-                    <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'center' }}>
-                      <span style={{ marginRight: '12px', fontSize: '20px' }}>🚆</span>
-                      <span>Narre Warren Station - Pakenham line (50-65 min to CBD)</span>
-                    </li>
-                    <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'center' }}>
-                      <span style={{ marginRight: '12px', fontSize: '20px' }}>🚌</span>
-                      <span>Routes 841, 847 - Connecting to surrounding suburbs</span>
-                    </li>
-                    <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'center' }}>
-                      <span style={{ marginRight: '12px', fontSize: '20px' }}>🚗</span>
-                      <span>Princes Highway & Monash Freeway access</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
               <div style={{
-                backgroundColor: '#000',
-                color: '#fff',
+                backgroundColor: '#fff',
                 padding: '32px',
                 borderRadius: '12px',
-                height: 'fit-content'
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '24px' }}>
-                  Distance to Key Locations
-                </h3>
-                <div style={{ marginBottom: '16px' }}>
-                  <div style={{ fontSize: '32px', fontWeight: '700' }}>38km</div>
-                  <div style={{ fontSize: '14px', opacity: 0.8 }}>to Melbourne CBD</div>
-                </div>
-                <div style={{ marginBottom: '16px' }}>
-                  <div style={{ fontSize: '32px', fontWeight: '700' }}>5km</div>
-                  <div style={{ fontSize: '14px', opacity: 0.8 }}>to Berwick</div>
-                </div>
-                <div style={{ marginBottom: '16px' }}>
-                  <div style={{ fontSize: '32px', fontWeight: '700' }}>15km</div>
-                  <div style={{ fontSize: '14px', opacity: 0.8 }}>to Dandenong</div>
-                </div>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>By Car</h3>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
+                  Located 38km south-east of Melbourne CBD, Narre Warren is accessible via the Princes Highway and connections to the Monash Freeway. Journey time is approximately 45-60 minutes in normal traffic. The suburb serves as a major hub for the southeastern growth corridor.
+                </p>
+              </div>
+              
+              <div style={{
+                backgroundColor: '#fff',
+                padding: '32px',
+                borderRadius: '12px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+              }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Public Transport</h3>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
+                  Narre Warren railway station provides regular services on the Pakenham line to Melbourne's CBD and major employment centres. Recent infrastructure improvements have enhanced reliability and reduced travel times, with services typically taking 50-65 minutes to the CBD.
+                </p>
+              </div>
+              
+              <div style={{
+                backgroundColor: '#fff',
+                padding: '32px',
+                borderRadius: '12px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+              }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Local Access</h3>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
+                  Local bus services complement train connectivity, linking residential areas to the railway station, shopping areas, and neighbouring suburbs. The established road network supports local travel while connecting to major arterials throughout the Casey region.
+                </p>
               </div>
             </div>
           </section>
 
           {/* Lifestyle & Amenities */}
-          <section id="section-2" style={{ marginBottom: '80px' }}>
+          <section id="section-2" style={{
+            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingTop: isMobile ? '40px' : '80px',
+            paddingBottom: isMobile ? '40px' : '80px'
+          }}>
             <h2 style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
               fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '700',
-              marginBottom: '32px',
-              letterSpacing: '-0.02em'
+              fontWeight: '400',
+              marginBottom: '48px'
             }}>
-              Lifestyle & Amenities
+              Living the Narre Warren Life
             </h2>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-              gap: '32px',
-              marginBottom: '40px'
+            
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: isMobile ? '1fr' : '2fr 1fr', 
+              gap: isMobile ? '32px' : '60px', 
+              marginBottom: isMobile ? '40px' : '60px' 
             }}>
-              <div style={{
-                backgroundColor: '#f8f8f8',
-                padding: '32px',
-                borderRadius: '12px'
-              }}>
-                <div style={{ fontSize: '32px', marginBottom: '16px' }}>🛍️</div>
-                <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '12px' }}>
-                  Westfield Fountain Gate
-                </h3>
-                <p style={{ color: '#666', lineHeight: '1.6' }}>
-                  One of Australia's largest shopping centres with over 400 stores, cinema complex, and numerous dining options serving the entire region.
+              <div>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Shopping & Entertainment</h3>
+                <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
+                  Narre Warren offers comprehensive shopping and entertainment facilities that serve the entire southeastern growth corridor. Westfield Fountain Gate stands as one of Australia's largest shopping centres, featuring over 400 stores, cinema complex, and numerous dining options that create a destination for the entire region.
+                </p>
+                <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
+                  Bunjil Place serves as the cultural focal point, featuring a theatre, library, and community plaza that hosts performances, exhibitions, and community events. The Casey ARC provides state-of-the-art aquatic and recreation facilities with indoor and outdoor pools, gym, and various fitness classes.
+                </p>
+                <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: '1.8', color: '#333' }}>
+                  The suburb's dining scene reflects its diverse community with restaurants representing various cuisines, from contemporary Australian to authentic international options, creating a vibrant food culture that celebrates the area's multicultural character.
                 </p>
               </div>
               <div style={{
-                backgroundColor: '#f8f8f8',
+                backgroundColor: '#f0f0f0',
                 padding: '32px',
-                borderRadius: '12px'
+                borderRadius: '16px'
               }}>
-                <div style={{ fontSize: '32px', marginBottom: '16px' }}>🎭</div>
-                <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '12px' }}>
-                  Bunjil Place
-                </h3>
-                <p style={{ color: '#666', lineHeight: '1.6' }}>
-                  Cultural focal point featuring a theatre, library, and community plaza hosting performances, exhibitions, and community events.
-                </p>
-              </div>
-              <div style={{
-                backgroundColor: '#f8f8f8',
-                padding: '32px',
-                borderRadius: '12px'
-              }}>
-                <div style={{ fontSize: '32px', marginBottom: '16px' }}>🏊</div>
-                <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '12px' }}>
-                  Casey ARC
-                </h3>
-                <p style={{ color: '#666', lineHeight: '1.6' }}>
-                  State-of-the-art aquatic and recreation centre with indoor and outdoor pools, gym, and various fitness classes.
-                </p>
+                <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '20px', fontWeight: '400', marginBottom: '20px' }}>Local Highlights</h4>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
+                    <span style={{ position: 'absolute', left: 0 }}>🛍️</span> Westfield Fountain Gate
+                  </li>
+                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
+                    <span style={{ position: 'absolute', left: 0 }}>🎭</span> Bunjil Place Arts Centre
+                  </li>
+                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
+                    <span style={{ position: 'absolute', left: 0 }}>🏊</span> Casey ARC
+                  </li>
+                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
+                    <span style={{ position: 'absolute', left: 0 }}>🍽️</span> Diverse Dining Scene
+                  </li>
+                </ul>
               </div>
             </div>
-            <p style={{
-              fontSize: '18px',
-              lineHeight: '1.8',
-              color: '#333'
-            }}>
-              The suburb features several well-maintained parks and reserves that provide venues for family activities, organized sport, and community events. Fountain Gate Recreational Reserve serves as a major community hub, featuring sporting facilities, clubrooms, and spaces for various recreational activities. Local dining options include a variety of restaurants reflecting the suburb's cultural diversity, from Switch Lifestyle to Pind Baluchi for authentic Indian cuisine.
-            </p>
+            
+            <div style={{
+              backgroundImage: 'url("https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&h=600&fit=crop")',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              height: '400px',
+              borderRadius: '16px',
+              marginBottom: '60px'
+            }} />
+            
+            <div>
+              <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Parks & Recreation</h3>
+              <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
+                Narre Warren's lifestyle appeal centres on its major recreational facilities, established parks, and modern community infrastructure. The suburb features well-maintained parks and reserves that provide venues for family activities, organized sport, and community events throughout the year.
+              </p>
+              <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
+                Fountain Gate Recreational Reserve serves as a major community hub, featuring sporting facilities, clubrooms, and spaces for various recreational activities. The reserve hosts local football, cricket, and tennis clubs, providing opportunities for residents to engage in organized sport and social activities.
+              </p>
+              <p style={{ fontSize: '18px', lineHeight: '1.8', marginBottom: '24px', color: '#333' }}>
+                Community events and festivals regularly take place in local parks and community facilities, celebrating the suburb's diversity and fostering connections among residents. The active community groups and modern infrastructure provide numerous opportunities for civic engagement and social participation.
+              </p>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+                gap: isMobile ? '32px' : '24px',
+                marginTop: '40px'
+              }}>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    width: '80px',
+                    height: '80px',
+                    backgroundColor: '#e8f4f8',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 16px',
+                    fontSize: '32px'
+                  }}>
+                    🏊‍♀️
+                  </div>
+                  <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Aquatic Centre</h4>
+                  <p style={{ fontSize: '14px', color: '#666' }}>Indoor & outdoor pools</p>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    width: '80px',
+                    height: '80px',
+                    backgroundColor: '#fef3e8',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 16px',
+                    fontSize: '32px'
+                  }}>
+                    🏃‍♀️
+                  </div>
+                  <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Sports Facilities</h4>
+                  <p style={{ fontSize: '14px', color: '#666' }}>Tennis, cricket, football & more</p>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    width: '80px',
+                    height: '80px',
+                    backgroundColor: '#f0e8fe',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 16px',
+                    fontSize: '32px'
+                  }}>
+                    🎭
+                  </div>
+                  <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Arts & Culture</h4>
+                  <p style={{ fontSize: '14px', color: '#666' }}>Theatre, library & events</p>
+                </div>
+              </div>
+            </div>
           </section>
 
           {/* Education */}
-          <section id="section-3" style={{ marginBottom: '80px' }}>
+          <section id="section-3" style={{
+            backgroundColor: '#002b7f',
+            color: '#fff',
+            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingTop: isMobile ? '40px' : '80px',
+            paddingBottom: isMobile ? '40px' : '80px'
+          }}>
             <h2 style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
               fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '700',
-              marginBottom: '32px',
-              letterSpacing: '-0.02em'
+              fontWeight: '400',
+              marginBottom: '16px',
+              textAlign: 'center'
             }}>
-              Schools & Education
+              Education Excellence
             </h2>
             <p style={{
-              fontSize: '18px',
-              lineHeight: '1.8',
-              color: '#333',
-              marginBottom: '32px'
+              fontSize: '20px',
+              textAlign: 'center',
+              marginBottom: '60px',
+              opacity: 0.9
             }}>
-              Education facilities in Narre Warren are comprehensive and modern, contributing significantly to the suburb's appeal among families. The diverse community and family-oriented demographic create supportive environments for student achievement and development.
+              Comprehensive education facilities for growing families
             </p>
+            
             <div style={{
               display: 'grid',
               gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-              gap: '24px'
+              gap: isMobile ? '24px' : '40px'
             }}>
               <div style={{
-                border: '1px solid #e5e5e5',
-                borderRadius: '8px',
-                padding: '24px'
+                backgroundColor: 'rgba(255,255,255,0.1)',
+                padding: '40px',
+                borderRadius: '12px',
+                backdropFilter: 'blur(10px)'
               }}>
-                <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '16px' }}>
-                  Primary Schools
-                </h3>
-                <ul style={{ listStyle: 'none', padding: 0 }}>
-                  <li style={{ marginBottom: '8px', color: '#666' }}>• Narre Warren Primary School</li>
-                  <li style={{ marginBottom: '8px', color: '#666' }}>• Maramba Primary School</li>
-                  <li style={{ marginBottom: '8px', color: '#666' }}>• St. Kevin's Primary School</li>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Primary Schools</h3>
+                <ul style={{ listStyle: 'none', padding: 0, fontSize: '18px', lineHeight: '2' }}>
+                  <li>🏫 Narre Warren Primary School</li>
+                  <li>🏫 Maramba Primary School</li>
+                  <li>🏫 St. Kevin's Primary School</li>
+                  <li>🏫 Fountain Gate Primary</li>
                 </ul>
               </div>
+              
               <div style={{
-                border: '1px solid #e5e5e5',
-                borderRadius: '8px',
-                padding: '24px'
+                backgroundColor: 'rgba(255,255,255,0.1)',
+                padding: '40px',
+                borderRadius: '12px',
+                backdropFilter: 'blur(10px)'
               }}>
-                <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '16px' }}>
-                  Secondary Schools
-                </h3>
-                <ul style={{ listStyle: 'none', padding: 0 }}>
-                  <li style={{ marginBottom: '8px', color: '#666' }}>• Fountain Gate Secondary College</li>
-                  <li style={{ marginBottom: '8px', color: '#666' }}>• Maranatha Christian School</li>
-                  <li style={{ marginBottom: '8px', color: '#666' }}>• Access to Casey region schools</li>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Secondary Schools</h3>
+                <ul style={{ listStyle: 'none', padding: 0, fontSize: '18px', lineHeight: '2' }}>
+                  <li>🎓 Fountain Gate Secondary College</li>
+                  <li>🎓 Maranatha Christian School</li>
+                  <li>🎓 Casey Grammar School</li>
+                  <li>🎓 St. Francis Xavier College</li>
                 </ul>
               </div>
+            </div>
+            
+            <div style={{
+              marginTop: '60px',
+              padding: '40px',
+              backgroundColor: 'rgba(255,255,255,0.15)',
+              borderRadius: '12px',
+              textAlign: 'center'
+            }}>
+              <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Educational Hub</h4>
+              <p style={{ fontSize: '18px', opacity: 0.9 }}>
+                Education facilities in Narre Warren are comprehensive and modern, contributing significantly to the suburb's appeal among families. The diverse community and family-oriented demographic create supportive environments for student achievement and development, with access to both public and private education options.
+              </p>
             </div>
           </section>
 
           {/* Housing & Market */}
-          <section id="section-4" style={{ marginBottom: '80px' }}>
+          <section id="section-4" style={{
+            paddingLeft: 'max(2rem, 3.33vw)',
+            paddingRight: 'max(2rem, 3.33vw)',
+            paddingTop: '80px',
+            paddingBottom: '80px'
+          }}>
             <h2 style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
               fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '700',
-              marginBottom: '32px',
-              letterSpacing: '-0.02em'
+              fontWeight: '400',
+              marginBottom: '48px'
             }}>
-              Housing & Property Market
+              Property Market Insights
             </h2>
+            
             <div style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-              gap: '40px',
-              marginBottom: '40px'
+              gridTemplateColumns: 'repeat(4, 1fr)',
+              gap: '32px',
+              marginBottom: '60px'
             }}>
-              <div>
-                <p style={{
-                  fontSize: '18px',
-                  lineHeight: '1.8',
-                  color: '#333',
-                  marginBottom: '24px'
-                }}>
-                  Narre Warren's housing market is characterized by a mix of established homes, contemporary developments, and modern townhouse complexes that cater to diverse housing needs. The housing stock primarily consists of homes built from the 1970s onwards, with significant development in recent decades creating a modern suburban landscape.
-                </p>
-                <p style={{
-                  fontSize: '18px',
-                  lineHeight: '1.8',
-                  color: '#333'
-                }}>
-                  Property values reflect the suburb's modern amenities, excellent connectivity, and growing reputation as a regional hub. The market tends to attract buyers seeking contemporary suburban living with access to major facilities and services.
-                </p>
-              </div>
               <div style={{
-                backgroundColor: '#000',
-                color: '#fff',
-                padding: '32px',
+                textAlign: 'center',
+                padding: '24px',
+                backgroundColor: '#f8f8f8',
                 borderRadius: '12px'
               }}>
-                <h3 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '24px' }}>
-                  Market Snapshot
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '36px', fontWeight: '400', color: '#002b7f', marginBottom: '8px' }}>
+                  $750K
                 </h3>
-                <div style={{ marginBottom: '20px' }}>
-                  <div style={{ fontSize: '14px', opacity: 0.8, marginBottom: '4px' }}>Median House Price</div>
-                  <div style={{ fontSize: '28px', fontWeight: '700' }}>$750,000 - $850,000</div>
-                </div>
-                <div style={{ marginBottom: '20px' }}>
-                  <div style={{ fontSize: '14px', opacity: 0.8, marginBottom: '4px' }}>Property Types</div>
-                  <div style={{ fontSize: '16px' }}>70% Houses • 20% Townhouses • 10% Units</div>
-                </div>
-                <div>
-                  <div style={{ fontSize: '14px', opacity: 0.8, marginBottom: '4px' }}>Growth Potential</div>
-                  <div style={{ fontSize: '16px' }}>Strong - Major infrastructure & amenities</div>
-                </div>
+                <p style={{ fontSize: '14px', color: '#666' }}>Median House Price</p>
+              </div>
+              
+              <div style={{
+                textAlign: 'center',
+                padding: '24px',
+                backgroundColor: '#f8f8f8',
+                borderRadius: '12px'
+              }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '36px', fontWeight: '400', color: '#28a745', marginBottom: '8px' }}>
+                  +12.8%
+                </h3>
+                <p style={{ fontSize: '14px', color: '#666' }}>12 Month Growth</p>
+              </div>
+              
+              <div style={{
+                textAlign: 'center',
+                padding: '24px',
+                backgroundColor: '#f8f8f8',
+                borderRadius: '12px'
+              }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '36px', fontWeight: '400', color: '#ff6b35', marginBottom: '8px' }}>
+                  25
+                </h3>
+                <p style={{ fontSize: '14px', color: '#666' }}>Days on Market</p>
+              </div>
+              
+              <div style={{
+                textAlign: 'center',
+                padding: '24px',
+                backgroundColor: '#f8f8f8',
+                borderRadius: '12px'
+              }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '36px', fontWeight: '400', color: '#6c757d', marginBottom: '8px' }}>
+                  3.8%
+                </h3>
+                <p style={{ fontSize: '14px', color: '#666' }}>Rental Yield</p>
               </div>
             </div>
-          </section>
-
-          {/* Community & Culture */}
-          <section id="section-5" style={{ marginBottom: '80px' }}>
-            <h2 style={{
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '700',
-              marginBottom: '32px',
-              letterSpacing: '-0.02em'
-            }}>
-              Community & Culture
-            </h2>
-            <p style={{
-              fontSize: '18px',
-              lineHeight: '1.8',
-              color: '#333',
-              marginBottom: '32px'
-            }}>
-              Narre Warren maintains a strong community spirit that reflects its diverse population and modern suburban character. Active community groups, sporting clubs, and volunteer organizations provide extensive opportunities for social connection, civic engagement, and mutual support among residents.
-            </p>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)',
-              gap: '24px',
-              textAlign: 'center'
-            }}>
-              <div>
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '50%',
-                  backgroundColor: '#f8f8f8',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 16px',
-                  fontSize: '32px'
-                }}>🌏</div>
-                <h4 style={{ fontSize: '16px', fontWeight: '600' }}>Multicultural</h4>
-                <p style={{ fontSize: '14px', color: '#666' }}>Diverse community celebrating various cultures</p>
-              </div>
-              <div>
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '50%',
-                  backgroundColor: '#f8f8f8',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 16px',
-                  fontSize: '32px'
-                }}>🏃</div>
-                <h4 style={{ fontSize: '16px', fontWeight: '600' }}>Active Lifestyle</h4>
-                <p style={{ fontSize: '14px', color: '#666' }}>Sports clubs and recreation facilities</p>
-              </div>
-              <div>
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '50%',
-                  backgroundColor: '#f8f8f8',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 16px',
-                  fontSize: '32px'
-                }}>👨‍👩‍👧‍👦</div>
-                <h4 style={{ fontSize: '16px', fontWeight: '600' }}>Family Friendly</h4>
-                <p style={{ fontSize: '14px', color: '#666' }}>Safe streets and family activities</p>
-              </div>
-              <div>
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '50%',
-                  backgroundColor: '#f8f8f8',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 16px',
-                  fontSize: '32px'
-                }}>🎉</div>
-                <h4 style={{ fontSize: '16px', fontWeight: '600' }}>Events & Festivals</h4>
-                <p style={{ fontSize: '14px', color: '#666' }}>Regular community celebrations</p>
-              </div>
-            </div>
-          </section>
-
-          {/* Properties Section */}
-          <section id="section-6" style={{ marginBottom: '80px' }}>
-            <h2 style={{
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '700',
-              marginBottom: '16px',
-              letterSpacing: '-0.02em'
-            }}>
-              Current Properties in Narre Warren
-            </h2>
-            <p style={{
-              fontSize: '18px',
-              color: '#666',
-              marginBottom: '40px'
-            }}>
-              Discover available homes in this thriving community
-            </p>
             
-            {loading ? (
-              <div style={{ textAlign: 'center', padding: '60px 0' }}>
-                <div style={{
-                  width: '48px',
-                  height: '48px',
-                  border: '3px solid #f0f0f0',
-                  borderTop: '3px solid #000',
-                  borderRadius: '50%',
-                  margin: '0 auto',
-                  animation: 'spin 1s linear infinite'
-                }} />
-              </div>
-            ) : properties.length > 0 ? (
+            <div style={{ marginBottom: '60px' }}>
+              <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Housing Styles</h3>
+              <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: '1.8', marginBottom: '32px', color: '#333' }}>
+                Narre Warren's housing market is characterized by a mix of established homes, contemporary developments, and modern townhouse complexes that cater to diverse housing needs. The housing stock primarily consists of homes built from the 1970s onwards, with significant development in recent decades creating a modern suburban landscape.
+              </p>
+              <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: '1.8', marginBottom: '32px', color: '#333' }}>
+                The suburb includes established family homes on generous blocks, modern estates with contemporary design features, and townhouse developments that provide affordable entry points into the area. Many properties benefit from proximity to major amenities while maintaining suburban privacy and space.
+              </p>
+              <p style={{ fontSize: isMobile ? '16px' : '18px', lineHeight: '1.8', marginBottom: '32px', color: '#333' }}>
+                Property values reflect the suburb's modern amenities, excellent connectivity, and growing reputation as a regional hub. The market tends to attract buyers seeking contemporary suburban living with access to major facilities and services, creating steady demand across various property types.
+              </p>
+              
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(350px, 1fr))',
-                gap: '24px'
+                gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+                gap: isMobile ? '16px' : '24px'
               }}>
-                {properties.map((property) => (
-                  <div key={property.id} style={{
+                <div style={{
+                  aspectRatio: '4/3',
+                  borderRadius: '12px',
+                  overflow: 'hidden'
+                }}>
+                  <img
+                    src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop"
+                    alt="Modern family home"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                </div>
+                <div style={{
+                  aspectRatio: '4/3',
+                  borderRadius: '12px',
+                  overflow: 'hidden'
+                }}>
+                  <img
+                    src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&h=300&fit=crop"
+                    alt="Contemporary townhouses"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                </div>
+                <div style={{
+                  aspectRatio: '4/3',
+                  borderRadius: '12px',
+                  overflow: 'hidden'
+                }}>
+                  <img
+                    src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400&h=300&fit=crop"
+                    alt="Established homes"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Community */}
+          <section id="section-5" style={{
+            backgroundColor: '#f8f8f8',
+            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingTop: isMobile ? '40px' : '80px',
+            paddingBottom: isMobile ? '40px' : '80px'
+          }}>
+            <h2 style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+              fontSize: 'clamp(2rem, 4vw, 3rem)',
+              fontWeight: '400',
+              marginBottom: '48px',
+              textAlign: 'center'
+            }}>
+              Community Spirit
+            </h2>
+            
+            <div style={{
+              maxWidth: '800px',
+              margin: '0 auto',
+              marginBottom: '60px'
+            }}>
+              <p style={{
+                fontSize: isMobile ? '16px' : '20px',
+                lineHeight: '1.8',
+                textAlign: 'center',
+                color: '#333',
+                marginBottom: '24px'
+              }}>
+                Narre Warren maintains a strong community spirit that reflects its diverse population and modern suburban character. Active community groups, sporting clubs, and volunteer organizations provide extensive opportunities for social connection, civic engagement, and mutual support among residents.
+              </p>
+              <p style={{
+                fontSize: isMobile ? '16px' : '20px',
+                lineHeight: '1.8',
+                textAlign: 'center',
+                color: '#333'
+              }}>
+                The suburb's established character and modern infrastructure contribute to high levels of safety and security, with neighbourhood watch programs, community policing efforts, and natural surveillance through active street life and community involvement.
+              </p>
+            </div>
+            
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+              gap: isMobile ? '24px' : '40px',
+              marginBottom: isMobile ? '40px' : '60px'
+            }}>
+              <div>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '20px' }}>Annual Events</h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div style={{
+                    padding: '20px',
                     backgroundColor: '#fff',
-                    borderRadius: '12px',
-                    overflow: 'hidden',
-                    border: '1px solid #e5e5e5',
-                    transition: 'all 0.3s ease',
-                    cursor: 'pointer'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = 'none';
+                    borderRadius: '8px',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                   }}>
-                    <Link href={`/property/${property.id}`} style={{
+                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>🎭 Casey Festival</h4>
+                    <p style={{ fontSize: '14px', color: '#666' }}>March - Arts, food and entertainment at Bunjil Place</p>
+                  </div>
+                  <div style={{
+                    padding: '20px',
+                    backgroundColor: '#fff',
+                    borderRadius: '8px',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                  }}>
+                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>🏃‍♀️ Fun Run Series</h4>
+                    <p style={{ fontSize: '14px', color: '#666' }}>Monthly - Community fitness events</p>
+                  </div>
+                  <div style={{
+                    padding: '20px',
+                    backgroundColor: '#fff',
+                    borderRadius: '8px',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                  }}>
+                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>🎄 Christmas Carols</h4>
+                    <p style={{ fontSize: '14px', color: '#666' }}>December - Community celebration in local parks</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '20px' }}>Community Groups</h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div style={{
+                    padding: '20px',
+                    backgroundColor: '#fff',
+                    borderRadius: '8px',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                  }}>
+                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>⚽ Sports Clubs</h4>
+                    <p style={{ fontSize: '14px', color: '#666' }}>Football, netball, cricket, tennis, and swimming</p>
+                  </div>
+                  <div style={{
+                    padding: '20px',
+                    backgroundColor: '#fff',
+                    borderRadius: '8px',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                  }}>
+                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>👶 Family Groups</h4>
+                    <p style={{ fontSize: '14px', color: '#666' }}>Playgroups, mothers groups, and family services</p>
+                  </div>
+                  <div style={{
+                    padding: '20px',
+                    backgroundColor: '#fff',
+                    borderRadius: '8px',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                  }}>
+                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>🌏 Cultural Groups</h4>
+                    <p style={{ fontSize: '14px', color: '#666' }}>Multicultural associations and language groups</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div style={{
+              backgroundColor: '#002b7f',
+              color: '#fff',
+              padding: isMobile ? '32px 20px' : '48px',
+              borderRadius: '16px',
+              textAlign: 'center'
+            }}>
+              <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '32px', fontWeight: '400', marginBottom: '24px' }}>Who Will Love Narre Warren?</h3>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+                gap: '20px',
+                textAlign: 'left',
+                maxWidth: '800px',
+                margin: '0 auto'
+              }}>
+                <div>
+                  <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Modern families</strong> seeking contemporary amenities</p>
+                  <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Train commuters</strong> with excellent railway connectivity</p>
+                  <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Shopping enthusiasts</strong> with Fountain Gate nearby</p>
+                </div>
+                <div>
+                  <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Young professionals</strong> wanting growth corridor opportunities</p>
+                  <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Multicultural families</strong> appreciating diverse community</p>
+                  <p style={{ fontSize: '18px', marginBottom: '12px' }}>• <strong>Active lifestyles</strong> with extensive recreational facilities</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Current Properties */}
+          <section id="section-6" style={{
+            paddingLeft: 'max(2rem, 3.33vw)',
+            paddingRight: 'max(2rem, 3.33vw)',
+            paddingTop: '80px',
+            paddingBottom: '80px'
+          }}>
+            <h2 style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+              fontSize: 'clamp(2rem, 4vw, 3rem)',
+              fontWeight: '400',
+              marginBottom: '16px'
+            }}>
+              Properties in Narre Warren
+            </h2>
+            <p style={{
+              fontSize: '20px',
+              color: '#666',
+              marginBottom: '48px'
+            }}>
+              Discover your perfect home in this dynamic southeastern hub. Property values in Narre Warren reflect the suburb's modern amenities, excellent connectivity, and growing reputation as a regional centre.
+            </p>
+            
+            {properties.length > 0 ? (
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))',
+                gap: '32px',
+                marginBottom: '48px'
+              }}>
+                {properties.map((property: any) => (
+                  <Link
+                    key={property.id}
+                    href={`/property/${property.id}`}
+                    style={{
                       textDecoration: 'none',
-                      color: 'inherit'
+                      color: 'inherit',
+                      display: 'block',
+                      transition: 'transform 0.2s',
+                      cursor: 'pointer'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-4px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }}
+                  >
+                    <div style={{
+                      backgroundColor: '#fff',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '12px',
+                      overflow: 'hidden',
+                      height: '100%'
                     }}>
                       <div style={{
                         position: 'relative',
-                        paddingTop: '66.67%',
-                        backgroundColor: '#f5f5f5'
+                        aspectRatio: '16/10'
                       }}>
-                        {property.images && property.images[0] ? (
-                          <img
-                            src={typeof property.images[0] === 'string' ? property.images[0] : property.images[0].url}
-                            alt={property.address}
-                            style={{
-                              position: 'absolute',
-                              top: 0,
-                              left: 0,
-                              width: '100%',
-                              height: '100%',
-                              objectFit: 'cover'
-                            }}
-                          />
-                        ) : (
-                          <div style={{
-                            position: 'absolute',
-                            inset: 0,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: '#999'
-                          }}>
-                            No image available
-                          </div>
-                        )}
-                        <div style={{
-                          position: 'absolute',
-                          top: '16px',
-                          right: '16px'
-                        }}>
+                        <img
+                          src={property.images?.[0]?.url || 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=500&fit=crop'}
+                          alt={property.address}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover'
+                          }}
+                        />
+                        <div style={{ position: 'absolute', top: '16px', right: '16px' }}>
                           <SavePropertyButton property={property} />
                         </div>
                       </div>
                       
                       <div style={{ padding: '24px' }}>
                         <h3 style={{
+                          fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
                           fontSize: '24px',
-                          fontWeight: '600',
+                          fontWeight: '400',
                           marginBottom: '8px'
                         }}>
-                          {property.priceDisplay || formatPrice(property.price)}
+                          {formatPrice(property.price)}
                         </h3>
                         <p style={{
                           fontSize: '16px',
-                          color: '#666',
-                          marginBottom: '16px'
+                          color: '#000',
+                          marginBottom: '8px',
+                          fontWeight: '500'
                         }}>
                           {property.address}
                         </p>
                         <div style={{
                           display: 'flex',
-                          gap: '20px',
+                          gap: '24px',
                           fontSize: '14px',
-                          color: '#333'
+                          color: '#666',
+                          marginTop: '16px'
                         }}>
                           <span>{property.bedrooms} beds</span>
                           <span>{property.bathrooms} baths</span>
                           <span>{property.carSpaces} cars</span>
                         </div>
                       </div>
-                    </Link>
-                  </div>
+                    </div>
+                  </Link>
                 ))}
               </div>
             ) : (
               <div style={{
+                padding: '80px 20px',
                 textAlign: 'center',
-                padding: '60px 20px',
                 backgroundColor: '#f8f8f8',
-                borderRadius: '12px'
+                borderRadius: '16px'
               }}>
-                <p style={{
-                  fontSize: '18px',
-                  color: '#666',
-                  marginBottom: '24px'
-                }}>
+                <p style={{ fontSize: '18px', color: '#666' }}>
                   No properties currently available in Narre Warren
                 </p>
-                <Link href="/buy" style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  padding: '16px 32px',
-                  backgroundColor: '#000',
-                  color: '#fff',
-                  textDecoration: 'none',
-                  borderRadius: '32px',
-                  fontSize: '16px',
-                  fontWeight: '600',
-                  transition: 'all 0.2s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#333';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#000';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}>
+                <Link
+                  href="/buy"
+                  style={{
+                    display: 'inline-block',
+                    marginTop: '24px',
+                    padding: '16px 32px',
+                    backgroundColor: '#000',
+                    color: '#fff',
+                    textDecoration: 'none',
+                    borderRadius: '32px',
+                    fontSize: '16px',
+                    fontWeight: '600'
+                  }}
+                >
                   View all properties
                 </Link>
               </div>
             )}
+          </section>
+
+          {/* Buyer Tips */}
+          <section id="section-7" style={{
+            backgroundColor: '#f8f8f8',
+            paddingLeft: 'max(2rem, 3.33vw)',
+            paddingRight: 'max(2rem, 3.33vw)',
+            paddingTop: '80px',
+            paddingBottom: '80px'
+          }}>
+            <h2 style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+              fontSize: 'clamp(2rem, 4vw, 3rem)',
+              fontWeight: '400',
+              marginBottom: '48px',
+              textAlign: 'center'
+            }}>
+              Tips for Buyers and Renters
+            </h2>
             
-            <div style={{ textAlign: 'center', marginTop: '40px' }}>
-              <Link href="/buy?suburb=Narre+Warren" style={{
-                display: 'inline-block',
-                padding: '16px 40px',
-                backgroundColor: 'transparent',
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '32px',
+              maxWidth: '1000px',
+              margin: '0 auto'
+            }}>
+              <div style={{
+                backgroundColor: '#fff',
+                padding: '32px',
+                borderRadius: '12px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+              }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🛍️ Shopping Proximity</h3>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
+                  Consider proximity to Fountain Gate for convenience versus traffic. Peak shopping times can create congestion, so test travel routes at various times.
+                </p>
+              </div>
+              
+              <div style={{
+                backgroundColor: '#fff',
+                padding: '32px',
+                borderRadius: '12px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+              }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🚂 Transport Planning</h3>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
+                  Excellent train connectivity for CBD commuters, but consider peak travel times and parking availability at the station. Test your commute before committing.
+                </p>
+              </div>
+              
+              <div style={{
+                backgroundColor: '#fff',
+                padding: '32px',
+                borderRadius: '12px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+              }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🎓 School Zones</h3>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
+                  Research school catchment areas if education is a priority. Both public and private options are available, with some excellent schools requiring specific zoning.
+                </p>
+              </div>
+              
+              <div style={{
+                backgroundColor: '#fff',
+                padding: '32px',
+                borderRadius: '12px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+              }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🌍 Community Integration</h3>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
+                  The diverse multicultural community offers many opportunities for social connection. Join local groups and cultural organizations to integrate quickly.
+                </p>
+              </div>
+              
+              <div style={{
+                backgroundColor: '#fff',
+                padding: '32px',
+                borderRadius: '12px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+              }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>📈 Growth Potential</h3>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
+                  Consider the ongoing development in the Casey corridor. Significant infrastructure investment continues, offering strong growth potential for property values.
+                </p>
+              </div>
+              
+              <div style={{
+                backgroundColor: '#fff',
+                padding: '32px',
+                borderRadius: '12px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+              }}>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🏡 Property Types</h3>
+                <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
+                  Mix of established homes and modern developments provides diverse options. Consider your preference for character versus contemporary features and maintenance requirements.
+                </p>
+              </div>
+            </div>
+          </section>
+        </article>
+
+        {/* Call to Action */}
+        <section style={{
+          backgroundColor: '#000',
+          color: '#fff',
+          paddingLeft: 'max(2rem, 3.33vw)',
+          paddingRight: 'max(2rem, 3.33vw)',
+          paddingTop: '100px',
+          paddingBottom: '100px',
+          textAlign: 'center'
+        }}>
+          <h2 style={{
+            fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+            fontSize: 'clamp(2rem, 4vw, 3rem)',
+            fontWeight: '400',
+            marginBottom: '24px'
+          }}>
+            Ready to call Narre Warren home?
+          </h2>
+          <p style={{
+            fontSize: '20px',
+            marginBottom: '48px',
+            opacity: 0.9,
+            maxWidth: '600px',
+            margin: '0 auto 48px'
+          }}>
+            Our local experts know this thriving community inside out and can help you find your perfect property
+          </p>
+          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
+            <Link
+              href="/buy?suburb=narre-warren"
+              style={{
+                padding: '16px 32px',
+                backgroundColor: '#fff',
                 color: '#000',
                 textDecoration: 'none',
                 borderRadius: '32px',
                 fontSize: '16px',
                 fontWeight: '600',
-                border: '2px solid #000',
-                transition: 'all 0.2s ease'
+                transition: 'transform 0.2s'
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#000';
-                e.currentTarget.style.color = '#fff';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = '#000';
-              }}>
-                View all Narre Warren properties
-              </Link>
-            </div>
-          </section>
-
-          {/* Buyer Tips */}
-          <section id="section-7" style={{ marginBottom: '80px' }}>
-            <h2 style={{
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '700',
-              marginBottom: '32px',
-              letterSpacing: '-0.02em'
-            }}>
-              Tips for Buyers & Renters
-            </h2>
-            <div style={{
-              backgroundColor: '#f8f8f8',
-              padding: isMobile ? '32px 24px' : '48px',
-              borderRadius: '12px'
-            }}>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-                gap: '32px'
-              }}>
-                <div>
-                  <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '16px' }}>
-                    For Buyers
-                  </h3>
-                  <ul style={{ listStyle: 'none', padding: 0 }}>
-                    <li style={{ marginBottom: '12px', paddingLeft: '24px', position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: 0 }}>✓</span>
-                      Consider growth potential - significant development continues
-                    </li>
-                    <li style={{ marginBottom: '12px', paddingLeft: '24px', position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: 0 }}>✓</span>
-                      Check proximity to Fountain Gate for convenience vs traffic
-                    </li>
-                    <li style={{ marginBottom: '12px', paddingLeft: '24px', position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: 0 }}>✓</span>
-                      Research school catchment areas if education is priority
-                    </li>
-                    <li style={{ marginBottom: '12px', paddingLeft: '24px', position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: 0 }}>✓</span>
-                      Mix of established and new properties - consider your preference
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '16px' }}>
-                    For Renters
-                  </h3>
-                  <ul style={{ listStyle: 'none', padding: 0 }}>
-                    <li style={{ marginBottom: '12px', paddingLeft: '24px', position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: 0 }}>✓</span>
-                      Excellent train connectivity for CBD commuters
-                    </li>
-                    <li style={{ marginBottom: '12px', paddingLeft: '24px', position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: 0 }}>✓</span>
-                      Consider peak travel times and parking availability
-                    </li>
-                    <li style={{ marginBottom: '12px', paddingLeft: '24px', position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: 0 }}>✓</span>
-                      Strong rental market with diverse property options
-                    </li>
-                    <li style={{ marginBottom: '12px', paddingLeft: '24px', position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: 0 }}>✓</span>
-                      Join local community groups for faster integration
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Who Will Love It */}
-          <section style={{
-            backgroundColor: '#000',
-            color: '#fff',
-            padding: isMobile ? '48px 24px' : '80px',
-            borderRadius: '12px',
-            marginBottom: '80px'
-          }}>
-            <h2 style={{
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '700',
-              marginBottom: '32px',
-              letterSpacing: '-0.02em'
-            }}>
-              Who will love Narre Warren?
-            </h2>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-              gap: '40px'
-            }}>
-              <div>
-                <h3 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '16px' }}>
-                  Perfect for:
-                </h3>
-                <ul style={{ listStyle: 'none', padding: 0 }}>
-                  <li style={{ marginBottom: '16px', fontSize: '16px', opacity: 0.9 }}>
-                    <strong>Modern families</strong> - Contemporary amenities and quality schools
-                  </li>
-                  <li style={{ marginBottom: '16px', fontSize: '16px', opacity: 0.9 }}>
-                    <strong>Train commuters</strong> - Excellent railway connectivity to CBD
-                  </li>
-                  <li style={{ marginBottom: '16px', fontSize: '16px', opacity: 0.9 }}>
-                    <strong>Shopping enthusiasts</strong> - Westfield Fountain Gate at your doorstep
-                  </li>
-                  <li style={{ marginBottom: '16px', fontSize: '16px', opacity: 0.9 }}>
-                    <strong>Young professionals</strong> - Modern infrastructure and employment opportunities
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h3 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '16px' }}>
-                  The Narre Warren advantage:
-                </h3>
-                <p style={{ fontSize: '16px', lineHeight: '1.8', opacity: 0.9 }}>
-                  A compelling combination of modern suburban amenities, excellent connectivity, and diverse community life. The suburb successfully provides contemporary infrastructure and major facilities while maintaining community character and accessibility, creating a lifestyle destination that appeals to residents seeking modern convenience.
-                </p>
-              </div>
-            </div>
-          </section>
-        </div>
-
-        {/* CTA Section */}
-        <section style={{
-          backgroundColor: '#f8f8f8',
-          padding: isMobile ? '60px 20px' : '100px 80px',
-          textAlign: 'center'
-        }}>
-          <div style={{
-            maxWidth: '800px',
-            margin: '0 auto'
-          }}>
-            <h2 style={{
-              fontSize: isMobile ? '32px' : '48px',
-              fontWeight: '700',
-              marginBottom: '24px',
-              letterSpacing: '-0.02em'
-            }}>
-              Ready to make Narre Warren home?
-            </h2>
-            <p style={{
-              fontSize: '20px',
-              marginBottom: '40px',
-              color: '#666',
-              lineHeight: '1.6'
-            }}>
-              Our local experts know every street, school, and hidden gem. Get personalized guidance for your property journey.
-            </p>
-            <div style={{
-              display: 'flex',
-              gap: '16px',
-              justifyContent: 'center',
-              flexWrap: 'wrap'
-            }}>
-              <Link href="/appraisal" style={{
-                display: 'inline-block',
-                padding: '16px 40px',
-                backgroundColor: '#000',
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              View properties
+            </Link>
+            <Link
+              href="/agents"
+              style={{
+                padding: '16px 32px',
+                backgroundColor: 'transparent',
                 color: '#fff',
                 textDecoration: 'none',
                 borderRadius: '32px',
                 fontSize: '16px',
                 fontWeight: '600',
-                transition: 'all 0.2s ease'
+                border: '1px solid #fff',
+                transition: 'all 0.2s'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#333';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = '#000';
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}>
-                Get free appraisal
-              </Link>
-              <Link href="/contact" style={{
-                display: 'inline-block',
-                padding: '16px 40px',
-                backgroundColor: 'transparent',
-                color: '#000',
-                textDecoration: 'none',
-                borderRadius: '32px',
-                fontSize: '16px',
-                fontWeight: '600',
-                border: '2px solid #000',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#000';
-                e.currentTarget.style.color = '#fff';
+                e.currentTarget.style.backgroundColor = '#fff';
+                e.currentTarget.style.color = '#000';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = '#000';
-              }}>
-                Talk to an expert
-              </Link>
-            </div>
+                e.currentTarget.style.color = '#fff';
+              }}
+            >
+              Contact an agent
+            </Link>
           </div>
         </section>
       </main>
 
       <style jsx>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+        @keyframes bounce {
+          0%, 100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(10px);
+          }
         }
         
-        @keyframes bounce {
-          0%, 20%, 50%, 80%, 100% {
-            transform: translateY(0) translateX(-50%);
-          }
-          40% {
-            transform: translateY(-10px) translateX(-50%);
-          }
-          60% {
-            transform: translateY(-5px) translateX(-50%);
-          }
+        nav::-webkit-scrollbar {
+          display: none;
         }
       `}</style>
     </>

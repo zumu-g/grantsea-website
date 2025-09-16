@@ -6,12 +6,15 @@ import OncomHeader from '@/components/OncomHeader';
 import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
+import { suburbProfiles } from '@/data/suburbProfiles';
 
 export default function HamptonParkSuburbGuide() {
   const [activeSection, setActiveSection] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
-  const { properties, loading } = useProperties({ suburb: 'Hampton Park', limit: 6 });
+  const { properties } = useProperties({ suburb: 'Hampton Park', limit: 6 });
+  
+  const suburbData = suburbProfiles['hampton-park'];
 
   useEffect(() => {
     const checkDevice = () => {
@@ -98,58 +101,85 @@ export default function HamptonParkSuburbGuide() {
             
             <p style={{
               fontSize: 'clamp(1.125rem, 2vw, 1.5rem)',
-              fontWeight: '300',
-              opacity: 0.9,
-              maxWidth: '800px',
-              lineHeight: '1.5'
-            }}>
-              Authentic suburban Melbourne living offering genuine affordability and strong community spirit in the heart of Casey
-            </p>
+              lineHeight: '1.4',
+              marginBottom: '48px',
+              maxWidth: '600px',
+              opacity: 0.95
+            }}>{suburbData?.tagline || 'Authentic multicultural community'}</p>
             
             <div style={{
-              position: 'absolute',
-              bottom: '40px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              animation: 'bounce 2s infinite'
+              display: 'flex',
+              gap: '16px',
+              justifyContent: 'center',
+              flexWrap: 'wrap'
             }}>
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
+              <button
+                onClick={() => scrollToSection(0)}
+                style={{
+                  padding: '16px 32px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                  color: '#000',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}
+              >
+                Start Reading
+              </button>
+              <button
+                onClick={() => scrollToSection(6)}
+                style={{
+                  padding: '16px 32px',
+                  backgroundColor: 'transparent',
+                  color: '#fff',
+                  border: '2px solid rgba(255, 255, 255, 0.6)',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}
+              >
+                View Properties
+              </button>
             </div>
           </div>
         </section>
 
         {/* Navigation Bar */}
-        <nav style={{
+        <section style={{
           position: 'sticky',
           top: isMobile ? '60px' : '64px',
           backgroundColor: '#fff',
           borderBottom: '1px solid #e5e5e5',
           zIndex: 100,
-          overflowX: 'auto',
-          WebkitOverflowScrolling: 'touch'
+          padding: '0 max(2rem, 3.33vw)'
         }}>
           <div style={{
             display: 'flex',
-            maxWidth: '1200px',
-            margin: '0 auto',
-            padding: '0 20px'
+            gap: '0',
+            overflowX: 'auto',
+            maxWidth: '1400px',
+            margin: '0 auto'
           }}>
             {sections.map((section, index) => (
               <button
                 key={section.id}
                 onClick={() => scrollToSection(index)}
                 style={{
-                  padding: '20px 24px',
+                  padding: '16px 24px',
                   border: 'none',
-                  background: 'none',
+                  backgroundColor: 'transparent',
                   fontSize: '14px',
                   fontWeight: activeSection === index ? '600' : '400',
                   color: activeSection === index ? '#000' : '#666',
                   borderBottom: activeSection === index ? '2px solid #000' : '2px solid transparent',
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
+                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
                   transition: 'all 0.3s ease'
                 }}
               >
@@ -157,533 +187,638 @@ export default function HamptonParkSuburbGuide() {
               </button>
             ))}
           </div>
-        </nav>
+        </section>
 
         {/* Content Sections */}
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 20px' }}>
-          
-          {/* Introduction */}
-          <section id="section-0" style={{ marginBottom: '80px' }}>
+        <div style={{
+          padding: '0 max(2rem, 3.33vw)',
+          maxWidth: '1400px',
+          margin: '0 auto'
+        }}>
+          {/* Introduction Section */}
+          <section 
+            id="section-0" 
+            style={{
+              paddingTop: '80px',
+              paddingBottom: '80px',
+              borderBottom: '1px solid #e5e5e5'
+            }}
+          >
             <div style={{
               display: 'grid',
               gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-              gap: '60px',
-              alignItems: 'center'
+              gap: isMobile ? '40px' : '80px',
+              alignItems: 'start'
             }}>
               <div>
                 <h2 style={{
-                  fontSize: 'clamp(2rem, 4vw, 3rem)',
-                  fontWeight: '700',
+                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                  fontSize: 'clamp(2rem, 5vw, 3rem)',
+                  fontWeight: '400',
+                  lineHeight: '1.1',
                   marginBottom: '32px',
-                  letterSpacing: '-0.02em'
-                }}>
-                  Welcome to Hampton Park
-                </h2>
-                <p style={{
+                  color: '#000'
+                }}>Hampton Park at a glance</h2>
+                
+                <div style={{
                   fontSize: '18px',
-                  lineHeight: '1.8',
-                  color: '#333',
-                  marginBottom: '24px'
-                }}>
-                  Hampton Park represents authentic suburban Melbourne living, offering genuine affordability and strong community spirit in the heart of the Casey region. Located approximately 36 kilometres southeast of Melbourne's CBD, this established suburb has evolved from its humble beginnings into a vibrant multicultural community that epitomizes the Australian suburban dream for many migrant families and first-home buyers.
-                </p>
-                <p style={{
-                  fontSize: '18px',
-                  lineHeight: '1.8',
+                  lineHeight: '1.6',
                   color: '#333'
                 }}>
-                  What makes Hampton Park special is its role as a stepping stone suburb – a place where new Australians establish roots, where young families buy their first homes, and where community connections transcend cultural boundaries. The suburb offers the increasingly rare combination of affordability and accessibility in Melbourne's inflated property market.
-                </p>
+                  <p style={{ marginBottom: '24px' }}>
+                    Hampton Park represents authentic suburban Melbourne living, offering genuine affordability and strong community spirit in the heart of the Casey region. Located approximately 36 kilometres southeast of Melbourne's CBD, this established suburb has evolved from its humble beginnings into a vibrant multicultural community that epitomizes the Australian suburban dream for many migrant families and first-home buyers.
+                  </p>
+                  <p style={{ marginBottom: '24px' }}>
+                    What makes Hampton Park special is its role as a stepping stone suburb – a place where new Australians establish roots, where young families buy their first homes, and where community connections transcend cultural boundaries. The suburb offers the increasingly rare combination of affordability and accessibility in Melbourne's inflated property market.
+                  </p>
+                  <p>
+                    With established infrastructure, reasonable transport connections, and the kind of authentic neighborhood character that gentrified suburbs have lost, Hampton Park provides genuine value for working families and new migrants building their Australian story.
+                  </p>
+                </div>
               </div>
+              
               <div style={{
-                position: 'relative',
-                height: isMobile ? '300px' : '400px',
-                borderRadius: '12px',
-                overflow: 'hidden'
+                backgroundColor: '#f8f8f8',
+                padding: '40px',
+                borderRadius: '8px'
               }}>
-                <img 
-                  src="https://images.unsplash.com/photo-1609825488888-3a766db05542?w=800&h=600&fit=crop"
-                  alt="Hampton Park streets"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover'
-                  }}
-                />
+                <h3 style={{
+                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                  fontSize: '24px',
+                  fontWeight: '500',
+                  marginBottom: '24px',
+                  color: '#000'
+                }}>Key Highlights</h3>
+                
+                <ul style={{
+                  listStyle: 'none',
+                  padding: 0,
+                  margin: 0
+                }}>
+                  {suburbData?.highlights?.map((highlight, index) => (
+                    <li key={index} style={{
+                      padding: '12px 0',
+                      borderBottom: index < suburbData.highlights.length - 1 ? '1px solid #e5e5e5' : 'none',
+                      fontSize: '16px',
+                      lineHeight: '1.5',
+                      color: '#333',
+                      position: 'relative',
+                      paddingLeft: '20px'
+                    }}>
+                      <span style={{
+                        position: 'absolute',
+                        left: 0,
+                        top: '16px',
+                        width: '6px',
+                        height: '6px',
+                        backgroundColor: '#000',
+                        borderRadius: '50%'
+                      }} />
+                      {highlight}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </section>
 
-          {/* Location & Transport */}
-          <section id="section-1" style={{ marginBottom: '80px' }}>
+          {/* Location & Transport Section */}
+          <section 
+            id="section-1" 
+            style={{
+              paddingTop: '80px',
+              paddingBottom: '80px',
+              borderBottom: '1px solid #e5e5e5'
+            }}
+          >
             <h2 style={{
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '700',
-              marginBottom: '32px',
-              letterSpacing: '-0.02em'
-            }}>
-              Location & Transport
-            </h2>
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+              fontSize: 'clamp(2rem, 5vw, 3rem)',
+              fontWeight: '400',
+              lineHeight: '1.1',
+              marginBottom: '48px',
+              color: '#000'
+            }}>Location & Transport</h2>
+            
             <div style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : '2fr 1fr',
-              gap: '40px'
+              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+              gap: '60px'
             }}>
               <div>
+                <h3 style={{
+                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                  fontSize: '24px',
+                  fontWeight: '500',
+                  marginBottom: '24px',
+                  color: '#000'
+                }}>Where is Hampton Park?</h3>
+                
                 <p style={{
                   fontSize: '18px',
-                  lineHeight: '1.8',
+                  lineHeight: '1.6',
                   color: '#333',
                   marginBottom: '24px'
                 }}>
                   Hampton Park sits strategically in Melbourne's southeastern suburbs, bounded by Hallam to the north, Narre Warren South to the east, Lynbrook and Lyndhurst to the south, and Dandenong South to the west. This central position within the Casey municipality provides residents with access to multiple employment centers and suburban hubs while maintaining distinct neighborhood identity.
                 </p>
+                
                 <p style={{
                   fontSize: '18px',
-                  lineHeight: '1.8',
+                  lineHeight: '1.6',
+                  color: '#333'
+                }}>
+                  The suburb is well-connected via the South Gippsland Highway running along its western boundary, with Pound Road and Somerville Road providing main east-west connections. While lacking its own train station, Hampton Park benefits from proximity to both Hallam and Lynbrook stations.
+                </p>
+              </div>
+              
+              <div>
+                <h3 style={{
+                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                  fontSize: '24px',
+                  fontWeight: '500',
+                  marginBottom: '24px',
+                  color: '#000'
+                }}>Getting around</h3>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
                   color: '#333',
                   marginBottom: '24px'
                 }}>
-                  The suburb is well-connected via the South Gippsland Highway running along its western boundary, with Pound Road and Somerville Road providing main east-west connections. While lacking its own train station, Hampton Park benefits from proximity to both Hallam and Lynbrook stations, making it accessible for commuters willing to drive short distances to rail connections.
+                  Hampton Park's transport relies heavily on road networks and bus services, with no direct train access challenging car-free living. The 894 bus route provides the primary public transport spine, connecting to Dandenong and Fountain Gate via local streets.
                 </p>
-                <div style={{
-                  backgroundColor: '#f8f8f8',
-                  padding: '24px',
-                  borderRadius: '8px',
-                  marginTop: '32px'
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#333',
+                  marginBottom: '24px'
                 }}>
-                  <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '16px' }}>Transport Options</h3>
-                  <ul style={{ listStyle: 'none', padding: 0 }}>
-                    <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'center' }}>
-                      <span style={{ marginRight: '12px', fontSize: '20px' }}>🚆</span>
-                      <span>Hallam & Lynbrook Stations - 5-10 min drive</span>
-                    </li>
-                    <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'center' }}>
-                      <span style={{ marginRight: '12px', fontSize: '20px' }}>🚌</span>
-                      <span>Route 894 - Connecting to Dandenong & Fountain Gate</span>
-                    </li>
-                    <li style={{ marginBottom: '12px', display: 'flex', alignItems: 'center' }}>
-                      <span style={{ marginRight: '12px', fontSize: '20px' }}>🚗</span>
-                      <span>South Gippsland Highway & Western Port Highway access</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div style={{
-                backgroundColor: '#000',
-                color: '#fff',
-                padding: '32px',
-                borderRadius: '12px',
-                height: 'fit-content'
-              }}>
-                <h3 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '24px' }}>
-                  Distance to Key Locations
-                </h3>
-                <div style={{ marginBottom: '16px' }}>
-                  <div style={{ fontSize: '32px', fontWeight: '700' }}>36km</div>
-                  <div style={{ fontSize: '14px', opacity: 0.8 }}>to Melbourne CBD</div>
-                </div>
-                <div style={{ marginBottom: '16px' }}>
-                  <div style={{ fontSize: '32px', fontWeight: '700' }}>10min</div>
-                  <div style={{ fontSize: '14px', opacity: 0.8 }}>to Dandenong Hospital</div>
-                </div>
-                <div style={{ marginBottom: '16px' }}>
-                  <div style={{ fontSize: '32px', fontWeight: '700' }}>5km</div>
-                  <div style={{ fontSize: '14px', opacity: 0.8 }}>to Fountain Gate</div>
-                </div>
+                  Residents typically drive to nearby train stations, with Hallam and Lynbrook stations roughly equidistant at 5-10 minutes drive. Parking availability varies, with early arrival essential for securing spaces during weekdays.
+                </p>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#333'
+                }}>
+                  Road connectivity via South Gippsland Highway and Pound Road enables reasonable car travel, though peak-hour congestion affects commute times. The Western Port Highway provides alternative routes to southeastern employment areas.
+                </p>
               </div>
             </div>
           </section>
 
-          {/* Lifestyle & Amenities */}
-          <section id="section-2" style={{ marginBottom: '80px' }}>
+          {/* Lifestyle & Amenities Section */}
+          <section 
+            id="section-2" 
+            style={{
+              paddingTop: '80px',
+              paddingBottom: '80px',
+              borderBottom: '1px solid #e5e5e5'
+            }}
+          >
             <h2 style={{
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '700',
-              marginBottom: '32px',
-              letterSpacing: '-0.02em'
-            }}>
-              Lifestyle & Amenities
-            </h2>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-              gap: '32px',
-              marginBottom: '40px'
-            }}>
-              <div style={{
-                backgroundColor: '#f8f8f8',
-                padding: '32px',
-                borderRadius: '12px'
-              }}>
-                <div style={{ fontSize: '32px', marginBottom: '16px' }}>🛍️</div>
-                <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '12px' }}>
-                  Hampton Park Shopping Centre
-                </h3>
-                <p style={{ color: '#666', lineHeight: '1.6' }}>
-                  Local hub with supermarkets, fresh food, and specialty stores serving daily needs and providing social gathering space.
-                </p>
-              </div>
-              <div style={{
-                backgroundColor: '#f8f8f8',
-                padding: '32px',
-                borderRadius: '12px'
-              }}>
-                <div style={{ fontSize: '32px', marginBottom: '16px' }}>🍽️</div>
-                <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '12px' }}>
-                  Multicultural Dining
-                </h3>
-                <p style={{ color: '#666', lineHeight: '1.6' }}>
-                  Authentic Afghan, Indian, Sri Lankan, Middle Eastern, and African cuisine at affordable prices from family-run businesses.
-                </p>
-              </div>
-              <div style={{
-                backgroundColor: '#f8f8f8',
-                padding: '32px',
-                borderRadius: '12px'
-              }}>
-                <div style={{ fontSize: '32px', marginBottom: '16px' }}>🏞️</div>
-                <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '12px' }}>
-                  Parks & Recreation
-                </h3>
-                <p style={{ color: '#666', lineHeight: '1.6' }}>
-                  Hampton Park Recreation Reserve, Robert Booth Reserve, and nearby Dandenong Valley Parklands for sports and recreation.
-                </p>
-              </div>
-            </div>
-            <p style={{
-              fontSize: '18px',
-              lineHeight: '1.8',
-              color: '#333'
-            }}>
-              The suburb's multicultural character shines through its food offerings. Small restaurants and takeaway shops offer authentic cuisine from numerous cultures at affordable prices. Local parks provide playground equipment and green space for families, while sporting clubs bring together families from various backgrounds through shared activities.
-            </p>
-          </section>
-
-          {/* Education */}
-          <section id="section-3" style={{ marginBottom: '80px' }}>
-            <h2 style={{
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '700',
-              marginBottom: '32px',
-              letterSpacing: '-0.02em'
-            }}>
-              Schools & Education
-            </h2>
-            <p style={{
-              fontSize: '18px',
-              lineHeight: '1.8',
-              color: '#333',
-              marginBottom: '32px'
-            }}>
-              Hampton Park's education landscape serves its diverse community with a range of options. Schools celebrate cultural diversity while focusing on English language development and academic achievement, often achieving remarkable outcomes despite socioeconomic challenges.
-            </p>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-              gap: '24px'
-            }}>
-              <div style={{
-                border: '1px solid #e5e5e5',
-                borderRadius: '8px',
-                padding: '24px'
-              }}>
-                <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '16px' }}>
-                  Primary Schools
-                </h3>
-                <ul style={{ listStyle: 'none', padding: 0 }}>
-                  <li style={{ marginBottom: '8px', color: '#666' }}>• Hampton Park Primary School</li>
-                  <li style={{ marginBottom: '8px', color: '#666' }}>• River Gum Primary School</li>
-                  <li style={{ marginBottom: '8px', color: '#666' }}>• Coral Park Primary School</li>
-                  <li style={{ marginBottom: '8px', color: '#666' }}>• St Kevin's School (Catholic)</li>
-                </ul>
-              </div>
-              <div style={{
-                border: '1px solid #e5e5e5',
-                borderRadius: '8px',
-                padding: '24px'
-              }}>
-                <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '16px' }}>
-                  Secondary Schools
-                </h3>
-                <ul style={{ listStyle: 'none', padding: 0 }}>
-                  <li style={{ marginBottom: '8px', color: '#666' }}>• Lyndale Secondary College</li>
-                  <li style={{ marginBottom: '8px', color: '#666' }}>• Kambrya College</li>
-                  <li style={{ marginBottom: '8px', color: '#666' }}>• Islamic schools in nearby suburbs</li>
-                  <li style={{ marginBottom: '8px', color: '#666' }}>• Strong ESL support programs</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          {/* Housing & Market */}
-          <section id="section-4" style={{ marginBottom: '80px' }}>
-            <h2 style={{
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '700',
-              marginBottom: '32px',
-              letterSpacing: '-0.02em'
-            }}>
-              Housing & Property Market
-            </h2>
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+              fontSize: 'clamp(2rem, 5vw, 3rem)',
+              fontWeight: '400',
+              lineHeight: '1.1',
+              marginBottom: '48px',
+              color: '#000'
+            }}>Lifestyle, Parks & Recreation</h2>
+            
             <div style={{
               display: 'grid',
               gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-              gap: '40px',
-              marginBottom: '40px'
+              gap: '60px'
             }}>
               <div>
                 <p style={{
                   fontSize: '18px',
-                  lineHeight: '1.8',
+                  lineHeight: '1.6',
+                  color: '#333',
+                  marginBottom: '24px'
+                }}>
+                  Hampton Park's recreational facilities reflect practical community needs rather than premium amenities. The Hampton Park Recreation Reserve provides sporting grounds supporting local cricket and football clubs, while Robert Booth Reserve offers playgrounds and open space for informal recreation. These facilities, while basic, serve as important community gathering points.
+                </p>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#333',
+                  marginBottom: '24px'
+                }}>
+                  Local parks scattered throughout residential areas provide playground equipment and green space for families. The quality varies, with some recently upgraded while others await renewal. Community advocacy often drives improvements, with cultural groups organizing to enhance local facilities.
+                </p>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#333'
+                }}>
+                  The nearby Dandenong Valley Parklands and Lysterfield Park provide more extensive recreational options within driving distance. These regional parks offer walking trails, picnic areas, and natural environments contrasting with suburban development.
+                </p>
+              </div>
+              
+              <div>
+                <h3 style={{
+                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                  fontSize: '24px',
+                  fontWeight: '500',
+                  marginBottom: '24px',
+                  color: '#000'
+                }}>Shopping & Dining</h3>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#333',
+                  marginBottom: '24px'
+                }}>
+                  Hampton Park Shopping Centre serves as the commercial heart, providing essential retail including supermarkets, fresh food, and specialty stores. While modest compared to regional centers, it meets daily needs and serves as a social hub where neighbors connect during routine shopping.
+                </p>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#333',
+                  marginBottom: '24px'
+                }}>
+                  The suburb's multicultural character shines through its food offerings. Small restaurants and takeaway shops offer authentic Afghan, Indian, Sri Lankan, Middle Eastern, and African cuisine at affordable prices. These family-run businesses provide genuine cultural experiences and community gathering places.
+                </p>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#333'
+                }}>
+                  Pound Road and other commercial strips feature practical services – mechanics, hairdressers, medical centers – interspersed with ethnic groceries stocking ingredients unavailable in mainstream supermarkets.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Schools & Education Section */}
+          <section 
+            id="section-3" 
+            style={{
+              paddingTop: '80px',
+              paddingBottom: '80px',
+              borderBottom: '1px solid #e5e5e5'
+            }}
+          >
+            <h2 style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+              fontSize: 'clamp(2rem, 5vw, 3rem)',
+              fontWeight: '400',
+              lineHeight: '1.1',
+              marginBottom: '48px',
+              color: '#000'
+            }}>Schools & Education</h2>
+            
+            <p style={{
+              fontSize: '18px',
+              lineHeight: '1.6',
+              color: '#333',
+              marginBottom: '32px'
+            }}>
+              Hampton Park's education landscape serves its diverse community with a range of options. Hampton Park Primary School anchors public education, offering programs that celebrate cultural diversity while focusing on English language development and academic achievement.
+            </p>
+            
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+              gap: '60px'
+            }}>
+              <div>
+                <h3 style={{
+                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                  fontSize: '24px',
+                  fontWeight: '500',
+                  marginBottom: '24px',
+                  color: '#000'
+                }}>Primary Schools</h3>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#333',
+                  marginBottom: '24px'
+                }}>
+                  River Gum Primary School and Coral Park Primary School provide additional options, each developing distinct approaches to serve their communities. The concentration of schools creates healthy competition and choice while fostering collaboration on community issues.
+                </p>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#333'
+                }}>
+                  St Kevin's School offers Catholic education, while Islamic schools in nearby suburbs serve Muslim families. Early learning centers and kindergartens throughout Hampton Park recognize the crucial role of early education, particularly for families where English is a second language.
+                </p>
+              </div>
+              
+              <div>
+                <h3 style={{
+                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                  fontSize: '24px',
+                  fontWeight: '500',
+                  marginBottom: '24px',
+                  color: '#000'
+                }}>Secondary Schools</h3>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#333',
+                  marginBottom: '24px'
+                }}>
+                  Lyndale Secondary College and Kambrya College serve local secondary students, providing comprehensive programs including strong ESL support and vocational pathways recognizing diverse student aspirations. These schools work hard to support students from various backgrounds.
+                </p>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#333'
+                }}>
+                  This educational diversity reflects the community's varied religious and cultural backgrounds, ensuring families can access education aligned with their values. Schools often achieve remarkable outcomes despite socioeconomic challenges.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Housing & Market Section */}
+          <section 
+            id="section-4" 
+            style={{
+              paddingTop: '80px',
+              paddingBottom: '80px',
+              borderBottom: '1px solid #e5e5e5'
+            }}
+          >
+            <h2 style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+              fontSize: 'clamp(2rem, 5vw, 3rem)',
+              fontWeight: '400',
+              lineHeight: '1.1',
+              marginBottom: '48px',
+              color: '#000'
+            }}>Housing & Property Market</h2>
+            
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+              gap: '60px'
+            }}>
+              <div>
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
                   color: '#333',
                   marginBottom: '24px'
                 }}>
                   Hampton Park's housing stock reflects its working-class origins and organic growth. Most homes are single-story brick veneer constructions from the 1970s-1990s, featuring practical layouts with 3-4 bedrooms, separate living areas, and decent-sized backyards. These homes prioritize functionality over style, offering solid construction and liveable spaces.
                 </p>
+                
                 <p style={{
                   fontSize: '18px',
-                  lineHeight: '1.8',
+                  lineHeight: '1.6',
+                  color: '#333',
+                  marginBottom: '24px'
+                }}>
+                  Property prices in Hampton Park remain among Melbourne's most affordable for houses on individual blocks. This affordability attracts both owner-occupiers and investors, with typical blocks ranging from 500-700 square meters providing space for families, gardens, and often additional parking for work vehicles or extended family.
+                </p>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
                   color: '#333'
                 }}>
-                  Property prices in Hampton Park remain among Melbourne's most affordable for houses on individual blocks. This affordability attracts both owner-occupiers and investors, with typical blocks ranging from 500-700 square meters providing space for families, gardens, and often additional parking.
+                  Recent years have seen selective renovation and redevelopment, with some older homes modernized or replaced with contemporary designs. Unit developments near main roads provide even more affordable options, though houses remain the dominant dwelling type.
                 </p>
               </div>
-              <div style={{
-                backgroundColor: '#000',
-                color: '#fff',
-                padding: '32px',
-                borderRadius: '12px'
-              }}>
-                <h3 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '24px' }}>
-                  Market Snapshot
-                </h3>
-                <div style={{ marginBottom: '20px' }}>
-                  <div style={{ fontSize: '14px', opacity: 0.8, marginBottom: '4px' }}>Median House Price</div>
-                  <div style={{ fontSize: '28px', fontWeight: '700' }}>$600,000 - $700,000</div>
-                </div>
-                <div style={{ marginBottom: '20px' }}>
-                  <div style={{ fontSize: '14px', opacity: 0.8, marginBottom: '4px' }}>Property Types</div>
-                  <div style={{ fontSize: '16px' }}>85% Houses • 10% Units • 5% Townhouses</div>
-                </div>
-                <div>
-                  <div style={{ fontSize: '14px', opacity: 0.8, marginBottom: '4px' }}>Investment Potential</div>
-                  <div style={{ fontSize: '16px' }}>Strong rental yields • Steady demand</div>
-                </div>
+              
+              <div>
+                <h3 style={{
+                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                  fontSize: '24px',
+                  fontWeight: '500',
+                  marginBottom: '24px',
+                  color: '#000'
+                }}>Market Characteristics</h3>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#333',
+                  marginBottom: '24px'
+                }}>
+                  The rental market is consistently strong, driven by the suburb's multicultural population and proximity to employment areas. Many new migrants rent initially before purchasing, creating steady demand. Investment properties often achieve solid yields, though capital growth has historically been modest compared to premium suburbs.
+                </p>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#333',
+                  marginBottom: '24px'
+                }}>
+                  Young families, often with parents working in trades, healthcare, or service industries, form the suburb's backbone. Many are first or second-generation Australians building upon their parents' migration success stories.
+                </p>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#333'
+                }}>
+                  A growing cohort of first-home buyers, priced out of more central locations, discovers Hampton Park's value proposition. These buyers, often young professionals or essential workers, accept longer commutes for the opportunity to enter property ownership.
+                </p>
               </div>
             </div>
           </section>
 
-          {/* Community & Culture */}
-          <section id="section-5" style={{ marginBottom: '80px' }}>
+          {/* Community & Culture Section */}
+          <section 
+            id="section-5" 
+            style={{
+              paddingTop: '80px',
+              paddingBottom: '80px',
+              borderBottom: '1px solid #e5e5e5'
+            }}
+          >
             <h2 style={{
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '700',
-              marginBottom: '32px',
-              letterSpacing: '-0.02em'
-            }}>
-              Community & Culture
-            </h2>
-            <p style={{
-              fontSize: '18px',
-              lineHeight: '1.8',
-              color: '#333',
-              marginBottom: '32px'
-            }}>
-              Hampton Park's community strength emerges from its diversity, with various cultural groups maintaining distinct identities while contributing to shared suburban life. Religious facilities spanning Islam, Christianity, Hinduism, and Buddhism provide not just spiritual services but crucial community support networks.
-            </p>
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+              fontSize: 'clamp(2rem, 5vw, 3rem)',
+              fontWeight: '400',
+              lineHeight: '1.1',
+              marginBottom: '48px',
+              color: '#000'
+            }}>Community & Culture</h2>
+            
             <div style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)',
-              gap: '24px',
-              textAlign: 'center'
+              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+              gap: '60px'
             }}>
               <div>
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '50%',
-                  backgroundColor: '#f8f8f8',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 16px',
-                  fontSize: '32px'
-                }}>🌏</div>
-                <h4 style={{ fontSize: '16px', fontWeight: '600' }}>150+ Nationalities</h4>
-                <p style={{ fontSize: '14px', color: '#666' }}>One of Melbourne's most diverse suburbs</p>
+                <h3 style={{
+                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                  fontSize: '24px',
+                  fontWeight: '500',
+                  marginBottom: '24px',
+                  color: '#000'
+                }}>Cultural Diversity</h3>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#333',
+                  marginBottom: '24px'
+                }}>
+                  Hampton Park's demographic tells the story of modern multicultural Australia. The suburb attracts new migrants beginning their Australian journey, with significant communities from Afghanistan, India, Sri Lanka, Iran, and various African nations. These communities choose Hampton Park for its affordability, established cultural networks, and acceptance of diversity.
+                </p>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#333'
+                }}>
+                  Religious facilities spanning Islam, Christianity, Hinduism, and Buddhism provide not just spiritual services but crucial community support networks. Community organizations play vital roles supporting new arrivals, providing everything from English classes to employment assistance.
+                </p>
               </div>
+              
               <div>
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '50%',
-                  backgroundColor: '#f8f8f8',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 16px',
-                  fontSize: '32px'
-                }}>🤝</div>
-                <h4 style={{ fontSize: '16px', fontWeight: '600' }}>Community Networks</h4>
-                <p style={{ fontSize: '14px', color: '#666' }}>Strong support systems across cultures</p>
-              </div>
-              <div>
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '50%',
-                  backgroundColor: '#f8f8f8',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 16px',
-                  fontSize: '32px'
-                }}>🏘️</div>
-                <h4 style={{ fontSize: '16px', fontWeight: '600' }}>Family Values</h4>
-                <p style={{ fontSize: '14px', color: '#666' }}>Strong extended family presence</p>
-              </div>
-              <div>
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '50%',
-                  backgroundColor: '#f8f8f8',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 16px',
-                  fontSize: '32px'
-                }}>✊</div>
-                <h4 style={{ fontSize: '16px', fontWeight: '600' }}>Resilient Spirit</h4>
-                <p style={{ fontSize: '14px', color: '#666' }}>Building futures through community</p>
+                <h3 style={{
+                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                  fontSize: '24px',
+                  fontWeight: '500',
+                  marginBottom: '24px',
+                  color: '#000'
+                }}>Safety & Community</h3>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#333',
+                  marginBottom: '24px'
+                }}>
+                  Safety perceptions vary, with crime statistics showing higher rates than affluent suburbs but significant improvements over past decades. Community policing initiatives and natural surveillance from extended families and cultural networks contribute to actual safety exceeding perceptions.
+                </p>
+                
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#333'
+                }}>
+                  The community's resilience shines during challenges, with neighbors supporting each other regardless of background. This practical multiculturalism, based on shared experiences rather than ideology, creates genuine social cohesion despite economic constraints.
+                </p>
               </div>
             </div>
           </section>
 
           {/* Properties Section */}
-          <section id="section-6" style={{ marginBottom: '80px' }}>
+          <section 
+            id="section-6" 
+            style={{
+              paddingTop: '80px',
+              paddingBottom: '80px',
+              borderBottom: '1px solid #e5e5e5'
+            }}
+          >
             <h2 style={{
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '700',
-              marginBottom: '16px',
-              letterSpacing: '-0.02em'
-            }}>
-              Current Properties in Hampton Park
-            </h2>
-            <p style={{
-              fontSize: '18px',
-              color: '#666',
-              marginBottom: '40px'
-            }}>
-              Discover affordable homes in this multicultural community
-            </p>
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+              fontSize: 'clamp(2rem, 5vw, 3rem)',
+              fontWeight: '400',
+              lineHeight: '1.1',
+              marginBottom: '48px',
+              color: '#000'
+            }}>Current Properties in Hampton Park</h2>
             
-            {loading ? (
-              <div style={{ textAlign: 'center', padding: '60px 0' }}>
-                <div style={{
-                  width: '48px',
-                  height: '48px',
-                  border: '3px solid #f0f0f0',
-                  borderTop: '3px solid #000',
-                  borderRadius: '50%',
-                  margin: '0 auto',
-                  animation: 'spin 1s linear infinite'
-                }} />
-              </div>
-            ) : properties.length > 0 ? (
+            {properties && properties.length > 0 ? (
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(350px, 1fr))',
-                gap: '24px'
+                gridTemplateColumns: isMobile ? '1fr' : isTablet ? '1fr 1fr' : '1fr 1fr 1fr',
+                gap: '32px'
               }}>
-                {properties.map((property) => (
+                {properties.slice(0, 6).map((property) => (
                   <div key={property.id} style={{
                     backgroundColor: '#fff',
-                    borderRadius: '12px',
+                    borderRadius: '8px',
                     overflow: 'hidden',
-                    border: '1px solid #e5e5e5',
-                    transition: 'all 0.3s ease',
-                    cursor: 'pointer'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = 'none';
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                    transition: 'transform 0.3s ease, box-shadow 0.3s ease'
                   }}>
-                    <Link href={`/property/${property.id}`} style={{
-                      textDecoration: 'none',
-                      color: 'inherit'
-                    }}>
+                    {property.image && (
                       <div style={{
-                        position: 'relative',
-                        paddingTop: '66.67%',
-                        backgroundColor: '#f5f5f5'
+                        width: '100%',
+                        height: '200px',
+                        backgroundImage: `url(${property.image})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        position: 'relative'
                       }}>
-                        {property.images && property.images[0] ? (
-                          <img
-                            src={typeof property.images[0] === 'string' ? property.images[0] : property.images[0].url}
-                            alt={property.address}
-                            style={{
-                              position: 'absolute',
-                              top: 0,
-                              left: 0,
-                              width: '100%',
-                              height: '100%',
-                              objectFit: 'cover'
-                            }}
-                          />
-                        ) : (
-                          <div style={{
-                            position: 'absolute',
-                            inset: 0,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: '#999'
-                          }}>
-                            No image available
-                          </div>
-                        )}
                         <div style={{
                           position: 'absolute',
-                          top: '16px',
-                          right: '16px'
+                          top: '12px',
+                          right: '12px'
                         }}>
                           <SavePropertyButton property={property} />
                         </div>
                       </div>
-                      
-                      <div style={{ padding: '24px' }}>
-                        <h3 style={{
-                          fontSize: '24px',
-                          fontWeight: '600',
-                          marginBottom: '8px'
-                        }}>
-                          {property.priceDisplay || formatPrice(property.price)}
-                        </h3>
-                        <p style={{
-                          fontSize: '16px',
-                          color: '#666',
-                          marginBottom: '16px'
-                        }}>
-                          {property.address}
-                        </p>
-                        <div style={{
-                          display: 'flex',
-                          gap: '20px',
-                          fontSize: '14px',
-                          color: '#333'
-                        }}>
-                          <span>{property.bedrooms} beds</span>
-                          <span>{property.bathrooms} baths</span>
-                          <span>{property.carSpaces} cars</span>
-                        </div>
+                    )}
+                    
+                    <div style={{ padding: '24px' }}>
+                      <div style={{
+                        fontSize: '24px',
+                        fontWeight: '600',
+                        marginBottom: '8px',
+                        color: '#000'
+                      }}>
+                        {formatPrice(property.price)}
                       </div>
-                    </Link>
+                      
+                      <div style={{
+                        fontSize: '16px',
+                        color: '#666',
+                        marginBottom: '16px'
+                      }}>
+                        {property.address}
+                      </div>
+                      
+                      <div style={{
+                        display: 'flex',
+                        gap: '16px',
+                        fontSize: '14px',
+                        color: '#888',
+                        marginBottom: '16px'
+                      }}>
+                        {property.bedrooms && (
+                          <span>{property.bedrooms} bed{property.bedrooms !== 1 ? 's' : ''}</span>
+                        )}
+                        {property.bathrooms && (
+                          <span>{property.bathrooms} bath{property.bathrooms !== 1 ? 's' : ''}</span>
+                        )}
+                        {property.carSpaces && (
+                          <span>{property.carSpaces} car{property.carSpaces !== 1 ? 's' : ''}</span>
+                        )}
+                      </div>
+                      
+                      <Link
+                        href={`/properties/${property.id}`}
+                        style={{
+                          display: 'inline-block',
+                          padding: '12px 24px',
+                          backgroundColor: '#000',
+                          color: '#fff',
+                          textDecoration: 'none',
+                          borderRadius: '6px',
+                          fontSize: '14px',
+                          fontWeight: '500',
+                          transition: 'background-color 0.3s ease'
+                        }}
+                      >
+                        View Details
+                      </Link>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -692,289 +827,199 @@ export default function HamptonParkSuburbGuide() {
                 textAlign: 'center',
                 padding: '60px 20px',
                 backgroundColor: '#f8f8f8',
-                borderRadius: '12px'
+                borderRadius: '8px'
               }}>
                 <p style={{
                   fontSize: '18px',
                   color: '#666',
-                  marginBottom: '24px'
-                }}>
-                  No properties currently available in Hampton Park
-                </p>
-                <Link href="/buy" style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  padding: '16px 32px',
-                  backgroundColor: '#000',
-                  color: '#fff',
-                  textDecoration: 'none',
-                  borderRadius: '32px',
+                  marginBottom: '16px'
+                }}>No properties currently available in Hampton Park</p>
+                <p style={{
                   fontSize: '16px',
-                  fontWeight: '600',
-                  transition: 'all 0.2s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#333';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#000';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}>
-                  View all properties
-                </Link>
+                  color: '#888'
+                }}>Check back soon for new listings in this multicultural community</p>
               </div>
             )}
             
-            <div style={{ textAlign: 'center', marginTop: '40px' }}>
-              <Link href="/buy?suburb=Hampton+Park" style={{
-                display: 'inline-block',
-                padding: '16px 40px',
-                backgroundColor: 'transparent',
-                color: '#000',
-                textDecoration: 'none',
-                borderRadius: '32px',
-                fontSize: '16px',
-                fontWeight: '600',
-                border: '2px solid #000',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#000';
-                e.currentTarget.style.color = '#fff';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = '#000';
-              }}>
-                View all Hampton Park properties
+            <div style={{
+              textAlign: 'center',
+              marginTop: '48px'
+            }}>
+              <Link
+                href="/properties?suburb=Hampton Park"
+                style={{
+                  display: 'inline-block',
+                  padding: '16px 32px',
+                  backgroundColor: 'transparent',
+                  color: '#000',
+                  textDecoration: 'none',
+                  border: '2px solid #000',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  transition: 'all 0.3s ease'
+                }}
+              >
+                View All Hampton Park Properties
               </Link>
             </div>
           </section>
 
-          {/* Buyer Tips */}
-          <section id="section-7" style={{ marginBottom: '80px' }}>
+          {/* Buyer Tips Section */}
+          <section 
+            id="section-7" 
+            style={{
+              paddingTop: '80px',
+              paddingBottom: '120px'
+            }}
+          >
             <h2 style={{
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '700',
-              marginBottom: '32px',
-              letterSpacing: '-0.02em'
-            }}>
-              Tips for Buyers & Renters
-            </h2>
-            <div style={{
-              backgroundColor: '#f8f8f8',
-              padding: isMobile ? '32px 24px' : '48px',
-              borderRadius: '12px'
-            }}>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-                gap: '32px'
-              }}>
-                <div>
-                  <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '16px' }}>
-                    For Buyers
-                  </h3>
-                  <ul style={{ listStyle: 'none', padding: 0 }}>
-                    <li style={{ marginBottom: '12px', paddingLeft: '24px', position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: 0 }}>✓</span>
-                      Embrace diversity - the multicultural character is the suburb's strength
-                    </li>
-                    <li style={{ marginBottom: '12px', paddingLeft: '24px', position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: 0 }}>✓</span>
-                      Research micro-locations - some streets have better reputations than others
-                    </li>
-                    <li style={{ marginBottom: '12px', paddingLeft: '24px', position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: 0 }}>✓</span>
-                      Factor in transport costs - no direct train access means car reliance
-                    </li>
-                    <li style={{ marginBottom: '12px', paddingLeft: '24px', position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: 0 }}>✓</span>
-                      Focus on structural quality over aesthetics in older homes
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '16px' }}>
-                    For Renters
-                  </h3>
-                  <ul style={{ listStyle: 'none', padding: 0 }}>
-                    <li style={{ marginBottom: '12px', paddingLeft: '24px', position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: 0 }}>✓</span>
-                      Strong rental market with diverse property options
-                    </li>
-                    <li style={{ marginBottom: '12px', paddingLeft: '24px', position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: 0 }}>✓</span>
-                      Join local community groups for faster integration
-                    </li>
-                    <li style={{ marginBottom: '12px', paddingLeft: '24px', position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: 0 }}>✓</span>
-                      Consider proximity to bus routes and shopping centers
-                    </li>
-                    <li style={{ marginBottom: '12px', paddingLeft: '24px', position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: 0 }}>✓</span>
-                      Many landlords from same cultural backgrounds offer understanding
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Who Will Love It */}
-          <section style={{
-            backgroundColor: '#000',
-            color: '#fff',
-            padding: isMobile ? '48px 24px' : '80px',
-            borderRadius: '12px',
-            marginBottom: '80px'
-          }}>
-            <h2 style={{
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: '700',
-              marginBottom: '32px',
-              letterSpacing: '-0.02em'
-            }}>
-              Who will love Hampton Park?
-            </h2>
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+              fontSize: 'clamp(2rem, 5vw, 3rem)',
+              fontWeight: '400',
+              lineHeight: '1.1',
+              marginBottom: '48px',
+              color: '#000'
+            }}>Tips for Buyers & Renters</h2>
+            
             <div style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-              gap: '40px'
+              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+              gap: '60px'
             }}>
               <div>
-                <h3 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '16px' }}>
-                  Perfect for:
-                </h3>
-                <ul style={{ listStyle: 'none', padding: 0 }}>
-                  <li style={{ marginBottom: '16px', fontSize: '16px', opacity: 0.9 }}>
-                    <strong>New migrants</strong> - Affordable housing and established cultural communities
+                <h3 style={{
+                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                  fontSize: '24px',
+                  fontWeight: '500',
+                  marginBottom: '24px',
+                  color: '#000'
+                }}>Before You Buy</h3>
+                
+                <ul style={{
+                  listStyle: 'none',
+                  padding: 0,
+                  margin: 0
+                }}>
+                  <li style={{
+                    padding: '16px 0',
+                    borderBottom: '1px solid #e5e5e5',
+                    fontSize: '16px',
+                    lineHeight: '1.5',
+                    color: '#333'
+                  }}>
+                    <strong>Embrace diversity:</strong> The suburb's multicultural character is its strength – be open to different cultures
                   </li>
-                  <li style={{ marginBottom: '16px', fontSize: '16px', opacity: 0.9 }}>
-                    <strong>First-home buyers</strong> - Some of Melbourne's most affordable house-and-land options
+                  <li style={{
+                    padding: '16px 0',
+                    borderBottom: '1px solid #e5e5e5',
+                    fontSize: '16px',
+                    lineHeight: '1.5',
+                    color: '#333'
+                  }}>
+                    <strong>Research micro-locations:</strong> Some streets and areas have better reputations and amenities than others
                   </li>
-                  <li style={{ marginBottom: '16px', fontSize: '16px', opacity: 0.9 }}>
-                    <strong>Working families</strong> - Practical housing and community support networks
+                  <li style={{
+                    padding: '16px 0',
+                    borderBottom: '1px solid #e5e5e5',
+                    fontSize: '16px',
+                    lineHeight: '1.5',
+                    color: '#333'
+                  }}>
+                    <strong>Consider transport carefully:</strong> Factor in costs and time for commuting without direct train access
                   </li>
-                  <li style={{ marginBottom: '16px', fontSize: '16px', opacity: 0.9 }}>
-                    <strong>Cultural food lovers</strong> - Authentic, affordable cuisine from numerous cultures
-                  </li>
-                  <li style={{ marginBottom: '16px', fontSize: '16px', opacity: 0.9 }}>
-                    <strong>Value seekers</strong> - Maximum housing for minimum cost
+                  <li style={{
+                    padding: '16px 0',
+                    fontSize: '16px',
+                    lineHeight: '1.5',
+                    color: '#333'
+                  }}>
+                    <strong>Look beyond aesthetics:</strong> Focus on structural quality and potential rather than current presentation
                   </li>
                 </ul>
               </div>
+              
               <div>
-                <h3 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '16px' }}>
-                  The Hampton Park advantage:
-                </h3>
-                <p style={{ fontSize: '16px', lineHeight: '1.8', opacity: 0.9 }}>
-                  Hampton Park serves a crucial role in Melbourne's housing ecosystem – providing genuinely affordable family housing where new Australians can establish themselves and working families can achieve homeownership. While it lacks the amenities and prestige of wealthier suburbs, it offers something equally valuable: opportunity.
-                </p>
+                <h3 style={{
+                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                  fontSize: '24px',
+                  fontWeight: '500',
+                  marginBottom: '24px',
+                  color: '#000'
+                }}>Living in Hampton Park</h3>
+                
+                <ul style={{
+                  listStyle: 'none',
+                  padding: 0,
+                  margin: 0
+                }}>
+                  <li style={{
+                    padding: '16px 0',
+                    borderBottom: '1px solid #e5e5e5',
+                    fontSize: '16px',
+                    lineHeight: '1.5',
+                    color: '#333'
+                  }}>
+                    <strong>Engage with community:</strong> Join local groups to build networks and understand neighborhood dynamics
+                  </li>
+                  <li style={{
+                    padding: '16px 0',
+                    borderBottom: '1px solid #e5e5e5',
+                    fontSize: '16px',
+                    lineHeight: '1.5',
+                    color: '#333'
+                  }}>
+                    <strong>Understand the context:</strong> Hampton Park serves specific community needs – ensure these align with your situation
+                  </li>
+                  <li style={{
+                    padding: '16px 0',
+                    borderBottom: '1px solid #e5e5e5',
+                    fontSize: '16px',
+                    lineHeight: '1.5',
+                    color: '#333'
+                  }}>
+                    <strong>Explore cultural offerings:</strong> Take advantage of authentic dining and cultural experiences
+                  </li>
+                  <li style={{
+                    padding: '16px 0',
+                    fontSize: '16px',
+                    lineHeight: '1.5',
+                    color: '#333'
+                  }}>
+                    <strong>Build community connections:</strong> Support local businesses and participate in community events
+                  </li>
+                </ul>
               </div>
+            </div>
+            
+            <div style={{
+              marginTop: '60px',
+              padding: '40px',
+              backgroundColor: '#f8f8f8',
+              borderRadius: '8px',
+              textAlign: 'center'
+            }}>
+              <h3 style={{
+                fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                fontSize: '24px',
+                fontWeight: '500',
+                marginBottom: '16px',
+                color: '#000'
+              }}>The Hampton Park Advantage</h3>
+              
+              <p style={{
+                fontSize: '18px',
+                lineHeight: '1.6',
+                color: '#333',
+                maxWidth: '800px',
+                margin: '0 auto'
+              }}>
+                Hampton Park serves a crucial role in Melbourne's housing ecosystem – providing genuinely affordable family housing where new Australians can establish themselves and working families can achieve homeownership. For those who value community over convenience, diversity over homogeneity, and affordability over amenity, Hampton Park provides a genuine option in Melbourne's increasingly unaffordable housing market.
+              </p>
             </div>
           </section>
         </div>
-
-        {/* CTA Section */}
-        <section style={{
-          backgroundColor: '#f8f8f8',
-          padding: isMobile ? '60px 20px' : '100px 80px',
-          textAlign: 'center'
-        }}>
-          <div style={{
-            maxWidth: '800px',
-            margin: '0 auto'
-          }}>
-            <h2 style={{
-              fontSize: isMobile ? '32px' : '48px',
-              fontWeight: '700',
-              marginBottom: '24px',
-              letterSpacing: '-0.02em'
-            }}>
-              Ready to make Hampton Park home?
-            </h2>
-            <p style={{
-              fontSize: '20px',
-              marginBottom: '40px',
-              color: '#666',
-              lineHeight: '1.6'
-            }}>
-              Our local experts understand the community and can help you find the perfect affordable home for your family.
-            </p>
-            <div style={{
-              display: 'flex',
-              gap: '16px',
-              justifyContent: 'center',
-              flexWrap: 'wrap'
-            }}>
-              <Link href="/appraisal" style={{
-                display: 'inline-block',
-                padding: '16px 40px',
-                backgroundColor: '#000',
-                color: '#fff',
-                textDecoration: 'none',
-                borderRadius: '32px',
-                fontSize: '16px',
-                fontWeight: '600',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#333';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = '#000';
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}>
-                Get free appraisal
-              </Link>
-              <Link href="/contact" style={{
-                display: 'inline-block',
-                padding: '16px 40px',
-                backgroundColor: 'transparent',
-                color: '#000',
-                textDecoration: 'none',
-                borderRadius: '32px',
-                fontSize: '16px',
-                fontWeight: '600',
-                border: '2px solid #000',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#000';
-                e.currentTarget.style.color = '#fff';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = '#000';
-              }}>
-                Talk to an expert
-              </Link>
-            </div>
-          </div>
-        </section>
       </main>
-
-      <style jsx>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-        
-        @keyframes bounce {
-          0%, 20%, 50%, 80%, 100% {
-            transform: translateY(0) translateX(-50%);
-          }
-          40% {
-            transform: translateY(-10px) translateX(-50%);
-          }
-          60% {
-            transform: translateY(-5px) translateX(-50%);
-          }
-        }
-      `}</style>
     </>
   );
 }

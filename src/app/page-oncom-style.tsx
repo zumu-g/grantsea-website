@@ -58,7 +58,7 @@ export default function HomePageOncom() {
           margin: '0 auto'
         }}>
           <h1 style={{
-            fontSize: isMobile ? '24px' : isTablet ? '28px' : '32px',
+            fontSize: isMobile ? '32px' : isTablet ? '40px' : '48px',
             fontWeight: '700',
             lineHeight: '1.1',
             marginBottom: isMobile ? '12px' : '16px',
@@ -69,7 +69,7 @@ export default function HomePageOncom() {
             Your best move starts here
           </h1>
           <p style={{
-            fontSize: isMobile ? '14px' : isTablet ? '16px' : '18px',
+            fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
             fontWeight: '400',
             lineHeight: '1.5',
             marginBottom: isMobile ? '24px' : '32px',
@@ -308,8 +308,8 @@ export default function HomePageOncom() {
               </div>
             </Link>
 
-            {/* Sell Category */}
-            <Link href="/sell" style={{
+            {/* Berwick Category */}
+            <Link href="/suburbs/berwick" style={{
               position: 'relative',
               display: 'block',
               textDecoration: 'none',
@@ -336,8 +336,8 @@ export default function HomePageOncom() {
                 height: '100%'
               }}>
                 <img 
-                  src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&h=480&fit=crop"
-                  alt="Sell"
+                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=480&fit=crop"
+                  alt="Berwick"
                   style={{
                     position: 'absolute',
                     top: 0,
@@ -364,11 +364,11 @@ export default function HomePageOncom() {
                     fontWeight: '600',
                     marginBottom: '4px',
                     letterSpacing: '-0.01em'
-                  }}>Sell</h3>
+                  }}>Berwick</h3>
                   <p style={{
                     color: 'rgba(255,255,255,0.9)',
                     fontSize: '14px'
-                  }}>List your property</p>
+                  }}>Explore this premium suburb</p>
                 </div>
               </div>
             </Link>
@@ -564,6 +564,20 @@ export default function HomePageOncom() {
           margin: '0 auto',
           position: 'relative'
         }}>
+          <h2 style={{
+            fontSize: isMobile ? '32px' : isTablet ? '40px' : '48px',
+            fontWeight: '700',
+            letterSpacing: '-0.02em',
+            textAlign: 'left',
+            margin: '0',
+            marginBottom: isMobile ? '24px' : '48px',
+            color: '#000',
+            lineHeight: '1.1',
+            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : '60px',
+            paddingRight: isMobile ? '20px' : isTablet ? '40px' : '60px'
+          }}>
+            Explore suburbs
+          </h2>
           {/* Carousel Container */}
           <div style={{
             position: 'relative'
@@ -612,33 +626,57 @@ export default function HomePageOncom() {
                   },
                   {
                     name: 'Hampton Park',
-                    tagline: 'Diverse community living',
+                    tagline: 'Multicultural community',
                     image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&h=800&fit=crop',
                     link: '/suburbs/hampton-park'
                   },
                   {
                     name: 'Officer',
-                    tagline: 'Modern growth corridor',
+                    tagline: 'Emerging suburb',
                     image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&h=800&fit=crop',
                     link: '/suburbs/officer'
                   },
                   {
                     name: 'Clyde',
-                    tagline: 'Emerging community',
+                    tagline: 'Building tomorrow',
                     image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&h=800&fit=crop',
                     link: '/suburbs/clyde'
                   },
                   {
                     name: 'Beaconsfield',
-                    tagline: 'Peaceful family suburb',
+                    tagline: 'Hills charm',
                     image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&h=800&fit=crop',
                     link: '/suburbs/beaconsfield'
                   },
                   {
                     name: 'Hallam',
-                    tagline: 'Convenient suburban living',
+                    tagline: 'Established convenience',
                     image: 'https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=600&h=800&fit=crop',
                     link: '/suburbs/hallam'
+                  },
+                  {
+                    name: 'Clyde North',
+                    tagline: 'Modern family living',
+                    image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&h=800&fit=crop',
+                    link: '/suburbs/clyde-north'
+                  },
+                  {
+                    name: 'Cranbourne North',
+                    tagline: 'Family-focused growth',
+                    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=800&fit=crop',
+                    link: '/suburbs/cranbourne-north'
+                  },
+                  {
+                    name: 'Narre Warren East',
+                    tagline: 'Peaceful acreage',
+                    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=800&fit=crop',
+                    link: '/suburbs/narre-warren-east'
+                  },
+                  {
+                    name: 'Endeavour Hills',
+                    tagline: 'Established excellence',
+                    image: 'https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=600&h=800&fit=crop',
+                    link: '/suburbs/endeavour-hills'
                   }
                 ].map((item, index) => (
                   <Link
@@ -753,7 +791,7 @@ export default function HomePageOncom() {
             </button>
             
             <button
-              onClick={() => setCarouselScroll(Math.min(1568, carouselScroll + 196))}
+              onClick={() => setCarouselScroll(Math.min(2156, carouselScroll + 196))}
               style={{
                 position: 'absolute',
                 right: '0',
@@ -771,12 +809,12 @@ export default function HomePageOncom() {
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
                 boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
-                opacity: carouselScroll >= 1568 ? 0 : 1,
-                pointerEvents: carouselScroll >= 1568 ? 'none' : 'auto',
+                opacity: carouselScroll >= 2156 ? 0 : 1,
+                pointerEvents: carouselScroll >= 2156 ? 'none' : 'auto',
                 zIndex: 2
               }}
               onMouseEnter={(e) => {
-                if (carouselScroll < 1568) {
+                if (carouselScroll < 2156) {
                   e.currentTarget.style.backgroundColor = 'rgba(255,255,255,1)';
                   e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)';
                 }

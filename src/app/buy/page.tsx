@@ -475,7 +475,6 @@ export default function BuyPageOncom() {
               <button
                 style={{
                   background: 'none',
-                  border: 'none',
                   padding: '8px 16px',
                   fontSize: '14px',
                   color: '#000',

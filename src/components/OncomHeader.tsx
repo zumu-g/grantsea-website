@@ -88,17 +88,23 @@ export default function OncomHeader() {
             textDecoration: 'none',
             transition: 'all 0.3s ease'
           }}>
-            <img 
-              src="/gea_website_logo_svg.svg" 
-              alt="Grant's Estate Agents"
-              style={{
-                height: isMobile ? '48px' : '60px',
-                width: 'auto',
-                objectFit: 'contain',
-                filter: 'none',
-                transition: 'opacity 0.3s ease'
-              }}
-            />
+            <div style={{
+              height: isMobile ? '36px' : '44px',
+              display: 'flex',
+              alignItems: 'center'
+            }}>
+              <img 
+                src="/gea_website_logo_svg.svg" 
+                alt="Grant's Estate Agents"
+                width={isMobile ? 58 : 72}
+                height={isMobile ? 36 : 44}
+                style={{
+                  display: 'block',
+                  maxWidth: '100%',
+                  height: 'auto'
+                }}
+              />
+            </div>
           </Link>
 
           {!isMobile && (

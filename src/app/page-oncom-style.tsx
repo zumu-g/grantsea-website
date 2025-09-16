@@ -25,7 +25,6 @@ export default function HomePageOncom() {
     return () => window.removeEventListener('resize', checkDevice);
   }, []);
 
-
   return (
     <>
       <OncomHeader />
@@ -1186,7 +1185,6 @@ export default function HomePageOncom() {
                       <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
                   </div>
-                </div>
               </Link>
             </article>
 

@@ -23,9 +23,12 @@ export default function CareersPage() {
     <>
       <OncomHeader />
       
-      {/* Main Content */}
-      <main style={{ paddingTop: isMobile ? '60px' : '64px', backgroundColor: '#fff' }}>
-        {/* Hero Section */}
+      <main style={{ 
+        paddingTop: isMobile ? '60px' : '64px',
+        backgroundColor: '#fff',
+        minHeight: '100vh'
+      }}>
+        {/* Hero Section with Large Text */}
         <section style={{
           minHeight: '100vh',
           display: 'flex',
@@ -33,184 +36,205 @@ export default function CareersPage() {
           justifyContent: 'center',
           backgroundColor: '#fff',
           position: 'relative',
-          overflow: 'hidden'
+          padding: isMobile ? '40px 20px' : '80px 40px'
         }}>
           <div style={{
-            textAlign: 'center',
-            padding: isMobile ? '40px 20px' : '80px 40px',
-            maxWidth: '1200px',
-            margin: '0 auto'
+            maxWidth: '1440px',
+            width: '100%',
+            margin: '0 auto',
+            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
           }}>
             <h1 style={{
-              fontSize: isMobile ? '60px' : isTablet ? '80px' : '120px',
+              fontSize: isMobile ? '80px' : isTablet ? '120px' : '180px',
               fontWeight: '700',
-              lineHeight: '0.9',
-              letterSpacing: '-0.04em',
+              lineHeight: '0.85',
+              letterSpacing: '-0.05em',
               marginBottom: '40px',
-              fontFamily: '"On", "Helvetica Neue", Helvetica, Arial, sans-serif'
+              color: '#000'
             }}>
-              Dream<br />Together.
+              Dream<br />
+              Together.
             </h1>
-            <p style={{
-              fontSize: isMobile ? '18px' : '24px',
-              color: '#666',
+            <div style={{
               maxWidth: '600px',
-              margin: '0 auto',
-              lineHeight: '1.4'
+              marginTop: '40px'
             }}>
-              Join our team of passionate professionals shaping the future of real estate in Casey and Cardinia.
-            </p>
+              <p style={{
+                fontSize: isMobile ? '20px' : '24px',
+                lineHeight: '1.4',
+                color: '#333',
+                fontWeight: '400'
+              }}>
+                Join our passionate team shaping the future of real estate in Casey and Cardinia.
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* Video Section */}
+        {/* Full Width Image Section */}
         <section style={{
-          backgroundColor: '#000',
           position: 'relative',
-          height: isMobile ? '50vh' : '80vh',
-          overflow: 'hidden',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
+          width: '100%',
+          height: isMobile ? '60vh' : '80vh',
+          backgroundColor: '#000',
+          overflow: 'hidden'
         }}>
           <div style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4)',
-            backgroundSize: '400% 400%',
-            animation: 'gradient 15s ease infinite',
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
             opacity: 0.8
           }} />
           <div style={{
-            position: 'relative',
-            zIndex: 1,
-            textAlign: 'center',
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             color: '#fff',
-            padding: '40px'
+            textAlign: 'center'
           }}>
-            <h2 style={{
-              fontSize: isMobile ? '32px' : isTablet ? '48px' : '64px',
-              fontWeight: '700',
-              marginBottom: '20px',
-              letterSpacing: '-0.03em'
-            }}>
-              Where passion meets purpose
-            </h2>
-            <button style={{
-              padding: '16px 48px',
-              backgroundColor: '#fff',
-              color: '#000',
-              border: 'none',
-              borderRadius: '50px',
-              fontSize: '16px',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'transform 0.2s ease'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-            >
-              Watch our story
-            </button>
+            <div>
+              <h2 style={{
+                fontSize: isMobile ? '40px' : isTablet ? '60px' : '80px',
+                fontWeight: '700',
+                marginBottom: '20px',
+                letterSpacing: '-0.03em'
+              }}>
+                Culture of Excellence
+              </h2>
+              <p style={{
+                fontSize: isMobile ? '18px' : '20px',
+                maxWidth: '600px',
+                margin: '0 auto',
+                opacity: 0.9
+              }}>
+                Where innovation meets tradition in real estate
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* Values Grid */}
+        {/* Text Content Section */}
         <section style={{
-          padding: isMobile ? '60px 20px' : '120px 40px',
-          backgroundColor: '#f8f8f8'
+          padding: isMobile ? '80px 20px' : '120px 40px',
+          backgroundColor: '#fff'
         }}>
           <div style={{
             maxWidth: '1200px',
+            margin: '0 auto',
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+            gap: isMobile ? '40px' : '80px',
+            alignItems: 'start'
+          }}>
+            <div>
+              <h3 style={{
+                fontSize: isMobile ? '32px' : '40px',
+                fontWeight: '700',
+                marginBottom: '24px',
+                letterSpacing: '-0.02em'
+              }}>
+                Our Mission
+              </h3>
+              <p style={{
+                fontSize: '18px',
+                lineHeight: '1.6',
+                color: '#666'
+              }}>
+                To revolutionize the real estate experience in Melbourne's southeast through innovation, integrity, and exceptional service. We believe in creating lasting relationships and delivering results that exceed expectations.
+              </p>
+            </div>
+            <div>
+              <h3 style={{
+                fontSize: isMobile ? '32px' : '40px',
+                fontWeight: '700',
+                marginBottom: '24px',
+                letterSpacing: '-0.02em'
+              }}>
+                Our Vision
+              </h3>
+              <p style={{
+                fontSize: '18px',
+                lineHeight: '1.6',
+                color: '#666'
+              }}>
+                To be the most trusted and innovative real estate agency in Casey and Cardinia, known for our people-first approach and commitment to community growth.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Values Grid Section */}
+        <section style={{
+          padding: isMobile ? '80px 20px' : '120px 40px',
+          backgroundColor: '#f8f8f8'
+        }}>
+          <div style={{
+            maxWidth: '1440px',
             margin: '0 auto'
           }}>
             <h2 style={{
-              fontSize: isMobile ? '36px' : isTablet ? '48px' : '56px',
+              fontSize: isMobile ? '48px' : isTablet ? '64px' : '80px',
               fontWeight: '700',
               marginBottom: '60px',
-              textAlign: 'center',
-              letterSpacing: '-0.02em'
+              letterSpacing: '-0.03em',
+              textAlign: 'center'
             }}>
-              Our values
+              Our Values
             </h2>
             <div style={{
               display: 'grid',
               gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
-              gap: '40px'
+              gap: '2px',
+              backgroundColor: '#fff',
+              border: '2px solid #fff'
             }}>
               {[
-                {
-                  title: 'Innovate',
-                  description: 'We push boundaries and embrace new technologies to deliver exceptional experiences.',
-                  color: '#ff6b6b'
-                },
-                {
-                  title: 'Collaborate',
-                  description: 'Success comes from working together, sharing knowledge, and supporting each other.',
-                  color: '#4ecdc4'
-                },
-                {
-                  title: 'Deliver',
-                  description: 'We exceed expectations and create lasting value for our clients and communities.',
-                  color: '#45b7d1'
-                },
-                {
-                  title: 'Grow',
-                  description: 'Continuous learning and development drives personal and professional excellence.',
-                  color: '#96ceb4'
-                },
-                {
-                  title: 'Care',
-                  description: 'We genuinely care about our people, clients, and the communities we serve.',
-                  color: '#f7b731'
-                },
-                {
-                  title: 'Lead',
-                  description: 'We set the standard for ethical practice and market innovation in real estate.',
-                  color: '#5f27cd'
-                }
+                { number: '01', title: 'Integrity', desc: 'Honest and transparent in every interaction' },
+                { number: '02', title: 'Innovation', desc: 'Embracing technology and new approaches' },
+                { number: '03', title: 'Excellence', desc: 'Delivering exceptional results every time' },
+                { number: '04', title: 'Community', desc: 'Building strong local connections' },
+                { number: '05', title: 'Growth', desc: 'Continuous learning and development' },
+                { number: '06', title: 'Passion', desc: 'Love what we do and who we serve' }
               ].map((value, index) => (
                 <div key={index} style={{
                   backgroundColor: '#fff',
-                  padding: '40px',
-                  borderRadius: '16px',
+                  padding: isMobile ? '40px 30px' : '60px 40px',
                   position: 'relative',
-                  overflow: 'hidden',
-                  transition: 'transform 0.3s ease',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-8px)';
-                  e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.1)';
+                  e.currentTarget.style.backgroundColor = '#f0f0f0';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.backgroundColor = '#fff';
                 }}>
                   <div style={{
-                    position: 'absolute',
-                    top: '-20px',
-                    right: '-20px',
-                    width: '100px',
-                    height: '100px',
-                    backgroundColor: value.color,
-                    borderRadius: '50%',
-                    opacity: 0.1
-                  }} />
-                  <h3 style={{
-                    fontSize: '28px',
-                    fontWeight: '700',
+                    fontSize: '14px',
+                    color: '#999',
                     marginBottom: '16px',
-                    color: value.color
+                    fontWeight: '500'
+                  }}>
+                    {value.number}
+                  </div>
+                  <h3 style={{
+                    fontSize: isMobile ? '24px' : '28px',
+                    fontWeight: '700',
+                    marginBottom: '12px',
+                    color: '#000',
+                    letterSpacing: '-0.01em'
                   }}>
                     {value.title}
                   </h3>
                   <p style={{
                     fontSize: '16px',
-                    lineHeight: '1.6',
+                    lineHeight: '1.5',
                     color: '#666'
                   }}>
-                    {value.description}
+                    {value.desc}
                   </p>
                 </div>
               ))}
@@ -218,9 +242,9 @@ export default function CareersPage() {
           </div>
         </section>
 
-        {/* Benefits Section */}
+        {/* Team Benefits Section */}
         <section style={{
-          padding: isMobile ? '60px 20px' : '120px 40px',
+          padding: isMobile ? '80px 20px' : '120px 40px',
           backgroundColor: '#fff'
         }}>
           <div style={{
@@ -228,183 +252,177 @@ export default function CareersPage() {
             margin: '0 auto'
           }}>
             <h2 style={{
-              fontSize: isMobile ? '36px' : isTablet ? '48px' : '56px',
+              fontSize: isMobile ? '48px' : isTablet ? '64px' : '80px',
               fontWeight: '700',
-              marginBottom: '24px',
-              textAlign: 'center',
-              letterSpacing: '-0.02em'
+              marginBottom: '60px',
+              letterSpacing: '-0.03em',
+              textAlign: 'center'
             }}>
-              Why join Grant's?
+              Why Grant's?
             </h2>
-            <p style={{
-              fontSize: isMobile ? '18px' : '20px',
-              color: '#666',
-              textAlign: 'center',
-              maxWidth: '800px',
-              margin: '0 auto 60px',
-              lineHeight: '1.5'
-            }}>
-              We're not just building careers – we're building futures. Our team enjoys industry-leading benefits and a culture that celebrates success.
-            </p>
             <div style={{
               display: 'grid',
               gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-              gap: '60px',
+              gap: isMobile ? '60px' : '100px',
               alignItems: 'center'
             }}>
               <div>
-                <div style={{
+                <ul style={{
+                  listStyle: 'none',
+                  padding: 0,
+                  margin: 0,
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '32px'
+                  gap: '24px'
                 }}>
                   {[
-                    'Competitive commission structure',
-                    'Comprehensive health benefits',
-                    'Professional development programs',
+                    'Industry-leading commission structure',
+                    'Comprehensive training programs',
+                    'Latest technology and marketing tools',
                     'Flexible working arrangements',
-                    'Latest technology and tools',
-                    'Recognition and rewards program',
-                    'Team building and social events',
-                    'Career progression opportunities'
+                    'Supportive team environment',
+                    'Career progression opportunities',
+                    'Health and wellness benefits',
+                    'Recognition and rewards program'
                   ].map((benefit, index) => (
-                    <div key={index} style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '16px'
+                    <li key={index} style={{
+                      fontSize: '18px',
+                      color: '#333',
+                      paddingLeft: '32px',
+                      position: 'relative'
                     }}>
-                      <div style={{
-                        width: '24px',
-                        height: '24px',
+                      <span style={{
+                        position: 'absolute',
+                        left: 0,
+                        top: '2px',
+                        width: '20px',
+                        height: '20px',
                         backgroundColor: '#000',
                         borderRadius: '50%',
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center',
-                        flexShrink: 0
+                        justifyContent: 'center'
                       }}>
-                        <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M10.5 1.5L4.5 7.5L1.5 4.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                          <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
-                      </div>
-                      <span style={{
-                        fontSize: '16px',
-                        color: '#333'
-                      }}>
-                        {benefit}
                       </span>
-                    </div>
+                      {benefit}
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
               <div style={{
-                backgroundColor: '#f8f8f8',
-                padding: '40px',
-                borderRadius: '16px',
-                position: 'relative',
-                overflow: 'hidden'
+                textAlign: 'center'
               }}>
                 <div style={{
-                  position: 'absolute',
-                  top: '-40px',
-                  right: '-40px',
-                  width: '200px',
-                  height: '200px',
-                  background: 'radial-gradient(circle, rgba(255,107,107,0.2) 0%, transparent 70%)',
-                  borderRadius: '50%'
-                }} />
-                <h3 style={{
-                  fontSize: '72px',
+                  fontSize: isMobile ? '80px' : '120px',
                   fontWeight: '700',
-                  marginBottom: '24px',
-                  color: '#ff6b6b'
+                  color: '#000',
+                  lineHeight: '1',
+                  marginBottom: '16px'
                 }}>
                   98%
-                </h3>
+                </div>
                 <p style={{
-                  fontSize: '20px',
+                  fontSize: '24px',
                   fontWeight: '600',
-                  marginBottom: '8px',
-                  color: '#000'
+                  color: '#333',
+                  marginBottom: '8px'
                 }}>
-                  Team satisfaction rate
+                  Team Satisfaction
                 </p>
                 <p style={{
                   fontSize: '16px',
-                  color: '#666',
-                  lineHeight: '1.5'
+                  color: '#666'
                 }}>
-                  Our annual survey shows that our team members love working here, with industry-leading retention rates.
+                  Annual survey results 2024
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Open Positions */}
+        {/* Current Openings */}
         <section style={{
-          padding: isMobile ? '60px 20px' : '120px 40px',
+          padding: isMobile ? '80px 20px' : '120px 40px',
           backgroundColor: '#000',
           color: '#fff'
         }}>
           <div style={{
-            maxWidth: '1200px',
+            maxWidth: '1440px',
             margin: '0 auto'
           }}>
             <h2 style={{
-              fontSize: isMobile ? '36px' : isTablet ? '48px' : '56px',
+              fontSize: isMobile ? '48px' : isTablet ? '64px' : '80px',
               fontWeight: '700',
               marginBottom: '60px',
-              textAlign: 'center',
-              letterSpacing: '-0.02em'
+              letterSpacing: '-0.03em',
+              textAlign: 'center'
             }}>
-              Open positions
+              Join Our Team
             </h2>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+              gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
               gap: '24px'
             }}>
               {[
                 {
                   title: 'Senior Sales Agent',
-                  location: 'Berwick',
-                  type: 'Full-time'
+                  location: 'Berwick Office',
+                  type: 'Full-time',
+                  description: 'Lead sales professional with 5+ years experience'
                 },
                 {
                   title: 'Property Manager',
-                  location: 'Narre Warren',
-                  type: 'Full-time'
+                  location: 'Narre Warren Office',
+                  type: 'Full-time',
+                  description: 'Manage residential portfolio with growth opportunities'
                 },
                 {
                   title: 'Marketing Coordinator',
-                  location: 'All offices',
-                  type: 'Part-time'
+                  location: 'All Offices',
+                  type: 'Part-time',
+                  description: 'Creative marketing professional for digital campaigns'
                 },
                 {
                   title: 'Sales Associate',
-                  location: 'Cranbourne',
-                  type: 'Full-time'
+                  location: 'Cranbourne Office',
+                  type: 'Full-time',
+                  description: 'Entry-level sales role with mentorship program'
+                },
+                {
+                  title: 'Administrative Assistant',
+                  location: 'Berwick Office',
+                  type: 'Full-time',
+                  description: 'Support our busy team with admin excellence'
+                },
+                {
+                  title: 'Business Development',
+                  location: 'All Offices',
+                  type: 'Full-time',
+                  description: 'Drive growth and expand our market presence'
                 }
               ].map((position, index) => (
                 <Link key={index} href="/contact" style={{
-                  backgroundColor: 'rgba(255,255,255,0.05)',
-                  border: '1px solid rgba(255,255,255,0.2)',
+                  backgroundColor: 'transparent',
+                  border: '1px solid rgba(255,255,255,0.3)',
                   padding: '32px',
-                  borderRadius: '12px',
                   display: 'block',
                   textDecoration: 'none',
                   color: '#fff',
                   transition: 'all 0.3s ease',
-                  cursor: 'pointer'
+                  position: 'relative',
+                  overflow: 'hidden'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.6)';
+                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)';
-                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)';
+                  e.currentTarget.style.backgroundColor = 'transparent';
                 }}>
                   <h3 style={{
                     fontSize: '24px',
@@ -414,64 +432,42 @@ export default function CareersPage() {
                     {position.title}
                   </h3>
                   <p style={{
-                    fontSize: '16px',
-                    opacity: 0.8,
+                    fontSize: '14px',
+                    opacity: 0.7,
                     marginBottom: '16px'
                   }}>
                     {position.location} • {position.type}
                   </p>
-                  <div style={{
+                  <p style={{
+                    fontSize: '16px',
+                    lineHeight: '1.5',
+                    opacity: 0.9,
+                    marginBottom: '24px'
+                  }}>
+                    {position.description}
+                  </p>
+                  <span style={{
+                    fontSize: '14px',
+                    fontWeight: '600',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px',
-                    fontSize: '14px',
-                    fontWeight: '600'
+                    gap: '8px'
                   }}>
-                    <span>Apply now</span>
+                    Apply Now
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <line x1="5" y1="12" x2="19" y2="12"></line>
                       <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
-                  </div>
+                  </span>
                 </Link>
               ))}
-            </div>
-            <div style={{
-              textAlign: 'center',
-              marginTop: '60px'
-            }}>
-              <p style={{
-                fontSize: '18px',
-                marginBottom: '24px',
-                opacity: 0.9
-              }}>
-                Don't see the right role? We're always looking for talented people.
-              </p>
-              <Link href="/contact" style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '16px 48px',
-                backgroundColor: '#fff',
-                color: '#000',
-                borderRadius: '50px',
-                textDecoration: 'none',
-                fontSize: '16px',
-                fontWeight: '600',
-                transition: 'transform 0.2s ease'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-              >
-                Send us your resume
-              </Link>
             </div>
           </div>
         </section>
 
-        {/* Contact Section */}
+        {/* CTA Section */}
         <section style={{
-          padding: isMobile ? '60px 20px' : '120px 40px',
+          padding: isMobile ? '80px 20px' : '120px 40px',
           backgroundColor: '#f8f8f8',
           textAlign: 'center'
         }}>
@@ -480,12 +476,12 @@ export default function CareersPage() {
             margin: '0 auto'
           }}>
             <h2 style={{
-              fontSize: isMobile ? '36px' : isTablet ? '48px' : '56px',
+              fontSize: isMobile ? '40px' : isTablet ? '56px' : '72px',
               fontWeight: '700',
               marginBottom: '24px',
-              letterSpacing: '-0.02em'
+              letterSpacing: '-0.03em'
             }}>
-              Ready to make your move?
+              Start Your Journey
             </h2>
             <p style={{
               fontSize: isMobile ? '18px' : '20px',
@@ -493,47 +489,71 @@ export default function CareersPage() {
               marginBottom: '40px',
               lineHeight: '1.5'
             }}>
-              Take the first step towards an exciting career in real estate. Our team is ready to welcome you.
+              Join Melbourne's most innovative real estate team and build the career you've always dreamed of.
             </p>
-            <Link href="/contact" style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '16px 48px',
-              backgroundColor: '#000',
-              color: '#fff',
-              borderRadius: '50px',
-              textDecoration: 'none',
-              fontSize: '16px',
-              fontWeight: '600',
-              transition: 'all 0.2s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#333';
-              e.currentTarget.style.transform = 'scale(1.05)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = '#000';
-              e.currentTarget.style.transform = 'scale(1)';
-            }}
-            >
-              Get in touch
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </Link>
+            <div style={{
+              display: 'flex',
+              gap: '16px',
+              justifyContent: 'center',
+              flexWrap: 'wrap'
+            }}>
+              <Link href="/contact" style={{
+                padding: '16px 40px',
+                backgroundColor: '#000',
+                color: '#fff',
+                borderRadius: '40px',
+                textDecoration: 'none',
+                fontSize: '16px',
+                fontWeight: '600',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#333';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#000';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}>
+                Apply Now
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </Link>
+              <Link href="/about" style={{
+                padding: '16px 40px',
+                backgroundColor: 'transparent',
+                color: '#000',
+                border: '2px solid #000',
+                borderRadius: '40px',
+                textDecoration: 'none',
+                fontSize: '16px',
+                fontWeight: '600',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#000';
+                e.currentTarget.style.color = '#fff';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+                e.currentTarget.style.color = '#000';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}>
+                Learn More
+              </Link>
+            </div>
           </div>
         </section>
       </main>
-
-      <style jsx>{`
-        @keyframes gradient {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-      `}</style>
     </>
   );
 }

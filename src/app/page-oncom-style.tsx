@@ -209,8 +209,13 @@ export default function HomePageOncom() {
                 height: '100%'
               }}>
                 <img 
-                  src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=480&fit=crop"
                   alt="Buy"
+                  loading="eager"
+                  sizes="(min-width: 1024px) 33vw, 100vw"
+                  width="600"
+                  height="800"
+                  srcSet="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=300&h=400&fit=crop&q=80 300w"
+                  src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=800&fit=crop"
                   style={{
                     position: 'absolute',
                     top: 0,
@@ -276,8 +281,13 @@ export default function HomePageOncom() {
                 height: '100%'
               }}>
                 <img 
-                  src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800&h=480&fit=crop"
                   alt="Rent"
+                  loading="eager"
+                  sizes="(min-width: 1024px) 33vw, 100vw"
+                  width="600"
+                  height="800"
+                  srcSet="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=300&h=400&fit=crop&q=80 300w"
+                  src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=600&h=800&fit=crop"
                   style={{
                     position: 'absolute',
                     top: 0,
@@ -343,8 +353,13 @@ export default function HomePageOncom() {
                 height: '100%'
               }}>
                 <img 
-                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=480&fit=crop"
                   alt="Berwick"
+                  loading="eager"
+                  sizes="(min-width: 1024px) 33vw, 100vw"
+                  width="600"
+                  height="800"
+                  srcSet="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=300&h=400&fit=crop&q=80 300w"
+                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=800&fit=crop"
                   style={{
                     position: 'absolute',
                     top: 0,

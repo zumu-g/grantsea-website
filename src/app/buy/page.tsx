@@ -390,7 +390,7 @@ export default function BuyPageOncom() {
           ) : (
             <div className="property-grid" style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(auto-fill, minmax(340px, 1fr))',
+              gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
               gap: isMobile ? '16px' : '24px'
             }}>
               {sortedProperties.map((property) => (

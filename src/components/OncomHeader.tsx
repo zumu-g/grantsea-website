@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { useSavedProperties } from '@/hooks/useSavedProperties';
+import LogoSVG from '@/components/LogoSVG';
 
 export default function OncomHeader() {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -88,16 +89,7 @@ export default function OncomHeader() {
             textDecoration: 'none',
             transition: 'all 0.3s ease'
           }}>
-            <img 
-              src="/gea_logov2_svg.svg" 
-              alt="Grant's Estate Agents"
-              style={{
-                height: isMobile ? '120px' : '150px',
-                width: 'auto',
-                display: 'block',
-                imageRendering: 'auto'
-              }}
-            />
+            <LogoSVG height={isMobile ? 120 : 150} />
           </Link>
 
           {!isMobile && (

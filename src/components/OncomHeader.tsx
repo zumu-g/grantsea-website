@@ -64,7 +64,7 @@ export default function OncomHeader() {
         top: 0,
         left: 0,
         right: 0,
-        height: isMobile ? '60px' : '64px',
+        height: isMobile ? '160px' : '190px',
         backgroundColor: isHomePage && !isScrolled ? 'transparent' : '#fff',
         borderBottom: isHomePage && !isScrolled ? 'none' : '1px solid #e5e5e5',
         zIndex: 1000,
@@ -88,23 +88,19 @@ export default function OncomHeader() {
             textDecoration: 'none',
             transition: 'all 0.3s ease'
           }}>
-            <div style={{
-              height: isMobile ? '36px' : '44px',
-              display: 'flex',
-              alignItems: 'center'
-            }}>
-              <img 
-                src="/gea_website_logo_svg.svg" 
-                alt="Grant's Estate Agents"
-                width={isMobile ? 58 : 72}
-                height={isMobile ? 36 : 44}
-                style={{
-                  display: 'block',
-                  maxWidth: '100%',
-                  height: 'auto'
-                }}
-              />
-            </div>
+            <img 
+              src="/gea_website_logo_svg.svg" 
+              alt="Grant's Estate Agents"
+              style={{
+                height: isMobile ? '120px' : '150px',
+                width: 'auto',
+                display: 'block',
+                imageRendering: 'crisp-edges',
+                WebkitImageRendering: 'crisp-edges',
+                MozImageRendering: 'crisp-edges',
+                msImageRendering: 'crisp-edges'
+              }}
+            />
           </Link>
 
           {!isMobile && (

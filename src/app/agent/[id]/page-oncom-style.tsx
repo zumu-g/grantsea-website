@@ -220,7 +220,7 @@ export default function AgentDetailPageOncom() {
     <>
       <OncomHeader />
       
-      <main style={{ paddingTop: isMobile ? '60px' : '64px', minHeight: '100vh', backgroundColor: '#fff' }}>
+      <main style={{ paddingTop: isMobile ? '160px' : '190px', minHeight: '100vh', backgroundColor: '#fff' }}>
         {/* Hero Section - Clean White Background */}
         <div style={{
           backgroundColor: '#fff',

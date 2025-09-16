@@ -747,11 +747,11 @@ export default function OfficerSuburbGuide() {
                     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
                     transition: 'transform 0.3s ease, box-shadow 0.3s ease'
                   }}>
-                    {property.image && (
+                    {property.images && property.images[0] && (
                       <div style={{
                         width: '100%',
                         height: '200px',
-                        backgroundImage: `url(${property.image})`,
+                        backgroundImage: `url(${typeof property.images[0] === 'string' ? property.images[0] : property.images[0].url})`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         position: 'relative'

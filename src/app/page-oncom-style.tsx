@@ -1851,7 +1851,7 @@ export default function HomePageOncom() {
                         marginBottom: '12px',
                         lineHeight: '1.4'
                       }}>
-                        {property.address}, {property.suburb}
+                        {property.address.replace(', VIC', '')}, {property.suburb}
                       </p>
                       <div style={{
                         display: 'flex',

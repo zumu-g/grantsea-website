@@ -482,14 +482,7 @@ export default function BuyPageOncom() {
                         marginBottom: '8px',
                         fontWeight: '500'
                       }}>
-                        {property.address}
-                      </p>
-                      <p style={{
-                        fontSize: '14px',
-                        color: '#666',
-                        marginBottom: '16px'
-                      }}>
-                        {property.suburb}
+                        {property.address.replace(', VIC', '')}, {property.suburb}
                       </p>
                       <div style={{
                         display: 'flex',

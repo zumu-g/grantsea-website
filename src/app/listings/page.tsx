@@ -523,17 +523,8 @@ export default function PropertyListingsPage() {
                         marginBottom: '8px',
                         color: '#1a202c'
                       }}>
-                        {property.address}
+                        {property.address.replace(', VIC', '')}, {property.suburb}
                       </h3>
-
-                      {/* Suburb and Postcode */}
-                      <p style={{
-                        fontSize: '16px',
-                        color: '#718096',
-                        marginBottom: '16px'
-                      }}>
-                        {property.suburb}
-                      </p>
 
                       {/* Property Type and Features */}
                       <div style={{

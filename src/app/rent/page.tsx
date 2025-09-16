@@ -665,16 +665,7 @@ export default function RentPage() {
                           fontWeight: '500',
                           letterSpacing: '0.01em'
                         }}>
-                          {property.address}
-                        </p>
-                        
-                        <p style={{
-                          fontSize: '16px',
-                          color: '#666',
-                          marginBottom: '24px',
-                          fontWeight: '400'
-                        }}>
-                          {property.suburb}{property.state && `, ${property.state}`}
+                          {property.address.replace(', VIC', '')}, {property.suburb}
                         </p>
                         
                         <div style={{

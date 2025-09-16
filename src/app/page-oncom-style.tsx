@@ -1082,23 +1082,15 @@ export default function HomePageOncom() {
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(2, minmax(0, 528px))',
-            gap: isMobile ? '32px' : '24px',
-            justifyContent: 'center'
+            gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+            gap: isMobile ? '32px' : '24px'
           }}>
             {/* Story 1 */}
             <article style={{
               display: 'flex',
               flexDirection: 'column',
               cursor: 'pointer',
-              transition: 'transform 0.2s ease',
-              height: isMobile ? 'auto' : isTablet ? 'auto' : '793px',
-              maxWidth: '528px',
-              width: '100%',
-              backgroundColor: '#fff',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+              transition: 'transform 0.2s ease'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-2px)';
@@ -1115,12 +1107,21 @@ export default function HomePageOncom() {
               }}>
                 <div style={{
                   position: 'relative',
-                  height: isMobile ? '200px' : isTablet ? '400px' : '600px',
-                  overflow: 'hidden'
+                  aspectRatio: '3/4',
+                  overflow: 'hidden',
+                  borderRadius: '8px',
+                  marginBottom: '16px'
                 }}>
                   <img 
-                    src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1056&h=1200&fit=crop"
-                    alt="Family in new home"
+                    aria-hidden="true"
+                    alt=""
+                    loading="eager"
+                    data-allow-mismatch="true"
+                    sizes="(min-width: 1024px) 25vw, 100vw"
+                    width="600"
+                    height="800"
+                    srcSet="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=300&h=400&fit=crop&q=80 300w"
+                    src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&h=800&fit=crop"
                     style={{
                       width: '100%',
                       height: '100%',
@@ -1143,13 +1144,7 @@ export default function HomePageOncom() {
                     Success Story
                   </div>
                 </div>
-                <div style={{
-                  padding: '24px',
-                  flex: '1',
-                  display: 'flex',
-                  flexDirection: 'column'
-                }}>
-                  <h3 style={{
+                <h3 style={{
                     fontSize: '20px',
                     fontWeight: '700',
                     marginBottom: '8px',
@@ -1200,14 +1195,7 @@ export default function HomePageOncom() {
               display: 'flex',
               flexDirection: 'column',
               cursor: 'pointer',
-              transition: 'transform 0.2s ease',
-              height: isMobile ? 'auto' : isTablet ? 'auto' : '793px',
-              maxWidth: '528px',
-              width: '100%',
-              backgroundColor: '#fff',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+              transition: 'transform 0.2s ease'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-2px)';
@@ -1224,12 +1212,21 @@ export default function HomePageOncom() {
               }}>
                 <div style={{
                   position: 'relative',
-                  height: isMobile ? '200px' : isTablet ? '400px' : '600px',
-                  overflow: 'hidden'
+                  aspectRatio: '3/4',
+                  overflow: 'hidden',
+                  borderRadius: '8px',
+                  marginBottom: '16px'
                 }}>
                   <img 
-                    src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1056&h=1200&fit=crop"
-                    alt="Modern development"
+                    aria-hidden="true"
+                    alt=""
+                    loading="eager"
+                    data-allow-mismatch="true"
+                    sizes="(min-width: 1024px) 25vw, 100vw"
+                    width="600"
+                    height="800"
+                    srcSet="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=400&fit=crop&q=80 300w"
+                    src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=800&fit=crop"
                     style={{
                       width: '100%',
                       height: '100%',
@@ -1252,13 +1249,7 @@ export default function HomePageOncom() {
                     Market Update
                   </div>
                 </div>
-                <div style={{
-                  padding: '24px',
-                  flex: '1',
-                  display: 'flex',
-                  flexDirection: 'column'
-                }}>
-                  <h3 style={{
+                <h3 style={{
                     fontSize: '20px',
                     fontWeight: '700',
                     marginBottom: '8px',
@@ -1300,7 +1291,214 @@ export default function HomePageOncom() {
                       <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
                   </div>
+              </Link>
+            </article>
+
+            {/* Story 3 */}
+            <article style={{
+              display: 'flex',
+              flexDirection: 'column',
+              cursor: 'pointer',
+              transition: 'transform 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}>
+              <Link href="/suburbs/officer" style={{
+                textDecoration: 'none',
+                color: 'inherit',
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%'
+              }}>
+                <div style={{
+                  position: 'relative',
+                  aspectRatio: '3/4',
+                  overflow: 'hidden',
+                  borderRadius: '8px',
+                  marginBottom: '16px'
+                }}>
+                  <img 
+                    aria-hidden="true"
+                    alt=""
+                    loading="eager"
+                    data-allow-mismatch="true"
+                    sizes="(min-width: 1024px) 25vw, 100vw"
+                    width="600"
+                    height="800"
+                    srcSet="https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=300&h=400&fit=crop&q=80 300w"
+                    src="https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=600&h=800&fit=crop"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    top: '12px',
+                    left: '12px',
+                    padding: '4px 10px',
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    color: '#fff',
+                    borderRadius: '4px',
+                    fontSize: '11px',
+                    fontWeight: '600',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px'
+                  }}>
+                    Investment Guide
+                  </div>
                 </div>
+                <h3 style={{
+                    fontSize: '20px',
+                    fontWeight: '700',
+                    marginBottom: '8px',
+                    color: '#000',
+                    letterSpacing: '-0.01em',
+                    lineHeight: '1.3',
+                    overflow: 'hidden',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical'
+                  }}>
+                    Officer's hidden investment opportunities
+                  </h3>
+                  <p style={{
+                    fontSize: '14px',
+                    lineHeight: '1.5',
+                    color: '#666',
+                    marginBottom: '16px',
+                    flex: '1',
+                    overflow: 'hidden',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: 'vertical'
+                  }}>
+                    Why savvy investors are turning to Officer for strong capital growth and rental yields in Melbourne's southeast.
+                  </p>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    fontSize: '13px',
+                    fontWeight: '600',
+                    color: '#000',
+                    marginTop: 'auto'
+                  }}>
+                    <span>Learn more</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </div>
+              </Link>
+            </article>
+
+            {/* Story 4 */}
+            <article style={{
+              display: 'flex',
+              flexDirection: 'column',
+              cursor: 'pointer',
+              transition: 'transform 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}>
+              <Link href="/suburbs/narre-warren-south" style={{
+                textDecoration: 'none',
+                color: 'inherit',
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%'
+              }}>
+                <div style={{
+                  position: 'relative',
+                  aspectRatio: '3/4',
+                  overflow: 'hidden',
+                  borderRadius: '8px',
+                  marginBottom: '16px'
+                }}>
+                  <img 
+                    aria-hidden="true"
+                    alt=""
+                    loading="eager"
+                    data-allow-mismatch="true"
+                    sizes="(min-width: 1024px) 25vw, 100vw"
+                    width="600"
+                    height="800"
+                    srcSet="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=300&h=400&fit=crop&q=80 300w"
+                    src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&h=800&fit=crop"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    top: '12px',
+                    left: '12px',
+                    padding: '4px 10px',
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    color: '#fff',
+                    borderRadius: '4px',
+                    fontSize: '11px',
+                    fontWeight: '600',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px'
+                  }}>
+                    Family Living
+                  </div>
+                </div>
+                <h3 style={{
+                    fontSize: '20px',
+                    fontWeight: '700',
+                    marginBottom: '8px',
+                    color: '#000',
+                    letterSpacing: '-0.01em',
+                    lineHeight: '1.3',
+                    overflow: 'hidden',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical'
+                  }}>
+                    Narre Warren South: Perfect for families
+                  </h3>
+                  <p style={{
+                    fontSize: '14px',
+                    lineHeight: '1.5',
+                    color: '#666',
+                    marginBottom: '16px',
+                    flex: '1',
+                    overflow: 'hidden',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: 'vertical'
+                  }}>
+                    Discover why families are choosing Narre Warren South for its excellent schools, parks and community atmosphere.
+                  </p>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    fontSize: '13px',
+                    fontWeight: '600',
+                    color: '#000',
+                    marginTop: 'auto'
+                  }}>
+                    <span>Explore the area</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </div>
               </Link>
             </article>
           </div>

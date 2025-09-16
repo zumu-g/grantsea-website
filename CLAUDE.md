@@ -100,6 +100,37 @@
 - `docs/ON-COM-DESIGN-SPECS.md` - Updated with viewport-based padding
 - All major pages updated with responsive padding system
 
+### 🚀 Recent Changes (September 16, 2025)
+- **User Authentication System**:
+  - Implemented complete authentication with persistent login using localStorage
+  - Created AuthContext for global user state management
+  - Built AuthModal with on.com minimalist design for login/registration
+  - Updated header to show user info, saved properties count when authenticated
+  - Integrated authentication with SavePropertyButton component
+
+- **AI Chat Enhancement**:
+  - Enhanced AskAI component to use actual property data for accurate responses
+  - Added property-specific responses for price, rooms, area, and investment queries
+  - Fixed TypeScript support for 'both' listing type (sale and lease)
+  - Created AI_CHAT_GUIDE.md documentation for future AI integration
+  - AI now provides accurate rental prices ($600pw, $570pw, $460pw as specified)
+
+- **Rental Property Pricing Fix**:
+  - Fixed rental property pricing display across the site
+  - Added helper functions to extract rental prices from multiple VaultRE API fields
+  - Updated property displays to show "per week" for lease properties
+  - Enhanced transformVaultREProperty to check various rental price fields
+
+- **New Suburb Pages**:
+  - Created simplified Cranbourne and Narre Warren South suburb guide pages
+  - Fixed corrupted files that were causing syntax errors
+  - Maintained on.com styling with proper responsive design
+
+- **Stories Integration**:
+  - Replaced placeholder stories with 5 real property journey stories
+  - Created dedicated /stories page with all customer stories
+  - Added story excerpts to homepage "Stories that move" section
+
 ### 🚀 Recent Changes (September 15, 2025)
 - **Responsive Design Implementation**:
   - Made entire website responsive for iPhone and iPad devices
@@ -173,6 +204,24 @@ CRM_ACCESS_TOKEN=nzinklyrqutvcdodhyaqyizcjflohlayxezuthan
 - Responsive grid layouts
 - Loading and empty states
 
+### ✅ Completed Today (September 16, 2025)
+1. **User Authentication System** - DONE
+   - Persistent login with localStorage
+   - User context and state management
+   - Login/register modal with on.com design
+   - Header integration showing user status
+
+2. **AI Chat Enhancement** - DONE
+   - Property-specific responses using actual data
+   - Support for sale, lease, and both listing types
+   - Accurate rental pricing display
+   - Documentation for future AI service integration
+
+3. **Rental Property Pricing** - DONE
+   - Fixed weekly rent calculations
+   - Shows correct prices: $600pw, $570pw, $460pw
+   - Enhanced API data transformation
+
 ### 📋 Next Steps (Priority Order)
 1. **Mobile Responsiveness Testing**:
    - Test Berwick suburb guide on actual iPhone devices
@@ -205,10 +254,10 @@ CRM_ACCESS_TOKEN=nzinklyrqutvcdodhyaqyizcjflohlayxezuthan
    - Implement mortgage calculator
 
 ### 🐛 Known Issues
-- Rental properties showing incorrect weekly rent amounts
-- Berwick suburb guide reported having text only on left side on mobile (partially fixed)
 - Pre-commit style validation hook occasionally fails to connect to dev server
 - Need to verify all responsive layouts on actual devices
+- SavedProperty interface in header needs enhancement to show property details
+- Vercel build cache sometimes needs manual clearing for new commits
 
 ### 📱 Mobile-Specific TODOs
 - Complete responsive updates for Berwick suburb guide

@@ -89,7 +89,7 @@ export default function OncomHeader() {
             transition: 'all 0.3s ease'
           }}>
             <img 
-              src="/gea_website_logo_svg.svg" 
+              src="/gea_logov2_svg.svg" 
               alt="Grant's Estate Agents"
               style={{
                 height: isMobile ? '120px' : '150px',

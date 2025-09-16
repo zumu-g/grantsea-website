@@ -209,8 +209,10 @@ export default function HomePageOncom() {
                 height: '100%'
               }}>
                 <img 
-                  alt="Buy"
+                  aria-hidden="true"
+                  alt=""
                   loading="eager"
+                  data-allow-mismatch="true"
                   sizes="(min-width: 1024px) 33vw, 100vw"
                   width="600"
                   height="800"
@@ -225,11 +227,6 @@ export default function HomePageOncom() {
                     objectFit: 'cover'
                   }}
                 />
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)'
-                }} />
                 <div style={{
                   position: 'absolute',
                   bottom: isMobile ? '20px' : '24px',
@@ -281,8 +278,10 @@ export default function HomePageOncom() {
                 height: '100%'
               }}>
                 <img 
-                  alt="Rent"
+                  aria-hidden="true"
+                  alt=""
                   loading="eager"
+                  data-allow-mismatch="true"
                   sizes="(min-width: 1024px) 33vw, 100vw"
                   width="600"
                   height="800"
@@ -297,11 +296,6 @@ export default function HomePageOncom() {
                     objectFit: 'cover'
                   }}
                 />
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)'
-                }} />
                 <div style={{
                   position: 'absolute',
                   bottom: isMobile ? '20px' : '24px',
@@ -353,8 +347,10 @@ export default function HomePageOncom() {
                 height: '100%'
               }}>
                 <img 
-                  alt="Berwick"
+                  aria-hidden="true"
+                  alt=""
                   loading="eager"
+                  data-allow-mismatch="true"
                   sizes="(min-width: 1024px) 33vw, 100vw"
                   width="600"
                   height="800"
@@ -369,11 +365,6 @@ export default function HomePageOncom() {
                     objectFit: 'cover'
                   }}
                 />
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)'
-                }} />
                 <div style={{
                   position: 'absolute',
                   bottom: isMobile ? '20px' : '24px',

@@ -5,13 +5,29 @@ import React, { useState, useRef, useEffect } from 'react';
 interface AskAIProps {
   propertyId?: string;
   propertyAddress?: string;
+  propertyData?: {
+    price?: string | number;
+    priceDisplay?: string;
+    leasePrice?: string;
+    leasePriceDisplay?: string;
+    listingType?: 'sale' | 'lease';
+    bedrooms?: number;
+    bathrooms?: number;
+    carSpaces?: number;
+    propertyType?: string;
+    suburb?: string;
+    features?: string[];
+    description?: string;
+    landSize?: number;
+  };
   propertyType?: 'card' | 'details' | 'floating';
   size?: 'small' | 'medium' | 'large';
 }
 
 export default function AskAI({ 
   propertyId, 
-  propertyAddress, 
+  propertyAddress,
+  propertyData, 
   propertyType = 'card',
   size = 'medium' 
 }: AskAIProps) {
@@ -50,21 +66,42 @@ export default function AskAI({
 
     // Simulate AI response (in real implementation, this would call your AI API)
     setTimeout(() => {
-      const aiResponse = generateAIResponse(userMessage, propertyAddress);
+      const aiResponse = generateAIResponse(userMessage, propertyAddress, propertyData);
       setMessages(prev => [...prev, { role: 'ai', content: aiResponse }]);
       setIsLoading(false);
     }, 1000 + Math.random() * 1000);
   };
 
-  const generateAIResponse = (question: string, address?: string) => {
+  const generateAIResponse = (question: string, address?: string, property?: typeof propertyData) => {
     const lowerQuestion = question.toLowerCase();
     
-    if (lowerQuestion.includes('price') || lowerQuestion.includes('cost')) {
+    if (lowerQuestion.includes('price') || lowerQuestion.includes('cost') || lowerQuestion.includes('how much')) {
+      if (property) {
+        const isLease = property.listingType === 'lease';
+        const price = isLease ? property.leasePriceDisplay || property.leasePrice : property.priceDisplay || property.price;
+        const priceText = isLease ? `${price}${price?.toString().includes('week') ? '' : ' per week'}` : price;
+        
+        return `This property is ${isLease ? 'available for lease at' : 'priced at'} ${priceText}. ${
+          isLease 
+            ? 'This is competitive for the area. The bond requirement is typically 4 weeks rent. Would you like to know about other costs like utilities or council rates?'
+            : 'Based on recent sales in the area, this represents good value. Would you like information about comparable sales or market trends in ' + (property.suburb || 'this area') + '?'
+        }`;
+      }
       return "I can help you understand the pricing for this property. The listing price is shown on the property card, but I can also discuss market trends, comparable sales, and potential negotiation strategies. Would you like more details about the local market conditions?";
     }
     
+    if (lowerQuestion.includes('bedroom') || lowerQuestion.includes('bathroom') || lowerQuestion.includes('room')) {
+      if (property) {
+        return `This ${property.propertyType || 'property'} features ${property.bedrooms || 0} bedrooms, ${property.bathrooms || 0} bathrooms, and ${property.carSpaces || 0} car spaces. ${
+          property.features?.length ? 'Key features include: ' + property.features.slice(0, 3).join(', ') + '. Would you like to know more about the layout or specific rooms?' : 'Would you like to schedule an inspection to see the layout in person?'
+        }`;
+      }
+      return "I can provide details about the rooms and layout. This information is typically shown in the property details. Would you like to arrange an inspection to see the property in person?";
+    }
+    
     if (lowerQuestion.includes('school') || lowerQuestion.includes('education')) {
-      return "This area has several quality schools nearby. I can provide information about local primary and secondary schools, their ratings, and catchment areas. Would you like me to list the closest schools to this property?";
+      const suburb = property?.suburb || 'This area';
+      return `${suburb} has several quality schools nearby. I can provide information about local primary and secondary schools, their ratings, and catchment areas. Would you like me to list the closest schools to this property?`;
     }
     
     if (lowerQuestion.includes('transport') || lowerQuestion.includes('commute')) {
@@ -76,10 +113,19 @@ export default function AskAI({
     }
     
     if (lowerQuestion.includes('neighborhood') || lowerQuestion.includes('area') || lowerQuestion.includes('suburb')) {
-      return "This is a fantastic area with lots to offer! The neighborhood features parks, shopping centers, restaurants, and great community amenities. I can share details about local attractions, safety ratings, and what makes this suburb special. What aspects of the area interest you most?";
+      const suburb = property?.suburb || 'This area';
+      return `${suburb} is a fantastic area with lots to offer! The neighborhood features parks, shopping centers, restaurants, and great community amenities. ${
+        property?.landSize ? `This property sits on ${property.landSize}sqm, which is ${property.landSize > 500 ? 'generous for the area' : 'typical for modern developments'}.` : ''
+      } I can share details about local attractions, safety ratings, and what makes ${suburb} special. What aspects of the area interest you most?`;
     }
     
     if (lowerQuestion.includes('investment') || lowerQuestion.includes('rental')) {
+      if (property?.listingType === 'sale') {
+        return `This property shows strong investment potential. Current rental yields in ${property.suburb || 'this area'} are attractive, and capital growth prospects are positive. Would you like to know about comparable rental prices or the investment outlook for ${property.suburb || 'this suburb'}?`;
+      } else if (property?.listingType === 'lease') {
+        const rentPrice = property.leasePriceDisplay || property.leasePrice;
+        return `This property is available for lease at ${rentPrice}. The rental market in ${property.suburb || 'this area'} is strong with good tenant demand. Would you like to know about the application process or what's included in the rent?`;
+      }
       return "This property shows strong investment potential. I can discuss rental yields, capital growth prospects, and market trends for this area. Would you like to know about comparable rental prices or the investment outlook for this suburb?";
     }
     

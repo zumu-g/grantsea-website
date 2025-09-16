@@ -1043,6 +1043,21 @@ export default function HomePageOncom() {
                     <AskAI 
                       propertyId={property.id}
                       propertyAddress={`${property.address.replace(', VIC', '')}, ${property.suburb}`}
+                      propertyData={{
+                        price: property.price,
+                        priceDisplay: property.priceDisplay,
+                        leasePrice: property.leasePrice,
+                        leasePriceDisplay: property.leasePriceDisplay,
+                        listingType: property.listingType,
+                        bedrooms: property.bedrooms,
+                        bathrooms: property.bathrooms,
+                        carSpaces: property.carSpaces,
+                        propertyType: property.propertyType,
+                        suburb: property.suburb,
+                        features: property.features,
+                        description: property.description,
+                        landSize: property.landSize
+                      }}
                       propertyType="card"
                       size="small"
                     />

@@ -92,10 +92,11 @@ export default function OncomHeader() {
               src="/gea_website_logo_svg.svg" 
               alt="Grant's Estate Agents"
               style={{
-                height: isMobile ? '32px' : '40px',
+                height: isMobile ? '24px' : '30px',
                 width: 'auto',
-                filter: isHomePage && !isScrolled ? 'brightness(0) invert(1)' : 'none',
-                transition: 'filter 0.3s ease'
+                objectFit: 'contain',
+                filter: 'none',
+                transition: 'opacity 0.3s ease'
               }}
             />
           </Link>

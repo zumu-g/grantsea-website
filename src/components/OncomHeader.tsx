@@ -83,15 +83,21 @@ export default function OncomHeader() {
           justifyContent: 'space-between'
         }}>
           <Link href="/" style={{
-            fontSize: isMobile ? '18px' : '24px',
-            fontWeight: '800',
-            color: isHomePage && !isScrolled ? '#fff' : '#000',
+            display: 'flex',
+            alignItems: 'center',
             textDecoration: 'none',
-            letterSpacing: '-0.5px',
-            transition: 'color 0.3s ease',
-            whiteSpace: 'nowrap'
+            transition: 'all 0.3s ease'
           }}>
-            GRANT'S
+            <img 
+              src="/gea_website_logo_svg.svg" 
+              alt="Grant's Estate Agents"
+              style={{
+                height: isMobile ? '32px' : '40px',
+                width: 'auto',
+                filter: isHomePage && !isScrolled ? 'brightness(0) invert(1)' : 'none',
+                transition: 'filter 0.3s ease'
+              }}
+            />
           </Link>
 
           {!isMobile && (

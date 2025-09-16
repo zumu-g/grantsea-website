@@ -172,7 +172,7 @@ export default function HomePageOncom() {
           {/* Category Layout - Grid for 3 columns */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, minmax(0, 576px))',
+            gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, minmax(0, 900px))',
             paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
             paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
             gap: isMobile ? '16px' : '24px',
@@ -186,8 +186,8 @@ export default function HomePageOncom() {
               textDecoration: 'none',
               overflow: 'hidden',
               borderRadius: '8px',
-              height: isMobile ? '450px' : isTablet ? '550px' : '853px',
-              maxWidth: '576px',
+              height: isMobile ? '450px' : isTablet ? '550px' : '1200px',
+              maxWidth: '900px',
               width: '100%',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
@@ -214,8 +214,8 @@ export default function HomePageOncom() {
                   loading="eager"
                   data-allow-mismatch="true"
                   sizes="(min-width: 1024px) 33vw, 100vw"
-                  width="600"
-                  height="800"
+                  width="900"
+                  height="1200"
                   srcSet="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=300&h=400&fit=crop&q=80 300w"
                   src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=800&fit=crop"
                   style={{
@@ -255,8 +255,8 @@ export default function HomePageOncom() {
               textDecoration: 'none',
               overflow: 'hidden',
               borderRadius: '8px',
-              height: isMobile ? '450px' : isTablet ? '550px' : '853px',
-              maxWidth: '576px',
+              height: isMobile ? '450px' : isTablet ? '550px' : '1200px',
+              maxWidth: '900px',
               width: '100%',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
@@ -283,8 +283,8 @@ export default function HomePageOncom() {
                   loading="eager"
                   data-allow-mismatch="true"
                   sizes="(min-width: 1024px) 33vw, 100vw"
-                  width="600"
-                  height="800"
+                  width="900"
+                  height="1200"
                   srcSet="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=300&h=400&fit=crop&q=80 300w"
                   src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=600&h=800&fit=crop"
                   style={{
@@ -324,8 +324,8 @@ export default function HomePageOncom() {
               textDecoration: 'none',
               overflow: 'hidden',
               borderRadius: '8px',
-              height: isMobile ? '450px' : isTablet ? '550px' : '853px',
-              maxWidth: '576px',
+              height: isMobile ? '450px' : isTablet ? '550px' : '1200px',
+              maxWidth: '900px',
               width: '100%',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
@@ -352,8 +352,8 @@ export default function HomePageOncom() {
                   loading="eager"
                   data-allow-mismatch="true"
                   sizes="(min-width: 1024px) 33vw, 100vw"
-                  width="600"
-                  height="800"
+                  width="900"
+                  height="1200"
                   srcSet="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=300&h=400&fit=crop&q=80 300w"
                   src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=800&fit=crop"
                   style={{

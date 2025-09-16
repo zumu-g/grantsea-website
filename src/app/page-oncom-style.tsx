@@ -1778,7 +1778,7 @@ export default function HomePageOncom() {
               gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(300px, 1fr))',
               gap: isMobile ? '20px' : '24px'
             }}>
-              {properties.slice(0, 12).map((property) => (
+              {properties.slice(0, 6).map((property) => (
                 <div key={property.id} style={{
                   backgroundColor: '#fff',
                   borderRadius: '4px',

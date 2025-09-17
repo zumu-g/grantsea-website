@@ -171,33 +171,89 @@ export default function MapSearchPage() {
             <label style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', display: 'block' }}>
               Price range
             </label>
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <input
-                type="text"
-                placeholder="Min"
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <select
                 value={filters.priceMin}
                 onChange={(e) => setFilters({ ...filters, priceMin: e.target.value })}
                 style={{
-                  flex: 1,
+                  width: '100%',
                   padding: '8px',
                   borderRadius: '4px',
                   border: '1px solid #e5e7eb',
-                  fontSize: '14px'
+                  fontSize: '14px',
+                  backgroundColor: '#fff',
+                  cursor: 'pointer'
                 }}
-              />
-              <input
-                type="text"
-                placeholder="Max"
+              >
+                <option value="">Min Price</option>
+                <option value="100000">$100,000</option>
+                <option value="200000">$200,000</option>
+                <option value="300000">$300,000</option>
+                <option value="400000">$400,000</option>
+                <option value="500000">$500,000</option>
+                <option value="600000">$600,000</option>
+                <option value="700000">$700,000</option>
+                <option value="800000">$800,000</option>
+                <option value="900000">$900,000</option>
+                <option value="1000000">$1,000,000</option>
+                <option value="1250000">$1,250,000</option>
+                <option value="1500000">$1,500,000</option>
+                <option value="1750000">$1,750,000</option>
+                <option value="2000000">$2,000,000</option>
+                <option value="2250000">$2,250,000</option>
+                <option value="2500000">$2,500,000</option>
+                <option value="2750000">$2,750,000</option>
+                <option value="3000000">$3,000,000</option>
+                <option value="3250000">$3,250,000</option>
+                <option value="3500000">$3,500,000</option>
+                <option value="3750000">$3,750,000</option>
+                <option value="4000000">$4,000,000</option>
+                <option value="4250000">$4,250,000</option>
+                <option value="4500000">$4,500,000</option>
+                <option value="4750000">$4,750,000</option>
+                <option value="5000000">$5,000,000</option>
+              </select>
+              <select
                 value={filters.priceMax}
                 onChange={(e) => setFilters({ ...filters, priceMax: e.target.value })}
                 style={{
-                  flex: 1,
+                  width: '100%',
                   padding: '8px',
                   borderRadius: '4px',
                   border: '1px solid #e5e7eb',
-                  fontSize: '14px'
+                  fontSize: '14px',
+                  backgroundColor: '#fff',
+                  cursor: 'pointer'
                 }}
-              />
+              >
+                <option value="">Max Price</option>
+                <option value="100000">$100,000</option>
+                <option value="200000">$200,000</option>
+                <option value="300000">$300,000</option>
+                <option value="400000">$400,000</option>
+                <option value="500000">$500,000</option>
+                <option value="600000">$600,000</option>
+                <option value="700000">$700,000</option>
+                <option value="800000">$800,000</option>
+                <option value="900000">$900,000</option>
+                <option value="1000000">$1,000,000</option>
+                <option value="1250000">$1,250,000</option>
+                <option value="1500000">$1,500,000</option>
+                <option value="1750000">$1,750,000</option>
+                <option value="2000000">$2,000,000</option>
+                <option value="2250000">$2,250,000</option>
+                <option value="2500000">$2,500,000</option>
+                <option value="2750000">$2,750,000</option>
+                <option value="3000000">$3,000,000</option>
+                <option value="3250000">$3,250,000</option>
+                <option value="3500000">$3,500,000</option>
+                <option value="3750000">$3,750,000</option>
+                <option value="4000000">$4,000,000</option>
+                <option value="4250000">$4,250,000</option>
+                <option value="4500000">$4,500,000</option>
+                <option value="4750000">$4,750,000</option>
+                <option value="5000000">$5,000,000</option>
+              </select>
             </div>
           </div>
 

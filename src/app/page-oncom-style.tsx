@@ -27,7 +27,7 @@ export default function HomePageOncom() {
   }, []);
 
   return (
-    <>
+    <div>
       <OncomHeader />
 
       {/* Hero Section - Full screen with bottom-left text like ON.COM */}
@@ -1074,7 +1074,7 @@ export default function HomePageOncom() {
                     />
                   </div>
                 </div>
-              ))}
+              )})}
               </div>
             </div>
           )}
@@ -2356,6 +2356,6 @@ export default function HomePageOncom() {
           100% { transform: rotate(360deg); }
         }
       `}</style>
-    </>
+    </div>
   );
 }

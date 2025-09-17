@@ -1002,7 +1002,7 @@ export default function PropertyDetailPageOncom() {
                       Send inquiry
                     </button>
                   </form>
-                )}
+                )
 
                 {/* Schedule Inspection */}
                 <div style={{

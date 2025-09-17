@@ -27,7 +27,7 @@ export default function HomePageOncom() {
   }, []);
 
   return (
-    <main style={{ minHeight: "100vh" }}>
+    <main style={{ minHeight: '100vh' }}>
       <OncomHeader />
 
       {/* Hero Section - Full screen with bottom-left text like ON.COM */}

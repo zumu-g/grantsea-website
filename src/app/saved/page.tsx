@@ -330,7 +330,7 @@ export default function SavedPage() {
                           marginBottom: '8px',
                           fontWeight: '500'
                         }}>
-                          {property.address}
+                          {property.address.replace(', VIC', '')}
                         </p>
                         <p style={{
                           fontSize: '14px',

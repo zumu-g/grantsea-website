@@ -17,6 +17,8 @@ export default function OncomHeader() {
   const [isMobile, setIsMobile] = useState(false);
   const [showBuyDropdown, setShowBuyDropdown] = useState(false);
   const [buyDropdownTimeout, setBuyDropdownTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [showDiscoverDropdown, setShowDiscoverDropdown] = useState(false);
+  const [discoverDropdownTimeout, setDiscoverDropdownTimeout] = useState<NodeJS.Timeout | null>(null);
   const router = useRouter();
   const pathname = usePathname();
   const { user, isAuthenticated, savedProperties, savedSearches, logout } = useAuth();
@@ -235,13 +237,129 @@ export default function OncomHeader() {
               fontWeight: '500',
               transition: 'color 0.3s ease'
             }}>Rent</Link>
-            <Link href="/agents" style={{
+            <Link href="/map" style={{
               color: isHomePage && !isScrolled ? '#fff' : '#000',
               textDecoration: 'none',
               fontSize: '14px',
               fontWeight: '500',
-              transition: 'color 0.3s ease'
-            }}>Find Agents</Link>
+              transition: 'color 0.3s ease',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px'
+            }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              Map
+            </Link>
+            <div style={{ position: 'relative' }}
+              onMouseEnter={() => {
+                if (discoverDropdownTimeout) {
+                  clearTimeout(discoverDropdownTimeout);
+                  setDiscoverDropdownTimeout(null);
+                }
+                setShowDiscoverDropdown(true);
+              }}
+              onMouseLeave={() => {
+                const timeout = setTimeout(() => {
+                  setShowDiscoverDropdown(false);
+                }, 150);
+                setDiscoverDropdownTimeout(timeout);
+              }}>
+              <Link href="/agents" style={{
+                color: isHomePage && !isScrolled ? '#fff' : '#000',
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: '500',
+                transition: 'color 0.3s ease',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}>
+                Discover
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </Link>
+              {showDiscoverDropdown && (
+                <>
+                  {/* Invisible bridge to prevent gap */}
+                  <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: '200px',
+                    height: '8px',
+                    background: 'transparent',
+                    zIndex: 1001
+                  }} />
+                  <div style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 8px)',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    backgroundColor: '#fff',
+                    border: '1px solid #e5e5e5',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                    borderRadius: '8px',
+                    minWidth: '200px',
+                    zIndex: 1002,
+                    overflow: 'hidden'
+                  }}>
+                    <Link href="/market-update" style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#000',
+                      textDecoration: 'none',
+                      fontSize: '14px',
+                      borderBottom: '1px solid #f0f0f0',
+                      transition: 'background 0.2s'
+                    }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                      Market Update
+                    </Link>
+                    <Link href="/grants-report" style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#000',
+                      textDecoration: 'none',
+                      fontSize: '14px',
+                      borderBottom: '1px solid #f0f0f0',
+                      transition: 'background 0.2s'
+                    }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                      Grants Report
+                    </Link>
+                    <Link href="/agents" style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#000',
+                      textDecoration: 'none',
+                      fontSize: '14px',
+                      borderBottom: '1px solid #f0f0f0',
+                      transition: 'background 0.2s'
+                    }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                      Our Agents
+                    </Link>
+                    <Link href="/offices" style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#000',
+                      textDecoration: 'none',
+                      fontSize: '14px',
+                      transition: 'background 0.2s',
+                      borderRadius: '0 0 8px 8px'
+                    }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                      Our Offices
+                    </Link>
+                  </div>
+                </>
+              )}
+            </div>
             <Link href="/reviews" style={{
               color: isHomePage && !isScrolled ? '#fff' : '#000',
               textDecoration: 'none',
@@ -271,7 +389,44 @@ export default function OncomHeader() {
                 <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </button>
-            <button 
+            <button
+              onClick={() => {
+                const aiButton = document.querySelector('[data-ai-chat-button]') as HTMLButtonElement;
+                if (aiButton) aiButton.click();
+              }}
+              style={{
+                background: 'linear-gradient(135deg, #AF272F 0%, #D4838F 100%)',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '8px 16px',
+                borderRadius: '20px',
+                color: '#fff',
+                fontSize: '14px',
+                fontWeight: '600',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                transition: 'all 0.3s ease',
+                marginRight: '12px',
+                boxShadow: '0 2px 8px rgba(175, 39, 47, 0.2)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(175, 39, 47, 0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(175, 39, 47, 0.2)';
+              }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                <circle cx="8" cy="10" r="1" fill="currentColor"/>
+                <circle cx="12" cy="10" r="1" fill="currentColor"/>
+                <circle cx="16" cy="10" r="1" fill="currentColor"/>
+              </svg>
+              AI Help
+            </button>
+            <button
               onClick={() => {
                 setShowSavedPanel(true);
                 setShowSearch(false);
@@ -431,7 +586,7 @@ export default function OncomHeader() {
                     transition: 'background 0.2s'
                   }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Find Agents
+                    Discover
                   </Link>
                   <Link href="/reviews" style={{
                     display: 'block',
@@ -1132,7 +1287,7 @@ export default function OncomHeader() {
             { href: '/buy', label: 'Buy' },
             { href: '/rent', label: 'Rent' },
             { href: '/sell', label: 'Sell' },
-            { href: '/agents', label: 'Find Agents' },
+            { href: '/agents', label: 'Discover' },
             { href: '/property-management', label: 'Property Management' },
             { href: '/suburbs', label: 'Suburb Guides' },
             { href: '/saved', label: 'Saved Properties' },

@@ -45,41 +45,59 @@ const AIChatWidget = () => {
       {/* Animated Chat Button */}
       {!isOpen && (
         <button
+          data-ai-chat-button="true"
           onClick={() => setIsOpen(true)}
           style={{
             position: 'fixed',
-            bottom: '20px',
-            right: '20px',
-            padding: '16px 24px',
-            borderRadius: '50px',
-            backgroundColor: '#2563eb',
+            bottom: '30px',
+            right: '30px',
+            padding: '20px 32px',
+            borderRadius: '60px',
+            backgroundColor: '#AF272F', // Grant's red
             color: 'white',
-            border: 'none',
+            border: '3px solid #fff',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
-            gap: '10px',
-            boxShadow: '0 4px 16px rgba(37, 99, 235, 0.3)',
+            gap: '12px',
+            boxShadow: '0 8px 32px rgba(175, 39, 47, 0.4)',
             transition: 'all 0.3s ease',
             zIndex: 1000,
             fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-            fontSize: '16px',
-            fontWeight: '500',
-            animation: 'pulse 2s infinite'
+            fontSize: '18px',
+            fontWeight: '600',
+            animation: 'pulse 2s infinite, bounce 4s infinite'
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'scale(1.05)';
-            e.currentTarget.style.boxShadow = '0 6px 20px rgba(37, 99, 235, 0.4)';
+            e.currentTarget.style.transform = 'scale(1.08)';
+            e.currentTarget.style.boxShadow = '0 12px 40px rgba(175, 39, 47, 0.5)';
+            e.currentTarget.style.backgroundColor = '#8B1E24';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.boxShadow = '0 4px 16px rgba(37, 99, 235, 0.3)';
+            e.currentTarget.style.boxShadow = '0 8px 32px rgba(175, 39, 47, 0.4)';
+            e.currentTarget.style.backgroundColor = '#AF272F';
           }}
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            <circle cx="8" cy="10" r="1" fill="currentColor"/>
+            <circle cx="12" cy="10" r="1" fill="currentColor"/>
+            <circle cx="16" cy="10" r="1" fill="currentColor"/>
           </svg>
-          <span>Ask Grant's</span>
+          <span>Ask Grant's AI</span>
+          <span style={{
+            position: 'absolute',
+            top: '-10px',
+            right: '10px',
+            backgroundColor: '#FFD700',
+            color: '#000',
+            padding: '4px 8px',
+            borderRadius: '12px',
+            fontSize: '12px',
+            fontWeight: '700',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+          }}>NEW</span>
         </button>
       )}
 
@@ -104,45 +122,46 @@ const AIChatWidget = () => {
           }
         }}
         >
-          {/* Chat Window */}
+          {/* Chat Window - Much Bigger */}
           <div style={{
             width: '90%',
-            maxWidth: '500px',
-            height: '80%',
-            maxHeight: '700px',
+            maxWidth: '900px',
+            height: '90%',
+            maxHeight: '800px',
             backgroundColor: 'white',
-            borderRadius: '16px',
-            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+            borderRadius: '4px',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
             display: 'flex',
             flexDirection: 'column',
             overflow: 'hidden',
             animation: 'slideIn 0.3s ease'
           }}>
-            {/* Header */}
+            {/* Header - Minimal on.com style */}
             <div style={{
-              backgroundColor: '#2563eb',
+              backgroundColor: '#000',
               color: 'white',
-              padding: '20px 24px',
+              padding: '32px 40px',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'space-between'
+              justifyContent: 'space-between',
+              borderBottom: '1px solid #e5e7eb'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '2px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '24px'
+                  fontSize: '28px'
                 }}>
                   🏠
                 </div>
                 <div>
-                  <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '600' }}>Grant's AI Assistant</h3>
-                  <p style={{ margin: 0, fontSize: '14px', opacity: 0.9 }}>Always here to help</p>
+                  <h3 style={{ margin: 0, fontSize: '24px', fontWeight: '300', letterSpacing: '-0.5px' }}>Grant's AI Assistant</h3>
+                  <p style={{ margin: 0, fontSize: '16px', opacity: 0.7, fontWeight: '300' }}>Always here to help</p>
                 </div>
               </div>
               <button
@@ -166,12 +185,12 @@ const AIChatWidget = () => {
               </button>
             </div>
 
-            {/* Messages */}
+            {/* Messages - Larger area */}
             <div style={{
               flex: 1,
               overflowY: 'auto',
-              padding: '24px',
-              backgroundColor: '#f9fafb'
+              padding: '40px',
+              backgroundColor: '#fff'
             }}>
               {messages.map((message) => (
                 <div
@@ -183,14 +202,15 @@ const AIChatWidget = () => {
                   }}
                 >
                   <div style={{
-                    maxWidth: '75%',
-                    padding: '12px 20px',
-                    borderRadius: message.sender === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
-                    backgroundColor: message.sender === 'user' ? '#2563eb' : 'white',
-                    color: message.sender === 'user' ? 'white' : '#1f2937',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
-                    fontSize: '15px',
-                    lineHeight: '1.5'
+                    maxWidth: '70%',
+                    padding: '16px 24px',
+                    borderRadius: message.sender === 'user' ? '2px' : '2px',
+                    backgroundColor: message.sender === 'user' ? '#000' : '#f5f5f5',
+                    color: message.sender === 'user' ? 'white' : '#000',
+                    boxShadow: 'none',
+                    fontSize: '17px',
+                    lineHeight: '1.6',
+                    fontWeight: '300'
                   }}>
                     {message.text}
                   </div>
@@ -203,10 +223,10 @@ const AIChatWidget = () => {
                   marginBottom: '16px'
                 }}>
                   <div style={{
-                    padding: '12px 20px',
-                    borderRadius: '18px 18px 18px 4px',
-                    backgroundColor: 'white',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)'
+                    padding: '16px 24px',
+                    borderRadius: '2px',
+                    backgroundColor: '#f5f5f5',
+                    boxShadow: 'none'
                   }}>
                     <div style={{ display: 'flex', gap: '6px' }}>
                       <span style={{ animation: 'bounce 1.4s infinite ease-in-out', animationDelay: '0s' }}>•</span>
@@ -218,9 +238,9 @@ const AIChatWidget = () => {
               )}
             </div>
 
-            {/* Input */}
+            {/* Input - Larger */}
             <div style={{
-              padding: '20px',
+              padding: '32px 40px',
               borderTop: '1px solid #e5e7eb',
               backgroundColor: 'white'
             }}>
@@ -236,45 +256,47 @@ const AIChatWidget = () => {
                   placeholder="Ask about properties, pricing, or locations..."
                   style={{
                     flex: 1,
-                    padding: '14px 20px',
-                    borderRadius: '12px',
-                    border: '1px solid #e5e7eb',
-                    fontSize: '15px',
+                    padding: '18px 24px',
+                    borderRadius: '2px',
+                    border: '1px solid #000',
+                    fontSize: '18px',
                     outline: 'none',
                     transition: 'all 0.2s',
-                    backgroundColor: '#f9fafb'
+                    backgroundColor: '#fff',
+                    fontWeight: '300'
                   }}
                   onFocus={(e) => {
-                    e.target.style.borderColor = '#2563eb';
+                    e.target.style.borderColor = '#000';
                     e.target.style.backgroundColor = 'white';
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = '#e5e7eb';
-                    e.target.style.backgroundColor = '#f9fafb';
+                    e.target.style.borderColor = '#000';
+                    e.target.style.backgroundColor = '#fff';
                   }}
                 />
                 <button
                   onClick={handleSendMessage}
                   disabled={!inputValue.trim()}
                   style={{
-                    padding: '14px 28px',
-                    borderRadius: '12px',
-                    backgroundColor: inputValue.trim() ? '#2563eb' : '#e5e7eb',
+                    padding: '18px 40px',
+                    borderRadius: '2px',
+                    backgroundColor: inputValue.trim() ? '#000' : '#ccc',
                     color: 'white',
                     border: 'none',
                     cursor: inputValue.trim() ? 'pointer' : 'not-allowed',
                     transition: 'all 0.2s',
-                    fontSize: '15px',
-                    fontWeight: '500'
+                    fontSize: '18px',
+                    fontWeight: '300',
+                    letterSpacing: '0.5px'
                   }}
                   onMouseEnter={(e) => {
                     if (inputValue.trim()) {
-                      e.currentTarget.style.backgroundColor = '#1d4ed8';
+                      e.currentTarget.style.backgroundColor = '#333';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (inputValue.trim()) {
-                      e.currentTarget.style.backgroundColor = '#2563eb';
+                      e.currentTarget.style.backgroundColor = '#000';
                     }
                   }}
                 >
@@ -291,13 +313,22 @@ const AIChatWidget = () => {
         {`
           @keyframes pulse {
             0% {
-              box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+              box-shadow: 0 8px 32px rgba(175, 39, 47, 0.4);
             }
             50% {
-              box-shadow: 0 4px 20px rgba(37, 99, 235, 0.5);
+              box-shadow: 0 8px 48px rgba(175, 39, 47, 0.6);
             }
             100% {
-              box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+              box-shadow: 0 8px 32px rgba(175, 39, 47, 0.4);
+            }
+          }
+
+          @keyframes bounce {
+            0%, 100% {
+              transform: translateY(0);
+            }
+            50% {
+              transform: translateY(-5px);
             }
           }
 

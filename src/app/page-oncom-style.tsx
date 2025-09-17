@@ -913,9 +913,17 @@ export default function HomePageOncom() {
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-2px)';
+                  const addressElement = e.currentTarget.querySelector('[data-property-address]') as HTMLElement;
+                  if (addressElement) {
+                    addressElement.style.color = '#AF272F'; // Grant's red PMS187c
+                  }
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
+                  const addressElement = e.currentTarget.querySelector('[data-property-address]') as HTMLElement;
+                  if (addressElement) {
+                    addressElement.style.color = '#000';
+                  }
                 }}>
                   <Link href={`/property/${property.id}`} style={{
                     textDecoration: 'none',
@@ -991,14 +999,17 @@ export default function HomePageOncom() {
                       }}>
                         {property.suburb}
                       </p>
-                      <h3 style={{
-                        fontSize: '1rem',
-                        fontWeight: '600',
-                        color: '#000',
-                        letterSpacing: '-0.01em',
-                        lineHeight: '1.3',
-                        marginBottom: '0.5rem'
-                      }}>
+                      <h3
+                        data-property-address="true"
+                        style={{
+                          fontSize: '1rem',
+                          fontWeight: '600',
+                          color: '#000',
+                          letterSpacing: '-0.01em',
+                          lineHeight: '1.3',
+                          marginBottom: '0.5rem',
+                          transition: 'color 0.2s ease'
+                        }}>
                         {property.address.replace(', VIC', '')}
                       </h3>
                       <div style={{

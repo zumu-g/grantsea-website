@@ -54,9 +54,9 @@ export default function SavePropertyButton({ property, className = '', showLabel
         alignItems: 'center',
         gap: '8px',
         padding: '10px',
-        backgroundColor: isSaved ? '#000' : 'rgba(255, 255, 255, 0.95)',
+        backgroundColor: isSaved ? '#D4838F' : 'rgba(255, 255, 255, 0.95)', // Pale matte red when saved
         backdropFilter: 'blur(10px)',
-        border: `1px solid ${isSaved ? '#000' : '#F0F0F0'}`,
+        border: `1px solid ${isSaved ? '#D4838F' : '#F0F0F0'}`,
         borderRadius: '50%',
         cursor: 'pointer',
         transition: 'all 0.3s ease',
@@ -77,12 +77,15 @@ export default function SavePropertyButton({ property, className = '', showLabel
       title={isSaved ? 'Remove from saved' : 'Save property'}
       onMouseEnter={(e) => {
         if (!isSaved) {
-          e.currentTarget.style.backgroundColor = '#000';
-          e.currentTarget.style.borderColor = '#000';
+          e.currentTarget.style.backgroundColor = '#AF272F'; // Grant's red on hover
+          e.currentTarget.style.borderColor = '#AF272F';
           const svg = e.currentTarget.querySelector('svg') as SVGElement;
           if (svg) {
             svg.style.stroke = '#FFF';
           }
+        } else {
+          e.currentTarget.style.backgroundColor = '#AF272F'; // Darker red on hover when saved
+          e.currentTarget.style.borderColor = '#AF272F';
         }
       }}
       onMouseLeave={(e) => {
@@ -93,6 +96,9 @@ export default function SavePropertyButton({ property, className = '', showLabel
           if (svg) {
             svg.style.stroke = '#000';
           }
+        } else {
+          e.currentTarget.style.backgroundColor = '#D4838F'; // Back to pale matte red
+          e.currentTarget.style.borderColor = '#D4838F';
         }
       }}
     >

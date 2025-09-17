@@ -570,7 +570,9 @@ export default function RentPage() {
                       borderRadius: '12px',
                       overflow: 'hidden',
                       transition: 'all 0.3s ease',
-                      cursor: 'pointer'
+                      cursor: 'pointer',
+                      display: 'flex',
+                      flexDirection: 'column'
                     }}
                     whileHover={{
                       y: -8,
@@ -583,7 +585,7 @@ export default function RentPage() {
                     >
                       <div style={{
                         position: 'relative',
-                        aspectRatio: '16/10',
+                        aspectRatio: '4/3',
                         backgroundColor: '#FAFAFA',
                         overflow: 'hidden'
                       }}>
@@ -620,22 +622,6 @@ export default function RentPage() {
                           </div>
                         )}
                         
-                        {/* Rent Badge */}
-                        <div style={{
-                          position: 'absolute',
-                          top: '20px',
-                          left: '20px',
-                          backgroundColor: '#000',
-                          color: '#FFF',
-                          padding: '6px 16px',
-                          fontSize: '12px',
-                          fontWeight: '600',
-                          letterSpacing: '0.05em',
-                          textTransform: 'uppercase'
-                        }}>
-                          For Rent
-                        </div>
-                        
                         {/* Save Button */}
                         <div style={{
                           position: 'absolute',
@@ -647,106 +633,60 @@ export default function RentPage() {
                         </div>
                       </div>
                       
-                      <div style={{ padding: '32px' }}>
-                        <h3 style={{
-                          fontSize: '32px',
-                          fontWeight: '600',
-                          marginBottom: '12px',
-                          letterSpacing: '-0.02em'
-                        }}>
-                          {property.leasePriceDisplay || formatRentPrice(property.leasePrice || property.price)}
-                        </h3>
-                        
+                      <div style={{
+                        padding: '1rem',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.25rem',
+                        flex: '1'
+                      }}>
                         <p style={{
-                          fontSize: '18px',
-                          color: '#000',
-                          marginBottom: '8px',
+                          fontSize: '0.75rem',
+                          color: '#666',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.05em',
                           fontWeight: '500',
-                          letterSpacing: '0.01em'
+                          marginBottom: '0.25rem'
                         }}>
-                          {property.address.replace(', VIC', '')}, {property.suburb}
+                          {property.suburb}
                         </p>
+                        <h3 style={{
+                          fontSize: '1rem',
+                          fontWeight: '600',
+                          color: '#000',
+                          letterSpacing: '-0.01em',
+                          lineHeight: '1.3',
+                          marginBottom: '0.5rem'
+                        }}>
+                          {property.address.replace(', VIC', '')}
+                        </h3>
                         
                         <div style={{
                           display: 'flex',
-                          gap: '32px',
-                          fontSize: '15px',
-                          color: '#333',
-                          paddingTop: '24px',
-                          borderTop: '1px solid #F0F0F0'
+                          gap: '0.75rem',
+                          fontSize: '0.875rem',
+                          color: '#666',
+                          marginBottom: '0.5rem'
                         }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <path d="M21 10.78V8c0-1.65-1.35-3-3-3h-4c-.77 0-1.47.3-2 .78-.53-.48-1.23-.78-2-.78H6C4.35 5 3 6.35 3 8v2.78c-.61.55-1 1.34-1 2.22v6c0 .55.45 1 1 1s1-.45 1-1v-1h16v1c0 .55.45 1 1 1s1-.45 1-1v-6c0-.88-.39-1.67-1-2.22zM14 7h4c.55 0 1 .45 1 1v2h-6V8c0-.55.45-1 1-1zM5 8c0-.55.45-1 1-1h4c.55 0 1 .45 1 1v2H5V8zm-1 7v-2c0-.55.45-1 1-1h14c.55 0 1 .45 1 1v2H4z"/>
-                            </svg>
-                            <span style={{ fontWeight: '500' }}>{property.bedrooms}</span>
-                          </div>
-                          
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h2v2c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-2h2c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-4 18c0 .01-.01 0 0 0H8v-2h8v2zm2-4H6V4h12v12z"/>
-                              <circle cx="8" cy="6" r="1"/>
-                              <circle cx="16" cy="6" r="1"/>
-                              <path d="M8 9h8v5H8z"/>
-                            </svg>
-                            <span style={{ fontWeight: '500' }}>{property.bathrooms}</span>
-                          </div>
-                          
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
-                            </svg>
-                            <span style={{ fontWeight: '500' }}>{property.carSpaces}</span>
-                          </div>
+                          {property.bedrooms !== undefined && property.bedrooms > 0 && (
+                            <span>{property.bedrooms} bed</span>
+                          )}
+                          {property.bathrooms !== undefined && property.bathrooms > 0 && (
+                            <span>{property.bathrooms} bath</span>
+                          )}
+                          {property.carSpaces !== undefined && property.carSpaces > 0 && (
+                            <span>{property.carSpaces} car</span>
+                          )}
                         </div>
-                        
-                        {/* Property Type Badge */}
-                        {property.propertyType && (
-                          <div style={{
-                            marginTop: '16px',
-                            display: 'inline-block',
-                            padding: '6px 12px',
-                            backgroundColor: '#F0F0F0',
-                            borderRadius: '4px',
-                            fontSize: '13px',
-                            fontWeight: '500',
-                            color: '#666'
-                          }}>
-                            {property.propertyType}
-                          </div>
-                        )}
-                        
-                        {/* Apply Now Button */}
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            window.location.href = `/property/${property.id}#apply`;
-                          }}
-                          style={{
-                            marginTop: '24px',
-                            width: '100%',
-                            padding: '16px',
-                            backgroundColor: '#000',
-                            color: '#fff',
-                            border: 'none',
-                            borderRadius: '8px',
-                            fontSize: '16px',
-                            fontWeight: '600',
-                            cursor: 'pointer',
-                            transition: 'all 0.2s ease'
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-1px)';
-                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'translateY(0)';
-                            e.currentTarget.style.boxShadow = 'none';
-                          }}
-                        >
-                          Apply Now
-                        </button>
+                        <p style={{
+                          fontSize: '0.875rem',
+                          color: '#666',
+                          marginTop: 'auto'
+                        }}>
+                          {property.leasePriceDisplay || formatRentPrice(property.leasePrice || property.price)}
+                        </p>
                       </div>
+                        
                     </Link>
                   </motion.div>
                 ))}

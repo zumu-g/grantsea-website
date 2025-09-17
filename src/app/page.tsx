@@ -1,4 +1,7 @@
 'use client';
 
-// Use the on.com style homepage
-export { default } from './page-oncom-style';
+import HomePageOncom from './page-oncom-style';
+
+export default function HomePage() {
+  return <HomePageOncom />;
+}

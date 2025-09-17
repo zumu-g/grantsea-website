@@ -74,7 +74,7 @@ export default function BuyPageOncom() {
       <OncomHeader />
 
       {/* Main Content */}
-      <main style={{ paddingTop: isMobile ? '60px' : '64px', minHeight: '100vh', backgroundColor: '#fafafa' }}>
+      <main style={{ paddingTop: isMobile ? '180px' : '200px', minHeight: '100vh', backgroundColor: '#fafafa' }}>
         {/* Page Header */}
         <div style={{
           backgroundColor: '#fff',

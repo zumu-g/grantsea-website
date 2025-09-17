@@ -288,7 +288,7 @@ export default function PropertyDetailPageOncom() {
       </header>
 
       {/* Main Content */}
-      <main style={{ paddingTop: '64px', minHeight: '100vh', backgroundColor: '#fff' }}>
+      <main style={{ paddingTop: '180px', minHeight: '100vh', backgroundColor: '#fff' }}>
         {/* Breadcrumb */}
         <div style={{ paddingTop: '24px', paddingLeft: 'max(2rem, 3.33vw)', paddingRight: 'max(2rem, 3.33vw)', maxWidth: '1400px', margin: '0 auto' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#666' }}>

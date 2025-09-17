@@ -876,40 +876,24 @@ export default function HomePageOncom() {
       }}>
         <div style={{
           maxWidth: '1440px',
-          margin: '0 auto'
+          margin: '0 auto',
+          paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+          paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
         }}>
           <h2 style={{
             fontSize: isMobile ? '32px' : isTablet ? '40px' : '48px',
             fontWeight: '700',
             letterSpacing: '-0.02em',
-            textAlign: 'left',
-            margin: '0',
             marginBottom: isMobile ? '24px' : '48px',
             color: '#000',
-            lineHeight: '1.1',
-            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
-            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
+            lineHeight: '1.1'
           }}>
             Grant's Guides
           </h2>
-
-          <p style={{
-            fontSize: isMobile ? '16px' : '18px',
-            color: '#666',
-            marginBottom: isMobile ? '32px' : '48px',
-            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
-            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
-            maxWidth: '800px'
-          }}>
-            Download our expert guides to navigate your property journey with confidence
-          </p>
-
           <div style={{
             display: 'grid',
             gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
-            gap: isMobile ? '24px' : '32px',
-            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
-            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
+            gap: isMobile ? '32px' : '24px'
           }}>
             {/* First Home Buyer Guide */}
             <Link href="/guides/download?guide=first-home-buyers" style={{

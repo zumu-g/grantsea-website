@@ -74,7 +74,7 @@ export default function RentPage() {
     <>
       <OncomHeader />
       
-      <main style={{ paddingTop: '64px', minHeight: '100vh', backgroundColor: '#FAFAFA' }}>
+      <main style={{ paddingTop: '180px', minHeight: '100vh', backgroundColor: '#FAFAFA' }}>
         {/* Hero Section */}
         <section style={{
           backgroundColor: '#FFFFFF',

@@ -51,7 +51,7 @@ export default function OfficerSuburbGuide() {
     <>
       <OncomHeader />
       
-      <main style={{ paddingTop: isMobile ? '60px' : '64px', backgroundColor: '#fff' }}>
+      <main style={{ paddingTop: isMobile ? '180px' : '200px', backgroundColor: '#fff' }}>
         {/* Hero Section - Tennis Guide Style */}
         <section style={{
           position: 'relative',

@@ -47,7 +47,7 @@ export default function SellPage() {
     <React.Fragment>
       <OncomHeader />
       
-      <main style={{ paddingTop: '64px', minHeight: '100vh', backgroundColor: '#FAFAFA' }}>
+      <main style={{ paddingTop: '180px', minHeight: '100vh', backgroundColor: '#FAFAFA' }}>
         {/* Hero Section */}
         <section style={{
           backgroundColor: '#FFFFFF',

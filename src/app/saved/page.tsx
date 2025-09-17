@@ -106,7 +106,7 @@ export default function SavedPage() {
     <>
       <OncomHeader />
       
-      <main style={{ paddingTop: '64px', minHeight: '100vh', backgroundColor: '#fafafa' }}>
+      <main style={{ paddingTop: '180px', minHeight: '100vh', backgroundColor: '#fafafa' }}>
         {/* Page Header */}
         <div style={{
           backgroundColor: '#fff',

@@ -170,7 +170,160 @@ export default function CranbourneSuburbGuide() {
                 color: '#333',
                 marginBottom: '1.5rem'
               }}>
-                Cranbourne is a rapidly growing suburb located approximately 43 kilometers south-east of Melbourne's CBD. Known for its family-friendly atmosphere and excellent transport connections, Cranbourne offers the perfect blend of suburban tranquility and urban convenience.
+                Cranbourne stands as one of Melbourne's most dynamic and rapidly growing southeastern suburbs, perfectly balancing urban development with natural beauty. Located approximately 43 kilometres from Melbourne's CBD within the City of Casey, Cranbourne has evolved from its agricultural roots into a vibrant residential and commercial hub that attracts families, professionals, and retirees seeking modern amenities within a well-connected suburban setting.
+              </p>
+              <p style={{
+                fontSize: '1.125rem',
+                lineHeight: 1.6,
+                color: '#333',
+                marginBottom: '1.5rem'
+              }}>
+                The suburb is renowned for its Royal Botanic Gardens, diverse housing options, quality schools, and strong focus on community development and infrastructure. What makes Cranbourne particularly appealing is its successful integration of urban amenities with natural attractions and community spirit, providing excellent connectivity to Melbourne via the Cranbourne railway line.
+              </p>
+            </section>
+
+            {/* Location & Transport */}
+            <section id="section-1" style={{ marginBottom: '4rem' }}>
+              <h2 style={{
+                fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                fontSize: isMobile ? '1.75rem' : '2.5rem',
+                fontWeight: '400',
+                marginBottom: '2rem',
+                color: '#000'
+              }}>
+                Location & Transport
+              </h2>
+              <p style={{
+                fontSize: '1.125rem',
+                lineHeight: 1.6,
+                color: '#333',
+                marginBottom: '1.5rem'
+              }}>
+                Cranbourne occupies a strategic position in Melbourne's southeast growth corridor, bordered by Cranbourne North to the north, Clyde to the west, and Tooradin to the east. This location provides residents with excellent connectivity to both Melbourne's CBD and the expanding outer southeastern suburbs.
+              </p>
+              <p style={{
+                fontSize: '1.125rem',
+                lineHeight: 1.6,
+                color: '#333',
+                marginBottom: '1.5rem'
+              }}>
+                Cranbourne benefits from excellent transport connectivity anchored by the Cranbourne railway station, which provides regular services on the Pakenham line to Melbourne's CBD and major employment centres. Road access includes the South Gippsland Highway and connections to the Monash Freeway, providing efficient routes to Melbourne and other destinations.
+              </p>
+            </section>
+
+            {/* Lifestyle & Amenities */}
+            <section id="section-2" style={{ marginBottom: '4rem' }}>
+              <h2 style={{
+                fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                fontSize: isMobile ? '1.75rem' : '2.5rem',
+                fontWeight: '400',
+                marginBottom: '2rem',
+                color: '#000'
+              }}>
+                Lifestyle & Amenities
+              </h2>
+              <p style={{
+                fontSize: '1.125rem',
+                lineHeight: 1.6,
+                color: '#333',
+                marginBottom: '1.5rem'
+              }}>
+                Cranbourne's lifestyle appeal centres on its natural attractions, recreational facilities, and family-oriented community activities. The Royal Botanic Gardens Cranbourne serves as a major regional attraction, featuring the Australian Garden, walking trails, and picnic areas that provide venues for family activities and community events throughout the year.
+              </p>
+              <p style={{
+                fontSize: '1.125rem',
+                lineHeight: 1.6,
+                color: '#333',
+                marginBottom: '1.5rem'
+              }}>
+                Cranbourne's retail and dining scene is anchored by Cranbourne Park Shopping Centre, offering comprehensive retail, entertainment, and dining experiences. The shopping precinct features contemporary retail spaces, major department stores, specialty shops, and a diverse range of dining options that cater to various tastes and budgets.
+              </p>
+            </section>
+
+            {/* Schools & Education */}
+            <section id="section-3" style={{ marginBottom: '4rem' }}>
+              <h2 style={{
+                fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                fontSize: isMobile ? '1.75rem' : '2.5rem',
+                fontWeight: '400',
+                marginBottom: '2rem',
+                color: '#000'
+              }}>
+                Schools & Education
+              </h2>
+              <p style={{
+                fontSize: '1.125rem',
+                lineHeight: 1.6,
+                color: '#333',
+                marginBottom: '1.5rem'
+              }}>
+                Education facilities in Cranbourne are comprehensive and well-regarded, contributing significantly to the suburb's appeal among families. Cranbourne Secondary College serves as the main secondary education facility, offering quality programs in modern facilities with strong community connections.
+              </p>
+              <p style={{
+                fontSize: '1.125rem',
+                lineHeight: 1.6,
+                color: '#333',
+                marginBottom: '1.5rem'
+              }}>
+                Tertiary education options include the Chisholm Institute of TAFE campus, providing vocational and further education opportunities for local residents. The excellent transport links make various educational institutions accessible, expanding educational opportunities for local families.
+              </p>
+            </section>
+
+            {/* Housing & Market */}
+            <section id="section-4" style={{ marginBottom: '4rem' }}>
+              <h2 style={{
+                fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                fontSize: isMobile ? '1.75rem' : '2.5rem',
+                fontWeight: '400',
+                marginBottom: '2rem',
+                color: '#000'
+              }}>
+                Housing & Market
+              </h2>
+              <p style={{
+                fontSize: '1.125rem',
+                lineHeight: 1.6,
+                color: '#333',
+                marginBottom: '1.5rem'
+              }}>
+                Cranbourne's housing market is characterized by contemporary housing developments, modern townhouse complexes, and established homes that cater to diverse housing needs. The housing stock primarily consists of homes built from the 1980s onwards, with significant development continuing to create a modern suburban landscape.
+              </p>
+              <p style={{
+                fontSize: '1.125rem',
+                lineHeight: 1.6,
+                color: '#333',
+                marginBottom: '1.5rem'
+              }}>
+                Contemporary developments throughout the suburb provide modern housing options with quality construction, modern amenities, and proximity to major facilities. Property values in Cranbourne reflect the suburb's modern amenities, excellent connectivity, and growing reputation as a family-oriented community.
+              </p>
+            </section>
+
+            {/* Community & Culture */}
+            <section id="section-5" style={{ marginBottom: '4rem' }}>
+              <h2 style={{
+                fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                fontSize: isMobile ? '1.75rem' : '2.5rem',
+                fontWeight: '400',
+                marginBottom: '2rem',
+                color: '#000'
+              }}>
+                Community & Culture
+              </h2>
+              <p style={{
+                fontSize: '1.125rem',
+                lineHeight: 1.6,
+                color: '#333',
+                marginBottom: '1.5rem'
+              }}>
+                Cranbourne maintains a strong community spirit that reflects its diverse population and modern suburban character. Active community groups, sporting clubs, and volunteer organizations provide extensive opportunities for social connection, civic engagement, and mutual support among residents.
+              </p>
+              <p style={{
+                fontSize: '1.125rem',
+                lineHeight: 1.6,
+                color: '#333',
+                marginBottom: '1.5rem'
+              }}>
+                The suburb's modern infrastructure and engaged community contribute to high levels of safety and security, with community policing efforts and natural surveillance through active street life and community involvement. Regular community events, cultural celebrations, and seasonal activities bring residents together while celebrating the suburb's diversity.
               </p>
             </section>
 
@@ -281,6 +434,95 @@ export default function CranbourneSuburbGuide() {
                 >
                   View All Cranbourne Properties
                 </Link>
+              </div>
+            </section>
+
+            {/* Buyer Tips */}
+            <section id="section-7" style={{ marginBottom: '4rem' }}>
+              <h2 style={{
+                fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                fontSize: isMobile ? '1.75rem' : '2.5rem',
+                fontWeight: '400',
+                marginBottom: '2rem',
+                color: '#000'
+              }}>
+                Tips for Buyers and Renters
+              </h2>
+              <p style={{
+                fontSize: '1.125rem',
+                lineHeight: 1.6,
+                color: '#333',
+                marginBottom: '1.5rem'
+              }}>
+                When considering Cranbourne, keep these factors in mind:
+              </p>
+              <div style={{ marginBottom: '2rem' }}>
+                <h3 style={{
+                  fontSize: '1.25rem',
+                  fontWeight: '600',
+                  marginBottom: '1rem',
+                  color: '#000'
+                }}>
+                  Key Considerations
+                </h3>
+                <ul style={{
+                  fontSize: '1.125rem',
+                  lineHeight: 1.6,
+                  color: '#333',
+                  paddingLeft: '1.5rem'
+                }}>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    <strong>Growth considerations:</strong> The suburb is experiencing significant growth - consider how this affects property values and community character.
+                  </li>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    <strong>Transport planning:</strong> While train access is excellent, consider peak travel times and specific commuting requirements.
+                  </li>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    <strong>Shopping access:</strong> Major shopping facilities are excellent, but consider proximity to specific stores and services you use regularly.
+                  </li>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    <strong>Community integration:</strong> The diverse community and modern amenities benefit from active participation in local activities and organizations.
+                  </li>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    <strong>Property options:</strong> Mix of established and contemporary properties - consider your preferences for modern vs. established homes.
+                  </li>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    <strong>School access:</strong> Check catchment areas and transport options if education is a priority for your family.
+                  </li>
+                </ul>
+              </div>
+              <div style={{
+                backgroundColor: '#f8f8f8',
+                padding: '2rem',
+                borderRadius: '4px',
+                marginBottom: '2rem'
+              }}>
+                <h3 style={{
+                  fontSize: '1.25rem',
+                  fontWeight: '600',
+                  marginBottom: '1rem',
+                  color: '#000'
+                }}>
+                  Who Will Love Cranbourne?
+                </h3>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+                  gap: '1rem'
+                }}>
+                  <div>
+                    <strong>Young families:</strong> Modern amenities, quality schools, and contemporary housing make it ideal for families seeking modern suburban living.
+                  </div>
+                  <div>
+                    <strong>First-home buyers:</strong> Affordable housing options and modern facilities appeal to those entering the property market.
+                  </div>
+                  <div>
+                    <strong>Train commuters:</strong> Excellent railway connectivity supports Melbourne commuting while providing modern suburban lifestyle.
+                  </div>
+                  <div>
+                    <strong>Nature enthusiasts:</strong> Royal Botanic Gardens and natural attractions appeal to residents who value green spaces.
+                  </div>
+                </div>
               </div>
             </section>
           </article>

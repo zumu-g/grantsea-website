@@ -23,7 +23,7 @@ export default function ThankYouPage() {
 
       <main style={{
         minHeight: '100vh',
-        paddingTop: '64px',
+        paddingTop: '200px',
         backgroundColor: '#f8f8f8',
         display: 'flex',
         alignItems: 'center',

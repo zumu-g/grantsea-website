@@ -137,7 +137,7 @@ export default function GuidesPage() {
 
       <main style={{
         minHeight: '100vh',
-        paddingTop: '64px',
+        paddingTop: '200px',
         backgroundColor: '#fff'
       }}>
         {/* Hero Section */}

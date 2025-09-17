@@ -7,18 +7,18 @@ import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
 
-export default function NarreWarrenSouthSuburbGuide() {
+export default function BeaconsfieldUpperSuburbGuide() {
   const [activeSection, setActiveSection] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
-  const { properties } = useProperties({ suburb: 'Narre Warren South', limit: 6 });
+  const { properties } = useProperties({ suburb: 'Beaconsfield Upper', limit: 6 });
 
   useEffect(() => {
     const checkDevice = () => {
       setIsMobile(window.innerWidth <= 768);
       setIsTablet(window.innerWidth > 768 && window.innerWidth <= 1024);
     };
-    
+
     checkDevice();
     window.addEventListener('resize', checkDevice);
     return () => window.removeEventListener('resize', checkDevice);
@@ -46,57 +46,64 @@ export default function NarreWarrenSouthSuburbGuide() {
   return (
     <>
       <OncomHeader />
-      
-      <main style={{ paddingTop: isMobile ? '160px' : '190px', backgroundColor: '#fff' }}>
-        {/* Hero Section */}
+
+      <main style={{ paddingTop: isMobile ? '180px' : '200px', backgroundColor: '#fff' }}>
+        {/* Hero Section - Tennis Guide Style */}
         <section style={{
           position: 'relative',
-          height: isMobile ? '60vh' : '80vh',
-          backgroundImage: 'url("/narre_warren_south_hero.jpg")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          display: 'flex',
-          alignItems: 'flex-end',
-          overflow: 'hidden'
+          height: '100vh',
+          minHeight: '600px',
+          overflow: 'hidden',
+          backgroundColor: '#000'
         }}>
           <div style={{
             position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(transparent 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.7) 100%)'
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundImage: 'url("/beaconsfield-upper-hero.jpg")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            filter: 'brightness(0.7)'
           }} />
-          
+
           <div style={{
             position: 'relative',
-            zIndex: 2,
-            width: '100%',
-            padding: 'max(2rem, 3.33vw)',
-            paddingBottom: isMobile ? '2rem' : '4rem'
+            height: '100%',
+            display: 'flex',
+            alignItems: 'flex-end',
+            paddingLeft: 'max(2rem, 3.33vw)',
+            paddingRight: 'max(2rem, 3.33vw)',
+            paddingBottom: '80px',
+            zIndex: 2
           }}>
-            <h1 style={{
-              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
-              fontSize: isMobile ? '3rem' : '6rem',
-              fontWeight: '400',
-              lineHeight: 0.9,
-              color: '#fff',
-              margin: 0,
-              letterSpacing: '-0.02em'
-            }}>
-              Narre Warren South
-            </h1>
-            <p style={{
-              fontSize: isMobile ? '1rem' : '1.25rem',
-              color: 'rgba(255,255,255,0.9)',
-              margin: '1rem 0 0 0',
-              fontWeight: '300',
-              maxWidth: '600px'
-            }}>
-              A prestigious suburb offering luxury living with beautiful parks and top-tier amenities
-            </p>
+            <div style={{ maxWidth: '800px' }}>
+              <h1 style={{
+                fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                fontSize: isMobile ? '3rem' : '4rem',
+                fontWeight: '400',
+                color: '#fff',
+                lineHeight: '1.1',
+                marginBottom: '24px'
+              }}>
+                Beaconsfield Upper
+              </h1>
+              <p style={{
+                fontSize: isMobile ? '1.125rem' : '1.25rem',
+                color: '#fff',
+                lineHeight: '1.4',
+                opacity: 0.9,
+                marginBottom: '40px'
+              }}>
+                Picturesque semi-rural charm with suburban convenience in Melbourne's scenic southeast
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* Content */}
-        <div style={{ 
+        <div style={{
           display: 'flex',
           minHeight: '100vh',
           backgroundColor: '#fff'
@@ -106,7 +113,7 @@ export default function NarreWarrenSouthSuburbGuide() {
             <nav style={{
               width: '280px',
               position: 'sticky',
-              top: '190px',
+              top: '200px',
               height: 'fit-content',
               padding: 'max(2rem, 3.33vw)',
               borderRight: '1px solid #e8e8e8'
@@ -148,7 +155,7 @@ export default function NarreWarrenSouthSuburbGuide() {
           )}
 
           {/* Main Content */}
-          <article style={{ 
+          <article style={{
             flex: 1,
             padding: 'max(2rem, 3.33vw)',
             maxWidth: isMobile ? '100%' : 'calc(100% - 280px)'
@@ -162,7 +169,7 @@ export default function NarreWarrenSouthSuburbGuide() {
                 marginBottom: '2rem',
                 color: '#000'
               }}>
-                Welcome to Narre Warren South
+                Welcome to Beaconsfield Upper
               </h2>
               <p style={{
                 fontSize: '1.125rem',
@@ -170,7 +177,7 @@ export default function NarreWarrenSouthSuburbGuide() {
                 color: '#333',
                 marginBottom: '1.5rem'
               }}>
-                Narre Warren South stands as one of Melbourne's most rapidly growing and family-oriented southeastern suburbs, perfectly balancing modern suburban development with established community amenities. Located approximately 40 kilometres from Melbourne's CBD within the City of Casey, Narre Warren South has emerged as a vibrant residential community that attracts young families, first-home buyers, and professionals seeking contemporary living within a well-planned suburban setting.
+                Beaconsfield Upper stands as one of Melbourne's most picturesque and semi-rural southeastern suburbs, perfectly balancing country charm with suburban convenience. Located approximately 50 kilometres from Melbourne's CBD within the Shire of Cardinia, Beaconsfield Upper has maintained its distinctive identity as a leafy, hillside community while adapting to contemporary lifestyle needs.
               </p>
               <p style={{
                 fontSize: '1.125rem',
@@ -178,7 +185,7 @@ export default function NarreWarrenSouthSuburbGuide() {
                 color: '#333',
                 marginBottom: '1.5rem'
               }}>
-                The suburb is renowned for its spacious properties, modern housing estates, quality schools, and strong focus on family-friendly infrastructure and services. What makes Narre Warren South particularly appealing is its successful integration of modern residential development with comprehensive amenities and excellent connectivity to Melbourne via the Pakenham railway line.
+                The suburb is renowned for its elevated position, scenic views, larger properties, and strong sense of community that attracts families, professionals, and retirees seeking a tranquil lifestyle without sacrificing accessibility. What makes Beaconsfield Upper particularly appealing is its successful preservation of rural atmosphere within a metropolitan context.
               </p>
             </section>
 
@@ -199,7 +206,7 @@ export default function NarreWarrenSouthSuburbGuide() {
                 color: '#333',
                 marginBottom: '1.5rem'
               }}>
-                Narre Warren South occupies a strategic position in Melbourne's southeast growth corridor, bordered by Narre Warren to the north, Cranbourne North to the south, and Clyde to the west. This location provides residents with excellent connectivity to both Melbourne's CBD and the expanding outer southeastern suburbs.
+                Beaconsfield Upper occupies a strategic position in Melbourne's southeast growth corridor, bordered by Beaconsfield to the south, Officer to the north, and the Cardinia Shire to the east. This location provides residents with excellent connectivity to both Melbourne's CBD and the expanding outer southeastern suburbs.
               </p>
               <p style={{
                 fontSize: '1.125rem',
@@ -228,7 +235,7 @@ export default function NarreWarrenSouthSuburbGuide() {
                 color: '#333',
                 marginBottom: '1.5rem'
               }}>
-                Narre Warren South's lifestyle appeal centres on its modern amenities, family-friendly facilities, and well-planned community infrastructure. The suburb features contemporary shopping centres, recreational facilities, and community spaces that provide venues for family activities and community engagement throughout the year.
+                Beaconsfield Upper's lifestyle appeal centers on its semi-rural character, scenic beauty, and strong community atmosphere. The suburb features spacious properties with mature gardens, rural views, and established streetscapes that create a tranquil environment for families and professionals.
               </p>
               <p style={{
                 fontSize: '1.125rem',
@@ -236,7 +243,7 @@ export default function NarreWarrenSouthSuburbGuide() {
                 color: '#333',
                 marginBottom: '1.5rem'
               }}>
-                Local parks and reserves serve as community hubs, featuring modern playgrounds, sporting facilities, and spaces for various recreational activities. The suburb's retail scene includes local shopping centres and nearby major facilities that provide comprehensive shopping, dining, and entertainment options.
+                Local amenities include a charming town centre with cafes, specialty shops, and services that maintain the suburb's village atmosphere. The area's natural setting and mature trees provide opportunities for outdoor activities, while proximity to larger centres ensures access to comprehensive retail and dining options.
               </p>
             </section>
 
@@ -257,7 +264,7 @@ export default function NarreWarrenSouthSuburbGuide() {
                 color: '#333',
                 marginBottom: '1.5rem'
               }}>
-                Education facilities in Narre Warren South are comprehensive and modern, contributing significantly to the suburb's appeal among families. Narre Warren South P-12 College serves as the main educational facility, offering quality programs in modern facilities with strong community connections.
+                Education facilities in Beaconsfield Upper are comprehensive and well-regarded, contributing significantly to the suburb's appeal among families. Local primary schools serve the community with quality programs in modern facilities with strong community connections and parental involvement.
               </p>
               <p style={{
                 fontSize: '1.125rem',
@@ -265,7 +272,7 @@ export default function NarreWarrenSouthSuburbGuide() {
                 color: '#333',
                 marginBottom: '1.5rem'
               }}>
-                The suburb provides access to several primary schools and educational options, with school bus services and public transport supporting various choices. The family-oriented demographic creates supportive environments for student achievement and development.
+                The suburb provides access to schools in nearby areas such as Beaconsfield and Officer, with school bus services and public transport supporting various choices. The community's emphasis on education and family values creates an environment that supports student achievement.
               </p>
             </section>
 
@@ -286,7 +293,7 @@ export default function NarreWarrenSouthSuburbGuide() {
                 color: '#333',
                 marginBottom: '1.5rem'
               }}>
-                Narre Warren South's housing market is characterized by contemporary housing estates, modern townhouse complexes, and new residential developments that cater to diverse housing needs. The housing stock primarily consists of homes built from the 2000s onwards, with significant development continuing to create a modern suburban landscape.
+                Beaconsfield Upper's housing market is characterized by established homes on generous blocks, heritage properties, and quality residential developments that respect the suburb's rural character. The housing stock primarily consists of homes built from the 1960s onwards, many featuring large gardens and established trees.
               </p>
               <p style={{
                 fontSize: '1.125rem',
@@ -294,7 +301,7 @@ export default function NarreWarrenSouthSuburbGuide() {
                 color: '#333',
                 marginBottom: '1.5rem'
               }}>
-                Contemporary developments throughout the suburb provide modern housing options with quality construction, modern amenities, and proximity to major facilities. Property values reflect the suburb's modern amenities, excellent connectivity, and growing reputation as a family-oriented community.
+                Property values reflect the suburb's established reputation, rural character, and quality amenities. The market tends to attract buyers seeking long-term residence rather than short-term investment, creating a stable residential community with relatively low turnover.
               </p>
             </section>
 
@@ -315,7 +322,7 @@ export default function NarreWarrenSouthSuburbGuide() {
                 color: '#333',
                 marginBottom: '1.5rem'
               }}>
-                Narre Warren South maintains a strong community spirit that reflects its diverse population and modern suburban character. Active community groups, sporting clubs, and volunteer organizations provide extensive opportunities for social connection and civic engagement among residents.
+                Beaconsfield Upper maintains a strong community spirit that reflects its semi-rural character and established residential base. Community groups, sporting clubs, and volunteer organizations provide extensive opportunities for social connection and civic engagement among residents.
               </p>
               <p style={{
                 fontSize: '1.125rem',
@@ -323,7 +330,7 @@ export default function NarreWarrenSouthSuburbGuide() {
                 color: '#333',
                 marginBottom: '1.5rem'
               }}>
-                The suburb's modern infrastructure and engaged community contribute to high levels of safety and security. Community facilities and modern amenities serve as focal points for neighbourhood activities, helping newcomers integrate quickly while maintaining connections among established residents.
+                The suburb's heritage character and community-led conservation efforts ensure that Beaconsfield Upper's rural identity remains intact despite suburban growth pressures. Regular community events and activities bring residents together while celebrating the area's unique character.
               </p>
             </section>
 
@@ -336,7 +343,7 @@ export default function NarreWarrenSouthSuburbGuide() {
                 marginBottom: '2rem',
                 color: '#000'
               }}>
-                Current Listings in Narre Warren South
+                Current Listings in Beaconsfield Upper
               </h2>
               {properties && properties.length > 0 ? (
                 <div style={{
@@ -363,8 +370,8 @@ export default function NarreWarrenSouthSuburbGuide() {
                     >
                       <div style={{ position: 'relative' }}>
                         <img
-                          src={property.images && property.images[0] ? 
-                            (typeof property.images[0] === 'string' ? property.images[0] : property.images[0].url) : 
+                          src={property.images && property.images[0] ?
+                            (typeof property.images[0] === 'string' ? property.images[0] : property.images[0].url) :
                             '/placeholder-property.jpg'}
                           alt={property.address}
                           style={{
@@ -378,7 +385,7 @@ export default function NarreWarrenSouthSuburbGuide() {
                           <SavePropertyButton property={property} />
                         </div>
                       </div>
-                      
+
                       <div style={{ padding: '1.5rem' }}>
                         <h3 style={{
                           fontSize: '1.125rem',
@@ -413,13 +420,13 @@ export default function NarreWarrenSouthSuburbGuide() {
                   padding: '3rem',
                   color: '#666'
                 }}>
-                  <p>No properties currently available in Narre Warren South. Check back soon for new listings.</p>
+                  <p>No properties currently available in Beaconsfield Upper. Check back soon for new listings.</p>
                 </div>
               )}
-              
+
               <div style={{ textAlign: 'center', marginTop: '3rem' }}>
                 <Link
-                  href="/search?suburb=Narre Warren South"
+                  href="/search?suburb=Beaconsfield Upper"
                   style={{
                     display: 'inline-block',
                     padding: '1rem 2rem',
@@ -432,7 +439,7 @@ export default function NarreWarrenSouthSuburbGuide() {
                     transition: 'all 0.3s ease'
                   }}
                 >
-                  View All Narre Warren South Properties
+                  View All Beaconsfield Upper Properties
                 </Link>
               </div>
             </section>
@@ -454,7 +461,7 @@ export default function NarreWarrenSouthSuburbGuide() {
                 color: '#333',
                 marginBottom: '1.5rem'
               }}>
-                When considering Narre Warren South, keep these factors in mind:
+                When considering Beaconsfield Upper, keep these factors in mind:
               </p>
               <div style={{ marginBottom: '2rem' }}>
                 <h3 style={{
@@ -472,19 +479,19 @@ export default function NarreWarrenSouthSuburbGuide() {
                   paddingLeft: '1.5rem'
                 }}>
                   <li style={{ marginBottom: '0.5rem' }}>
-                    <strong>Growth opportunities:</strong> The suburb is experiencing continued growth - consider how new developments might enhance property values and community amenities.
+                    <strong>Rural character:</strong> Properties often feature larger blocks and mature gardens - consider maintenance requirements and lifestyle preferences.
                   </li>
                   <li style={{ marginBottom: '0.5rem' }}>
-                    <strong>Transport access:</strong> Excellent train connectivity to Melbourne CBD - consider your commuting needs and peak travel times.
+                    <strong>Heritage appeal:</strong> Many homes have character features - understand heritage overlays and renovation restrictions.
                   </li>
                   <li style={{ marginBottom: '0.5rem' }}>
-                    <strong>Modern amenities:</strong> Contemporary infrastructure and facilities - perfect for families seeking modern conveniences.
+                    <strong>Community involvement:</strong> Strong local community - participation in local activities enhances the living experience.
                   </li>
                   <li style={{ marginBottom: '0.5rem' }}>
-                    <strong>Education focus:</strong> Strong schools and family-friendly environment make it ideal for growing families.
+                    <strong>Transport planning:</strong> Train access via nearby stations - consider commuting logistics for work and activities.
                   </li>
                   <li style={{ marginBottom: '0.5rem' }}>
-                    <strong>Housing variety:</strong> Predominantly modern homes and estates - great for buyers seeking contemporary living.
+                    <strong>Property investment:</strong> Stable market with established appeal - suitable for long-term residence rather than quick gains.
                   </li>
                 </ul>
               </div>
@@ -508,16 +515,16 @@ export default function NarreWarrenSouthSuburbGuide() {
                   gap: '1rem'
                 }}>
                   <div>
-                    <strong>Young families:</strong> Modern housing estates, excellent schools, and family-friendly infrastructure.
+                    <strong>Families seeking space:</strong> Generous blocks, quality schools, and safe community environment.
                   </div>
                   <div>
-                    <strong>First-home buyers:</strong> Affordable modern properties in a well-planned suburban environment.
+                    <strong>Rural lifestyle lovers:</strong> Semi-rural atmosphere with suburban conveniences and community spirit.
                   </div>
                   <div>
-                    <strong>Commuters:</strong> Reliable train services and modern amenities for Melbourne workers.
+                    <strong>Commuters:</strong> Train connectivity to Melbourne while enjoying tranquil hillside living.
                   </div>
                   <div>
-                    <strong>Growth seekers:</strong> Developing area with potential for continued value appreciation.
+                    <strong>Heritage enthusiasts:</strong> Character properties and established streetscapes with historical appeal.
                   </div>
                 </div>
               </div>

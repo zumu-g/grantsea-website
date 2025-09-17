@@ -16,6 +16,7 @@ export default function OncomHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [showBuyDropdown, setShowBuyDropdown] = useState(false);
+  const [buyDropdownTimeout, setBuyDropdownTimeout] = useState<NodeJS.Timeout | null>(null);
   const router = useRouter();
   const pathname = usePathname();
   const { user, isAuthenticated, savedProperties, savedSearches, logout } = useAuth();
@@ -102,8 +103,19 @@ export default function OncomHeader() {
               transform: 'translateX(-50%)'
             }}>
             <div style={{ position: 'relative' }}
-              onMouseEnter={() => setShowBuyDropdown(true)}
-              onMouseLeave={() => setShowBuyDropdown(false)}>
+              onMouseEnter={() => {
+                if (buyDropdownTimeout) {
+                  clearTimeout(buyDropdownTimeout);
+                  setBuyDropdownTimeout(null);
+                }
+                setShowBuyDropdown(true);
+              }}
+              onMouseLeave={() => {
+                const timeout = setTimeout(() => {
+                  setShowBuyDropdown(false);
+                }, 150); // 150ms delay before closing
+                setBuyDropdownTimeout(timeout);
+              }}>
               <Link href="/buy" style={{
                 color: isHomePage && !isScrolled ? '#fff' : '#000',
                 textDecoration: 'none',
@@ -120,12 +132,23 @@ export default function OncomHeader() {
                 </svg>
               </Link>
               {showBuyDropdown && (
-                <div style={{
-                  position: 'absolute',
-                  top: '100%',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  marginTop: '16px',
+                <>
+                  {/* Invisible bridge to prevent gap */}
+                  <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: '200px',
+                    height: '8px',
+                    background: 'transparent',
+                    zIndex: 1001
+                  }} />
+                  <div style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 8px)',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
                   backgroundColor: '#fff',
                   border: '1px solid #e5e5e5',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
@@ -194,7 +217,8 @@ export default function OncomHeader() {
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
                     Check Our Rates
                   </Link>
-                </div>
+                  </div>
+                </>
               )}
             </div>
             <Link href="/sell" style={{

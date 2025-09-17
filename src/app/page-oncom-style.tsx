@@ -27,7 +27,7 @@ export default function HomePageOncom() {
   }, []);
 
   return (
-    <div>
+    <main style={{ minHeight: "100vh" }}>
       <OncomHeader />
 
       {/* Hero Section - Full screen with bottom-left text like ON.COM */}
@@ -138,8 +138,8 @@ export default function HomePageOncom() {
             >
               Get appraisal
             </Link>
-          </div>
-        </div>
+          </main>
+        </main>
       </section>
 
       {/* Shop by Category - ON.COM exact style */}
@@ -244,8 +244,8 @@ export default function HomePageOncom() {
                     color: 'rgba(255,255,255,0.9)',
                     fontSize: '14px'
                   }}>Browse homes for sale</p>
-                </div>
-              </div>
+                </main>
+              </main>
             </Link>
 
             {/* Rent Category */}
@@ -313,8 +313,8 @@ export default function HomePageOncom() {
                     color: 'rgba(255,255,255,0.9)',
                     fontSize: '14px'
                   }}>Find your next rental</p>
-                </div>
-              </div>
+                </main>
+              </main>
             </Link>
 
             {/* Appraisal Category */}
@@ -382,12 +382,12 @@ export default function HomePageOncom() {
                     color: 'rgba(255,255,255,0.9)',
                     fontSize: '14px'
                   }}>Get your free property valuation</p>
-                </div>
-              </div>
+                </main>
+              </main>
             </Link>
 
-          </div>
-        </div>
+          </main>
+        </main>
       </section>
 
       {/* Activities Section - ON.COM style */}
@@ -471,7 +471,7 @@ export default function HomePageOncom() {
                     </h3>
                   </Link>
                 ))}
-              </div>
+              </main>
               
               <Link href="/buy" style={{
                 display: 'inline-flex',
@@ -500,7 +500,7 @@ export default function HomePageOncom() {
                   <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
               </Link>
-            </div>
+            </main>
             
             {/* Activity Image */}
             <div style={{
@@ -539,7 +539,7 @@ export default function HomePageOncom() {
                       objectFit: 'cover'
                     }}
                   />
-                </div>
+                </main>
               ))}
               
               {!hoveredActivity && (
@@ -558,11 +558,11 @@ export default function HomePageOncom() {
                   }}>
                     Hover over a property type to preview
                   </p>
-                </div>
+                </main>
               )}
-            </div>
-          </div>
-        </div>
+            </main>
+          </main>
+        </main>
       </section>
 
       {/* Carousel Section - ON.COM style */}
@@ -756,12 +756,12 @@ export default function HomePageOncom() {
                         }}>
                           {item.tagline}
                         </p>
-                      </div>
-                    </div>
+                      </main>
+                    </main>
                   </Link>
                 ))}
-              </div>
-            </div>
+              </main>
+            </main>
             
             {/* Carousel Controls */}
             <button
@@ -841,8 +841,8 @@ export default function HomePageOncom() {
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
             </button>
-          </div>
-        </div>
+          </main>
+        </main>
       </section>
 
       {/* You may be interested in - ON.COM style */}
@@ -882,7 +882,7 @@ export default function HomePageOncom() {
                 margin: '0 auto',
                 animation: 'spin 1s linear infinite'
               }} />
-            </div>
+            </main>
           ) : (
             <div className="property-carousel" style={{
               overflowX: 'auto',
@@ -969,9 +969,9 @@ export default function HomePageOncom() {
                             fontSize: '12px'
                           }}>
                             No image
-                          </div>
+                          </main>
                         )}
-                      </div>
+                      </main>
                       <div style={{
                         position: 'absolute',
                         top: '8px',
@@ -979,8 +979,8 @@ export default function HomePageOncom() {
                         zIndex: 1
                       }}>
                         <SavePropertyButton property={property} />
-                      </div>
-                    </div>
+                      </main>
+                    </main>
                     
                     <div style={{ 
                       padding: '1rem',
@@ -1022,7 +1022,7 @@ export default function HomePageOncom() {
                         <span>{property.bedrooms} bed</span>
                         <span>{property.bathrooms} bath</span>
                         <span>{property.carSpaces} car</span>
-                      </div>
+                      </main>
                       <div style={{
                         display: 'flex',
                         justifyContent: 'space-between',
@@ -1037,8 +1037,8 @@ export default function HomePageOncom() {
                             ? (property.leasePriceDisplay || `${formatPrice(property.leasePrice || property.price)} per week`)
                             : (property.priceDisplay || formatPrice(property.price))}
                         </p>
-                      </div>
-                    </div>
+                      </main>
+                    </main>
                   </Link>
                   
                   {/* Ask AI Button positioned outside the Link */}
@@ -1072,11 +1072,11 @@ export default function HomePageOncom() {
                       propertyType="card"
                       size="small"
                     />
-                  </div>
-                </div>
+                  </main>
+                </main>
               )})}
-              </div>
-            </div>
+              </main>
+            </main>
           )}
           {/* View all link */}
           <div style={{
@@ -1106,8 +1106,8 @@ export default function HomePageOncom() {
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
             </Link>
-          </div>
-        </div>
+          </main>
+        </main>
       </section>
 
       {/* Stories that move - ON.COM style */}
@@ -1195,8 +1195,8 @@ export default function HomePageOncom() {
                     letterSpacing: '0.5px'
                   }}>
                     First Home
-                  </div>
-                </div>
+                  </main>
+                </main>
                 <h3 style={{
                     fontSize: '20px',
                     fontWeight: '700',
@@ -1238,7 +1238,7 @@ export default function HomePageOncom() {
                       <line x1="5" y1="12" x2="19" y2="12"></line>
                       <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
-                  </div>
+                  </main>
               </Link>
             </article>
 
@@ -1299,8 +1299,8 @@ export default function HomePageOncom() {
                     letterSpacing: '0.5px'
                   }}>
                     Upgrade Story
-                  </div>
-                </div>
+                  </main>
+                </main>
                 <h3 style={{
                     fontSize: '20px',
                     fontWeight: '700',
@@ -1342,7 +1342,7 @@ export default function HomePageOncom() {
                       <line x1="5" y1="12" x2="19" y2="12"></line>
                       <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
-                  </div>
+                  </main>
               </Link>
             </article>
 
@@ -1403,8 +1403,8 @@ export default function HomePageOncom() {
                     letterSpacing: '0.5px'
                   }}>
                     Investment
-                  </div>
-                </div>
+                  </main>
+                </main>
                 <h3 style={{
                     fontSize: '20px',
                     fontWeight: '700',
@@ -1446,7 +1446,7 @@ export default function HomePageOncom() {
                       <line x1="5" y1="12" x2="19" y2="12"></line>
                       <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
-                  </div>
+                  </main>
               </Link>
             </article>
 
@@ -1507,8 +1507,8 @@ export default function HomePageOncom() {
                     letterSpacing: '0.5px'
                   }}>
                     Downsizing
-                  </div>
-                </div>
+                  </main>
+                </main>
                 <h3 style={{
                     fontSize: '20px',
                     fontWeight: '700',
@@ -1550,7 +1550,7 @@ export default function HomePageOncom() {
                       <line x1="5" y1="12" x2="19" y2="12"></line>
                       <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
-                  </div>
+                  </main>
               </Link>
             </article>
 
@@ -1611,8 +1611,8 @@ export default function HomePageOncom() {
                     letterSpacing: '0.5px'
                   }}>
                     Market Insights
-                  </div>
-                </div>
+                  </main>
+                </main>
                 <h3 style={{
                     fontSize: '20px',
                     fontWeight: '700',
@@ -1654,10 +1654,10 @@ export default function HomePageOncom() {
                       <line x1="5" y1="12" x2="19" y2="12"></line>
                       <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
-                  </div>
+                  </main>
               </Link>
             </article>
-          </div>
+          </main>
 
           {/* View all stories link */}
           <div style={{
@@ -1684,8 +1684,8 @@ export default function HomePageOncom() {
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
             </Link>
-          </div>
-        </div>
+          </main>
+        </main>
       </section>
 
       {/* Community Section - REMOVED */}
@@ -1777,14 +1777,14 @@ export default function HomePageOncom() {
                 >
                   Subscribe
                 </button>
-              </div>
+              </main>
               <p style={{
                 fontSize: '14px',
                 color: 'rgba(255,255,255,0.6)'
               }}>
                 Join 10,000+ subscribers. Unsubscribe anytime.
               </p>
-            </div>
+            </main>
             
             <div style={{
               display: 'grid',
@@ -1802,12 +1802,12 @@ export default function HomePageOncom() {
                   fontSize: '48px',
                   fontWeight: '700',
                   marginBottom: '8px'
-                }}>250+</div>
+                }}>250+</main>
                 <p style={{
                   fontSize: '16px',
                   color: 'rgba(255,255,255,0.7)'
                 }}>Properties sold monthly</p>
-              </div>
+              </main>
               
               <div style={{
                 padding: '32px',
@@ -1820,12 +1820,12 @@ export default function HomePageOncom() {
                   fontSize: '48px',
                   fontWeight: '700',
                   marginBottom: '8px'
-                }}>4.9</div>
+                }}>4.9</main>
                 <p style={{
                   fontSize: '16px',
                   color: 'rgba(255,255,255,0.7)'
                 }}>Average rating</p>
-              </div>
+              </main>
               
               <div style={{
                 padding: '32px',
@@ -1838,12 +1838,12 @@ export default function HomePageOncom() {
                   fontSize: '48px',
                   fontWeight: '700',
                   marginBottom: '8px'
-                }}>98%</div>
+                }}>98%</main>
                 <p style={{
                   fontSize: '16px',
                   color: 'rgba(255,255,255,0.7)'
                 }}>Success rate</p>
-              </div>
+              </main>
               
               <div style={{
                 padding: '32px',
@@ -1856,15 +1856,15 @@ export default function HomePageOncom() {
                   fontSize: '48px',
                   fontWeight: '700',
                   marginBottom: '8px'
-                }}>15+</div>
+                }}>15+</main>
                 <p style={{
                   fontSize: '16px',
                   color: 'rgba(255,255,255,0.7)'
                 }}>Expert agents</p>
-              </div>
-            </div>
-          </div>
-        </div>
+              </main>
+            </main>
+          </main>
+        </main>
         
         {/* Background decoration */}
         <div style={{
@@ -1917,7 +1917,7 @@ export default function HomePageOncom() {
             >
               View all properties →
             </Link>
-          </div>
+          </main>
 
           {loading ? (
             <div style={{ textAlign: 'center', padding: '80px 0' }}>
@@ -1930,7 +1930,7 @@ export default function HomePageOncom() {
                 margin: '0 auto',
                 animation: 'spin 1s linear infinite'
               }} />
-            </div>
+            </main>
           ) : (
             <div className="property-grid" style={{
               display: 'grid',
@@ -1985,7 +1985,7 @@ export default function HomePageOncom() {
                           color: '#999'
                         }}>
                           No image
-                        </div>
+                        </main>
                       )}
                       <div style={{
                         position: 'absolute',
@@ -1993,8 +1993,8 @@ export default function HomePageOncom() {
                         right: '16px'
                       }}>
                         <SavePropertyButton property={property} />
-                      </div>
-                    </div>
+                      </main>
+                    </main>
                     
                     <div style={{ padding: '24px' }}>
                       <h3 style={{
@@ -2023,14 +2023,14 @@ export default function HomePageOncom() {
                         <span>{property.bedrooms} beds</span>
                         <span>{property.bathrooms} baths</span>
                         <span>{property.carSpaces} cars</span>
-                      </div>
-                    </div>
+                      </main>
+                    </main>
                   </Link>
-                </div>
+                </main>
               ))}
-            </div>
+            </main>
           )}
-        </div>
+        </main>
       </section>
       )}
 
@@ -2069,7 +2069,7 @@ export default function HomePageOncom() {
                 }}>
                   Stay in the loop, with exclusive coming soon listings and market news.
                 </h3>
-              </div>
+              </main>
               <div style={{
                 display: 'flex',
                 gap: '16px',
@@ -2114,9 +2114,9 @@ export default function HomePageOncom() {
                 >
                   Subscribe
                 </button>
-              </div>
-            </div>
-          </div>
+              </main>
+            </main>
+          </main>
 
           {/* Links Grid */}
           <div style={{
@@ -2152,7 +2152,7 @@ export default function HomePageOncom() {
                   </Link>
                 </li>
               </ul>
-            </div>
+            </main>
 
             {/* Column 2 */}
             <div>
@@ -2199,7 +2199,7 @@ export default function HomePageOncom() {
                   </Link>
                 </li>
               </ul>
-            </div>
+            </main>
 
             {/* Column 3 */}
             <div>
@@ -2239,7 +2239,7 @@ export default function HomePageOncom() {
                   </Link>
                 </li>
               </ul>
-            </div>
+            </main>
 
             {/* Column 4 - Australia flag */}
             <div style={{
@@ -2268,8 +2268,8 @@ export default function HomePageOncom() {
                 <span style={{ fontSize: '16px' }}>🇦🇺</span>
                 <span>Australia</span>
               </Link>
-            </div>
-          </div>
+            </main>
+          </main>
           {/* Bottom Links and Social */}
           <div style={{
             paddingTop: '24px',
@@ -2302,7 +2302,7 @@ export default function HomePageOncom() {
                 onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
                 Accessibility
               </Link>
-            </div>
+            </main>
             
             {/* Social Icons */}
             <div style={{
@@ -2345,9 +2345,9 @@ export default function HomePageOncom() {
                   <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="currentColor"/>
                 </svg>
               </a>
-            </div>
-          </div>
-        </div>
+            </main>
+          </main>
+        </main>
       </footer>
 
       <style jsx>{`
@@ -2356,6 +2356,6 @@ export default function HomePageOncom() {
           100% { transform: rotate(360deg); }
         }
       `}</style>
-    </div>
+    </main>
   );
 }

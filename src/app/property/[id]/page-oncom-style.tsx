@@ -184,9 +184,14 @@ export default function PropertyDetailPageOncom() {
           }}>
             <div>
               <div style={{ fontSize: '28px', fontWeight: '700' }}>
-                {property.priceDisplay || formatPrice(property.price)}
+                {property.listingType === 'lease'
+                  ? (property.leasePriceDisplay || (property.leasePrice ? `$${property.leasePrice} per week` : 'Contact Agent'))
+                  : (property.priceDisplay || formatPrice(property.price))
+                }
               </div>
-              <div style={{ fontSize: '14px', color: '#666' }}>Price</div>
+              <div style={{ fontSize: '14px', color: '#666' }}>
+                {property.listingType === 'lease' ? 'Rent' : 'Price'}
+              </div>
             </div>
             <div>
               <div style={{ fontSize: '28px', fontWeight: '700' }}>{property.bedrooms}</div>

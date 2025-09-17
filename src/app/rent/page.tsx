@@ -66,9 +66,8 @@ export default function RentPage() {
   const formatRentPrice = (price: number | string | undefined) => {
     if (!price) return 'Price on Application';
     const numPrice = typeof price === 'string' ? parseInt(price) : price;
-    // Convert to weekly rent
-    const weeklyRent = Math.round(numPrice / 4.33);
-    return `$${weeklyRent.toLocaleString()} per week`;
+    // Price is already weekly rent from API
+    return `$${numPrice.toLocaleString()} per week`;
   };
 
   return (
@@ -655,7 +654,7 @@ export default function RentPage() {
                           marginBottom: '12px',
                           letterSpacing: '-0.02em'
                         }}>
-                          {formatRentPrice(property.leasePrice || property.price)}
+                          {property.leasePriceDisplay || formatRentPrice(property.leasePrice || property.price)}
                         </h3>
                         
                         <p style={{

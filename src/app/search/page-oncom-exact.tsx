@@ -12,7 +12,8 @@ export default function SearchPageOncomExact() {
   const searchQuery = searchParams.get('q') || '';
   const [showFilters, setShowFilters] = useState(false);
   const [selectedSuburbs, setSelectedSuburbs] = useState<string[]>([]);
-  
+  const [sortBy, setSortBy] = useState('featured'); // 'featured', 'price-asc', 'price-desc', 'newest', 'oldest'
+
   const [filters, setFilters] = useState({
     listingType: 'buy',
     propertyTypes: [] as string[],
@@ -36,23 +37,38 @@ export default function SearchPageOncomExact() {
 
   const { properties, loading } = useProperties({ type: propertyType });
 
-  // Filter properties
-  const filteredProperties = properties.filter(property => {
-    if (searchQuery && !property.address?.toLowerCase().includes(searchQuery.toLowerCase()) &&
-        !property.suburb?.toLowerCase().includes(searchQuery.toLowerCase())) {
-      return false;
-    }
-    if (selectedSuburbs.length > 0 && !selectedSuburbs.includes(property.suburb)) {
-      return false;
-    }
-    if (filters.propertyTypes.length > 0 && !filters.propertyTypes.includes(property.propertyType)) {
-      return false;
-    }
-    if (filters.bedroomsMin && property.bedrooms < parseInt(filters.bedroomsMin)) return false;
-    if (filters.bathroomsMin && property.bathrooms < parseInt(filters.bathroomsMin)) return false;
-    if (filters.carSpacesMin && property.carSpaces < parseInt(filters.carSpacesMin)) return false;
-    return true;
-  });
+  // Filter and sort properties
+  const filteredProperties = properties
+    .filter(property => {
+      if (searchQuery && !property.address?.toLowerCase().includes(searchQuery.toLowerCase()) &&
+          !property.suburb?.toLowerCase().includes(searchQuery.toLowerCase())) {
+        return false;
+      }
+      if (selectedSuburbs.length > 0 && !selectedSuburbs.includes(property.suburb)) {
+        return false;
+      }
+      if (filters.propertyTypes.length > 0 && !filters.propertyTypes.includes(property.propertyType)) {
+        return false;
+      }
+      if (filters.bedroomsMin && property.bedrooms < parseInt(filters.bedroomsMin)) return false;
+      if (filters.bathroomsMin && property.bathrooms < parseInt(filters.bathroomsMin)) return false;
+      if (filters.carSpacesMin && property.carSpaces < parseInt(filters.carSpacesMin)) return false;
+      return true;
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case 'price-asc':
+          return parseInt(a.price) - parseInt(b.price);
+        case 'price-desc':
+          return parseInt(b.price) - parseInt(a.price);
+        case 'newest':
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        case 'oldest':
+          return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+        default: // 'featured'
+          return 0;
+      }
+    });
 
   return (
     <>
@@ -230,7 +246,38 @@ export default function SearchPageOncomExact() {
                 }} />
               </div>
             ) : (
-              <div style={{
+              <>
+                {/* Sort and Results Count */}
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: '20px'
+                }}>
+                  <div style={{ fontSize: '16px', color: '#333' }}>
+                    {filteredProperties.length} properties found
+                  </div>
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    style={{
+                      padding: '8px 12px',
+                      fontSize: '14px',
+                      border: '1px solid #e5e7eb',
+                      borderRadius: '4px',
+                      backgroundColor: '#fff',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <option value="featured">Featured</option>
+                    <option value="price-asc">Price (low to high)</option>
+                    <option value="price-desc">Price (high to low)</option>
+                    <option value="newest">Newest listings</option>
+                    <option value="oldest">Oldest listings</option>
+                  </select>
+                </div>
+
+                <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(3, 1fr)',
                 gap: '16px'
@@ -351,7 +398,7 @@ export default function SearchPageOncomExact() {
                       }}
                       className="property-address"
                       >
-                        {property.address}
+                        {property.address.replace(/ VIC$/, '')}
                       </div>
                       <div style={{
                         fontSize: '14px',
@@ -399,6 +446,7 @@ export default function SearchPageOncomExact() {
                   </Link>
                 ))}
               </div>
+              </>
             )}
           </div>
         </div>

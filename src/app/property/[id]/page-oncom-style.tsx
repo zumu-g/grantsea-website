@@ -304,7 +304,7 @@ export default function PropertyDetailPageOncom() {
               {property.suburb}
             </Link>
             <span>/</span>
-            <span>{property.address}</span>
+            <span>{property.address.replace(/ VIC$/, '')}</span>
           </div>
         </div>
 
@@ -313,7 +313,7 @@ export default function PropertyDetailPageOncom() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
             <div>
               <h1 style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px' }}>
-                {property.address}
+                {property.address.replace(/ VIC$/, '')}
               </h1>
               <p style={{ fontSize: '18px', color: '#666' }}>
                 {property.suburb}, {property.state} {property.postcode}
@@ -326,8 +326,8 @@ export default function PropertyDetailPageOncom() {
                 onClick={() => {
                   if (navigator.share) {
                     navigator.share({
-                      title: property.address,
-                      text: `Check out this property: ${property.address}, ${property.suburb}`,
+                      title: property.address.replace(/ VIC$/, ''),
+                      text: `Check out this property: ${property.address.replace(/ VIC$/, '')}, ${property.suburb}`,
                       url: window.location.href,
                     }).catch(() => {
                       // Fallback to clipboard copy
@@ -359,7 +359,7 @@ export default function PropertyDetailPageOncom() {
               </button>
               <AskAI 
                 propertyId={property.id}
-                propertyAddress={`${property.address}, ${property.suburb}, ${property.state} ${property.postcode}`}
+                propertyAddress={`${property.address.replace(/ VIC$/, '')}, ${property.suburb}, ${property.state} ${property.postcode}`}
                 propertyData={{
                   price: property.price,
                   priceDisplay: property.priceDisplay,

@@ -26,6 +26,7 @@ export interface Property {
   buildingSize?: number;
   propertyType: string;
   status: string;
+  statusDisplay?: string;
   saleMethod?: 'auction' | 'private' | 'tender' | 'eoi';
   availableDate?: string;
   leaseTerm?: string;
@@ -660,7 +661,11 @@ export function transformVaultREProperty(vaultProperty: any): Property {
     landSize: vaultProperty.landArea?.value,
     buildingSize: vaultProperty.floorArea?.value,
     propertyType: vaultProperty.type?.name || 'House',
-    status: vaultProperty.status || 'active',
+    status: vaultProperty.status || vaultProperty.portalStatus || 'active',
+    statusDisplay: vaultProperty.status === 'unconditional' ? 'Under Contract' :
+                   vaultProperty.status === 'listing' ? 'Available' :
+                   vaultProperty.status === 'management' ? 'Leased' :
+                   vaultProperty.status || 'active',
     saleMethod: vaultProperty.methodOfSale?.name,
     availableDate: vaultProperty.availableDate,
     leaseTerm: vaultProperty.leaseTerm,

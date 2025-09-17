@@ -980,6 +980,60 @@ export default function HomePageOncom() {
                       }}>
                         <SavePropertyButton property={property} />
                       </div>
+                      {property.listingType === 'lease' && property.status !== 'management' && (
+                        <div style={{
+                          position: 'absolute',
+                          top: '2rem',
+                          left: '2rem',
+                          backgroundColor: '#AF272F',
+                          color: '#fff',
+                          padding: '6px 12px',
+                          borderRadius: '4px',
+                          fontSize: '12px',
+                          fontWeight: '600',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.5px',
+                          zIndex: 1
+                        }}>
+                          For Lease
+                        </div>
+                      )}
+                      {property.status === 'unconditional' && (
+                        <div style={{
+                          position: 'absolute',
+                          top: '2rem',
+                          left: '2rem',
+                          backgroundColor: '#FFA500',
+                          color: '#fff',
+                          padding: '6px 12px',
+                          borderRadius: '4px',
+                          fontSize: '12px',
+                          fontWeight: '600',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.5px',
+                          zIndex: 1
+                        }}>
+                          Under Contract
+                        </div>
+                      )}
+                      {property.status === 'management' && (
+                        <div style={{
+                          position: 'absolute',
+                          top: '2rem',
+                          left: '2rem',
+                          backgroundColor: '#666',
+                          color: '#fff',
+                          padding: '6px 12px',
+                          borderRadius: '4px',
+                          fontSize: '12px',
+                          fontWeight: '600',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.5px',
+                          zIndex: 1
+                        }}>
+                          Leased
+                        </div>
+                      )}
                     </div>
                     
                     <div style={{ 

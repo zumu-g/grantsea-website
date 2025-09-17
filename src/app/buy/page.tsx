@@ -549,13 +549,13 @@ export default function BuyPageOncom() {
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-4px)';
                   e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
-                  const addressEl = e.currentTarget.querySelector('.property-address');
+                  const addressEl = e.currentTarget.querySelector('.property-address') as HTMLElement;
                   if (addressEl) addressEl.style.color = '#dc2626';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
                   e.currentTarget.style.boxShadow = 'none';
-                  const addressEl = e.currentTarget.querySelector('.property-address');
+                  const addressEl = e.currentTarget.querySelector('.property-address') as HTMLElement;
                   if (addressEl) addressEl.style.color = '#000';
                 }}
                 >

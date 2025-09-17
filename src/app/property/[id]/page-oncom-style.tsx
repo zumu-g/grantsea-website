@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useProperty, useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
@@ -13,6 +14,13 @@ export default function PropertyDetailPageOncom() {
   const { property, loading, error } = useProperty(params.id as string);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showAllPhotos, setShowAllPhotos] = useState(false);
+  const [enquirySent, setEnquirySent] = useState(false);
+  const [enquiryForm, setEnquiryForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: "I'm interested in this property..."
+  });
   
   // Fetch similar properties from the same suburb
   const { properties: similarProperties } = useProperties({
@@ -133,18 +141,36 @@ export default function PropertyDetailPageOncom() {
             
             <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
               <SavePropertyButton property={property} showLabel={false} />
-              <button style={{
-                padding: '12px 24px',
-                backgroundColor: '#000',
-                color: '#fff',
-                border: 'none',
-                fontSize: '14px',
-                fontWeight: '600',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}>
+              <button
+                onClick={() => {
+                  if (navigator.share) {
+                    navigator.share({
+                      title: property.address,
+                      text: `Check out this property: ${property.address}, ${property.suburb}`,
+                      url: window.location.href,
+                    }).catch(() => {
+                      // Fallback to clipboard copy
+                      navigator.clipboard.writeText(window.location.href);
+                      alert('Link copied to clipboard!');
+                    });
+                  } else {
+                    // Fallback to clipboard copy
+                    navigator.clipboard.writeText(window.location.href);
+                    alert('Link copied to clipboard!');
+                  }
+                }}
+                style={{
+                  padding: '12px 24px',
+                  backgroundColor: '#000',
+                  color: '#fff',
+                  border: 'none',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                 </svg>
@@ -701,11 +727,12 @@ export default function PropertyDetailPageOncom() {
                       fontSize: '16px',
                       fontWeight: '600',
                       cursor: 'pointer'
-                    }}
-                  >
-                    Send inquiry
-                  </button>
-                </form>
+                      }}
+                    >
+                      Send inquiry
+                    </button>
+                  </form>
+                )}
 
                 {/* Schedule Inspection */}
                 <div style={{

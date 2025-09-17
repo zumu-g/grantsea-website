@@ -679,12 +679,18 @@ export function transformVaultREProperty(vaultProperty: any): Property {
       name: `${vaultProperty.contactStaff[0].firstName} ${vaultProperty.contactStaff[0].lastName}`.trim(),
       email: vaultProperty.contactStaff[0].email || '',
       phone: vaultProperty.contactStaff[0].phoneNumbers?.[0]?.number || '',
-      mobile: vaultProperty.contactStaff[0].phoneNumbers?.find((p: any) => p.type === 'Mobile')?.number
+      mobile: vaultProperty.contactStaff[0].phoneNumbers?.find((p: any) => p.type === 'Mobile')?.number,
+      photo: vaultProperty.contactStaff[0].photo?.url ||
+             vaultProperty.contactStaff[0].profilePhoto?.url ||
+             vaultProperty.contactStaff[0].avatar?.url ||
+             vaultProperty.contactStaff[0].image?.url ||
+             '/images/default-agent.jpg'
     } : {
       id: '',
       name: 'Grant\'s Estate Agents',
       email: 'info@grantsea.com.au',
-      phone: '03 9707 5555'
+      phone: '03 9707 5555',
+      photo: '/images/default-agent.jpg'
     },
     inspectionTimes: (vaultProperty.inspection_times || []).map((inspection: any) => ({
       id: inspection.id,

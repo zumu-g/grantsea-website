@@ -83,7 +83,7 @@ export default function PropertyDetailPageOncom() {
   }, [showFullscreenCarousel, currentImageIndex, images.length]);
 
   return (
-    <>
+    <div>
       {/* Fullscreen Image Carousel */}
       {showFullscreenCarousel && (
         <div style={{
@@ -1179,6 +1179,6 @@ export default function PropertyDetailPageOncom() {
           100% { transform: rotate(360deg); }
         }
       `}</style>
-    </>
+    </div>
   );
 }

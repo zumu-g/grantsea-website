@@ -14,6 +14,8 @@ interface SavedProperty {
   state: string;
   price?: number | string;
   priceDisplay?: string;
+  leasePrice?: string;
+  leasePriceDisplay?: string;
   bedrooms: number;
   bathrooms: number;
   carSpaces: number;

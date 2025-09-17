@@ -281,18 +281,19 @@ export const propertyAPI = {
       if (filters?.suburb) {
         params.append('suburb', filters.suburb);
       }
-      
+
       try {
         const response = await fetch(`/api/properties?${params.toString()}`);
         const data = await response.json();
-        
+
         if (!response.ok) {
           throw new Error(data.error || 'Failed to fetch properties');
         }
-        
+
+        // Data is already transformed by the API route, don't transform again
         return {
           success: true,
-          data: Array.isArray(data.data) ? data.data.map(transformVaultREProperty) : [],
+          data: Array.isArray(data.data) ? data.data : [],
           pagination: {
             total: data.total || 0,
             page: 1,
@@ -331,18 +332,19 @@ export const propertyAPI = {
       if (filters?.suburb) {
         params.append('suburb', filters.suburb);
       }
-      
+
       try {
         const response = await fetch(`/api/properties?${params.toString()}`);
         const data = await response.json();
-        
+
         if (!response.ok) {
           throw new Error(data.error || 'Failed to fetch properties');
         }
-        
+
+        // Data is already transformed by the API route, don't transform again
         return {
           success: true,
-          data: Array.isArray(data.data) ? data.data.map(transformVaultREProperty) : [],
+          data: Array.isArray(data.data) ? data.data : [],
           pagination: {
             total: data.total || 0,
             page: 1,

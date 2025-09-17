@@ -317,7 +317,10 @@ export default function SavedPage() {
                           fontWeight: '700',
                           marginBottom: '8px'
                         }}>
-                          {property.priceDisplay || formatPrice(property.price || 0)}
+                          {property.listingType === 'lease'
+                            ? (property.leasePriceDisplay || (property.leasePrice ? `$${property.leasePrice} per week` : 'Contact Agent'))
+                            : (property.priceDisplay || formatPrice(property.price || 0))
+                          }
                         </h3>
                         <p style={{
                           fontSize: '16px',

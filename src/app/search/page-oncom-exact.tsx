@@ -294,7 +294,10 @@ export default function SearchPageOncomExact() {
                         fontWeight: '600',
                         marginBottom: '4px'
                       }}>
-                        {property.priceDisplay || formatPrice(property.price)}
+                        {property.listingType === 'lease'
+                          ? (property.leasePriceDisplay || (property.leasePrice ? `$${property.leasePrice} per week` : 'Contact Agent'))
+                          : (property.priceDisplay || formatPrice(property.price))
+                        }
                       </div>
                       <div style={{
                         fontSize: '16px',

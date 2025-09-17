@@ -9,10 +9,20 @@ interface PropertyCardProps {
 
 const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   const imageUrl = property.images?.[0]?.url || '/images/placeholder-property.jpg';
-  const price = property.priceText || property.price || 'Contact for price';
+
+  // Determine price display based on listing type
+  const getPrice = () => {
+    if (property.listingType === 'lease' || property.listingType === 'rent') {
+      return property.leasePriceDisplay ||
+             (property.leasePrice ? `$${property.leasePrice} per week` : 'Contact for price');
+    }
+    return property.priceDisplay || property.priceText || property.price || 'Contact for price';
+  };
+
+  const price = getPrice();
   const address = `${property.address?.streetNumber || ''} ${property.address?.street || ''}`.trim();
   const suburb = property.address?.suburb || '';
-  
+
   return (
     <article className="grant-card hover:shadow-lg transition-all duration-300 overflow-hidden relative">
       <Link href={`/property/${property.id}`} className="block">

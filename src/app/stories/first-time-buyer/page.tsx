@@ -99,7 +99,7 @@ export default function FirstTimeBuyerStory() {
                   alt="First home buyer success story"
                   style={{
                     width: '100%',
-                    height: '400px',
+                    height: isMobile ? '250px' : isTablet ? '350px' : '400px',
                     objectFit: 'cover',
                     borderRadius: '12px'
                   }}
@@ -121,7 +121,7 @@ export default function FirstTimeBuyerStory() {
             paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
           }}>
             <div style={{
-              fontSize: '18px',
+              fontSize: isMobile ? '16px' : '18px',
               lineHeight: '1.7',
               color: '#333'
             }}>
@@ -302,12 +302,14 @@ export default function FirstTimeBuyerStory() {
                 gap: '8px',
                 backgroundColor: '#fff',
                 color: '#000',
-                padding: '16px 32px',
+                padding: isMobile ? '18px 32px' : '16px 32px',
                 borderRadius: '8px',
                 fontSize: '16px',
                 fontWeight: '600',
                 textDecoration: 'none',
-                transition: 'transform 0.2s ease'
+                transition: 'transform 0.2s ease',
+                minHeight: '44px',
+                justifyContent: 'center'
               }}>
                 Get Professional Guidance
               </Link>
@@ -317,13 +319,15 @@ export default function FirstTimeBuyerStory() {
                 gap: '8px',
                 backgroundColor: 'transparent',
                 color: '#fff',
-                padding: '16px 32px',
+                padding: isMobile ? '18px 32px' : '16px 32px',
                 borderRadius: '8px',
                 border: '1px solid #fff',
                 fontSize: '16px',
                 fontWeight: '600',
                 textDecoration: 'none',
-                transition: 'transform 0.2s ease'
+                transition: 'transform 0.2s ease',
+                minHeight: '44px',
+                justifyContent: 'center'
               }}>
                 Read More Stories
               </Link>

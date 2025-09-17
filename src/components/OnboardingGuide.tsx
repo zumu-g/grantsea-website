@@ -10,6 +10,17 @@ export default function OnboardingGuide({ onComplete }: OnboardingGuideProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkDevice = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkDevice();
+    window.addEventListener('resize', checkDevice);
+    return () => window.removeEventListener('resize', checkDevice);
+  }, []);
 
   const steps = [
     {
@@ -116,15 +127,16 @@ export default function OnboardingGuide({ onComplete }: OnboardingGuideProps) {
         <div style={{
           backgroundColor: '#fff',
           borderRadius: '12px',
-          padding: isFirstStep ? '40px' : '32px',
-          maxWidth: isFirstStep ? '500px' : '400px',
+          padding: isMobile ? (isFirstStep ? '24px' : '20px') : (isFirstStep ? '40px' : '32px'),
+          maxWidth: isMobile ? '90vw' : (isFirstStep ? '500px' : '400px'),
           width: '100%',
           boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
           position: 'relative',
           zIndex: 10002,
           opacity: isAnimating ? 0 : 1,
           transform: isAnimating ? 'scale(0.95)' : 'scale(1)',
-          transition: 'all 0.2s ease'
+          transition: 'all 0.2s ease',
+          margin: isMobile ? '20px' : '0'
         }}>
           {/* Progress indicator */}
           <div style={{
@@ -179,7 +191,7 @@ export default function OnboardingGuide({ onComplete }: OnboardingGuideProps) {
                 <button
                   onClick={skipOnboarding}
                   style={{
-                    padding: '12px 24px',
+                    padding: isMobile ? '16px 24px' : '12px 24px',
                     backgroundColor: 'transparent',
                     color: '#666',
                     border: '1px solid #e0e0e0',
@@ -187,7 +199,8 @@ export default function OnboardingGuide({ onComplete }: OnboardingGuideProps) {
                     fontSize: '14px',
                     fontWeight: '500',
                     cursor: 'pointer',
-                    transition: 'all 0.2s ease'
+                    transition: 'all 0.2s ease',
+                    minHeight: '44px'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = '#f5f5f5';
@@ -205,7 +218,7 @@ export default function OnboardingGuide({ onComplete }: OnboardingGuideProps) {
               <button
                 onClick={nextStep}
                 style={{
-                  padding: '12px 32px',
+                  padding: isMobile ? '16px 32px' : '12px 32px',
                   backgroundColor: '#002b7f',
                   color: '#fff',
                   border: 'none',
@@ -214,7 +227,8 @@ export default function OnboardingGuide({ onComplete }: OnboardingGuideProps) {
                   fontWeight: '600',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
-                  minWidth: '120px'
+                  minWidth: '120px',
+                  minHeight: '44px'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = '#001f5c';
@@ -234,13 +248,14 @@ export default function OnboardingGuide({ onComplete }: OnboardingGuideProps) {
                 onClick={skipOnboarding}
                 style={{
                   marginTop: '16px',
-                  padding: '8px 16px',
+                  padding: isMobile ? '12px 16px' : '8px 16px',
                   backgroundColor: 'transparent',
                   color: '#999',
                   border: 'none',
                   fontSize: '12px',
                   cursor: 'pointer',
-                  textDecoration: 'underline'
+                  textDecoration: 'underline',
+                  minHeight: '44px'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = '#666';

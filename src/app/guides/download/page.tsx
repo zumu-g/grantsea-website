@@ -306,12 +306,13 @@ export default function GuideDownloadPage() {
                         onChange={(e) => setName(e.target.value)}
                         style={{
                           width: '100%',
-                          padding: '14px 16px',
+                          padding: isMobile ? '16px' : '14px 16px',
                           fontSize: '16px',
                           border: '1px solid #e5e5e5',
                           borderRadius: '8px',
                           outline: 'none',
-                          transition: 'border-color 0.2s'
+                          transition: 'border-color 0.2s',
+                          minHeight: '44px'
                         }}
                         onFocus={(e) => e.currentTarget.style.borderColor = '#002b7f'}
                         onBlur={(e) => e.currentTarget.style.borderColor = '#e5e5e5'}
@@ -335,12 +336,13 @@ export default function GuideDownloadPage() {
                         onChange={(e) => setEmail(e.target.value)}
                         style={{
                           width: '100%',
-                          padding: '14px 16px',
+                          padding: isMobile ? '16px' : '14px 16px',
                           fontSize: '16px',
                           border: '1px solid #e5e5e5',
                           borderRadius: '8px',
                           outline: 'none',
-                          transition: 'border-color 0.2s'
+                          transition: 'border-color 0.2s',
+                          minHeight: '44px'
                         }}
                         onFocus={(e) => e.currentTarget.style.borderColor = '#002b7f'}
                         onBlur={(e) => e.currentTarget.style.borderColor = '#e5e5e5'}
@@ -363,12 +365,13 @@ export default function GuideDownloadPage() {
                         onChange={(e) => setPhone(e.target.value)}
                         style={{
                           width: '100%',
-                          padding: '14px 16px',
+                          padding: isMobile ? '16px' : '14px 16px',
                           fontSize: '16px',
                           border: '1px solid #e5e5e5',
                           borderRadius: '8px',
                           outline: 'none',
-                          transition: 'border-color 0.2s'
+                          transition: 'border-color 0.2s',
+                          minHeight: '44px'
                         }}
                         onFocus={(e) => e.currentTarget.style.borderColor = '#002b7f'}
                         onBlur={(e) => e.currentTarget.style.borderColor = '#e5e5e5'}
@@ -380,7 +383,7 @@ export default function GuideDownloadPage() {
                       disabled={isSubmitting}
                       style={{
                         width: '100%',
-                        padding: '16px',
+                        padding: isMobile ? '18px' : '16px',
                         fontSize: '18px',
                         fontWeight: '600',
                         backgroundColor: isSubmitting ? '#666' : '#002b7f',
@@ -388,7 +391,8 @@ export default function GuideDownloadPage() {
                         border: 'none',
                         borderRadius: '8px',
                         cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                        transition: 'all 0.3s'
+                        transition: 'all 0.3s',
+                        minHeight: '44px'
                       }}
                       onMouseEnter={(e) => {
                         if (!isSubmitting) e.currentTarget.style.backgroundColor = '#001f5c';

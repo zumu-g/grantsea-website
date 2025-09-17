@@ -422,7 +422,7 @@ export default function HomePageOncom() {
           <div style={{
             display: 'flex',
             gap: '0',
-            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : '300px',
+            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : '900px',
             paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
           }}>
             {/* Activities List */}

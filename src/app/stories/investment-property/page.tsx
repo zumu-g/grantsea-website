@@ -99,7 +99,7 @@ export default function InvestmentPropertyStory() {
                   alt="Investment property success"
                   style={{
                     width: '100%',
-                    height: '400px',
+                    height: isMobile ? '250px' : isTablet ? '350px' : '400px',
                     objectFit: 'cover',
                     borderRadius: '12px'
                   }}

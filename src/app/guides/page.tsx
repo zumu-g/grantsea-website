@@ -113,10 +113,12 @@ const guides = [
 export default function GuidesPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
 
   useEffect(() => {
     const checkDevice = () => {
       setIsMobile(window.innerWidth <= 768);
+      setIsTablet(window.innerWidth > 768 && window.innerWidth <= 1024);
     };
 
     checkDevice();
@@ -194,7 +196,7 @@ export default function GuidesPage() {
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 style={{
-                  padding: '10px 20px',
+                  padding: isMobile ? '14px 20px' : '10px 20px',
                   backgroundColor: selectedCategory === category ? '#002b7f' : 'transparent',
                   color: selectedCategory === category ? '#fff' : '#666',
                   border: `1px solid ${selectedCategory === category ? '#002b7f' : '#e5e5e5'}`,
@@ -203,7 +205,8 @@ export default function GuidesPage() {
                   fontWeight: '500',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
-                  whiteSpace: 'nowrap'
+                  whiteSpace: 'nowrap',
+                  minHeight: '44px'
                 }}
                 onMouseEnter={(e) => {
                   if (selectedCategory !== category) {
@@ -234,8 +237,8 @@ export default function GuidesPage() {
           }}>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(360px, 1fr))',
-              gap: '32px'
+              gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(auto-fill, minmax(360px, 1fr))',
+              gap: isMobile ? '24px' : '32px'
             }}>
               {filteredGuides.map(guide => (
                 <Link
@@ -399,14 +402,18 @@ export default function GuidesPage() {
               <Link
                 href="/contact"
                 style={{
-                  padding: '16px 32px',
+                  padding: isMobile ? '18px 32px' : '16px 32px',
                   backgroundColor: '#fff',
                   color: '#002b7f',
                   textDecoration: 'none',
                   borderRadius: '32px',
                   fontSize: '16px',
                   fontWeight: '600',
-                  transition: 'all 0.3s'
+                  transition: 'all 0.3s',
+                  minHeight: '44px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = '#f0f0f0';
@@ -422,7 +429,7 @@ export default function GuidesPage() {
               <Link
                 href="/appraisal"
                 style={{
-                  padding: '16px 32px',
+                  padding: isMobile ? '18px 32px' : '16px 32px',
                   backgroundColor: 'transparent',
                   color: '#fff',
                   textDecoration: 'none',
@@ -430,7 +437,11 @@ export default function GuidesPage() {
                   fontSize: '16px',
                   fontWeight: '600',
                   border: '2px solid #fff',
-                  transition: 'all 0.3s'
+                  transition: 'all 0.3s',
+                  minHeight: '44px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = '#fff';

@@ -6,7 +6,28 @@ import OncomHeader from '@/components/OncomHeader';
 import Link from 'next/link';
 
 // Agent data - in production this would come from a database or CMS
-const agents = {
+const agents: Record<string, {
+  name: string;
+  title: string;
+  phone: string;
+  email: string;
+  image: string;
+  bio: string[];
+  qualifications: string[];
+  specialties: string[];
+  areas: string[];
+  testimonials: {
+    text: string;
+    author: string;
+    suburb: string;
+  }[];
+  stats: {
+    soldProperties: string;
+    averageDays: string;
+    clientSatisfaction: string;
+    repeatClients: string;
+  };
+}> = {
   'grant-smith': {
     name: 'Grant Smith',
     title: 'Principal & Licensed Estate Agent',

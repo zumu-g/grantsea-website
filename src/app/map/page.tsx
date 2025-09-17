@@ -384,7 +384,9 @@ export default function MapSearchPage() {
                     }} />
                     <div style={{ padding: '12px' }}>
                       <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '4px' }}>
-                        {formatPrice(property.price)}
+                        {property.listingType === 'lease'
+                          ? (property.leasePriceDisplay || (property.leasePrice ? `$${property.leasePrice} per week` : 'Contact Agent'))
+                          : (property.priceDisplay || formatPrice(property.price || '0'))}
                       </h3>
                       <p style={{ fontSize: '14px', color: '#6b7280' }}>
                         {property.address}
@@ -457,7 +459,9 @@ export default function MapSearchPage() {
               }} />
               <div style={{ flex: 1 }}>
                 <h3 style={{ fontSize: '18px', fontWeight: '600' }}>
-                  {formatPrice(selectedProperty.price)}
+                  {selectedProperty.listingType === 'lease'
+                    ? (selectedProperty.leasePriceDisplay || (selectedProperty.leasePrice ? `$${selectedProperty.leasePrice} per week` : 'Contact Agent'))
+                    : (selectedProperty.priceDisplay || formatPrice(selectedProperty.price || '0'))}
                 </h3>
                 <p style={{ fontSize: '14px', color: '#6b7280' }}>
                   {selectedProperty.address}

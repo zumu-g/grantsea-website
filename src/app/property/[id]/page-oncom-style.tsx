@@ -1115,7 +1115,10 @@ export default function PropertyDetailPageOncom() {
                             marginBottom: '8px',
                             letterSpacing: '-0.01em'
                           }}>
-                            {formatPrice(similarProperty.priceDetails?.display || similarProperty.price || 'Contact Agent')}
+                            {similarProperty.listingType === 'lease'
+                              ? (similarProperty.leasePriceDisplay || (similarProperty.leasePrice ? `$${similarProperty.leasePrice} per week` : 'Contact Agent'))
+                              : (similarProperty.priceDisplay || formatPrice(similarProperty.price || '0'))
+                            }
                           </h3>
                           <p style={{
                             fontSize: '16px',

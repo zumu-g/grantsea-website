@@ -51,35 +51,35 @@ const AIChatWidget = () => {
             position: 'fixed',
             bottom: '30px',
             right: '30px',
-            padding: '20px 32px',
-            borderRadius: '60px',
-            backgroundColor: '#AF272F', // Grant's red
+            padding: '40px 64px',
+            borderRadius: '120px',
+            backgroundColor: '#1e3a8a', // Matt royal blue
             color: 'white',
-            border: '3px solid #fff',
+            border: '6px solid #fff',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
-            boxShadow: '0 8px 32px rgba(175, 39, 47, 0.4)',
+            gap: '24px',
+            boxShadow: '0 16px 64px rgba(30, 58, 138, 0.4)',
             transition: 'all 0.3s ease',
             zIndex: 1000,
             fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-            fontSize: '18px',
+            fontSize: '36px',
             fontWeight: '600',
             animation: 'pulse 2s infinite, bounce 4s infinite'
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = 'scale(1.08)';
-            e.currentTarget.style.boxShadow = '0 12px 40px rgba(175, 39, 47, 0.5)';
-            e.currentTarget.style.backgroundColor = '#8B1E24';
+            e.currentTarget.style.boxShadow = '0 24px 80px rgba(30, 58, 138, 0.5)';
+            e.currentTarget.style.backgroundColor = '#1e40af';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.boxShadow = '0 8px 32px rgba(175, 39, 47, 0.4)';
-            e.currentTarget.style.backgroundColor = '#AF272F';
+            e.currentTarget.style.boxShadow = '0 16px 64px rgba(30, 58, 138, 0.4)';
+            e.currentTarget.style.backgroundColor = '#1e3a8a';
           }}
         >
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
             <circle cx="8" cy="10" r="1" fill="currentColor"/>
             <circle cx="12" cy="10" r="1" fill="currentColor"/>

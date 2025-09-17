@@ -68,3 +68,4 @@ The Chen family's journey from first home to forever home in Berwick is a testam
 
 **Ready to start your own Berwick story?** Contact our team to discover how this charming suburb could become your family's perfect home.
 
+

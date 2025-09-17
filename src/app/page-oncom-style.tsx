@@ -1889,7 +1889,7 @@ export default function HomePageOncom() {
               fontWeight: '700',
               letterSpacing: '-0.02em'
             }}>
-              Latest properties
+              New to market
             </h2>
             <Link href="/buy" style={{
               color: '#000',
@@ -2047,13 +2047,14 @@ export default function HomePageOncom() {
             }}>
               <div style={{ flex: 1 }}>
                 <h3 style={{
-                  fontSize: '16px',
-                  fontWeight: '400',
-                  lineHeight: '1.5',
+                  fontSize: isMobile ? '28px' : '36px',
+                  fontWeight: '700',
+                  letterSpacing: '-0.02em',
+                  lineHeight: '1.2',
                   margin: 0,
                   color: '#333'
                 }}>
-                  Stay in the loop, with exclusive offers and product previews.
+                  Stay in the loop, with exclusive coming soon listings and market news.
                 </h3>
               </div>
               <div style={{
@@ -2067,11 +2068,11 @@ export default function HomePageOncom() {
                   placeholder="Email *"
                   required
                   style={{
-                    padding: '12px 16px',
-                    borderRadius: '4px',
-                    border: '1px solid #ddd',
-                    fontSize: '14px',
-                    width: isMobile ? '100%' : '280px',
+                    padding: '20px 24px',
+                    borderRadius: '8px',
+                    border: '2px solid #ddd',
+                    fontSize: '18px',
+                    width: isMobile ? '100%' : '400px',
                     outline: 'none',
                     backgroundColor: '#fff',
                     transition: 'border-color 0.2s ease'
@@ -2084,13 +2085,13 @@ export default function HomePageOncom() {
                   }}
                 />
                 <button style={{
-                  padding: '12px 24px',
+                  padding: '20px 40px',
                   backgroundColor: '#000',
                   color: '#fff',
                   border: 'none',
-                  borderRadius: '4px',
-                  fontSize: '14px',
-                  fontWeight: '500',
+                  borderRadius: '8px',
+                  fontSize: '18px',
+                  fontWeight: '600',
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
                   transition: 'opacity 0.2s ease'
@@ -2150,31 +2151,31 @@ export default function HomePageOncom() {
               }}>Become a member</h4>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                 <li style={{ marginBottom: '12px' }}>
-                  <Link href="/refer" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
+                  <Link href="/coming-soon" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
                     onMouseEnter={(e) => e.currentTarget.style.color = '#000'}
                     onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
-                    Refer a friend
+                    Coming soon properties
                   </Link>
                 </li>
                 <li style={{ marginBottom: '12px' }}>
-                  <Link href="/gift-cards" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
+                  <Link href="/market-report" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
                     onMouseEnter={(e) => e.currentTarget.style.color = '#000'}
                     onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
-                    Gift cards
+                    Market Report
                   </Link>
                 </li>
                 <li style={{ marginBottom: '12px' }}>
-                  <Link href="/stores" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
+                  <Link href="/offices" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
                     onMouseEnter={(e) => e.currentTarget.style.color = '#000'}
                     onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
-                    On stores
+                    Our offices
                   </Link>
                 </li>
                 <li style={{ marginBottom: '12px' }}>
-                  <Link href="/locator" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
+                  <Link href="/office-locator" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
                     onMouseEnter={(e) => e.currentTarget.style.color = '#000'}
                     onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
-                    Shop locator
+                    Office locator
                   </Link>
                 </li>
                 <li>

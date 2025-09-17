@@ -41,13 +41,38 @@ export async function GET(request: NextRequest) {
 
     // Fetch based on type
     if (type === 'sale') {
-      let url = `${API_BASE_URL}/properties/residential/sale?published=${published}&limit=${limit}`;
+      // Fetch residential, land, and commercial properties for sale
+      const fetchPromises = [];
+
+      // Residential properties
+      let residentialUrl = `${API_BASE_URL}/properties/residential/sale?published=${published}&limit=${Math.floor(parseInt(limit) / 3)}`;
       if (suburb) {
-        url += `&suburb=${encodeURIComponent(suburb)}`;
+        residentialUrl += `&suburb=${encodeURIComponent(suburb)}`;
       }
-      const response = await fetch(url, { headers });
-      const data = await response.json();
-      allProperties = data.items || [];
+      fetchPromises.push(fetch(residentialUrl, { headers }));
+
+      // Land for sale
+      let landUrl = `${API_BASE_URL}/properties/land/sale?published=${published}&limit=${Math.floor(parseInt(limit) / 3)}`;
+      if (suburb) {
+        landUrl += `&suburb=${encodeURIComponent(suburb)}`;
+      }
+      fetchPromises.push(fetch(landUrl, { headers }));
+
+      // Commercial properties
+      let commercialUrl = `${API_BASE_URL}/properties/commercial/sale?published=${published}&limit=${Math.floor(parseInt(limit) / 3)}`;
+      if (suburb) {
+        commercialUrl += `&suburb=${encodeURIComponent(suburb)}`;
+      }
+      fetchPromises.push(fetch(commercialUrl, { headers }));
+
+      const responses = await Promise.all(fetchPromises);
+      const dataResults = await Promise.all(responses.map(r => r.json()));
+
+      allProperties = [
+        ...(dataResults[0].items || []),
+        ...(dataResults[1].items || []),
+        ...(dataResults[2].items || [])
+      ];
     } else if (type === 'lease' || type === 'rent') {
       let url = `${API_BASE_URL}/properties/residential/lease?published=${published}&limit=${limit}`;
       if (suburb) {
@@ -57,26 +82,44 @@ export async function GET(request: NextRequest) {
       const data = await response.json();
       allProperties = data.items || [];
     } else {
-      // Fetch both sale and lease
-      let saleUrl = `${API_BASE_URL}/properties/residential/sale?published=${published}&limit=${Math.floor(parseInt(limit) / 2)}`;
-      let leaseUrl = `${API_BASE_URL}/properties/residential/lease?published=${published}&limit=${Math.floor(parseInt(limit) / 2)}`;
-      
-      if (suburb) {
-        saleUrl += `&suburb=${encodeURIComponent(suburb)}`;
-        leaseUrl += `&suburb=${encodeURIComponent(suburb)}`;
-      }
-      
-      const [saleResponse, leaseResponse] = await Promise.all([
-        fetch(saleUrl, { headers }),
-        fetch(leaseUrl, { headers })
-      ]);
-      
-      const saleData = await saleResponse.json();
-      const leaseData = await leaseResponse.json();
-      
+      // Fetch all property types
+      const fetchPromises = [];
+      const limitPerType = Math.floor(parseInt(limit) / 5);
+
+      // Residential sale
+      let residentialSaleUrl = `${API_BASE_URL}/properties/residential/sale?published=${published}&limit=${limitPerType}`;
+      if (suburb) residentialSaleUrl += `&suburb=${encodeURIComponent(suburb)}`;
+      fetchPromises.push(fetch(residentialSaleUrl, { headers }));
+
+      // Residential lease
+      let residentialLeaseUrl = `${API_BASE_URL}/properties/residential/lease?published=${published}&limit=${limitPerType}`;
+      if (suburb) residentialLeaseUrl += `&suburb=${encodeURIComponent(suburb)}`;
+      fetchPromises.push(fetch(residentialLeaseUrl, { headers }));
+
+      // Land sale
+      let landUrl = `${API_BASE_URL}/properties/land/sale?published=${published}&limit=${limitPerType}`;
+      if (suburb) landUrl += `&suburb=${encodeURIComponent(suburb)}`;
+      fetchPromises.push(fetch(landUrl, { headers }));
+
+      // Commercial sale
+      let commercialSaleUrl = `${API_BASE_URL}/properties/commercial/sale?published=${published}&limit=${limitPerType}`;
+      if (suburb) commercialSaleUrl += `&suburb=${encodeURIComponent(suburb)}`;
+      fetchPromises.push(fetch(commercialSaleUrl, { headers }));
+
+      // Commercial lease
+      let commercialLeaseUrl = `${API_BASE_URL}/properties/commercial/lease?published=${published}&limit=${limitPerType}`;
+      if (suburb) commercialLeaseUrl += `&suburb=${encodeURIComponent(suburb)}`;
+      fetchPromises.push(fetch(commercialLeaseUrl, { headers }));
+
+      const responses = await Promise.all(fetchPromises);
+      const dataResults = await Promise.all(responses.map(r => r.json()));
+
       allProperties = [
-        ...(saleData.items || []),
-        ...(leaseData.items || [])
+        ...(dataResults[0].items || []),
+        ...(dataResults[1].items || []),
+        ...(dataResults[2].items || []),
+        ...(dataResults[3].items || []),
+        ...(dataResults[4].items || [])
       ];
     }
 

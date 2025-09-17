@@ -19,7 +19,7 @@ export default function MapSearchPage() {
   const searchParams = useSearchParams();
   const [showFilters, setShowFilters] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState<any>(null);
-  const [mapCenter, setMapCenter] = useState<[number, number]>([-38.0369, 145.2392]); // Berwick coordinates
+  const [mapCenter, setMapCenter] = useState<[number, number]>([-38.0369, 145.3373]); // Berwick coordinates (more accurate)
   const [L, setL] = useState<any>(null);
 
   const [filters, setFilters] = useState({
@@ -29,6 +29,7 @@ export default function MapSearchPage() {
     priceMax: '',
     bedroomsMin: '',
     bathroomsMin: '',
+    suburb: 'all',
   });
 
   const propertyType = filters.listingType === 'rent' ? 'lease' : 'sale';
@@ -54,16 +55,36 @@ export default function MapSearchPage() {
     }
   }, []);
 
+  // Suburb coordinates for more realistic distribution
+  const suburbCoordinates: { [key: string]: [number, number] } = {
+    'Berwick': [-38.0317, 145.3461],
+    'Cranbourne': [-38.0994, 145.2813],
+    'Narre Warren': [-38.0266, 145.3036],
+    'Pakenham': [-38.0751, 145.4874],
+    'Officer': [-38.0634, 145.4097],
+    'Clyde': [-38.1051, 145.3831],
+    'Clyde North': [-38.0851, 145.3931],
+    'Beaconsfield': [-38.0517, 145.3697],
+    'Hallam': [-38.0167, 145.2697],
+    'Hampton Park': [-38.0274, 145.2594],
+    'Narre Warren South': [-38.0466, 145.3036]
+  };
+
   // Filter properties with coordinates
   const mappableProperties = properties.filter(property => {
     // Mock coordinates for demo - in production, these would come from the API
     return property.address && property.suburb;
-  }).map((property, index) => ({
-    ...property,
-    // Generate mock coordinates near Berwick area
-    lat: -38.0369 + (Math.random() - 0.5) * 0.2,
-    lng: 145.2392 + (Math.random() - 0.5) * 0.3,
-  }));
+  }).map((property, index) => {
+    // Get suburb coordinates or default to Berwick
+    const baseCoords = suburbCoordinates[property.suburb] || suburbCoordinates['Berwick'];
+
+    return {
+      ...property,
+      // Generate coordinates clustered around actual suburb locations
+      lat: baseCoords[0] + (Math.random() - 0.5) * 0.015, // Smaller spread for more realistic clustering
+      lng: baseCoords[1] + (Math.random() - 0.5) * 0.015,
+    };
+  });
 
   return (
     <div style={{ display: 'flex', height: '100vh', position: 'relative' }}>
@@ -278,7 +299,7 @@ export default function MapSearchPage() {
         {L && (
           <MapContainer
             center={mapCenter}
-            zoom={12}
+            zoom={13}
             style={{ height: '100%', width: '100%' }}
           >
             <TileLayer

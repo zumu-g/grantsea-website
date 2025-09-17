@@ -312,8 +312,11 @@ export default function SearchPageOncomExact() {
                       <div style={{
                         fontSize: '16px',
                         fontWeight: '500',
-                        marginBottom: '8px'
-                      }}>
+                        marginBottom: '8px',
+                        transition: 'color 0.3s ease'
+                      }}
+                      className="property-address"
+                      >
                         {property.address}
                       </div>
                       <div style={{
@@ -698,6 +701,11 @@ export default function SearchPageOncomExact() {
         @keyframes spin {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
+        }
+      `}</style>
+      <style jsx global>{`
+        a:hover .property-address {
+          color: #AF272F !important;
         }
       `}</style>
     </>

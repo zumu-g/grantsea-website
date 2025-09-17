@@ -367,3 +367,4 @@ Remember that every home sale is unique, and what works for one property may not
 With the right preparation and guidance, you can achieve a successful sale that meets your financial goals and provides a smooth transition to your next chapter. The property market may seem complex, but with knowledge, patience, and the right support, you can successfully sell your home and move forward with confidence.
 
 **Ready to sell your home?** Contact our team of experienced professionals who can guide you through every step of the selling process, from initial preparation to successful settlement. We're here to help you maximize your sale price and achieve your property goals.
+

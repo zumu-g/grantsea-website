@@ -1486,7 +1486,7 @@ export default function HomePageOncom() {
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
             }}>
-              <Link href="/stories#first-time-buyer" style={{
+              <Link href="/stories/first-time-buyer" style={{
                 textDecoration: 'none',
                 color: 'inherit',
                 display: 'flex',
@@ -1590,7 +1590,7 @@ export default function HomePageOncom() {
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
             }}>
-              <Link href="/stories#strategic-upgrade" style={{
+              <Link href="/stories/strategic-upgrade" style={{
                 textDecoration: 'none',
                 color: 'inherit',
                 display: 'flex',
@@ -1694,7 +1694,7 @@ export default function HomePageOncom() {
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
             }}>
-              <Link href="/stories#investment-success" style={{
+              <Link href="/stories/investment-property" style={{
                 textDecoration: 'none',
                 color: 'inherit',
                 display: 'flex',
@@ -1798,7 +1798,7 @@ export default function HomePageOncom() {
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
             }}>
-              <Link href="/stories#downsizing-success" style={{
+              <Link href="/stories/downsizing" style={{
                 textDecoration: 'none',
                 color: 'inherit',
                 display: 'flex',
@@ -1902,7 +1902,7 @@ export default function HomePageOncom() {
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
             }}>
-              <Link href="/stories#market-timing" style={{
+              <Link href="/stories/market-timing" style={{
                 textDecoration: 'none',
                 color: 'inherit',
                 display: 'flex',

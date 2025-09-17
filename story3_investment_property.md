@@ -133,3 +133,4 @@ David's investment journey demonstrates that with the right education, guidance,
 ---
 
 *Ready to start your property investment journey? Contact our team of experienced professionals who can help you develop a successful investment strategy.*
+

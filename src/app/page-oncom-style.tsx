@@ -569,10 +569,10 @@ export default function HomePageOncom() {
       <section style={{
         backgroundColor: '#f8f8f8',
         backgroundImage: `
-          linear-gradient(45deg, transparent 35%, rgba(0,0,0,0.015) 35%, rgba(0,0,0,0.015) 50%, transparent 50%, transparent 85%, rgba(0,0,0,0.015) 85%, rgba(0,0,0,0.015) 100%),
-          linear-gradient(-45deg, transparent 35%, rgba(255,255,255,0.02) 35%, rgba(255,255,255,0.02) 50%, transparent 50%, transparent 85%, rgba(255,255,255,0.02) 85%, rgba(255,255,255,0.02) 100%),
-          linear-gradient(90deg, rgba(128,128,128,0.008) 50%, transparent 50%),
-          linear-gradient(0deg, rgba(128,128,128,0.008) 50%, transparent 50%)
+          linear-gradient(45deg, transparent 35%, rgba(0,0,0,0.035) 35%, rgba(0,0,0,0.035) 50%, transparent 50%, transparent 85%, rgba(0,0,0,0.035) 85%, rgba(0,0,0,0.035) 100%),
+          linear-gradient(-45deg, transparent 35%, rgba(255,255,255,0.05) 35%, rgba(255,255,255,0.05) 50%, transparent 50%, transparent 85%, rgba(255,255,255,0.05) 85%, rgba(255,255,255,0.05) 100%),
+          linear-gradient(90deg, rgba(128,128,128,0.02) 50%, transparent 50%),
+          linear-gradient(0deg, rgba(128,128,128,0.02) 50%, transparent 50%)
         `,
         backgroundSize: '40px 40px, 40px 40px, 20px 20px, 20px 20px',
         backgroundPosition: '0 0, 0 0, 0 0, 0 0',

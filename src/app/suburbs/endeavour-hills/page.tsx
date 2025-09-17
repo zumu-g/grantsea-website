@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import OncomHeader from '@/components/OncomHeader';
-import { useProperties } from '@/services/api';
+import { useProperties } from '@/hooks/useProperties';
 
 export default function EndeavourHillsSuburbPage() {
   const [activeSection, setActiveSection] = useState('overview');

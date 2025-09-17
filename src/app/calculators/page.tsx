@@ -191,7 +191,7 @@ export default function CalculatorsPage() {
                 <Link
                   href={`/calculators/${calculator.id}`}
                   style={{
-                    display: 'inline-block',
+                    display: 'flex',
                     padding: isMobile ? '16px 24px' : '14px 28px',
                     backgroundColor: '#002b7f',
                     color: '#fff',
@@ -201,7 +201,6 @@ export default function CalculatorsPage() {
                     fontWeight: '600',
                     transition: 'all 0.3s ease',
                     minHeight: '48px',
-                    display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center'
                   }}

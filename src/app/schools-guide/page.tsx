@@ -957,7 +957,7 @@ function SchoolsGuidePage() {
               <Link
                 href="/search"
                 style={{
-                  display: 'inline-block',
+                  display: 'flex',
                   padding: isMobile ? '18px 32px' : '16px 32px',
                   backgroundColor: '#fff',
                   color: '#002b7f',
@@ -967,7 +967,6 @@ function SchoolsGuidePage() {
                   fontWeight: '600',
                   transition: 'all 0.3s ease',
                   minHeight: '48px',
-                  display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}
@@ -985,7 +984,7 @@ function SchoolsGuidePage() {
               <Link
                 href="/appraisal"
                 style={{
-                  display: 'inline-block',
+                  display: 'flex',
                   padding: isMobile ? '18px 32px' : '16px 32px',
                   backgroundColor: 'transparent',
                   color: '#fff',
@@ -996,7 +995,6 @@ function SchoolsGuidePage() {
                   border: '2px solid #fff',
                   transition: 'all 0.3s ease',
                   minHeight: '48px',
-                  display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}

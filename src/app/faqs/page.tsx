@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import OncomHeader from '@/components/OncomHeader';
 import OncomFooter from '@/components/OncomFooter';
 import AIChatWidget from '@/components/AIChatWidget';
@@ -141,7 +141,7 @@ export default function FAQsPage() {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  return (
+  const pageContent = (
     <div style={{ minHeight: '100vh', backgroundColor: '#fff' }}>
       <OncomHeader />
 
@@ -442,4 +442,6 @@ export default function FAQsPage() {
       `}</style>
     </div>
   );
+
+  return pageContent;
 }

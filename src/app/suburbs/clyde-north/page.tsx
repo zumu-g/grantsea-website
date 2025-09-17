@@ -370,17 +370,17 @@ export default function ClydeNorthSuburbGuide() {
               }}>
                 <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '20px', fontWeight: '400', marginBottom: '20px' }}>Local Highlights</h4>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>🛍️</span> Shopping on Clyde
+                  <li style={{ marginBottom: '12px' }}>
+                    Shopping on Clyde
                   </li>
-                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>☕</span> Local Cafes
+                  <li style={{ marginBottom: '12px' }}>
+                    Local Cafes
                   </li>
-                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>🏃</span> Sports Facilities
+                  <li style={{ marginBottom: '12px' }}>
+                    Sports Facilities
                   </li>
-                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>🌳</span> Modern Parks
+                  <li style={{ marginBottom: '12px' }}>
+                    Modern Parks
                   </li>
                 </ul>
               </div>
@@ -418,8 +418,7 @@ export default function ClydeNorthSuburbGuide() {
                     margin: '0 auto 16px',
                     fontSize: '32px'
                   }}>
-                    🌳
-                  </div>
+                                      </div>
                   <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Modern Parks</h4>
                   <p style={{ fontSize: '14px', color: '#666' }}>Contemporary green spaces</p>
                 </div>
@@ -435,7 +434,7 @@ export default function ClydeNorthSuburbGuide() {
                     margin: '0 auto 16px',
                     fontSize: '32px'
                   }}>
-                    🏃‍♀️
+                    Sports
                   </div>
                   <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Sports Facilities</h4>
                   <p style={{ fontSize: '14px', color: '#666' }}>Modern sporting venues</p>
@@ -452,7 +451,7 @@ export default function ClydeNorthSuburbGuide() {
                     margin: '0 auto 16px',
                     fontSize: '32px'
                   }}>
-                    👨‍👩‍👧‍👦
+                    Family
                   </div>
                   <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Family Areas</h4>
                   <p style={{ fontSize: '14px', color: '#666' }}>Playgrounds & BBQ areas</p>
@@ -501,10 +500,10 @@ export default function ClydeNorthSuburbGuide() {
               }}>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Primary Schools</h3>
                 <ul style={{ listStyle: 'none', padding: 0, fontSize: '18px', lineHeight: '2' }}>
-                  <li>🏫 Clyde Primary School</li>
-                  <li>🏫 Clyde North Primary School</li>
-                  <li>🏫 Casey Grammar School</li>
-                  <li>🏫 Hillcrest Christian College</li>
+                  <li> Clyde Primary School</li>
+                  <li> Clyde North Primary School</li>
+                  <li> Casey Grammar School</li>
+                  <li> Hillcrest Christian College</li>
                 </ul>
               </div>
               
@@ -516,10 +515,10 @@ export default function ClydeNorthSuburbGuide() {
               }}>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Secondary Schools</h3>
                 <ul style={{ listStyle: 'none', padding: 0, fontSize: '18px', lineHeight: '2' }}>
-                  <li>🎓 Casey Grammar School</li>
-                  <li>🎓 Hillcrest Christian College</li>
-                  <li>🎓 Nearby Secondary Options</li>
-                  <li>🎓 Specialist Programs Available</li>
+                  <li> Casey Grammar School</li>
+                  <li> Hillcrest Christian College</li>
+                  <li> Nearby Secondary Options</li>
+                  <li> Specialist Programs Available</li>
                 </ul>
               </div>
             </div>
@@ -891,7 +890,7 @@ export default function ClydeNorthSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🏗️ New Development</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>New Development</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Check builder reputation and warranties when buying new construction. Research estate facilities and future development plans.
                 </p>
@@ -903,7 +902,7 @@ export default function ClydeNorthSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🚂 Transport Access</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Transport Access</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Consider proximity to train stations and bus routes. Test your commute during peak hours before committing.
                 </p>
@@ -915,7 +914,7 @@ export default function ClydeNorthSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🎓 School Zones</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}> School Zones</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Verify school catchment areas if education is a priority. Check enrolment availability at preferred schools.
                 </p>
@@ -927,7 +926,7 @@ export default function ClydeNorthSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🏘️ Estate Features</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Estate Features</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Review body corporate fees and estate rules. Consider future infrastructure and amenity development.
                 </p>
@@ -939,7 +938,7 @@ export default function ClydeNorthSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>💰 Growth Potential</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Growth Potential</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Research planned infrastructure and commercial developments. Consider long-term growth prospects.
                 </p>
@@ -951,7 +950,7 @@ export default function ClydeNorthSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🌱 Sustainability</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Sustainability</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Look for energy-efficient features in new homes. Consider solar panels and water-saving systems.
                 </p>

@@ -5,9 +5,11 @@ import AskAI from './AskAI';
 
 export default function FloatingAI() {
   return (
-    <AskAI 
-      propertyType="floating"
-      size="medium"
-    />
+    <div data-ai-chat>
+      <AskAI
+        propertyType="floating"
+        size="medium"
+      />
+    </div>
   );
 }

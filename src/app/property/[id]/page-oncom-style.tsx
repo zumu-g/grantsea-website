@@ -359,7 +359,7 @@ export default function PropertyDetailPageOncom() {
               </button>
               <AskAI 
                 propertyId={property.id}
-                propertyAddress={`${property.address.replace(/ VIC$/, '')}, ${property.suburb}, ${property.state} ${property.postcode}`}
+                propertyAddress={`${property.address.replace(/ VIC$/, '')}, ${property.suburb} ${property.postcode}`}
                 propertyData={{
                   price: property.price,
                   priceDisplay: property.priceDisplay,

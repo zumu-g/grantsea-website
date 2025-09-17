@@ -456,6 +456,7 @@ export default function OncomHeader() {
                 setShowSearch(false);
                 setShowAccountPanel(false);
               }}
+              data-heart-icon
               style={{
                 background: 'none',
                 border: 'none',
@@ -828,6 +829,7 @@ export default function OncomHeader() {
               type="text"
               placeholder="Search suburbs, addresses, or property IDs..."
               autoFocus
+              data-search-bar
               style={{
                 width: '100%',
                 padding: '16px 20px',

@@ -578,6 +578,14 @@ export default function RentPage() {
                       y: -8,
                       boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
                     }}
+                    onMouseEnter={(e) => {
+                      const addressEl = e.currentTarget.querySelector('.property-address');
+                      if (addressEl) addressEl.style.color = '#dc2626';
+                    }}
+                    onMouseLeave={(e) => {
+                      const addressEl = e.currentTarget.querySelector('.property-address');
+                      if (addressEl) addressEl.style.color = '#000';
+                    }}
                   >
                     <Link 
                       href={`/property/${property.id}`}
@@ -656,8 +664,11 @@ export default function RentPage() {
                           color: '#000',
                           letterSpacing: '-0.01em',
                           lineHeight: '1.3',
-                          marginBottom: '0.5rem'
-                        }}>
+                          marginBottom: '0.5rem',
+                          transition: 'color 0.3s ease'
+                        }}
+                        className="property-address"
+                        >
                           {property.address.replace(', VIC', '')}
                         </h3>
                         

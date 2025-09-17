@@ -422,7 +422,7 @@ export default function HomePageOncom() {
           <div style={{
             display: 'flex',
             gap: '0',
-            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : '300px',
             paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
           }}>
             {/* Activities List */}
@@ -589,7 +589,7 @@ export default function HomePageOncom() {
             paddingLeft: isMobile ? '20px' : isTablet ? '40px' : '60px',
             paddingRight: isMobile ? '20px' : isTablet ? '40px' : '60px'
           }}>
-            Explore suburbs
+            Discover
           </h2>
           {/* Carousel Container */}
           <div style={{
@@ -841,6 +841,282 @@ export default function HomePageOncom() {
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Grant's Guides Section */}
+      <section style={{
+        backgroundColor: '#fff',
+        paddingTop: isMobile ? '60px' : isTablet ? '80px' : '96px',
+        paddingBottom: isMobile ? '60px' : isTablet ? '80px' : '96px'
+      }}>
+        <div style={{
+          maxWidth: '1440px',
+          margin: '0 auto'
+        }}>
+          <h2 style={{
+            fontSize: isMobile ? '32px' : isTablet ? '40px' : '48px',
+            fontWeight: '700',
+            letterSpacing: '-0.02em',
+            textAlign: 'left',
+            margin: '0',
+            marginBottom: isMobile ? '24px' : '48px',
+            color: '#000',
+            lineHeight: '1.1',
+            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
+          }}>
+            Grant's Guides
+          </h2>
+
+          <p style={{
+            fontSize: isMobile ? '16px' : '18px',
+            color: '#666',
+            marginBottom: isMobile ? '32px' : '48px',
+            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+            maxWidth: '800px'
+          }}>
+            Download our expert guides to navigate your property journey with confidence
+          </p>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+            gap: isMobile ? '24px' : '32px',
+            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
+          }}>
+            {/* First Home Buyer Guide */}
+            <Link href="/guides/download?guide=first-home-buyers" style={{
+              textDecoration: 'none',
+              color: 'inherit',
+              display: 'block',
+              backgroundColor: '#f8f8f8',
+              borderRadius: '12px',
+              padding: isMobile ? '24px' : '32px',
+              transition: 'all 0.3s ease',
+              border: '1px solid transparent'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-4px)';
+              e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.1)';
+              e.currentTarget.style.borderColor = '#002b7f';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.borderColor = 'transparent';
+            }}>
+              <div style={{
+                width: '48px',
+                height: '48px',
+                backgroundColor: '#002b7f',
+                borderRadius: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '20px'
+              }}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                  <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+              </div>
+              <h3 style={{
+                fontSize: '20px',
+                fontWeight: '600',
+                marginBottom: '12px',
+                color: '#000'
+              }}>
+                First Home Buyer's Guide
+              </h3>
+              <p style={{
+                fontSize: '14px',
+                color: '#666',
+                lineHeight: '1.6',
+                marginBottom: '16px'
+              }}>
+                Everything you need to know about buying your first home, from grants to getting finance approved.
+              </p>
+              <span style={{
+                fontSize: '14px',
+                fontWeight: '600',
+                color: '#002b7f',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}>
+                Download free guide
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <line x1="7" y1="17" x2="17" y2="7"/>
+                  <polyline points="7 7 17 7 17 17"/>
+                </svg>
+              </span>
+            </Link>
+
+            {/* Property Investment Guide */}
+            <Link href="/guides/download?guide=property-investment" style={{
+              textDecoration: 'none',
+              color: 'inherit',
+              display: 'block',
+              backgroundColor: '#f8f8f8',
+              borderRadius: '12px',
+              padding: isMobile ? '24px' : '32px',
+              transition: 'all 0.3s ease',
+              border: '1px solid transparent'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-4px)';
+              e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.1)';
+              e.currentTarget.style.borderColor = '#002b7f';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.borderColor = 'transparent';
+            }}>
+              <div style={{
+                width: '48px',
+                height: '48px',
+                backgroundColor: '#002b7f',
+                borderRadius: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '20px'
+              }}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2">
+                  <line x1="12" y1="1" x2="12" y2="23"/>
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+              </div>
+              <h3 style={{
+                fontSize: '20px',
+                fontWeight: '600',
+                marginBottom: '12px',
+                color: '#000'
+              }}>
+                Investment Strategy Guide
+              </h3>
+              <p style={{
+                fontSize: '14px',
+                color: '#666',
+                lineHeight: '1.6',
+                marginBottom: '16px'
+              }}>
+                Build wealth through strategic property investment in Melbourne's growth corridors.
+              </p>
+              <span style={{
+                fontSize: '14px',
+                fontWeight: '600',
+                color: '#002b7f',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}>
+                Download free guide
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <line x1="7" y1="17" x2="17" y2="7"/>
+                  <polyline points="7 7 17 7 17 17"/>
+                </svg>
+              </span>
+            </Link>
+
+            {/* Selling Guide */}
+            <Link href="/guides/download?guide=selling-guide" style={{
+              textDecoration: 'none',
+              color: 'inherit',
+              display: 'block',
+              backgroundColor: '#f8f8f8',
+              borderRadius: '12px',
+              padding: isMobile ? '24px' : '32px',
+              transition: 'all 0.3s ease',
+              border: '1px solid transparent'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-4px)';
+              e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.1)';
+              e.currentTarget.style.borderColor = '#002b7f';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.borderColor = 'transparent';
+            }}>
+              <div style={{
+                width: '48px',
+                height: '48px',
+                backgroundColor: '#002b7f',
+                borderRadius: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '20px'
+              }}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <h3 style={{
+                fontSize: '20px',
+                fontWeight: '600',
+                marginBottom: '12px',
+                color: '#000'
+              }}>
+                Ultimate Selling Guide
+              </h3>
+              <p style={{
+                fontSize: '14px',
+                color: '#666',
+                lineHeight: '1.6',
+                marginBottom: '16px'
+              }}>
+                Maximize your property's value and achieve the best sale price with proven strategies.
+              </p>
+              <span style={{
+                fontSize: '14px',
+                fontWeight: '600',
+                color: '#002b7f',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}>
+                Download free guide
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <line x1="7" y1="17" x2="17" y2="7"/>
+                  <polyline points="7 7 17 7 17 17"/>
+                </svg>
+              </span>
+            </Link>
+          </div>
+
+          <div style={{
+            textAlign: 'center',
+            marginTop: isMobile ? '32px' : '48px'
+          }}>
+            <Link href="/guides" style={{
+              display: 'inline-block',
+              padding: '16px 32px',
+              backgroundColor: '#002b7f',
+              color: '#fff',
+              textDecoration: 'none',
+              borderRadius: '32px',
+              fontSize: '16px',
+              fontWeight: '600',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#001f5c';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#002b7f';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}>
+              View all guides
+            </Link>
           </div>
         </div>
       </section>

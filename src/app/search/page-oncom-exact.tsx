@@ -298,9 +298,13 @@ export default function SearchPageOncomExact() {
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+                      const addressEl = e.currentTarget.querySelector('.property-address');
+                      if (addressEl) addressEl.style.color = '#dc2626';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
+                      const addressEl = e.currentTarget.querySelector('.property-address');
+                      if (addressEl) addressEl.style.color = '#1f2937';
                     }}
                   >
                     <div style={{
@@ -394,6 +398,7 @@ export default function SearchPageOncomExact() {
                         fontSize: '16px',
                         fontWeight: '500',
                         marginBottom: '8px',
+                        color: '#1f2937',
                         transition: 'color 0.3s ease'
                       }}
                       className="property-address"

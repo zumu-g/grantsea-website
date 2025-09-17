@@ -367,17 +367,17 @@ export default function NarreWarrenSuburbGuide() {
               }}>
                 <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '20px', fontWeight: '400', marginBottom: '20px' }}>Local Highlights</h4>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>🛍️</span> Westfield Fountain Gate
+                  <li style={{ marginBottom: '12px' }}>
+                    Westfield Fountain Gate
                   </li>
-                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>🎭</span> Bunjil Place Arts Centre
+                  <li style={{ marginBottom: '12px' }}>
+                    Bunjil Place Arts Centre
                   </li>
-                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>🏊</span> Casey ARC
+                  <li style={{ marginBottom: '12px' }}>
+                    Casey ARC
                   </li>
-                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>🍽️</span> Diverse Dining Scene
+                  <li style={{ marginBottom: '12px' }}>
+                    Diverse Dining Scene
                   </li>
                 </ul>
               </div>
@@ -421,7 +421,7 @@ export default function NarreWarrenSuburbGuide() {
                     margin: '0 auto 16px',
                     fontSize: '32px'
                   }}>
-                    🏊‍♀️
+                    Swimming
                   </div>
                   <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Aquatic Centre</h4>
                   <p style={{ fontSize: '14px', color: '#666' }}>Indoor & outdoor pools</p>
@@ -438,7 +438,7 @@ export default function NarreWarrenSuburbGuide() {
                     margin: '0 auto 16px',
                     fontSize: '32px'
                   }}>
-                    🏃‍♀️
+                    Running
                   </div>
                   <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Sports Facilities</h4>
                   <p style={{ fontSize: '14px', color: '#666' }}>Tennis, cricket, football & more</p>
@@ -455,7 +455,7 @@ export default function NarreWarrenSuburbGuide() {
                     margin: '0 auto 16px',
                     fontSize: '32px'
                   }}>
-                    🎭
+                    Arts
                   </div>
                   <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Arts & Culture</h4>
                   <p style={{ fontSize: '14px', color: '#666' }}>Theatre, library & events</p>
@@ -504,10 +504,10 @@ export default function NarreWarrenSuburbGuide() {
               }}>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Primary Schools</h3>
                 <ul style={{ listStyle: 'none', padding: 0, fontSize: '18px', lineHeight: '2' }}>
-                  <li>🏫 Narre Warren Primary School</li>
-                  <li>🏫 Maramba Primary School</li>
-                  <li>🏫 St. Kevin's Primary School</li>
-                  <li>🏫 Fountain Gate Primary</li>
+                  <li>Narre Warren Primary School</li>
+                  <li>Maramba Primary School</li>
+                  <li>St. Kevin's Primary School</li>
+                  <li>Fountain Gate Primary</li>
                 </ul>
               </div>
               
@@ -519,10 +519,10 @@ export default function NarreWarrenSuburbGuide() {
               }}>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Secondary Schools</h3>
                 <ul style={{ listStyle: 'none', padding: 0, fontSize: '18px', lineHeight: '2' }}>
-                  <li>🎓 Fountain Gate Secondary College</li>
-                  <li>🎓 Maranatha Christian School</li>
-                  <li>🎓 Casey Grammar School</li>
-                  <li>🎓 St. Francis Xavier College</li>
+                  <li>Fountain Gate Secondary College</li>
+                  <li>Maranatha Christian School</li>
+                  <li>Casey Grammar School</li>
+                  <li>St. Francis Xavier College</li>
                 </ul>
               </div>
             </div>
@@ -723,7 +723,7 @@ export default function NarreWarrenSuburbGuide() {
                     borderRadius: '8px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                   }}>
-                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>🎭 Casey Festival</h4>
+                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Casey Festival</h4>
                     <p style={{ fontSize: '14px', color: '#666' }}>March - Arts, food and entertainment at Bunjil Place</p>
                   </div>
                   <div style={{
@@ -732,7 +732,7 @@ export default function NarreWarrenSuburbGuide() {
                     borderRadius: '8px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                   }}>
-                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>🏃‍♀️ Fun Run Series</h4>
+                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Fun Run Series</h4>
                     <p style={{ fontSize: '14px', color: '#666' }}>Monthly - Community fitness events</p>
                   </div>
                   <div style={{
@@ -741,7 +741,7 @@ export default function NarreWarrenSuburbGuide() {
                     borderRadius: '8px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                   }}>
-                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>🎄 Christmas Carols</h4>
+                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Christmas Carols</h4>
                     <p style={{ fontSize: '14px', color: '#666' }}>December - Community celebration in local parks</p>
                   </div>
                 </div>
@@ -756,7 +756,7 @@ export default function NarreWarrenSuburbGuide() {
                     borderRadius: '8px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                   }}>
-                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>⚽ Sports Clubs</h4>
+                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Sports Clubs</h4>
                     <p style={{ fontSize: '14px', color: '#666' }}>Football, netball, cricket, tennis, and swimming</p>
                   </div>
                   <div style={{
@@ -765,7 +765,7 @@ export default function NarreWarrenSuburbGuide() {
                     borderRadius: '8px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                   }}>
-                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>👶 Family Groups</h4>
+                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Family Groups</h4>
                     <p style={{ fontSize: '14px', color: '#666' }}>Playgroups, mothers groups, and family services</p>
                   </div>
                   <div style={{
@@ -774,7 +774,7 @@ export default function NarreWarrenSuburbGuide() {
                     borderRadius: '8px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                   }}>
-                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>🌏 Cultural Groups</h4>
+                    <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Cultural Groups</h4>
                     <p style={{ fontSize: '14px', color: '#666' }}>Multicultural associations and language groups</p>
                   </div>
                 </div>
@@ -978,7 +978,7 @@ export default function NarreWarrenSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🛍️ Shopping Proximity</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Shopping Proximity</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Consider proximity to Fountain Gate for convenience versus traffic. Peak shopping times can create congestion, so test travel routes at various times.
                 </p>
@@ -990,7 +990,7 @@ export default function NarreWarrenSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🚂 Transport Planning</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Transport Planning</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Excellent train connectivity for CBD commuters, but consider peak travel times and parking availability at the station. Test your commute before committing.
                 </p>
@@ -1002,7 +1002,7 @@ export default function NarreWarrenSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🎓 School Zones</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>School Zones</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Research school catchment areas if education is a priority. Both public and private options are available, with some excellent schools requiring specific zoning.
                 </p>
@@ -1014,7 +1014,7 @@ export default function NarreWarrenSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🌍 Community Integration</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Community Integration</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   The diverse multicultural community offers many opportunities for social connection. Join local groups and cultural organizations to integrate quickly.
                 </p>
@@ -1026,7 +1026,7 @@ export default function NarreWarrenSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>📈 Growth Potential</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Growth Potential</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Consider the ongoing development in the Casey corridor. Significant infrastructure investment continues, offering strong growth potential for property values.
                 </p>
@@ -1038,7 +1038,7 @@ export default function NarreWarrenSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🏡 Property Types</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Property Types</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Mix of established homes and modern developments provides diverse options. Consider your preference for character versus contemporary features and maintenance requirements.
                 </p>

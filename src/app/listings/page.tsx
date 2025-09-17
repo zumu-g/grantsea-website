@@ -415,18 +415,18 @@ export default function PropertyListingsPage() {
                     position: 'relative'
                   }}
                 >
-                  <article 
+                  <article
                     onClick={(e) => {
                       // Prevent click if it's from the save button
                       if ((e.target as HTMLElement).closest('button')) return;
-                      
+
                       console.log('=== PROPERTY CARD CLICKED ===');
                       console.log('Event target:', e.target);
                       console.log('Property ID:', property.id);
                       console.log('Property URL:', propertyUrl);
                       console.log('Current pathname:', window.location.pathname);
                       console.log('Router available:', !!router);
-                      
+
                       try {
                         console.log('Attempting router.push...');
                         router.push(propertyUrl);
@@ -436,6 +436,14 @@ export default function PropertyListingsPage() {
                         console.log('Falling back to window.location...');
                         window.location.href = propertyUrl;
                       }
+                    }}
+                    onMouseEnter={(e) => {
+                      const addressEl = e.currentTarget.querySelector('.property-address');
+                      if (addressEl) addressEl.style.color = '#dc2626';
+                    }}
+                    onMouseLeave={(e) => {
+                      const addressEl = e.currentTarget.querySelector('.property-address');
+                      if (addressEl) addressEl.style.color = '#1a202c';
                     }}
                     style={{
                       backgroundColor: 'white',
@@ -521,8 +529,11 @@ export default function PropertyListingsPage() {
                         fontSize: '20px',
                         fontWeight: '600',
                         marginBottom: '8px',
-                        color: '#1a202c'
-                      }}>
+                        color: '#1a202c',
+                        transition: 'color 0.3s ease'
+                      }}
+                      className="property-address"
+                      >
                         {property.address.replace(', VIC', '')}, {property.suburb}
                       </h3>
 

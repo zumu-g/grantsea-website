@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import './globals.css';
 import FloatingAI from '@/components/FloatingAI';
+import OnboardingGuide from '@/components/OnboardingGuide';
 import { AuthProvider } from '@/contexts/AuthContext';
 
 export const metadata: Metadata = {
@@ -148,6 +149,7 @@ export default function RootLayout({
         <AuthProvider>
           {children}
           <FloatingAI />
+          <OnboardingGuide />
         </AuthProvider>
         
         {/* Additional Schema Markup Helper */}

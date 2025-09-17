@@ -370,17 +370,17 @@ export default function BeaconsfieldSuburbGuide() {
               }}>
                 <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '20px', fontWeight: '400', marginBottom: '20px' }}>Local Highlights</h4>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>🏞️</span> Akoonah Park Markets
+                  <li style={{ marginBottom: '12px' }}>
+                    Akoonah Park Markets
                   </li>
-                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>🚣</span> Cardinia Reservoir
+                  <li style={{ marginBottom: '12px' }}>
+                    Cardinia Reservoir
                   </li>
-                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>🏘️</span> Historic Village Center
+                  <li style={{ marginBottom: '12px' }}>
+                    Historic Village Center
                   </li>
-                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>🏃</span> Recreation Reserve
+                  <li style={{ marginBottom: '12px' }}>
+                    Recreation Reserve
                   </li>
                 </ul>
               </div>
@@ -418,7 +418,7 @@ export default function BeaconsfieldSuburbGuide() {
                     margin: '0 auto 16px',
                     fontSize: '32px'
                   }}>
-                    🌳
+                    Parks
                   </div>
                   <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Parks & Gardens</h4>
                   <p style={{ fontSize: '14px', color: '#666' }}>Abundant green spaces</p>
@@ -435,7 +435,7 @@ export default function BeaconsfieldSuburbGuide() {
                     margin: '0 auto 16px',
                     fontSize: '32px'
                   }}>
-                    🏛️
+                    Heritage
                   </div>
                   <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '18px', fontWeight: '400', marginBottom: '8px' }}>Heritage</h4>
                   <p style={{ fontSize: '14px', color: '#666' }}>Historic township character</p>
@@ -501,10 +501,10 @@ export default function BeaconsfieldSuburbGuide() {
               }}>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Local Schools</h3>
                 <ul style={{ listStyle: 'none', padding: 0, fontSize: '18px', lineHeight: '2' }}>
-                  <li>🏫 Beaconsfield Primary School</li>
-                  <li>🎓 St Francis Xavier College (Prep-12)</li>
-                  <li>🏫 Multiple kindergartens & childcare</li>
-                  <li>🏫 Community-run early learning</li>
+                  <li> Beaconsfield Primary School</li>
+                  <li> St Francis Xavier College (Prep-12)</li>
+                  <li> Multiple kindergartens & childcare</li>
+                  <li> Community-run early learning</li>
                 </ul>
               </div>
               
@@ -516,10 +516,10 @@ export default function BeaconsfieldSuburbGuide() {
               }}>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Nearby Options</h3>
                 <ul style={{ listStyle: 'none', padding: 0, fontSize: '18px', lineHeight: '2' }}>
-                  <li>🎓 Haileybury (Berwick campus)</li>
-                  <li>🏫 Other Berwick private schools</li>
-                  <li>🏫 Pakenham secondary options</li>
-                  <li>🚌 School bus connections</li>
+                  <li> Haileybury (Berwick campus)</li>
+                  <li> Other Berwick private schools</li>
+                  <li> Pakenham secondary options</li>
+                  <li> School bus connections</li>
                 </ul>
               </div>
             </div>
@@ -891,7 +891,7 @@ export default function BeaconsfieldSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🏛️ Heritage Considerations</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Heritage Considerations</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Some properties may have heritage overlays affecting renovation options. Always check planning restrictions before purchasing if you plan modifications.
                 </p>
@@ -903,7 +903,7 @@ export default function BeaconsfieldSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🚗 Highway Impact</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Highway Impact</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Consider proximity to the Princes Highway - some properties may be affected by traffic noise. Visit at different times to assess noise levels.
                 </p>
@@ -915,7 +915,7 @@ export default function BeaconsfieldSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🌲 Bushfire Risk</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Bushfire Risk</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Check bushfire risk for properties near bush areas. Understand requirements for bushfire management plans and insurance implications.
                 </p>
@@ -927,7 +927,7 @@ export default function BeaconsfieldSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🚂 Transport Planning</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Transport Planning</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Test your commute during peak times. Factor in parking availability at the station and consider backup transport options.
                 </p>
@@ -939,7 +939,7 @@ export default function BeaconsfieldSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🏡 Acreage Living</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Acreage Living</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Understand rural responsibilities for larger blocks including land management, septic systems, and higher maintenance costs.
                 </p>
@@ -951,7 +951,7 @@ export default function BeaconsfieldSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🎓 School Access</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}> School Access</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Check catchment areas and transport options if education is a priority. Some excellent schools may require specific zoning.
                 </p>

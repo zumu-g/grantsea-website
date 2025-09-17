@@ -367,17 +367,17 @@ export default function PakenhamSuburbGuide() {
               }}>
                 <h4 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '20px', fontWeight: '400', marginBottom: '20px' }}>Major Shopping</h4>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>🛍️</span> Pakenham Central Marketplace
+                  <li style={{ marginBottom: '12px' }}>
+                    Pakenham Central Marketplace
                   </li>
-                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>🏢</span> Lakeside Square Shopping Centre
+                  <li style={{ marginBottom: '12px' }}>
+                    Lakeside Square Shopping Centre
                   </li>
-                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>🍕</span> Diverse dining options
+                  <li style={{ marginBottom: '12px' }}>
+                    Diverse dining options
                   </li>
-                  <li style={{ marginBottom: '12px', paddingLeft: '20px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0 }}>🎬</span> Entertainment facilities
+                  <li style={{ marginBottom: '12px' }}>
+                    Entertainment facilities
                   </li>
                 </ul>
               </div>
@@ -446,10 +446,10 @@ export default function PakenhamSuburbGuide() {
               }}>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Primary Schools</h3>
                 <ul style={{ listStyle: 'none', padding: 0, fontSize: '18px', lineHeight: '2' }}>
-                  <li>🏫 Multiple primary schools</li>
-                  <li>🏫 Modern facilities</li>
-                  <li>🏫 Community connections</li>
-                  <li>🏫 Growing options</li>
+                  <li>Multiple primary schools</li>
+                  <li>Modern facilities</li>
+                  <li>Community connections</li>
+                  <li>Growing options</li>
                 </ul>
               </div>
               
@@ -461,10 +461,10 @@ export default function PakenhamSuburbGuide() {
               }}>
                 <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '28px', fontWeight: '400', marginBottom: '24px' }}>Secondary Schools</h3>
                 <ul style={{ listStyle: 'none', padding: 0, fontSize: '18px', lineHeight: '2' }}>
-                  <li>🎓 Pakenham Secondary College</li>
-                  <li>🎓 Beaconhills College</li>
-                  <li>🎓 Quality programs</li>
-                  <li>🎓 Modern facilities</li>
+                  <li>Pakenham Secondary College</li>
+                  <li>Beaconhills College</li>
+                  <li>Quality programs</li>
+                  <li>Modern facilities</li>
                 </ul>
               </div>
             </div>
@@ -807,7 +807,7 @@ export default function PakenhamSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🏢 Growth Considerations</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Growth Considerations</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   The suburb is experiencing significant growth - consider how this affects property values and community character. Modern infrastructure supports continued development.
                 </p>
@@ -819,7 +819,7 @@ export default function PakenhamSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🚂 Transport Planning</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Transport Planning</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   While train access is excellent, consider peak travel times and specific commuting requirements. Test your commute before committing to ensure it meets your needs.
                 </p>
@@ -831,7 +831,7 @@ export default function PakenhamSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🛍️ Shopping Access</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Shopping Access</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Major shopping facilities are outstanding, but consider proximity to specific stores and services you use regularly. The comprehensive retail options serve most needs locally.
                 </p>
@@ -855,7 +855,7 @@ export default function PakenhamSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🏡 Property Options</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>Property Options</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Mix of established and contemporary properties available. Consider your preferences for modern vs. established homes and factor in the benefits of new infrastructure.
                 </p>
@@ -867,7 +867,7 @@ export default function PakenhamSuburbGuide() {
                 borderRadius: '12px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>🎓 School Access</h3>
+                <h3 style={{ fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif', fontSize: '24px', fontWeight: '400', marginBottom: '16px' }}>School Access</h3>
                 <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>
                   Check catchment areas and transport options if education is a priority. Quality schools are available with good community connections and modern facilities.
                 </p>

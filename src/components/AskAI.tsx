@@ -160,7 +160,7 @@ export default function AskAI({
       alignItems: 'center',
       justifyContent: 'center',
       gap: '6px',
-      backgroundColor: '#007bff',
+      backgroundColor: '#002b7f',
       color: '#fff',
       border: 'none',
       borderRadius: propertyType === 'floating' ? '50%' : '8px',
@@ -168,7 +168,7 @@ export default function AskAI({
       transition: 'all 0.2s ease',
       fontWeight: '600',
       fontSize: size === 'small' ? '12px' : size === 'large' ? '16px' : '14px',
-      boxShadow: '0 2px 8px rgba(0, 123, 255, 0.3)',
+      boxShadow: '0 2px 8px rgba(0, 43, 127, 0.3)',
     };
 
     if (propertyType === 'floating') {
@@ -180,7 +180,7 @@ export default function AskAI({
         width: '56px',
         height: '56px',
         zIndex: 1000,
-        boxShadow: '0 4px 16px rgba(0, 123, 255, 0.4)',
+        boxShadow: '0 4px 16px rgba(0, 43, 127, 0.4)',
       };
     }
 
@@ -214,16 +214,16 @@ export default function AskAI({
         onClick={() => setIsOpen(true)}
         style={buttonStyles}
         onMouseEnter={(e) => {
-          e.currentTarget.style.backgroundColor = '#0056b3';
+          e.currentTarget.style.backgroundColor = '#001f5c';
           e.currentTarget.style.transform = 'translateY(-1px)';
-          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 123, 255, 0.4)';
+          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 43, 127, 0.4)';
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.backgroundColor = '#007bff';
+          e.currentTarget.style.backgroundColor = '#002b7f';
           e.currentTarget.style.transform = 'translateY(0)';
-          e.currentTarget.style.boxShadow = propertyType === 'floating' 
-            ? '0 4px 16px rgba(0, 123, 255, 0.4)'
-            : '0 2px 8px rgba(0, 123, 255, 0.3)';
+          e.currentTarget.style.boxShadow = propertyType === 'floating'
+            ? '0 4px 16px rgba(0, 43, 127, 0.4)'
+            : '0 2px 8px rgba(0, 43, 127, 0.3)';
         }}
         title="Ask AI about this property"
       >

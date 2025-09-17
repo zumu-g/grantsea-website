@@ -374,11 +374,23 @@ export default function OncomHeader() {
                       color: '#000',
                       textDecoration: 'none',
                       fontSize: '14px',
+                      borderBottom: '1px solid #f0f0f0',
+                      transition: 'background 0.2s'
+                    }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                      Grant's Schools Guide
+                    </Link>
+                    <Link href="/guides" style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#000',
+                      textDecoration: 'none',
+                      fontSize: '14px',
                       transition: 'background 0.2s',
                       borderRadius: '0 0 8px 8px'
                     }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                      Grant's Schools Guide
+                      Grant's Guides
                     </Link>
                   </div>
                 </>

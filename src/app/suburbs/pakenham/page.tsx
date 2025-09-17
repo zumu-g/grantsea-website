@@ -94,7 +94,7 @@ export default function PakenhamSuburbGuide() {
               lineHeight: '1',
               marginBottom: '32px',
               letterSpacing: '-0.02em'
-            }}>How to live in<br />Pakenham</h1>
+            }}>Welcome to<br />Pakenham</h1>
             
             <p style={{
               fontSize: 'clamp(1.125rem, 2vw, 1.5rem)',

@@ -554,7 +554,7 @@ export default function RentPage() {
                 transition={{ duration: 0.5 }}
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))',
+                  gridTemplateColumns: 'repeat(3, 1fr)',
                   gap: '32px'
                 }}
               >
@@ -630,6 +630,24 @@ export default function RentPage() {
                           </div>
                         )}
                         
+                        {/* For Lease Badge */}
+                        <div style={{
+                          position: 'absolute',
+                          top: '20px',
+                          left: '20px',
+                          backgroundColor: '#002b7f',
+                          color: '#fff',
+                          padding: '6px 12px',
+                          borderRadius: '4px',
+                          fontSize: '12px',
+                          fontWeight: '600',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.5px',
+                          zIndex: 10
+                        }}>
+                          For Lease
+                        </div>
+
                         {/* Save Button */}
                         <div style={{
                           position: 'absolute',

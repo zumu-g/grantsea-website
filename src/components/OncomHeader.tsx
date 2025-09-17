@@ -2,12 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import AuthModal from './AuthModal';
 
 export default function OncomHeader() {
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [showMenuPanel, setShowMenuPanel] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [showSavedPanel, setShowSavedPanel] = useState(false);
   const [showAccountPanel, setShowAccountPanel] = useState(false);
@@ -77,17 +78,16 @@ export default function OncomHeader() {
             textDecoration: 'none',
             transition: 'all 0.3s ease'
           }}>
-            <img 
-              src="/gea_website_logov4_svg.svg" 
+            <Image
+              src="/gea_website_logov4_svg.svg"
               alt="Grant's Estate Agents"
-              height={isMobile ? 120 : 150}
               width={isMobile ? 195 : 244}
+              height={isMobile ? 120 : 150}
+              priority
               style={{
-                display: 'block',
                 height: isMobile ? 120 : 150,
                 width: 'auto',
-                imageRendering: 'crisp-edges',
-                shapeRendering: 'geometricPrecision'
+                maxWidth: '100%'
               }}
             />
           </Link>
@@ -306,9 +306,13 @@ export default function OncomHeader() {
                 </svg>
               </button>
             )}
-            <div style={{ position: 'relative' }}>
-              <button 
-                onClick={() => setShowDropdown(!showDropdown)}
+            <button
+              onClick={() => {
+                setShowMenuPanel(true);
+                setShowSearch(false);
+                setShowSavedPanel(false);
+                setShowAccountPanel(false);
+              }}
                 style={{
                   background: 'none',
                   border: 'none',
@@ -326,33 +330,14 @@ export default function OncomHeader() {
                   <path d="M3 12h18M3 6h18M3 18h18" />
                 </svg>
               </button>
-              
-              {showDropdown && (
-                <div style={{
-                  position: 'absolute',
-                  top: '100%',
-                  right: 0,
-                  marginTop: '8px',
-                  backgroundColor: '#fff',
-                  border: '1px solid #e5e5e5',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                  borderRadius: '8px',
-                  minWidth: '220px',
-                  zIndex: 1001
-                }}>
-                  <Link href="/" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Home
-                  </Link>
-                  <Link href="/buy" style={{
+          </div>
+        </div>
+      </header>
+
+      {/* TEMPORARY FIX - REMOVING BROKEN DROPDOWN CONTENT */}
+      {false && (
+        <div>
+          <Link href="/buy" style={{
                     display: 'block',
                     padding: '12px 20px',
                     color: '#000',
@@ -563,15 +548,11 @@ export default function OncomHeader() {
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
                     Sign Up
                   </Link>
-                </div>
-              )}
-            </div>
-          </div>
         </div>
-      </header>
+      )}
 
       {/* Sliding Panel Overlay */}
-      {(showSearch || showSavedPanel || showAccountPanel) && (
+      {(showSearch || showSavedPanel || showAccountPanel || showMenuPanel) && (
         <div 
           style={{
             position: 'fixed',
@@ -587,6 +568,7 @@ export default function OncomHeader() {
             setShowSearch(false);
             setShowSavedPanel(false);
             setShowAccountPanel(false);
+            setShowMenuPanel(false);
           }}
         />
       )}
@@ -1079,6 +1061,125 @@ export default function OncomHeader() {
                 {link.label}
               </Link>
             ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Menu Panel - Slides from Right */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        right: showMenuPanel ? 0 : (isMobile ? '-100%' : '-480px'),
+        bottom: 0,
+        width: isMobile ? '100%' : '480px',
+        backgroundColor: '#fff',
+        boxShadow: '-4px 0 24px rgba(0,0,0,0.1)',
+        transition: 'right 0.3s ease',
+        zIndex: 9999,
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          padding: '24px',
+          borderBottom: '1px solid #e5e5e5',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          <h2 style={{ fontSize: '24px', fontWeight: '600' }}>Menu</h2>
+          <button
+            onClick={() => setShowMenuPanel(false)}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '8px'
+            }}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          {[
+            { href: '/', label: 'Home' },
+            { href: '/buy', label: 'Buy' },
+            { href: '/rent', label: 'Rent' },
+            { href: '/sell', label: 'Sell' },
+            { href: '/agents', label: 'Find Agents' },
+            { href: '/property-management', label: 'Property Management' },
+            { href: '/suburbs', label: 'Suburb Guides' },
+            { href: '/saved', label: 'Saved Properties' },
+            { href: '/stories', label: 'Stories' },
+            { href: '/reviews', label: 'Reviews' },
+            { href: '/about', label: 'About Us' },
+            { href: '/contact', label: 'Contact' },
+            { href: '/news', label: 'News & Media' },
+            { href: '/listings', label: 'All Listings' },
+            { href: '/search', label: 'Search Properties' },
+            { href: '/help', label: 'Help & Support' },
+            { href: '/careers', label: 'Careers' }
+          ].map((item, index) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setShowMenuPanel(false)}
+              style={{
+                display: 'block',
+                padding: '16px 24px',
+                color: '#000',
+                textDecoration: 'none',
+                fontSize: '16px',
+                borderBottom: '1px solid #f0f0f0',
+                transition: 'background 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}
+            >
+              {item.label}
+            </Link>
+          ))}
+
+          <div style={{
+            borderTop: '2px solid #e5e5e5',
+            marginTop: '16px',
+            paddingTop: '16px'
+          }}>
+            <Link
+              href="/profile"
+              onClick={() => setShowMenuPanel(false)}
+              style={{
+                display: 'block',
+                padding: '16px 24px',
+                color: '#000',
+                textDecoration: 'none',
+                fontSize: '16px',
+                borderBottom: '1px solid #f0f0f0',
+                transition: 'background 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}
+            >
+              My Profile
+            </Link>
+            <Link
+              href="/signup"
+              onClick={() => setShowMenuPanel(false)}
+              style={{
+                display: 'block',
+                padding: '16px 24px',
+                color: '#000',
+                textDecoration: 'none',
+                fontSize: '16px',
+                transition: 'background 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}
+            >
+              Sign Up
+            </Link>
           </div>
         </div>
       </div>

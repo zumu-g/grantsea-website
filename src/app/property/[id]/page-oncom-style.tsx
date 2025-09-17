@@ -25,7 +25,7 @@ export default function PropertyDetailPageOncom() {
   
   // Fetch similar properties from the same suburb
   const { properties: similarProperties } = useProperties({
-    suburb: property?.suburb,
+    suburb: property?.suburb || '',
     limit: 4,
     type: property?.listingType === 'sale' ? 'sale' : 'lease'
   });
@@ -296,15 +296,15 @@ export default function PropertyDetailPageOncom() {
             <span>/</span>
             <Link href="/buy" style={{ color: '#666', textDecoration: 'none' }}>Buy</Link>
             <span>/</span>
-            <Link href={`/buy/${property.state?.toLowerCase()}`} style={{ color: '#666', textDecoration: 'none' }}>
-              {property.state}
+            <Link href={`/buy/${property.state?.toLowerCase() || ''}`} style={{ color: '#666', textDecoration: 'none' }}>
+              {property.state || ''}
             </Link>
             <span>/</span>
-            <Link href={`/buy/${property.state?.toLowerCase()}/${property.suburb?.toLowerCase()}`} style={{ color: '#666', textDecoration: 'none' }}>
-              {property.suburb}
+            <Link href={`/buy/${property.state?.toLowerCase() || ''}/${property.suburb?.toLowerCase() || ''}`} style={{ color: '#666', textDecoration: 'none' }}>
+              {property.suburb || ''}
             </Link>
             <span>/</span>
-            <span>{property.address.replace(/ VIC$/, '')}</span>
+            <span>{(property.address || '').replace(/ VIC$/, '')}</span>
           </div>
         </div>
 
@@ -313,10 +313,10 @@ export default function PropertyDetailPageOncom() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
             <div>
               <h1 style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px' }}>
-                {property.address.replace(/ VIC$/, '')}
+                {(property.address || '').replace(/ VIC$/, '')}
               </h1>
               <p style={{ fontSize: '18px', color: '#666' }}>
-                {property.suburb}, {property.state} {property.postcode}
+                {property.suburb || ''}, {property.state || ''} {property.postcode || ''}
               </p>
             </div>
             
@@ -326,8 +326,8 @@ export default function PropertyDetailPageOncom() {
                 onClick={() => {
                   if (navigator.share) {
                     navigator.share({
-                      title: property.address.replace(/ VIC$/, ''),
-                      text: `Check out this property: ${property.address.replace(/ VIC$/, '')}, ${property.suburb}`,
+                      title: (property.address || '').replace(/ VIC$/, ''),
+                      text: `Check out this property: ${(property.address || '').replace(/ VIC$/, '')}, ${property.suburb || ''}`,
                       url: window.location.href,
                     }).catch(() => {
                       // Fallback to clipboard copy
@@ -357,9 +357,9 @@ export default function PropertyDetailPageOncom() {
                 </svg>
                 Share
               </button>
-              <AskAI 
+              <AskAI
                 propertyId={property.id}
-                propertyAddress={`${property.address.replace(/ VIC$/, '')}, ${property.suburb} ${property.postcode}`}
+                propertyAddress={`${(property.address || '').replace(/ VIC$/, '')}, ${property.suburb || ''} ${property.postcode || ''}`}
                 propertyData={{
                   price: property.price,
                   priceDisplay: property.priceDisplay,
@@ -479,7 +479,7 @@ export default function PropertyDetailPageOncom() {
               <div style={{ fontSize: '28px', fontWeight: '700' }}>
                 {property.listingType === 'lease'
                   ? (property.leasePriceDisplay || (property.leasePrice ? `$${property.leasePrice} per week` : 'Contact Agent'))
-                  : (property.priceDisplay || formatPrice(property.price))
+                  : (property.priceDisplay || formatPrice(property.price || 0))
                 }
               </div>
               <div style={{ fontSize: '14px', color: '#666' }}>
@@ -487,19 +487,19 @@ export default function PropertyDetailPageOncom() {
               </div>
             </div>
             <div>
-              <div style={{ fontSize: '28px', fontWeight: '700' }}>{property.bedrooms}</div>
+              <div style={{ fontSize: '28px', fontWeight: '700' }}>{property.bedrooms || '–'}</div>
               <div style={{ fontSize: '14px', color: '#666' }}>Bedrooms</div>
             </div>
             <div>
-              <div style={{ fontSize: '28px', fontWeight: '700' }}>{property.bathrooms}</div>
+              <div style={{ fontSize: '28px', fontWeight: '700' }}>{property.bathrooms || '–'}</div>
               <div style={{ fontSize: '14px', color: '#666' }}>Bathrooms</div>
             </div>
             <div>
-              <div style={{ fontSize: '28px', fontWeight: '700' }}>{property.carSpaces}</div>
+              <div style={{ fontSize: '28px', fontWeight: '700' }}>{property.carSpaces || '–'}</div>
               <div style={{ fontSize: '14px', color: '#666' }}>Parking</div>
             </div>
             <div>
-              <div style={{ fontSize: '28px', fontWeight: '700' }}>{property.propertyType}</div>
+              <div style={{ fontSize: '28px', fontWeight: '700' }}>{property.propertyType || '–'}</div>
               <div style={{ fontSize: '14px', color: '#666' }}>Property Type</div>
             </div>
           </div>
@@ -1001,8 +1001,7 @@ export default function PropertyDetailPageOncom() {
                     >
                       Send inquiry
                     </button>
-                  </form>
-                )
+                </form>
 
                 {/* Schedule Inspection */}
                 <div style={{
@@ -1086,9 +1085,9 @@ export default function PropertyDetailPageOncom() {
                           backgroundColor: '#f5f5f5'
                         }}>
                           {similarProperty.images?.[0] && (
-                            <img 
-                              src={similarProperty.images[0].url} 
-                              alt={similarProperty.address}
+                            <img
+                              src={typeof similarProperty.images[0] === 'string' ? similarProperty.images[0] : similarProperty.images[0].url}
+                              alt={similarProperty.address || 'Property image'}
                               style={{
                                 position: 'absolute',
                                 top: 0,
@@ -1117,7 +1116,7 @@ export default function PropertyDetailPageOncom() {
                           }}>
                             {similarProperty.listingType === 'lease'
                               ? (similarProperty.leasePriceDisplay || (similarProperty.leasePrice ? `$${similarProperty.leasePrice} per week` : 'Contact Agent'))
-                              : (similarProperty.priceDisplay || formatPrice(similarProperty.price || '0'))
+                              : (similarProperty.priceDisplay || formatPrice(similarProperty.price || 0))
                             }
                           </h3>
                           <p style={{
@@ -1128,7 +1127,7 @@ export default function PropertyDetailPageOncom() {
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap'
                           }}>
-                            {similarProperty.address}
+                            {similarProperty.address || 'Address not available'}
                           </p>
                           <div style={{
                             display: 'flex',
@@ -1136,9 +1135,9 @@ export default function PropertyDetailPageOncom() {
                             fontSize: '15px',
                             color: '#333'
                           }}>
-                            {similarProperty.bedrooms && <span>{similarProperty.bedrooms} beds</span>}
-                            {similarProperty.bathrooms && <span>{similarProperty.bathrooms} baths</span>}
-                            {similarProperty.carSpaces && <span>{similarProperty.carSpaces} cars</span>}
+                            {similarProperty.bedrooms ? <span>{similarProperty.bedrooms} beds</span> : null}
+                            {similarProperty.bathrooms ? <span>{similarProperty.bathrooms} baths</span> : null}
+                            {similarProperty.carSpaces ? <span>{similarProperty.carSpaces} cars</span> : null}
                           </div>
                         </div>
                       </div>
@@ -1148,7 +1147,7 @@ export default function PropertyDetailPageOncom() {
 
               {/* View More Button */}
               <div style={{ textAlign: 'center', marginTop: '48px' }}>
-                <Link href={`/search?suburb=${encodeURIComponent(property.suburb)}`} style={{
+                <Link href={`/search?suburb=${encodeURIComponent(property.suburb || '')}`} style={{
                   display: 'inline-block',
                   padding: '16px 32px',
                   backgroundColor: '#000',
@@ -1167,7 +1166,7 @@ export default function PropertyDetailPageOncom() {
                   e.currentTarget.style.boxShadow = 'none';
                 }}
                 >
-                  View all properties in {property.suburb}
+                  View all properties in {property.suburb || 'this area'}
                 </Link>
               </div>
             </div>

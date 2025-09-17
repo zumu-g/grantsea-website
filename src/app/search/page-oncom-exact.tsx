@@ -296,7 +296,7 @@ export default function SearchPageOncomExact() {
                       }}>
                         <SavePropertyButton property={property} />
                       </div>
-                      {property.listingType === 'lease' && property.status !== 'management' && (
+                      {property.listingType === 'lease' && (
                         <div style={{
                           position: 'absolute',
                           top: '12px',
@@ -328,23 +328,6 @@ export default function SearchPageOncomExact() {
                           letterSpacing: '0.5px'
                         }}>
                           Under Contract
-                        </div>
-                      )}
-                      {property.status === 'management' && (
-                        <div style={{
-                          position: 'absolute',
-                          top: '12px',
-                          left: '12px',
-                          backgroundColor: '#666',
-                          color: '#fff',
-                          padding: '6px 12px',
-                          borderRadius: '4px',
-                          fontSize: '12px',
-                          fontWeight: '600',
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.5px'
-                        }}>
-                          Leased
                         </div>
                       )}
                     </div>

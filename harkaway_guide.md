@@ -153,3 +153,4 @@ Harkaway offers a rare combination of rural character, strong community spirit, 
 The established infrastructure, mature streetscapes, and excellent transport links create a lifestyle destination that balances rural living with metropolitan connectivity, making Harkaway an attractive choice for families and professionals seeking rural charm within a well-connected community setting.
 
 
+

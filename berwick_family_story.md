@@ -67,3 +67,4 @@ The Chen family's journey from first home to forever home in Berwick is a testam
 *The Chen family's story is just one example of how Berwick's unique combination of heritage character, community spirit, and modern amenities creates the perfect environment for families to grow and thrive. Whether you're looking for your first home or your forever home, Berwick offers a lifestyle that's increasingly rare in Melbourne's suburban landscape.*
 
 **Ready to start your own Berwick story?** Contact our team to discover how this charming suburb could become your family's perfect home.
+

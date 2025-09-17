@@ -513,26 +513,76 @@ export function formatPrice(price: string | number): string {
   }).format(numPrice);
 }
 
+// Helper function to determine listing type from VaultRE property data
+function determineListingType(vaultProperty: any): 'sale' | 'lease' | 'both' {
+  // Check status field first
+  if (vaultProperty.status === 'management' || vaultProperty.status === 'leased') {
+    return 'lease';
+  }
+
+  // Check commercial listing type
+  if (vaultProperty.commercialListingType) {
+    return vaultProperty.commercialListingType as 'sale' | 'lease' | 'both';
+  }
+
+  // Check if property has rental price fields (without calling getRentalPrice)
+  const hasRentalPrice = !!(
+    vaultProperty.searchPrice ||
+    vaultProperty.commercialLeasePrice ||
+    vaultProperty.leasePrice ||
+    vaultProperty.rent ||
+    vaultProperty.weeklyRent ||
+    vaultProperty.currentTenancy?.rent ||
+    vaultProperty.leaseHistory?.[0]?.rent ||
+    vaultProperty.leaseLife?.rent
+  );
+
+  // Check if property has sale price fields
+  const hasSalePrice = !!(
+    vaultProperty.priceFrom ||
+    vaultProperty.priceTo ||
+    (vaultProperty.searchPrice && vaultProperty.status !== 'management')
+  );
+
+  // For management status with searchPrice, it's a rental
+  if (vaultProperty.status === 'management' && vaultProperty.searchPrice) {
+    return 'lease';
+  }
+
+  // Determine based on available prices
+  if (hasRentalPrice && !hasSalePrice) {
+    return 'lease';
+  } else if (hasSalePrice && !hasRentalPrice) {
+    return 'sale';
+  } else if (hasRentalPrice && hasSalePrice) {
+    return 'both';
+  }
+
+  // Default to sale
+  return 'sale';
+}
+
 // Helper function to extract rental price from VaultRE property data
 function getRentalPrice(vaultProperty: any): string {
   // Check multiple possible rental price fields
+  // searchPrice is used for rental properties in VaultRE API
   const rentalPriceFields = [
+    vaultProperty.searchPrice,  // Main field for rental price (e.g., 600 for $600/week)
     vaultProperty.commercialLeasePrice,
     vaultProperty.leasePrice,
     vaultProperty.rent,
     vaultProperty.weeklyRent,
+    vaultProperty.currentTenancy?.rent, // Current tenant's rent
     vaultProperty.leaseHistory?.[0]?.rent,
-    vaultProperty.leaseLife?.rent,
-    // For specific property mentioned by user
-    vaultProperty.displayAddress?.includes('65') && vaultProperty.displayAddress?.toLowerCase().includes('bemersyde') ? 600 : null
+    vaultProperty.leaseLife?.rent
   ];
-  
+
   for (const price of rentalPriceFields) {
     if (price !== null && price !== undefined && price !== '' && !isNaN(Number(price))) {
       return price.toString();
     }
   }
-  
+
   return '';
 }
 
@@ -601,7 +651,7 @@ export function transformVaultREProperty(vaultProperty: any): Property {
                     'Contact Agent'),
     leasePrice: getRentalPrice(vaultProperty),
     leasePriceDisplay: getRentalPriceDisplay(vaultProperty),
-    listingType: vaultProperty.commercialListingType || 'sale',
+    listingType: determineListingType(vaultProperty),
     bedrooms: vaultProperty.bed || 0,
     bathrooms: vaultProperty.bath || 0,
     carSpaces: (vaultProperty.garages || 0) + (vaultProperty.carports || 0) + (vaultProperty.openSpaces || 0),

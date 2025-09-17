@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { transformVaultREProperty } from '@/services/api';
 
 // In API routes, we can't access NEXT_PUBLIC_ variables on the server
 // We need to use regular env vars or duplicate them without the prefix
@@ -90,10 +91,14 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    // Transform the properties to our format
+    const transformedProperties = allProperties.map(transformVaultREProperty);
+
     return NextResponse.json({
       success: true,
-      data: allProperties,
-      total: allProperties.length
+      data: transformedProperties,
+      total: transformedProperties.length,
+      properties: transformedProperties // For backward compatibility
     });
 
   } catch (error) {

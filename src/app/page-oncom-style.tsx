@@ -1074,7 +1074,7 @@ export default function HomePageOncom() {
                     />
                   </div>
                 </div>
-              )})}
+              ))}
               </div>
             </div>
           )}
@@ -1878,6 +1878,7 @@ export default function HomePageOncom() {
           filter: 'blur(100px)'
         }} />
       </section>
+      )}
 
       {/* Latest Properties Section */}
       <section style={{
@@ -2032,7 +2033,6 @@ export default function HomePageOncom() {
           )}
         </div>
       </section>
-      )}
 
       {/* Footer - on.com style */}
       <footer style={{

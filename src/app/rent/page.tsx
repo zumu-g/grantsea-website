@@ -579,11 +579,11 @@ export default function RentPage() {
                       boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
                     }}
                     onMouseEnter={(e) => {
-                      const addressEl = e.currentTarget.querySelector('.property-address');
+                      const addressEl = e.currentTarget.querySelector('.property-address') as HTMLElement;
                       if (addressEl) addressEl.style.color = '#dc2626';
                     }}
                     onMouseLeave={(e) => {
-                      const addressEl = e.currentTarget.querySelector('.property-address');
+                      const addressEl = e.currentTarget.querySelector('.property-address') as HTMLElement;
                       if (addressEl) addressEl.style.color = '#000';
                     }}
                   >

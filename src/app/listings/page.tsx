@@ -438,11 +438,11 @@ export default function PropertyListingsPage() {
                       }
                     }}
                     onMouseEnter={(e) => {
-                      const addressEl = e.currentTarget.querySelector('.property-address');
+                      const addressEl = e.currentTarget.querySelector('.property-address') as HTMLElement;
                       if (addressEl) addressEl.style.color = '#dc2626';
                     }}
                     onMouseLeave={(e) => {
-                      const addressEl = e.currentTarget.querySelector('.property-address');
+                      const addressEl = e.currentTarget.querySelector('.property-address') as HTMLElement;
                       if (addressEl) addressEl.style.color = '#1a202c';
                     }}
                     style={{

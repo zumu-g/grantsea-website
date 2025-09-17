@@ -1,6 +1,6 @@
 # Grant's Estate Agents Website - Development Progress
 
-## Last Updated: 2025-09-15
+## Last Updated: 2025-09-17
 
 ## Current Status
 
@@ -99,6 +99,35 @@
 - `src/app/suburbs/berwick/page.tsx` - Berwick suburb guide
 - `docs/ON-COM-DESIGN-SPECS.md` - Updated with viewport-based padding
 - All major pages updated with responsive padding system
+
+### 🚀 Recent Changes (September 17, 2025)
+- **Property Status Badges**:
+  - Added status detection from VaultRE API (listing, unconditional, management)
+  - Display "For Lease" badge on all rental properties
+  - Display "Under Contract" badge on unconditional sales
+  - Removed redundant "Leased" badge
+
+- **Search Page Enhancements**:
+  - Added sort by dropdown (Featured, Price low/high, Newest/Oldest)
+  - Display property count in search results
+  - Fixed rental properties to display in 3 columns (matching sale properties)
+  - Added proper sorting logic for all sort options
+
+- **Address Display Fixes**:
+  - Removed "VIC" suffix from all property addresses
+  - Fixed address display in search cards and property detail pages
+  - Updated sharing functionality to use clean addresses
+
+- **Bug Fixes**:
+  - Fixed formatPrice errors for lease properties
+  - Fixed client-side errors when clicking on properties
+  - Updated map page to handle lease pricing correctly
+
+- **UI Improvements**:
+  - Focused map search on Berwick area with better zoom
+  - Redesigned reviews page with minimalist on.com style
+  - Updated price filtering with dropdown selects
+  - Added matte red hover effect on property addresses
 
 ### 🚀 Recent Changes (September 16, 2025)
 - **User Authentication System**:

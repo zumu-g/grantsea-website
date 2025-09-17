@@ -388,7 +388,7 @@ export default function CalculatorsPage() {
               <Link
                 href="/contact"
                 style={{
-                  display: 'inline-block',
+                  display: 'flex',
                   padding: isMobile ? '18px 32px' : '16px 32px',
                   backgroundColor: '#fff',
                   color: '#002b7f',
@@ -398,7 +398,6 @@ export default function CalculatorsPage() {
                   fontWeight: '600',
                   transition: 'all 0.3s ease',
                   minHeight: '48px',
-                  display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}
@@ -416,7 +415,7 @@ export default function CalculatorsPage() {
               <Link
                 href="/appraisal"
                 style={{
-                  display: 'inline-block',
+                  display: 'flex',
                   padding: isMobile ? '18px 32px' : '16px 32px',
                   backgroundColor: 'transparent',
                   color: '#fff',
@@ -427,7 +426,6 @@ export default function CalculatorsPage() {
                   border: '2px solid #fff',
                   transition: 'all 0.3s ease',
                   minHeight: '48px',
-                  display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}

@@ -152,3 +152,8 @@ Her financial position is stronger, her lifestyle is simpler, and she's enjoying
 
 *Ready to downsize your home? Contact our team of experienced professionals who can help you create the perfect retirement lifestyle.*
 
+
+
+
+
+

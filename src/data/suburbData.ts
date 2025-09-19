@@ -1,7 +1,7 @@
 export const suburbData: Record<string, any> = {
   'berwick': {
     name: 'Berwick',
-    title: 'How to live in Berwick',
+    title: 'Discover Berwick',
     heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=1080&fit=crop',
     intro: 'Berwick exemplifies the perfect blend of historical charm and modern convenience in Melbourne\'s outer southeast.',
     stats: {
@@ -69,7 +69,7 @@ export const suburbData: Record<string, any> = {
   },
   'narre-warren-south': {
     name: 'Narre Warren South',
-    title: 'Your guide to Narre Warren South',
+    title: 'Discover Narre Warren South',
     heroImage: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&h=1080&fit=crop',
     intro: 'Narre Warren South exemplifies successful suburban planning with outstanding amenities in a family-focused environment.',
     stats: {
@@ -132,7 +132,7 @@ export const suburbData: Record<string, any> = {
   },
   'cranbourne': {
     name: 'Cranbourne',
-    title: 'Discover Cranbourne\'s growth story',
+    title: 'Discover Cranbourne',
     heroImage: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&h=1080&fit=crop',
     intro: 'From rural roots to urban hub – Cranbourne represents the future of Melbourne\'s southeastern growth.',
     stats: {
@@ -195,7 +195,7 @@ export const suburbData: Record<string, any> = {
   },
   'pakenham': {
     name: 'Pakenham',
-    title: 'Pakenham: Where country meets convenience',
+    title: 'Discover Pakenham',
     heroImage: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1920&h=1080&fit=crop',
     intro: 'Pakenham combines country charm with modern amenities, offering exceptional value for growing families.',
     stats: {
@@ -258,7 +258,7 @@ export const suburbData: Record<string, any> = {
   },
   'officer': {
     name: 'Officer',
-    title: 'Officer: Melbourne\'s emerging suburb',
+    title: 'Discover Officer',
     heroImage: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&h=1080&fit=crop',
     intro: 'Officer is rapidly evolving from rural outpost to thriving suburb with new estates and infrastructure.',
     stats: {
@@ -321,7 +321,7 @@ export const suburbData: Record<string, any> = {
   },
   'clyde': {
     name: 'Clyde',
-    title: 'Clyde: Building tomorrow\'s community',
+    title: 'Discover Clyde',
     heroImage: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1920&h=1080&fit=crop',
     intro: 'Clyde offers the perfect opportunity for families seeking brand new homes in a developing community.',
     stats: {
@@ -384,7 +384,7 @@ export const suburbData: Record<string, any> = {
   },
   'clyde-north': {
     name: 'Clyde North',
-    title: 'Clyde North: Modern family living',
+    title: 'Discover Clyde North',
     heroImage: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1920&h=1080&fit=crop',
     intro: 'Clyde North represents the future of Melbourne\'s southeast with contemporary estates and modern infrastructure.',
     stats: {
@@ -447,7 +447,7 @@ export const suburbData: Record<string, any> = {
   },
   'hallam': {
     name: 'Hallam',
-    title: 'Hallam: Established convenience',
+    title: 'Discover Hallam',
     heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=1080&fit=crop',
     intro: 'Hallam offers established suburban living with excellent transport links and comprehensive amenities.',
     stats: {
@@ -505,7 +505,7 @@ export const suburbData: Record<string, any> = {
   },
   'narre-warren': {
     name: 'Narre Warren',
-    title: 'Narre Warren: The heart of Casey',
+    title: 'Discover Narre Warren',
     heroImage: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&h=1080&fit=crop',
     intro: 'Narre Warren has transformed from a rural township into one of Melbourne\'s most dynamic growth areas.',
     stats: {
@@ -568,7 +568,7 @@ export const suburbData: Record<string, any> = {
   },
   'hampton-park': {
     name: 'Hampton Park',
-    title: 'Hampton Park: Multicultural community',
+    title: 'Discover Hampton Park',
     heroImage: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1920&h=1080&fit=crop',
     intro: 'Hampton Park exemplifies Melbourne\'s multicultural suburbs with established infrastructure and strong community bonds.',
     stats: {
@@ -626,7 +626,7 @@ export const suburbData: Record<string, any> = {
   },
   'beaconsfield': {
     name: 'Beaconsfield',
-    title: 'Beaconsfield: Hills charm meets suburban convenience',
+    title: 'Discover Beaconsfield',
     heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=1080&fit=crop',
     intro: 'Beaconsfield offers a unique blend of semi-rural tranquility and suburban amenity on Melbourne\'s southeastern fringe.',
     stats: {
@@ -684,7 +684,7 @@ export const suburbData: Record<string, any> = {
   },
   'cranbourne-north': {
     name: 'Cranbourne North',
-    title: 'Cranbourne North: Family-focused growth',
+    title: 'Discover Cranbourne North',
     heroImage: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1920&h=1080&fit=crop',
     intro: 'Cranbourne North combines new estate living with established amenities in Melbourne\'s southeastern growth corridor.',
     stats: {
@@ -742,7 +742,7 @@ export const suburbData: Record<string, any> = {
   },
   'narre-warren-east': {
     name: 'Narre Warren East',
-    title: 'Narre Warren East: Peaceful acreage living',
+    title: 'Discover Narre Warren East',
     heroImage: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1920&h=1080&fit=crop',
     intro: 'Narre Warren East offers a semi-rural lifestyle with larger properties while maintaining suburban conveniences.',
     stats: {
@@ -800,7 +800,7 @@ export const suburbData: Record<string, any> = {
   },
   'endeavour-hills': {
     name: 'Endeavour Hills',
-    title: 'Endeavour Hills: Established family excellence',
+    title: 'Discover Endeavour Hills',
     heroImage: 'https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=1920&h=1080&fit=crop',
     intro: 'Endeavour Hills showcases successful 1990s suburban planning with mature amenities and strong community spirit.',
     stats: {

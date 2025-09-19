@@ -21,6 +21,8 @@ export default function AppraisalPage() {
     email: '',
     phone: '',
     preferredContact: 'phone',
+    appraisalType: 'in-person',
+    preferredTime: '',
     additionalInfo: ''
   });
 
@@ -732,8 +734,187 @@ export default function AppraisalPage() {
               </div>
             </div>
 
+            {/* Appraisal Type Section - NEW */}
+            <div style={{
+              marginBottom: '48px',
+              paddingBottom: '48px',
+              borderBottom: '1px solid #e5e7eb'
+            }}>
+              <h3 style={{
+                fontSize: '24px',
+                fontWeight: '400',
+                color: '#111111',
+                marginBottom: '24px',
+                fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
+              }}>
+                Choose Your Appraisal Type
+              </h3>
+
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px',
+                marginBottom: '24px'
+              }}>
+                <label style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '12px',
+                  cursor: 'pointer',
+                  padding: '20px',
+                  border: '2px solid',
+                  borderColor: formData.appraisalType === 'in-person' ? '#AF272F' : '#e5e7eb',
+                  borderRadius: '8px',
+                  backgroundColor: formData.appraisalType === 'in-person' ? '#FEF2F2' : 'white',
+                  transition: 'all 0.2s'
+                }}>
+                  <input
+                    type="radio"
+                    name="appraisalType"
+                    value="in-person"
+                    checked={formData.appraisalType === 'in-person'}
+                    onChange={handleInputChange}
+                    style={{ marginTop: '2px' }}
+                  />
+                  <div>
+                    <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '4px' }}>In-Person Appraisal</div>
+                    <div style={{ fontSize: '14px', color: '#6b7280' }}>
+                      Our agent will visit your property for a comprehensive on-site evaluation
+                    </div>
+                  </div>
+                </label>
+
+                <label style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '12px',
+                  cursor: 'pointer',
+                  padding: '20px',
+                  border: '2px solid',
+                  borderColor: formData.appraisalType === 'zoom' ? '#AF272F' : '#e5e7eb',
+                  borderRadius: '8px',
+                  backgroundColor: formData.appraisalType === 'zoom' ? '#FEF2F2' : 'white',
+                  transition: 'all 0.2s'
+                }}>
+                  <input
+                    type="radio"
+                    name="appraisalType"
+                    value="zoom"
+                    checked={formData.appraisalType === 'zoom'}
+                    onChange={handleInputChange}
+                    style={{ marginTop: '2px' }}
+                  />
+                  <div>
+                    <div style={{
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      marginBottom: '4px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px'
+                    }}>
+                      Live Zoom Appraisal
+                      <span style={{
+                        backgroundColor: '#10B981',
+                        color: 'white',
+                        fontSize: '11px',
+                        padding: '2px 8px',
+                        borderRadius: '12px',
+                        fontWeight: '600'
+                      }}>NEW</span>
+                    </div>
+                    <div style={{ fontSize: '14px', color: '#6b7280' }}>
+                      Get your appraisal via video call - convenient, fast, and from the comfort of your home
+                    </div>
+                  </div>
+                </label>
+
+                <label style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '12px',
+                  cursor: 'pointer',
+                  padding: '20px',
+                  border: '2px solid',
+                  borderColor: formData.appraisalType === 'instant' ? '#AF272F' : '#e5e7eb',
+                  borderRadius: '8px',
+                  backgroundColor: formData.appraisalType === 'instant' ? '#FEF2F2' : 'white',
+                  transition: 'all 0.2s'
+                }}>
+                  <input
+                    type="radio"
+                    name="appraisalType"
+                    value="instant"
+                    checked={formData.appraisalType === 'instant'}
+                    onChange={handleInputChange}
+                    style={{ marginTop: '2px' }}
+                  />
+                  <div>
+                    <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '4px' }}>Instant Desktop Appraisal</div>
+                    <div style={{ fontSize: '14px', color: '#6b7280' }}>
+                      Receive a preliminary market estimate based on recent sales data
+                    </div>
+                  </div>
+                </label>
+              </div>
+
+              {formData.appraisalType === 'zoom' && (
+                <div style={{
+                  padding: '20px',
+                  backgroundColor: '#F0FDF4',
+                  borderRadius: '8px',
+                  border: '1px solid #86EFAC'
+                }}>
+                  <h4 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '12px', color: '#166534' }}>
+                    How Zoom Appraisals Work:
+                  </h4>
+                  <ul style={{ fontSize: '14px', color: '#166534', marginLeft: '20px', lineHeight: '1.8' }}>
+                    <li>Schedule a convenient time for your video appraisal</li>
+                    <li>Walk through your property with our agent via Zoom</li>
+                    <li>Receive professional advice and market insights</li>
+                    <li>Get your detailed appraisal report within 24 hours</li>
+                  </ul>
+                </div>
+              )}
+
+              {(formData.appraisalType === 'in-person' || formData.appraisalType === 'zoom') && (
+                <div style={{ marginTop: '24px' }}>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '14px',
+                    color: '#4b5563',
+                    marginBottom: '8px',
+                    fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
+                  }}>
+                    Preferred Time
+                  </label>
+                  <select
+                    name="preferredTime"
+                    value={formData.preferredTime}
+                    onChange={handleInputChange}
+                    style={{
+                      width: '100%',
+                      maxWidth: '300px',
+                      padding: '12px',
+                      fontSize: '16px',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '4px',
+                      backgroundColor: 'white',
+                      fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
+                    }}
+                  >
+                    <option value="">Select preferred time</option>
+                    <option value="morning">Morning (9am - 12pm)</option>
+                    <option value="afternoon">Afternoon (12pm - 5pm)</option>
+                    <option value="evening">Evening (5pm - 7pm)</option>
+                    <option value="weekend">Weekend</option>
+                  </select>
+                </div>
+              )}
+            </div>
+
             {/* Additional Information */}
-            <div style={{ marginBottom: '48px' }}>
+            <div style={{ marginBottom: '48px' }}
               <h3 style={{
                 fontSize: '24px',
                 fontWeight: '400',

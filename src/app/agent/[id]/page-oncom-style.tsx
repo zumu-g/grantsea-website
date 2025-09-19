@@ -37,6 +37,16 @@ Beyond her professional achievements, Sarah is deeply committed to the local com
       'Licensed Estate Agent & Auctioneer',
       'Over $250M in Total Sales'
     ],
+    awards: [
+      { year: '2023', title: 'Top Sales Performer', organization: 'Grant\'s Estate Agents', type: 'gold' },
+      { year: '2023', title: 'Customer Service Excellence', organization: 'REIV', type: 'gold' },
+      { year: '2022', title: 'Award for Excellence', organization: 'REIV', type: 'gold' },
+      { year: '2022', title: 'Elite Performer Club', organization: 'RateMyAgent', type: 'silver' },
+      { year: '2021', title: 'Top 5% Nationally', organization: 'Real Estate Business', type: 'gold' },
+      { year: '2021', title: 'Agent of the Year', organization: 'Casey Cardinia Business Awards', type: 'gold' },
+      { year: '2020', title: 'Marketing Campaign Excellence', organization: 'REIV', type: 'silver' },
+      { year: '2019', title: 'Rising Star Award', organization: 'Real Estate Business', type: 'bronze' }
+    ],
     stats: {
       propertiesSold: 289,
       totalSalesValue: '$250M+',
@@ -130,6 +140,14 @@ Michael's commitment to education sets him apart - he regularly conducts investm
       'Certified Property Investment Advisor',
       'MBA in Finance',
       'Over $450M in Investment Sales'
+    ],
+    awards: [
+      { year: '2023', title: 'Investment Specialist of the Year', organization: 'Grant\'s Estate Agents', type: 'gold' },
+      { year: '2023', title: 'Commercial Excellence Award', organization: 'REIV', type: 'gold' },
+      { year: '2022', title: 'Commercial Agent Award', organization: 'REIV', type: 'gold' },
+      { year: '2022', title: 'Top Investment Advisor', organization: 'Property Investment Network', type: 'silver' },
+      { year: '2021', title: 'International Business Excellence', organization: 'Asia Pacific Property Awards', type: 'gold' },
+      { year: '2020', title: 'Developer Sales Achievement', organization: 'Urban Development Institute', type: 'silver' }
     ],
     stats: {
       propertiesSold: 312,
@@ -739,8 +757,43 @@ export default function AgentDetailPageOncom() {
                     fontWeight: '700',
                     marginBottom: '24px'
                   }}>
-                    Achievements
+                    Awards & Recognition
                   </h3>
+                  {agent.awards && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px' }}>
+                      {agent.awards.map((award: any, index: number) => (
+                        <div key={index} style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '16px',
+                          padding: '12px',
+                          backgroundColor: '#f9f9f9',
+                          borderRadius: '8px'
+                        }}>
+                          {/* Trophy Icon */}
+                          <svg width="32" height="32" viewBox="0 0 24 24" fill={
+                            award.type === 'gold' ? '#FFD700' :
+                            award.type === 'silver' ? '#C0C0C0' : '#CD7F32'
+                          }>
+                            <path d="M5 3C3.89 3 3 3.9 3 5V7C3 8.28 3.53 9.42 4.39 10.23C4.53 10.36 4.68 10.47 4.84 10.57C5.89 11.45 7 11 7 11V8H5V5H7V4H17V5H19V8H17V11C17 11 18.11 11.45 19.16 10.57C19.32 10.47 19.47 10.36 19.61 10.23C20.47 9.42 21 8.28 21 7V5C21 3.9 20.11 3 19 3H17C17 2.45 16.55 2 16 2H8C7.45 2 7 2.45 7 3H5M5 5V7H5.5L6 6.5V5H5M19 5H18V6.5L18.5 7H19V5M12 8L10.63 11.37L7 11.93L9.5 14.36L8.82 18L12 16.27L15.18 18L14.5 14.36L17 11.93L13.37 11.37L12 8M10 20V19H14V20C14 20.55 13.55 21 13 21H11C10.45 21 10 20.55 10 20Z"/>
+                          </svg>
+                          <div style={{ flex: 1 }}>
+                            <div style={{ fontWeight: '600', fontSize: '14px' }}>{award.title}</div>
+                            <div style={{ fontSize: '12px', color: '#666' }}>
+                              {award.organization} • {award.year}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <h4 style={{
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    marginBottom: '16px'
+                  }}>
+                    Professional Achievements
+                  </h4>
                   <ul style={{ listStyle: 'none', padding: 0 }}>
                     {agent.achievements.map((achievement: string) => (
                       <li key={achievement} style={{

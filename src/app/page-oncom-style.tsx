@@ -48,6 +48,35 @@ export default function HomePageOncom() {
           inset: 0,
           background: 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%)'
         }} />
+
+        {/* Watermark Badge - Top Right */}
+        <div style={{
+          position: 'absolute',
+          top: isMobile ? '100px' : '120px',
+          right: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+          width: isMobile ? '140px' : '180px',
+          height: isMobile ? '140px' : '180px',
+          borderRadius: '50%',
+          background: 'rgba(175, 39, 47, 0.95)',
+          backdropFilter: 'blur(10px)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#fff',
+          padding: '20px',
+          textAlign: 'center',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
+          border: '3px solid rgba(255,255,255,0.2)'
+        }}>
+          <div style={{ fontSize: isMobile ? '24px' : '32px', fontWeight: '700', lineHeight: '1' }}>30</div>
+          <div style={{ fontSize: isMobile ? '11px' : '13px', fontWeight: '600', marginTop: '4px' }}>YEARS OF</div>
+          <div style={{ fontSize: isMobile ? '11px' : '13px', fontWeight: '600' }}>SERVICE</div>
+          <div style={{ width: '40px', height: '2px', background: '#fff', margin: '8px 0' }} />
+          <div style={{ fontSize: isMobile ? '10px' : '11px', fontWeight: '500', opacity: 0.9 }}>EST. 1994</div>
+          <div style={{ fontSize: isMobile ? '9px' : '10px', fontWeight: '600', marginTop: '8px', letterSpacing: '0.5px' }}>BERWICK'S MOST</div>
+          <div style={{ fontSize: isMobile ? '9px' : '10px', fontWeight: '600', letterSpacing: '0.5px' }}>TRUSTED AGENTS</div>
+        </div>
         
         <div style={{
           position: 'relative',

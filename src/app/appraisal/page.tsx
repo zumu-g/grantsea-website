@@ -914,7 +914,7 @@ export default function AppraisalPage() {
             </div>
 
             {/* Additional Information */}
-            <div style={{ marginBottom: '48px' }}
+            <div style={{ marginBottom: '48px' }}>
               <h3 style={{
                 fontSize: '24px',
                 fontWeight: '400',

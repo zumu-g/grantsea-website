@@ -34,9 +34,9 @@ export default function BerwickSuburbGuide() {
   };
 
   const sections = [
-    { id: 'intro', title: 'Introduction' },
-    { id: 'location', title: 'Location & Transport' },
-    { id: 'lifestyle', title: 'Lifestyle & Amenities' },
+    { id: 'discover', title: 'Discover' },
+    { id: 'lifestyle', title: 'Lifestyle' },
+    { id: 'reviews', title: 'Reviews' },
     { id: 'education', title: 'Schools & Education' },
     { id: 'housing', title: 'Housing & Market' },
     { id: 'community', title: 'Community & Culture' },
@@ -198,7 +198,7 @@ export default function BerwickSuburbGuide() {
 
         {/* Content Sections */}
         <article style={{ maxWidth: '1400px', margin: '0 auto' }}>
-          {/* Introduction */}
+          {/* Discover Section */}
           <section id="section-0" style={{
             paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
             paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
@@ -265,7 +265,7 @@ export default function BerwickSuburbGuide() {
             </div>
           </section>
 
-          {/* Location & Transport */}
+          {/* Lifestyle Section */}
           <section id="section-1" style={{
             backgroundColor: '#f8f8f8',
             paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
@@ -280,7 +280,7 @@ export default function BerwickSuburbGuide() {
               marginBottom: '48px',
               textAlign: 'center'
             }}>
-              Getting Around
+              Berwick Lifestyle
             </h2>
             
             <div style={{
@@ -326,8 +326,107 @@ export default function BerwickSuburbGuide() {
             </div>
           </section>
 
-          {/* Lifestyle & Amenities */}
+          {/* Reviews Section */}
           <section id="section-2" style={{
+            backgroundColor: '#fff',
+            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingTop: isMobile ? '40px' : '80px',
+            paddingBottom: isMobile ? '40px' : '80px'
+          }}>
+            <h2 style={{
+              fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+              fontSize: 'clamp(2rem, 4vw, 3rem)',
+              fontWeight: '400',
+              marginBottom: '48px',
+              textAlign: 'center'
+            }}>
+              What Residents Say
+            </h2>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+              gap: isMobile ? '24px' : '40px',
+              maxWidth: '1000px',
+              margin: '0 auto'
+            }}>
+              <div style={{
+                backgroundColor: '#f8f8f8',
+                padding: '32px',
+                borderRadius: '12px',
+                borderLeft: '4px solid #AF272F'
+              }}>
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  marginBottom: '20px',
+                  fontStyle: 'italic'
+                }}>
+                  "We moved to Berwick for the schools and stayed for the community. The village atmosphere is unlike anywhere else in Melbourne - it's the perfect blend of suburban convenience with a real sense of belonging."
+                </p>
+                <div style={{ fontWeight: '600' }}>Sarah & James Mitchell</div>
+                <div style={{ fontSize: '14px', color: '#666' }}>Berwick residents since 2018</div>
+              </div>
+
+              <div style={{
+                backgroundColor: '#f8f8f8',
+                padding: '32px',
+                borderRadius: '12px',
+                borderLeft: '4px solid #AF272F'
+              }}>
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  marginBottom: '20px',
+                  fontStyle: 'italic'
+                }}>
+                  "The heritage charm of Old Town combined with modern amenities makes Berwick special. We love the tree-lined streets, the local cafes, and how everything we need is within walking distance."
+                </p>
+                <div style={{ fontWeight: '600' }}>David Chen</div>
+                <div style={{ fontSize: '14px', color: '#666' }}>Berwick resident since 2015</div>
+              </div>
+
+              <div style={{
+                backgroundColor: '#f8f8f8',
+                padding: '32px',
+                borderRadius: '12px',
+                borderLeft: '4px solid #AF272F'
+              }}>
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  marginBottom: '20px',
+                  fontStyle: 'italic'
+                }}>
+                  "Berwick offers the best of both worlds - peaceful suburban living with easy access to the city. The community events, parks, and excellent schools make it ideal for families."
+                </p>
+                <div style={{ fontWeight: '600' }}>Lisa Thompson</div>
+                <div style={{ fontSize: '14px', color: '#666' }}>Berwick resident since 2012</div>
+              </div>
+
+              <div style={{
+                backgroundColor: '#f8f8f8',
+                padding: '32px',
+                borderRadius: '12px',
+                borderLeft: '4px solid #AF272F'
+              }}>
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  marginBottom: '20px',
+                  fontStyle: 'italic'
+                }}>
+                  "The investment in Berwick property has been outstanding. Great capital growth, strong rental demand, and a community that continues to improve year after year."
+                </p>
+                <div style={{ fontWeight: '600' }}>Mark Anderson</div>
+                <div style={{ fontSize: '14px', color: '#666' }}>Property investor since 2010</div>
+              </div>
+            </div>
+          </section>
+
+          {/* Lifestyle & Amenities */}
+          <section id="section-3" style={{
             paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
             paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
             paddingTop: isMobile ? '40px' : '80px',

@@ -521,19 +521,15 @@ export default function AdvancedSearchPage() {
                     }}>
                       {property.images?.[0] && (
                         <Image
-                          src={property.images[0].url}
-                          alt={property.headline || 'Property'}
+                          src={typeof property.images[0] === 'string' ? property.images[0] : property.images[0].url}
+                          alt={property.address || 'Property'}
                           fill
                           style={{ objectFit: 'cover' }}
                         />
                       )}
                       <SavePropertyButton
-                        propertyId={property.id}
-                        style={{
-                          position: 'absolute',
-                          top: '12px',
-                          right: '12px'
-                        }}
+                        property={property}
+                        showLabel={false}
                       />
                     </div>
                     <div style={{ padding: '16px' }}>

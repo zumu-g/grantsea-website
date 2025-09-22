@@ -83,7 +83,7 @@ export default function AdvancedSearchPage() {
     if (filters.listingType !== 'all' && property.listingType !== filters.listingType) {
       return false;
     }
-    if (filters.suburb.length > 0 && !filters.suburb.includes(property.address?.suburb)) {
+    if (filters.suburb.length > 0 && !filters.suburb.includes(property.suburb)) {
       return false;
     }
     if (filters.propertyType.length > 0 && !filters.propertyType.includes(property.propertyType)) {

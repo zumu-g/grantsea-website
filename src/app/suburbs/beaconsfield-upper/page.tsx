@@ -47,7 +47,7 @@ export default function BeaconsfieldUpperSuburbGuide() {
     <>
       <OncomHeader />
 
-      <main style={{ paddingTop: isMobile ? '180px' : '200px', backgroundColor: '#fff' }}>
+      <main style={{ paddingTop: isMobile ? '90px' : '200px', backgroundColor: '#fff' }}>
         {/* Hero Section - Tennis Guide Style */}
         <section style={{
           position: 'relative',

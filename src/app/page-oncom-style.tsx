@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
@@ -52,10 +53,10 @@ export default function HomePageOncom() {
         {/* Watermark Badge - Bottom Right */}
         <div style={{
           position: 'absolute',
-          bottom: isMobile ? '100px' : '120px',
-          right: isMobile ? '20px' : 'max(2rem, 3.33vw)',
-          width: isMobile ? '140px' : '180px',
-          height: isMobile ? '140px' : '180px',
+          bottom: isMobile ? '120px' : '120px',
+          right: isMobile ? '15px' : 'max(2rem, 3.33vw)',
+          width: isMobile ? '100px' : '180px',
+          height: isMobile ? '100px' : '180px',
           borderRadius: '50%',
           background: 'rgba(255, 255, 255, 0.15)',
           backdropFilter: 'blur(10px)',
@@ -64,18 +65,18 @@ export default function HomePageOncom() {
           alignItems: 'center',
           justifyContent: 'center',
           color: '#fff',
-          padding: '20px',
+          padding: isMobile ? '12px' : '20px',
           textAlign: 'center',
-          border: '2px solid rgba(255,255,255,0.3)',
+          border: '1px solid rgba(255,255,255,0.3)',
           fontFamily: 'Georgia, "Times New Roman", serif'
         }}>
-          <div style={{ fontSize: isMobile ? '28px' : '36px', fontWeight: '400', lineHeight: '1' }}>30</div>
-          <div style={{ fontSize: isMobile ? '10px' : '12px', fontWeight: '400', marginTop: '4px', letterSpacing: '1px' }}>YEARS OF</div>
-          <div style={{ fontSize: isMobile ? '10px' : '12px', fontWeight: '400', letterSpacing: '1px' }}>SERVICE</div>
-          <div style={{ width: '40px', height: '1px', background: 'rgba(255,255,255,0.6)', margin: '8px 0' }} />
-          <div style={{ fontSize: isMobile ? '9px' : '10px', fontWeight: '300', opacity: 0.9, letterSpacing: '0.5px' }}>EST. 1994</div>
-          <div style={{ fontSize: isMobile ? '8px' : '9px', fontWeight: '400', marginTop: '8px', letterSpacing: '1px', opacity: 0.8 }}>BERWICK'S MOST</div>
-          <div style={{ fontSize: isMobile ? '8px' : '9px', fontWeight: '400', letterSpacing: '1px', opacity: 0.8 }}>TRUSTED AGENTS</div>
+          <div style={{ fontSize: isMobile ? '20px' : '36px', fontWeight: '400', lineHeight: '1' }}>30</div>
+          <div style={{ fontSize: isMobile ? '7px' : '12px', fontWeight: '400', marginTop: '2px', letterSpacing: '0.5px' }}>YEARS OF</div>
+          <div style={{ fontSize: isMobile ? '7px' : '12px', fontWeight: '400', letterSpacing: '0.5px' }}>SERVICE</div>
+          <div style={{ width: isMobile ? '25px' : '40px', height: '1px', background: 'rgba(255,255,255,0.6)', margin: isMobile ? '4px 0' : '8px 0' }} />
+          <div style={{ fontSize: isMobile ? '6px' : '10px', fontWeight: '300', opacity: 0.9, letterSpacing: '0.5px' }}>EST. 1994</div>
+          <div style={{ fontSize: isMobile ? '5px' : '9px', fontWeight: '400', marginTop: isMobile ? '4px' : '8px', letterSpacing: '0.5px', opacity: 0.8 }}>BERWICK'S MOST</div>
+          <div style={{ fontSize: isMobile ? '5px' : '9px', fontWeight: '400', letterSpacing: '0.5px', opacity: 0.8 }}>TRUSTED AGENTS</div>
         </div>
         
         <div style={{
@@ -237,16 +238,13 @@ export default function HomePageOncom() {
                 position: 'relative',
                 height: '100%'
               }}>
-                <img 
-                  aria-hidden="true"
-                  alt=""
-                  loading="eager"
-                  data-allow-mismatch="true"
+                <Image
+                  alt="Buy homes in Casey & Cardinia"
+                  priority
                   sizes="(min-width: 1024px) 33vw, 100vw"
-                  width="600"
-                  height="800"
-                  srcSet="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=300&h=400&fit=crop&q=80 300w"
-                  src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=800&fit=crop"
+                  width={600}
+                  height={800}
+                  src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&h=1200&fit=crop&q=80"
                   style={{
                     position: 'absolute',
                     top: 0,
@@ -306,16 +304,13 @@ export default function HomePageOncom() {
                 position: 'relative',
                 height: '100%'
               }}>
-                <img 
-                  aria-hidden="true"
-                  alt=""
-                  loading="eager"
-                  data-allow-mismatch="true"
+                <Image
+                  alt="Rent properties in Casey & Cardinia"
+                  priority
                   sizes="(min-width: 1024px) 33vw, 100vw"
-                  width="600"
-                  height="800"
-                  srcSet="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=300&h=400&fit=crop&q=80 300w"
-                  src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=600&h=800&fit=crop"
+                  width={600}
+                  height={800}
+                  src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=900&h=1200&fit=crop&q=80"
                   style={{
                     position: 'absolute',
                     top: 0,
@@ -375,16 +370,13 @@ export default function HomePageOncom() {
                 position: 'relative',
                 height: '100%'
               }}>
-                <img 
-                  aria-hidden="true"
-                  alt=""
-                  loading="eager"
-                  data-allow-mismatch="true"
+                <Image
+                  alt="Get free property appraisal"
+                  priority
                   sizes="(min-width: 1024px) 33vw, 100vw"
-                  width="600"
-                  height="800"
-                  srcSet="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=300&h=400&fit=crop&q=80 300w"
-                  src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=800&fit=crop"
+                  width={600}
+                  height={800}
+                  src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=900&h=1200&fit=crop&q=80"
                   style={{
                     position: 'absolute',
                     top: 0,
@@ -559,14 +551,15 @@ export default function HomePageOncom() {
                     pointerEvents: 'none'
                   }}
                 >
-                  <img 
+                  <Image
                     src={activity.image}
                     alt=""
+                    fill
+                    sizes="(max-width: 768px) 100vw, 60vw"
                     style={{
-                      width: '100%',
-                      height: '100%',
                       objectFit: 'cover'
                     }}
+                    loading="lazy"
                   />
                 </div>
               ))}
@@ -1513,21 +1506,18 @@ export default function HomePageOncom() {
                   borderRadius: '8px',
                   marginBottom: '16px'
                 }}>
-                  <img 
-                    aria-hidden="true"
-                    alt=""
-                    loading="eager"
-                    data-allow-mismatch="true"
+                  <Image
+                    alt="Sarah's Journey: First time home buyer story"
                     sizes="(min-width: 1024px) 20vw, 100vw"
-                    width="600"
-                    height="800"
-                    srcSet="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=300&h=400&fit=crop&q=80 300w"
-                    src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=800&fit=crop"
+                    width={600}
+                    height={800}
+                    src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=900&h=1200&fit=crop&q=80"
                     style={{
                       width: '100%',
                       height: '100%',
                       objectFit: 'cover'
                     }}
+                    loading="lazy"
                   />
                   <div style={{
                     position: 'absolute',
@@ -1617,21 +1607,18 @@ export default function HomePageOncom() {
                   borderRadius: '8px',
                   marginBottom: '16px'
                 }}>
-                  <img 
-                    aria-hidden="true"
-                    alt=""
-                    loading="eager"
-                    data-allow-mismatch="true"
+                  <Image
+                    alt="Tom and Emily's Strategic Property Upgrade Story"
                     sizes="(min-width: 1024px) 20vw, 100vw"
-                    width="600"
-                    height="800"
-                    srcSet="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=300&h=400&fit=crop&q=80 300w"
-                    src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&h=800&fit=crop"
+                    width={600}
+                    height={800}
+                    src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=900&h=1200&fit=crop&q=80"
                     style={{
                       width: '100%',
                       height: '100%',
                       objectFit: 'cover'
                     }}
+                    loading="lazy"
                   />
                   <div style={{
                     position: 'absolute',
@@ -1721,21 +1708,18 @@ export default function HomePageOncom() {
                   borderRadius: '8px',
                   marginBottom: '16px'
                 }}>
-                  <img 
-                    aria-hidden="true"
-                    alt=""
-                    loading="eager"
-                    data-allow-mismatch="true"
+                  <Image
+                    alt="David's Investment Property Success Story"
                     sizes="(min-width: 1024px) 20vw, 100vw"
-                    width="600"
-                    height="800"
-                    srcSet="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=300&h=400&fit=crop&q=80 300w"
-                    src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=600&h=800&fit=crop"
+                    width={600}
+                    height={800}
+                    src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=900&h=1200&fit=crop&q=80"
                     style={{
                       width: '100%',
                       height: '100%',
                       objectFit: 'cover'
                     }}
+                    loading="lazy"
                   />
                   <div style={{
                     position: 'absolute',
@@ -1825,21 +1809,18 @@ export default function HomePageOncom() {
                   borderRadius: '8px',
                   marginBottom: '16px'
                 }}>
-                  <img 
-                    aria-hidden="true"
-                    alt=""
-                    loading="eager"
-                    data-allow-mismatch="true"
+                  <Image
+                    alt="Margaret and John's Downsizing Journey"
                     sizes="(min-width: 1024px) 20vw, 100vw"
-                    width="600"
-                    height="800"
-                    srcSet="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=300&h=400&fit=crop&q=80 300w"
-                    src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&h=800&fit=crop"
+                    width={600}
+                    height={800}
+                    src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=900&h=1200&fit=crop&q=80"
                     style={{
                       width: '100%',
                       height: '100%',
                       objectFit: 'cover'
                     }}
+                    loading="lazy"
                   />
                   <div style={{
                     position: 'absolute',
@@ -1929,21 +1910,18 @@ export default function HomePageOncom() {
                   borderRadius: '8px',
                   marginBottom: '16px'
                 }}>
-                  <img 
-                    aria-hidden="true"
-                    alt=""
-                    loading="eager"
-                    data-allow-mismatch="true"
+                  <Image
+                    alt="The Patel's Market Timing Success Story"
                     sizes="(min-width: 1024px) 20vw, 100vw"
-                    width="600"
-                    height="800"
-                    srcSet="https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=900&h=1200&fit=crop&q=80 900w, https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=600&h=800&fit=crop&q=80 600w, https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=408&h=544&fit=crop&q=80 408w, https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=300&h=400&fit=crop&q=80 300w"
-                    src="https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=600&h=800&fit=crop"
+                    width={600}
+                    height={800}
+                    src="https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=900&h=1200&fit=crop&q=80"
                     style={{
                       width: '100%',
                       height: '100%',
                       objectFit: 'cover'
                     }}
+                    loading="lazy"
                   />
                   <div style={{
                     position: 'absolute',

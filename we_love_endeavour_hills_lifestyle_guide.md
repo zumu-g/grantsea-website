@@ -240,3 +240,7 @@
 *We Love Endeavour Hills because it's not just a place to live - it's a place to belong! 🌟*
 
 *This guide is brought to you by the Endeavour Hills community, for the Endeavour Hills community. Got a favorite spot we missed? Let us know!*
+
+
+
+

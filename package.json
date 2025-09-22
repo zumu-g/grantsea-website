@@ -11,7 +11,9 @@
     "style-check": "node scripts/pre-commit-style-check.js",
     "pre-push": "./scripts/pre-push-check.sh",
     "check-all": "npm run typecheck && npm run lint && npm run build",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "generate-sitemap": "node scripts/generate-sitemap.js",
+    "postbuild": "node scripts/generate-sitemap.js"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",

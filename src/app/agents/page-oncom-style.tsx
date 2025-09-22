@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import OncomHeader from '@/components/OncomHeader';
 
@@ -132,6 +132,18 @@ export default function AgentsPageOncom() {
   const [selectedSpecialty, setSelectedSpecialty] = useState('all');
   const [selectedLanguage, setSelectedLanguage] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+
+  useEffect(() => {
+    const checkDevice = () => {
+      setIsMobile(window.innerWidth <= 768);
+      setIsTablet(window.innerWidth > 768 && window.innerWidth <= 1024);
+    };
+    checkDevice();
+    window.addEventListener('resize', checkDevice);
+    return () => window.removeEventListener('resize', checkDevice);
+  }, []);
 
   // Get unique specialties and languages
   const specialties = ['all', ...new Set(agents.flatMap(a => a.specialties))];
@@ -152,12 +164,12 @@ export default function AgentsPageOncom() {
     <>
       <OncomHeader />
       
-      <main style={{ paddingTop: '180px', minHeight: '100vh', backgroundColor: '#fafafa' }}>
+      <main style={{ paddingTop: isMobile ? '90px' : '180px', minHeight: '100vh', backgroundColor: '#fafafa' }}>
         {/* Hero Section */}
         <div style={{
           backgroundColor: '#002b7f', // Royal blue
           color: '#fff',
-          padding: '120px 0',
+          padding: isMobile ? '60px 0' : '120px 0',
           position: 'relative',
           overflow: 'hidden',
           backgroundImage: `repeating-linear-gradient(
@@ -183,18 +195,18 @@ export default function AgentsPageOncom() {
             position: 'relative',
             maxWidth: '1480px',
             margin: '0 auto',
-            paddingLeft: 'max(2rem, 3.33vw)',
-            paddingRight: 'max(2rem, 3.33vw)',
+            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
             textAlign: 'center'
           }}>
             <h1 style={{
-              fontSize: '64px',
+              fontSize: isMobile ? '36px' : isTablet ? '48px' : '64px',
               fontWeight: '900',
-              marginBottom: '24px',
+              marginBottom: isMobile ? '16px' : '24px',
               letterSpacing: '-1px'
             }}>Meet Our Team</h1>
             <p style={{
-              fontSize: '24px',
+              fontSize: isMobile ? '16px' : isTablet ? '20px' : '24px',
               fontWeight: '300',
               maxWidth: '800px',
               margin: '0 auto'
@@ -216,12 +228,13 @@ export default function AgentsPageOncom() {
           <div style={{
             maxWidth: '1480px',
             margin: '0 auto',
-            paddingLeft: 'max(2rem, 3.33vw)',
-            paddingRight: 'max(2rem, 3.33vw)',
+            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
             display: 'flex',
-            gap: '16px',
+            gap: isMobile ? '12px' : '16px',
             alignItems: 'center',
-            flexWrap: 'wrap'
+            flexWrap: 'wrap',
+            flexDirection: isMobile ? 'column' : 'row'
           }}>
             <input
               type="text"
@@ -288,8 +301,8 @@ export default function AgentsPageOncom() {
         }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-            gap: '32px'
+            gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(auto-fill, minmax(320px, 1fr))',
+            gap: isMobile ? '16px' : '32px'
           }}>
             {filteredAgents.map((agent) => (
               <Link 

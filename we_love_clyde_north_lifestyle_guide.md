@@ -240,3 +240,7 @@
 *We Love Clyde North because it's not just a place to live - it's a place to belong! 🌟*
 
 *This guide is brought to you by the Clyde North community, for the Clyde North community. Got a favorite spot we missed? Let us know!*
+
+
+
+

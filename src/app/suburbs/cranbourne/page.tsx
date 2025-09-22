@@ -47,7 +47,7 @@ export default function CranbourneSuburbGuide() {
     <>
       <OncomHeader />
       
-      <main style={{ paddingTop: isMobile ? '160px' : '190px', backgroundColor: '#fff' }}>
+      <main style={{ paddingTop: isMobile ? '90px' : '190px', backgroundColor: '#fff' }}>
         {/* Hero Section */}
         <section style={{
           position: 'relative',

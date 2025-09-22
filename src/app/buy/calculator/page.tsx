@@ -21,7 +21,7 @@ export default function BuyCalculatorPage() {
 
       {/* Hero Section */}
       <section style={{
-        paddingTop: isMobile ? '180px' : '200px',
+        paddingTop: isMobile ? '90px' : '200px',
         paddingBottom: isMobile ? '60px' : '80px',
         paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
         paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',

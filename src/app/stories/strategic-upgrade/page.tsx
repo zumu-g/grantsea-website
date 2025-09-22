@@ -23,7 +23,7 @@ export default function StrategicUpgradeStory() {
     <>
       <OncomHeader />
 
-      <main style={{ paddingTop: isMobile ? '160px' : '190px', backgroundColor: '#fff' }}>
+      <main style={{ paddingTop: isMobile ? '90px' : '190px', backgroundColor: '#fff' }}>
         {/* Hero Section */}
         <section style={{
           paddingTop: isMobile ? '40px' : isTablet ? '60px' : '80px',

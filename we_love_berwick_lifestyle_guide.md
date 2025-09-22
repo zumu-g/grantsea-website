@@ -240,3 +240,7 @@
 *We Love Berwick because it's not just a place to live - it's a place to belong! 🌟*
 
 *This guide is brought to you by the Berwick community, for the Berwick community. Got a favorite spot we missed? Let us know!*
+
+
+
+

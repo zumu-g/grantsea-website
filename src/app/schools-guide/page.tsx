@@ -346,7 +346,7 @@ function SchoolsGuidePage() {
       <OncomHeader />
 
       <main style={{
-        paddingTop: isMobile ? '180px' : '200px',
+        paddingTop: isMobile ? '90px' : '200px',
         minHeight: '100vh',
         backgroundColor: '#fff'
       }}>

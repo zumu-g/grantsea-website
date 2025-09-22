@@ -24,7 +24,7 @@ export default function CareersPage() {
       <OncomHeader />
       
       <main style={{ 
-        paddingTop: isMobile ? '180px' : '200px',
+        paddingTop: isMobile ? '90px' : '200px',
         backgroundColor: '#fff',
         minHeight: '100vh'
       }}>

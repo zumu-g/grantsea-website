@@ -57,7 +57,7 @@ export default function OncomHeader() {
         top: 0,
         left: 0,
         right: 0,
-        height: isMobile ? '160px' : '190px',
+        height: isMobile ? '70px' : '190px',
         backgroundColor: isHomePage && !isScrolled ? 'transparent' : '#fff',
         borderBottom: isHomePage && !isScrolled ? 'none' : '1px solid #e5e5e5',
         zIndex: 1000,
@@ -84,11 +84,11 @@ export default function OncomHeader() {
             <Image
               src="/gea_website_logov4_svg.svg"
               alt="Grant's Estate Agents"
-              width={isMobile ? 195 : 244}
-              height={isMobile ? 120 : 150}
+              width={isMobile ? 80 : 244}
+              height={isMobile ? 50 : 150}
               priority
               style={{
-                height: isMobile ? 120 : 150,
+                height: isMobile ? 50 : 150,
                 width: 'auto',
                 maxWidth: '100%'
               }}

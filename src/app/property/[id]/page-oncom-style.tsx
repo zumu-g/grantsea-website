@@ -15,6 +15,8 @@ export default function PropertyDetailPageOncom() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showAllPhotos, setShowAllPhotos] = useState(false);
   const [showFullscreenCarousel, setShowFullscreenCarousel] = useState(false);
+  const [showVirtualTour, setShowVirtualTour] = useState(false);
+  const [showFloorPlan, setShowFloorPlan] = useState(false);
   const [enquirySent, setEnquirySent] = useState(false);
   const [enquiryForm, setEnquiryForm] = useState({
     name: '',
@@ -84,6 +86,354 @@ export default function PropertyDetailPageOncom() {
 
   return (
     <div>
+      {/* Virtual Tour Modal */}
+      {showVirtualTour && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.95)',
+          zIndex: 2000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          {/* Close Button */}
+          <button
+            onClick={() => setShowVirtualTour(false)}
+            style={{
+              position: 'absolute',
+              top: '20px',
+              right: '20px',
+              background: 'rgba(255, 255, 255, 0.1)',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '12px',
+              borderRadius: '50%',
+              zIndex: 2001,
+              transition: 'background 0.2s'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)'}
+            onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)'}
+          >
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+
+          {/* Virtual Tour Content */}
+          <div style={{
+            width: '90vw',
+            maxWidth: '1200px',
+            height: '80vh',
+            backgroundColor: '#000',
+            borderRadius: '12px',
+            overflow: 'hidden',
+            position: 'relative'
+          }}>
+            {/* Tour Type Selector */}
+            <div style={{
+              position: 'absolute',
+              top: '20px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              display: 'flex',
+              gap: '12px',
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
+              padding: '8px',
+              borderRadius: '8px',
+              zIndex: 10
+            }}>
+              <button
+                style={{
+                  padding: '8px 16px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '4px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: 'pointer'
+                }}
+              >
+                360° Tour
+              </button>
+              <button
+                style={{
+                  padding: '8px 16px',
+                  backgroundColor: 'transparent',
+                  color: '#fff',
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  borderRadius: '4px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: 'pointer'
+                }}
+              >
+                Video Tour
+              </button>
+            </div>
+
+            {/* 360° Viewer Placeholder */}
+            <div style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#fff',
+              position: 'relative'
+            }}>
+              {/* Simulated 360 View */}
+              <div style={{
+                width: '100%',
+                height: '100%',
+                backgroundImage: images[0] ? `url(${typeof images[0] === 'string' ? images[0] : images[0].url})` : '',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                filter: 'brightness(0.7)',
+                position: 'absolute',
+                top: 0,
+                left: 0
+              }} />
+
+              <div style={{
+                position: 'relative',
+                zIndex: 1,
+                textAlign: 'center',
+                padding: '40px'
+              }}>
+                <div style={{
+                  fontSize: '48px',
+                  marginBottom: '20px',
+                  animation: 'pulse 2s infinite'
+                }}>
+                  🔄
+                </div>
+                <h3 style={{ fontSize: '24px', marginBottom: '12px' }}>360° Virtual Tour</h3>
+                <p style={{ fontSize: '16px', opacity: 0.9, marginBottom: '24px' }}>
+                  Interactive tour loading... Click and drag to look around
+                </p>
+                <div style={{
+                  display: 'flex',
+                  gap: '16px',
+                  justifyContent: 'center'
+                }}>
+                  <button
+                    style={{
+                      padding: '12px 24px',
+                      backgroundColor: '#fff',
+                      color: '#000',
+                      border: 'none',
+                      borderRadius: '8px',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    ▶️ Auto Play
+                  </button>
+                  <button
+                    style={{
+                      padding: '12px 24px',
+                      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                      color: '#fff',
+                      border: '1px solid rgba(255, 255, 255, 0.3)',
+                      borderRadius: '8px',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    🏠 Room List
+                  </button>
+                </div>
+              </div>
+
+              {/* Navigation Hints */}
+              <div style={{
+                position: 'absolute',
+                bottom: '20px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                display: 'flex',
+                gap: '24px',
+                backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                padding: '12px 24px',
+                borderRadius: '8px'
+              }}>
+                <span style={{ fontSize: '14px', opacity: 0.9 }}>🖱️ Click & Drag to Look Around</span>
+                <span style={{ fontSize: '14px', opacity: 0.9 }}>🔍 Scroll to Zoom</span>
+                <span style={{ fontSize: '14px', opacity: 0.9 }}>📍 Click Hotspots to Navigate</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Floor Plan Modal */}
+      {showFloorPlan && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.95)',
+          zIndex: 2000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          {/* Close Button */}
+          <button
+            onClick={() => setShowFloorPlan(false)}
+            style={{
+              position: 'absolute',
+              top: '20px',
+              right: '20px',
+              background: 'rgba(255, 255, 255, 0.1)',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '12px',
+              borderRadius: '50%',
+              zIndex: 2001
+            }}
+          >
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+
+          {/* Floor Plan Viewer */}
+          <div style={{
+            width: '90vw',
+            maxWidth: '1000px',
+            backgroundColor: '#fff',
+            borderRadius: '12px',
+            overflow: 'hidden'
+          }}>
+            {/* Floor Plan Header */}
+            <div style={{
+              padding: '24px',
+              borderBottom: '1px solid #e5e5e5',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}>
+              <h3 style={{ fontSize: '20px', fontWeight: '600' }}>Floor Plan</h3>
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <button
+                  style={{
+                    padding: '8px 16px',
+                    backgroundColor: '#f5f5f5',
+                    border: 'none',
+                    borderRadius: '4px',
+                    fontSize: '14px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  📐 Measurements
+                </button>
+                <button
+                  style={{
+                    padding: '8px 16px',
+                    backgroundColor: '#000',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '4px',
+                    fontSize: '14px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  ⬇️ Download PDF
+                </button>
+              </div>
+            </div>
+
+            {/* Floor Plan Image */}
+            <div style={{
+              padding: '40px',
+              backgroundColor: '#fafafa',
+              minHeight: '600px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              {/* Placeholder Floor Plan */}
+              <div style={{
+                width: '100%',
+                maxWidth: '800px',
+                aspectRatio: '16/10',
+                backgroundColor: '#fff',
+                border: '2px solid #e5e5e5',
+                borderRadius: '8px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '40px'
+              }}>
+                <div style={{ fontSize: '64px', marginBottom: '20px' }}>📐</div>
+                <h4 style={{ fontSize: '20px', marginBottom: '12px' }}>Interactive Floor Plan</h4>
+                <p style={{ color: '#666', textAlign: 'center', marginBottom: '24px' }}>
+                  Detailed floor plan with room dimensions and layout
+                </p>
+
+                {/* Room Details */}
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(3, 1fr)',
+                  gap: '20px',
+                  marginTop: '32px',
+                  width: '100%',
+                  maxWidth: '600px'
+                }}>
+                  <div style={{
+                    padding: '16px',
+                    backgroundColor: '#f5f5f5',
+                    borderRadius: '8px',
+                    textAlign: 'center'
+                  }}>
+                    <div style={{ fontSize: '20px', fontWeight: '600', marginBottom: '4px' }}>
+                      {property.bedrooms || '–'}
+                    </div>
+                    <div style={{ fontSize: '14px', color: '#666' }}>Bedrooms</div>
+                  </div>
+                  <div style={{
+                    padding: '16px',
+                    backgroundColor: '#f5f5f5',
+                    borderRadius: '8px',
+                    textAlign: 'center'
+                  }}>
+                    <div style={{ fontSize: '20px', fontWeight: '600', marginBottom: '4px' }}>
+                      {property.bathrooms || '–'}
+                    </div>
+                    <div style={{ fontSize: '14px', color: '#666' }}>Bathrooms</div>
+                  </div>
+                  <div style={{
+                    padding: '16px',
+                    backgroundColor: '#f5f5f5',
+                    borderRadius: '8px',
+                    textAlign: 'center'
+                  }}>
+                    <div style={{ fontSize: '20px', fontWeight: '600', marginBottom: '4px' }}>
+                      {property.landSize || '–'} m²
+                    </div>
+                    <div style={{ fontSize: '14px', color: '#666' }}>Total Area</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Fullscreen Image Carousel */}
       {showFullscreenCarousel && (
         <div style={{
@@ -505,10 +855,97 @@ export default function PropertyDetailPageOncom() {
           </div>
         </div>
 
-        {/* Image Gallery */}
+        {/* Image Gallery with Virtual Tour and Floorplan */}
         <div style={{ maxWidth: '1400px', margin: '0 auto', paddingLeft: 'max(2rem, 3.33vw)', paddingRight: 'max(2rem, 3.33vw)' }}>
-          <div style={{ 
-            display: 'grid', 
+          {/* Gallery Action Buttons */}
+          <div style={{
+            display: 'flex',
+            gap: '12px',
+            marginBottom: '16px',
+            flexWrap: 'wrap'
+          }}>
+            <button
+              onClick={() => setShowFullscreenCarousel(true)}
+              style={{
+                padding: '10px 20px',
+                backgroundColor: '#000',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '14px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+            >
+              📷 View All Photos ({images.length})
+            </button>
+
+            <button
+              onClick={() => setShowVirtualTour(true)}
+              style={{
+                padding: '10px 20px',
+                backgroundColor: '#fff',
+                color: '#000',
+                border: '2px solid #000',
+                borderRadius: '8px',
+                fontSize: '14px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+            >
+              🔄 Virtual Tour
+            </button>
+
+            <button
+              onClick={() => setShowFloorPlan(true)}
+              style={{
+                padding: '10px 20px',
+                backgroundColor: '#fff',
+                color: '#000',
+                border: '2px solid #000',
+                borderRadius: '8px',
+                fontSize: '14px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+            >
+              📐 Floor Plan
+            </button>
+
+            <button
+              onClick={() => {
+                // Open AR view (placeholder)
+                alert('AR View coming soon! This will allow you to visualize furniture in the space.');
+              }}
+              style={{
+                padding: '10px 20px',
+                backgroundColor: '#fff',
+                color: '#000',
+                border: '2px solid #000',
+                borderRadius: '8px',
+                fontSize: '14px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+            >
+              🎮 AR View
+            </button>
+          </div>
+
+          <div style={{
+            display: 'grid',
             gridTemplateColumns: displayImages.length === 1 ? '1fr' : 'repeat(2, 1fr)',
             gridTemplateRows: 'repeat(2, 400px)',
             gap: '8px',

@@ -2,37 +2,31 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
-import { useSavedProperties } from '@/hooks/useSavedProperties';
+import { useAuth } from '@/contexts/AuthContext';
+import AuthModal from './AuthModal';
 
 export default function OncomHeader() {
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [showMenuPanel, setShowMenuPanel] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [showSavedPanel, setShowSavedPanel] = useState(false);
   const [showAccountPanel, setShowAccountPanel] = useState(false);
-  const [savedProperties, setSavedProperties] = useState<any[]>([]);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [showBuyDropdown, setShowBuyDropdown] = useState(false);
+  const [buyDropdownTimeout, setBuyDropdownTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [showDiscoverDropdown, setShowDiscoverDropdown] = useState(false);
+  const [discoverDropdownTimeout, setDiscoverDropdownTimeout] = useState<NodeJS.Timeout | null>(null);
   const router = useRouter();
   const pathname = usePathname();
-  const { savedPropertyIds } = useSavedProperties();
+  const { user, isAuthenticated, savedProperties, savedSearches, logout } = useAuth();
   
   // Check if we're on the homepage
   const isHomePage = pathname === '/';
 
-  // Load saved properties data when panel opens
-  useEffect(() => {
-    if (showSavedPanel && typeof window !== 'undefined') {
-      try {
-        const savedData = localStorage.getItem('savedPropertiesData');
-        if (savedData) {
-          setSavedProperties(JSON.parse(savedData));
-        }
-      } catch (error) {
-        console.error('Error loading saved properties data:', error);
-      }
-    }
-  }, [showSavedPanel]);
+  // Saved properties data is now managed by AuthContext
 
   // Handle scroll for homepage transparency
   useEffect(() => {
@@ -63,7 +57,7 @@ export default function OncomHeader() {
         top: 0,
         left: 0,
         right: 0,
-        height: isMobile ? '60px' : '64px',
+        height: isMobile ? '70px' : '190px',
         backgroundColor: isHomePage && !isScrolled ? 'transparent' : '#fff',
         borderBottom: isHomePage && !isScrolled ? 'none' : '1px solid #e5e5e5',
         zIndex: 1000,
@@ -82,15 +76,23 @@ export default function OncomHeader() {
           justifyContent: 'space-between'
         }}>
           <Link href="/" style={{
-            fontSize: isMobile ? '18px' : '24px',
-            fontWeight: '800',
-            color: isHomePage && !isScrolled ? '#fff' : '#000',
+            display: 'flex',
+            alignItems: 'center',
             textDecoration: 'none',
-            letterSpacing: '-0.5px',
-            transition: 'color 0.3s ease',
-            whiteSpace: 'nowrap'
+            transition: 'all 0.3s ease'
           }}>
-            GRANT'S
+            <Image
+              src="/gea_website_logov4_svg.svg"
+              alt="Grant's Estate Agents"
+              width={isMobile ? 80 : 244}
+              height={isMobile ? 50 : 150}
+              priority
+              style={{
+                height: isMobile ? 50 : 150,
+                width: 'auto',
+                maxWidth: '100%'
+              }}
+            />
           </Link>
 
           {!isMobile && (
@@ -102,13 +104,125 @@ export default function OncomHeader() {
               left: '50%',
               transform: 'translateX(-50%)'
             }}>
-            <Link href="/buy" style={{
-              color: isHomePage && !isScrolled ? '#fff' : '#000',
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: '500',
-              transition: 'color 0.3s ease'
-            }}>Buy</Link>
+            <div style={{ position: 'relative' }}
+              onMouseEnter={() => {
+                if (buyDropdownTimeout) {
+                  clearTimeout(buyDropdownTimeout);
+                  setBuyDropdownTimeout(null);
+                }
+                setShowBuyDropdown(true);
+              }}
+              onMouseLeave={() => {
+                const timeout = setTimeout(() => {
+                  setShowBuyDropdown(false);
+                }, 150); // 150ms delay before closing
+                setBuyDropdownTimeout(timeout);
+              }}>
+              <Link href="/buy" style={{
+                color: isHomePage && !isScrolled ? '#fff' : '#000',
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: '500',
+                transition: 'color 0.3s ease',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}>
+                Buy
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </Link>
+              {showBuyDropdown && (
+                <>
+                  {/* Invisible bridge to prevent gap */}
+                  <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: '200px',
+                    height: '8px',
+                    background: 'transparent',
+                    zIndex: 1001
+                  }} />
+                  <div style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 8px)',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                  backgroundColor: '#fff',
+                  border: '1px solid #e5e5e5',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                  borderRadius: '8px',
+                  minWidth: '200px',
+                  zIndex: 1002,
+                  overflow: 'hidden'
+                }}>
+                  <Link href="/buy" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Search Properties
+                  </Link>
+                  <Link href="/buy/calculator" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Buy/Sell Calculator
+                  </Link>
+                  <Link href="/buy/loan-approval" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Get Loan Pre-approval
+                  </Link>
+                  <Link href="/buy/find-broker" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Need a Broker
+                  </Link>
+                  <Link href="/buy/rates" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    transition: 'background 0.2s',
+                    borderRadius: '0 0 8px 8px'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Check Our Rates
+                  </Link>
+                  </div>
+                </>
+              )}
+            </div>
             <Link href="/sell" style={{
               color: isHomePage && !isScrolled ? '#fff' : '#000',
               textDecoration: 'none',
@@ -123,13 +237,165 @@ export default function OncomHeader() {
               fontWeight: '500',
               transition: 'color 0.3s ease'
             }}>Rent</Link>
-            <Link href="/agents" style={{
+            <Link href="/map" style={{
               color: isHomePage && !isScrolled ? '#fff' : '#000',
               textDecoration: 'none',
               fontSize: '14px',
               fontWeight: '500',
-              transition: 'color 0.3s ease'
-            }}>Find Agents</Link>
+              transition: 'color 0.3s ease',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px'
+            }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              Map
+            </Link>
+            <div style={{ position: 'relative' }}
+              onMouseEnter={() => {
+                if (discoverDropdownTimeout) {
+                  clearTimeout(discoverDropdownTimeout);
+                  setDiscoverDropdownTimeout(null);
+                }
+                setShowDiscoverDropdown(true);
+              }}
+              onMouseLeave={() => {
+                const timeout = setTimeout(() => {
+                  setShowDiscoverDropdown(false);
+                }, 150);
+                setDiscoverDropdownTimeout(timeout);
+              }}>
+              <Link href="/agents" style={{
+                color: isHomePage && !isScrolled ? '#fff' : '#000',
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: '500',
+                transition: 'color 0.3s ease',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}>
+                Discover
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </Link>
+              {showDiscoverDropdown && (
+                <>
+                  {/* Invisible bridge to prevent gap */}
+                  <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: '200px',
+                    height: '8px',
+                    background: 'transparent',
+                    zIndex: 1001
+                  }} />
+                  <div style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 8px)',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    backgroundColor: '#fff',
+                    border: '1px solid #e5e5e5',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                    borderRadius: '8px',
+                    minWidth: '200px',
+                    zIndex: 1002,
+                    overflow: 'hidden'
+                  }}>
+                    <Link href="/market-update" style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#000',
+                      textDecoration: 'none',
+                      fontSize: '14px',
+                      borderBottom: '1px solid #f0f0f0',
+                      transition: 'background 0.2s'
+                    }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                      Market Update
+                    </Link>
+                    <Link href="/grants-report" style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#000',
+                      textDecoration: 'none',
+                      fontSize: '14px',
+                      borderBottom: '1px solid #f0f0f0',
+                      transition: 'background 0.2s'
+                    }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                      Grants Report
+                    </Link>
+                    <Link href="/agents" style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#000',
+                      textDecoration: 'none',
+                      fontSize: '14px',
+                      borderBottom: '1px solid #f0f0f0',
+                      transition: 'background 0.2s'
+                    }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                      Our Agents
+                    </Link>
+                    <Link href="/offices" style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#000',
+                      textDecoration: 'none',
+                      fontSize: '14px',
+                      borderBottom: '1px solid #f0f0f0',
+                      transition: 'background 0.2s'
+                    }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                      Our Offices
+                    </Link>
+                    <Link href="/faqs" style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#000',
+                      textDecoration: 'none',
+                      fontSize: '14px',
+                      borderBottom: '1px solid #f0f0f0',
+                      transition: 'background 0.2s'
+                    }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                      FAQs
+                    </Link>
+                    <Link href="/schools-guide" style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#000',
+                      textDecoration: 'none',
+                      fontSize: '14px',
+                      borderBottom: '1px solid #f0f0f0',
+                      transition: 'background 0.2s'
+                    }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                      Grant's Schools Guide
+                    </Link>
+                    <Link href="/guides" style={{
+                      display: 'block',
+                      padding: '12px 20px',
+                      color: '#000',
+                      textDecoration: 'none',
+                      fontSize: '14px',
+                      transition: 'background 0.2s',
+                      borderRadius: '0 0 8px 8px'
+                    }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                      Grant's Guides
+                    </Link>
+                  </div>
+                </>
+              )}
+            </div>
             <Link href="/reviews" style={{
               color: isHomePage && !isScrolled ? '#fff' : '#000',
               textDecoration: 'none',
@@ -159,12 +425,50 @@ export default function OncomHeader() {
                 <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </button>
-            <button 
+            <button
+              onClick={() => {
+                const aiButton = document.querySelector('[data-ai-chat-button]') as HTMLButtonElement;
+                if (aiButton) aiButton.click();
+              }}
+              style={{
+                background: 'linear-gradient(135deg, #AF272F 0%, #D4838F 100%)',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '8px 16px',
+                borderRadius: '20px',
+                color: '#fff',
+                fontSize: '14px',
+                fontWeight: '600',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                transition: 'all 0.3s ease',
+                marginRight: '12px',
+                boxShadow: '0 2px 8px rgba(175, 39, 47, 0.2)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(175, 39, 47, 0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(175, 39, 47, 0.2)';
+              }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                <circle cx="8" cy="10" r="1" fill="currentColor"/>
+                <circle cx="12" cy="10" r="1" fill="currentColor"/>
+                <circle cx="16" cy="10" r="1" fill="currentColor"/>
+              </svg>
+              AI Help
+            </button>
+            <button
               onClick={() => {
                 setShowSavedPanel(true);
                 setShowSearch(false);
                 setShowAccountPanel(false);
               }}
+              data-heart-icon
               style={{
                 background: 'none',
                 border: 'none',
@@ -177,7 +481,7 @@ export default function OncomHeader() {
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
-              {savedPropertyIds.length > 0 && (
+              {savedProperties.length > 0 && (
                 <span style={{
                   position: 'absolute',
                   top: '-4px',
@@ -193,7 +497,7 @@ export default function OncomHeader() {
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}>
-                  {savedPropertyIds.length}
+                  {savedProperties.length}
                 </span>
               )}
             </button>
@@ -218,9 +522,13 @@ export default function OncomHeader() {
                 </svg>
               </button>
             )}
-            <div style={{ position: 'relative' }}>
-              <button 
-                onClick={() => setShowDropdown(!showDropdown)}
+            <button
+              onClick={() => {
+                setShowMenuPanel(true);
+                setShowSearch(false);
+                setShowSavedPanel(false);
+                setShowAccountPanel(false);
+              }}
                 style={{
                   background: 'none',
                   border: 'none',
@@ -238,33 +546,14 @@ export default function OncomHeader() {
                   <path d="M3 12h18M3 6h18M3 18h18" />
                 </svg>
               </button>
-              
-              {showDropdown && (
-                <div style={{
-                  position: 'absolute',
-                  top: '100%',
-                  right: 0,
-                  marginTop: '8px',
-                  backgroundColor: '#fff',
-                  border: '1px solid #e5e5e5',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                  borderRadius: '8px',
-                  minWidth: '220px',
-                  zIndex: 1001
-                }}>
-                  <Link href="/" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Home
-                  </Link>
-                  <Link href="/buy" style={{
+          </div>
+        </div>
+      </header>
+
+      {/* TEMPORARY FIX - REMOVING BROKEN DROPDOWN CONTENT */}
+      {false && (
+        <div>
+          <Link href="/buy" style={{
                     display: 'block',
                     padding: '12px 20px',
                     color: '#000',
@@ -334,7 +623,7 @@ export default function OncomHeader() {
                     transition: 'background 0.2s'
                   }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Find Agents
+                    Discover
                   </Link>
                   <Link href="/reviews" style={{
                     display: 'block',
@@ -475,15 +764,11 @@ export default function OncomHeader() {
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
                     Sign Up
                   </Link>
-                </div>
-              )}
-            </div>
-          </div>
         </div>
-      </header>
+      )}
 
       {/* Sliding Panel Overlay */}
-      {(showSearch || showSavedPanel || showAccountPanel) && (
+      {(showSearch || showSavedPanel || showAccountPanel || showMenuPanel) && (
         <div 
           style={{
             position: 'fixed',
@@ -499,6 +784,7 @@ export default function OncomHeader() {
             setShowSearch(false);
             setShowSavedPanel(false);
             setShowAccountPanel(false);
+            setShowMenuPanel(false);
           }}
         />
       )}
@@ -555,6 +841,7 @@ export default function OncomHeader() {
               type="text"
               placeholder="Search suburbs, addresses, or property IDs..."
               autoFocus
+              data-search-bar
               style={{
                 width: '100%',
                 padding: '16px 20px',
@@ -708,30 +995,27 @@ export default function OncomHeader() {
                     backgroundColor: '#f5f5f5',
                     borderRadius: '4px',
                     flexShrink: 0,
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#999',
+                    fontSize: '12px'
                   }}>
-                    {property.images?.[0] && (
-                      <img 
-                        src={property.images[0].url || property.images[0]}
-                        alt={property.address}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover'
-                        }}
-                      />
-                    )}
+                    No Image
                   </div>
                   <div style={{ flex: 1 }}>
                     <h4 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '4px' }}>
-                      {property.priceDisplay || `$${property.price?.toLocaleString()}`}
+                      Property {property.propertyId}
                     </h4>
                     <p style={{ fontSize: '14px', color: '#666', marginBottom: '8px' }}>
-                      {property.address}
+                      Saved on {new Date(property.savedAt).toLocaleDateString()}
                     </p>
-                    <p style={{ fontSize: '14px', color: '#999' }}>
-                      {property.bedrooms} bed • {property.bathrooms} bath • {property.carSpaces} car
-                    </p>
+                    {property.notes && (
+                      <p style={{ fontSize: '14px', color: '#999' }}>
+                        {property.notes}
+                      </p>
+                    )}
                   </div>
                 </Link>
               ))}
@@ -795,71 +1079,183 @@ export default function OncomHeader() {
           </button>
         </div>
         <div style={{ flex: 1, overflowY: 'auto', padding: '24px' }}>
-          <div style={{ 
-            textAlign: 'center',
-            marginBottom: '32px'
-          }}>
-            <div style={{
-              width: '80px',
-              height: '80px',
-              borderRadius: '50%',
-              backgroundColor: '#f5f5f5',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 16px'
-            }}>
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="1.5">
-                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-            </div>
-            <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '4px' }}>Welcome</h3>
-            <p style={{ color: '#666' }}>Sign in to access your account</p>
-          </div>
+          {isAuthenticated ? (
+            // Authenticated user content
+            <>
+              <div style={{ 
+                textAlign: 'center',
+                marginBottom: '32px'
+              }}>
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  borderRadius: '50%',
+                  backgroundColor: '#000',
+                  color: '#fff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 16px',
+                  fontSize: '24px',
+                  fontWeight: '600'
+                }}>
+                  {user?.firstName?.charAt(0)}{user?.lastName?.charAt(0)}
+                </div>
+                <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '4px' }}>
+                  {user?.firstName} {user?.lastName}
+                </h3>
+                <p style={{ color: '#666', fontSize: '14px' }}>{user?.email}</p>
+              </div>
 
-          <div style={{ marginBottom: '24px' }}>
-            <Link
-              href="/signin"
-              onClick={() => setShowAccountPanel(false)}
-              style={{
-                display: 'block',
-                padding: '16px',
-                backgroundColor: '#000',
-                color: '#fff',
+              <div style={{ marginBottom: '24px' }}>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '12px',
+                  marginBottom: '20px'
+                }}>
+                  <div style={{
+                    padding: '16px',
+                    backgroundColor: '#f8f8f8',
+                    borderRadius: '8px',
+                    textAlign: 'center'
+                  }}>
+                    <div style={{ fontSize: '24px', fontWeight: '600', color: '#000' }}>
+                      {savedProperties.length}
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>Saved Properties</div>
+                  </div>
+                  <div style={{
+                    padding: '16px',
+                    backgroundColor: '#f8f8f8',
+                    borderRadius: '8px',
+                    textAlign: 'center'
+                  }}>
+                    <div style={{ fontSize: '24px', fontWeight: '600', color: '#000' }}>
+                      {savedSearches.length}
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>Saved Searches</div>
+                  </div>
+                </div>
+                
+                <button
+                  onClick={() => {
+                    logout();
+                    setShowAccountPanel(false);
+                  }}
+                  style={{
+                    width: '100%',
+                    padding: '16px',
+                    border: '1px solid #000',
+                    backgroundColor: 'transparent',
+                    color: '#000',
+                    textAlign: 'center',
+                    borderRadius: '8px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#000';
+                    e.currentTarget.style.color = '#fff';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.color = '#000';
+                  }}
+                >
+                  Sign Out
+                </button>
+              </div>
+            </>
+          ) : (
+            // Non-authenticated user content
+            <>
+              <div style={{ 
                 textAlign: 'center',
-                textDecoration: 'none',
-                borderRadius: '8px',
-                fontWeight: '600',
-                marginBottom: '12px'
-              }}
-            >
-              Sign In
-            </Link>
-            <Link
-              href="/signup"
-              onClick={() => setShowAccountPanel(false)}
-              style={{
-                display: 'block',
-                padding: '16px',
-                border: '1px solid #000',
-                color: '#000',
-                textAlign: 'center',
-                textDecoration: 'none',
-                borderRadius: '8px',
-                fontWeight: '600'
-              }}
-            >
-              Create Account
-            </Link>
-          </div>
+                marginBottom: '32px'
+              }}>
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  borderRadius: '50%',
+                  backgroundColor: '#f5f5f5',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 16px'
+                }}>
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="1.5">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                </div>
+                <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '4px' }}>Welcome</h3>
+                <p style={{ color: '#666' }}>Sign in to access your account</p>
+              </div>
+
+              <div style={{ marginBottom: '24px' }}>
+                <button
+                  onClick={() => {
+                    setShowAuthModal(true);
+                    setShowAccountPanel(false);
+                  }}
+                  style={{
+                    width: '100%',
+                    padding: '16px',
+                    backgroundColor: '#000',
+                    color: '#fff',
+                    textAlign: 'center',
+                    border: 'none',
+                    borderRadius: '8px',
+                    fontWeight: '600',
+                    marginBottom: '12px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#333'}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#000'}
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={() => {
+                    setShowAuthModal(true);
+                    setShowAccountPanel(false);
+                  }}
+                  style={{
+                    width: '100%',
+                    padding: '16px',
+                    border: '1px solid #000',
+                    backgroundColor: 'transparent',
+                    color: '#000',
+                    textAlign: 'center',
+                    borderRadius: '8px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#000';
+                    e.currentTarget.style.color = '#fff';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.color = '#000';
+                  }}
+                >
+                  Create Account
+                </button>
+              </div>
+            </>
+          )}
 
           <div style={{ paddingTop: '24px', borderTop: '1px solid #e5e5e5' }}>
             <h4 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '16px' }}>Quick Links</h4>
             {[
-              { label: 'Saved Properties', href: '/saved-properties' },
+              { label: 'Saved Properties', href: '/saved' },
               { label: 'Property Alerts', href: '/alerts' },
-              { label: 'Recent Searches', href: '/searches' },
+              { label: 'Recent Searches', href: '/saved' },
               { label: 'Contact Preferences', href: '/preferences' },
               { label: 'Help & Support', href: '/help' }
             ].map((link) => (
@@ -885,6 +1281,132 @@ export default function OncomHeader() {
           </div>
         </div>
       </div>
+
+      {/* Menu Panel - Slides from Right */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        right: showMenuPanel ? 0 : (isMobile ? '-100%' : '-480px'),
+        bottom: 0,
+        width: isMobile ? '100%' : '480px',
+        backgroundColor: '#fff',
+        boxShadow: '-4px 0 24px rgba(0,0,0,0.1)',
+        transition: 'right 0.3s ease',
+        zIndex: 9999,
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          padding: '24px',
+          borderBottom: '1px solid #e5e5e5',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          <h2 style={{ fontSize: '24px', fontWeight: '600' }}>Menu</h2>
+          <button
+            onClick={() => setShowMenuPanel(false)}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '8px'
+            }}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          {[
+            { href: '/', label: 'Home' },
+            { href: '/buy', label: 'Buy' },
+            { href: '/rent', label: 'Rent' },
+            { href: '/sell', label: 'Sell' },
+            { href: '/agents', label: 'Discover' },
+            { href: '/property-management', label: 'Property Management' },
+            { href: '/suburbs', label: 'Suburb Guides' },
+            { href: '/saved', label: 'Saved Properties' },
+            { href: '/stories', label: 'Stories' },
+            { href: '/reviews', label: 'Reviews' },
+            { href: '/about', label: 'About Us' },
+            { href: '/contact', label: 'Contact' },
+            { href: '/news', label: 'News & Media' },
+            { href: '/listings', label: 'All Listings' },
+            { href: '/search', label: 'Search Properties' },
+            { href: '/help', label: 'Help & Support' },
+            { href: '/careers', label: 'Careers' }
+          ].map((item, index) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setShowMenuPanel(false)}
+              style={{
+                display: 'block',
+                padding: '16px 24px',
+                color: '#000',
+                textDecoration: 'none',
+                fontSize: '16px',
+                borderBottom: '1px solid #f0f0f0',
+                transition: 'background 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}
+            >
+              {item.label}
+            </Link>
+          ))}
+
+          <div style={{
+            borderTop: '2px solid #e5e5e5',
+            marginTop: '16px',
+            paddingTop: '16px'
+          }}>
+            <Link
+              href="/profile"
+              onClick={() => setShowMenuPanel(false)}
+              style={{
+                display: 'block',
+                padding: '16px 24px',
+                color: '#000',
+                textDecoration: 'none',
+                fontSize: '16px',
+                borderBottom: '1px solid #f0f0f0',
+                transition: 'background 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}
+            >
+              My Profile
+            </Link>
+            <Link
+              href="/signup"
+              onClick={() => setShowMenuPanel(false)}
+              style={{
+                display: 'block',
+                padding: '16px 24px',
+                color: '#000',
+                textDecoration: 'none',
+                fontSize: '16px',
+                transition: 'background 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}
+            >
+              Sign Up
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Auth Modal */}
+      <AuthModal 
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        initialMode="login"
+      />
     </>
   );
 }

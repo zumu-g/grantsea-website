@@ -6,6 +6,7 @@ import OnboardingGuide from '@/components/OnboardingGuide';
 import { AuthProvider } from '@/contexts/AuthContext';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://grantsea.com.au'),
   title: "Grant's Estate Agents | South East Melbourne Real Estate | Berwick, Narre Warren, Cranbourne",
   description: 'Grant\'s Estate Agents - Leading real estate agency in Casey and Cardinia. Buy, sell, and rent properties in Berwick, Narre Warren, Cranbourne, Pakenham, and Officer. Expert local agents with 25+ years experience.',
   keywords: 'real estate, property, houses for sale, rental properties, Berwick real estate, Narre Warren properties, Cranbourne homes, Casey real estate, Cardinia properties, Melbourne southeast property, Grant\'s Estate Agents',

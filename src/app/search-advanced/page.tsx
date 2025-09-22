@@ -538,14 +538,14 @@ export default function AdvancedSearchPage() {
                         fontWeight: '600',
                         marginBottom: '4px'
                       }}>
-                        {property.headline}
+                        {property.address}
                       </h3>
                       <p style={{
                         fontSize: '14px',
                         color: '#666',
                         marginBottom: '8px'
                       }}>
-                        {property.address?.suburb}
+                        {property.suburb}
                       </p>
                       <p style={{
                         fontSize: '20px',

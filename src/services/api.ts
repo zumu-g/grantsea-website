@@ -242,9 +242,10 @@ export const propertyAPI = {
           throw new Error(data.error || 'Failed to fetch property');
         }
         
+        // Data is already transformed by the API route
         return {
           success: true,
-          data: transformVaultREProperty(data.data)
+          data: data.data
         };
       } catch (error) {
         console.error('Error fetching property:', error);

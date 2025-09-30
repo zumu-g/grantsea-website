@@ -80,10 +80,7 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
   };
 
   useEffect(() => {
-    // Skip fetching if options is explicitly undefined (used in property details before property loads)
-    if (options !== undefined) {
-      fetchProperties();
-    }
+    fetchProperties();
   }, [options?.suburb, options?.limit, options?.featured, options?.type]);
 
   return {

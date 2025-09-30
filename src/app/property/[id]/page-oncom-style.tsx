@@ -3,8 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useProperty, useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
+import SavePropertyButton from '@/components/SavePropertyButton';
 import AskAI from '@/components/AskAI';
 
 export default function PropertyDetailPageOncom() {
@@ -23,14 +25,12 @@ export default function PropertyDetailPageOncom() {
     message: "I'm interested in this property..."
   });
   
-  // Fetch similar properties from the same suburb (only if we have a property)
-  const { properties: similarProperties } = useProperties(
-    property ? {
-      suburb: property.suburb || '',
-      limit: 4,
-      type: property.listingType === 'sale' ? 'sale' : 'lease'
-    } : undefined
-  );
+  // Fetch similar properties from the same suburb
+  const { properties: similarProperties } = useProperties({
+    suburb: property?.suburb || '',
+    limit: 4,
+    type: property?.listingType === 'sale' ? 'sale' : 'lease'
+  });
 
   if (loading) {
     return (

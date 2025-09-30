@@ -5,7 +5,6 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { useProperty, useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
-import SavePropertyButton from '@/components/SavePropertyButton';
 import AskAI from '@/components/AskAI';
 
 export default function PropertyDetailPageOncom() {
@@ -24,22 +23,24 @@ export default function PropertyDetailPageOncom() {
     message: "I'm interested in this property..."
   });
   
-  // Fetch similar properties from the same suburb
-  const { properties: similarProperties } = useProperties({
-    suburb: property?.suburb || '',
-    limit: 4,
-    type: property?.listingType === 'sale' ? 'sale' : 'lease'
-  });
+  // Fetch similar properties from the same suburb (only if we have a property)
+  const { properties: similarProperties } = useProperties(
+    property ? {
+      suburb: property.suburb || '',
+      limit: 4,
+      type: property.listingType === 'sale' ? 'sale' : 'lease'
+    } : undefined
+  );
 
   if (loading) {
     return (
       <>
-        <style jsx>{`
+        <style dangerouslySetInnerHTML={{ __html: `
           @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
           }
-        `}</style>
+        `}} />
         <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div style={{ textAlign: 'center' }}>
             <div style={{
@@ -715,22 +716,22 @@ export default function PropertyDetailPageOncom() {
                 Share
               </button>
               <AskAI
-                propertyId={property.id}
-                propertyAddress={`${(property.address || '').replace(/ VIC$/, '')}, ${property.suburb || ''} ${property.postcode || ''}`}
+                propertyId={property?.id}
+                propertyAddress={`${(property?.address || '').replace(/ VIC$/, '')}, ${property?.suburb || ''} ${property?.postcode || ''}`}
                 propertyData={{
-                  price: property.price,
-                  priceDisplay: property.priceDisplay,
-                  leasePrice: property.leasePrice,
-                  leasePriceDisplay: property.leasePriceDisplay,
-                  listingType: property.listingType,
-                  bedrooms: property.bedrooms,
-                  bathrooms: property.bathrooms,
-                  carSpaces: property.carSpaces,
-                  propertyType: property.propertyType,
-                  suburb: property.suburb,
-                  features: property.features,
-                  description: property.description,
-                  landSize: property.landSize
+                  price: property?.price,
+                  priceDisplay: property?.priceDisplay,
+                  leasePrice: property?.leasePrice,
+                  leasePriceDisplay: property?.leasePriceDisplay,
+                  listingType: property?.listingType,
+                  bedrooms: property?.bedrooms,
+                  bathrooms: property?.bathrooms,
+                  carSpaces: property?.carSpaces,
+                  propertyType: property?.propertyType,
+                  suburb: property?.suburb,
+                  features: property?.features,
+                  description: property?.description,
+                  landSize: property?.landSize
                 }}
                 propertyType="details"
                 size="large"
@@ -1498,7 +1499,7 @@ export default function PropertyDetailPageOncom() {
                 gap: '32px'
               }}>
                 {similarProperties
-                  .filter(p => p.id !== property.id) // Exclude current property
+                  .filter(p => p.id !== property?.id) // Exclude current property
                   .slice(0, 3) // Show max 3 properties
                   .map((similarProperty) => (
                     <Link

@@ -25,11 +25,20 @@ interface Property {
   landSize?: number;
   buildingSize?: number;
   propertyType?: string;
+  saleMethod?: string;
+  auctionDate?: string;
+  auctionVenue?: string;
   description?: string;
   features?: string[];
   images?: Array<{ id?: string; url: string; order: number; type?: string }>;
   virtualTourUrl?: string;
   floorPlanUrl?: string;
+  inspectionTimes?: Array<{
+    id: string;
+    startTime: string;
+    endTime: string;
+    type: string;
+  }>;
   agent?: {
     id?: string;
     name?: string;
@@ -556,6 +565,69 @@ export default function FullSafePropertyPage() {
                 </div>
               </div>
             </div>
+
+            {/* Inspection Times / Auction Details */}
+            {(property.auctionDate || (property.inspectionTimes && property.inspectionTimes.length > 0)) && (
+              <div style={{
+                padding: '20px',
+                backgroundColor: '#fff4e6',
+                borderRadius: '8px',
+                marginBottom: '32px',
+                border: '1px solid #ffc107'
+              }}>
+                {property.saleMethod === 'auction' && property.auctionDate && (
+                  <div style={{ marginBottom: property.inspectionTimes?.length ? '16px' : 0 }}>
+                    <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px', color: '#ff6b00' }}>
+                      🔨 Auction
+                    </h3>
+                    <p style={{ fontSize: '16px', color: '#333' }}>
+                      {new Date(property.auctionDate).toLocaleDateString('en-AU', {
+                        weekday: 'long',
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                        hour: 'numeric',
+                        minute: 'numeric'
+                      })}
+                    </p>
+                    {property.auctionVenue && (
+                      <p style={{ fontSize: '14px', color: '#666', marginTop: '4px' }}>
+                        {property.auctionVenue}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {property.inspectionTimes && property.inspectionTimes.length > 0 && (
+                  <div>
+                    <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '12px' }}>
+                      🏠 Open for Inspection
+                    </h3>
+                    {property.inspectionTimes.map((inspection) => (
+                      <div key={inspection.id} style={{ marginBottom: '8px' }}>
+                        <p style={{ fontSize: '16px', color: '#333' }}>
+                          {new Date(inspection.startTime).toLocaleDateString('en-AU', {
+                            weekday: 'long',
+                            day: 'numeric',
+                            month: 'long'
+                          })}
+                          {' '}
+                          {new Date(inspection.startTime).toLocaleTimeString('en-AU', {
+                            hour: 'numeric',
+                            minute: 'numeric'
+                          })}
+                          {' - '}
+                          {new Date(inspection.endTime).toLocaleTimeString('en-AU', {
+                            hour: 'numeric',
+                            minute: 'numeric'
+                          })}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Interactive Features */}
             <div style={{ marginBottom: '32px' }}>

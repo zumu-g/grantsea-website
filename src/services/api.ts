@@ -28,6 +28,8 @@ export interface Property {
   status: string;
   statusDisplay?: string;
   saleMethod?: 'auction' | 'private' | 'tender' | 'eoi';
+  auctionDate?: string;
+  auctionVenue?: string;
   availableDate?: string;
   leaseTerm?: string;
   bond?: string;
@@ -691,6 +693,8 @@ export function transformVaultREProperty(vaultProperty: any): Property {
                    vaultProperty.status === 'management' ? 'Leased' :
                    vaultProperty.status || 'active',
     saleMethod: vaultProperty.methodOfSale?.name,
+    auctionDate: vaultProperty.auctionDetails?.dateTime,
+    auctionVenue: vaultProperty.auctionDetails?.venue,
     availableDate: vaultProperty.availableDate,
     leaseTerm: vaultProperty.leaseTerm,
     bond: vaultProperty.bond,

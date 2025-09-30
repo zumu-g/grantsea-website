@@ -9,6 +9,15 @@ import SavePropertyButton from '@/components/SavePropertyButton';
 import AskAI from '@/components/AskAI';
 import OncomHeader from '@/components/OncomHeader';
 
+// Helper function to check if a property is new (within last 7 days)
+const isNewListing = (createdAt?: string) => {
+  if (!createdAt) return false;
+  const created = new Date(createdAt);
+  const now = new Date();
+  const daysDiff = (now.getTime() - created.getTime()) / (1000 * 60 * 60 * 24);
+  return daysDiff <= 7;
+};
+
 export default function HomePageOncom() {
   const [hoveredActivity, setHoveredActivity] = useState<string | null>(null);
   const [carouselScroll, setCarouselScroll] = useState(0);

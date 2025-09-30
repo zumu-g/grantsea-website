@@ -1,5 +1,5 @@
 'use client';
 
-// Force rebuild - Using full-featured safe version without hooks errors
-// Updated: 2024
-export { default } from './page-full-safe';
+// Full property details page - complete working version
+// Updated to fix all errors
+export { default } from './page-final';

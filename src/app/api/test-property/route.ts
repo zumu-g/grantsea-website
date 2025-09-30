@@ -1,6 +1,11 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
+  // Block test endpoint in production
+  if (process.env.NODE_ENV === 'production') {
+    return new NextResponse('Not Found', { status: 404 });
+  }
+
   const apiUrl = process.env.NEXT_PUBLIC_CRM_API_URL || 'https://ap-southeast-2.api.vaultre.com.au/api/v1.3';
   const apiKey = process.env.NEXT_PUBLIC_CRM_API_KEY || '';
 

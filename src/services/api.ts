@@ -97,10 +97,37 @@ interface ApiResponse<T> {
 }
 
 // Error handling
-class ApiError extends Error {
-  constructor(public status: number, message: string) {
+export class ApiError extends Error {
+  constructor(
+    public status: number,
+    message: string,
+    public code?: string,
+    public details?: any
+  ) {
     super(message);
     this.name = 'ApiError';
+  }
+
+  // User-friendly error messages
+  getUserMessage(): string {
+    switch (this.status) {
+      case 400:
+        return 'The request was invalid. Please check your input and try again.';
+      case 401:
+        return 'Authentication failed. Please log in and try again.';
+      case 403:
+        return 'You do not have permission to perform this action.';
+      case 404:
+        return 'The requested resource was not found.';
+      case 429:
+        return 'Too many requests. Please wait a moment and try again.';
+      case 500:
+      case 502:
+      case 503:
+        return 'Server error. Please try again later.';
+      default:
+        return this.message || 'An unexpected error occurred.';
+    }
   }
 }
 
@@ -123,31 +150,30 @@ async function fetchFromCRM<T>(
   };
 
   const url = `${API_BASE_URL}${endpoint}`;
-  console.log('Fetching from CRM:', url);
-  console.log('Using API Key:', API_KEY ? `${API_KEY.substring(0, 10)}...` : 'No API key!');
-  
+
   try {
     const response = await fetch(url, config);
-    
-    // Log response details for debugging
-    console.log('Response status:', response.status);
-    console.log('Response headers:', Object.fromEntries(response.headers.entries()));
-    
+
     const responseText = await response.text();
     let data;
-    
+
     try {
       data = JSON.parse(responseText);
     } catch (parseError) {
-      console.error('Failed to parse response as JSON:', responseText);
-      throw new Error(`Invalid JSON response from API: ${responseText.substring(0, 200)}`);
+      throw new ApiError(
+        500,
+        'Invalid JSON response from API',
+        'PARSE_ERROR',
+        { responseText: responseText.substring(0, 200) }
+      );
     }
-    
+
     if (!response.ok) {
-      console.error('API Error Response:', data);
       throw new ApiError(
         response.status,
-        data.message || data.error || `API Error: ${response.status} ${response.statusText}`
+        data.message || data.error || `API Error: ${response.status} ${response.statusText}`,
+        data.code,
+        data
       );
     }
 

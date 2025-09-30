@@ -1,6 +1,11 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
+  // Block debug endpoint in production
+  if (process.env.NODE_ENV === 'production') {
+    return new NextResponse('Not Found', { status: 404 });
+  }
+
   const API_URL = process.env.NEXT_PUBLIC_CRM_API_URL || '';
   const API_KEY = process.env.NEXT_PUBLIC_CRM_API_KEY || '';
   

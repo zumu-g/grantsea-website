@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
+import LoadingState, { PropertyCardSkeleton } from '@/components/LoadingState';
 
 export default function PropertyListingsPage() {
   const router = useRouter();
@@ -277,17 +278,17 @@ export default function PropertyListingsPage() {
         paddingBottom: '40px'
       }}>
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '80px 0' }}>
+          <div>
             <div style={{
-              width: '48px',
-              height: '48px',
-              border: '3px solid #e2e8f0',
-              borderTopColor: '#3182ce',
-              borderRadius: '50%',
-              animation: 'spin 1s linear infinite',
-              margin: '0 auto 24px'
-            }} />
-            <p style={{ color: '#718096' }}>Loading properties...</p>
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+              gap: '24px',
+              marginTop: '32px'
+            }}>
+              {[...Array(6)].map((_, i) => (
+                <PropertyCardSkeleton key={i} />
+              ))}
+            </div>
           </div>
         ) : error ? (
           <div style={{

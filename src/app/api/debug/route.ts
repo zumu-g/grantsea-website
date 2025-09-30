@@ -1,13 +1,18 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
+  // Block debug endpoint in production
+  if (process.env.NODE_ENV === 'production') {
+    return new NextResponse('Not Found', { status: 404 });
+  }
+
   // Check which environment variables are available
   const envVars = {
     // Client-side variables (NEXT_PUBLIC_)
     NEXT_PUBLIC_CRM_API_URL: process.env.NEXT_PUBLIC_CRM_API_URL || 'NOT SET',
     NEXT_PUBLIC_CRM_API_KEY: process.env.NEXT_PUBLIC_CRM_API_KEY ? 'SET' : 'NOT SET',
     NEXT_PUBLIC_CRM_ACCESS_TOKEN: process.env.NEXT_PUBLIC_CRM_ACCESS_TOKEN ? 'SET' : 'NOT SET',
-    
+
     // Server-side variables (without NEXT_PUBLIC_)
     CRM_API_URL: process.env.CRM_API_URL || 'NOT SET',
     CRM_API_KEY: process.env.CRM_API_KEY ? 'SET' : 'NOT SET',

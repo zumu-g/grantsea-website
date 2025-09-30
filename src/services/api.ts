@@ -528,14 +528,29 @@ export const crmAPI = {
 };
 
 // Utility function to format price display
-export function formatPrice(price: string | number): string {
+export function formatPrice(price: string | number | null | undefined): string {
+  // Handle null/undefined cases
+  if (price === null || price === undefined) {
+    return 'Contact Agent';
+  }
+
+  // Handle string with range
   if (typeof price === 'string' && price.includes('-')) {
     return price; // Already formatted as range
   }
-  
+
+  // Handle empty string
+  if (price === '') {
+    return 'Contact Agent';
+  }
+
   const numPrice = typeof price === 'string' ? parseInt(price) : price;
-  if (isNaN(numPrice)) return price.toString();
-  
+
+  // Handle NaN or 0
+  if (isNaN(numPrice) || numPrice === 0) {
+    return 'Contact Agent';
+  }
+
   return new Intl.NumberFormat('en-AU', {
     style: 'currency',
     currency: 'AUD',
@@ -646,16 +661,6 @@ function getRentalPriceDisplay(vaultProperty: any): string {
 
 // Transform Vault RE response to our Property interface
 export function transformVaultREProperty(vaultProperty: any): Property {
-  // Debug log to see what fields are available
-  console.log('Raw VaultRE property data:', {
-    id: vaultProperty.id,
-    hasPhotos: !!vaultProperty.photos,
-    hasImages: !!vaultProperty.images,
-    hasMedia: !!vaultProperty.media,
-    photoCount: vaultProperty.photos?.length || 0,
-    samplePhoto: vaultProperty.photos?.[0],
-    allKeys: Object.keys(vaultProperty)
-  });
   
   // Handle the actual Vault RE response structure
   const address = vaultProperty.address || {};

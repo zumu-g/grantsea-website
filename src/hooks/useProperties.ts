@@ -24,7 +24,6 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
     try {
       setLoading(true);
       setError(null);
-      console.log('Fetching properties from API...');
 
       let response;
       
@@ -61,26 +60,17 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
         };
       }
 
-      console.log('API Response:', response);
       if (response.success && response.data) {
-        console.log(`Successfully fetched ${response.data.length} properties from API`);
         // Always set the properties, even if empty array
         setProperties(response.data);
       } else if (response.data && Array.isArray(response.data)) {
         // Handle case where success flag might be missing but data exists
-        console.log(`Fetched ${response.data.length} properties (no success flag)`);
         setProperties(response.data);
       } else {
         throw new Error(response.error || 'Failed to fetch properties');
       }
     } catch (err) {
-      console.error('Error fetching properties:', err);
       setError(err instanceof Error ? err.message : 'An error occurred');
-      
-      // Don't automatically fall back to mock data - let the component decide
-      // Only use mock data if explicitly needed for development
-      const errorMessage = err instanceof Error ? err.message : String(err);
-      console.log('API error details:', errorMessage);
       
       // Set empty array instead of mock data
       setProperties([]);
@@ -112,18 +102,15 @@ export function useProperty(id: string) {
       try {
         setLoading(true);
         setError(null);
-        console.log('useProperty hook - Fetching property with ID:', id);
 
         const response = await crmAPI.properties.getPropertyById(id);
-        console.log('useProperty hook - API response:', response);
-        
+
         if (response.success && response.data) {
           setProperty(response.data);
         } else {
           throw new Error(response.error || 'Failed to fetch property');
         }
       } catch (err) {
-        console.error('Error fetching property:', err);
         setError(err instanceof Error ? err.message : 'An error occurred');
         
         // Don't use mock data - let the error bubble up

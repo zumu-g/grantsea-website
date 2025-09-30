@@ -829,7 +829,7 @@ export default function PropertyDetailPageOncom() {
               <div style={{ fontSize: '28px', fontWeight: '700' }}>
                 {property.listingType === 'lease'
                   ? (property.leasePriceDisplay || (property.leasePrice ? `$${property.leasePrice} per week` : 'Contact Agent'))
-                  : (property.priceDisplay || formatPrice(property.price || 0))
+                  : (property.priceDisplay || formatPrice(property.price))
                 }
               </div>
               <div style={{ fontSize: '14px', color: '#666' }}>
@@ -1553,7 +1553,7 @@ export default function PropertyDetailPageOncom() {
                           }}>
                             {similarProperty.listingType === 'lease'
                               ? (similarProperty.leasePriceDisplay || (similarProperty.leasePrice ? `$${similarProperty.leasePrice} per week` : 'Contact Agent'))
-                              : (similarProperty.priceDisplay || formatPrice(similarProperty.price || 0))
+                              : (similarProperty.priceDisplay || formatPrice(similarProperty.price))
                             }
                           </h3>
                           <p style={{

@@ -80,6 +80,7 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
 
   useEffect(() => {
     fetchProperties();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options?.suburb, options?.limit, options?.featured, options?.type]);
 
   return {

@@ -1,4 +1,4 @@
 'use client';
 
-// Use the on.com style property page
-export { default } from './page-oncom-style';
+// Using safe SSR-compatible version without complex hooks
+export { default } from './page-safe';

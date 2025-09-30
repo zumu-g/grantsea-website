@@ -34,27 +34,19 @@ export default function PropertyDetailPageOncom() {
 
   if (loading) {
     return (
-      <>
-        <style dangerouslySetInnerHTML={{ __html: `
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        `}} />
-        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{
-              width: '40px',
-              height: '40px',
-              border: '3px solid #e0e0e0',
-              borderTop: '3px solid #000',
-              borderRadius: '50%',
-              margin: '0 auto',
-              animation: 'spin 1s linear infinite'
-            }} />
-          </div>
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ 
+            width: '40px', 
+            height: '40px', 
+            border: '3px solid #e0e0e0', 
+            borderTop: '3px solid #000', 
+            borderRadius: '50%', 
+            margin: '0 auto',
+            animation: 'spin 1s linear infinite' 
+          }} />
         </div>
-      </>
+      </div>
     );
   }
 
@@ -431,7 +423,7 @@ export default function PropertyDetailPageOncom() {
                     textAlign: 'center'
                   }}>
                     <div style={{ fontSize: '20px', fontWeight: '600', marginBottom: '4px' }}>
-                      {property.landSize ? `${property.landSize} m²` : '–'}
+                      {property.landSize || '–'} m²
                     </div>
                     <div style={{ fontSize: '14px', color: '#666' }}>Total Area</div>
                   </div>
@@ -716,22 +708,22 @@ export default function PropertyDetailPageOncom() {
                 Share
               </button>
               <AskAI
-                propertyId={property?.id}
-                propertyAddress={`${(property?.address || '').replace(/ VIC$/, '')}, ${property?.suburb || ''} ${property?.postcode || ''}`}
+                propertyId={property.id}
+                propertyAddress={`${(property.address || '').replace(/ VIC$/, '')}, ${property.suburb || ''} ${property.postcode || ''}`}
                 propertyData={{
-                  price: property?.price,
-                  priceDisplay: property?.priceDisplay,
-                  leasePrice: property?.leasePrice,
-                  leasePriceDisplay: property?.leasePriceDisplay,
-                  listingType: property?.listingType,
-                  bedrooms: property?.bedrooms,
-                  bathrooms: property?.bathrooms,
-                  carSpaces: property?.carSpaces,
-                  propertyType: property?.propertyType,
-                  suburb: property?.suburb,
-                  features: property?.features,
-                  description: property?.description,
-                  landSize: property?.landSize
+                  price: property.price,
+                  priceDisplay: property.priceDisplay,
+                  leasePrice: property.leasePrice,
+                  leasePriceDisplay: property.leasePriceDisplay,
+                  listingType: property.listingType,
+                  bedrooms: property.bedrooms,
+                  bathrooms: property.bathrooms,
+                  carSpaces: property.carSpaces,
+                  propertyType: property.propertyType,
+                  suburb: property.suburb,
+                  features: property.features,
+                  description: property.description,
+                  landSize: property.landSize
                 }}
                 propertyType="details"
                 size="large"
@@ -837,7 +829,7 @@ export default function PropertyDetailPageOncom() {
               <div style={{ fontSize: '28px', fontWeight: '700' }}>
                 {property.listingType === 'lease'
                   ? (property.leasePriceDisplay || (property.leasePrice ? `$${property.leasePrice} per week` : 'Contact Agent'))
-                  : (property.priceDisplay || formatPrice(property.price))
+                  : (property.priceDisplay || formatPrice(property.price || 0))
                 }
               </div>
               <div style={{ fontSize: '14px', color: '#666' }}>
@@ -1499,7 +1491,7 @@ export default function PropertyDetailPageOncom() {
                 gap: '32px'
               }}>
                 {similarProperties
-                  .filter(p => p.id !== property?.id) // Exclude current property
+                  .filter(p => p.id !== property.id) // Exclude current property
                   .slice(0, 3) // Show max 3 properties
                   .map((similarProperty) => (
                     <Link
@@ -1561,7 +1553,7 @@ export default function PropertyDetailPageOncom() {
                           }}>
                             {similarProperty.listingType === 'lease'
                               ? (similarProperty.leasePriceDisplay || (similarProperty.leasePrice ? `$${similarProperty.leasePrice} per week` : 'Contact Agent'))
-                              : (similarProperty.priceDisplay || formatPrice(similarProperty.price))
+                              : (similarProperty.priceDisplay || formatPrice(similarProperty.price || 0))
                             }
                           </h3>
                           <p style={{

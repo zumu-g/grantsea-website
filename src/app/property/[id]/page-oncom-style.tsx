@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useProperty, useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
@@ -34,19 +33,27 @@ export default function PropertyDetailPageOncom() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ 
-            width: '40px', 
-            height: '40px', 
-            border: '3px solid #e0e0e0', 
-            borderTop: '3px solid #000', 
-            borderRadius: '50%', 
-            margin: '0 auto',
-            animation: 'spin 1s linear infinite' 
-          }} />
+      <>
+        <style jsx>{`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `}</style>
+        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ textAlign: 'center' }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              border: '3px solid #e0e0e0',
+              borderTop: '3px solid #000',
+              borderRadius: '50%',
+              margin: '0 auto',
+              animation: 'spin 1s linear infinite'
+            }} />
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
@@ -423,7 +430,7 @@ export default function PropertyDetailPageOncom() {
                     textAlign: 'center'
                   }}>
                     <div style={{ fontSize: '20px', fontWeight: '600', marginBottom: '4px' }}>
-                      {property.landSize || '–'} m²
+                      {property.landSize ? `${property.landSize} m²` : '–'}
                     </div>
                     <div style={{ fontSize: '14px', color: '#666' }}>Total Area</div>
                   </div>

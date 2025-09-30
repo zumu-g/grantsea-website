@@ -14,13 +14,8 @@ export async function GET(
   const id = params.id;
   
   if (!API_KEY || !ACCESS_TOKEN) {
-    console.error('API credentials missing:', {
-      hasApiKey: !!API_KEY,
-      hasAccessToken: !!ACCESS_TOKEN,
-      apiUrl: API_BASE_URL
-    });
     return NextResponse.json(
-      { 
+      {
         error: 'API credentials not configured',
         details: 'Missing API key or access token in environment variables'
       },
@@ -53,7 +48,7 @@ export async function GET(
         property = properties.find((p: any) => p.id?.toString() === id);
       }
     } catch (e) {
-      console.error('Error fetching from sale endpoint:', e);
+      // Silently continue to next attempt
     }
 
     // If not found in sale, try lease
@@ -70,7 +65,7 @@ export async function GET(
           property = properties.find((p: any) => p.id?.toString() === id);
         }
       } catch (e) {
-        console.error('Error fetching from lease endpoint:', e);
+        // Silently continue to next attempt
       }
     }
 
@@ -96,7 +91,6 @@ export async function GET(
           }
         }
       } catch (e) {
-        console.error('Error fetching direct property:', e);
         error = e instanceof Error ? e.message : 'Unknown error';
       }
     }
@@ -119,9 +113,8 @@ export async function GET(
     }
 
   } catch (error) {
-    console.error('API Route Error:', error);
     return NextResponse.json(
-      { 
+      {
         error: 'Failed to fetch property',
         details: error instanceof Error ? error.message : 'Unknown error'
       },

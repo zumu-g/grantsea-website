@@ -227,11 +227,8 @@ export const propertyAPI = {
     let response;
     try {
       response = await fetchFromCRM<any>(`/properties/residential/sale?${params.toString()}`);
-      console.log('Raw Vault RE response (residential/sale):', response);
     } catch (error) {
-      console.log('Residential/sale endpoint failed, trying general properties endpoint');
       response = await fetchFromCRM<any>(`/properties?${params.toString()}`);
-      console.log('Raw Vault RE response (properties):', response);
     }
     
     // VaultRE API returns data in 'items' array
@@ -274,7 +271,6 @@ export const propertyAPI = {
           data: data.data
         };
       } catch (error) {
-        console.error('Error fetching property:', error);
         throw error;
       }
     }
@@ -330,7 +326,6 @@ export const propertyAPI = {
           }
         };
       } catch (error) {
-        console.error('Error fetching sale properties:', error);
         throw error;
       }
     }
@@ -381,7 +376,6 @@ export const propertyAPI = {
           }
         };
       } catch (error) {
-        console.error('Error fetching lease properties:', error);
         throw error;
       }
     }
@@ -411,7 +405,6 @@ export const propertyAPI = {
       ]);
       
       const allProperties = [...(saleResponse.data || []), ...(leaseResponse.data || [])];
-      console.log('Featured properties combined:', allProperties.length);
       
       return {
         success: true,
@@ -424,7 +417,6 @@ export const propertyAPI = {
         }
       };
     } catch (error) {
-      console.error('Error fetching featured properties:', error);
       // If featured endpoint fails, try getting all active listings
       try {
         const fallbackResponse = await this.getProperties({ limit: 12, status: 'active' });

@@ -19,75 +19,80 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const fetchProperties = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      let response;
-      
-      if (options?.featured) {
-        response = await crmAPI.properties.getFeaturedProperties();
-      } else if (options?.type === 'lease' || options?.type === 'rent') {
-        // Use the specific lease endpoint
-        response = await crmAPI.properties.getPropertiesForLease({
-          suburb: options?.suburb,
-          limit: options?.limit
-        });
-      } else if (options?.type === 'sale') {
-        // Use the specific sale endpoint
-        response = await crmAPI.properties.getPropertiesForSale({
-          suburb: options?.suburb,
-          limit: options?.limit
-        });
-      } else {
-        // Get all properties (both sale and lease)
-        const [saleResponse, leaseResponse] = await Promise.all([
-          crmAPI.properties.getPropertiesForSale({
-            suburb: options?.suburb,
-            limit: options?.limit ? Math.floor(options.limit / 2) : 10
-          }),
-          crmAPI.properties.getPropertiesForLease({
-            suburb: options?.suburb,
-            limit: options?.limit ? Math.floor(options.limit / 2) : 10
-          })
-        ]);
-        
-        response = {
-          success: true,
-          data: [...(saleResponse.data || []), ...(leaseResponse.data || [])]
-        };
-      }
-
-      if (response.success && response.data) {
-        // Always set the properties, even if empty array
-        setProperties(response.data);
-      } else if (response.data && Array.isArray(response.data)) {
-        // Handle case where success flag might be missing but data exists
-        setProperties(response.data);
-      } else {
-        throw new Error(response.error || 'Failed to fetch properties');
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-      
-      // Set empty array instead of mock data
-      setProperties([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        let response;
+
+        if (options?.featured) {
+          response = await crmAPI.properties.getFeaturedProperties();
+        } else if (options?.type === 'lease' || options?.type === 'rent') {
+          // Use the specific lease endpoint
+          response = await crmAPI.properties.getPropertiesForLease({
+            suburb: options?.suburb,
+            limit: options?.limit
+          });
+        } else if (options?.type === 'sale') {
+          // Use the specific sale endpoint
+          response = await crmAPI.properties.getPropertiesForSale({
+            suburb: options?.suburb,
+            limit: options?.limit
+          });
+        } else {
+          // Get all properties (both sale and lease)
+          const [saleResponse, leaseResponse] = await Promise.all([
+            crmAPI.properties.getPropertiesForSale({
+              suburb: options?.suburb,
+              limit: options?.limit ? Math.floor(options.limit / 2) : 10
+            }),
+            crmAPI.properties.getPropertiesForLease({
+              suburb: options?.suburb,
+              limit: options?.limit ? Math.floor(options.limit / 2) : 10
+            })
+          ]);
+
+          response = {
+            success: true,
+            data: [...(saleResponse.data || []), ...(leaseResponse.data || [])]
+          };
+        }
+
+        if (response.success && response.data) {
+          // Always set the properties, even if empty array
+          setProperties(response.data);
+        } else if (response.data && Array.isArray(response.data)) {
+          // Handle case where success flag might be missing but data exists
+          setProperties(response.data);
+        } else {
+          throw new Error(response.error || 'Failed to fetch properties');
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');
+
+        // Set empty array instead of mock data
+        setProperties([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchProperties();
-  }, [options?.suburb, options?.limit, options?.featured, options?.type]);
+  }, [options?.suburb, options?.limit, options?.featured, options?.type, refreshKey]);
+
+  const refetch = async () => {
+    setRefreshKey(prev => prev + 1);
+  };
 
   return {
     properties,
     loading,
     error,
-    refetch: fetchProperties,
+    refetch,
   };
 }
 

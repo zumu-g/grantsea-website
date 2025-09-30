@@ -12,24 +12,35 @@ export default function SimplePropertyDetailPage() {
 
   useEffect(() => {
     const fetchProperty = async () => {
+      console.log('[PropertyDetail] Starting fetch for ID:', params.id);
       try {
         const response = await fetch(`/api/properties/${params.id}`);
+        console.log('[PropertyDetail] Response status:', response.status);
+
         const data = await response.json();
+        console.log('[PropertyDetail] Response data:', data);
 
         if (!response.ok) {
+          console.error('[PropertyDetail] Response not OK:', data);
           throw new Error(data.error || 'Failed to fetch property');
         }
 
+        console.log('[PropertyDetail] Setting property data:', data.data);
         setProperty(data.data);
       } catch (err) {
+        console.error('[PropertyDetail] Error caught:', err);
         setError(err instanceof Error ? err.message : 'An error occurred');
       } finally {
+        console.log('[PropertyDetail] Fetch complete, setting loading to false');
         setLoading(false);
       }
     };
 
     if (params.id) {
+      console.log('[PropertyDetail] params.id exists, starting fetch');
       fetchProperty();
+    } else {
+      console.log('[PropertyDetail] No params.id, skipping fetch');
     }
   }, [params.id]);
 

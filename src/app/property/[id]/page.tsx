@@ -1,4 +1,5 @@
-'use client';
+// Temporarily using static page to verify deployment
+export { default } from './page-static';
 
-// Using safe SSR-compatible version without complex hooks
-export { default } from './page-safe';
+// Once verified working, switch to:
+// export { default } from './page-safe';

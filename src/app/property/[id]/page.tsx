@@ -1,5 +1,4 @@
-// Temporarily using static page to verify deployment
-export { default } from './page-static';
+'use client';
 
-// Once verified working, switch to:
-// export { default } from './page-safe';
+// Using full-featured safe version without hooks errors
+export { default } from './page-full-safe';

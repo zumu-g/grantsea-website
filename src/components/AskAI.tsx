@@ -153,56 +153,59 @@ export default function AskAI({
     }
   };
 
-  // Different button styles based on size and type
+  // Different button styles based on size and type - luxury minimalist
   const getButtonStyles = () => {
     const baseStyles = {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: '6px',
-      backgroundColor: '#002b7f',
+      gap: '8px',
+      backgroundColor: '#000',
       color: '#fff',
-      border: 'none',
-      borderRadius: propertyType === 'floating' ? '50%' : '8px',
+      border: '1px solid #000',
+      borderRadius: '2px',
       cursor: 'pointer',
-      transition: 'all 0.2s ease',
-      fontWeight: '600',
-      fontSize: size === 'small' ? '12px' : size === 'large' ? '16px' : '14px',
-      boxShadow: '0 2px 8px rgba(0, 43, 127, 0.3)',
+      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      fontWeight: '400',
+      fontSize: '14px',
+      letterSpacing: '0.02em',
+      fontFamily: 'inherit'
     };
 
     if (propertyType === 'floating') {
       return {
         ...baseStyles,
         position: 'fixed' as const,
-        bottom: '24px',
-        right: '24px',
-        width: '56px',
-        height: '56px',
+        bottom: '32px',
+        right: '32px',
+        width: '48px',
+        height: '48px',
+        padding: '0',
         zIndex: 1000,
-        boxShadow: '0 4px 16px rgba(0, 43, 127, 0.4)',
+        border: '1px solid rgba(0, 0, 0, 0.1)',
+        boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)',
       };
     }
 
     if (size === 'small') {
       return {
         ...baseStyles,
-        padding: '6px 12px',
-        fontSize: '12px',
+        padding: '8px 16px',
+        fontSize: '13px',
       };
     }
 
     if (size === 'large') {
       return {
         ...baseStyles,
-        padding: '12px 24px',
-        fontSize: '16px',
+        padding: '14px 28px',
+        fontSize: '15px',
       };
     }
 
     return {
       ...baseStyles,
-      padding: '8px 16px',
+      padding: '10px 20px',
     };
   };
 
@@ -214,35 +217,33 @@ export default function AskAI({
         onClick={() => setIsOpen(true)}
         style={buttonStyles}
         onMouseEnter={(e) => {
-          e.currentTarget.style.backgroundColor = '#001f5c';
-          e.currentTarget.style.transform = 'translateY(-1px)';
-          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 43, 127, 0.4)';
+          e.currentTarget.style.backgroundColor = '#fff';
+          e.currentTarget.style.color = '#000';
+          e.currentTarget.style.borderColor = '#000';
+          if (propertyType === 'floating') {
+            e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.12)';
+          }
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.backgroundColor = '#002b7f';
-          e.currentTarget.style.transform = 'translateY(0)';
-          e.currentTarget.style.boxShadow = propertyType === 'floating'
-            ? '0 4px 16px rgba(0, 43, 127, 0.4)'
-            : '0 2px 8px rgba(0, 43, 127, 0.3)';
+          e.currentTarget.style.backgroundColor = '#000';
+          e.currentTarget.style.color = '#fff';
+          e.currentTarget.style.borderColor = propertyType === 'floating' ? 'rgba(0, 0, 0, 0.1)' : '#000';
+          if (propertyType === 'floating') {
+            e.currentTarget.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.08)';
+          }
         }}
-        title="Ask AI about this property"
+        title="Property Assistant"
       >
         {propertyType === 'floating' ? (
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-            <circle cx="9" cy="9" r="1"></circle>
-            <circle cx="15" cy="9" r="1"></circle>
-            <path d="M8 13s1.5 2 4 2 4-2 4-2"></path>
           </svg>
         ) : (
           <>
-            <svg width={size === 'small' ? '14' : '16'} height={size === 'small' ? '14' : '16'} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              <circle cx="9" cy="9" r="1"></circle>
-              <circle cx="15" cy="9" r="1"></circle>
-              <path d="M8 13s1.5 2 4 2 4-2 4-2"></path>
             </svg>
-            <span>Ask AI</span>
+            <span>Ask Grant's AI</span>
           </>
         )}
       </button>
@@ -411,9 +412,6 @@ export default function AskAI({
                   }}>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="1.5">
                       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                      <circle cx="9" cy="9" r="1"></circle>
-                      <circle cx="15" cy="9" r="1"></circle>
-                      <path d="M8 13s1.5 2 4 2 4-2 4-2"></path>
                     </svg>
                   </div>
                   <div style={{
@@ -423,28 +421,28 @@ export default function AskAI({
                     borderRadius: '2px',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px'
+                    gap: '6px'
                   }}>
                     <div style={{
-                      width: '6px',
-                      height: '6px',
-                      backgroundColor: '#000',
+                      width: '4px',
+                      height: '4px',
+                      backgroundColor: '#666',
                       borderRadius: '50%',
-                      animation: 'pulse 1.5s ease-in-out infinite'
+                      animation: 'fadeInOut 1.4s ease-in-out infinite'
                     }}></div>
                     <div style={{
-                      width: '6px',
-                      height: '6px',
-                      backgroundColor: '#000',
+                      width: '4px',
+                      height: '4px',
+                      backgroundColor: '#666',
                       borderRadius: '50%',
-                      animation: 'pulse 1.5s ease-in-out infinite 0.2s'
+                      animation: 'fadeInOut 1.4s ease-in-out infinite 0.2s'
                     }}></div>
                     <div style={{
-                      width: '6px',
-                      height: '6px',
-                      backgroundColor: '#000',
+                      width: '4px',
+                      height: '4px',
+                      backgroundColor: '#666',
                       borderRadius: '50%',
-                      animation: 'pulse 1.5s ease-in-out infinite 0.4s'
+                      animation: 'fadeInOut 1.4s ease-in-out infinite 0.4s'
                     }}></div>
                   </div>
                 </div>
@@ -528,14 +526,12 @@ export default function AskAI({
 
       {/* CSS for animations */}
       <style jsx>{`
-        @keyframes pulse {
-          0%, 80%, 100% {
-            opacity: 0.4;
-            transform: scale(0.8);
+        @keyframes fadeInOut {
+          0%, 100% {
+            opacity: 0.2;
           }
-          40% {
+          50% {
             opacity: 1;
-            transform: scale(1);
           }
         }
       `}</style>

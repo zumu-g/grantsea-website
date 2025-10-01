@@ -45,6 +45,7 @@ interface Property {
     name?: string;
     phone?: string;
     email?: string;
+    photo?: string;
   };
   createdAt?: string;
   updatedAt?: string;

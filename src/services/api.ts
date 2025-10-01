@@ -664,6 +664,33 @@ function getRentalPriceDisplay(vaultProperty: any): string {
   return `${formatPrice(numPrice)} per week`;
 }
 
+// Extract features from description text (VaultRE stores features in description)
+function extractFeaturesFromDescription(description: string): string[] {
+  if (!description) return [];
+
+  const features: string[] = [];
+  const lines = description.split('\n');
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    // Look for bullet points or feature markers
+    if (trimmed.startsWith('•') || trimmed.startsWith('-') || trimmed.startsWith('*')) {
+      const feature = trimmed.substring(1).trim();
+      if (feature && feature.length > 3 && feature.length < 100) {
+        features.push(feature);
+      }
+    }
+    // Also look for key feature phrases
+    else if (trimmed.match(/^(kitchen|bedroom|bathroom|living|garage|pool|outdoor|heating|cooling)/i)) {
+      if (trimmed.length < 100) {
+        features.push(trimmed);
+      }
+    }
+  }
+
+  return features.slice(0, 12); // Limit to 12 features
+}
+
 // Transform Vault RE response to our Property interface
 export function transformVaultREProperty(vaultProperty: any): Property {
   
@@ -710,7 +737,7 @@ export function transformVaultREProperty(vaultProperty: any): Property {
     leaseTerm: vaultProperty.leaseTerm,
     bond: vaultProperty.bond,
     description: vaultProperty.description || vaultProperty.heading || '',
-    features: Array.isArray(vaultProperty.features) ? vaultProperty.features : [],
+    features: extractFeaturesFromDescription(vaultProperty.description || vaultProperty.heading || ''),
     images: (vaultProperty.photos || vaultProperty.images || vaultProperty.media || [])
       .filter((img: any) => img.type?.toLowerCase() !== 'floorplan')
       .map((img: any, index: number) => ({

@@ -894,7 +894,7 @@ export default function PropertyDetailPage() {
                     priceDisplay: property.priceDisplay,
                     leasePrice: property.leasePrice,
                     leasePriceDisplay: property.leasePriceDisplay,
-                    listingType: property.listingType,
+                    listingType: (property.listingType as 'sale' | 'lease' | 'both') || 'sale',
                     bedrooms: property.bedrooms,
                     bathrooms: property.bathrooms,
                     carSpaces: property.carSpaces,

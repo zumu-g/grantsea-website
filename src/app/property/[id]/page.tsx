@@ -697,7 +697,7 @@ export default function PropertyDetailPage() {
                     {property.suburb}, {property.state} {property.postcode}
                   </p>
                 </div>
-                <SavePropertyButton propertyId={property.id} size="large" />
+                <SavePropertyButton property={property} size="large" />
               </div>
 
               {/* Quick Features */}

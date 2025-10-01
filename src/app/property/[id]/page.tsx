@@ -30,6 +30,8 @@ interface Property {
   description?: string;
   features?: string[];
   images?: Array<{ id?: string; url: string; order?: number; type?: string }>;
+  floorPlans?: Array<{ id?: string; url: string; caption?: string; order?: number; type?: string }>;
+  documents?: Array<{ id: string; name: string; url: string; type: string; format?: string }>;
   virtualTourUrl?: string;
   floorPlanUrl?: string;
   inspectionTimes?: Array<{
@@ -57,10 +59,12 @@ export default function PropertyDetailPage() {
 
   // UI State
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentFloorPlanIndex, setCurrentFloorPlanIndex] = useState(0);
   const [showAllPhotos, setShowAllPhotos] = useState(false);
   const [showFullscreenCarousel, setShowFullscreenCarousel] = useState(false);
   const [showVirtualTour, setShowVirtualTour] = useState(false);
   const [showFloorPlan, setShowFloorPlan] = useState(false);
+  const [showDocuments, setShowDocuments] = useState(false);
   const [enquirySent, setEnquirySent] = useState(false);
   const [enquiryForm, setEnquiryForm] = useState({
     name: '',
@@ -244,7 +248,7 @@ export default function PropertyDetailPage() {
       )}
 
       {/* Floor Plan Modal */}
-      {showFloorPlan && (
+      {showFloorPlan && property.floorPlans && property.floorPlans.length > 0 && (
         <div style={{
           position: 'fixed',
           top: 0,
@@ -277,33 +281,187 @@ export default function PropertyDetailPage() {
           </button>
           <div style={{
             width: '90%',
-            maxWidth: '1000px',
-            height: '80vh',
+            maxWidth: '1200px',
+            height: '85vh',
             backgroundColor: 'white',
             borderRadius: '8px',
             padding: '40px',
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center'
+            position: 'relative'
           }}>
-            <h2 style={{ marginBottom: '20px' }}>Floor Plan</h2>
-            {property.floorPlanUrl ? (
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h2 style={{ margin: 0 }}>Floor Plan {property.floorPlans.length > 1 ? `${currentFloorPlanIndex + 1} of ${property.floorPlans.length}` : ''}</h2>
+              <a
+                href={property.floorPlans[currentFloorPlanIndex].url}
+                download={`floor-plan-${currentFloorPlanIndex + 1}.jpg`}
+                style={{
+                  padding: '10px 20px',
+                  backgroundColor: '#000',
+                  color: 'white',
+                  textDecoration: 'none',
+                  borderRadius: '4px',
+                  fontSize: '14px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3 3m0 0l-3-3m3 3V8" />
+                </svg>
+                Download
+              </a>
+            </div>
+            <div style={{
+              flex: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#f5f5f5',
+              borderRadius: '4px',
+              overflow: 'hidden',
+              position: 'relative'
+            }}>
               <img
-                src={property.floorPlanUrl}
-                alt="Floor Plan"
-                style={{ maxWidth: '100%', maxHeight: 'calc(100% - 60px)', objectFit: 'contain' }}
+                src={property.floorPlans[currentFloorPlanIndex].url}
+                alt={property.floorPlans[currentFloorPlanIndex].caption || `Floor Plan ${currentFloorPlanIndex + 1}`}
+                style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
               />
-            ) : (
-              <div style={{
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#f5f5f5'
-              }}>
-                <p style={{ color: '#666' }}>Floor plan not available</p>
-              </div>
+              {property.floorPlans.length > 1 && (
+                <>
+                  <button
+                    onClick={() => setCurrentFloorPlanIndex(Math.max(0, currentFloorPlanIndex - 1))}
+                    disabled={currentFloorPlanIndex === 0}
+                    style={{
+                      position: 'absolute',
+                      left: '20px',
+                      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                      border: 'none',
+                      borderRadius: '50%',
+                      width: '50px',
+                      height: '50px',
+                      fontSize: '24px',
+                      cursor: currentFloorPlanIndex === 0 ? 'not-allowed' : 'pointer',
+                      opacity: currentFloorPlanIndex === 0 ? 0.3 : 1
+                    }}
+                  >
+                    ‹
+                  </button>
+                  <button
+                    onClick={() => setCurrentFloorPlanIndex(Math.min(property.floorPlans!.length - 1, currentFloorPlanIndex + 1))}
+                    disabled={currentFloorPlanIndex === property.floorPlans.length - 1}
+                    style={{
+                      position: 'absolute',
+                      right: '20px',
+                      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                      border: 'none',
+                      borderRadius: '50%',
+                      width: '50px',
+                      height: '50px',
+                      fontSize: '24px',
+                      cursor: currentFloorPlanIndex === property.floorPlans.length - 1 ? 'not-allowed' : 'pointer',
+                      opacity: currentFloorPlanIndex === property.floorPlans.length - 1 ? 0.3 : 1
+                    }}
+                  >
+                    ›
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Documents Modal */}
+      {showDocuments && property.documents && property.documents.length > 0 && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          zIndex: 2000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <button
+            onClick={() => setShowDocuments(false)}
+            style={{
+              position: 'absolute',
+              top: '20px',
+              right: '20px',
+              background: 'white',
+              border: 'none',
+              borderRadius: '50%',
+              width: '40px',
+              height: '40px',
+              fontSize: '20px',
+              cursor: 'pointer',
+              zIndex: 2001
+            }}
+          >
+            ×
+          </button>
+          <div style={{
+            width: '90%',
+            maxWidth: '600px',
+            backgroundColor: 'white',
+            borderRadius: '8px',
+            padding: '40px'
+          }}>
+            <h2 style={{ marginBottom: '24px', fontSize: '28px' }}>Property Documents</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {property.documents.map((doc) => (
+                <a
+                  key={doc.id}
+                  href={doc.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '16px 20px',
+                    backgroundColor: '#f5f5f5',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    color: '#000',
+                    transition: 'background-color 0.2s',
+                    border: '1px solid #e5e5e5'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#e5e5e5';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#f5f5f5';
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                    <div>
+                      <div style={{ fontWeight: '600', fontSize: '16px' }}>{doc.name}</div>
+                      {doc.format && (
+                        <div style={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>
+                          {doc.format} Document
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3 3m0 0l-3-3m3 3V8" />
+                  </svg>
+                </a>
+              ))}
+            </div>
+            {property.documents.some(doc => doc.type === 'soi') && (
+              <p style={{ marginTop: '20px', fontSize: '13px', color: '#666', lineHeight: '1.6' }}>
+                📄 Statement of Information (SOI) includes property details, comparable sales, and vendor information as required by Victorian law.
+              </p>
             )}
           </div>
         </div>
@@ -650,28 +808,33 @@ export default function PropertyDetailPage() {
                   </svg>
                   Virtual Tour
                 </button>
-                <button
-                  onClick={() => setShowFloorPlan(true)}
-                  style={{
-                    padding: '12px 24px',
-                    backgroundColor: 'white',
-                    color: '#000',
-                    border: '1px solid #000',
-                    borderRadius: '4px',
-                    fontSize: '14px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px'
-                  }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <rect x="3" y="3" width="18" height="18" rx="2" strokeWidth="2"/>
-                    <line x1="9" y1="3" x2="9" y2="21" strokeWidth="2"/>
-                    <line x1="9" y1="12" x2="21" y2="12" strokeWidth="2"/>
-                  </svg>
-                  Floor Plan
-                </button>
+                {property.floorPlans && property.floorPlans.length > 0 && (
+                  <button
+                    onClick={() => {
+                      setCurrentFloorPlanIndex(0);
+                      setShowFloorPlan(true);
+                    }}
+                    style={{
+                      padding: '12px 24px',
+                      backgroundColor: 'white',
+                      color: '#000',
+                      border: '1px solid #000',
+                      borderRadius: '4px',
+                      fontSize: '14px',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px'
+                    }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <rect x="3" y="3" width="18" height="18" rx="2" strokeWidth="2"/>
+                      <line x1="9" y1="3" x2="9" y2="21" strokeWidth="2"/>
+                      <line x1="9" y1="12" x2="21" y2="12" strokeWidth="2"/>
+                    </svg>
+                    Floor Plan{property.floorPlans.length > 1 ? 's' : ''}
+                  </button>
+                )}
                 <button
                   onClick={handleShare}
                   style={{
@@ -912,20 +1075,37 @@ export default function PropertyDetailPage() {
               </button>
 
               {/* Download Documents */}
-              <button
-                style={{
-                  width: '100%',
-                  padding: '14px',
-                  backgroundColor: 'white',
-                  color: '#000',
-                  border: '1px solid #e5e5e5',
-                  borderRadius: '4px',
-                  fontSize: '14px',
-                  cursor: 'pointer'
-                }}
-              >
-                Download Property Documents
-              </button>
+              {property.documents && property.documents.length > 0 && (
+                <button
+                  onClick={() => setShowDocuments(true)}
+                  style={{
+                    width: '100%',
+                    padding: '14px',
+                    backgroundColor: 'white',
+                    color: '#000',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '4px',
+                    fontSize: '14px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    fontWeight: '500'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#f5f5f5';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'white';
+                  }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3 3m0 0l-3-3m3 3V8" />
+                  </svg>
+                  Download Documents ({property.documents.length})
+                </button>
+              )}
             </div>
           </div>
         </div>

@@ -36,6 +36,8 @@ export interface Property {
   description: string;
   features: string[];
   images: PropertyImage[];
+  floorPlans?: PropertyImage[];
+  documents?: PropertyDocument[];
   agent: Agent;
   inspectionTimes?: InspectionTime[];
   coordinates?: {
@@ -66,6 +68,15 @@ export interface PropertyImage {
   caption?: string;
   order: number;
   type: 'photo' | 'floorplan' | 'video';
+}
+
+export interface PropertyDocument {
+  id: string;
+  name: string;
+  url: string;
+  type: 'soi' | 'section32' | 'brochure' | 'contract' | 'other';
+  size?: number;
+  format?: string;
 }
 
 export interface Agent {
@@ -700,13 +711,42 @@ export function transformVaultREProperty(vaultProperty: any): Property {
     bond: vaultProperty.bond,
     description: vaultProperty.description || vaultProperty.heading || '',
     features: Array.isArray(vaultProperty.features) ? vaultProperty.features : [],
-    images: (vaultProperty.photos || vaultProperty.images || vaultProperty.media || []).map((img: any, index: number) => ({
-      id: img.id || `img-${index}`,
-      url: img.url || img.original || img.fullUrl || img.large || '',
-      caption: img.caption || img.description || '',
-      order: img.order !== undefined ? img.order : index,
-      type: 'photo' as const
-    })),
+    images: (vaultProperty.photos || vaultProperty.images || vaultProperty.media || [])
+      .filter((img: any) => img.type?.toLowerCase() !== 'floorplan')
+      .map((img: any, index: number) => ({
+        id: img.id || `img-${index}`,
+        url: img.url || img.original || img.fullUrl || img.large || '',
+        caption: img.caption || img.description || '',
+        order: img.order !== undefined ? img.order : index,
+        type: 'photo' as const
+      })),
+    floorPlans: (vaultProperty.photos || vaultProperty.images || vaultProperty.media || [])
+      .filter((img: any) => img.type?.toLowerCase() === 'floorplan')
+      .map((img: any, index: number) => ({
+        id: img.id || `floorplan-${index}`,
+        url: img.url || img.original || img.fullUrl || img.large || '',
+        caption: img.caption || img.description || 'Floor Plan',
+        order: img.order !== undefined ? img.order : index,
+        type: 'floorplan' as const
+      })),
+    documents: [
+      // Statement of Information (SOI) - similar to Section 32 in Victoria
+      ...(vaultProperty.soiUrl ? [{
+        id: 'soi',
+        name: 'Statement of Information',
+        url: vaultProperty.soiUrl,
+        type: 'soi' as const,
+        format: 'pdf'
+      }] : []),
+      // eTable URL (property brochure)
+      ...(vaultProperty.eTableUrl ? [{
+        id: 'brochure',
+        name: 'Property Brochure',
+        url: vaultProperty.eTableUrl,
+        type: 'brochure' as const,
+        format: 'pdf'
+      }] : []),
+    ],
     agent: vaultProperty.contactStaff && vaultProperty.contactStaff[0] ? {
       id: vaultProperty.contactStaff[0].id?.toString() || '',
       name: `${vaultProperty.contactStaff[0].firstName} ${vaultProperty.contactStaff[0].lastName}`.trim(),

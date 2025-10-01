@@ -927,18 +927,44 @@ export default function PropertyDetailPage() {
               }}>
                 <div>
                   <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Property Type</div>
-                  <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.propertyType || '–'}</div>
+                  <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.propertyType || 'House'}</div>
                 </div>
-                {property.landSize && (
+                <div>
+                  <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Bedrooms</div>
+                  <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.bedrooms || '–'}</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Bathrooms</div>
+                  <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.bathrooms || '–'}</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Car Spaces</div>
+                  <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.carSpaces || '–'}</div>
+                </div>
+                {property.landSize && property.landSize > 0 && (
                   <div>
                     <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Land Size</div>
                     <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.landSize} m²</div>
                   </div>
                 )}
-                {property.buildingSize && (
+                {property.buildingSize && property.buildingSize > 0 && (
                   <div>
                     <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Building Size</div>
                     <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.buildingSize} m²</div>
+                  </div>
+                )}
+                {property.saleMethod && (
+                  <div>
+                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Sale Method</div>
+                    <div style={{ fontSize: '16px', fontWeight: '600', textTransform: 'capitalize' }}>{property.saleMethod}</div>
+                  </div>
+                )}
+                {property.listingType && (
+                  <div>
+                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Listing Type</div>
+                    <div style={{ fontSize: '16px', fontWeight: '600', textTransform: 'capitalize' }}>
+                      {property.listingType === 'sale' ? 'For Sale' : property.listingType === 'lease' ? 'For Lease' : 'Sale & Lease'}
+                    </div>
                   </div>
                 )}
               </div>

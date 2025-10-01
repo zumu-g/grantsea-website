@@ -712,7 +712,7 @@ export default function PropertyDetailPage() {
                   leasePrice: property.leasePrice,
                   leasePriceDisplay: property.leasePriceDisplay,
                   images: property.images || []
-                }} size="large" />
+                }} />
               </div>
 
               {/* Quick Features */}

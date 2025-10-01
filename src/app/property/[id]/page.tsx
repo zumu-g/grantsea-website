@@ -1008,6 +1008,81 @@ export default function PropertyDetailPage() {
               position: 'sticky',
               top: '20px'
             }}>
+              {/* Agent Photo Box */}
+              <div style={{
+                backgroundColor: '#fff',
+                border: '1px solid #e5e5e5',
+                marginBottom: '24px',
+                overflow: 'hidden'
+              }}>
+                {property.agent?.photo ? (
+                  <>
+                    <img
+                      src={property.agent.photo}
+                      alt={property.agent.name}
+                      style={{
+                        width: '100%',
+                        height: '400px',
+                        objectFit: 'cover'
+                      }}
+                    />
+                    <div style={{
+                      padding: '24px',
+                      backgroundColor: 'rgba(0,0,0,0.7)',
+                      color: '#fff',
+                      marginTop: '-80px',
+                      position: 'relative',
+                      zIndex: 1
+                    }}>
+                      <div style={{ fontSize: '24px', fontWeight: '700', marginBottom: '4px' }}>
+                        {property.agent?.name || 'Grant\'s Agent'}
+                      </div>
+                      <div style={{ fontSize: '16px' }}>Grant\'s Estate Agents</div>
+                    </div>
+                  </>
+                ) : (
+                  <div style={{
+                    width: '100%',
+                    height: '400px',
+                    backgroundColor: '#f5f5f5',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    <div style={{ textAlign: 'center' }}>
+                      <div style={{
+                        width: '120px',
+                        height: '120px',
+                        borderRadius: '50%',
+                        backgroundColor: '#e5e5e5',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '48px',
+                        fontWeight: '700',
+                        margin: '0 auto 16px'
+                      }}>
+                        {property.agent?.name?.charAt(0) || 'G'}
+                      </div>
+                      <div style={{ fontSize: '24px', fontWeight: '600', marginBottom: '8px' }}>
+                        {property.agent?.name || 'Grant\'s Agent'}
+                      </div>
+                      <div style={{ fontSize: '16px', color: '#666', marginBottom: '4px' }}>
+                        Grant\'s Estate Agents
+                      </div>
+                      <div style={{ fontSize: '16px', color: '#666' }}>
+                        {property.agent?.phone || '1300 000 000'}
+                      </div>
+                      {property.agent?.email && (
+                        <div style={{ fontSize: '16px', color: '#666', marginTop: '4px' }}>
+                          {property.agent.email}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+
               {/* Agent Contact Card */}
               <div style={{
                 padding: '24px',
@@ -1017,18 +1092,6 @@ export default function PropertyDetailPage() {
                 marginBottom: '24px'
               }}>
                 <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '20px' }}>Contact Agent</h3>
-
-                <div style={{ marginBottom: '24px' }}>
-                  <div style={{ fontWeight: '600', fontSize: '18px', marginBottom: '8px' }}>
-                    {property.agent?.name || 'Grant\'s Estate Agents'}
-                  </div>
-                  <div style={{ color: '#666', marginBottom: '4px' }}>
-                    {property.agent?.phone || '1300 000 000'}
-                  </div>
-                  <div style={{ color: '#666' }}>
-                    {property.agent?.email || 'info@grantsea.com.au'}
-                  </div>
-                </div>
 
                 {/* Enquiry Form */}
                 <form onSubmit={handleEnquiry}>

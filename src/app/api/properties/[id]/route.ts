@@ -31,67 +31,64 @@ export async function GET(
       'Content-Type': 'application/json',
     };
 
-    // Try different endpoints - VaultRE might use different paths for single properties
     let property = null;
-    let error = null;
 
-    // First, try to fetch from the properties list and filter by ID
+    // Try direct property endpoint first (fastest)
     try {
-      const response = await fetch(
-        `${API_BASE_URL}/properties/residential/sale?published=true`,
-        { headers }
+      const directResponse = await fetch(
+        `${API_BASE_URL}/properties/${id}`,
+        {
+          headers,
+          next: { revalidate: 300 } // Cache for 5 minutes
+        }
       );
-      
-      if (response.ok) {
-        const data = await response.json();
-        const properties = data.items || [];
-        property = properties.find((p: any) => p.id?.toString() === id);
+
+      if (directResponse.ok) {
+        const data = await directResponse.json();
+        // VaultRE might wrap the response or return it directly
+        property = data.data || data;
       }
     } catch (e) {
-      // Silently continue to next attempt
+      // Continue to fallback
     }
 
-    // If not found in sale, try lease
+    // Fallback: Try residential sale endpoint with ID filter (slower but works)
     if (!property) {
       try {
         const response = await fetch(
-          `${API_BASE_URL}/properties/residential/lease?published=true`,
-          { headers }
+          `${API_BASE_URL}/properties/residential/sale/${id}`,
+          {
+            headers,
+            next: { revalidate: 300 }
+          }
         );
-        
+
         if (response.ok) {
           const data = await response.json();
-          const properties = data.items || [];
-          property = properties.find((p: any) => p.id?.toString() === id);
+          property = data.data || data;
         }
       } catch (e) {
-        // Silently continue to next attempt
+        // Continue
       }
     }
 
-    // Try the direct property endpoint if available
+    // Fallback: Try residential lease endpoint
     if (!property) {
       try {
-        const directResponse = await fetch(
-          `${API_BASE_URL}/properties/${id}`,
-          { headers }
-        );
-        
-        if (directResponse.ok) {
-          property = await directResponse.json();
-        } else if (directResponse.status === 404) {
-          // Try with /listings endpoint instead
-          const listingsResponse = await fetch(
-            `${API_BASE_URL}/listings/${id}`,
-            { headers }
-          );
-          
-          if (listingsResponse.ok) {
-            property = await listingsResponse.json();
+        const response = await fetch(
+          `${API_BASE_URL}/properties/residential/lease/${id}`,
+          {
+            headers,
+            next: { revalidate: 300 }
           }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          property = data.data || data;
         }
       } catch (e) {
-        error = e instanceof Error ? e.message : 'Unknown error';
+        // Last attempt failed
       }
     }
 

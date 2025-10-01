@@ -708,7 +708,7 @@ export default function PropertyDetailPage() {
                   bathrooms: property.bathrooms || 0,
                   carSpaces: property.carSpaces || 0,
                   propertyType: property.propertyType || 'House',
-                  listingType: property.listingType,
+                  listingType: (property.listingType as 'sale' | 'lease' | 'both') || 'sale',
                   leasePrice: property.leasePrice,
                   leasePriceDisplay: property.leasePriceDisplay,
                   images: property.images || []

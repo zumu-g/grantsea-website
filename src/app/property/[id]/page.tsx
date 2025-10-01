@@ -66,12 +66,24 @@ export default function PropertyDetailPage() {
   const [showFloorPlan, setShowFloorPlan] = useState(false);
   const [showDocuments, setShowDocuments] = useState(false);
   const [enquirySent, setEnquirySent] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [enquiryForm, setEnquiryForm] = useState({
     name: '',
     email: '',
     phone: '',
     message: "I'm interested in this property..."
   });
+
+  // Detect mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Fetch property data
   useEffect(() => {
@@ -582,8 +594,8 @@ export default function PropertyDetailPage() {
           <div style={{ marginBottom: '32px' }}>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: images.length > 1 ? '2fr 1fr 1fr' : '1fr',
-              gridTemplateRows: '400px 200px',
+              gridTemplateColumns: isMobile ? '1fr' : (images.length > 1 ? '2fr 1fr 1fr' : '1fr'),
+              gridTemplateRows: isMobile ? 'repeat(auto-fit, 250px)' : '400px 200px',
               gap: '8px',
               marginBottom: '16px'
             }}>
@@ -659,7 +671,11 @@ export default function PropertyDetailPage() {
         )}
 
         {/* Property Details Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '40px' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : '2fr 1fr',
+          gap: isMobile ? '24px' : '40px'
+        }}>
           {/* Left Column */}
           <div>
             {/* Property Header */}

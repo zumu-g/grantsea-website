@@ -697,7 +697,22 @@ export default function PropertyDetailPage() {
                     {property.suburb}, {property.state} {property.postcode}
                   </p>
                 </div>
-                <SavePropertyButton property={property} size="large" />
+                <SavePropertyButton property={{
+                  id: property.id,
+                  address: property.address || 'Address not available',
+                  suburb: property.suburb || '',
+                  state: property.state || 'VIC',
+                  price: property.price,
+                  priceDisplay: property.priceDisplay,
+                  bedrooms: property.bedrooms || 0,
+                  bathrooms: property.bathrooms || 0,
+                  carSpaces: property.carSpaces || 0,
+                  propertyType: property.propertyType || 'House',
+                  listingType: property.listingType,
+                  leasePrice: property.leasePrice,
+                  leasePriceDisplay: property.leasePriceDisplay,
+                  images: property.images || []
+                }} size="large" />
               </div>
 
               {/* Quick Features */}

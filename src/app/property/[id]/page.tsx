@@ -115,7 +115,7 @@ export default function PropertyDetailPage() {
     if (!property?.images) return;
 
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (!showFullscreenCarousel) return;
+      if (!showFullscreenCarousel || !property?.images) return;
 
       if (e.key === 'ArrowLeft' && currentImageIndex > 0) {
         setCurrentImageIndex(currentImageIndex - 1);

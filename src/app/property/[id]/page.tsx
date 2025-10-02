@@ -107,14 +107,25 @@ export default function PropertyDetailPage() {
 
   // Fetch property data
   useEffect(() => {
-    if (!params.id) return;
+    if (!params.id) {
+      console.error('[PropertyPage] No property ID in params');
+      setError('No property ID provided');
+      setLoading(false);
+      return;
+    }
+
+    console.log('[PropertyPage] Fetching property:', params.id);
 
     const fetchData = async () => {
       try {
+        console.log('[PropertyPage] Starting fetch for:', `/api/properties/${params.id}`);
         const response = await fetch(`/api/properties/${params.id}`);
+        console.log('[PropertyPage] Response status:', response.status);
         const data = await response.json();
+        console.log('[PropertyPage] Response data:', data);
 
         if (response.ok && data.success && data.data) {
+          console.log('[PropertyPage] Property loaded successfully');
           setProperty(data.data);
 
           // Fetch similar properties
@@ -125,16 +136,19 @@ export default function PropertyDetailPage() {
               if (similarData.success && similarData.data) {
                 setSimilarProperties(similarData.data.filter((p: Property) => p.id !== data.data.id).slice(0, 3));
               }
-            } catch {
-              // Silently fail for similar properties
+            } catch (err) {
+              console.error('[PropertyPage] Failed to load similar properties:', err);
             }
           }
         } else {
+          console.error('[PropertyPage] Failed to load property:', data.error);
           setError(data.error || 'Failed to load property');
         }
       } catch (err) {
-        setError('Failed to load property');
+        console.error('[PropertyPage] Fetch error:', err);
+        setError('Failed to load property: ' + (err instanceof Error ? err.message : 'Unknown error'));
       } finally {
+        console.log('[PropertyPage] Setting loading to false');
         setLoading(false);
       }
     };

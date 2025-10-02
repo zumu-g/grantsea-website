@@ -750,23 +750,45 @@ export default function PropertyDetailPage() {
         }}>
           {/* Left Column */}
           <div>
-            {/* Property Header */}
-            <div style={{ marginBottom: '48px' }}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px' }}>
+            {/* Property Header - ON RUNNING STYLE */}
+            <div style={{ marginBottom: '64px' }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '32px' }}>
                 <div>
-                  <h1 style={{
-                    fontSize: '42px',
-                    fontWeight: '700',
-                    marginBottom: '12px',
-                    letterSpacing: '-0.03em',
-                    lineHeight: '1.1'
+                  {/* Property Type Label */}
+                  <div style={{
+                    fontSize: '11px',
+                    fontWeight: '600',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    color: '#525252',
+                    marginBottom: '16px',
+                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
                   }}>
-                    {property.address ? property.address.replace(/, VIC$/, '').replace(/VIC$/, '').split(',')[0].trim() : 'Property Address'}
+                    {property.propertyType || 'HOUSE'} FOR {property.listingType === 'lease' ? 'LEASE' : 'SALE'}
+                  </div>
+
+                  {/* Address - UPPERCASE BOLD */}
+                  <h1 style={{
+                    fontSize: isMobile ? '36px' : '48px',
+                    fontWeight: '700',
+                    marginBottom: '16px',
+                    letterSpacing: '-0.02em',
+                    lineHeight: '1',
+                    textTransform: 'uppercase',
+                    color: '#000000',
+                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                  }}>
+                    {property.address ? property.address.replace(/, VIC$/, '').replace(/VIC$/, '').split(',')[0].trim() : 'PROPERTY ADDRESS'}
                   </h1>
+
+                  {/* Suburb - Uppercase */}
                   <p style={{
-                    fontSize: '20px',
-                    color: '#666',
-                    fontWeight: '400'
+                    fontSize: '17px',
+                    color: '#404040',
+                    fontWeight: '500',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
                   }}>
                     {property.suburb}{property.state && property.state !== 'VIC' ? `, ${property.state}` : ''} {property.postcode}
                   </p>
@@ -789,66 +811,104 @@ export default function PropertyDetailPage() {
                 }} />
               </div>
 
-              {/* Quick Features */}
+              {/* Specs Grid - Swiss Precision */}
               <div style={{
-                display: 'flex',
-                gap: isMobile ? '24px' : '48px',
-                padding: '32px 0',
-                borderTop: '1px solid #e5e5e5',
-                borderBottom: '1px solid #e5e5e5',
-                flexWrap: 'wrap'
+                display: 'grid',
+                gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(120px, 1fr))',
+                gap: isMobile ? '16px' : '24px',
+                padding: '24px 0',
+                borderTop: '2px solid #000000',
+                borderBottom: '2px solid #000000'
               }}>
                 <div>
-                  <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '4px' }}>
+                  <div style={{
+                    fontSize: '36px',
+                    fontWeight: '700',
+                    marginBottom: '8px',
+                    color: '#000000',
+                    fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                    lineHeight: '1'
+                  }}>
                     {property.listingType === 'lease'
-                      ? (property.leasePriceDisplay || (property.leasePrice ? `$${property.leasePrice} per week` : 'Contact Agent'))
-                      : (property.priceDisplay || formatPrice(property.price || 0))
-                    }
+                      ? (property.leasePriceDisplay || (property.leasePrice ? `$${property.leasePrice}` : 'TBA'))
+                      : (property.priceDisplay || formatPrice(property.price || 0))}
                   </div>
-                  <div style={{ fontSize: '15px', color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                    {property.listingType === 'lease' ? 'Per Week' : 'Price'}
+                  <div style={{
+                    fontSize: '11px',
+                    color: '#525252',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    fontWeight: '600',
+                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                  }}>
+                    {property.listingType === 'lease' ? 'PER WEEK' : 'PRICE'}
                   </div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '4px' }}>{property.bedrooms || '–'}</div>
-                  <div style={{ fontSize: '15px', color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Bedrooms</div>
+                  <div style={{ fontSize: '36px', fontWeight: '700', marginBottom: '8px', color: '#000000', fontFamily: '"Helvetica Neue", Arial, sans-serif', lineHeight: '1' }}>
+                    {property.bedrooms || '–'}
+                  </div>
+                  <div style={{ fontSize: '11px', color: '#525252', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '600', fontFamily: '"Helvetica Neue", Arial, sans-serif' }}>
+                    BEDROOMS
+                  </div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '4px' }}>{property.bathrooms || '–'}</div>
-                  <div style={{ fontSize: '15px', color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Bathrooms</div>
+                  <div style={{ fontSize: '36px', fontWeight: '700', marginBottom: '8px', color: '#000000', fontFamily: '"Helvetica Neue", Arial, sans-serif', lineHeight: '1' }}>
+                    {property.bathrooms || '–'}
+                  </div>
+                  <div style={{ fontSize: '11px', color: '#525252', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '600', fontFamily: '"Helvetica Neue", Arial, sans-serif' }}>
+                    BATHROOMS
+                  </div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '4px' }}>{property.carSpaces || '–'}</div>
-                  <div style={{ fontSize: '15px', color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Parking</div>
+                  <div style={{ fontSize: '36px', fontWeight: '700', marginBottom: '8px', color: '#000000', fontFamily: '"Helvetica Neue", Arial, sans-serif', lineHeight: '1' }}>
+                    {property.carSpaces || '–'}
+                  </div>
+                  <div style={{ fontSize: '11px', color: '#525252', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '600', fontFamily: '"Helvetica Neue", Arial, sans-serif' }}>
+                    PARKING
+                  </div>
                 </div>
                 {property.landSize && property.landSize > 0 && (
                   <div>
-                    <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '4px' }}>
+                    <div style={{ fontSize: '36px', fontWeight: '700', marginBottom: '8px', color: '#000000', fontFamily: '"Helvetica Neue", Arial, sans-serif', lineHeight: '1' }}>
                       {property.landSize >= 4047 ? `${(property.landSize / 4047).toFixed(1)}` : property.landSize}
                     </div>
-                    <div style={{ fontSize: '15px', color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                      {property.landSize >= 4047 ? 'Acres' : 'Land m²'}
+                    <div style={{ fontSize: '11px', color: '#525252', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '600', fontFamily: '"Helvetica Neue", Arial, sans-serif' }}>
+                      {property.landSize >= 4047 ? 'ACRES' : 'LAND M²'}
                     </div>
                   </div>
                 )}
               </div>
             </div>
 
-            {/* Inspection Times / Auction Details */}
+            {/* Inspection Times / Auction Details - ON RUNNING STYLE */}
             {(property.auctionDate || (property.inspectionTimes && property.inspectionTimes.length > 0)) && (
               <div style={{
-                padding: '20px',
-                backgroundColor: '#fff4e6',
-                borderRadius: '8px',
-                marginBottom: '32px',
-                border: '1px solid #ffc107'
+                padding: '24px',
+                backgroundColor: '#000000',
+                borderRadius: '0',
+                marginBottom: '48px',
+                border: '2px solid #000000'
               }}>
                 {property.saleMethod === 'auction' && property.auctionDate && (
-                  <div style={{ marginBottom: property.inspectionTimes?.length ? '16px' : 0 }}>
-                    <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px', color: '#ff6b00' }}>
-                      🔨 Auction
+                  <div style={{ marginBottom: property.inspectionTimes?.length ? '24px' : 0 }}>
+                    <h3 style={{
+                      fontSize: '13px',
+                      fontWeight: '700',
+                      marginBottom: '12px',
+                      color: '#ffffff',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>
+                      AUCTION
                     </h3>
-                    <p style={{ fontSize: '16px', color: '#333' }}>
+                    <p style={{
+                      fontSize: '17px',
+                      color: '#ffffff',
+                      fontWeight: '500',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>
                       {new Date(property.auctionDate).toLocaleDateString('en-AU', {
                         weekday: 'long',
                         day: 'numeric',
@@ -859,7 +919,12 @@ export default function PropertyDetailPage() {
                       })}
                     </p>
                     {property.auctionVenue && (
-                      <p style={{ fontSize: '14px', color: '#666', marginTop: '4px' }}>
+                      <p style={{
+                        fontSize: '13px',
+                        color: '#d4d4d4',
+                        marginTop: '8px',
+                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                      }}>
                         {property.auctionVenue}
                       </p>
                     )}
@@ -868,12 +933,25 @@ export default function PropertyDetailPage() {
 
                 {property.inspectionTimes && property.inspectionTimes.length > 0 && (
                   <div>
-                    <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '12px' }}>
-                      🏠 Open for Inspection
+                    <h3 style={{
+                      fontSize: '13px',
+                      fontWeight: '700',
+                      marginBottom: '12px',
+                      color: '#ffffff',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>
+                      OPEN FOR INSPECTION
                     </h3>
                     {property.inspectionTimes.map((inspection) => (
-                      <div key={inspection.id} style={{ marginBottom: '8px' }}>
-                        <p style={{ fontSize: '16px', color: '#333' }}>
+                      <div key={inspection.id} style={{ marginBottom: '12px' }}>
+                        <p style={{
+                          fontSize: '17px',
+                          color: '#ffffff',
+                          fontWeight: '500',
+                          fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                        }}>
                           {new Date(inspection.startTime).toLocaleDateString('en-AU', {
                             weekday: 'long',
                             day: 'numeric',
@@ -897,8 +975,8 @@ export default function PropertyDetailPage() {
               </div>
             )}
 
-            {/* Interactive Features */}
-            <div style={{ marginBottom: '48px' }}>
+            {/* Interactive Features - ON RUNNING STYLE */}
+            <div style={{ marginBottom: '64px' }}>
               <div style={{
                 display: 'flex',
                 gap: '16px',
@@ -908,16 +986,27 @@ export default function PropertyDetailPage() {
                   <button
                     onClick={() => setShowVirtualTour(true)}
                     style={{
-                      padding: '12px 24px',
-                      backgroundColor: '#000',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '4px',
-                      fontSize: '14px',
+                      padding: '16px 32px',
+                      backgroundColor: '#000000',
+                      color: '#ffffff',
+                      border: '2px solid #000000',
+                      borderRadius: '0',
+                      fontSize: '13px',
+                      fontWeight: '700',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '8px'
+                      gap: '12px',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                      transition: 'all 300ms ease-out'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#262626';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#000000';
                     }}
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">

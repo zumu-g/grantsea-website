@@ -1143,15 +1143,16 @@ export default function PropertyDetailPage() {
                 borderTop: '2px solid #000000',
                 borderBottom: '2px solid #000000'
               }}>
-                <h2 style={{
-                  fontSize: '24px',
+                <h1 style={{
+                  fontSize: '36px',
                   fontWeight: '700',
                   marginBottom: '32px',
-                  letterSpacing: '0.1em',
+                  letterSpacing: '-0.02em',
                   textTransform: 'uppercase',
                   color: '#000000',
-                  fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                }}>Key Features</h2>
+                  fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                  lineHeight: '1.1'
+                }}>Key Features</h1>
                 <ul style={{
                   display: 'grid',
                   gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(280px, 1fr))',
@@ -1164,7 +1165,7 @@ export default function PropertyDetailPage() {
                     <li key={index} style={{
                       display: 'flex',
                       alignItems: 'flex-start',
-                      gap: '16px',
+                      gap: '12px',
                       fontSize: '15px',
                       lineHeight: '1.6',
                       color: '#404040',
@@ -1173,14 +1174,12 @@ export default function PropertyDetailPage() {
                       fontWeight: '500'
                     }}>
                       <span style={{
-                        marginTop: '6px',
+                        marginTop: '4px',
                         flexShrink: 0,
-                        width: '4px',
-                        height: '4px',
-                        borderRadius: '0',
-                        backgroundColor: '#000',
-                        display: 'block'
-                      }} />
+                        fontSize: '12px',
+                        color: '#000000',
+                        fontWeight: '700'
+                      }}>→</span>
                       <span style={{ flex: 1 }}>{feature}</span>
                     </li>
                   ))}

@@ -610,7 +610,14 @@ export default function PropertyDetailPage() {
       )}
 
       {/* Main Content */}
-      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '20px' }}>
+      <div style={{
+        maxWidth: '1400px',
+        margin: '0 auto',
+        paddingLeft: isMobile ? 'clamp(1rem, 4.2667vw, 2rem)' : 'max(2rem, 3.33vw)',
+        paddingRight: isMobile ? 'clamp(1rem, 4.2667vw, 2rem)' : 'max(2rem, 3.33vw)',
+        paddingTop: '20px',
+        paddingBottom: '60px'
+      }}>
         {/* Breadcrumb */}
         <div style={{ marginBottom: '20px', fontSize: '14px' }}>
           <Link href="/" style={{ color: '#666', textDecoration: 'none' }}>Home</Link>
@@ -620,154 +627,100 @@ export default function PropertyDetailPage() {
           <span style={{ color: '#000' }}>{property.address}</span>
         </div>
 
-        {/* Image Gallery */}
+        {/* Image Grid - ON.COM Style */}
         {images.length > 0 && (
-          <div style={{ marginBottom: '32px' }}>
-            {/* Main Image with Navigation */}
-            <div style={{ position: 'relative', marginBottom: '16px' }}>
-              <div style={{
-                width: '100%',
-                height: isMobile ? '400px' : '600px',
-                borderRadius: '12px',
-                overflow: 'hidden',
-                backgroundColor: '#f5f5f5',
-                position: 'relative',
-                cursor: 'pointer'
-              }}
-              onClick={() => {
-                setCurrentImageIndex(mainImageIndex);
-                setShowFullscreenCarousel(true);
-              }}>
-                <img
-                  src={images[mainImageIndex].url}
-                  alt={`Property image ${mainImageIndex + 1}`}
+          <div style={{ marginBottom: '40px' }}>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : (images.length > 1 ? '2fr 1fr 1fr' : '1fr'),
+              gridTemplateRows: isMobile ? 'repeat(auto-fit, 300px)' : '400px 200px',
+              gap: '8px',
+              marginBottom: '16px'
+            }}>
+              {displayImages.map((image, index) => (
+                <div
+                  key={index}
                   style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover'
+                    gridRow: !isMobile && index === 0 ? 'span 2' : 'span 1',
+                    gridColumn: !isMobile && index === 0 && images.length > 1 ? 'span 1' : 'span 1',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    backgroundColor: '#f5f5f5',
+                    transition: 'transform 0.2s ease'
                   }}
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y1ZjVmNSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjIwMCIgeT0iMTUwIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiI+SW1hZ2Ugbm90IGF2YWlsYWJsZTwvdGV4dD48L3N2Zz4=';
+                  onClick={() => {
+                    setCurrentImageIndex(index);
+                    setShowFullscreenCarousel(true);
                   }}
-                />
-
-                {/* Image Counter */}
-                <div style={{
-                  position: 'absolute',
-                  bottom: '20px',
-                  right: '20px',
-                  backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                  color: 'white',
-                  padding: '8px 16px',
-                  borderRadius: '20px',
-                  fontSize: '14px',
-                  fontWeight: '600'
-                }}>
-                  {mainImageIndex + 1} / {images.length}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.02)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                  }}
+                >
+                  <img
+                    src={image.url}
+                    alt={`Property image ${index + 1}`}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y1ZjVmNSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjIwMCIgeT0iMTUwIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiI+SW1hZ2Ugbm90IGF2YWlsYWJsZTwvdGV4dD48L3N2Zz4=';
+                    }}
+                  />
+                  {index === displayImages.length - 1 && !showAllPhotos && images.length > 5 && (
+                    <div style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontSize: '20px',
+                      fontWeight: '600'
+                    }}>
+                      +{images.length - 5} more
+                    </div>
+                  )}
                 </div>
-              </div>
-
-              {/* Navigation Arrows */}
-              {images.length > 1 && (
-                <>
-                  <button
-                    onClick={() => setMainImageIndex(mainImageIndex === 0 ? images.length - 1 : mainImageIndex - 1)}
-                    style={{
-                      position: 'absolute',
-                      left: '20px',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                      border: 'none',
-                      borderRadius: '50%',
-                      width: '50px',
-                      height: '50px',
-                      fontSize: '24px',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-                      zIndex: 10,
-                      transition: 'background-color 0.2s'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'white'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.95)'}
-                  >
-                    ‹
-                  </button>
-                  <button
-                    onClick={() => setMainImageIndex(mainImageIndex === images.length - 1 ? 0 : mainImageIndex + 1)}
-                    style={{
-                      position: 'absolute',
-                      right: '20px',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                      border: 'none',
-                      borderRadius: '50%',
-                      width: '50px',
-                      height: '50px',
-                      fontSize: '24px',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-                      zIndex: 10,
-                      transition: 'background-color 0.2s'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'white'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.95)'}
-                  >
-                    ›
-                  </button>
-                </>
-              )}
+              ))}
             </div>
 
-            {/* Thumbnail Strip */}
-            {images.length > 1 && (
-              <div style={{
-                display: 'flex',
-                gap: '8px',
-                overflowX: 'auto',
-                paddingBottom: '8px'
-              }}>
-                {images.map((image, index) => (
-                  <div
-                    key={index}
-                    onClick={() => setMainImageIndex(index)}
-                    style={{
-                      minWidth: isMobile ? '80px' : '120px',
-                      height: isMobile ? '60px' : '90px',
-                      borderRadius: '8px',
-                      overflow: 'hidden',
-                      cursor: 'pointer',
-                      border: mainImageIndex === index ? '3px solid #000' : '3px solid transparent',
-                      transition: 'border 0.2s',
-                      backgroundColor: '#f5f5f5'
-                    }}
-                  >
-                    <img
-                      src={image.url}
-                      alt={`Thumbnail ${index + 1}`}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        opacity: mainImageIndex === index ? 1 : 0.6,
-                        transition: 'opacity 0.2s'
-                      }}
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjkwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iOTAiIGZpbGw9IiNmNWY1ZjUiLz48L3N2Zz4=';
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
+            {/* Show all photos button */}
+            {images.length > 5 && (
+              <button
+                onClick={() => setShowAllPhotos(!showAllPhotos)}
+                style={{
+                  padding: '12px 24px',
+                  backgroundColor: 'white',
+                  border: '1px solid #000',
+                  borderRadius: '4px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#000';
+                  e.currentTarget.style.color = '#fff';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'white';
+                  e.currentTarget.style.color = '#000';
+                }}
+              >
+                {showAllPhotos ? 'Show less' : `Show all ${images.length} photos`}
+              </button>
             )}
           </div>
         )}
@@ -1016,9 +969,19 @@ export default function PropertyDetailPage() {
 
             {/* Description */}
             {property.description && (
-              <div style={{ marginBottom: '40px' }}>
-                <h2 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '16px' }}>Description</h2>
-                <p style={{ lineHeight: '1.8', color: '#333', fontSize: '16px' }}>
+              <div style={{ marginBottom: '48px' }}>
+                <h2 style={{
+                  fontSize: '28px',
+                  fontWeight: '700',
+                  marginBottom: '20px',
+                  letterSpacing: '-0.02em'
+                }}>Description</h2>
+                <p style={{
+                  lineHeight: '1.8',
+                  color: '#333',
+                  fontSize: '16px',
+                  maxWidth: '800px'
+                }}>
                   {property.description}
                 </p>
               </div>
@@ -1026,8 +989,13 @@ export default function PropertyDetailPage() {
 
             {/* Features */}
             {property.features && property.features.length > 0 && (
-              <div style={{ marginBottom: '40px' }}>
-                <h2 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '16px' }}>Features</h2>
+              <div style={{ marginBottom: '48px' }}>
+                <h2 style={{
+                  fontSize: '28px',
+                  fontWeight: '700',
+                  marginBottom: '20px',
+                  letterSpacing: '-0.02em'
+                }}>Features</h2>
                 <ul style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
@@ -1050,8 +1018,13 @@ export default function PropertyDetailPage() {
             )}
 
             {/* Property Details Grid */}
-            <div style={{ marginBottom: '40px' }}>
-              <h2 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '16px' }}>Property Details</h2>
+            <div style={{ marginBottom: '48px' }}>
+              <h2 style={{
+                fontSize: '28px',
+                fontWeight: '700',
+                marginBottom: '20px',
+                letterSpacing: '-0.02em'
+              }}>Property Details</h2>
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
@@ -1157,8 +1130,13 @@ export default function PropertyDetailPage() {
 
             {/* Rates and Fees */}
             {property.rates && (property.rates.council || property.rates.water || property.rates.strata) && (
-              <div style={{ marginBottom: '40px' }}>
-                <h2 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '16px' }}>Rates & Fees</h2>
+              <div style={{ marginBottom: '48px' }}>
+                <h2 style={{
+                  fontSize: '28px',
+                  fontWeight: '700',
+                  marginBottom: '20px',
+                  letterSpacing: '-0.02em'
+                }}>Rates & Fees</h2>
                 <div style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',

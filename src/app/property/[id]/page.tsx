@@ -81,6 +81,7 @@ export default function PropertyDetailPage() {
   const [currentFloorPlanIndex, setCurrentFloorPlanIndex] = useState(0);
   const [showAllPhotos, setShowAllPhotos] = useState(false);
   const [showFullscreenCarousel, setShowFullscreenCarousel] = useState(false);
+  const [mainImageIndex, setMainImageIndex] = useState(0);
   const [showVirtualTour, setShowVirtualTour] = useState(false);
   const [showFloorPlan, setShowFloorPlan] = useState(false);
   const [showDocuments, setShowDocuments] = useState(false);
@@ -619,83 +620,154 @@ export default function PropertyDetailPage() {
           <span style={{ color: '#000' }}>{property.address}</span>
         </div>
 
-        {/* Image Grid */}
+        {/* Image Gallery */}
         {images.length > 0 && (
           <div style={{ marginBottom: '32px' }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : (images.length > 1 ? '2fr 1fr 1fr' : '1fr'),
-              gridTemplateRows: isMobile ? 'repeat(auto-fit, 250px)' : '400px 200px',
-              gap: '8px',
-              marginBottom: '16px'
-            }}>
-              {displayImages.map((image, index) => (
-                <div
-                  key={index}
+            {/* Main Image with Navigation */}
+            <div style={{ position: 'relative', marginBottom: '16px' }}>
+              <div style={{
+                width: '100%',
+                height: isMobile ? '400px' : '600px',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                backgroundColor: '#f5f5f5',
+                position: 'relative',
+                cursor: 'pointer'
+              }}
+              onClick={() => {
+                setCurrentImageIndex(mainImageIndex);
+                setShowFullscreenCarousel(true);
+              }}>
+                <img
+                  src={images[mainImageIndex].url}
+                  alt={`Property image ${mainImageIndex + 1}`}
                   style={{
-                    gridRow: index === 0 ? 'span 2' : 'span 1',
-                    gridColumn: index === 0 && images.length > 1 ? 'span 1' : 'span 1',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    backgroundColor: '#f5f5f5'
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
                   }}
-                  onClick={() => {
-                    setCurrentImageIndex(index);
-                    setShowFullscreenCarousel(true);
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y1ZjVmNSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjIwMCIgeT0iMTUwIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiI+SW1hZ2Ugbm90IGF2YWlsYWJsZTwvdGV4dD48L3N2Zz4=';
                   }}
-                >
-                  <img
-                    src={image.url}
-                    alt={`Property image ${index + 1}`}
+                />
+
+                {/* Image Counter */}
+                <div style={{
+                  position: 'absolute',
+                  bottom: '20px',
+                  right: '20px',
+                  backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                  color: 'white',
+                  padding: '8px 16px',
+                  borderRadius: '20px',
+                  fontSize: '14px',
+                  fontWeight: '600'
+                }}>
+                  {mainImageIndex + 1} / {images.length}
+                </div>
+              </div>
+
+              {/* Navigation Arrows */}
+              {images.length > 1 && (
+                <>
+                  <button
+                    onClick={() => setMainImageIndex(mainImageIndex === 0 ? images.length - 1 : mainImageIndex - 1)}
                     style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover'
-                    }}
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y1ZjVmNSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjIwMCIgeT0iMTUwIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiI+SW1hZ2Ugbm90IGF2YWlsYWJsZTwvdGV4dD48L3N2Zz4=';
-                    }}
-                  />
-                  {index === displayImages.length - 1 && !showAllPhotos && images.length > 5 && (
-                    <div style={{
                       position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                      left: '20px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                      border: 'none',
+                      borderRadius: '50%',
+                      width: '50px',
+                      height: '50px',
+                      fontSize: '24px',
+                      cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: 'white',
-                      fontSize: '18px',
-                      fontWeight: '600'
-                    }}>
-                      +{images.length - 5} more
-                    </div>
-                  )}
-                </div>
-              ))}
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                      zIndex: 10,
+                      transition: 'background-color 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'white'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.95)'}
+                  >
+                    ‹
+                  </button>
+                  <button
+                    onClick={() => setMainImageIndex(mainImageIndex === images.length - 1 ? 0 : mainImageIndex + 1)}
+                    style={{
+                      position: 'absolute',
+                      right: '20px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                      border: 'none',
+                      borderRadius: '50%',
+                      width: '50px',
+                      height: '50px',
+                      fontSize: '24px',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                      zIndex: 10,
+                      transition: 'background-color 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'white'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.95)'}
+                  >
+                    ›
+                  </button>
+                </>
+              )}
             </div>
 
-            {/* Show all photos button */}
-            {images.length > 5 && (
-              <button
-                onClick={() => setShowAllPhotos(!showAllPhotos)}
-                style={{
-                  padding: '8px 16px',
-                  backgroundColor: 'white',
-                  border: '1px solid #000',
-                  borderRadius: '4px',
-                  fontSize: '14px',
-                  cursor: 'pointer'
-                }}
-              >
-                {showAllPhotos ? 'Show less' : `Show all ${images.length} photos`}
-              </button>
+            {/* Thumbnail Strip */}
+            {images.length > 1 && (
+              <div style={{
+                display: 'flex',
+                gap: '8px',
+                overflowX: 'auto',
+                paddingBottom: '8px'
+              }}>
+                {images.map((image, index) => (
+                  <div
+                    key={index}
+                    onClick={() => setMainImageIndex(index)}
+                    style={{
+                      minWidth: isMobile ? '80px' : '120px',
+                      height: isMobile ? '60px' : '90px',
+                      borderRadius: '8px',
+                      overflow: 'hidden',
+                      cursor: 'pointer',
+                      border: mainImageIndex === index ? '3px solid #000' : '3px solid transparent',
+                      transition: 'border 0.2s',
+                      backgroundColor: '#f5f5f5'
+                    }}
+                  >
+                    <img
+                      src={image.url}
+                      alt={`Thumbnail ${index + 1}`}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        opacity: mainImageIndex === index ? 1 : 0.6,
+                        transition: 'opacity 0.2s'
+                      }}
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjkwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iOTAiIGZpbGw9IiNmNWY1ZjUiLz48L3N2Zz4=';
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
             )}
           </div>
         )}

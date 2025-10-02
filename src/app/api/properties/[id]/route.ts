@@ -33,43 +33,22 @@ export async function GET(
 
     let property = null;
 
-    // Try direct property endpoint first (fastest)
+    // Try residential sale endpoint first (has full data including description)
     try {
-      const directResponse = await fetch(
-        `${API_BASE_URL}/properties/${id}`,
+      const response = await fetch(
+        `${API_BASE_URL}/properties/residential/sale/${id}`,
         {
           headers,
-          next: { revalidate: 300 } // Cache for 5 minutes
+          cache: 'no-store'
         }
       );
 
-      if (directResponse.ok) {
-        const data = await directResponse.json();
-        // VaultRE might wrap the response or return it directly
+      if (response.ok) {
+        const data = await response.json();
         property = data.data || data;
       }
     } catch (e) {
       // Continue to fallback
-    }
-
-    // Fallback: Try residential sale endpoint with ID filter (slower but works)
-    if (!property) {
-      try {
-        const response = await fetch(
-          `${API_BASE_URL}/properties/residential/sale/${id}`,
-          {
-            headers,
-            next: { revalidate: 300 }
-          }
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          property = data.data || data;
-        }
-      } catch (e) {
-        // Continue
-      }
     }
 
     // Fallback: Try residential lease endpoint
@@ -79,7 +58,7 @@ export async function GET(
           `${API_BASE_URL}/properties/residential/lease/${id}`,
           {
             headers,
-            next: { revalidate: 300 }
+            cache: 'no-store'
           }
         );
 
@@ -95,6 +74,7 @@ export async function GET(
     if (property) {
       // Transform the property data to our format
       const transformedProperty = transformVaultREProperty(property);
+
       return NextResponse.json({
         success: true,
         data: transformedProperty

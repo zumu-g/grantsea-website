@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
 import AskAI from '@/components/AskAI';
+import VirtualTourEmbed from '@/components/VirtualTourEmbed';
 
 interface Property {
   id: string;
@@ -33,6 +34,8 @@ interface Property {
   floorPlans?: Array<{ id?: string; url: string; caption?: string; order?: number; type?: string }>;
   documents?: Array<{ id: string; name: string; url: string; type: string; format?: string }>;
   virtualTourUrl?: string;
+  virtualTourType?: 'matterport' | 'youtube' | 'vimeo' | 'other';
+  videoUrl?: string;
   floorPlanUrl?: string;
   inspectionTimes?: Array<{
     id: string;
@@ -49,6 +52,21 @@ interface Property {
   };
   createdAt?: string;
   updatedAt?: string;
+  yearBuilt?: number;
+  ensuites?: number;
+  toilets?: number;
+  receptionRooms?: number;
+  energyRating?: number;
+  zoning?: string;
+  isNewHome?: boolean;
+  tenanted?: boolean;
+  rates?: {
+    water?: number;
+    council?: number;
+    strata?: number;
+  };
+  daysOnMarket?: number;
+  listingDate?: string;
 }
 
 export default function PropertyDetailPage() {
@@ -240,22 +258,33 @@ export default function PropertyDetailPage() {
           </button>
           <div style={{
             width: '90%',
-            maxWidth: '1200px',
-            height: '80vh',
+            maxWidth: '1400px',
+            height: '85vh',
             backgroundColor: 'white',
             borderRadius: '8px',
-            padding: '40px',
+            padding: property.virtualTourUrl ? '0' : '40px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            overflow: 'hidden'
           }}>
-            <div style={{ textAlign: 'center' }}>
-              <h2 style={{ marginBottom: '20px' }}>360° Virtual Tour</h2>
-              <p style={{ color: '#666' }}>Virtual tour functionality would be integrated here</p>
-              <p style={{ marginTop: '10px', fontSize: '14px', color: '#999' }}>
-                This would typically embed a Matterport or similar 3D tour
-              </p>
-            </div>
+            {property.virtualTourUrl && property.virtualTourType ? (
+              <VirtualTourEmbed
+                url={property.virtualTourUrl}
+                type={property.virtualTourType}
+                title={`Virtual Tour - ${property.address}`}
+              />
+            ) : (
+              <div style={{ textAlign: 'center', padding: '40px' }}>
+                <h2 style={{ marginBottom: '20px', fontSize: '28px' }}>360° Virtual Tour</h2>
+                <p style={{ color: '#666', fontSize: '16px' }}>
+                  Virtual tour not available for this property
+                </p>
+                <p style={{ marginTop: '10px', fontSize: '14px', color: '#999' }}>
+                  Contact the agent to arrange an in-person inspection
+                </p>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -820,26 +849,28 @@ export default function PropertyDetailPage() {
                 gap: '12px',
                 flexWrap: 'wrap'
               }}>
-                <button
-                  onClick={() => setShowVirtualTour(true)}
-                  style={{
-                    padding: '12px 24px',
-                    backgroundColor: '#000',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '4px',
-                    fontSize: '14px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px'
-                  }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
-                  Virtual Tour
-                </button>
+                {property.virtualTourUrl && (
+                  <button
+                    onClick={() => setShowVirtualTour(true)}
+                    style={{
+                      padding: '12px 24px',
+                      backgroundColor: '#000',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '4px',
+                      fontSize: '14px',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px'
+                    }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                    {property.virtualTourType === 'matterport' ? '3D Virtual Tour' : 'Virtual Tour'}
+                  </button>
+                )}
                 {property.floorPlans && property.floorPlans.length > 0 && (
                   <button
                     onClick={() => {
@@ -969,6 +1000,18 @@ export default function PropertyDetailPage() {
                   <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Bathrooms</div>
                   <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.bathrooms || '–'}</div>
                 </div>
+                {property.ensuites !== undefined && property.ensuites > 0 && (
+                  <div>
+                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Ensuites</div>
+                    <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.ensuites}</div>
+                  </div>
+                )}
+                {property.toilets !== undefined && property.toilets > 0 && (
+                  <div>
+                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Toilets</div>
+                    <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.toilets}</div>
+                  </div>
+                )}
                 <div>
                   <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Car Spaces</div>
                   <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.carSpaces || '–'}</div>
@@ -976,13 +1019,33 @@ export default function PropertyDetailPage() {
                 {property.landSize && property.landSize > 0 && (
                   <div>
                     <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Land Size</div>
-                    <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.landSize} m²</div>
+                    <div style={{ fontSize: '16px', fontWeight: '600' }}>
+                      {property.landSize >= 4047 ? `${(property.landSize / 4047).toFixed(2)} acres` : `${property.landSize} m²`}
+                    </div>
                   </div>
                 )}
                 {property.buildingSize && property.buildingSize > 0 && (
                   <div>
                     <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Building Size</div>
                     <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.buildingSize} m²</div>
+                  </div>
+                )}
+                {property.yearBuilt && (
+                  <div>
+                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Year Built</div>
+                    <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.yearBuilt}</div>
+                  </div>
+                )}
+                {property.energyRating && (
+                  <div>
+                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Energy Rating</div>
+                    <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.energyRating} stars</div>
+                  </div>
+                )}
+                {property.zoning && (
+                  <div>
+                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Zoning</div>
+                    <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.zoning}</div>
                   </div>
                 )}
                 {property.saleMethod && (
@@ -999,8 +1062,61 @@ export default function PropertyDetailPage() {
                     </div>
                   </div>
                 )}
+                {property.isNewHome && (
+                  <div>
+                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Condition</div>
+                    <div style={{ fontSize: '16px', fontWeight: '600', color: '#4CAF50' }}>New Home</div>
+                  </div>
+                )}
+                {property.tenanted && (
+                  <div>
+                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Status</div>
+                    <div style={{ fontSize: '16px', fontWeight: '600', color: '#FF9800' }}>Currently Tenanted</div>
+                  </div>
+                )}
+                {property.daysOnMarket !== undefined && (
+                  <div>
+                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Days on Market</div>
+                    <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.daysOnMarket} days</div>
+                  </div>
+                )}
               </div>
             </div>
+
+            {/* Rates and Fees */}
+            {property.rates && (property.rates.council || property.rates.water || property.rates.strata) && (
+              <div style={{ marginBottom: '40px' }}>
+                <h2 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '16px' }}>Rates & Fees</h2>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                  gap: '24px',
+                  padding: '24px',
+                  backgroundColor: '#fff5e6',
+                  borderRadius: '8px',
+                  border: '1px solid #ffe0b2'
+                }}>
+                  {property.rates.council !== undefined && property.rates.council > 0 && (
+                    <div>
+                      <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Council Rates</div>
+                      <div style={{ fontSize: '16px', fontWeight: '600' }}>${property.rates.council.toLocaleString()} p.a.</div>
+                    </div>
+                  )}
+                  {property.rates.water !== undefined && property.rates.water > 0 && (
+                    <div>
+                      <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Water Rates</div>
+                      <div style={{ fontSize: '16px', fontWeight: '600' }}>${property.rates.water.toLocaleString()} p.a.</div>
+                    </div>
+                  )}
+                  {property.rates.strata !== undefined && property.rates.strata > 0 && (
+                    <div>
+                      <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Strata Fees</div>
+                      <div style={{ fontSize: '16px', fontWeight: '600' }}>${property.rates.strata.toLocaleString()} p.a.</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Right Column - Agent Contact */}

@@ -38,6 +38,9 @@ export interface Property {
   images: PropertyImage[];
   floorPlans?: PropertyImage[];
   documents?: PropertyDocument[];
+  virtualTourUrl?: string;
+  virtualTourType?: 'matterport' | 'youtube' | 'vimeo' | 'other';
+  videoUrl?: string;
   agent: Agent;
   inspectionTimes?: InspectionTime[];
   coordinates?: {
@@ -46,6 +49,22 @@ export interface Property {
   };
   createdAt: string;
   updatedAt: string;
+  // Additional property details
+  yearBuilt?: number;
+  ensuites?: number;
+  toilets?: number;
+  receptionRooms?: number;
+  energyRating?: number;
+  zoning?: string;
+  isNewHome?: boolean;
+  tenanted?: boolean;
+  rates?: {
+    water?: number;
+    council?: number;
+    strata?: number;
+  };
+  daysOnMarket?: number;
+  listingDate?: string;
   // Vault RE specific fields
   addressParts?: {
     streetNumber: string;
@@ -664,6 +683,68 @@ function getRentalPriceDisplay(vaultProperty: any): string {
   return `${formatPrice(numPrice)} per week`;
 }
 
+// Helper function to detect virtual tour type from URL
+function detectVirtualTourType(url: string): 'matterport' | 'youtube' | 'vimeo' | 'other' {
+  const lowerUrl = url.toLowerCase();
+  if (lowerUrl.includes('matterport.com') || lowerUrl.includes('my.matterport.com')) {
+    return 'matterport';
+  }
+  if (lowerUrl.includes('youtube.com') || lowerUrl.includes('youtu.be')) {
+    return 'youtube';
+  }
+  if (lowerUrl.includes('vimeo.com')) {
+    return 'vimeo';
+  }
+  return 'other';
+}
+
+// Helper function to extract virtual tour and video URLs from externalLinks
+function extractMediaUrls(externalLinks: any[]): { virtualTourUrl?: string; virtualTourType?: 'matterport' | 'youtube' | 'vimeo' | 'other'; videoUrl?: string } {
+  if (!externalLinks || !Array.isArray(externalLinks) || externalLinks.length === 0) {
+    return {};
+  }
+
+  let virtualTourUrl: string | undefined;
+  let virtualTourType: 'matterport' | 'youtube' | 'vimeo' | 'other' | undefined;
+  let videoUrl: string | undefined;
+
+  for (const link of externalLinks) {
+    const url = link.url || '';
+    const linkType = link.type?.name?.toLowerCase() || '';
+    const lowerUrl = url.toLowerCase();
+
+    // Check for virtual tours (Matterport, etc.)
+    if (
+      linkType.includes('virtual') ||
+      linkType.includes('tour') ||
+      linkType.includes('3d') ||
+      linkType.includes('matterport') ||
+      lowerUrl.includes('matterport') ||
+      lowerUrl.includes('3d') ||
+      lowerUrl.includes('virtualtour')
+    ) {
+      virtualTourUrl = url;
+      virtualTourType = detectVirtualTourType(url);
+    }
+    // Check for video tours
+    else if (
+      linkType.includes('video') ||
+      lowerUrl.includes('youtube') ||
+      lowerUrl.includes('youtu.be') ||
+      lowerUrl.includes('vimeo')
+    ) {
+      videoUrl = url;
+      // If no virtual tour set yet, use video as virtual tour
+      if (!virtualTourUrl) {
+        virtualTourUrl = url;
+        virtualTourType = detectVirtualTourType(url);
+      }
+    }
+  }
+
+  return { virtualTourUrl, virtualTourType, videoUrl };
+}
+
 // Extract features from description text (VaultRE stores features in description)
 function extractFeaturesFromDescription(description: string): string[] {
   if (!description) return [];
@@ -693,17 +774,20 @@ function extractFeaturesFromDescription(description: string): string[] {
 
 // Transform Vault RE response to our Property interface
 export function transformVaultREProperty(vaultProperty: any): Property {
-  
+
   // Handle the actual Vault RE response structure
   const address = vaultProperty.address || {};
   const suburb = address.suburb || {};
   const state = address.state || suburb.state || {};
-  
+
   // Build the full address string
-  const addressString = vaultProperty.displayAddress || 
+  const addressString = vaultProperty.displayAddress ||
                        `${address.streetNumber || ''} ${address.street || ''}`.trim() ||
                        'Address Available Upon Request';
-  
+
+  // Extract virtual tour and video URLs from externalLinks
+  const mediaUrls = extractMediaUrls(vaultProperty.externalLinks || []);
+
   return {
     id: vaultProperty.id?.toString() || '',
     address: addressString,
@@ -774,6 +858,9 @@ export function transformVaultREProperty(vaultProperty: any): Property {
         format: 'pdf'
       }] : []),
     ],
+    virtualTourUrl: mediaUrls.virtualTourUrl,
+    virtualTourType: mediaUrls.virtualTourType,
+    videoUrl: mediaUrls.videoUrl,
     agent: vaultProperty.contactStaff && vaultProperty.contactStaff[0] ? {
       id: vaultProperty.contactStaff[0].id?.toString() || '',
       name: `${vaultProperty.contactStaff[0].firstName} ${vaultProperty.contactStaff[0].lastName}`.trim(),
@@ -799,7 +886,23 @@ export function transformVaultREProperty(vaultProperty: any): Property {
       type: inspection.type || 'public'
     })),
     coordinates: vaultProperty.coordinates || vaultProperty.geo,
-    createdAt: vaultProperty.created_at || new Date().toISOString(),
-    updatedAt: vaultProperty.updated_at || new Date().toISOString()
+    createdAt: vaultProperty.created_at || vaultProperty.inserted || new Date().toISOString(),
+    updatedAt: vaultProperty.updated_at || vaultProperty.modified || new Date().toISOString(),
+    // Additional property details
+    yearBuilt: vaultProperty.yearBuilt || undefined,
+    ensuites: vaultProperty.ensuites || undefined,
+    toilets: vaultProperty.toilets || undefined,
+    receptionRooms: vaultProperty.receptionRooms || undefined,
+    energyRating: vaultProperty.energyRating || undefined,
+    zoning: vaultProperty.zoning || undefined,
+    isNewHome: vaultProperty.isNewHome || false,
+    tenanted: vaultProperty.tenanted || false,
+    rates: vaultProperty.rates ? {
+      water: vaultProperty.rates.water?.value || undefined,
+      council: vaultProperty.rates.council?.value || undefined,
+      strata: vaultProperty.rates.strata?.value || undefined
+    } : undefined,
+    daysOnMarket: vaultProperty.inserted ? Math.floor((Date.now() - new Date(vaultProperty.inserted).getTime()) / (1000 * 60 * 60 * 24)) : undefined,
+    listingDate: vaultProperty.internalMarketingLiveDate || vaultProperty.inserted || undefined
   };
 }

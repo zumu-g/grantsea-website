@@ -743,7 +743,9 @@ export default function PropertyDetailPage() {
         <div style={{
           display: 'grid',
           gridTemplateColumns: isMobile ? '1fr' : '2fr 1fr',
-          gap: isMobile ? '24px' : '40px'
+          gap: isMobile ? '24px' : '40px',
+          width: '100%',
+          minWidth: 0
         }}>
           {/* Left Column */}
           <div>

@@ -1020,7 +1020,7 @@ export default function PropertyDetailPage() {
 
             {/* Features */}
             {property.features && property.features.length > 0 && (
-              <div style={{ marginBottom: '64px' }}>
+              <div style={{ marginBottom: '64px', paddingTop: '16px' }}>
                 <h2 style={{
                   fontSize: '32px',
                   fontWeight: '700',
@@ -1046,16 +1046,14 @@ export default function PropertyDetailPage() {
                       padding: '8px 0'
                     }}>
                       <span style={{
-                        color: '#000',
-                        fontSize: '8px',
                         marginTop: '8px',
                         flexShrink: 0,
                         width: '6px',
                         height: '6px',
                         borderRadius: '50%',
                         backgroundColor: '#000',
-                        display: 'inline-block'
-                      }}></span>
+                        display: 'block'
+                      }} />
                       <span style={{ flex: 1 }}>{feature}</span>
                     </li>
                   ))}
@@ -1238,6 +1236,24 @@ export default function PropertyDetailPage() {
                         width: '100%',
                         height: '400px',
                         objectFit: 'cover'
+                      }}
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        const parent = target.parentElement;
+                        if (parent) {
+                          parent.innerHTML = `
+                            <div style="width: 100%; height: 400px; background-color: #f5f5f5; display: flex; align-items: center; justify-content: center; padding: 40px;">
+                              <div style="text-align: center;">
+                                <div style="width: 120px; height: 120px; border-radius: 50%; background-color: #e5e5e5; display: flex; align-items: center; justify-content: center; font-size: 48px; font-weight: 700; margin: 0 auto 16px;">${(property.agent?.name?.charAt(0) || 'G')}</div>
+                                <div style="font-size: 24px; font-weight: 600; margin-bottom: 8px; color: #2c2c2c;">${property.agent?.name || "Grant's Agent"}</div>
+                                <div style="font-size: 16px; color: #666; margin-bottom: 4px;">Grant's Estate Agents</div>
+                                <div style="font-size: 16px; color: #666;">${property.agent?.phone || '1300 000 000'}</div>
+                                ${property.agent?.email ? `<div style="font-size: 16px; color: #666; margin-top: 4px;">${property.agent.email}</div>` : ''}
+                              </div>
+                            </div>
+                          `;
+                        }
                       }}
                     />
                     <div style={{

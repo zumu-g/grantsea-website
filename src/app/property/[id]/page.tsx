@@ -1022,16 +1022,27 @@ export default function PropertyDetailPage() {
                       setShowFloorPlan(true);
                     }}
                     style={{
-                      padding: '12px 24px',
-                      backgroundColor: 'white',
-                      color: '#000',
-                      border: '1px solid #000',
-                      borderRadius: '4px',
-                      fontSize: '14px',
+                      padding: '16px 32px',
+                      backgroundColor: '#000000',
+                      color: '#ffffff',
+                      border: '2px solid #000000',
+                      borderRadius: '0',
+                      fontSize: '13px',
+                      fontWeight: '700',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '8px'
+                      gap: '12px',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                      transition: 'all 300ms ease-out'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#262626';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#000000';
                     }}
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -1045,16 +1056,27 @@ export default function PropertyDetailPage() {
                 <button
                   onClick={handleShare}
                   style={{
-                    padding: '12px 24px',
-                    backgroundColor: 'white',
-                    color: '#000',
-                    border: '1px solid #000',
-                    borderRadius: '4px',
-                    fontSize: '14px',
+                    padding: '16px 32px',
+                    backgroundColor: '#ffffff',
+                    color: '#000000',
+                    border: '2px solid #000000',
+                    borderRadius: '0',
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px'
+                    gap: '12px',
+                    fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                    transition: 'all 300ms ease-out'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#f5f5f5';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#ffffff';
                   }}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -1086,40 +1108,54 @@ export default function PropertyDetailPage() {
               </div>
             </div>
 
-            {/* Description */}
+            {/* Description - ON RUNNING STYLE */}
             {property.description && (
               <div style={{ marginBottom: '64px' }}>
                 <h2 style={{
-                  fontSize: '32px',
+                  fontSize: '24px',
                   fontWeight: '700',
-                  marginBottom: '28px',
-                  letterSpacing: '-0.03em'
+                  marginBottom: '32px',
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  color: '#000000',
+                  fontFamily: '"Helvetica Neue", Arial, sans-serif'
                 }}>About this property</h2>
                 <div style={{
-                  lineHeight: '1.9',
-                  color: '#2c2c2c',
+                  lineHeight: '1.8',
+                  color: '#404040',
                   fontSize: '17px',
                   maxWidth: '750px',
-                  whiteSpace: 'pre-line'
+                  whiteSpace: 'pre-line',
+                  fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                  fontWeight: '400'
                 }}>
                   {property.description}
                 </div>
               </div>
             )}
 
-            {/* Features */}
+            {/* Features - ON RUNNING STYLE */}
             {property.features && property.features.length > 0 && (
-              <div style={{ marginBottom: '64px', paddingTop: '16px' }}>
+              <div style={{
+                marginBottom: '64px',
+                paddingTop: '48px',
+                paddingBottom: '48px',
+                borderTop: '2px solid #000000',
+                borderBottom: '2px solid #000000'
+              }}>
                 <h2 style={{
-                  fontSize: '32px',
+                  fontSize: '24px',
                   fontWeight: '700',
                   marginBottom: '32px',
-                  letterSpacing: '-0.03em'
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  color: '#000000',
+                  fontFamily: '"Helvetica Neue", Arial, sans-serif'
                 }}>Key Features</h2>
                 <ul style={{
                   display: 'grid',
                   gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(280px, 1fr))',
-                  gap: '18px',
+                  gap: '24px',
                   listStyle: 'none',
                   padding: 0,
                   margin: 0
@@ -1128,18 +1164,20 @@ export default function PropertyDetailPage() {
                     <li key={index} style={{
                       display: 'flex',
                       alignItems: 'flex-start',
-                      gap: '14px',
-                      fontSize: '16px',
+                      gap: '16px',
+                      fontSize: '15px',
                       lineHeight: '1.6',
-                      color: '#2c2c2c',
-                      padding: '8px 0'
+                      color: '#404040',
+                      padding: 0,
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                      fontWeight: '500'
                     }}>
                       <span style={{
-                        marginTop: '8px',
+                        marginTop: '6px',
                         flexShrink: 0,
-                        width: '6px',
-                        height: '6px',
-                        borderRadius: '50%',
+                        width: '4px',
+                        height: '4px',
+                        borderRadius: '0',
                         backgroundColor: '#000',
                         display: 'block'
                       }} />
@@ -1150,152 +1188,407 @@ export default function PropertyDetailPage() {
               </div>
             )}
 
-            {/* Property Details Grid */}
+            {/* Property Details Grid - ON RUNNING STYLE */}
             <div style={{ marginBottom: '64px' }}>
               <h2 style={{
-                fontSize: '32px',
+                fontSize: '24px',
                 fontWeight: '700',
                 marginBottom: '32px',
-                letterSpacing: '-0.03em'
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                color: '#000000',
+                fontFamily: '"Helvetica Neue", Arial, sans-serif'
               }}>Property Information</h2>
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(auto-fit, minmax(220px, 1fr))',
-                gap: '32px',
-                padding: '40px',
-                backgroundColor: '#fafafa',
-                borderRadius: '12px',
-                border: '1px solid #f0f0f0'
+                gap: '24px',
+                padding: '48px',
+                backgroundColor: '#ffffff',
+                borderRadius: '0',
+                border: '2px solid #000000'
               }}>
                 <div>
-                  <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Property Type</div>
-                  <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.propertyType || 'House'}</div>
+                  <div style={{
+                    fontSize: '11px',
+                    color: '#525252',
+                    marginBottom: '8px',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    fontWeight: '700',
+                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                  }}>Property Type</div>
+                  <div style={{
+                    fontSize: '17px',
+                    fontWeight: '700',
+                    color: '#000000',
+                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                  }}>{property.propertyType || 'House'}</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Bedrooms</div>
-                  <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.bedrooms || '–'}</div>
+                  <div style={{
+                    fontSize: '11px',
+                    color: '#525252',
+                    marginBottom: '8px',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    fontWeight: '700',
+                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                  }}>Bedrooms</div>
+                  <div style={{
+                    fontSize: '17px',
+                    fontWeight: '700',
+                    color: '#000000',
+                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                  }}>{property.bedrooms || '–'}</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Bathrooms</div>
-                  <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.bathrooms || '–'}</div>
+                  <div style={{
+                    fontSize: '11px',
+                    color: '#525252',
+                    marginBottom: '8px',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    fontWeight: '700',
+                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                  }}>Bathrooms</div>
+                  <div style={{
+                    fontSize: '17px',
+                    fontWeight: '700',
+                    color: '#000000',
+                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                  }}>{property.bathrooms || '–'}</div>
                 </div>
                 {property.ensuites !== undefined && property.ensuites > 0 && (
                   <div>
-                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Ensuites</div>
-                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.ensuites}</div>
+                    <div style={{
+                      fontSize: '11px',
+                      color: '#525252',
+                      marginBottom: '8px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      fontWeight: '700',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>Ensuites</div>
+                    <div style={{
+                      fontSize: '17px',
+                      fontWeight: '700',
+                      color: '#000000',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>{property.ensuites}</div>
                   </div>
                 )}
                 {property.toilets !== undefined && property.toilets > 0 && (
                   <div>
-                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Toilets</div>
-                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.toilets}</div>
+                    <div style={{
+                      fontSize: '11px',
+                      color: '#525252',
+                      marginBottom: '8px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      fontWeight: '700',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>Toilets</div>
+                    <div style={{
+                      fontSize: '17px',
+                      fontWeight: '700',
+                      color: '#000000',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>{property.toilets}</div>
                   </div>
                 )}
                 <div>
-                  <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Car Spaces</div>
-                  <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.carSpaces || '–'}</div>
+                  <div style={{
+                    fontSize: '11px',
+                    color: '#525252',
+                    marginBottom: '8px',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    fontWeight: '700',
+                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                  }}>Car Spaces</div>
+                  <div style={{
+                    fontSize: '17px',
+                    fontWeight: '700',
+                    color: '#000000',
+                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                  }}>{property.carSpaces || '–'}</div>
                 </div>
                 {property.landSize && property.landSize > 0 && (
                   <div>
-                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Land Size</div>
-                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>
+                    <div style={{
+                      fontSize: '11px',
+                      color: '#525252',
+                      marginBottom: '8px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      fontWeight: '700',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>Land Size</div>
+                    <div style={{
+                      fontSize: '17px',
+                      fontWeight: '700',
+                      color: '#000000',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>
                       {property.landSize >= 4047 ? `${(property.landSize / 4047).toFixed(2)} acres` : `${property.landSize} m²`}
                     </div>
                   </div>
                 )}
                 {property.buildingSize && property.buildingSize > 0 && (
                   <div>
-                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Building Size</div>
-                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.buildingSize} m²</div>
+                    <div style={{
+                      fontSize: '11px',
+                      color: '#525252',
+                      marginBottom: '8px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      fontWeight: '700',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>Building Size</div>
+                    <div style={{
+                      fontSize: '17px',
+                      fontWeight: '700',
+                      color: '#000000',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>{property.buildingSize} m²</div>
                   </div>
                 )}
                 {property.yearBuilt && (
                   <div>
-                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Year Built</div>
-                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.yearBuilt}</div>
+                    <div style={{
+                      fontSize: '11px',
+                      color: '#525252',
+                      marginBottom: '8px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      fontWeight: '700',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>Year Built</div>
+                    <div style={{
+                      fontSize: '17px',
+                      fontWeight: '700',
+                      color: '#000000',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>{property.yearBuilt}</div>
                   </div>
                 )}
                 {property.energyRating && (
                   <div>
-                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Energy Rating</div>
-                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.energyRating} stars</div>
+                    <div style={{
+                      fontSize: '11px',
+                      color: '#525252',
+                      marginBottom: '8px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      fontWeight: '700',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>Energy Rating</div>
+                    <div style={{
+                      fontSize: '17px',
+                      fontWeight: '700',
+                      color: '#000000',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>{property.energyRating} stars</div>
                   </div>
                 )}
                 {property.zoning && (
                   <div>
-                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Zoning</div>
-                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.zoning}</div>
+                    <div style={{
+                      fontSize: '11px',
+                      color: '#525252',
+                      marginBottom: '8px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      fontWeight: '700',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>Zoning</div>
+                    <div style={{
+                      fontSize: '17px',
+                      fontWeight: '700',
+                      color: '#000000',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>{property.zoning}</div>
                   </div>
                 )}
                 {property.saleMethod && (
                   <div>
-                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Sale Method</div>
-                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c', textTransform: 'capitalize' }}>{property.saleMethod}</div>
+                    <div style={{
+                      fontSize: '11px',
+                      color: '#525252',
+                      marginBottom: '8px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      fontWeight: '700',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>Sale Method</div>
+                    <div style={{
+                      fontSize: '17px',
+                      fontWeight: '700',
+                      color: '#000000',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                      textTransform: 'capitalize'
+                    }}>{property.saleMethod}</div>
                   </div>
                 )}
                 {property.listingType && (
                   <div>
-                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Listing Type</div>
-                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c', textTransform: 'capitalize' }}>
+                    <div style={{
+                      fontSize: '11px',
+                      color: '#525252',
+                      marginBottom: '8px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      fontWeight: '700',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>Listing Type</div>
+                    <div style={{
+                      fontSize: '17px',
+                      fontWeight: '700',
+                      color: '#000000',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                      textTransform: 'capitalize'
+                    }}>
                       {property.listingType === 'sale' ? 'For Sale' : property.listingType === 'lease' ? 'For Lease' : 'Sale & Lease'}
                     </div>
                   </div>
                 )}
                 {property.isNewHome && (
                   <div>
-                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Condition</div>
-                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#059669' }}>New Home</div>
+                    <div style={{
+                      fontSize: '11px',
+                      color: '#525252',
+                      marginBottom: '8px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      fontWeight: '700',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>Condition</div>
+                    <div style={{
+                      fontSize: '17px',
+                      fontWeight: '700',
+                      color: '#000000',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>New Home</div>
                   </div>
                 )}
                 {property.tenanted && (
                   <div>
-                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Status</div>
-                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#f59e0b' }}>Currently Tenanted</div>
+                    <div style={{
+                      fontSize: '11px',
+                      color: '#525252',
+                      marginBottom: '8px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      fontWeight: '700',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>Status</div>
+                    <div style={{
+                      fontSize: '17px',
+                      fontWeight: '700',
+                      color: '#000000',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>Currently Tenanted</div>
                   </div>
                 )}
                 {property.daysOnMarket !== undefined && (
                   <div>
-                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Days on Market</div>
-                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.daysOnMarket} days</div>
+                    <div style={{
+                      fontSize: '11px',
+                      color: '#525252',
+                      marginBottom: '8px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      fontWeight: '700',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>Days on Market</div>
+                    <div style={{
+                      fontSize: '17px',
+                      fontWeight: '700',
+                      color: '#000000',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>{property.daysOnMarket} days</div>
                   </div>
                 )}
               </div>
             </div>
 
-            {/* Rates and Fees */}
+            {/* Rates and Fees - ON RUNNING STYLE */}
             {property.rates && (property.rates.council || property.rates.water || property.rates.strata) && (
               <div style={{ marginBottom: '64px' }}>
                 <h2 style={{
-                  fontSize: '32px',
+                  fontSize: '24px',
                   fontWeight: '700',
                   marginBottom: '32px',
-                  letterSpacing: '-0.03em'
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  color: '#000000',
+                  fontFamily: '"Helvetica Neue", Arial, sans-serif'
                 }}>Rates & Fees</h2>
                 <div style={{
                   display: 'grid',
                   gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(220px, 1fr))',
-                  gap: '32px',
-                  padding: '40px',
-                  backgroundColor: '#fffbf5',
-                  borderRadius: '12px',
-                  border: '1px solid #ffe4c4'
+                  gap: '24px',
+                  padding: '48px',
+                  backgroundColor: '#f5f5f5',
+                  borderRadius: '0',
+                  border: '2px solid #d4d4d4'
                 }}>
                   {property.rates.council !== undefined && property.rates.council > 0 && (
                     <div>
-                      <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Council Rates</div>
-                      <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>${property.rates.council.toLocaleString()} p.a.</div>
+                      <div style={{
+                        fontSize: '11px',
+                        color: '#525252',
+                        marginBottom: '8px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.1em',
+                        fontWeight: '700',
+                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                      }}>Council Rates</div>
+                      <div style={{
+                        fontSize: '17px',
+                        fontWeight: '700',
+                        color: '#000000',
+                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                      }}>${property.rates.council.toLocaleString()} p.a.</div>
                     </div>
                   )}
                   {property.rates.water !== undefined && property.rates.water > 0 && (
                     <div>
-                      <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Water Rates</div>
-                      <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>${property.rates.water.toLocaleString()} p.a.</div>
+                      <div style={{
+                        fontSize: '11px',
+                        color: '#525252',
+                        marginBottom: '8px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.1em',
+                        fontWeight: '700',
+                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                      }}>Water Rates</div>
+                      <div style={{
+                        fontSize: '17px',
+                        fontWeight: '700',
+                        color: '#000000',
+                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                      }}>${property.rates.water.toLocaleString()} p.a.</div>
                     </div>
                   )}
                   {property.rates.strata !== undefined && property.rates.strata > 0 && (
                     <div>
-                      <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Strata Fees</div>
-                      <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>${property.rates.strata.toLocaleString()} p.a.</div>
+                      <div style={{
+                        fontSize: '11px',
+                        color: '#525252',
+                        marginBottom: '8px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.1em',
+                        fontWeight: '700',
+                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                      }}>Strata Fees</div>
+                      <div style={{
+                        fontSize: '17px',
+                        fontWeight: '700',
+                        color: '#000000',
+                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                      }}>${property.rates.strata.toLocaleString()} p.a.</div>
                     </div>
                   )}
                 </div>
@@ -1403,76 +1696,104 @@ export default function PropertyDetailPage() {
                 )}
               </div>
 
-              {/* Agent Contact Card */}
+              {/* Agent Contact Card - ON RUNNING STYLE */}
               <div style={{
-                padding: '24px',
-                backgroundColor: '#fff',
-                border: '1px solid #e5e5e5',
-                borderRadius: '8px',
+                padding: '32px',
+                backgroundColor: '#000000',
+                border: '2px solid #000000',
+                borderRadius: '0',
                 marginBottom: '24px'
               }}>
-                <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '20px' }}>Contact Agent</h3>
+                <h3 style={{
+                  fontSize: '17px',
+                  fontWeight: '700',
+                  marginBottom: '24px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.1em',
+                  color: '#ffffff',
+                  fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                }}>Contact Agent</h3>
 
-                {/* Enquiry Form */}
+                {/* Enquiry Form - ON RUNNING STYLE */}
                 <form onSubmit={handleEnquiry}>
                   <input
                     type="text"
-                    placeholder="Your Name"
+                    placeholder="YOUR NAME"
                     value={enquiryForm.name}
                     onChange={(e) => setEnquiryForm({ ...enquiryForm, name: e.target.value })}
                     style={{
                       width: '100%',
-                      padding: '12px',
-                      marginBottom: '12px',
-                      border: '1px solid #e5e5e5',
-                      borderRadius: '4px',
-                      fontSize: '14px'
+                      padding: '16px',
+                      marginBottom: '16px',
+                      border: '2px solid #ffffff',
+                      borderRadius: '0',
+                      fontSize: '13px',
+                      backgroundColor: '#000000',
+                      color: '#ffffff',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                      fontWeight: '500',
+                      letterSpacing: '0.05em'
                     }}
                     required
                   />
                   <input
                     type="email"
-                    placeholder="Your Email"
+                    placeholder="YOUR EMAIL"
                     value={enquiryForm.email}
                     onChange={(e) => setEnquiryForm({ ...enquiryForm, email: e.target.value })}
                     style={{
                       width: '100%',
-                      padding: '12px',
-                      marginBottom: '12px',
-                      border: '1px solid #e5e5e5',
-                      borderRadius: '4px',
-                      fontSize: '14px'
+                      padding: '16px',
+                      marginBottom: '16px',
+                      border: '2px solid #ffffff',
+                      borderRadius: '0',
+                      fontSize: '13px',
+                      backgroundColor: '#000000',
+                      color: '#ffffff',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                      fontWeight: '500',
+                      letterSpacing: '0.05em'
                     }}
                     required
                   />
                   <input
                     type="tel"
-                    placeholder="Your Phone"
+                    placeholder="YOUR PHONE"
                     value={enquiryForm.phone}
                     onChange={(e) => setEnquiryForm({ ...enquiryForm, phone: e.target.value })}
                     style={{
                       width: '100%',
-                      padding: '12px',
-                      marginBottom: '12px',
-                      border: '1px solid #e5e5e5',
-                      borderRadius: '4px',
-                      fontSize: '14px'
+                      padding: '16px',
+                      marginBottom: '16px',
+                      border: '2px solid #ffffff',
+                      borderRadius: '0',
+                      fontSize: '13px',
+                      backgroundColor: '#000000',
+                      color: '#ffffff',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                      fontWeight: '500',
+                      letterSpacing: '0.05em'
                     }}
                     required
                   />
                   <textarea
-                    placeholder="Your Message"
+                    placeholder="YOUR MESSAGE"
                     value={enquiryForm.message}
                     onChange={(e) => setEnquiryForm({ ...enquiryForm, message: e.target.value })}
                     style={{
                       width: '100%',
-                      padding: '12px',
-                      marginBottom: '16px',
-                      border: '1px solid #e5e5e5',
-                      borderRadius: '4px',
-                      fontSize: '14px',
-                      minHeight: '100px',
-                      resize: 'vertical'
+                      padding: '16px',
+                      marginBottom: '24px',
+                      border: '2px solid #ffffff',
+                      borderRadius: '0',
+                      fontSize: '13px',
+                      minHeight: '120px',
+                      resize: 'vertical',
+                      backgroundColor: '#000000',
+                      color: '#ffffff',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                      fontWeight: '500',
+                      letterSpacing: '0.05em'
                     }}
                     required
                   />
@@ -1480,15 +1801,26 @@ export default function PropertyDetailPage() {
                     type="submit"
                     style={{
                       width: '100%',
-                      padding: '14px',
-                      backgroundColor: enquirySent ? '#4CAF50' : '#000',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '4px',
-                      fontSize: '16px',
-                      fontWeight: '600',
+                      padding: '18px',
+                      backgroundColor: enquirySent ? '#ffffff' : '#ffffff',
+                      color: '#000000',
+                      border: '2px solid #ffffff',
+                      borderRadius: '0',
+                      fontSize: '13px',
+                      fontWeight: '700',
                       cursor: 'pointer',
-                      transition: 'background-color 0.3s'
+                      transition: 'all 300ms ease-out',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!enquirySent) {
+                        e.currentTarget.style.backgroundColor = '#f5f5f5';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#ffffff';
                     }}
                   >
                     {enquirySent ? 'Enquiry Sent!' : 'Send Enquiry'}

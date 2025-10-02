@@ -1234,7 +1234,7 @@ export default function PropertyDetailPage() {
                       alt={property.agent.name}
                       style={{
                         width: '100%',
-                        height: '400px',
+                        height: '500px',
                         objectFit: 'cover'
                       }}
                       onError={(e) => {
@@ -1243,13 +1243,13 @@ export default function PropertyDetailPage() {
                         const parent = target.parentElement;
                         if (parent) {
                           parent.innerHTML = `
-                            <div style="width: 100%; height: 400px; background-color: #f5f5f5; display: flex; align-items: center; justify-content: center; padding: 40px;">
+                            <div style="width: 100%; height: 500px; background-color: #f5f5f5; display: flex; align-items: center; justify-content: center; padding: 40px;">
                               <div style="text-align: center;">
-                                <div style="width: 120px; height: 120px; border-radius: 50%; background-color: #e5e5e5; display: flex; align-items: center; justify-content: center; font-size: 48px; font-weight: 700; margin: 0 auto 16px;">${(property.agent?.name?.charAt(0) || 'G')}</div>
-                                <div style="font-size: 24px; font-weight: 600; margin-bottom: 8px; color: #2c2c2c;">${property.agent?.name || "Grant's Agent"}</div>
-                                <div style="font-size: 16px; color: #666; margin-bottom: 4px;">Grant's Estate Agents</div>
-                                <div style="font-size: 16px; color: #666;">${property.agent?.phone || '1300 000 000'}</div>
-                                ${property.agent?.email ? `<div style="font-size: 16px; color: #666; margin-top: 4px;">${property.agent.email}</div>` : ''}
+                                <div style="width: 140px; height: 140px; border-radius: 50%; background-color: #e5e5e5; display: flex; align-items: center; justify-content: center; font-size: 56px; font-weight: 700; margin: 0 auto 20px;">${(property.agent?.name?.charAt(0) || 'G')}</div>
+                                <div style="font-size: 28px; font-weight: 600; margin-bottom: 12px; color: #2c2c2c;">${property.agent?.name || "Grant's Agent"}</div>
+                                <div style="font-size: 17px; color: #666; margin-bottom: 6px;">Grant's Estate Agents</div>
+                                <div style="font-size: 17px; color: #666;">${property.agent?.phone || '1300 000 000'}</div>
+                                ${property.agent?.email ? `<div style="font-size: 17px; color: #666; margin-top: 6px;">${property.agent.email}</div>` : ''}
                               </div>
                             </div>
                           `;
@@ -1273,38 +1273,39 @@ export default function PropertyDetailPage() {
                 ) : (
                   <div style={{
                     width: '100%',
-                    height: '400px',
+                    height: '500px',
                     backgroundColor: '#f5f5f5',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    padding: '40px'
                   }}>
                     <div style={{ textAlign: 'center' }}>
                       <div style={{
-                        width: '120px',
-                        height: '120px',
+                        width: '140px',
+                        height: '140px',
                         borderRadius: '50%',
                         backgroundColor: '#e5e5e5',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: '48px',
+                        fontSize: '56px',
                         fontWeight: '700',
-                        margin: '0 auto 16px'
+                        margin: '0 auto 20px'
                       }}>
                         {property.agent?.name?.charAt(0) || 'G'}
                       </div>
-                      <div style={{ fontSize: '24px', fontWeight: '600', marginBottom: '8px' }}>
+                      <div style={{ fontSize: '28px', fontWeight: '600', marginBottom: '12px', color: '#2c2c2c' }}>
                         {property.agent?.name || 'Grant\'s Agent'}
                       </div>
-                      <div style={{ fontSize: '16px', color: '#666', marginBottom: '4px' }}>
+                      <div style={{ fontSize: '17px', color: '#666', marginBottom: '6px' }}>
                         Grant\'s Estate Agents
                       </div>
-                      <div style={{ fontSize: '16px', color: '#666' }}>
+                      <div style={{ fontSize: '17px', color: '#666' }}>
                         {property.agent?.phone || '1300 000 000'}
                       </div>
                       {property.agent?.email && (
-                        <div style={{ fontSize: '16px', color: '#666', marginTop: '4px' }}>
+                        <div style={{ fontSize: '17px', color: '#666', marginTop: '6px' }}>
                           {property.agent.email}
                         </div>
                       )}

@@ -641,15 +641,17 @@ export default function PropertyDetailPage() {
           <span style={{ color: '#000' }}>{property.address}</span>
         </div>
 
-        {/* Image Grid - ON.COM Style */}
+        {/* Image Grid - Enhanced Designer Layout */}
         {images.length > 0 && (
-          <div style={{ marginBottom: '40px' }}>
+          <div style={{ marginBottom: '60px' }}>
             <div style={{
               display: 'grid',
               gridTemplateColumns: isMobile ? '1fr' : (images.length > 1 ? '2fr 1fr 1fr' : '1fr'),
-              gridTemplateRows: isMobile ? 'repeat(auto-fit, 300px)' : '400px 200px',
-              gap: '8px',
-              marginBottom: '16px'
+              gridTemplateRows: isMobile ? 'repeat(auto-fit, 400px)' : '500px 240px',
+              gap: '12px',
+              marginBottom: '24px',
+              borderRadius: '8px',
+              overflow: 'hidden'
             }}>
               {displayImages.map((image, index) => (
                 <div
@@ -743,28 +745,30 @@ export default function PropertyDetailPage() {
         <div style={{
           display: 'grid',
           gridTemplateColumns: isMobile ? '1fr' : 'calc(66.666% - 27px) calc(33.333% - 13px)',
-          gap: isMobile ? '24px' : '40px',
+          gap: isMobile ? '32px' : '60px',
           width: '100%'
         }}>
           {/* Left Column */}
           <div>
             {/* Property Header */}
-            <div style={{ marginBottom: '32px' }}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '16px' }}>
+            <div style={{ marginBottom: '48px' }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px' }}>
                 <div>
                   <h1 style={{
-                    fontSize: '36px',
+                    fontSize: '42px',
                     fontWeight: '700',
-                    marginBottom: '8px',
-                    letterSpacing: '-0.02em'
+                    marginBottom: '12px',
+                    letterSpacing: '-0.03em',
+                    lineHeight: '1.1'
                   }}>
-                    {property.address || 'Property Address'}
+                    {property.address ? property.address.replace(/, VIC$/, '').replace(/VIC$/, '').split(',')[0].trim() : 'Property Address'}
                   </h1>
                   <p style={{
-                    fontSize: '18px',
-                    color: '#666'
+                    fontSize: '20px',
+                    color: '#666',
+                    fontWeight: '400'
                   }}>
-                    {property.suburb}, {property.state} {property.postcode}
+                    {property.suburb}{property.state && property.state !== 'VIC' ? `, ${property.state}` : ''} {property.postcode}
                   </p>
                 </div>
                 <SavePropertyButton property={{
@@ -788,34 +792,45 @@ export default function PropertyDetailPage() {
               {/* Quick Features */}
               <div style={{
                 display: 'flex',
-                gap: '32px',
-                padding: '24px 0',
+                gap: isMobile ? '24px' : '48px',
+                padding: '32px 0',
                 borderTop: '1px solid #e5e5e5',
-                borderBottom: '1px solid #e5e5e5'
+                borderBottom: '1px solid #e5e5e5',
+                flexWrap: 'wrap'
               }}>
                 <div>
-                  <div style={{ fontSize: '28px', fontWeight: '700' }}>
+                  <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '4px' }}>
                     {property.listingType === 'lease'
                       ? (property.leasePriceDisplay || (property.leasePrice ? `$${property.leasePrice} per week` : 'Contact Agent'))
                       : (property.priceDisplay || formatPrice(property.price || 0))
                     }
                   </div>
-                  <div style={{ fontSize: '14px', color: '#666' }}>
-                    {property.listingType === 'lease' ? 'Rent' : 'Price'}
+                  <div style={{ fontSize: '15px', color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    {property.listingType === 'lease' ? 'Per Week' : 'Price'}
                   </div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '28px', fontWeight: '700' }}>{property.bedrooms || '–'}</div>
-                  <div style={{ fontSize: '14px', color: '#666' }}>Bedrooms</div>
+                  <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '4px' }}>{property.bedrooms || '–'}</div>
+                  <div style={{ fontSize: '15px', color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Bedrooms</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '28px', fontWeight: '700' }}>{property.bathrooms || '–'}</div>
-                  <div style={{ fontSize: '14px', color: '#666' }}>Bathrooms</div>
+                  <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '4px' }}>{property.bathrooms || '–'}</div>
+                  <div style={{ fontSize: '15px', color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Bathrooms</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '28px', fontWeight: '700' }}>{property.carSpaces || '–'}</div>
-                  <div style={{ fontSize: '14px', color: '#666' }}>Parking</div>
+                  <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '4px' }}>{property.carSpaces || '–'}</div>
+                  <div style={{ fontSize: '15px', color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Parking</div>
                 </div>
+                {property.landSize && property.landSize > 0 && (
+                  <div>
+                    <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '4px' }}>
+                      {property.landSize >= 4047 ? `${(property.landSize / 4047).toFixed(1)}` : property.landSize}
+                    </div>
+                    <div style={{ fontSize: '15px', color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                      {property.landSize >= 4047 ? 'Acres' : 'Land m²'}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -883,10 +898,10 @@ export default function PropertyDetailPage() {
             )}
 
             {/* Interactive Features */}
-            <div style={{ marginBottom: '32px' }}>
+            <div style={{ marginBottom: '48px' }}>
               <div style={{
                 display: 'flex',
-                gap: '12px',
+                gap: '16px',
                 flexWrap: 'wrap'
               }}>
                 {property.virtualTourUrl && (
@@ -984,48 +999,64 @@ export default function PropertyDetailPage() {
 
             {/* Description */}
             {property.description && (
-              <div style={{ marginBottom: '48px' }}>
+              <div style={{ marginBottom: '64px' }}>
                 <h2 style={{
-                  fontSize: '28px',
+                  fontSize: '32px',
                   fontWeight: '700',
-                  marginBottom: '20px',
-                  letterSpacing: '-0.02em'
-                }}>Description</h2>
-                <p style={{
-                  lineHeight: '1.8',
-                  color: '#333',
-                  fontSize: '16px',
-                  maxWidth: '800px'
+                  marginBottom: '28px',
+                  letterSpacing: '-0.03em'
+                }}>About this property</h2>
+                <div style={{
+                  lineHeight: '1.9',
+                  color: '#2c2c2c',
+                  fontSize: '17px',
+                  maxWidth: '750px',
+                  whiteSpace: 'pre-line'
                 }}>
                   {property.description}
-                </p>
+                </div>
               </div>
             )}
 
             {/* Features */}
             {property.features && property.features.length > 0 && (
-              <div style={{ marginBottom: '48px' }}>
+              <div style={{ marginBottom: '64px' }}>
                 <h2 style={{
-                  fontSize: '28px',
+                  fontSize: '32px',
                   fontWeight: '700',
-                  marginBottom: '20px',
-                  letterSpacing: '-0.02em'
-                }}>Features</h2>
+                  marginBottom: '32px',
+                  letterSpacing: '-0.03em'
+                }}>Key Features</h2>
                 <ul style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-                  gap: '12px',
+                  gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(280px, 1fr))',
+                  gap: '18px',
                   listStyle: 'none',
-                  padding: 0
+                  padding: 0,
+                  margin: 0
                 }}>
                   {property.features.map((feature, index) => (
                     <li key={index} style={{
                       display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px'
+                      alignItems: 'flex-start',
+                      gap: '14px',
+                      fontSize: '16px',
+                      lineHeight: '1.6',
+                      color: '#2c2c2c',
+                      padding: '8px 0'
                     }}>
-                      <span style={{ color: '#4CAF50', fontSize: '20px' }}>✓</span>
-                      <span>{feature}</span>
+                      <span style={{
+                        color: '#000',
+                        fontSize: '8px',
+                        marginTop: '8px',
+                        flexShrink: 0,
+                        width: '6px',
+                        height: '6px',
+                        borderRadius: '50%',
+                        backgroundColor: '#000',
+                        display: 'inline-block'
+                      }}></span>
+                      <span style={{ flex: 1 }}>{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -1033,111 +1064,112 @@ export default function PropertyDetailPage() {
             )}
 
             {/* Property Details Grid */}
-            <div style={{ marginBottom: '48px' }}>
+            <div style={{ marginBottom: '64px' }}>
               <h2 style={{
-                fontSize: '28px',
+                fontSize: '32px',
                 fontWeight: '700',
-                marginBottom: '20px',
-                letterSpacing: '-0.02em'
-              }}>Property Details</h2>
+                marginBottom: '32px',
+                letterSpacing: '-0.03em'
+              }}>Property Information</h2>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '24px',
-                padding: '24px',
-                backgroundColor: '#f9f9f9',
-                borderRadius: '8px'
+                gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(auto-fit, minmax(220px, 1fr))',
+                gap: '32px',
+                padding: '40px',
+                backgroundColor: '#fafafa',
+                borderRadius: '12px',
+                border: '1px solid #f0f0f0'
               }}>
                 <div>
-                  <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Property Type</div>
-                  <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.propertyType || 'House'}</div>
+                  <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Property Type</div>
+                  <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.propertyType || 'House'}</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Bedrooms</div>
-                  <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.bedrooms || '–'}</div>
+                  <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Bedrooms</div>
+                  <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.bedrooms || '–'}</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Bathrooms</div>
-                  <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.bathrooms || '–'}</div>
+                  <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Bathrooms</div>
+                  <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.bathrooms || '–'}</div>
                 </div>
                 {property.ensuites !== undefined && property.ensuites > 0 && (
                   <div>
-                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Ensuites</div>
-                    <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.ensuites}</div>
+                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Ensuites</div>
+                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.ensuites}</div>
                   </div>
                 )}
                 {property.toilets !== undefined && property.toilets > 0 && (
                   <div>
-                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Toilets</div>
-                    <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.toilets}</div>
+                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Toilets</div>
+                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.toilets}</div>
                   </div>
                 )}
                 <div>
-                  <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Car Spaces</div>
-                  <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.carSpaces || '–'}</div>
+                  <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Car Spaces</div>
+                  <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.carSpaces || '–'}</div>
                 </div>
                 {property.landSize && property.landSize > 0 && (
                   <div>
-                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Land Size</div>
-                    <div style={{ fontSize: '16px', fontWeight: '600' }}>
+                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Land Size</div>
+                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>
                       {property.landSize >= 4047 ? `${(property.landSize / 4047).toFixed(2)} acres` : `${property.landSize} m²`}
                     </div>
                   </div>
                 )}
                 {property.buildingSize && property.buildingSize > 0 && (
                   <div>
-                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Building Size</div>
-                    <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.buildingSize} m²</div>
+                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Building Size</div>
+                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.buildingSize} m²</div>
                   </div>
                 )}
                 {property.yearBuilt && (
                   <div>
-                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Year Built</div>
-                    <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.yearBuilt}</div>
+                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Year Built</div>
+                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.yearBuilt}</div>
                   </div>
                 )}
                 {property.energyRating && (
                   <div>
-                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Energy Rating</div>
-                    <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.energyRating} stars</div>
+                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Energy Rating</div>
+                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.energyRating} stars</div>
                   </div>
                 )}
                 {property.zoning && (
                   <div>
-                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Zoning</div>
-                    <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.zoning}</div>
+                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Zoning</div>
+                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.zoning}</div>
                   </div>
                 )}
                 {property.saleMethod && (
                   <div>
-                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Sale Method</div>
-                    <div style={{ fontSize: '16px', fontWeight: '600', textTransform: 'capitalize' }}>{property.saleMethod}</div>
+                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Sale Method</div>
+                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c', textTransform: 'capitalize' }}>{property.saleMethod}</div>
                   </div>
                 )}
                 {property.listingType && (
                   <div>
-                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Listing Type</div>
-                    <div style={{ fontSize: '16px', fontWeight: '600', textTransform: 'capitalize' }}>
+                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Listing Type</div>
+                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c', textTransform: 'capitalize' }}>
                       {property.listingType === 'sale' ? 'For Sale' : property.listingType === 'lease' ? 'For Lease' : 'Sale & Lease'}
                     </div>
                   </div>
                 )}
                 {property.isNewHome && (
                   <div>
-                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Condition</div>
-                    <div style={{ fontSize: '16px', fontWeight: '600', color: '#4CAF50' }}>New Home</div>
+                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Condition</div>
+                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#059669' }}>New Home</div>
                   </div>
                 )}
                 {property.tenanted && (
                   <div>
-                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Status</div>
-                    <div style={{ fontSize: '16px', fontWeight: '600', color: '#FF9800' }}>Currently Tenanted</div>
+                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Status</div>
+                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#f59e0b' }}>Currently Tenanted</div>
                   </div>
                 )}
                 {property.daysOnMarket !== undefined && (
                   <div>
-                    <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Days on Market</div>
-                    <div style={{ fontSize: '16px', fontWeight: '600' }}>{property.daysOnMarket} days</div>
+                    <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Days on Market</div>
+                    <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>{property.daysOnMarket} days</div>
                   </div>
                 )}
               </div>
@@ -1145,38 +1177,38 @@ export default function PropertyDetailPage() {
 
             {/* Rates and Fees */}
             {property.rates && (property.rates.council || property.rates.water || property.rates.strata) && (
-              <div style={{ marginBottom: '48px' }}>
+              <div style={{ marginBottom: '64px' }}>
                 <h2 style={{
-                  fontSize: '28px',
+                  fontSize: '32px',
                   fontWeight: '700',
-                  marginBottom: '20px',
-                  letterSpacing: '-0.02em'
+                  marginBottom: '32px',
+                  letterSpacing: '-0.03em'
                 }}>Rates & Fees</h2>
                 <div style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                  gap: '24px',
-                  padding: '24px',
-                  backgroundColor: '#fff5e6',
-                  borderRadius: '8px',
-                  border: '1px solid #ffe0b2'
+                  gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(220px, 1fr))',
+                  gap: '32px',
+                  padding: '40px',
+                  backgroundColor: '#fffbf5',
+                  borderRadius: '12px',
+                  border: '1px solid #ffe4c4'
                 }}>
                   {property.rates.council !== undefined && property.rates.council > 0 && (
                     <div>
-                      <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Council Rates</div>
-                      <div style={{ fontSize: '16px', fontWeight: '600' }}>${property.rates.council.toLocaleString()} p.a.</div>
+                      <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Council Rates</div>
+                      <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>${property.rates.council.toLocaleString()} p.a.</div>
                     </div>
                   )}
                   {property.rates.water !== undefined && property.rates.water > 0 && (
                     <div>
-                      <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Water Rates</div>
-                      <div style={{ fontSize: '16px', fontWeight: '600' }}>${property.rates.water.toLocaleString()} p.a.</div>
+                      <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Water Rates</div>
+                      <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>${property.rates.water.toLocaleString()} p.a.</div>
                     </div>
                   )}
                   {property.rates.strata !== undefined && property.rates.strata > 0 && (
                     <div>
-                      <div style={{ fontSize: '14px', color: '#666', marginBottom: '4px' }}>Strata Fees</div>
-                      <div style={{ fontSize: '16px', fontWeight: '600' }}>${property.rates.strata.toLocaleString()} p.a.</div>
+                      <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: '500' }}>Strata Fees</div>
+                      <div style={{ fontSize: '17px', fontWeight: '600', color: '#2c2c2c' }}>${property.rates.strata.toLocaleString()} p.a.</div>
                     </div>
                   )}
                 </div>

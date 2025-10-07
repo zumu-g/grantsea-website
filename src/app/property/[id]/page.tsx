@@ -1608,14 +1608,14 @@ export default function PropertyDetailPage() {
                 marginBottom: '24px',
                 overflow: 'hidden'
               }}>
-                {property.agent?.photo ? (
+                {property.agent?.photo && !property.agent.photo.includes('default-agent') ? (
                   <>
                     <img
                       src={property.agent.photo}
                       alt={property.agent.name}
                       style={{
                         width: '100%',
-                        height: '500px',
+                        height: '600px',
                         objectFit: 'cover'
                       }}
                       onError={(e) => {
@@ -1624,7 +1624,7 @@ export default function PropertyDetailPage() {
                         const parent = target.parentElement;
                         if (parent) {
                           parent.innerHTML = `
-                            <div style="width: 100%; height: 500px; background-color: #f5f5f5; display: flex; align-items: center; justify-content: center; padding: 40px;">
+                            <div style="width: 100%; height: 600px; background-color: #f5f5f5; display: flex; align-items: center; justify-content: center; padding: 40px;">
                               <div style="text-align: center;">
                                 <div style="width: 140px; height: 140px; border-radius: 50%; background-color: #e5e5e5; display: flex; align-items: center; justify-content: center; font-size: 56px; font-weight: 700; margin: 0 auto 20px;">${(property.agent?.name?.charAt(0) || 'G')}</div>
                                 <div style="font-size: 28px; font-weight: 600; margin-bottom: 12px; color: #2c2c2c;">${property.agent?.name || "Grant's Agent"}</div>
@@ -1654,7 +1654,7 @@ export default function PropertyDetailPage() {
                 ) : (
                   <div style={{
                     width: '100%',
-                    height: '500px',
+                    height: '600px',
                     backgroundColor: '#f5f5f5',
                     display: 'flex',
                     alignItems: 'center',

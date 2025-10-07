@@ -879,11 +879,11 @@ export function transformVaultREProperty(vaultProperty: any): Property {
       phone: '03 9707 5555',
       photo: '/images/default-agent.jpg'
     },
-    inspectionTimes: (vaultProperty.inspection_times || []).map((inspection: any) => ({
-      id: inspection.id,
-      startTime: inspection.start || inspection.startTime,
-      endTime: inspection.end || inspection.endTime,
-      type: inspection.type || 'public'
+    inspectionTimes: (vaultProperty.inspectionTimes || vaultProperty.inspection_times || vaultProperty.inspections || []).map((inspection: any) => ({
+      id: inspection.id || inspection.inspectionId || `inspection-${Date.now()}`,
+      startTime: inspection.startTime || inspection.start || inspection.startDate || inspection.dateTime,
+      endTime: inspection.endTime || inspection.end || inspection.endDate || inspection.finishTime,
+      type: inspection.type || inspection.inspectionType || 'public'
     })),
     coordinates: vaultProperty.coordinates || vaultProperty.geo,
     createdAt: vaultProperty.created_at || vaultProperty.inserted || new Date().toISOString(),

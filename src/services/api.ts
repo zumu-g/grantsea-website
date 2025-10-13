@@ -867,17 +867,21 @@ export function transformVaultREProperty(vaultProperty: any): Property {
       email: vaultProperty.contactStaff[0].email || '',
       phone: vaultProperty.contactStaff[0].phoneNumbers?.[0]?.number || '',
       mobile: vaultProperty.contactStaff[0].phoneNumbers?.find((p: any) => p.type === 'Mobile')?.number,
-      photo: vaultProperty.contactStaff[0].photo?.url ||
+      position: vaultProperty.contactStaff[0].position || vaultProperty.contactStaff[0].role || 'Sales Agent',
+      photo: vaultProperty.contactStaff[0].photo?.original ||
+             vaultProperty.contactStaff[0].photo?.thumb_360 ||
+             vaultProperty.contactStaff[0].photo?.url ||
              vaultProperty.contactStaff[0].profilePhoto?.url ||
              vaultProperty.contactStaff[0].avatar?.url ||
              vaultProperty.contactStaff[0].image?.url ||
-             '/images/default-agent.jpg'
+             undefined
     } : {
       id: '',
       name: 'Grant\'s Estate Agents',
       email: 'info@grantsea.com.au',
       phone: '03 9707 5555',
-      photo: '/images/default-agent.jpg'
+      position: 'Sales Agent',
+      photo: undefined
     },
     inspectionTimes: (vaultProperty.inspectionTimes || vaultProperty.inspection_times || vaultProperty.inspections || []).map((inspection: any) => ({
       id: inspection.id || inspection.inspectionId || `inspection-${Date.now()}`,

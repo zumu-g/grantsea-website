@@ -8,6 +8,7 @@ import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
 import AskAI from '@/components/AskAI';
 import OncomHeader from '@/components/OncomHeader';
+import { formatNextInspection } from '@/utils/formatInspectionTime';
 
 // Helper function to check if a property is new (within last 7 days)
 const isNewListing = (createdAt?: string) => {
@@ -1373,6 +1374,25 @@ export default function HomePageOncom() {
                         <span>{property.bathrooms} bath</span>
                         <span>{property.carSpaces} car</span>
                       </div>
+                      {formatNextInspection(property.inspectionTimes) && (
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          marginBottom: '0.5rem'
+                        }}>
+                          <svg style={{ width: '16px', height: '16px', color: 'rgb(153, 92, 0)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <p style={{
+                            fontSize: '0.813rem',
+                            color: 'rgb(153, 92, 0)',
+                            fontWeight: '500'
+                          }}>
+                            {formatNextInspection(property.inspectionTimes)}
+                          </p>
+                        </div>
+                      )}
                       <div style={{
                         display: 'flex',
                         justifyContent: 'space-between',

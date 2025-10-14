@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import AskAI from '@/components/AskAI';
+import { formatNextInspection } from '@/utils/formatInspectionTime';
 
 interface PropertyCardProps {
   property: any;
@@ -22,6 +23,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   const price = getPrice();
   const address = `${property.address?.streetNumber || ''} ${property.address?.street || ''}`.trim();
   const suburb = property.address?.suburb || '';
+  const nextInspection = formatNextInspection(property.inspectionTimes);
 
   return (
     <article className="grant-card hover:shadow-lg transition-all duration-300 overflow-hidden relative">
@@ -45,9 +47,20 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
             {property.headline || address}
           </h3>
           
-          <p className="grant-body text-gray-600 mb-4 line-clamp-2">
+          <p className="grant-body text-gray-600 mb-2 line-clamp-2">
             {suburb}
           </p>
+          
+          {nextInspection && (
+            <div className="flex items-center gap-2 mb-3">
+              <svg className="w-4 h-4 text-[rgb(153,92,0)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <p className="grant-small text-[rgb(153,92,0)] font-medium">
+                {nextInspection}
+              </p>
+            </div>
+          )}
           
           <div className="flex items-center justify-between">
             <p className="grant-body grant-body-bold text-[rgb(153,92,0)]">

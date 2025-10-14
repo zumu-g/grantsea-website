@@ -73,7 +73,43 @@ export async function GET(
 
     if (property) {
       // Transform the property data to our format
-      const transformedProperty = transformVaultREProperty(property);
+      let transformedProperty = transformVaultREProperty(property);
+
+      // Try to fetch open homes for this specific property
+      try {
+        const openHomesResponse = await fetch(
+          `${API_BASE_URL}/user/upcomingOpenHomes?days=30&includeRecent=false`,
+          {
+            headers,
+            cache: 'no-store'
+          }
+        );
+
+        if (openHomesResponse.ok) {
+          const openHomesData = await openHomesResponse.json();
+          const openHomes = openHomesData.items || openHomesData.data || [];
+          
+          // Filter for this property's open homes
+          const propertyOpenHomes = openHomes
+            .filter((oh: any) => 
+              oh.property?.id?.toString() === id || 
+              oh.propertyId?.toString() === id
+            )
+            .map((oh: any) => ({
+              id: oh.id?.toString() || '',
+              startTime: oh.start || oh.startTime || oh.startDateTime,
+              endTime: oh.end || oh.endTime || oh.endDateTime,
+              type: oh.type || 'public'
+            }));
+          
+          if (propertyOpenHomes.length > 0) {
+            transformedProperty.inspectionTimes = propertyOpenHomes;
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch open homes for property:', error);
+        // Continue without open homes data
+      }
 
       return NextResponse.json({
         success: true,

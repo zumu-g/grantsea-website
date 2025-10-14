@@ -7,6 +7,7 @@ import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
 import AskAI from '@/components/AskAI';
 import VirtualTourEmbed from '@/components/VirtualTourEmbed';
+import { fetchPropertyOpenHomes } from '@/services/openHomes';
 
 interface Property {
   id: string;
@@ -126,7 +127,18 @@ export default function PropertyDetailPage() {
 
         if (response.ok && data.success && data.data) {
           console.log('[PropertyPage] Property loaded successfully');
-          setProperty(data.data);
+          
+          // Fetch open homes for this property
+          const openHomes = await fetchPropertyOpenHomes(params.id as string);
+          console.log('[PropertyPage] Open homes fetched:', openHomes);
+          
+          // Merge open homes into property data
+          const propertyWithOpenHomes = {
+            ...data.data,
+            inspectionTimes: openHomes.length > 0 ? openHomes : data.data.inspectionTimes || []
+          };
+          
+          setProperty(propertyWithOpenHomes);
 
           // Fetch similar properties
           if (data.data.suburb) {

@@ -137,6 +137,49 @@ export async function GET(request: NextRequest) {
     // Transform the properties to our format
     const transformedProperties = allProperties.map(transformVaultREProperty);
 
+    // Fetch upcoming open homes and merge with properties
+    try {
+      const openHomesResponse = await fetch(`${API_BASE_URL}/user/upcomingOpenHomes?days=30&includeRecent=false`, {
+        headers,
+        cache: 'no-store'
+      });
+
+      if (openHomesResponse.ok) {
+        const openHomesData = await openHomesResponse.json();
+        const openHomes = openHomesData.items || openHomesData.data || [];
+        
+        // Create a map of property ID to inspection times
+        const openHomesByProperty = new Map<string, any[]>();
+        
+        openHomes.forEach((oh: any) => {
+          const propertyId = oh.property?.id?.toString() || oh.propertyId?.toString();
+          if (!propertyId) return;
+          
+          const inspection = {
+            id: oh.id?.toString() || '',
+            startTime: oh.start || oh.startTime || oh.startDateTime,
+            endTime: oh.end || oh.endTime || oh.endDateTime,
+            type: oh.type || 'public'
+          };
+          
+          if (!openHomesByProperty.has(propertyId)) {
+            openHomesByProperty.set(propertyId, []);
+          }
+          openHomesByProperty.get(propertyId)!.push(inspection);
+        });
+        
+        // Merge open homes into properties
+        transformedProperties.forEach((property: any) => {
+          if (openHomesByProperty.has(property.id)) {
+            property.inspectionTimes = openHomesByProperty.get(property.id);
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Failed to fetch open homes:', error);
+      // Continue without open homes data
+    }
+
     return NextResponse.json({
       success: true,
       data: transformedProperties,

@@ -882,14 +882,13 @@ export default function PropertyDetailPage() {
             </div>
 
             {/* Inspection Times / Auction Details - ON RUNNING STYLE */}
-            {(property.auctionDate || (property.inspectionTimes && property.inspectionTimes.length > 0)) && (
-              <div style={{
-                padding: '24px',
-                backgroundColor: '#000000',
-                borderRadius: '0',
-                marginBottom: '48px',
-                border: '2px solid #000000'
-              }}>
+            <div style={{
+              padding: '24px',
+              backgroundColor: '#000000',
+              borderRadius: '0',
+              marginBottom: '48px',
+              border: '2px solid #000000'
+            }}>
                 {property.saleMethod === 'auction' && property.auctionDate && (
                   <div style={{ marginBottom: property.inspectionTimes?.length ? '24px' : 0 }}>
                     <h3 style={{
@@ -932,20 +931,20 @@ export default function PropertyDetailPage() {
                   </div>
                 )}
 
-                {property.inspectionTimes && property.inspectionTimes.length > 0 && (
-                  <div>
-                    <h3 style={{
-                      fontSize: '13px',
-                      fontWeight: '700',
-                      marginBottom: '12px',
-                      color: '#ffffff',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.1em',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                    }}>
-                      OPEN FOR INSPECTION
-                    </h3>
-                    {property.inspectionTimes.map((inspection) => (
+                <div>
+                  <h3 style={{
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    marginBottom: '12px',
+                    color: '#ffffff',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                  }}>
+                    OPEN FOR INSPECTION
+                  </h3>
+                  {property.inspectionTimes && property.inspectionTimes.length > 0 ? (
+                    property.inspectionTimes.map((inspection) => (
                       <div key={inspection.id} style={{ marginBottom: '12px' }}>
                         <p style={{
                           fontSize: '17px',
@@ -973,11 +972,19 @@ export default function PropertyDetailPage() {
                           })}
                         </p>
                       </div>
-                    ))}
-                  </div>
-                )}
+                    ))
+                  ) : (
+                    <p style={{
+                      fontSize: '17px',
+                      color: '#ffffff',
+                      fontWeight: '500',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>
+                      Contact agent to arrange an inspection
+                    </p>
+                  )}
+                </div>
               </div>
-            )}
 
             {/* Interactive Features - ON RUNNING STYLE */}
             <div style={{ marginBottom: '64px' }}>

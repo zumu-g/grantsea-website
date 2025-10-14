@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { useSavedProperties } from '@/hooks/useSavedProperties';
+import LogoSVG from './LogoSVG';
 
 export default function OncomHeader() {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -82,15 +83,14 @@ export default function OncomHeader() {
           justifyContent: 'space-between'
         }}>
           <Link href="/" style={{
-            fontSize: isMobile ? '18px' : '24px',
-            fontWeight: '800',
-            color: isHomePage && !isScrolled ? '#fff' : '#000',
-            textDecoration: 'none',
-            letterSpacing: '-0.5px',
-            transition: 'color 0.3s ease',
-            whiteSpace: 'nowrap'
+            display: 'flex',
+            alignItems: 'center',
+            textDecoration: 'none'
           }}>
-            GRANT'S
+            <LogoSVG 
+              height={isMobile ? 30 : 36} 
+              className={`logo-svg ${isHomePage && !isScrolled ? 'logo-white' : ''}`}
+            />
           </Link>
 
           {!isMobile && (

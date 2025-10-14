@@ -95,3 +95,17 @@ html, body {
   width: 100% !important;
   max-width: 100% !important;
 }
+
+/* Logo SVG Styling */
+.logo-svg path {
+  transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+.logo-svg.logo-white path:first-child {
+  fill: rgba(255, 255, 255, 0.9);
+  stroke: transparent;
+}
+
+.logo-svg.logo-white path:not(:first-child) {
+  fill: rgb(154, 35, 35);
+}

@@ -47,15 +47,28 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Transform to our format
-    const transformedOpenHomes = openHomes.map((oh: any) => ({
-      id: oh.id?.toString() || '',
-      propertyId: oh.property?.id?.toString() || oh.propertyId?.toString() || '',
-      startTime: oh.start || oh.startTime || oh.startDateTime,
-      endTime: oh.end || oh.endTime || oh.endDateTime,
-      type: oh.type || 'public',
-      notes: oh.notes || oh.description || '',
-    }));
+    // Transform to our format with timezone conversion from UTC to local time
+    const transformedOpenHomes = openHomes.map((oh: any) => {
+      // VaultRE returns times in UTC, we need to convert to local time
+      const startTimeUTC = oh.start || oh.startTime || oh.startDateTime;
+      const endTimeUTC = oh.end || oh.endTime || oh.endDateTime;
+      
+      // Convert UTC to local time by creating Date objects
+      // The API returns UTC times, so we parse them as UTC and then convert
+      const startDate = new Date(startTimeUTC);
+      const endDate = new Date(endTimeUTC);
+      
+      return {
+        id: oh.id?.toString() || '',
+        propertyId: oh.property?.id?.toString() || oh.propertyId?.toString() || '',
+        startTime: startDate.toISOString(), // Keep as ISO string for consistency
+        endTime: endDate.toISOString(),
+        startTimeLocal: startDate.toLocaleString('en-AU', { timeZone: 'Australia/Melbourne' }),
+        endTimeLocal: endDate.toLocaleString('en-AU', { timeZone: 'Australia/Melbourne' }),
+        type: oh.type || 'public',
+        notes: oh.notes || oh.description || '',
+      };
+    });
 
     return NextResponse.json({
       success: true,

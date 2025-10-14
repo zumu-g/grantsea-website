@@ -883,12 +883,22 @@ export function transformVaultREProperty(vaultProperty: any): Property {
       position: 'Sales Agent',
       photo: undefined
     },
-    inspectionTimes: (vaultProperty.inspectionTimes || vaultProperty.inspection_times || vaultProperty.inspections || []).map((inspection: any) => ({
-      id: inspection.id || inspection.inspectionId || `inspection-${Date.now()}`,
-      startTime: inspection.startTime || inspection.start || inspection.startDate || inspection.dateTime,
-      endTime: inspection.endTime || inspection.end || inspection.endDate || inspection.finishTime,
-      type: inspection.type || inspection.inspectionType || 'public'
-    })),
+    inspectionTimes: (vaultProperty.inspectionTimes || vaultProperty.inspection_times || vaultProperty.inspections || []).map((inspection: any) => {
+      // VaultRE returns times in UTC, we need to store them as ISO strings
+      const startTimeUTC = inspection.startTime || inspection.start || inspection.startDate || inspection.dateTime;
+      const endTimeUTC = inspection.endTime || inspection.end || inspection.endDate || inspection.finishTime;
+      
+      // Parse the UTC times and ensure they're stored as proper ISO strings
+      const startDate = new Date(startTimeUTC);
+      const endDate = new Date(endTimeUTC);
+      
+      return {
+        id: inspection.id || inspection.inspectionId || `inspection-${Date.now()}`,
+        startTime: startDate.toISOString(),
+        endTime: endDate.toISOString(),
+        type: inspection.type || inspection.inspectionType || 'public'
+      };
+    }),
     coordinates: vaultProperty.coordinates || vaultProperty.geo,
     createdAt: vaultProperty.created_at || vaultProperty.inserted || new Date().toISOString(),
     updatedAt: vaultProperty.updated_at || vaultProperty.modified || new Date().toISOString(),

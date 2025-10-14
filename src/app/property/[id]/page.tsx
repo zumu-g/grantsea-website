@@ -915,7 +915,8 @@ export default function PropertyDetailPage() {
                         month: 'long',
                         year: 'numeric',
                         hour: 'numeric',
-                        minute: 'numeric'
+                        minute: 'numeric',
+                        timeZone: 'Australia/Melbourne'
                       })}
                     </p>
                     {property.auctionVenue && (
@@ -955,17 +956,20 @@ export default function PropertyDetailPage() {
                           {new Date(inspection.startTime).toLocaleDateString('en-AU', {
                             weekday: 'long',
                             day: 'numeric',
-                            month: 'long'
+                            month: 'long',
+                            timeZone: 'Australia/Melbourne'
                           })}
                           {' '}
                           {new Date(inspection.startTime).toLocaleTimeString('en-AU', {
                             hour: 'numeric',
-                            minute: 'numeric'
+                            minute: 'numeric',
+                            timeZone: 'Australia/Melbourne'
                           })}
                           {' - '}
                           {new Date(inspection.endTime).toLocaleTimeString('en-AU', {
                             hour: 'numeric',
-                            minute: 'numeric'
+                            minute: 'numeric',
+                            timeZone: 'Australia/Melbourne'
                           })}
                         </p>
                       </div>

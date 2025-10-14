@@ -51,16 +51,14 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
             {suburb}
           </p>
           
-          {nextInspection && (
-            <div className="flex items-center gap-2 mb-3">
-              <svg className="w-4 h-4 text-[rgb(153,92,0)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <p className="grant-small text-[rgb(153,92,0)] font-medium">
-                {nextInspection}
-              </p>
-            </div>
-          )}
+          <div className="flex items-center gap-2 mb-3">
+            <svg className="w-4 h-4 text-[rgb(153,92,0)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p className="grant-small text-[rgb(153,92,0)] font-medium">
+              {nextInspection || 'Contact agent for inspection'}
+            </p>
+          </div>
           
           <div className="flex items-center justify-between">
             <p className="grant-body grant-body-bold text-[rgb(153,92,0)]">

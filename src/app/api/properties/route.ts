@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { transformVaultREProperty } from '@/services/api';
+import { mergeManualInspections } from '@/data/manual-inspections';
 
 // In API routes, we can't access NEXT_PUBLIC_ variables on the server
 // We need to use regular env vars or duplicate them without the prefix
@@ -139,7 +140,8 @@ export async function GET(request: NextRequest) {
 
     // Fetch upcoming open homes and merge with properties
     try {
-      const openHomesResponse = await fetch(`${API_BASE_URL}/user/upcomingOpenHomes?days=30&includeRecent=false`, {
+      // Using /openHomes endpoint as /user/upcomingOpenHomes returns 403
+      const openHomesResponse = await fetch(`${API_BASE_URL}/openHomes?limit=500`, {
         headers,
         cache: 'no-store'
       });
@@ -177,15 +179,25 @@ export async function GET(request: NextRequest) {
         
         // Merge open homes into properties
         transformedProperties.forEach((property: any) => {
-          if (openHomesByProperty.has(property.id)) {
-            property.inspectionTimes = openHomesByProperty.get(property.id);
-          }
+          const apiInspections = openHomesByProperty.get(property.id) || [];
+          // Merge with manual inspections (temporary fix)
+          property.inspectionTimes = mergeManualInspections(
+            property.id,
+            apiInspections
+          );
         });
       }
     } catch (error) {
       console.error('Failed to fetch open homes:', error);
       // Continue without open homes data
     }
+    
+    // Always check for manual inspections, even if API call failed
+    transformedProperties.forEach((property: any) => {
+      if (!property.inspectionTimes || property.inspectionTimes.length === 0) {
+        property.inspectionTimes = mergeManualInspections(property.id, []);
+      }
+    });
 
     return NextResponse.json({
       success: true,

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { mergeManualInspections } from '@/data/manual-inspections';
 
 const API_BASE_URL = process.env.CRM_API_URL || process.env.NEXT_PUBLIC_CRM_API_URL || 'https://ap-southeast-2.api.vaultre.com.au/api/v1.3';
 const API_KEY = process.env.CRM_API_KEY || process.env.NEXT_PUBLIC_CRM_API_KEY || '';
@@ -62,8 +63,29 @@ export async function GET(request: NextRequest) {
       return startA.getTime() - startB.getTime();
     });
 
+    // First, group by property ID to merge with manual inspections
+    const openHomesByProperty = new Map<string, any[]>();
+    
+    openHomes.forEach((oh: any) => {
+      const propId = oh.property?.id?.toString() || oh.propertyId?.toString();
+      if (propId) {
+        if (!openHomesByProperty.has(propId)) {
+          openHomesByProperty.set(propId, []);
+        }
+        openHomesByProperty.get(propId)!.push(oh);
+      }
+    });
+    
+    // If looking for a specific property, ensure we check manual inspections too
+    if (propertyId && !openHomesByProperty.has(propertyId)) {
+      openHomesByProperty.set(propertyId, []);
+    }
+    
     // Transform to our format with timezone conversion from UTC to local time
-    const transformedOpenHomes = openHomes.map((oh: any) => {
+    const transformedOpenHomes: any[] = [];
+    
+    openHomesByProperty.forEach((propertyOpenHomes, propId) => {
+      const transformed = propertyOpenHomes.map((oh: any) => {
       // VaultRE returns times in UTC, we need to convert to local time
       const startTimeUTC = oh.start || oh.startTime || oh.startDateTime;
       const endTimeUTC = oh.end || oh.endTime || oh.endDateTime;
@@ -73,16 +95,21 @@ export async function GET(request: NextRequest) {
       const startDate = new Date(startTimeUTC);
       const endDate = new Date(endTimeUTC);
       
-      return {
-        id: oh.id?.toString() || '',
-        propertyId: oh.property?.id?.toString() || oh.propertyId?.toString() || '',
-        startTime: startDate.toISOString(), // Keep as ISO string for consistency
-        endTime: endDate.toISOString(),
-        startTimeLocal: startDate.toLocaleString('en-AU', { timeZone: 'Australia/Melbourne' }),
-        endTimeLocal: endDate.toLocaleString('en-AU', { timeZone: 'Australia/Melbourne' }),
-        type: oh.type || 'public',
-        notes: oh.notes || oh.description || '',
-      };
+        return {
+          id: oh.id?.toString() || '',
+          propertyId: propId,
+          startTime: startDate.toISOString(), // Keep as ISO string for consistency
+          endTime: endDate.toISOString(),
+          startTimeLocal: startDate.toLocaleString('en-AU', { timeZone: 'Australia/Melbourne' }),
+          endTimeLocal: endDate.toLocaleString('en-AU', { timeZone: 'Australia/Melbourne' }),
+          type: oh.type || 'public',
+          notes: oh.notes || oh.description || '',
+        };
+      });
+      
+      // Merge with manual inspections
+      const merged = mergeManualInspections(propId, transformed);
+      transformedOpenHomes.push(...merged);
     });
 
     return NextResponse.json({

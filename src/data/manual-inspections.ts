@@ -45,15 +45,28 @@ export function mergeManualInspections(propertyId: string, apiInspections: any[]
   }
   
   // Convert manual inspections to API format
-  const manualFormatted = manual.inspections.map(inspection => ({
-    id: inspection.id,
-    startTime: inspection.startTime,
-    endTime: inspection.endTime,
-    type: inspection.type
-  }));
+  const manualFormatted = manual.inspections.map(inspection => {
+    const startDate = new Date(inspection.startTime);
+    const endDate = new Date(inspection.endTime);
+    
+    return {
+      id: inspection.id,
+      propertyId: propertyId,
+      startTime: startDate.toISOString(),
+      endTime: endDate.toISOString(),
+      startTimeLocal: startDate.toLocaleString('en-AU', { timeZone: 'Australia/Melbourne' }),
+      endTimeLocal: endDate.toLocaleString('en-AU', { timeZone: 'Australia/Melbourne' }),
+      type: inspection.type,
+      notes: `Agent: ${inspection.agent || ''}`,
+    };
+  });
+  
+  // Filter out any API inspections that might be duplicates
+  const existingIds = new Set(apiInspections.map(i => i.id));
+  const uniqueManual = manualFormatted.filter(m => !existingIds.has(m.id));
   
   // Combine and sort by start time
-  const combined = [...apiInspections, ...manualFormatted];
+  const combined = [...apiInspections, ...uniqueManual];
   return combined.sort((a, b) => 
     new Date(a.startTime).getTime() - new Date(b.startTime).getTime()
   );

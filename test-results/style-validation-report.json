@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-10-14T06:07:46.096Z",
+  "passed": false,
+  "issues": [
+    "❌ Logo font size should be 24px, found: 16px"
+  ],
+  "checks": {
+    "header": null,
+    "headerScrolled": null,
+    "categoryData": null,
+    "typography": {
+      "logo": {
+        "fontSize": 16,
+        "fontWeight": 400
+      },
+      "nav": {
+        "fontSize": 14,
+        "fontWeight": 500
+      },
+      "hero": {
+        "fontSize": 48
+      }
+    }
+  }
+}

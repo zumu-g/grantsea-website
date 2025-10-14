@@ -24,8 +24,8 @@ export async function GET(request: NextRequest) {
       'Content-Type': 'application/json',
     };
 
-    // Fetch upcoming open homes
-    const url = `${API_BASE_URL}/user/upcomingOpenHomes?days=${days}&includeRecent=false`;
+    // Use the general openHomes endpoint since upcomingOpenHomes requires user auth
+    const url = `${API_BASE_URL}/openHomes`;
     const response = await fetch(url, {
       headers,
       cache: 'no-store'
@@ -40,12 +40,27 @@ export async function GET(request: NextRequest) {
     // If propertyId is specified, filter to that property only
     let openHomes = data.data || data.items || data || [];
 
+    // Filter by property ID if specified
     if (propertyId) {
-      openHomes = openHomes.filter((oh: any) =>
-        oh.property?.id?.toString() === propertyId ||
-        oh.propertyId?.toString() === propertyId
-      );
+      openHomes = openHomes.filter((oh: any) => {
+        const ohPropertyId = oh.property?.id?.toString() || oh.propertyId?.toString();
+        return ohPropertyId === propertyId.toString();
+      });
     }
+
+    // Filter to only upcoming open homes (not past ones)
+    const now = new Date();
+    openHomes = openHomes.filter((oh: any) => {
+      const startTime = new Date(oh.start || oh.startTime || oh.startDateTime);
+      return startTime > now;
+    });
+
+    // Sort by start time (earliest first)
+    openHomes.sort((a: any, b: any) => {
+      const startA = new Date(a.start || a.startTime || a.startDateTime);
+      const startB = new Date(b.start || b.startTime || b.startDateTime);
+      return startA.getTime() - startB.getTime();
+    });
 
     // Transform to our format with timezone conversion from UTC to local time
     const transformedOpenHomes = openHomes.map((oh: any) => {

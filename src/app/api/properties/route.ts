@@ -151,7 +151,14 @@ export async function GET(request: NextRequest) {
         // Create a map of property ID to inspection times
         const openHomesByProperty = new Map<string, any[]>();
         
-        openHomes.forEach((oh: any) => {
+        // Filter to only upcoming open homes
+        const now = new Date();
+        const upcomingOpenHomes = openHomes.filter((oh: any) => {
+          const startTime = new Date(oh.start || oh.startTime || oh.startDateTime);
+          return startTime > now;
+        });
+
+        upcomingOpenHomes.forEach((oh: any) => {
           const propertyId = oh.property?.id?.toString() || oh.propertyId?.toString();
           if (!propertyId) return;
           

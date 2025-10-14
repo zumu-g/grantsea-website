@@ -89,18 +89,25 @@ export async function GET(
           const openHomesData = await openHomesResponse.json();
           const openHomes = openHomesData.items || openHomesData.data || [];
           
-          // Filter for this property's open homes
+          // Filter for this property's open homes and only upcoming ones
+          const now = new Date();
           const propertyOpenHomes = openHomes
-            .filter((oh: any) => 
-              oh.property?.id?.toString() === id || 
-              oh.propertyId?.toString() === id
-            )
+            .filter((oh: any) => {
+              const propertyMatches = oh.property?.id?.toString() === id || 
+                                    oh.propertyId?.toString() === id;
+              const startTime = new Date(oh.start || oh.startTime || oh.startDateTime);
+              const isUpcoming = startTime > now;
+              return propertyMatches && isUpcoming;
+            })
             .map((oh: any) => ({
               id: oh.id?.toString() || '',
               startTime: oh.start || oh.startTime || oh.startDateTime,
               endTime: oh.end || oh.endTime || oh.endDateTime,
               type: oh.type || 'public'
-            }));
+            }))
+            .sort((a: any, b: any) => {
+              return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
+            });
           
           if (propertyOpenHomes.length > 0) {
             transformedProperty.inspectionTimes = propertyOpenHomes;

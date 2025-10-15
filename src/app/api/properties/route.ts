@@ -206,7 +206,6 @@ export async function GET(request: NextRequest) {
         transformedProperties.forEach((property: any) => {
           property.inspectionTimes = openHomesByProperty.get(property.id) || [];
         });
-      }
     } catch (error) {
       console.error('Failed to fetch open homes:', error);
       // Continue without open homes data

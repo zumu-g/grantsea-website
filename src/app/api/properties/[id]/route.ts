@@ -115,29 +115,28 @@ export async function GET(
         
         console.log(`Fetched ${allOpenHomes.length} total open homes`);
         const openHomes = allOpenHomes;
-          
-          // Filter for this property's open homes and only upcoming ones
-          const now = new Date();
-          const propertyOpenHomes = openHomes
-            .filter((oh: any) => {
-              const propertyMatches = oh.property?.id?.toString() === id || 
-                                    oh.propertyId?.toString() === id;
-              const startTime = new Date(oh.start || oh.startTime || oh.startDateTime);
-              const isUpcoming = startTime > now;
-              return propertyMatches && isUpcoming;
-            })
-            .map((oh: any) => ({
-              id: oh.id?.toString() || '',
-              startTime: oh.start || oh.startTime || oh.startDateTime,
-              endTime: oh.end || oh.endTime || oh.endDateTime,
-              type: oh.type || 'public'
-            }))
-            .sort((a: any, b: any) => {
-              return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
-            });
-          
-          transformedProperty.inspectionTimes = propertyOpenHomes;
-        }
+        
+        // Filter for this property's open homes and only upcoming ones
+        const now = new Date();
+        const propertyOpenHomes = openHomes
+          .filter((oh: any) => {
+            const propertyMatches = oh.property?.id?.toString() === id || 
+                                  oh.propertyId?.toString() === id;
+            const startTime = new Date(oh.start || oh.startTime || oh.startDateTime);
+            const isUpcoming = startTime > now;
+            return propertyMatches && isUpcoming;
+          })
+          .map((oh: any) => ({
+            id: oh.id?.toString() || '',
+            startTime: oh.start || oh.startTime || oh.startDateTime,
+            endTime: oh.end || oh.endTime || oh.endDateTime,
+            type: oh.type || 'public'
+          }))
+          .sort((a: any, b: any) => {
+            return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
+          });
+        
+        transformedProperty.inspectionTimes = propertyOpenHomes;
       } catch (error) {
         console.error('Failed to fetch open homes for property:', error);
         // Continue without open homes data

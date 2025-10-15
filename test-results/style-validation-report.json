@@ -1,25 +1,20 @@
 {
-  "timestamp": "2025-10-14T06:07:46.096Z",
+  "timestamp": "2025-10-15T04:24:52.488Z",
   "passed": false,
   "issues": [
-    "❌ Logo font size should be 24px, found: 16px"
+    "❌ Header height should be 64px, found: 100px"
   ],
   "checks": {
-    "header": null,
-    "headerScrolled": null,
+    "header": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "height": 100,
+      "position": "fixed"
+    },
+    "headerScrolled": {
+      "transform": "matrix(1, 0, 0, 1, 0, -100)",
+      "isHidden": true
+    },
     "categoryData": null,
-    "typography": {
-      "logo": {
-        "fontSize": 16,
-        "fontWeight": 400
-      },
-      "nav": {
-        "fontSize": 14,
-        "fontWeight": 500
-      },
-      "hero": {
-        "fontSize": 48
-      }
-    }
+    "typography": {}
   }
 }

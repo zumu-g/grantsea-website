@@ -62,7 +62,7 @@ export default function Backstage() {
     heroImage: {
       position: 'absolute' as const,
       inset: 0,
-      objectFit: 'cover',
+      objectFit: 'cover' as const,
     },
     heroOverlay: {
       position: 'absolute' as const,

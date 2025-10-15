@@ -402,7 +402,7 @@ export default function ComingSoon() {
                 src={property.imageUrl}
                 alt={property.address}
                 fill
-                style={{ objectFit: 'cover' }}
+                style={{ objectFit: 'cover' as const }}
               />
               <div style={styles.comingSoonBadge}>Coming Soon</div>
             </div>

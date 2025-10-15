@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { mergeManualInspections } from '@/data/manual-inspections';
 
 const API_BASE_URL = process.env.CRM_API_URL || process.env.NEXT_PUBLIC_CRM_API_URL || 'https://ap-southeast-2.api.vaultre.com.au/api/v1.3';
 const API_KEY = process.env.CRM_API_KEY || process.env.NEXT_PUBLIC_CRM_API_KEY || '';
@@ -25,21 +24,55 @@ export async function GET(request: NextRequest) {
       'Content-Type': 'application/json',
     };
 
-    // Use the general openHomes endpoint since upcomingOpenHomes requires user auth
-    const url = `${API_BASE_URL}/openHomes`;
-    const response = await fetch(url, {
+    // Fetch ALL pages of open homes since upcoming ones are scattered throughout
+    let allOpenHomes: any[] = [];
+    let page = 1;
+    let hasMore = true;
+    
+    // Get total count first
+    const countResponse = await fetch(`${API_BASE_URL}/openHomes?limit=1`, {
       headers,
       cache: 'no-store'
     });
-
-    if (!response.ok) {
-      throw new Error(`API request failed: ${response.status}`);
+    
+    let totalItems = 0;
+    if (countResponse.ok) {
+      const countData = await countResponse.json();
+      totalItems = countData.totalItems || 0;
+      console.log(`Total open homes in API: ${totalItems}`);
     }
+    
+    // Fetch all pages (with safety limit)
+    while (hasMore && page <= 50) {
+      const url = `${API_BASE_URL}/openHomes?limit=100&page=${page}`;
+      const response = await fetch(url, {
+        headers,
+        cache: 'no-store'
+      });
 
-    const data = await response.json();
+      if (!response.ok) {
+        if (page === 1) {
+          throw new Error(`API request failed: ${response.status}`);
+        }
+        break; // Stop if we can't fetch more pages
+      }
+
+      const data = await response.json();
+      const pageOpenHomes = data.data || data.items || [];
+      
+      if (pageOpenHomes.length === 0) {
+        hasMore = false;
+      } else {
+        allOpenHomes.push(...pageOpenHomes);
+      }
+      
+      page++;
+    }
+    
+    console.log(`Fetched ${allOpenHomes.length} open homes across ${page - 1} pages`);
 
     // If propertyId is specified, filter to that property only
-    let openHomes = data.data || data.items || data || [];
+    let openHomes = allOpenHomes;
 
     // Filter by property ID if specified
     if (propertyId) {
@@ -63,7 +96,7 @@ export async function GET(request: NextRequest) {
       return startA.getTime() - startB.getTime();
     });
 
-    // First, group by property ID to merge with manual inspections
+    // Group by property ID
     const openHomesByProperty = new Map<string, any[]>();
     
     openHomes.forEach((oh: any) => {
@@ -76,10 +109,6 @@ export async function GET(request: NextRequest) {
       }
     });
     
-    // If looking for a specific property, ensure we check manual inspections too
-    if (propertyId && !openHomesByProperty.has(propertyId)) {
-      openHomesByProperty.set(propertyId, []);
-    }
     
     // Transform to our format with timezone conversion from UTC to local time
     const transformedOpenHomes: any[] = [];
@@ -107,9 +136,7 @@ export async function GET(request: NextRequest) {
         };
       });
       
-      // Merge with manual inspections
-      const merged = mergeManualInspections(propId, transformed);
-      transformedOpenHomes.push(...merged);
+      transformedOpenHomes.push(...transformed);
     });
 
     return NextResponse.json({

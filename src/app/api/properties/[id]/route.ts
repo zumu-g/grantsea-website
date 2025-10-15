@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { transformVaultREProperty } from '@/services/api';
-import { mergeManualInspections } from '@/data/manual-inspections';
 
 // In API routes, we can't access NEXT_PUBLIC_ variables on the server
 // We need to use regular env vars or duplicate them without the prefix
@@ -78,18 +77,44 @@ export async function GET(
 
       // Try to fetch open homes for this specific property
       try {
-        // Using /openHomes endpoint as /user/upcomingOpenHomes returns 403
-        const openHomesResponse = await fetch(
-          `${API_BASE_URL}/openHomes?propertyId=${id}&limit=100`,
-          {
-            headers,
-            cache: 'no-store'
-          }
-        );
+        // We need to fetch all pages since the API doesn't filter properly by propertyId
+        let allOpenHomes: any[] = [];
+        let page = 1;
+        let hasMore = true;
+        
+        console.log(`Fetching open homes for property ${id}...`);
+        
+        // Fetch all pages to find open homes for this property
+        while (hasMore && page <= 50) {
+          const openHomesResponse = await fetch(
+            `${API_BASE_URL}/openHomes?limit=100&page=${page}`,
+            {
+              headers,
+              cache: 'no-store'
+            }
+          );
 
-        if (openHomesResponse.ok) {
+          if (!openHomesResponse.ok) {
+            if (page === 1) {
+              throw new Error('Failed to fetch open homes');
+            }
+            break;
+          }
+
           const openHomesData = await openHomesResponse.json();
-          const openHomes = openHomesData.items || openHomesData.data || [];
+          const pageOpenHomes = openHomesData.items || openHomesData.data || [];
+          
+          if (pageOpenHomes.length === 0) {
+            hasMore = false;
+          } else {
+            allOpenHomes.push(...pageOpenHomes);
+          }
+          
+          page++;
+        }
+        
+        console.log(`Fetched ${allOpenHomes.length} total open homes`);
+        const openHomes = allOpenHomes;
           
           // Filter for this property's open homes and only upcoming ones
           const now = new Date();
@@ -111,21 +136,13 @@ export async function GET(
               return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
             });
           
-          // Merge with manual inspections (temporary fix)
-          transformedProperty.inspectionTimes = mergeManualInspections(
-            id,
-            propertyOpenHomes
-          );
+          transformedProperty.inspectionTimes = propertyOpenHomes;
         }
       } catch (error) {
         console.error('Failed to fetch open homes for property:', error);
         // Continue without open homes data
       }
       
-      // Always check for manual inspections, even if API call failed
-      if (!transformedProperty.inspectionTimes || transformedProperty.inspectionTimes.length === 0) {
-        transformedProperty.inspectionTimes = mergeManualInspections(id, []);
-      }
 
       return NextResponse.json({
         success: true,

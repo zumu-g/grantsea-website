@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { transformVaultREProperty } from '@/services/api';
-import { mergeManualInspections } from '@/data/manual-inspections';
 
 // In API routes, we can't access NEXT_PUBLIC_ variables on the server
 // We need to use regular env vars or duplicate them without the prefix
@@ -140,15 +139,41 @@ export async function GET(request: NextRequest) {
 
     // Fetch upcoming open homes and merge with properties
     try {
-      // Using /openHomes endpoint as /user/upcomingOpenHomes returns 403
-      const openHomesResponse = await fetch(`${API_BASE_URL}/openHomes?limit=500`, {
-        headers,
-        cache: 'no-store'
-      });
+      // Fetch ALL pages of open homes since upcoming ones are scattered throughout
+      let allOpenHomes: any[] = [];
+      let page = 1;
+      let hasMore = true;
+      
+      console.log('Fetching open homes for properties...');
+      
+      // Fetch all pages (with safety limit)
+      while (hasMore && page <= 50) {
+        const openHomesResponse = await fetch(`${API_BASE_URL}/openHomes?limit=100&page=${page}`, {
+          headers,
+          cache: 'no-store'
+        });
 
-      if (openHomesResponse.ok) {
+        if (!openHomesResponse.ok) {
+          if (page === 1) {
+            throw new Error('Failed to fetch open homes');
+          }
+          break;
+        }
+
         const openHomesData = await openHomesResponse.json();
-        const openHomes = openHomesData.items || openHomesData.data || [];
+        const pageOpenHomes = openHomesData.items || openHomesData.data || [];
+        
+        if (pageOpenHomes.length === 0) {
+          hasMore = false;
+        } else {
+          allOpenHomes.push(...pageOpenHomes);
+        }
+        
+        page++;
+      }
+      
+      console.log(`Fetched ${allOpenHomes.length} total open homes`);
+      const openHomes = allOpenHomes;
         
         // Create a map of property ID to inspection times
         const openHomesByProperty = new Map<string, any[]>();
@@ -177,14 +202,9 @@ export async function GET(request: NextRequest) {
           openHomesByProperty.get(propertyId)!.push(inspection);
         });
         
-        // Merge open homes into properties
+        // Add open homes to properties
         transformedProperties.forEach((property: any) => {
-          const apiInspections = openHomesByProperty.get(property.id) || [];
-          // Merge with manual inspections (temporary fix)
-          property.inspectionTimes = mergeManualInspections(
-            property.id,
-            apiInspections
-          );
+          property.inspectionTimes = openHomesByProperty.get(property.id) || [];
         });
       }
     } catch (error) {
@@ -192,12 +212,6 @@ export async function GET(request: NextRequest) {
       // Continue without open homes data
     }
     
-    // Always check for manual inspections, even if API call failed
-    transformedProperties.forEach((property: any) => {
-      if (!property.inspectionTimes || property.inspectionTimes.length === 0) {
-        property.inspectionTimes = mergeManualInspections(property.id, []);
-      }
-    });
 
     return NextResponse.json({
       success: true,

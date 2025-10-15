@@ -731,7 +731,7 @@ export default function PropertyDetailPage() {
                   }}
                 />
                 <SavePropertyButton
-                  propertyId={property.id}
+                  property={property}
                   style={{
                     position: 'absolute',
                     top: '20px',
@@ -795,7 +795,7 @@ export default function PropertyDetailPage() {
                       />
                       {index === 0 && (
                         <SavePropertyButton
-                          propertyId={property.id}
+                          property={property}
                           style={{
                             position: 'absolute',
                             top: '20px',
@@ -1273,7 +1273,7 @@ export default function PropertyDetailPage() {
                 )}
                 
                 <AskAI
-                  propertyId={property.id}
+                  property={property}
                   propertyAddress={`${(property.address || '').replace(/ VIC$/, '')}, ${property.suburb || ''} ${property.postcode || ''}`}
                   propertyData={{
                     price: property.price,

@@ -8,7 +8,7 @@ interface CacheEntry {
 
 class OpenHomesCache {
   private cache: Map<string, CacheEntry> = new Map();
-  private readonly TTL = 5 * 60 * 1000; // 5 minutes cache
+  private readonly TTL = 15 * 60 * 1000; // 15 minutes cache (longer since we scan all pages)
 
   set(key: string, data: any[]): void {
     this.cache.set(key, {
@@ -56,15 +56,15 @@ export async function fetchUpcomingOpenHomesWithCache(
   } else {
     console.log('Fetching fresh open homes data...');
     
-    // Dynamic approach: Start from page 1 and keep fetching until we have enough upcoming open homes
-    // or reach a reasonable limit to prevent timeout
+    // Scan ALL pages to find ALL upcoming open homes
     const now = new Date();
-    const MAX_PAGES = 15; // Reasonable limit to prevent timeout
-    const TARGET_UPCOMING = 20; // Stop when we find this many upcoming open homes
     let page = 1;
-    let consecutiveEmptyPages = 0;
+    let hasMorePages = true;
+    let totalPagesScanned = 0;
     
-    while (page <= MAX_PAGES && upcomingOpenHomes.length < TARGET_UPCOMING) {
+    console.log('Starting comprehensive open homes scan...');
+    
+    while (hasMorePages) {
       try {
         const response = await fetch(
           `${apiBaseUrl}/openHomes?limit=100&page=${page}`,
@@ -72,42 +72,49 @@ export async function fetchUpcomingOpenHomesWithCache(
         );
         
         if (!response.ok) {
-          console.error(`Failed to fetch page ${page}`);
+          console.error(`Failed to fetch page ${page}: ${response.status}`);
           break;
         }
         
         const data = await response.json();
         const pageOpenHomes = data.items || data.data || [];
         
-        // If we get empty pages, stop after 3 consecutive empty pages
+        // Check if we've reached the end of data
         if (pageOpenHomes.length === 0) {
-          consecutiveEmptyPages++;
-          if (consecutiveEmptyPages >= 3) break;
+          hasMorePages = false;
+          console.log(`Reached end of data at page ${page}`);
         } else {
-          consecutiveEmptyPages = 0;
+          // Filter for upcoming only
+          const upcoming = pageOpenHomes.filter((oh: any) => {
+            const startTime = new Date(oh.start || oh.startTime || oh.startDateTime);
+            return startTime > now;
+          });
+          
+          if (upcoming.length > 0) {
+            console.log(`Page ${page}: Found ${upcoming.length} upcoming open homes`);
+            upcomingOpenHomes.push(...upcoming);
+          } else {
+            console.log(`Page ${page}: No upcoming open homes (${pageOpenHomes.length} past)`);
+          }
+          
+          totalPagesScanned++;
+          page++;
+          
+          // Safety limit to prevent infinite loops (can be adjusted based on actual data)
+          if (page > 100) {
+            console.warn('Reached safety limit of 100 pages');
+            hasMorePages = false;
+          }
         }
-        
-        // Filter for upcoming only
-        const upcoming = pageOpenHomes.filter((oh: any) => {
-          const startTime = new Date(oh.start || oh.startTime || oh.startDateTime);
-          return startTime > now;
-        });
-        
-        if (upcoming.length > 0) {
-          console.log(`Found ${upcoming.length} upcoming open homes on page ${page}`);
-          upcomingOpenHomes.push(...upcoming);
-        }
-        
-        page++;
       } catch (error) {
         console.error(`Error fetching page ${page}:`, error);
-        break;
+        hasMorePages = false;
       }
     }
     
     // Cache the results
     openHomesCache.set(cacheKey, upcomingOpenHomes);
-    console.log(`Cached ${upcomingOpenHomes.length} upcoming open homes`);
+    console.log(`Scan complete: ${totalPagesScanned} pages scanned, found ${upcomingOpenHomes.length} upcoming open homes`);
   }
   
   // Create a map of property ID to open homes

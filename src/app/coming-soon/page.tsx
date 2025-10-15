@@ -164,7 +164,7 @@ export default function ComingSoon() {
       borderRadius: '32px',
       cursor: 'pointer',
       transition: 'all 0.2s ease',
-      textTransform: 'capitalize',
+      textTransform: 'capitalize' as const,
     },
     activeFilter: {
       backgroundColor: '#000',

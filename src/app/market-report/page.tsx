@@ -133,7 +133,7 @@ export default function MarketReport() {
       borderRadius: '32px',
       cursor: 'pointer',
       transition: 'all 0.2s ease',
-      textTransform: 'capitalize',
+      textTransform: 'capitalize' as const,
     },
     activeSuburb: {
       backgroundColor: '#000',

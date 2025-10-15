@@ -24,52 +24,37 @@ export async function GET(request: NextRequest) {
       'Content-Type': 'application/json',
     };
 
-    // Fetch ALL pages of open homes since upcoming ones are scattered throughout
+    // For now, fetch limited pages to prevent timeout
+    // TODO: Implement caching or background job for full data
     let allOpenHomes: any[] = [];
-    let page = 1;
-    let hasMore = true;
+    const MAX_PAGES = propertyId ? 10 : 5; // More pages if looking for specific property
     
-    // Get total count first
-    const countResponse = await fetch(`${API_BASE_URL}/openHomes?limit=1`, {
-      headers,
-      cache: 'no-store'
-    });
-    
-    let totalItems = 0;
-    if (countResponse.ok) {
-      const countData = await countResponse.json();
-      totalItems = countData.totalItems || 0;
-      console.log(`Total open homes in API: ${totalItems}`);
-    }
-    
-    // Fetch all pages (with safety limit)
-    while (hasMore && page <= 50) {
-      const url = `${API_BASE_URL}/openHomes?limit=100&page=${page}`;
-      const response = await fetch(url, {
-        headers,
-        cache: 'no-store'
-      });
+    for (let page = 1; page <= MAX_PAGES; page++) {
+      try {
+        const url = `${API_BASE_URL}/openHomes?limit=100&page=${page}`;
+        const response = await fetch(url, {
+          headers,
+          cache: 'no-store'
+        });
 
-      if (!response.ok) {
-        if (page === 1) {
-          throw new Error(`API request failed: ${response.status}`);
+        if (!response.ok) {
+          console.error(`Failed to fetch page ${page}: ${response.status}`);
+          break;
         }
-        break; // Stop if we can't fetch more pages
-      }
 
-      const data = await response.json();
-      const pageOpenHomes = data.data || data.items || [];
-      
-      if (pageOpenHomes.length === 0) {
-        hasMore = false;
-      } else {
+        const data = await response.json();
+        const pageOpenHomes = data.data || data.items || [];
+        
+        if (pageOpenHomes.length === 0) break;
+        
         allOpenHomes.push(...pageOpenHomes);
+      } catch (error) {
+        console.error(`Error fetching page ${page}:`, error);
+        break;
       }
-      
-      page++;
     }
     
-    console.log(`Fetched ${allOpenHomes.length} open homes across ${page - 1} pages`);
+    console.log(`Fetched ${allOpenHomes.length} open homes`);
 
     // If propertyId is specified, filter to that property only
     let openHomes = allOpenHomes;

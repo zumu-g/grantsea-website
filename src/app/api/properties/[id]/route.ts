@@ -75,72 +75,9 @@ export async function GET(
       // Transform the property data to our format
       let transformedProperty = transformVaultREProperty(property);
 
-      // Try to fetch open homes for this specific property
-      try {
-        // We need to fetch all pages since the API doesn't filter properly by propertyId
-        let allOpenHomes: any[] = [];
-        let page = 1;
-        let hasMore = true;
-        
-        console.log(`Fetching open homes for property ${id}...`);
-        
-        // Fetch all pages to find open homes for this property
-        while (hasMore && page <= 50) {
-          const openHomesResponse = await fetch(
-            `${API_BASE_URL}/openHomes?limit=100&page=${page}`,
-            {
-              headers,
-              cache: 'no-store'
-            }
-          );
-
-          if (!openHomesResponse.ok) {
-            if (page === 1) {
-              throw new Error('Failed to fetch open homes');
-            }
-            break;
-          }
-
-          const openHomesData = await openHomesResponse.json();
-          const pageOpenHomes = openHomesData.items || openHomesData.data || [];
-          
-          if (pageOpenHomes.length === 0) {
-            hasMore = false;
-          } else {
-            allOpenHomes.push(...pageOpenHomes);
-          }
-          
-          page++;
-        }
-        
-        console.log(`Fetched ${allOpenHomes.length} total open homes`);
-        const openHomes = allOpenHomes;
-        
-        // Filter for this property's open homes and only upcoming ones
-        const now = new Date();
-        const propertyOpenHomes = openHomes
-          .filter((oh: any) => {
-            const propertyMatches = oh.property?.id?.toString() === id || 
-                                  oh.propertyId?.toString() === id;
-            const startTime = new Date(oh.start || oh.startTime || oh.startDateTime);
-            const isUpcoming = startTime > now;
-            return propertyMatches && isUpcoming;
-          })
-          .map((oh: any) => ({
-            id: oh.id?.toString() || '',
-            startTime: oh.start || oh.startTime || oh.startDateTime,
-            endTime: oh.end || oh.endTime || oh.endDateTime,
-            type: oh.type || 'public'
-          }))
-          .sort((a: any, b: any) => {
-            return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
-          });
-        
-        transformedProperty.inspectionTimes = propertyOpenHomes;
-      } catch (error) {
-        console.error('Failed to fetch open homes for property:', error);
-        // Continue without open homes data
-      }
+      // For individual properties, skip open homes for now to prevent timeout
+      // Open homes will be fetched on the properties listing page
+      transformedProperty.inspectionTimes = [];
       
 
       return NextResponse.json({

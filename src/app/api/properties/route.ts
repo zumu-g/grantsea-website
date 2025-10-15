@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { transformVaultREProperty } from '@/services/api';
+import { fetchUpcomingOpenHomesWithCache } from '@/services/openHomesCache';
 
 // In API routes, we can't access NEXT_PUBLIC_ variables on the server
 // We need to use regular env vars or duplicate them without the prefix
@@ -137,75 +138,24 @@ export async function GET(request: NextRequest) {
     // Transform the properties to our format
     const transformedProperties = allProperties.map(transformVaultREProperty);
 
-    // Fetch upcoming open homes and merge with properties
+    // Fetch upcoming open homes only for active properties
     try {
-      // Fetch ALL pages of open homes since upcoming ones are scattered throughout
-      let allOpenHomes: any[] = [];
-      let page = 1;
-      let hasMore = true;
+      // Get list of property IDs we need open homes for
+      const activePropertyIds = transformedProperties.map((p: any) => p.id);
       
-      console.log('Fetching open homes for properties...');
+      // Use cached/optimized fetch
+      const openHomesByProperty = await fetchUpcomingOpenHomesWithCache(
+        API_BASE_URL,
+        headers,
+        activePropertyIds
+      );
       
-      // Fetch all pages (with safety limit)
-      while (hasMore && page <= 50) {
-        const openHomesResponse = await fetch(`${API_BASE_URL}/openHomes?limit=100&page=${page}`, {
-          headers,
-          cache: 'no-store'
-        });
-
-        if (!openHomesResponse.ok) {
-          if (page === 1) {
-            throw new Error('Failed to fetch open homes');
-          }
-          break;
-        }
-
-        const openHomesData = await openHomesResponse.json();
-        const pageOpenHomes = openHomesData.items || openHomesData.data || [];
-        
-        if (pageOpenHomes.length === 0) {
-          hasMore = false;
-        } else {
-          allOpenHomes.push(...pageOpenHomes);
-        }
-        
-        page++;
-      }
+      // Add open homes to properties
+      transformedProperties.forEach((property: any) => {
+        property.inspectionTimes = openHomesByProperty.get(property.id) || [];
+      });
       
-      console.log(`Fetched ${allOpenHomes.length} total open homes`);
-      const openHomes = allOpenHomes;
-        
-        // Create a map of property ID to inspection times
-        const openHomesByProperty = new Map<string, any[]>();
-        
-        // Filter to only upcoming open homes
-        const now = new Date();
-        const upcomingOpenHomes = openHomes.filter((oh: any) => {
-          const startTime = new Date(oh.start || oh.startTime || oh.startDateTime);
-          return startTime > now;
-        });
-
-        upcomingOpenHomes.forEach((oh: any) => {
-          const propertyId = oh.property?.id?.toString() || oh.propertyId?.toString();
-          if (!propertyId) return;
-          
-          const inspection = {
-            id: oh.id?.toString() || '',
-            startTime: oh.start || oh.startTime || oh.startDateTime,
-            endTime: oh.end || oh.endTime || oh.endDateTime,
-            type: oh.type || 'public'
-          };
-          
-          if (!openHomesByProperty.has(propertyId)) {
-            openHomesByProperty.set(propertyId, []);
-          }
-          openHomesByProperty.get(propertyId)!.push(inspection);
-        });
-        
-        // Add open homes to properties
-        transformedProperties.forEach((property: any) => {
-          property.inspectionTimes = openHomesByProperty.get(property.id) || [];
-        });
+      console.log(`Added open homes to ${openHomesByProperty.size} properties`);
     } catch (error) {
       console.error('Failed to fetch open homes:', error);
       // Continue without open homes data

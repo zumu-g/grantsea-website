@@ -1,8 +1,9 @@
 {
-  "timestamp": "2025-10-15T04:24:52.488Z",
+  "timestamp": "2025-10-15T04:29:11.928Z",
   "passed": false,
   "issues": [
-    "❌ Header height should be 64px, found: 100px"
+    "❌ Header height should be 64px, found: 100px",
+    "❌ Logo font size should be 24px, found: 16px"
   ],
   "checks": {
     "header": {
@@ -15,6 +16,18 @@
       "isHidden": true
     },
     "categoryData": null,
-    "typography": {}
+    "typography": {
+      "logo": {
+        "fontSize": 16,
+        "fontWeight": 400
+      },
+      "nav": {
+        "fontSize": 14,
+        "fontWeight": 500
+      },
+      "hero": {
+        "fontSize": 48
+      }
+    }
   }
 }

@@ -16,14 +16,14 @@ export default function Press() {
   const pressReleases: PressRelease[] = [
     {
       date: 'October 12, 2025',
-      title: 'Grant's Estate Agents Wins Agency of the Year Award',
+      title: 'Grant\'s Estate Agents Wins Agency of the Year Award',
       summary: 'Recognition for excellence in customer service and innovation in the real estate sector.',
       type: 'award'
     },
     {
       date: 'September 28, 2025',
       title: 'Record Breaking Quarter for Casey Property Market',
-      summary: 'Grant's Estate Agents reports strongest sales figures in company history.',
+      summary: 'Grant\'s Estate Agents reports strongest sales figures in company history.',
       type: 'release'
     },
     {
@@ -41,7 +41,7 @@ export default function Press() {
     {
       date: 'July 30, 2025',
       title: 'Community Partnership Announcement',
-      summary: 'Grant's Estate Agents pledges $500,000 to local schools and community programs.',
+      summary: 'Grant\'s Estate Agents pledges $500,000 to local schools and community programs.',
       type: 'release'
     }
   ]

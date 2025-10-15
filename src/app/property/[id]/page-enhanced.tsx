@@ -731,7 +731,11 @@ export default function PropertyDetailPage() {
                   }}
                 />
                 <SavePropertyButton
-                  property={property}
+                  property={{
+                    ...property,
+                    address: property.address || '',
+                    id: property.id || ''
+                  } as any}
                   style={{
                     position: 'absolute',
                     top: '20px',
@@ -795,7 +799,11 @@ export default function PropertyDetailPage() {
                       />
                       {index === 0 && (
                         <SavePropertyButton
-                          property={property}
+                          property={{
+                            ...property,
+                            address: property.address || '',
+                            id: property.id || ''
+                          } as any}
                           style={{
                             position: 'absolute',
                             top: '20px',

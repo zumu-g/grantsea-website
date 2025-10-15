@@ -74,7 +74,7 @@ export default function Press() {
       fontSize: '14px',
       fontWeight: '500',
       letterSpacing: '0.05em',
-      textTransform: 'uppercase',
+      textTransform: 'uppercase' as const,
       color: '#000',
       textDecoration: 'none',
       marginBottom: '48px',
@@ -154,7 +154,7 @@ export default function Press() {
       fontSize: '12px',
       fontWeight: '600',
       borderRadius: '32px',
-      textTransform: 'uppercase',
+      textTransform: 'uppercase' as const,
       letterSpacing: '0.05em',
     },
     contactCard: {
@@ -211,7 +211,7 @@ export default function Press() {
       cursor: 'pointer',
       transition: 'all 0.2s ease',
       letterSpacing: '0.05em',
-      textTransform: 'uppercase',
+      textTransform: 'uppercase' as const,
       textDecoration: 'none',
     },
   }

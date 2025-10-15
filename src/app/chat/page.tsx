@@ -29,7 +29,7 @@ export default function Chat() {
       fontSize: '14px',
       fontWeight: '500',
       letterSpacing: '0.05em',
-      textTransform: 'uppercase',
+      textTransform: 'uppercase' as const,
       color: '#000',
       textDecoration: 'none',
       marginBottom: '48px',
@@ -144,7 +144,7 @@ export default function Chat() {
       cursor: 'pointer',
       transition: 'all 0.2s ease',
       letterSpacing: '0.05em',
-      textTransform: 'uppercase',
+      textTransform: 'uppercase' as const,
       alignSelf: 'flex-start',
     },
     contactCard: {

@@ -133,7 +133,7 @@ export default function CountrySelector() {
       fontSize: '14px',
       fontWeight: '500',
       letterSpacing: '0.05em',
-      textTransform: 'uppercase',
+      textTransform: 'uppercase' as const,
       color: '#666',
       textDecoration: 'none',
       transition: 'all 0.2s ease',

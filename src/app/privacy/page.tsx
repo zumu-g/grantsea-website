@@ -23,7 +23,7 @@ export default function Privacy() {
       fontSize: '14px',
       fontWeight: '500',
       letterSpacing: '0.05em',
-      textTransform: 'uppercase',
+      textTransform: 'uppercase' as const,
       color: '#000',
       textDecoration: 'none',
       marginBottom: '48px',

@@ -1,18 +1,17 @@
 {
-  "timestamp": "2025-10-15T23:32:55.089Z",
+  "timestamp": "2025-10-15T23:46:26.790Z",
   "passed": false,
   "issues": [
-    "❌ Header height should be 64px, found: 100px",
     "❌ Logo font size should be 24px, found: 16px"
   ],
   "checks": {
     "header": {
       "backgroundColor": "rgba(0, 0, 0, 0)",
-      "height": 100,
+      "height": 64,
       "position": "fixed"
     },
     "headerScrolled": {
-      "transform": "matrix(1, 0, 0, 1, 0, -100)",
+      "transform": "matrix(1, 0, 0, 1, 0, -64)",
       "isHidden": true
     },
     "categoryData": null,

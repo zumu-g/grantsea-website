@@ -122,7 +122,7 @@ export default function Portal() {
       cursor: 'pointer',
       transition: 'all 0.2s ease',
       letterSpacing: '0.05em',
-      textTransform: 'uppercase',
+      textTransform: 'uppercase' as const,
       marginTop: '16px',
     },
     forgotPassword: {

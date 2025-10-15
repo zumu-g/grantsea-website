@@ -24,40 +24,26 @@ export async function GET(request: NextRequest) {
       'Content-Type': 'application/json',
     };
 
-    // For now, fetch limited pages to prevent timeout
-    // TODO: Implement caching or background job for full data
-    let allOpenHomes: any[] = [];
-    const MAX_PAGES = propertyId ? 10 : 5; // More pages if looking for specific property
+    // Use the caching service for efficient fetching
+    const { fetchUpcomingOpenHomesWithCache } = await import('@/services/openHomesCache');
     
-    for (let page = 1; page <= MAX_PAGES; page++) {
-      try {
-        const url = `${API_BASE_URL}/openHomes?limit=100&page=${page}`;
-        const response = await fetch(url, {
-          headers,
-          cache: 'no-store'
+    // Get all upcoming open homes efficiently
+    const cachedOpenHomesByProperty = await fetchUpcomingOpenHomesWithCache(
+      API_BASE_URL,
+      headers
+    );
+    
+    // Convert map to array format
+    let openHomes: any[] = [];
+    cachedOpenHomesByProperty.forEach((inspections, propId) => {
+      inspections.forEach(inspection => {
+        openHomes.push({
+          ...inspection,
+          propertyId: propId,
+          property: { id: propId }
         });
-
-        if (!response.ok) {
-          console.error(`Failed to fetch page ${page}: ${response.status}`);
-          break;
-        }
-
-        const data = await response.json();
-        const pageOpenHomes = data.data || data.items || [];
-        
-        if (pageOpenHomes.length === 0) break;
-        
-        allOpenHomes.push(...pageOpenHomes);
-      } catch (error) {
-        console.error(`Error fetching page ${page}:`, error);
-        break;
-      }
-    }
-    
-    console.log(`Fetched ${allOpenHomes.length} open homes`);
-
-    // If propertyId is specified, filter to that property only
-    let openHomes = allOpenHomes;
+      });
+    });
 
     // Filter by property ID if specified
     if (propertyId) {
@@ -67,17 +53,10 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // Filter to only upcoming open homes (not past ones)
-    const now = new Date();
-    openHomes = openHomes.filter((oh: any) => {
-      const startTime = new Date(oh.start || oh.startTime || oh.startDateTime);
-      return startTime > now;
-    });
-
-    // Sort by start time (earliest first)
+    // Sort by start time (earliest first) - data is already filtered for upcoming
     openHomes.sort((a: any, b: any) => {
-      const startA = new Date(a.start || a.startTime || a.startDateTime);
-      const startB = new Date(b.start || b.startTime || b.startDateTime);
+      const startA = new Date(a.startTime);
+      const startB = new Date(b.startTime);
       return startA.getTime() - startB.getTime();
     });
 

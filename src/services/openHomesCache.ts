@@ -56,22 +56,36 @@ export async function fetchUpcomingOpenHomesWithCache(
   } else {
     console.log('Fetching fresh open homes data...');
     
-    // Fetch only the pages that typically contain upcoming open homes
-    // Based on our analysis, these are around pages 6, 16, 17, 24, 45, 46
-    const targetPages = [6, 16, 17, 24, 45, 46];
+    // Dynamic approach: Start from page 1 and keep fetching until we have enough upcoming open homes
+    // or reach a reasonable limit to prevent timeout
     const now = new Date();
+    const MAX_PAGES = 15; // Reasonable limit to prevent timeout
+    const TARGET_UPCOMING = 20; // Stop when we find this many upcoming open homes
+    let page = 1;
+    let consecutiveEmptyPages = 0;
     
-    for (const page of targetPages) {
+    while (page <= MAX_PAGES && upcomingOpenHomes.length < TARGET_UPCOMING) {
       try {
         const response = await fetch(
           `${apiBaseUrl}/openHomes?limit=100&page=${page}`,
           { headers, cache: 'no-store' }
         );
         
-        if (!response.ok) continue;
+        if (!response.ok) {
+          console.error(`Failed to fetch page ${page}`);
+          break;
+        }
         
         const data = await response.json();
         const pageOpenHomes = data.items || data.data || [];
+        
+        // If we get empty pages, stop after 3 consecutive empty pages
+        if (pageOpenHomes.length === 0) {
+          consecutiveEmptyPages++;
+          if (consecutiveEmptyPages >= 3) break;
+        } else {
+          consecutiveEmptyPages = 0;
+        }
         
         // Filter for upcoming only
         const upcoming = pageOpenHomes.filter((oh: any) => {
@@ -79,9 +93,15 @@ export async function fetchUpcomingOpenHomesWithCache(
           return startTime > now;
         });
         
-        upcomingOpenHomes.push(...upcoming);
+        if (upcoming.length > 0) {
+          console.log(`Found ${upcoming.length} upcoming open homes on page ${page}`);
+          upcomingOpenHomes.push(...upcoming);
+        }
+        
+        page++;
       } catch (error) {
         console.error(`Error fetching page ${page}:`, error);
+        break;
       }
     }
     

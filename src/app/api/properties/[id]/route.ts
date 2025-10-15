@@ -75,9 +75,20 @@ export async function GET(
       // Transform the property data to our format
       let transformedProperty = transformVaultREProperty(property);
 
-      // For individual properties, skip open homes for now to prevent timeout
-      // Open homes will be fetched on the properties listing page
-      transformedProperty.inspectionTimes = [];
+      // Try to get open homes from cache first
+      try {
+        const { fetchUpcomingOpenHomesWithCache } = await import('@/services/openHomesCache');
+        const openHomesByProperty = await fetchUpcomingOpenHomesWithCache(
+          API_BASE_URL,
+          headers,
+          [id] // Only fetch for this property
+        );
+        
+        transformedProperty.inspectionTimes = openHomesByProperty.get(id) || [];
+      } catch (error) {
+        console.error('Failed to fetch open homes for property:', error);
+        transformedProperty.inspectionTimes = [];
+      }
       
 
       return NextResponse.json({

@@ -730,29 +730,22 @@ export default function PropertyDetailPage() {
                     objectFit: 'cover'
                   }}
                 />
-                <SavePropertyButton
-                  property={{
-                    ...property,
-                    address: property.address || '',
-                    id: property.id || ''
-                  } as any}
-                  style={{
-                    position: 'absolute',
-                    top: '20px',
-                    right: '20px',
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '50%',
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    border: 'none',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    zIndex: 10
-                  }}
-                />
+                <div style={{
+                  position: 'absolute',
+                  top: '20px',
+                  right: '20px',
+                  width: '48px',
+                  height: '48px',
+                  zIndex: 10
+                }}>
+                  <SavePropertyButton
+                    property={{
+                      ...property,
+                      address: property.address || '',
+                      id: property.id || ''
+                    } as any}
+                  />
+                </div>
               </div>
             ) : (
               <div>
@@ -798,29 +791,22 @@ export default function PropertyDetailPage() {
                         }}
                       />
                       {index === 0 && (
-                        <SavePropertyButton
-                          property={{
-                            ...property,
-                            address: property.address || '',
-                            id: property.id || ''
-                          } as any}
-                          style={{
-                            position: 'absolute',
-                            top: '20px',
-                            right: '20px',
-                            width: '48px',
-                            height: '48px',
-                            borderRadius: '50%',
-                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                            border: 'none',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                            transition: 'all 0.2s ease',
-                            zIndex: 10
-                          }}
-                        />
+                        <div style={{
+                          position: 'absolute',
+                          top: '20px',
+                          right: '20px',
+                          width: '48px',
+                          height: '48px',
+                          zIndex: 10
+                        }}>
+                          <SavePropertyButton
+                            property={{
+                              ...property,
+                              address: property.address || '',
+                              id: property.id || ''
+                            } as any}
+                          />
+                        </div>
                       )}
                       {index === displayImages.length - 1 && images.length > 5 && !showAllPhotos && (
                         <div 

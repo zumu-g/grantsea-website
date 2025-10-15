@@ -64,7 +64,7 @@ export default function OncomHeader() {
         top: 0,
         left: 0,
         right: 0,
-        height: isMobile ? '80px' : '100px',
+        height: isMobile ? '60px' : '64px',
         backgroundColor: isHomePage && !isScrolled ? 'transparent' : '#fff',
         borderBottom: isHomePage && !isScrolled ? 'none' : '1px solid #e5e5e5',
         zIndex: 1000,
@@ -88,7 +88,7 @@ export default function OncomHeader() {
             textDecoration: 'none'
           }}>
             <LogoSVG 
-              height={isMobile ? 60 : 72} 
+              height={isMobile ? 40 : 48} 
               className={`logo-svg ${isHomePage && !isScrolled ? 'logo-white' : ''}`}
             />
           </Link>

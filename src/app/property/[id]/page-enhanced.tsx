@@ -1267,7 +1267,7 @@ export default function PropertyDetailPage() {
                 )}
                 
                 <AskAI
-                  property={property}
+                  propertyId={property.id || ''}
                   propertyAddress={`${(property.address || '').replace(/ VIC$/, '')}, ${property.suburb || ''} ${property.postcode || ''}`}
                   propertyData={{
                     price: property.price,

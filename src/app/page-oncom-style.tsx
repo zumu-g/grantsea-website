@@ -20,7 +20,7 @@ const isNewListing = (createdAt?: string) => {
 };
 
 export default function HomePageOncom() {
-  const [hoveredActivity, setHoveredActivity] = useState<string | null>(null);
+  const [hoveredActivity, setHoveredActivity] = useState<string | null>('family-homes');
   const [carouselScroll, setCarouselScroll] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);

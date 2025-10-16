@@ -107,35 +107,110 @@ export default function OncomHeader() {
               textDecoration: 'none',
               fontSize: '14px',
               fontWeight: '500',
-              transition: 'color 0.3s ease'
+              transition: 'all 0.3s ease',
+              padding: '8px 12px',
+              borderRadius: '6px',
+              outline: 'none'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = isHomePage && !isScrolled ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.outline = 'none';
+              e.currentTarget.style.boxShadow = 'none';
             }}>Buy</Link>
             <Link href="/sell" style={{
               color: isHomePage && !isScrolled ? '#fff' : '#000',
               textDecoration: 'none',
               fontSize: '14px',
               fontWeight: '500',
-              transition: 'color 0.3s ease'
+              transition: 'all 0.3s ease',
+              padding: '8px 12px',
+              borderRadius: '6px',
+              outline: 'none'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = isHomePage && !isScrolled ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.outline = 'none';
+              e.currentTarget.style.boxShadow = 'none';
             }}>Sell</Link>
             <Link href="/rent" style={{
               color: isHomePage && !isScrolled ? '#fff' : '#000',
               textDecoration: 'none',
               fontSize: '14px',
               fontWeight: '500',
-              transition: 'color 0.3s ease'
+              transition: 'all 0.3s ease',
+              padding: '8px 12px',
+              borderRadius: '6px',
+              outline: 'none'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = isHomePage && !isScrolled ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.outline = 'none';
+              e.currentTarget.style.boxShadow = 'none';
             }}>Rent</Link>
             <Link href="/agents" style={{
               color: isHomePage && !isScrolled ? '#fff' : '#000',
               textDecoration: 'none',
               fontSize: '14px',
               fontWeight: '500',
-              transition: 'color 0.3s ease'
+              transition: 'all 0.3s ease',
+              padding: '8px 12px',
+              borderRadius: '6px',
+              outline: 'none'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = isHomePage && !isScrolled ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.outline = 'none';
+              e.currentTarget.style.boxShadow = 'none';
             }}>Find Agents</Link>
             <Link href="/reviews" style={{
               color: isHomePage && !isScrolled ? '#fff' : '#000',
               textDecoration: 'none',
               fontSize: '14px',
               fontWeight: '500',
-              transition: 'color 0.3s ease'
+              transition: 'all 0.3s ease',
+              padding: '8px 12px',
+              borderRadius: '6px',
+              outline: 'none'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = isHomePage && !isScrolled ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.outline = 'none';
+              e.currentTarget.style.boxShadow = 'none';
             }}>Reviews</Link>
             </nav>
           )}

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import OncomHeader from '@/components/OncomHeader';
 import { useProperties } from '@/hooks/useProperties';
@@ -9,6 +9,7 @@ import SavePropertyButton from '@/components/SavePropertyButton';
 import { motion } from 'framer-motion';
 
 export default function RentPage() {
+  const [isMobile, setIsMobile] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<{
     priceMin: string;
@@ -34,6 +35,16 @@ export default function RentPage() {
   const [sortBy, setSortBy] = useState('newest');
   
   const { properties, loading } = useProperties({ type: 'lease' });
+
+  useEffect(() => {
+    const checkDevice = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkDevice();
+    window.addEventListener('resize', checkDevice);
+    return () => window.removeEventListener('resize', checkDevice);
+  }, []);
 
   // Filter properties based on criteria
   const filteredProperties = properties.filter(property => {
@@ -93,13 +104,11 @@ export default function RentPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               style={{
-                fontSize: '72px',
-                fontWeight: '300',
-                fontFamily: "'Essonnes Display', 'On', Helvetica, sans-serif",
-                marginBottom: '24px',
-                letterSpacing: '-0.02em'
+                fontSize: isMobile ? '32px' : '48px',
+                fontWeight: '400',
+                marginBottom: 0
               }}>
-              Rental Properties
+              Properties for rent
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -567,7 +576,7 @@ export default function RentPage() {
                     style={{
                       backgroundColor: '#FFFFFF',
                       border: '1px solid #F0F0F0',
-                      borderRadius: '12px',
+                      borderRadius: '0px',
                       overflow: 'hidden',
                       transition: 'all 0.3s ease',
                       cursor: 'pointer',

@@ -107,18 +107,17 @@ export default function OncomHeader() {
               textDecoration: 'none',
               fontSize: '14px',
               fontWeight: '500',
-              transition: 'all 0.3s ease',
               padding: '8px 12px',
-              borderRadius: '6px',
-              outline: 'none'
+              position: 'relative',
+              outline: 'none',
+              borderBottom: '2px solid transparent',
+              transition: 'border-color 0.3s ease'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = isHomePage && !isScrolled ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
-              e.currentTarget.style.transform = 'translateY(-1px)';
+              e.currentTarget.style.borderBottomColor = isHomePage && !isScrolled ? '#fff' : '#000';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent';
-              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderBottomColor = 'transparent';
             }}
             onFocus={(e) => {
               e.currentTarget.style.outline = 'none';
@@ -129,18 +128,17 @@ export default function OncomHeader() {
               textDecoration: 'none',
               fontSize: '14px',
               fontWeight: '500',
-              transition: 'all 0.3s ease',
               padding: '8px 12px',
-              borderRadius: '6px',
-              outline: 'none'
+              position: 'relative',
+              outline: 'none',
+              borderBottom: '2px solid transparent',
+              transition: 'border-color 0.3s ease'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = isHomePage && !isScrolled ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
-              e.currentTarget.style.transform = 'translateY(-1px)';
+              e.currentTarget.style.borderBottomColor = isHomePage && !isScrolled ? '#fff' : '#000';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent';
-              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderBottomColor = 'transparent';
             }}
             onFocus={(e) => {
               e.currentTarget.style.outline = 'none';
@@ -151,18 +149,17 @@ export default function OncomHeader() {
               textDecoration: 'none',
               fontSize: '14px',
               fontWeight: '500',
-              transition: 'all 0.3s ease',
               padding: '8px 12px',
-              borderRadius: '6px',
-              outline: 'none'
+              position: 'relative',
+              outline: 'none',
+              borderBottom: '2px solid transparent',
+              transition: 'border-color 0.3s ease'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = isHomePage && !isScrolled ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
-              e.currentTarget.style.transform = 'translateY(-1px)';
+              e.currentTarget.style.borderBottomColor = isHomePage && !isScrolled ? '#fff' : '#000';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent';
-              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderBottomColor = 'transparent';
             }}
             onFocus={(e) => {
               e.currentTarget.style.outline = 'none';
@@ -173,18 +170,17 @@ export default function OncomHeader() {
               textDecoration: 'none',
               fontSize: '14px',
               fontWeight: '500',
-              transition: 'all 0.3s ease',
               padding: '8px 12px',
-              borderRadius: '6px',
-              outline: 'none'
+              position: 'relative',
+              outline: 'none',
+              borderBottom: '2px solid transparent',
+              transition: 'border-color 0.3s ease'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = isHomePage && !isScrolled ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
-              e.currentTarget.style.transform = 'translateY(-1px)';
+              e.currentTarget.style.borderBottomColor = isHomePage && !isScrolled ? '#fff' : '#000';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent';
-              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderBottomColor = 'transparent';
             }}
             onFocus={(e) => {
               e.currentTarget.style.outline = 'none';
@@ -195,18 +191,17 @@ export default function OncomHeader() {
               textDecoration: 'none',
               fontSize: '14px',
               fontWeight: '500',
-              transition: 'all 0.3s ease',
               padding: '8px 12px',
-              borderRadius: '6px',
-              outline: 'none'
+              position: 'relative',
+              outline: 'none',
+              borderBottom: '2px solid transparent',
+              transition: 'border-color 0.3s ease'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = isHomePage && !isScrolled ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
-              e.currentTarget.style.transform = 'translateY(-1px)';
+              e.currentTarget.style.borderBottomColor = isHomePage && !isScrolled ? '#fff' : '#000';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent';
-              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderBottomColor = 'transparent';
             }}
             onFocus={(e) => {
               e.currentTarget.style.outline = 'none';

@@ -467,13 +467,13 @@ export default function HomePageOncom() {
                 gap: '0'
               }}>
                 {[
-                  { id: 'family-homes', name: 'Family Homes', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop' },
-                  { id: 'apartments', name: 'Apartments & Units', image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop' },
-                  { id: 'townhouses', name: 'Townhouses', image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=600&fit=crop' },
-                  { id: 'land', name: 'Land & Development', image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop' },
-                  { id: 'rural', name: 'Rural & Acreage', image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=600&fit=crop' },
-                  { id: 'commercial', name: 'Commercial', image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop' },
-                  { id: 'investment', name: 'Investment Properties', image: 'https://images.unsplash.com/photo-1560472355-536de3962603?w=800&h=600&fit=crop' }
+                  { id: 'family-homes', name: 'Family Homes', image: '/images/modern-family-home.png' },
+                  { id: 'apartments', name: 'Apartments & Units', image: '/images/modern-apartment.png' },
+                  { id: 'townhouses', name: 'Townhouses', image: '/images/modern-townhouse.png' },
+                  { id: 'land', name: 'Land & Development', image: '/images/land-development.png' },
+                  { id: 'rural', name: 'Rural & Acreage', image: '/images/rural-acreage.png' },
+                  { id: 'commercial', name: 'Commercial', image: '/images/commercial.png' },
+                  { id: 'investment', name: 'Investment Properties', image: '/images/investment-property.png' }
                 ].map((activity) => (
                   <Link 
                     key={activity.id}
@@ -543,13 +543,13 @@ export default function HomePageOncom() {
               backgroundColor: '#f5f5f5'
             }}>
               {[
-                { id: 'family-homes', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop' },
-                { id: 'apartments', image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop' },
-                { id: 'townhouses', image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=600&fit=crop' },
-                { id: 'land', image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop' },
-                { id: 'rural', image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=600&fit=crop' },
-                { id: 'commercial', image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop' },
-                { id: 'investment', image: 'https://images.unsplash.com/photo-1560472355-536de3962603?w=800&h=600&fit=crop' }
+                { id: 'family-homes', image: '/images/modern-family-home.png' },
+                { id: 'apartments', image: '/images/modern-apartment.png' },
+                { id: 'townhouses', image: '/images/modern-townhouse.png' },
+                { id: 'land', image: '/images/land-development.png' },
+                { id: 'rural', image: '/images/rural-acreage.png' },
+                { id: 'commercial', image: '/images/commercial.png' },
+                { id: 'investment', image: '/images/investment-property.png' }
               ].map((activity) => (
                 <div
                   key={activity.id}

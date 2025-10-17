@@ -498,8 +498,3 @@ export default function OfficesPage() {
     </>
   );
 }
-
-export const metadata = {
-  title: 'Our Offices | Grant\'s Estate Agents',
-  description: 'Visit our offices in Narre Warren, Berwick, and Pakenham. Find contact details, opening hours, and directions to our three convenient locations.',
-};

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import OncomHeader from '@/components/OncomHeader';
 import './signup.css';
 
 export default function SignUpPage() {
@@ -84,7 +85,9 @@ export default function SignUpPage() {
   };
 
   return (
-    <main className="signup-container">
+    <>
+      <OncomHeader />
+      <main className="signup-container" style={{ paddingTop: '120px' }}>
       <div className="signup-box">
         <div className="signup-header">
           <h1>Create Your Account</h1>
@@ -292,6 +295,7 @@ export default function SignUpPage() {
           </div>
         </div>
       </div>
-    </main>
+      </main>
+    </>
   );
 }

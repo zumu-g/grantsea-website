@@ -896,10 +896,10 @@ export default function PropertyDetailPage() {
             {/* Inspection Times / Auction Details - ON RUNNING STYLE */}
             <div style={{
               padding: '24px',
-              backgroundColor: '#000000',
+              backgroundColor: 'rgb(153, 92, 0)',
               borderRadius: '0',
               marginBottom: '48px',
-              border: '2px solid #000000'
+              border: '2px solid rgb(153, 92, 0)'
             }}>
                 {property.saleMethod === 'auction' && property.auctionDate && (
                   <div style={{ marginBottom: property.inspectionTimes?.length ? '24px' : 0 }}>
@@ -1136,10 +1136,10 @@ export default function PropertyDetailPage() {
               <div style={{ marginBottom: '64px' }}>
                 <h2 style={{
                   fontSize: '24px',
-                  fontWeight: '700',
+                  fontWeight: '400',
                   marginBottom: '32px',
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
+                  letterSpacing: 'normal',
+                  textTransform: 'none',
                   color: '#000000',
                   fontFamily: '"Helvetica Neue", Arial, sans-serif'
                 }}>About this property</h2>
@@ -1241,10 +1241,10 @@ export default function PropertyDetailPage() {
             <div style={{ marginBottom: '64px' }}>
               <h2 style={{
                 fontSize: '24px',
-                fontWeight: '700',
+                fontWeight: '400',
                 marginBottom: '32px',
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
+                letterSpacing: 'normal',
+                textTransform: 'none',
                 color: '#000000',
                 fontFamily: '"Helvetica Neue", Arial, sans-serif'
               }}>Property Information</h2>
@@ -1649,10 +1649,10 @@ export default function PropertyDetailPage() {
               <div style={{ marginBottom: '64px' }}>
                 <h2 style={{
                   fontSize: '24px',
-                  fontWeight: '700',
+                  fontWeight: '400',
                   marginBottom: '32px',
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
+                  letterSpacing: 'normal',
+                  textTransform: 'none',
                   color: '#000000',
                   fontFamily: '"Helvetica Neue", Arial, sans-serif'
                 }}>Local Area</h2>
@@ -1662,43 +1662,115 @@ export default function PropertyDetailPage() {
                   backgroundColor: '#000',
                   color: '#fff'
                 }}>
-                  <div style={{ marginBottom: '24px' }}>
-                    <div style={{ fontSize: '28px', fontWeight: '700', marginBottom: '16px' }}>
-                      Discover {property.suburb}
-                    </div>
-                    <p style={{ fontSize: '17px', lineHeight: '1.6', color: '#d4d4d4' }}>
-                      Explore schools, transport, shopping, parks, healthcare, and everything else this area has to offer.
-                    </p>
-                  </div>
+                  {/* Show rich Narre Warren lifestyle content for Narre Warren South properties */}
+                  {property.suburb?.toLowerCase().includes('narre warren') ? (
+                    <>
+                      <div style={{ marginBottom: '32px' }}>
+                        <div style={{ fontSize: '28px', fontWeight: '700', marginBottom: '16px' }}>
+                          We Love Narre Warren! 🌟
+                        </div>
+                        <p style={{ fontSize: '17px', lineHeight: '1.6', color: '#d4d4d4' }}>
+                          Discover why Narre Warren is more than just a place to live - it's a place to belong! From award-winning playgrounds to community cafés, this vibrant suburb has everything your family needs.
+                        </p>
+                      </div>
 
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)',
-                    gap: '24px',
-                    marginBottom: '32px',
-                    paddingTop: '24px',
-                    borderTop: '1px solid #333'
-                  }}>
-                    <div>
-                      <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Transport</div>
-                      <div style={{ fontSize: '15px' }}>Train • Bus • Freeway</div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Shopping</div>
-                      <div style={{ fontSize: '15px' }}>Malls • Supermarkets</div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Education</div>
-                      <div style={{ fontSize: '15px' }}>Schools • Childcare</div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Lifestyle</div>
-                      <div style={{ fontSize: '15px' }}>Parks • Healthcare</div>
-                    </div>
-                  </div>
+                      {/* Featured Categories */}
+                      <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+                        gap: '24px',
+                        marginBottom: '32px',
+                        paddingTop: '24px',
+                        borderTop: '1px solid #333'
+                      }}>
+                        <div>
+                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>🎠 Family Fun</div>
+                          <div style={{ fontSize: '15px', lineHeight: '1.4' }}>
+                            Narre Warren Adventure Playground • Fountain Gate Entertainment • Swimming Pool
+                          </div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>☕ Local Favourites</div>
+                          <div style={{ fontSize: '15px', lineHeight: '1.4' }}>
+                            Narre Warren Coffee Co. • The Local Bean • Thai Spice Restaurant
+                          </div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>🛍️ Shopping & Lifestyle</div>
+                          <div style={{ fontSize: '15px', lineHeight: '1.4' }}>
+                            Fountain Gate Shopping Centre • Local Markets • Boutique Stores
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Quick Highlights */}
+                      <div style={{
+                        backgroundColor: '#111',
+                        padding: '24px',
+                        borderRadius: '8px',
+                        marginBottom: '32px'
+                      }}>
+                        <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '16px', color: '#fff' }}>
+                          Local Highlights
+                        </div>
+                        <div style={{
+                          display: 'grid',
+                          gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+                          gap: '16px',
+                          fontSize: '14px',
+                          lineHeight: '1.5'
+                        }}>
+                          <div>⭐ Narre Warren Adventure Playground - Ultimate family destination</div>
+                          <div>☕ Award-winning local coffee roasters and cafés</div>
+                          <div>🌳 Narre Warren Park - 50+ hectares of natural beauty</div>
+                          <div>🎯 Community Centre with programs for all ages</div>
+                          <div>🛍️ Fountain Gate - Everything you need in one place</div>
+                          <div>📚 Modern library with community programs</div>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    /* Default content for other suburbs */
+                    <>
+                      <div style={{ marginBottom: '24px' }}>
+                        <div style={{ fontSize: '28px', fontWeight: '700', marginBottom: '16px' }}>
+                          Discover {property.suburb}
+                        </div>
+                        <p style={{ fontSize: '17px', lineHeight: '1.6', color: '#d4d4d4' }}>
+                          Explore schools, transport, shopping, parks, healthcare, and everything else this area has to offer.
+                        </p>
+                      </div>
+
+                      <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)',
+                        gap: '24px',
+                        marginBottom: '32px',
+                        paddingTop: '24px',
+                        borderTop: '1px solid #333'
+                      }}>
+                        <div>
+                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Transport</div>
+                          <div style={{ fontSize: '15px' }}>Train • Bus • Freeway</div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Shopping</div>
+                          <div style={{ fontSize: '15px' }}>Malls • Supermarkets</div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Education</div>
+                          <div style={{ fontSize: '15px' }}>Schools • Childcare</div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Lifestyle</div>
+                          <div style={{ fontSize: '15px' }}>Parks • Healthcare</div>
+                        </div>
+                      </div>
+                    </>
+                  )}
 
                   <a
-                    href={`/local-area/${property.suburb.toLowerCase().replace(/\s+/g, '-')}`}
+                    href={`/local-area/${property.suburb?.toLowerCase().replace(/\s+/g, '-')}`}
                     style={{
                       display: 'inline-block',
                       padding: '16px 32px',
@@ -1719,7 +1791,10 @@ export default function PropertyDetailPage() {
                       e.currentTarget.style.backgroundColor = '#fff';
                     }}
                   >
-                    View Local Area Guide →
+                    {property.suburb?.toLowerCase().includes('narre warren') 
+                      ? 'Explore Full Lifestyle Guide →' 
+                      : 'View Local Area Guide →'
+                    }
                   </a>
                 </div>
               </div>

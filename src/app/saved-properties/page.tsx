@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Header from '@/components/Header';
+import OncomHeader from '@/components/OncomHeader';
 import { formatPrice } from '@/services/api';
 
 interface SavedProperty {
@@ -66,7 +66,7 @@ export default function SavedPropertiesPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
+      <OncomHeader />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         <div className="mb-8">

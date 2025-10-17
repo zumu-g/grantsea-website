@@ -16,7 +16,11 @@ export default function LogoSVG({ height, className }: LogoSVGProps) {
       viewBox="0 0 1321 813" 
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      style={{ display: 'block' }}
+      style={{ 
+        display: 'block',
+        shapeRendering: 'geometricPrecision',
+        imageRendering: 'crisp-edges'
+      }}
     >
       <g transform="matrix(4.16667,0,0,4.16667,0,2.25417)">
         <path d="M314.652,103.526C317.028,112.38 311.772,121.488 302.91,123.861L46.235,192.64C37.372,195.012 28.268,189.754 25.894,180.893L1.82,91.058C-0.554,82.198 4.706,73.091 13.564,70.716L270.243,1.944C279.101,-0.433 288.208,4.825 290.585,13.688L314.652,103.526Z" style={{fill:'rgb(154,35,35)', fillRule:'nonzero', stroke:'white', strokeWidth:'2.5px'}}/>

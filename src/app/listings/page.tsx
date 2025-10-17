@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import OncomHeader from '@/components/OncomHeader';
 import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
@@ -35,100 +36,9 @@ export default function PropertyListingsPage() {
   });
 
   return (
-    <div style={{ backgroundColor: '#ffffff', minHeight: '100vh' }}>
-      {/* Header Navigation - Adapted from template */}
-      <header style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 40,
-        backgroundColor: 'white',
-        borderBottom: '1px solid #e5e7eb'
-      }}>
-        <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          paddingLeft: 'max(2rem, 3.33vw)',
-          paddingRight: 'max(2rem, 3.33vw)'
-        }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            height: '90px'
-          }}>
-            {/* Logo */}
-            <Link href="/" style={{
-              fontSize: '28px',
-              fontWeight: 'bold',
-              color: '#1a202c',
-              textDecoration: 'none',
-              marginRight: 'auto'
-            }}>
-              Grant's Estate Agents
-            </Link>
-
-            {/* Primary Navigation */}
-            <nav style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '48px',
-              marginRight: '48px'
-            }}>
-              <Link href="/search" style={{
-                color: '#4a5568',
-                textDecoration: 'none',
-                fontSize: '16px',
-                fontWeight: '500'
-              }}>
-                Search
-              </Link>
-              <Link href="/about" style={{
-                color: '#4a5568',
-                textDecoration: 'none',
-                fontSize: '16px',
-                fontWeight: '500'
-              }}>
-                About
-              </Link>
-              <Link href="/explore" style={{
-                color: '#4a5568',
-                textDecoration: 'none',
-                fontSize: '16px',
-                fontWeight: '500'
-              }}>
-                Explore
-              </Link>
-            </nav>
-
-            {/* Icon Navigation */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '16px'
-            }}>
-              <button style={{
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: '8px'
-              }}>
-                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
-              <Link href="/saved-properties" style={{ padding: '8px' }}>
-                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              </Link>
-              <Link href="/profile" style={{ padding: '8px' }}>
-                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+    <>
+      <OncomHeader />
+      <div style={{ backgroundColor: '#ffffff', minHeight: '100vh' }}>
 
       {/* Hero Section */}
       <section style={{
@@ -601,6 +511,7 @@ export default function PropertyListingsPage() {
           to { transform: rotate(360deg); }
         }
       `}</style>
-    </div>
+      </div>
+    </>
   );
 }

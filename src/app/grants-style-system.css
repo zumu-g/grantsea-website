@@ -354,6 +354,45 @@
   box-shadow: 0 4px 20px rgba(153, 92, 0, 0.2);
 }
 
+/* ===== LOGO OPTIMIZATION ===== */
+/* Crisp SVG rendering for logos to prevent pixelation */
+
+.logo-svg {
+  /* Optimize SVG rendering for crisp edges */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  
+  /* Geometric precision for sharp edges */
+  shape-rendering: geometricPrecision;
+  
+  /* Prevent browser font smoothing on SVG text */
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+  
+  /* Ensure proper scaling */
+  transform-origin: center;
+  
+  /* High DPI display optimization */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* White logo variant for transparent backgrounds */
+.logo-white {
+  filter: brightness(0) invert(1);
+}
+
+/* High resolution display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .logo-svg {
+    /* Force browser to render at higher precision */
+    will-change: transform;
+    transform: translateZ(0);
+  }
+}
+
 /* ===== INTEGRATION NOTES ===== */
 /*
   To use this style system with Anima components:

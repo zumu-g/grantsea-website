@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { crmAPI, Property } from '@/services/api';
 
+// Simple cache for properties
+const propertiesCache = new Map<string, { data: Property[], timestamp: number }>();
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
 interface UsePropertiesOptions {
   suburb?: string;
   limit?: number;
@@ -24,6 +28,22 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
     try {
       setLoading(true);
       setError(null);
+
+      // Create cache key
+      const cacheKey = JSON.stringify({
+        suburb: options?.suburb,
+        limit: options?.limit,
+        featured: options?.featured,
+        type: options?.type
+      });
+
+      // Check cache first
+      const cached = propertiesCache.get(cacheKey);
+      if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+        setProperties(cached.data);
+        setLoading(false);
+        return;
+      }
 
       let response;
       
@@ -63,9 +83,19 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
       if (response.success && response.data) {
         // Always set the properties, even if empty array
         setProperties(response.data);
+        // Cache the successful response
+        propertiesCache.set(cacheKey, {
+          data: response.data,
+          timestamp: Date.now()
+        });
       } else if (response.data && Array.isArray(response.data)) {
         // Handle case where success flag might be missing but data exists
         setProperties(response.data);
+        // Cache the response
+        propertiesCache.set(cacheKey, {
+          data: response.data,
+          timestamp: Date.now()
+        });
       } else {
         throw new Error(response.error || 'Failed to fetch properties');
       }

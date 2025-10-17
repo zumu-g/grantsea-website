@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
+import { formatNextInspection } from '@/utils/formatInspectionTime';
 import SavePropertyButton from '@/components/SavePropertyButton';
 import OncomHeader from '@/components/OncomHeader';
 
@@ -30,6 +31,7 @@ export default function BuyPageOncom() {
     suburb: ''
   });
   const [sortBy, setSortBy] = useState('newest');
+  const [searchSaved, setSearchSaved] = useState(false);
   
   const { properties, loading } = useProperties({ 
     type: 'sale' 
@@ -68,6 +70,26 @@ export default function BuyPageOncom() {
     if (sortBy === 'price-high') return priceB - priceA;
     return 0;
   });
+
+  const handleSaveSearch = () => {
+    const searchData = {
+      type: 'sale',
+      filters,
+      sortBy,
+      timestamp: new Date().toISOString(),
+      resultsCount: sortedProperties.length
+    };
+    
+    try {
+      const savedSearches = JSON.parse(localStorage.getItem('savedSearches') || '[]');
+      savedSearches.push(searchData);
+      localStorage.setItem('savedSearches', JSON.stringify(savedSearches));
+      setSearchSaved(true);
+      setTimeout(() => setSearchSaved(false), 3000);
+    } catch (error) {
+      console.error('Error saving search:', error);
+    }
+  };
 
   return (
     <>
@@ -402,31 +424,59 @@ export default function BuyPageOncom() {
                     zIndex: 101
                   }}>
                     <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                      <input
-                        type="number"
-                        placeholder="Min"
-                        value={filters.priceMin}
-                        onChange={(e) => setFilters({ ...filters, priceMin: e.target.value })}
-                        style={{
-                          flex: 1,
-                          padding: '8px 12px',
-                          border: '1px solid #e5e5e5',
-                          fontSize: '14px'
-                        }}
-                      />
+                      <div style={{ position: 'relative', flex: 1 }}>
+                        <span style={{
+                          position: 'absolute',
+                          left: '12px',
+                          top: '50%',
+                          transform: 'translateY(-50%)',
+                          color: '#666',
+                          fontSize: '14px',
+                          pointerEvents: 'none'
+                        }}>$</span>
+                        <input
+                          type="number"
+                          placeholder="Min"
+                          value={filters.priceMin}
+                          onChange={(e) => setFilters({ ...filters, priceMin: e.target.value })}
+                          style={{
+                            width: '100%',
+                            paddingLeft: '24px',
+                            paddingRight: '12px',
+                            paddingTop: '8px',
+                            paddingBottom: '8px',
+                            border: '1px solid #e5e5e5',
+                            fontSize: '14px'
+                          }}
+                        />
+                      </div>
                       <span>—</span>
-                      <input
-                        type="number"
-                        placeholder="Max"
-                        value={filters.priceMax}
-                        onChange={(e) => setFilters({ ...filters, priceMax: e.target.value })}
-                        style={{
-                          flex: 1,
-                          padding: '8px 12px',
-                          border: '1px solid #e5e5e5',
-                          fontSize: '14px'
-                        }}
-                      />
+                      <div style={{ position: 'relative', flex: 1 }}>
+                        <span style={{
+                          position: 'absolute',
+                          left: '12px',
+                          top: '50%',
+                          transform: 'translateY(-50%)',
+                          color: '#666',
+                          fontSize: '14px',
+                          pointerEvents: 'none'
+                        }}>$</span>
+                        <input
+                          type="number"
+                          placeholder="Max"
+                          value={filters.priceMax}
+                          onChange={(e) => setFilters({ ...filters, priceMax: e.target.value })}
+                          style={{
+                            width: '100%',
+                            paddingLeft: '24px',
+                            paddingRight: '12px',
+                            paddingTop: '8px',
+                            paddingBottom: '8px',
+                            border: '1px solid #e5e5e5',
+                            fontSize: '14px'
+                          }}
+                        />
+                      </div>
                     </div>
                     <button
                       onClick={() => setShowDropdown('')}
@@ -473,26 +523,31 @@ export default function BuyPageOncom() {
             <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
               {/* Save Search */}
               <button
+                onClick={handleSaveSearch}
                 style={{
-                  background: 'none',
+                  background: searchSaved ? '#4CAF50' : 'none',
                   padding: '8px 16px',
                   fontSize: '14px',
-                  color: '#000',
+                  color: searchSaved ? '#fff' : '#000',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
-                  border: '1px solid #000',
+                  border: `1px solid ${searchSaved ? '#4CAF50' : '#000'}`,
                   borderRadius: '4px'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#000';
-                  e.currentTarget.style.color = '#fff';
+                  if (!searchSaved) {
+                    e.currentTarget.style.backgroundColor = '#000';
+                    e.currentTarget.style.color = '#fff';
+                  }
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.color = '#000';
+                  if (!searchSaved) {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.color = '#000';
+                  }
                 }}
               >
-                Save search
+                {searchSaved ? '✓ Search saved' : 'Save search'}
               </button>
 
               {/* Results Count */}
@@ -658,6 +713,23 @@ export default function BuyPageOncom() {
                         <span>{property.bathrooms} bath</span>
                         <span>{property.carSpaces} car</span>
                       </div>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        marginBottom: '0.5rem'
+                      }}>
+                        <svg style={{ width: '16px', height: '16px', color: 'rgb(153, 92, 0)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <p style={{
+                          fontSize: '0.813rem',
+                          color: 'rgb(153, 92, 0)',
+                          fontWeight: '500'
+                        }}>
+                          {formatNextInspection(property.inspectionTimes) || 'Contact agent for inspection'}
+                        </p>
+                      </div>
                       <p style={{
                         fontSize: '0.875rem',
                         color: '#666',
@@ -795,33 +867,61 @@ export default function BuyPageOncom() {
                     Price Range
                   </label>
                   <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                    <input
-                      type="number"
-                      placeholder="Min"
-                      value={filters.priceMin}
-                      onChange={(e) => setFilters({ ...filters, priceMin: e.target.value })}
-                      style={{
-                        flex: 1,
-                        padding: '12px',
-                        border: '1px solid #e5e5e5',
-                        borderRadius: '8px',
-                        fontSize: '16px'
-                      }}
-                    />
+                    <div style={{ position: 'relative', flex: 1 }}>
+                      <span style={{
+                        position: 'absolute',
+                        left: '12px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        color: '#666',
+                        fontSize: '16px',
+                        pointerEvents: 'none'
+                      }}>$</span>
+                      <input
+                        type="number"
+                        placeholder="Min"
+                        value={filters.priceMin}
+                        onChange={(e) => setFilters({ ...filters, priceMin: e.target.value })}
+                        style={{
+                          width: '100%',
+                          paddingLeft: '28px',
+                          paddingRight: '12px',
+                          paddingTop: '12px',
+                          paddingBottom: '12px',
+                          border: '1px solid #e5e5e5',
+                          borderRadius: '8px',
+                          fontSize: '16px'
+                        }}
+                      />
+                    </div>
                     <span>-</span>
-                    <input
-                      type="number"
-                      placeholder="Max"
-                      value={filters.priceMax}
-                      onChange={(e) => setFilters({ ...filters, priceMax: e.target.value })}
-                      style={{
-                        flex: 1,
-                        padding: '12px',
-                        border: '1px solid #e5e5e5',
-                        borderRadius: '8px',
-                        fontSize: '16px'
-                      }}
-                    />
+                    <div style={{ position: 'relative', flex: 1 }}>
+                      <span style={{
+                        position: 'absolute',
+                        left: '12px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        color: '#666',
+                        fontSize: '16px',
+                        pointerEvents: 'none'
+                      }}>$</span>
+                      <input
+                        type="number"
+                        placeholder="Max"
+                        value={filters.priceMax}
+                        onChange={(e) => setFilters({ ...filters, priceMax: e.target.value })}
+                        style={{
+                          width: '100%',
+                          paddingLeft: '28px',
+                          paddingRight: '12px',
+                          paddingTop: '12px',
+                          paddingBottom: '12px',
+                          border: '1px solid #e5e5e5',
+                          borderRadius: '8px',
+                          fontSize: '16px'
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
 

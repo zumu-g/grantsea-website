@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Header from '@/components/Header';
+import OncomHeader from '@/components/OncomHeader';
 import AIChatWidget from '@/components/AIChatWidget';
 import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
@@ -39,7 +39,7 @@ export default function PropertiesPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
+      <OncomHeader />
 
       {/* Page Header */}
       <div className="bg-gradient-to-b from-blue-50 to-white py-12">

@@ -31,6 +31,8 @@ export default function AskAI({
   propertyType = 'card',
   size = 'medium' 
 }: AskAIProps) {
+  // Blue matte color theme
+  const blueMatte = '#2B4C7E';
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Array<{role: 'user' | 'ai', content: string}>>([]);
   const [inputValue, setInputValue] = useState('');
@@ -160,9 +162,9 @@ export default function AskAI({
       alignItems: 'center',
       justifyContent: 'center',
       gap: '8px',
-      backgroundColor: '#000',
+      backgroundColor: blueMatte,
       color: '#fff',
-      border: '1px solid #000',
+      border: `1px solid ${blueMatte}`,
       borderRadius: '2px',
       cursor: 'pointer',
       transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -218,16 +220,16 @@ export default function AskAI({
         style={buttonStyles}
         onMouseEnter={(e) => {
           e.currentTarget.style.backgroundColor = '#fff';
-          e.currentTarget.style.color = '#000';
-          e.currentTarget.style.borderColor = '#000';
+          e.currentTarget.style.color = blueMatte;
+          e.currentTarget.style.borderColor = blueMatte;
           if (propertyType === 'floating') {
             e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.12)';
           }
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.backgroundColor = '#000';
+          e.currentTarget.style.backgroundColor = blueMatte;
           e.currentTarget.style.color = '#fff';
-          e.currentTarget.style.borderColor = propertyType === 'floating' ? 'rgba(0, 0, 0, 0.1)' : '#000';
+          e.currentTarget.style.borderColor = propertyType === 'floating' ? 'rgba(43, 76, 126, 0.1)' : blueMatte;
           if (propertyType === 'floating') {
             e.currentTarget.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.08)';
           }
@@ -356,7 +358,7 @@ export default function AskAI({
                   <div style={{
                     width: '32px',
                     height: '32px',
-                    backgroundColor: message.role === 'user' ? '#000' : '#fff',
+                    backgroundColor: message.role === 'user' ? blueMatte : '#fff',
                     border: message.role === 'user' ? 'none' : '1px solid #e8e8e8',
                     display: 'flex',
                     alignItems: 'center',
@@ -370,7 +372,7 @@ export default function AskAI({
                         <circle cx="12" cy="7" r="4"></circle>
                       </svg>
                     ) : (
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="1.5">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={blueMatte} strokeWidth="1.5">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                         <circle cx="9" cy="9" r="1"></circle>
                         <circle cx="15" cy="9" r="1"></circle>
@@ -410,7 +412,7 @@ export default function AskAI({
                     justifyContent: 'center',
                     borderRadius: '2px'
                   }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="1.5">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={blueMatte} strokeWidth="1.5">
                       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                     </svg>
                   </div>
@@ -491,7 +493,7 @@ export default function AskAI({
                   style={{
                     width: '48px',
                     height: '48px',
-                    backgroundColor: inputValue.trim() && !isLoading ? '#000' : '#f5f5f5',
+                    backgroundColor: inputValue.trim() && !isLoading ? blueMatte : '#f5f5f5',
                     color: inputValue.trim() && !isLoading ? '#fff' : '#999',
                     border: '1px solid #e8e8e8',
                     borderRadius: '2px',
@@ -504,12 +506,12 @@ export default function AskAI({
                   }}
                   onMouseEnter={(e) => {
                     if (inputValue.trim() && !isLoading) {
-                      e.currentTarget.style.backgroundColor = '#333';
+                      e.currentTarget.style.backgroundColor = '#1E3A5F';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (inputValue.trim() && !isLoading) {
-                      e.currentTarget.style.backgroundColor = '#000';
+                      e.currentTarget.style.backgroundColor = blueMatte;
                     }
                   }}
                 >

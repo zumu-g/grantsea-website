@@ -483,19 +483,14 @@ export default function HomePageOncom() {
                       padding: '24px 0',
                       borderBottom: '1px solid #e5e5e5',
                       textDecoration: 'none',
-                      transition: 'all 0.3s ease',
-                      backgroundColor: hoveredActivity === activity.id ? '#f8f8f8' : 'transparent'
+                      backgroundColor: 'transparent'
                     }}
-                    onMouseEnter={() => setHoveredActivity(activity.id)}
-                    onMouseLeave={() => setHoveredActivity(null)}
                   >
                     <h3 style={{
                       fontSize: isTablet ? '20px' : '24px',
                       fontWeight: '500',
                       color: '#000',
                       margin: 0,
-                      transition: 'transform 0.3s ease',
-                      transform: hoveredActivity === activity.id ? 'translateX(8px)' : 'translateX(0)',
                       lineHeight: '1.3'
                     }}>
                       {activity.name}
@@ -556,7 +551,7 @@ export default function HomePageOncom() {
                   style={{
                     position: 'absolute',
                     inset: 0,
-                    opacity: hoveredActivity === activity.id ? 1 : 0,
+                    opacity: activity.id === 'family-homes' ? 1 : 0,
                     transition: 'opacity 0.3s ease',
                     pointerEvents: 'none'
                   }}
@@ -574,24 +569,6 @@ export default function HomePageOncom() {
                 </div>
               ))}
               
-              {!hoveredActivity && (
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: '#f8f8f8'
-                }}>
-                  <p style={{
-                    fontSize: '18px',
-                    color: '#999',
-                    textAlign: 'center'
-                  }}>
-                    Hover over a property type to preview
-                  </p>
-                </div>
-              )}
             </div>
           </div>
         </div>

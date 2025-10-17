@@ -502,6 +502,30 @@ export default function OncomHeader() {
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
                     Help & Support
                   </Link>
+                  <Link href="/suburbs" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Suburb guides
+                  </Link>
+                  <Link href="/schools" style={{
+                    display: 'block',
+                    padding: '12px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.2s'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    School guides
+                  </Link>
                   <Link href="/careers" style={{
                     display: 'block',
                     padding: '12px 20px',

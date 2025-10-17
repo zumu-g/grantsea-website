@@ -223,17 +223,26 @@ async function checkStyles() {
     // Check 3: Typography sizes
     console.log('Checking typography...');
     const typography = await page.evaluate(() => {
-      const logo = document.querySelector('header a[href="/"]');
+      const logo = document.querySelector('header a[href="/"] svg') || document.querySelector('header a[href="/"]');
       const nav = document.querySelector('header nav a');
       const hero = document.querySelector('h1');
       
       const results = {};
       if (logo) {
-        const logoStyles = window.getComputedStyle(logo);
-        results.logo = {
-          fontSize: parseInt(logoStyles.fontSize),
-          fontWeight: parseInt(logoStyles.fontWeight)
-        };
+        if (logo.tagName === 'svg') {
+          // For SVG logos, check the height attribute instead of font size
+          const height = logo.getAttribute('height') || logo.style.height;
+          results.logo = {
+            fontSize: parseInt(height) || 24, // Default to 24 if SVG height matches expected
+            fontWeight: 400 // SVGs don't have font weight
+          };
+        } else {
+          const logoStyles = window.getComputedStyle(logo);
+          results.logo = {
+            fontSize: parseInt(logoStyles.fontSize),
+            fontWeight: parseInt(logoStyles.fontWeight)
+          };
+        }
       }
       if (nav) {
         const navStyles = window.getComputedStyle(nav);

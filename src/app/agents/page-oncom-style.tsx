@@ -4,134 +4,77 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import OncomHeader from '@/components/OncomHeader';
 
-// Extended agents data with more details
+// Simplified agents data
 const agents = [
   {
     id: '1',
     name: 'Sarah Thompson',
     position: 'Senior Sales Consultant',
     email: 'sarah@grantsea.com',
-    phone: '02 9123 4567',
     mobile: '0423 456 789',
     photo: '/agents/sarah-thompson.jpg',
-    bio: 'With over 15 years in real estate, Sarah specializes in helping families find their perfect home. Her deep understanding of the local market and commitment to client satisfaction has earned her numerous awards.',
-    specialties: ['Residential Sales', 'First Home Buyers', 'Family Homes'],
-    languages: ['English', 'Mandarin'],
-    achievements: [
-      'Top Sales Agent 2023',
-      'Customer Service Excellence Award 2022',
-      'Million Dollar Club Member'
-    ],
+    specialties: ['Residential Sales', 'First Home Buyers'],
     propertiesCount: 24,
-    soldCount: 142,
-    avgDaysOnMarket: 21
+    soldCount: 142
   },
   {
     id: '2',
     name: 'Michael Chen',
-    position: 'Property Investment Specialist',
+    position: 'Investment Specialist',
     email: 'michael@grantsea.com',
-    phone: '02 9123 4568',
     mobile: '0412 345 678',
     photo: '/agents/michael-chen.jpg',
-    bio: 'Michael brings 20 years of investment expertise to help clients build their property portfolios. His analytical approach and market insights have helped countless investors achieve their financial goals.',
-    specialties: ['Investment Properties', 'Commercial Real Estate', 'Development Sites'],
-    languages: ['English', 'Mandarin', 'Cantonese'],
-    achievements: [
-      'Investment Specialist of the Year 2023',
-      'Top Commercial Agent 2022',
-      'Licensed Real Estate Auctioneer'
-    ],
+    specialties: ['Investment Properties', 'Commercial'],
     propertiesCount: 18,
-    soldCount: 203,
-    avgDaysOnMarket: 28
+    soldCount: 203
   },
   {
     id: '3',
     name: 'Emma Wilson',
     position: 'New Homes Consultant',
     email: 'emma@grantsea.com',
-    phone: '02 9123 4569',
     mobile: '0434 567 890',
     photo: '/agents/emma-wilson.jpg',
-    bio: 'Emma is passionate about helping buyers navigate the new home and off-the-plan market. Her expertise in new developments and strong relationships with builders ensure clients get the best opportunities.',
-    specialties: ['New Home Sales', 'Off-the-Plan Developments', 'First Home Buyers'],
-    languages: ['English'],
-    achievements: [
-      'New Development Specialist',
-      'First Home Buyer Advocate',
-      'Top New Homes Sales 2023'
-    ],
+    specialties: ['New Homes', 'Off-the-Plan'],
     propertiesCount: 35,
-    soldCount: 89,
-    avgDaysOnMarket: 14
+    soldCount: 89
   },
   {
     id: '4',
     name: 'David Martinez',
     position: 'Property Manager',
     email: 'david@grantsea.com',
-    phone: '02 9123 4570',
     mobile: '0445 678 901',
     photo: '/agents/david-martinez.jpg',
-    bio: 'David\'s proactive approach to property management ensures both landlords and tenants have a positive experience. His attention to detail and communication skills set him apart in the industry.',
-    specialties: ['Property Management', 'Tenant Relations', 'Investment Advisory'],
-    languages: ['English', 'Spanish'],
-    achievements: [
-      'Property Manager of the Year 2023',
-      'Zero Vacancy Award 2022',
-      'Licensed Property Manager'
-    ],
+    specialties: ['Property Management', 'Rentals'],
     propertiesCount: 156,
-    managedProperties: 156,
-    avgOccupancyRate: 98.5
+    managedProperties: 156
   },
   {
     id: '5',
     name: 'Jessica Park',
-    position: 'Luxury Property Specialist',
+    position: 'Luxury Specialist',
     email: 'jessica@grantsea.com',
-    phone: '02 9123 4571',
     mobile: '0456 789 012',
     photo: '/agents/jessica-park.jpg',
-    bio: 'Jessica specializes in prestige properties and delivers discrete, professional service to high-net-worth individuals. Her understanding of luxury market dynamics ensures exceptional results.',
-    specialties: ['Luxury Homes', 'Waterfront Properties', 'Prestige Sales'],
-    languages: ['English', 'Korean'],
-    achievements: [
-      'Luxury Property Specialist',
-      'Record Sale Price 2023',
-      'International Property Marketing'
-    ],
+    specialties: ['Luxury Homes', 'Waterfront'],
     propertiesCount: 12,
-    soldCount: 67,
-    avgDaysOnMarket: 45
+    soldCount: 67
   },
   {
     id: '6',
     name: 'Tom Richards',
-    position: 'Senior Property Consultant',
+    position: 'Senior Consultant',
     email: 'tom@grantsea.com',
-    phone: '02 9123 4572',
     mobile: '0467 890 123',
     photo: '/agents/tom-richards.jpg',
-    bio: 'Tom\'s straightforward approach and extensive local knowledge make him a trusted advisor for both buyers and sellers. His negotiation skills consistently deliver outstanding results.',
-    specialties: ['Residential Sales', 'Auctions', 'Market Analysis'],
-    languages: ['English'],
-    achievements: [
-      'Licensed Auctioneer',
-      'Top Negotiator 2023',
-      'Community Service Award'
-    ],
+    specialties: ['Residential Sales', 'Auctions'],
     propertiesCount: 28,
-    soldCount: 178,
-    avgDaysOnMarket: 19
+    soldCount: 178
   }
 ];
 
 export default function AgentsPageOncom() {
-  const [selectedSpecialty, setSelectedSpecialty] = useState('all');
-  const [selectedLanguage, setSelectedLanguage] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
 
@@ -145,195 +88,85 @@ export default function AgentsPageOncom() {
     return () => window.removeEventListener('resize', checkDevice);
   }, []);
 
-  // Get unique specialties and languages
-  const specialties = ['all', ...new Set(agents.flatMap(a => a.specialties))];
-  const languages = ['all', ...new Set(agents.flatMap(a => a.languages))];
-
-  // Filter agents
-  const filteredAgents = agents.filter(agent => {
-    const matchesSpecialty = selectedSpecialty === 'all' || agent.specialties.includes(selectedSpecialty);
-    const matchesLanguage = selectedLanguage === 'all' || agent.languages.includes(selectedLanguage);
-    const matchesSearch = searchQuery === '' || 
-      agent.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      agent.position.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    return matchesSpecialty && matchesLanguage && matchesSearch;
-  });
-
   return (
     <>
       <OncomHeader />
       
-      <main style={{ paddingTop: isMobile ? '90px' : '180px', minHeight: '100vh', backgroundColor: '#fafafa' }}>
-        {/* Hero Section */}
-        <div style={{
-          backgroundColor: '#002b7f', // Royal blue
-          color: '#fff',
-          padding: isMobile ? '60px 0' : '120px 0',
-          position: 'relative',
-          overflow: 'hidden',
-          backgroundImage: `repeating-linear-gradient(
-            45deg,
-            #002b7f,
-            #002b7f 10px,
-            #003a9f 10px,
-            #003a9f 20px
-          )`,
-          backgroundSize: '28.28px 28.28px' // sqrt(2) * 20px for proper 45deg stripe width
+      <main style={{ 
+        paddingTop: isMobile ? '100px' : '120px', 
+        minHeight: '100vh', 
+        backgroundColor: '#fff' 
+      }}>
+        
+        {/* Hero Section - Minimal */}
+        <section style={{
+          paddingTop: isMobile ? '40px' : '80px',
+          paddingBottom: isMobile ? '60px' : '100px',
+          paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+          paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+          maxWidth: '1440px',
+          margin: '0 auto'
         }}>
-          {/* Subtle overlay for better text readability */}
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.2)',
-            pointerEvents: 'none'
-          }} />
-          <div style={{
-            position: 'relative',
-            maxWidth: '1480px',
-            margin: '0 auto',
-            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
-            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
-            textAlign: 'center'
+          <h1 style={{
+            fontSize: isMobile ? '48px' : isTablet ? '64px' : '80px',
+            fontWeight: '300',
+            letterSpacing: '-0.02em',
+            lineHeight: '1.1',
+            margin: '0 0 24px 0',
+            color: '#000'
           }}>
-            <h1 style={{
-              fontSize: isMobile ? '36px' : isTablet ? '48px' : '64px',
-              fontWeight: '900',
-              marginBottom: isMobile ? '16px' : '24px',
-              letterSpacing: '-1px'
-            }}>Meet Our Team</h1>
-            <p style={{
-              fontSize: isMobile ? '16px' : isTablet ? '20px' : '24px',
-              fontWeight: '300',
-              maxWidth: '800px',
-              margin: '0 auto'
-            }}>
-              Expert agents dedicated to helping you achieve your property goals
-            </p>
-          </div>
-        </div>
-
-        {/* Filters Section */}
-        <div style={{
-          backgroundColor: '#fff',
-          borderBottom: '1px solid #e5e5e5',
-          padding: '24px 0',
-          position: 'sticky',
-          top: '64px',
-          zIndex: 100
-        }}>
-          <div style={{
-            maxWidth: '1480px',
-            margin: '0 auto',
-            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
-            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
-            display: 'flex',
-            gap: isMobile ? '12px' : '16px',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            flexDirection: isMobile ? 'column' : 'row'
+            Find agents
+          </h1>
+          <p style={{
+            fontSize: isMobile ? '18px' : '24px',
+            fontWeight: '300',
+            color: '#666',
+            maxWidth: '600px',
+            lineHeight: '1.4',
+            margin: 0
           }}>
-            <input
-              type="text"
-              placeholder="Search by name or role..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              style={{
-                padding: '8px 16px',
-                border: '1px solid #e5e5e5',
-                fontSize: '14px',
-                flex: '1',
-                minWidth: '200px'
-              }}
-            />
-            
-            <select
-              value={selectedSpecialty}
-              onChange={(e) => setSelectedSpecialty(e.target.value)}
-              style={{
-                padding: '8px 16px',
-                border: '1px solid #e5e5e5',
-                backgroundColor: '#fff',
-                fontSize: '14px',
-                cursor: 'pointer'
-              }}
-            >
-              <option value="all">All Specialties</option>
-              {specialties.slice(1).map(specialty => (
-                <option key={specialty} value={specialty}>{specialty}</option>
-              ))}
-            </select>
+            Connect with our expert team to achieve your property goals
+          </p>
+        </section>
 
-            <select
-              value={selectedLanguage}
-              onChange={(e) => setSelectedLanguage(e.target.value)}
-              style={{
-                padding: '8px 16px',
-                border: '1px solid #e5e5e5',
-                backgroundColor: '#fff',
-                fontSize: '14px',
-                cursor: 'pointer'
-              }}
-            >
-              <option value="all">All Languages</option>
-              {languages.slice(1).map(language => (
-                <option key={language} value={language}>{language}</option>
-              ))}
-            </select>
-
-            <div style={{ marginLeft: 'auto', fontSize: '14px', color: '#666' }}>
-              {filteredAgents.length} agents found
-            </div>
-          </div>
-        </div>
-
-        {/* Agents Grid */}
-        <div style={{
-          maxWidth: '1480px',
-          margin: '0 auto',
-          paddingTop: '60px',
-          paddingBottom: '60px',
-          paddingLeft: 'max(2rem, 3.33vw)',
-          paddingRight: 'max(2rem, 3.33vw)'
+        {/* Agents Grid - Clean Minimal Cards */}
+        <section style={{
+          paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+          paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+          paddingBottom: isMobile ? '60px' : '120px',
+          maxWidth: '1440px',
+          margin: '0 auto'
         }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(auto-fill, minmax(320px, 1fr))',
-            gap: isMobile ? '16px' : '32px'
+            gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+            gap: isMobile ? '40px' : '60px'
           }}>
-            {filteredAgents.map((agent) => (
+            {agents.map((agent) => (
               <Link 
                 key={agent.id} 
                 href={`/agent/${agent.id}`}
                 style={{
                   textDecoration: 'none',
-                  color: 'inherit'
+                  color: 'inherit',
+                  display: 'block'
                 }}
               >
                 <div style={{
-                  backgroundColor: '#fff',
-                  border: '1px solid #e5e5e5',
-                  overflow: 'hidden',
-                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                  cursor: 'pointer',
-                  height: '100%'
+                  transition: 'transform 0.3s ease',
+                  cursor: 'pointer'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-4px)';
-                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.1)';
+                  e.currentTarget.style.transform = 'translateY(-8px)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
                 }}>
-                  {/* Agent Photo */}
+                  {/* Agent Photo - Minimal */}
                   <div style={{
-                    aspectRatio: '3/4',
-                    backgroundColor: '#f5f5f5',
-                    position: 'relative',
+                    aspectRatio: '4/5',
+                    backgroundColor: '#f8f8f8',
+                    marginBottom: '24px',
                     overflow: 'hidden'
                   }}>
                     {agent.photo ? (
@@ -353,110 +186,142 @@ export default function AgentsPageOncom() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        backgroundColor: '#e5e5e5'
+                        fontSize: '48px',
+                        fontWeight: '300',
+                        color: '#ccc'
                       }}>
-                        <div style={{
-                          width: '120px',
-                          height: '120px',
-                          borderRadius: '50%',
-                          backgroundColor: '#d5d5d5',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontSize: '48px',
-                          fontWeight: '700',
-                          color: '#999'
-                        }}>
-                          {agent.name.charAt(0)}
-                        </div>
+                        {agent.name.charAt(0)}
                       </div>
                     )}
                   </div>
 
-                  {/* Agent Info */}
-                  <div style={{ padding: '32px' }}>
+                  {/* Agent Info - Clean Typography */}
+                  <div>
                     <h3 style={{
-                      fontSize: '24px',
-                      fontWeight: '700',
-                      marginBottom: '4px'
+                      fontSize: isMobile ? '24px' : '28px',
+                      fontWeight: '300',
+                      margin: '0 0 8px 0',
+                      color: '#000',
+                      letterSpacing: '-0.01em'
                     }}>
                       {agent.name}
                     </h3>
+                    
                     <p style={{
-                      fontSize: '16px',
+                      fontSize: isMobile ? '16px' : '18px',
                       color: '#666',
-                      marginBottom: '16px'
+                      margin: '0 0 16px 0',
+                      fontWeight: '300'
                     }}>
                       {agent.position}
                     </p>
                     
+                    {/* Contact Info - Minimal */}
                     <div style={{
-                      display: 'flex',
-                      gap: '12px',
-                      marginBottom: '16px',
-                      flexWrap: 'wrap'
+                      fontSize: '14px',
+                      color: '#999',
+                      marginBottom: '20px'
                     }}>
-                      {agent.languages.map(lang => (
-                        <span key={lang} style={{
-                          padding: '4px 12px',
-                          backgroundColor: '#f5f5f5',
-                          fontSize: '12px',
-                          borderRadius: '20px'
-                        }}>
-                          {lang}
-                        </span>
-                      ))}
+                      <div style={{ marginBottom: '4px' }}>{agent.mobile}</div>
+                      <div>{agent.email}</div>
                     </div>
 
+                    {/* Stats - Simple */}
                     <div style={{
-                      paddingTop: '16px',
-                      borderTop: '1px solid #f0f0f0'
+                      fontSize: '14px',
+                      color: '#666',
+                      borderTop: '1px solid #f0f0f0',
+                      paddingTop: '16px'
                     }}>
                       <div style={{
                         display: 'flex',
                         justifyContent: 'space-between',
-                        fontSize: '14px',
-                        color: '#666'
+                        marginBottom: '8px'
                       }}>
-                        <span>Active Listings</span>
-                        <span style={{ fontWeight: '600', color: '#000' }}>{agent.propertiesCount}</span>
+                        <span>Active listings</span>
+                        <span style={{ color: '#000' }}>{agent.propertiesCount}</span>
                       </div>
                       {agent.soldCount && (
                         <div style={{
                           display: 'flex',
-                          justifyContent: 'space-between',
-                          fontSize: '14px',
-                          color: '#666',
-                          marginTop: '8px'
+                          justifyContent: 'space-between'
                         }}>
-                          <span>Properties Sold</span>
-                          <span style={{ fontWeight: '600', color: '#000' }}>{agent.soldCount}</span>
+                          <span>Properties sold</span>
+                          <span style={{ color: '#000' }}>{agent.soldCount}</span>
+                        </div>
+                      )}
+                      {agent.managedProperties && (
+                        <div style={{
+                          display: 'flex',
+                          justifyContent: 'space-between'
+                        }}>
+                          <span>Properties managed</span>
+                          <span style={{ color: '#000' }}>{agent.managedProperties}</span>
                         </div>
                       )}
                     </div>
-
-                    <button style={{
-                      width: '100%',
-                      padding: '12px',
-                      marginTop: '20px',
-                      backgroundColor: '#000',
-                      color: '#fff',
-                      border: 'none',
-                      fontSize: '14px',
-                      fontWeight: '600',
-                      cursor: 'pointer',
-                      transition: 'background 0.2s'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#222'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#000'}>
-                      View Profile
-                    </button>
                   </div>
                 </div>
               </Link>
             ))}
           </div>
-        </div>
+        </section>
+
+        {/* Contact CTA - Minimal */}
+        <section style={{
+          backgroundColor: '#f8f8f8',
+          paddingTop: isMobile ? '60px' : '100px',
+          paddingBottom: isMobile ? '60px' : '100px',
+          paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+          paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)'
+        }}>
+          <div style={{
+            maxWidth: '1440px',
+            margin: '0 auto',
+            textAlign: 'center'
+          }}>
+            <h2 style={{
+              fontSize: isMobile ? '32px' : '48px',
+              fontWeight: '300',
+              margin: '0 0 24px 0',
+              color: '#000',
+              letterSpacing: '-0.02em'
+            }}>
+              Ready to get started?
+            </h2>
+            <p style={{
+              fontSize: isMobile ? '18px' : '20px',
+              color: '#666',
+              margin: '0 0 40px 0',
+              fontWeight: '300',
+              maxWidth: '600px',
+              marginLeft: 'auto',
+              marginRight: 'auto'
+            }}>
+              Contact our team today to discuss your property needs
+            </p>
+            <Link href="/contact" style={{
+              display: 'inline-block',
+              padding: isMobile ? '16px 32px' : '20px 40px',
+              backgroundColor: '#000',
+              color: '#fff',
+              textDecoration: 'none',
+              fontSize: isMobile ? '16px' : '18px',
+              fontWeight: '300',
+              transition: 'background-color 0.3s ease',
+              border: 'none',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#333';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#000';
+            }}>
+              Get in touch
+            </Link>
+          </div>
+        </section>
       </main>
     </>
   );

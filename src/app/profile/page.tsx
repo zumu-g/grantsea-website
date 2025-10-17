@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import './profile.css';
+import OncomHeader from '@/components/OncomHeader';
 import { useSavedProperties } from '@/hooks/useSavedProperties';
 import { formatPrice } from '@/services/api';
 
@@ -82,11 +83,13 @@ export default function ProfilePage() {
   };
 
   return (
-    <main className="profile-container">
-      <div className="profile-header">
-        <h1>My Account</h1>
-        <p className="profile-subtitle">Manage your profile, saved properties, and search alerts</p>
-      </div>
+    <>
+      <OncomHeader />
+      <main className="profile-container" style={{ paddingTop: '120px' }}>
+        <div className="profile-header">
+          <h1>My Account</h1>
+          <p className="profile-subtitle">Manage your profile, saved properties, and search alerts</p>
+        </div>
 
       <div className="profile-tabs">
         <button
@@ -310,6 +313,7 @@ export default function ProfilePage() {
           <p>Please <Link href="/signup">sign up</Link> or log in to access your profile.</p>
         </div>
       )}
-    </main>
+      </main>
+    </>
   );
 }

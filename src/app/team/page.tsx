@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import OncomHeader from '@/components/OncomHeader';
 import './team.css';
 
 const teamMembers = [
@@ -80,8 +81,10 @@ const teamMembers = [
 
 export default function TeamPage() {
   return (
-    <div className="min-h-screen bg-white" style={{ fontFamily: '"On-Regular", Helvetica, Arial, sans-serif' }}>
-      {/* Hero Section - Minimal with lots of white space */}
+    <>
+      <OncomHeader />
+      <div className="min-h-screen bg-white" style={{ fontFamily: '"On-Regular", Helvetica, Arial, sans-serif' }}>
+        {/* Hero Section - Minimal with lots of white space */}
       <section className="relative" style={{ paddingTop: '128px', paddingBottom: '80px' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', paddingLeft: 'max(2rem, 3.33vw)', paddingRight: 'max(2rem, 3.33vw)', textAlign: 'center' }}>
           <h1 style={{ 
@@ -373,6 +376,7 @@ export default function TeamPage() {
         </div>
       </section>
 
-    </div>
+      </div>
+    </>
   );
 }

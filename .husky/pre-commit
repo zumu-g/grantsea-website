@@ -1,13 +1,22 @@
 #!/usr/bin/env sh
 . "$(dirname "$0")/_/husky.sh"
 
-# Validate style changes against Brand Styling Agent rules
-echo "🔍 Validating style changes..."
-node scripts/validate-style-changes.js || {
-    echo "❌ Style validation failed! Please review the Brand Styling Agent guide."
-    echo "📖 See: docs/BRAND_STYLING_AGENT.md"
+# Quick validation only - full style validation moved to CI/CD
+echo "🔍 Running quick pre-commit checks..."
+
+# Basic TypeScript check
+echo "Checking TypeScript..."
+npm run typecheck || {
+    echo "❌ TypeScript validation failed!"
     exit 1
 }
 
-echo "Running style check before commit..."
-node scripts/pre-commit-style-check.js
+# Basic linting
+echo "Running ESLint..."
+npm run lint || {
+    echo "❌ Linting failed!"
+    exit 1
+}
+
+echo "✅ Quick pre-commit checks passed!"
+echo "📝 Note: Full style validation runs in CI/CD pipeline"

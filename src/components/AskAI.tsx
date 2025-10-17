@@ -155,23 +155,24 @@ export default function AskAI({
     }
   };
 
-  // Different button styles based on size and type - luxury minimalist
+  // Different button styles based on size and type - pill shape with white outline
   const getButtonStyles = () => {
     const baseStyles = {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       gap: '8px',
-      backgroundColor: blueMatte,
+      backgroundColor: '#000',
       color: '#fff',
-      border: `1px solid ${blueMatte}`,
-      borderRadius: '2px',
+      border: '2px solid #fff',
+      borderRadius: '500px', // Pill shape
       cursor: 'pointer',
       transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-      fontWeight: '400',
+      fontWeight: '600',
       fontSize: '14px',
       letterSpacing: '0.02em',
-      fontFamily: 'inherit'
+      fontFamily: 'inherit',
+      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)'
     };
 
     if (propertyType === 'floating') {
@@ -180,19 +181,19 @@ export default function AskAI({
         position: 'fixed' as const,
         bottom: '32px',
         right: '32px',
-        width: '48px',
-        height: '48px',
+        width: '56px',
+        height: '56px',
         padding: '0',
         zIndex: 1000,
-        border: '1px solid rgba(0, 0, 0, 0.1)',
-        boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)',
+        border: '2px solid #fff',
+        boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
       };
     }
 
     if (size === 'small') {
       return {
         ...baseStyles,
-        padding: '8px 16px',
+        padding: '8px 20px',
         fontSize: '13px',
       };
     }
@@ -200,14 +201,14 @@ export default function AskAI({
     if (size === 'large') {
       return {
         ...baseStyles,
-        padding: '14px 28px',
+        padding: '16px 32px',
         fontSize: '15px',
       };
     }
 
     return {
       ...baseStyles,
-      padding: '10px 20px',
+      padding: '12px 24px',
     };
   };
 
@@ -220,19 +221,25 @@ export default function AskAI({
         style={buttonStyles}
         onMouseEnter={(e) => {
           e.currentTarget.style.backgroundColor = '#fff';
-          e.currentTarget.style.color = blueMatte;
-          e.currentTarget.style.borderColor = blueMatte;
+          e.currentTarget.style.color = '#000';
+          e.currentTarget.style.borderColor = '#fff';
           if (propertyType === 'floating') {
-            e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.12)';
+            e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.25)';
+          } else {
+            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
           }
+          e.currentTarget.style.transform = 'translateY(-1px)';
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.backgroundColor = blueMatte;
+          e.currentTarget.style.backgroundColor = '#000';
           e.currentTarget.style.color = '#fff';
-          e.currentTarget.style.borderColor = propertyType === 'floating' ? 'rgba(43, 76, 126, 0.1)' : blueMatte;
+          e.currentTarget.style.borderColor = '#fff';
           if (propertyType === 'floating') {
-            e.currentTarget.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.08)';
+            e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+          } else {
+            e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.15)';
           }
+          e.currentTarget.style.transform = 'translateY(0)';
         }}
         title="Property Assistant"
       >

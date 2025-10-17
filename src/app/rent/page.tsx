@@ -90,8 +90,8 @@ export default function RentPage() {
         <section style={{
           backgroundColor: '#FFFFFF',
           borderBottom: '1px solid #F0F0F0',
-          paddingTop: '80px',
-          paddingBottom: '60px',
+          paddingTop: isMobile ? '80px' : '120px',
+          paddingBottom: isMobile ? '40px' : '60px',
           paddingLeft: 'max(2rem, 3.33vw)',
           paddingRight: 'max(2rem, 3.33vw)'
         }}>
@@ -105,23 +105,11 @@ export default function RentPage() {
               transition={{ duration: 0.6 }}
               style={{
                 fontSize: isMobile ? '32px' : '48px',
-                fontWeight: '400',
+                fontWeight: '700',
                 marginBottom: 0
               }}>
               Properties for rent
             </motion.h1>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              style={{
-                fontSize: '20px',
-                color: '#666',
-                fontWeight: '400',
-                letterSpacing: '0.01em'
-              }}>
-              Find your perfect rental home in Melbourne's South East
-            </motion.p>
           </div>
         </section>
 

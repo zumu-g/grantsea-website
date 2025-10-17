@@ -24,18 +24,19 @@ export default function CareersPage() {
       <OncomHeader />
       
       <main style={{ 
-        paddingTop: isMobile ? '90px' : '200px',
+        paddingTop: '180px',
         backgroundColor: '#fff',
-        minHeight: '100vh'
+        minHeight: '100vh',
+        fontFamily: '"Helvetica Neue", Arial, sans-serif'
       }}>
         {/* Hero Section */}
         <section style={{
           backgroundColor: '#fff',
-          padding: isMobile ? '80px 20px' : '120px 40px',
+          padding: isMobile ? '80px max(2rem, 3.33vw)' : '120px max(2rem, 3.33vw)',
           borderBottom: '1px solid #f0f0f0'
         }}>
           <div style={{
-            maxWidth: '1200px',
+            maxWidth: '1480px',
             margin: '0 auto'
           }}>
             <div style={{ maxWidth: '800px' }}>
@@ -84,10 +85,10 @@ export default function CareersPage() {
         {/* Why Grant's Section */}
         <section style={{
           backgroundColor: '#fff',
-          padding: isMobile ? '80px 20px' : '120px 40px'
+          padding: isMobile ? '80px max(2rem, 3.33vw)' : '120px max(2rem, 3.33vw)'
         }}>
           <div style={{
-            maxWidth: '1200px',
+            maxWidth: '1480px',
             margin: '0 auto'
           }}>
             <h2 style={{
@@ -192,10 +193,10 @@ export default function CareersPage() {
         {/* Quote Section */}
         <section style={{
           backgroundColor: '#f8f8f8',
-          padding: isMobile ? '80px 20px' : '120px 40px'
+          padding: isMobile ? '80px max(2rem, 3.33vw)' : '120px max(2rem, 3.33vw)'
         }}>
           <div style={{
-            maxWidth: '1000px',
+            maxWidth: '1480px',
             margin: '0 auto',
             textAlign: 'center'
           }}>
@@ -226,14 +227,93 @@ export default function CareersPage() {
           </div>
         </section>
 
-        {/* Career Growth Section */}
+        {/* Team Photos Section */}
         <section style={{
           backgroundColor: '#fff',
-          padding: isMobile ? '80px 20px' : '120px 40px',
+          padding: isMobile ? '80px max(2rem, 3.33vw)' : '120px max(2rem, 3.33vw)',
           borderTop: '1px solid #f0f0f0'
         }}>
           <div style={{
-            maxWidth: '1200px',
+            maxWidth: '1480px',
+            margin: '0 auto'
+          }}>
+            <h2 style={{
+              fontSize: isMobile ? '36px' : '48px',
+              fontWeight: '700',
+              marginBottom: '48px',
+              letterSpacing: '-0.02em',
+              textAlign: 'center'
+            }}>
+              Meet our team
+            </h2>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+              gap: '32px',
+              marginBottom: '48px'
+            }}>
+              {[
+                { name: 'Sarah Mitchell', role: 'Senior Sales Agent', image: 'https://images.unsplash.com/photo-1494790108755-2616b25c2015?w=400&h=400&fit=crop&crop=face' },
+                { name: 'David Chen', role: 'Property Manager', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face' },
+                { name: 'Emma Thompson', role: 'Marketing Director', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face' },
+                { name: 'Michael Johnson', role: 'Sales Associate', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face' },
+                { name: 'Lisa Rodriguez', role: 'Administration Manager', image: 'https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=400&h=400&fit=crop&crop=face' },
+                { name: 'James Wilson', role: 'Junior Agent', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face' }
+              ].map((member, index) => (
+                <div key={index} style={{
+                  backgroundColor: '#fff',
+                  borderRadius: '2px',
+                  overflow: 'hidden',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
+                }}>
+                  <div style={{
+                    width: '100%',
+                    height: '280px',
+                    backgroundImage: `url(${member.image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }} />
+                  <div style={{
+                    padding: '24px'
+                  }}>
+                    <h3 style={{
+                      fontSize: '20px',
+                      fontWeight: '600',
+                      marginBottom: '8px',
+                      color: '#000'
+                    }}>
+                      {member.name}
+                    </h3>
+                    <p style={{
+                      fontSize: '16px',
+                      color: '#666',
+                      fontWeight: '400'
+                    }}>
+                      {member.role}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Career Growth Section */}
+        <section style={{
+          backgroundColor: '#f8f8f8',
+          padding: isMobile ? '80px max(2rem, 3.33vw)' : '120px max(2rem, 3.33vw)'
+        }}>
+          <div style={{
+            maxWidth: '1480px',
             margin: '0 auto'
           }}>
             <h2 style={{
@@ -293,11 +373,12 @@ export default function CareersPage() {
 
         {/* Current Openings */}
         <section id="openings" style={{
-          backgroundColor: '#f8f8f8',
-          padding: isMobile ? '80px 20px' : '120px 40px'
+          backgroundColor: '#fff',
+          padding: isMobile ? '80px max(2rem, 3.33vw)' : '120px max(2rem, 3.33vw)',
+          borderTop: '1px solid #f0f0f0'
         }}>
           <div style={{
-            maxWidth: '1200px',
+            maxWidth: '1480px',
             margin: '0 auto'
           }}>
             <h2 style={{
@@ -412,13 +493,13 @@ export default function CareersPage() {
 
         {/* Footer CTA Section */}
         <section style={{
-          backgroundColor: '#fff',
+          backgroundColor: '#f8f8f8',
           borderTop: '1px solid #f0f0f0',
-          padding: isMobile ? '60px 20px' : '80px 40px',
+          padding: isMobile ? '60px max(2rem, 3.33vw)' : '80px max(2rem, 3.33vw)',
           textAlign: 'center'
         }}>
           <div style={{
-            maxWidth: '600px',
+            maxWidth: '800px',
             margin: '0 auto'
           }}>
             <h3 style={{

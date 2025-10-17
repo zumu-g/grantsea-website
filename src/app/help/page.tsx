@@ -35,7 +35,7 @@ export default function HelpPage() {
     {
       title: "Buying Property",
       description: "Everything you need to know about purchasing your dream home",
-      icon: "🏠",
+      icon: "home",
       links: [
         { text: "First-time buyer guide", href: "#first-time-buyer" },
         { text: "Understanding mortgages", href: "#mortgage" },
@@ -46,7 +46,7 @@ export default function HelpPage() {
     {
       title: "Selling Property", 
       description: "Get the best value for your property with our expert guidance",
-      icon: "💰",
+      icon: "dollar",
       links: [
         { text: "Property valuation", href: "#valuation" },
         { text: "Marketing your property", href: "#marketing" },
@@ -57,7 +57,7 @@ export default function HelpPage() {
     {
       title: "Renting & Leasing",
       description: "Find the perfect rental or lease out your property", 
-      icon: "🔑",
+      icon: "key",
       links: [
         { text: "Tenant guide", href: "#tenant-guide" },
         { text: "Landlord services", href: "#landlord-guide" },
@@ -68,7 +68,7 @@ export default function HelpPage() {
     {
       title: "Your Account",
       description: "Manage your saved properties and search preferences",
-      icon: "👤", 
+      icon: "user", 
       links: [
         { text: "Saved properties", href: "#saved-properties" },
         { text: "Search alerts", href: "#search-alerts" },
@@ -103,8 +103,8 @@ export default function HelpPage() {
               transition={{ duration: 0.6 }}
               style={{
                 fontSize: '48px',
-                fontWeight: '300',
-                fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                fontWeight: '700',
+                fontFamily: '"Helvetica Neue", Arial, sans-serif',
                 color: '#000',
                 marginBottom: '20px',
                 letterSpacing: '-0.02em',
@@ -119,7 +119,8 @@ export default function HelpPage() {
               style={{
                 fontSize: '20px',
                 color: '#666',
-                fontWeight: '300',
+                fontWeight: '400',
+                fontFamily: '"Helvetica Neue", Arial, sans-serif',
                 letterSpacing: '0.01em',
                 marginBottom: '40px'
               }}>
@@ -198,10 +199,36 @@ export default function HelpPage() {
                   }}
                 >
                   <div style={{
-                    fontSize: '48px',
-                    marginBottom: '24px'
+                    marginBottom: '24px',
+                    display: 'flex',
+                    justifyContent: 'flex-start'
                   }}>
-                    {category.icon}
+                    {category.icon === 'home' && (
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="1.5">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9,22 9,12 15,12 15,22"/>
+                      </svg>
+                    )}
+                    {category.icon === 'dollar' && (
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="1.5">
+                        <line x1="12" y1="1" x2="12" y2="23"/>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                      </svg>
+                    )}
+                    {category.icon === 'key' && (
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="1.5">
+                        <circle cx="8" cy="8" r="6"/>
+                        <path d="M18.09 10.37a6 6 0 1 1-10.37 0"/>
+                        <path d="m15 15 6 6"/>
+                        <path d="m20 15-4 4"/>
+                      </svg>
+                    )}
+                    {category.icon === 'user' && (
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="1.5">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                      </svg>
+                    )}
                   </div>
                   <h3 style={{
                     fontSize: '24px',
@@ -275,8 +302,8 @@ export default function HelpPage() {
               transition={{ duration: 0.6 }}
               style={{
                 fontSize: '36px',
-                fontWeight: '300',
-                fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                fontWeight: '700',
+                fontFamily: '"Helvetica Neue", Arial, sans-serif',
                 color: '#000',
                 marginBottom: '48px',
                 textAlign: 'center',
@@ -371,8 +398,8 @@ export default function HelpPage() {
               transition={{ duration: 0.6 }}
               style={{
                 fontSize: '36px',
-                fontWeight: '300',
-                fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                fontWeight: '700',
+                fontFamily: '"Helvetica Neue", Arial, sans-serif',
                 color: '#000',
                 marginBottom: '20px',
                 letterSpacing: '-0.02em'
@@ -411,14 +438,24 @@ export default function HelpPage() {
                   textAlign: 'center'
                 }}
               >
-                <h3 style={{
-                  fontSize: '24px',
-                  fontWeight: '400',
-                  color: '#000',
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   marginBottom: '16px'
                 }}>
-                  📞 Call Us
-                </h3>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2" style={{ marginRight: '8px' }}>
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  </svg>
+                  <h3 style={{
+                    fontSize: '24px',
+                    fontWeight: '400',
+                    color: '#000',
+                    margin: 0
+                  }}>
+                    Call Us
+                  </h3>
+                </div>
                 <p style={{
                   fontSize: '16px',
                   color: '#666',
@@ -471,14 +508,25 @@ export default function HelpPage() {
                   textAlign: 'center'
                 }}
               >
-                <h3 style={{
-                  fontSize: '24px',
-                  fontWeight: '400',
-                  color: '#000',
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   marginBottom: '16px'
                 }}>
-                  ✉️ Email Support
-                </h3>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2" style={{ marginRight: '8px' }}>
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                  <h3 style={{
+                    fontSize: '24px',
+                    fontWeight: '400',
+                    color: '#000',
+                    margin: 0
+                  }}>
+                    Email Support
+                  </h3>
+                </div>
                 <p style={{
                   fontSize: '16px',
                   color: '#666',
@@ -523,14 +571,24 @@ export default function HelpPage() {
                   textAlign: 'center'
                 }}
               >
-                <h3 style={{
-                  fontSize: '24px',
-                  fontWeight: '400',
-                  color: '#000',
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   marginBottom: '16px'
                 }}>
-                  💬 Live Chat
-                </h3>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2" style={{ marginRight: '8px' }}>
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                  </svg>
+                  <h3 style={{
+                    fontSize: '24px',
+                    fontWeight: '400',
+                    color: '#000',
+                    margin: 0
+                  }}>
+                    Live Chat
+                  </h3>
+                </div>
                 <p style={{
                   fontSize: '16px',
                   color: '#666',
@@ -595,8 +653,8 @@ export default function HelpPage() {
               transition={{ duration: 0.6 }}
               style={{
                 fontSize: '36px',
-                fontWeight: '300',
-                fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                fontWeight: '700',
+                fontFamily: '"Helvetica Neue", Arial, sans-serif',
                 color: '#000',
                 marginBottom: '48px',
                 letterSpacing: '-0.02em'

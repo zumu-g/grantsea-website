@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import OncomHeader from './OncomHeader';
 
 interface FormData {
   name: string;
@@ -70,21 +71,49 @@ export default function MinimalistContactForm() {
   };
 
   return (
-    <div className="minimalist-contact-form">
-      {/* Hero Section */}
-      <section className="contact-hero">
-        <div className="container">
-          <h1 className="contact-title">Get in Touch</h1>
-          <div className="contact-divider"></div>
-          <p className="contact-subtitle">
-            Whether you're buying, selling, or just have questions, we're here to help
-          </p>
-        </div>
-      </section>
+    <>
+      <OncomHeader />
+      <div className="minimalist-contact-form" style={{ paddingTop: '180px' }}>
+        {/* Hero Section */}
+        <section className="contact-hero" style={{
+          backgroundColor: '#fff',
+          paddingTop: '120px',
+          paddingBottom: '60px',
+          paddingLeft: 'max(2rem, 3.33vw)',
+          paddingRight: 'max(2rem, 3.33vw)'
+        }}>
+          <div style={{
+            maxWidth: '1480px',
+            margin: '0 auto'
+          }}>
+            <h1 style={{
+              fontSize: '48px',
+              fontWeight: '700',
+              marginBottom: '16px',
+              fontFamily: '"Helvetica Neue", Arial, sans-serif'
+            }}>Contact</h1>
+            <p style={{
+              fontSize: '18px',
+              color: '#666',
+              fontFamily: '"Helvetica Neue", Arial, sans-serif'
+            }}>
+              Whether you're buying, selling, or just have questions, we're here to help
+            </p>
+          </div>
+        </section>
 
       {/* Main Content */}
-      <section className="contact-content">
-        <div className="container">
+      <section className="contact-content" style={{
+        backgroundColor: '#fafafa',
+        paddingTop: '60px',
+        paddingBottom: '120px',
+        paddingLeft: 'max(2rem, 3.33vw)',
+        paddingRight: 'max(2rem, 3.33vw)'
+      }}>
+        <div style={{
+          maxWidth: '1480px',
+          margin: '0 auto'
+        }}>
           <div className="contact-grid">
             {/* Contact Information */}
             <div className="contact-info-section">
@@ -259,6 +288,7 @@ export default function MinimalistContactForm() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }

@@ -1,21 +1,27 @@
 /* Profile Page Styles */
 
 .profile-container {
-  max-width: 1200px;
+  max-width: 1480px;
   margin: 0 auto;
-  padding: 48px;
+  padding-left: max(2rem, 3.33vw);
+  padding-right: max(2rem, 3.33vw);
+  padding-bottom: 48px;
   min-height: 80vh;
 }
 
 @media (max-width: 1024px) {
   .profile-container {
-    padding: 32px;
+    padding-left: max(2rem, 3.33vw);
+    padding-right: max(2rem, 3.33vw);
+    padding-bottom: 32px;
   }
 }
 
 @media (max-width: 640px) {
   .profile-container {
-    padding: 16px;
+    padding-left: max(2rem, 3.33vw);
+    padding-right: max(2rem, 3.33vw);
+    padding-bottom: 16px;
   }
 }
 

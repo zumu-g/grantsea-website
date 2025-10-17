@@ -87,7 +87,7 @@ export default function SignUpPage() {
   return (
     <>
       <OncomHeader />
-      <main className="signup-container" style={{ paddingTop: '120px' }}>
+      <main className="signup-container" style={{ paddingTop: '180px' }}>
       <div className="signup-box">
         <div className="signup-header">
           <h1>Create Your Account</h1>
@@ -107,7 +107,12 @@ export default function SignUpPage() {
                   checked={formData.accountType === 'buyer'}
                   onChange={handleChange}
                 />
-                <div className="type-icon">🏠</div>
+                <div className="type-icon">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9,22 9,12 15,12 15,22"/>
+                  </svg>
+                </div>
                 <span>Buyer</span>
               </label>
               <label className={`account-type-card ${formData.accountType === 'seller' ? 'active' : ''}`}>
@@ -118,7 +123,12 @@ export default function SignUpPage() {
                   checked={formData.accountType === 'seller'}
                   onChange={handleChange}
                 />
-                <div className="type-icon">💰</div>
+                <div className="type-icon">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <line x1="12" y1="1" x2="12" y2="23"/>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                  </svg>
+                </div>
                 <span>Seller</span>
               </label>
               <label className={`account-type-card ${formData.accountType === 'renter' ? 'active' : ''}`}>
@@ -129,7 +139,14 @@ export default function SignUpPage() {
                   checked={formData.accountType === 'renter'}
                   onChange={handleChange}
                 />
-                <div className="type-icon">🔑</div>
+                <div className="type-icon">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <circle cx="8" cy="8" r="6"/>
+                    <path d="M18.09 10.37a6 6 0 1 1-10.37 0"/>
+                    <path d="m15 15 6 6"/>
+                    <path d="m20 15-4 4"/>
+                  </svg>
+                </div>
                 <span>Renter</span>
               </label>
               <label className={`account-type-card ${formData.accountType === 'agent' ? 'active' : ''}`}>
@@ -140,7 +157,14 @@ export default function SignUpPage() {
                   checked={formData.accountType === 'agent'}
                   onChange={handleChange}
                 />
-                <div className="type-icon">👔</div>
+                <div className="type-icon">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  </svg>
+                </div>
                 <span>Agent</span>
               </label>
             </div>
@@ -236,11 +260,36 @@ export default function SignUpPage() {
           <div className="benefits-section">
             <h3>Your account includes:</h3>
             <ul className="benefits-list">
-              <li>✓ Save your favorite properties</li>
-              <li>✓ Create and save custom searches</li>
-              <li>✓ Get instant alerts for new listings</li>
-              <li>✓ Track property price changes</li>
-              <li>✓ Contact agents directly</li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2">
+                  <polyline points="20,6 9,17 4,12"/>
+                </svg>
+                Save your favorite properties
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2">
+                  <polyline points="20,6 9,17 4,12"/>
+                </svg>
+                Create and save custom searches
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2">
+                  <polyline points="20,6 9,17 4,12"/>
+                </svg>
+                Get instant alerts for new listings
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2">
+                  <polyline points="20,6 9,17 4,12"/>
+                </svg>
+                Track property price changes
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2">
+                  <polyline points="20,6 9,17 4,12"/>
+                </svg>
+                Contact agents directly
+              </li>
             </ul>
           </div>
 
@@ -290,7 +339,10 @@ export default function SignUpPage() {
               <span>f</span> Facebook
             </button>
             <button type="button" className="social-button apple">
-              <span>🍎</span> Apple
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+              </svg>
+              Apple
             </button>
           </div>
         </div>

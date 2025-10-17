@@ -85,7 +85,7 @@ export default function ProfilePage() {
   return (
     <>
       <OncomHeader />
-      <main className="profile-container" style={{ paddingTop: '120px' }}>
+      <main className="profile-container" style={{ paddingTop: '180px' }}>
         <div className="profile-header">
           <h1>My Account</h1>
           <p className="profile-subtitle">Manage your profile, saved properties, and search alerts</p>

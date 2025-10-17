@@ -13,6 +13,7 @@ export default function BuyPageOncom() {
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+  const [showMoreFilters, setShowMoreFilters] = useState(false);
   const [filters, setFilters] = useState<{
     priceMin: string;
     priceMax: string;
@@ -21,6 +22,9 @@ export default function BuyPageOncom() {
     parking: string;
     propertyType: string;
     suburb: string;
+    landSize: string;
+    yearBuilt: string;
+    auction: string;
   }>({
     priceMin: '',
     priceMax: '',
@@ -28,7 +32,10 @@ export default function BuyPageOncom() {
     bathrooms: '',
     parking: '',
     propertyType: '',
-    suburb: ''
+    suburb: '',
+    landSize: '',
+    yearBuilt: '',
+    auction: ''
   });
   const [sortBy, setSortBy] = useState('newest');
   const [searchSaved, setSearchSaved] = useState(false);
@@ -58,16 +65,46 @@ export default function BuyPageOncom() {
     if (filters.parking && property.carSpaces !== parseInt(filters.parking)) return false;
     if (filters.propertyType && property.propertyType !== filters.propertyType) return false;
     if (filters.suburb && !property.suburb?.toLowerCase().includes(filters.suburb.toLowerCase())) return false;
+    
+    // Land size filter
+    if (filters.landSize) {
+      const landSize = property.landSize || 0;
+      if (filters.landSize === '0-400' && landSize >= 400) return false;
+      if (filters.landSize === '400-600' && (landSize < 400 || landSize >= 600)) return false;
+      if (filters.landSize === '600-800' && (landSize < 600 || landSize >= 800)) return false;
+      if (filters.landSize === '800+' && landSize < 800) return false;
+    }
+    
+    // Year built filter
+    if (filters.yearBuilt && property.yearBuilt) {
+      if (filters.yearBuilt === '2020+' && property.yearBuilt < 2020) return false;
+      if (filters.yearBuilt === '2010-2019' && (property.yearBuilt < 2010 || property.yearBuilt >= 2020)) return false;
+      if (filters.yearBuilt === '2000-2009' && (property.yearBuilt < 2000 || property.yearBuilt >= 2010)) return false;
+      if (filters.yearBuilt === '1990-1999' && (property.yearBuilt < 1990 || property.yearBuilt >= 2000)) return false;
+      if (filters.yearBuilt === 'pre-1990' && property.yearBuilt >= 1990) return false;
+    }
+    
+    // Auction filter
+    if (filters.auction) {
+      if (filters.auction === 'auction' && property.saleMethod !== 'auction') return false;
+      if (filters.auction === 'private' && property.saleMethod === 'auction') return false;
+    }
+    
     return true;
   });
 
   // Sort properties
   const sortedProperties = [...filteredProperties].sort((a, b) => {
     if (sortBy === 'newest') return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime();
+    
     const priceA = typeof a.price === 'string' ? parseInt(a.price) : (a.price || 0);
     const priceB = typeof b.price === 'string' ? parseInt(b.price) : (b.price || 0);
     if (sortBy === 'price-low') return priceA - priceB;
     if (sortBy === 'price-high') return priceB - priceA;
+    
+    if (sortBy === 'bedrooms-high') return (b.bedrooms || 0) - (a.bedrooms || 0);
+    if (sortBy === 'land-size') return (b.landSize || 0) - (a.landSize || 0);
+    
     return 0;
   });
 
@@ -111,7 +148,7 @@ export default function BuyPageOncom() {
           }}>
             <h1 style={{
               fontSize: isMobile ? '32px' : '48px',
-              fontWeight: '400',
+              fontWeight: '700',
               marginBottom: 0
             }}>Properties for sale</h1>
           </div>
@@ -499,23 +536,39 @@ export default function BuyPageOncom() {
 
               {/* More Filters */}
               <button
+                onClick={() => setShowMoreFilters(!showMoreFilters)}
                 style={{
                   background: 'none',
-                  border: 'none',
-                  padding: 0,
+                  padding: '12px 24px',
                   fontSize: '14px',
                   color: '#000',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
-                  borderBottom: '1px solid transparent'
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  border: '1px solid #F0F0F0',
+                  borderRadius: '8px',
+                  fontWeight: '600'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderBottom = '1px solid #000';
+                  e.currentTarget.style.borderColor = '#000';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderBottom = '1px solid transparent';
+                  e.currentTarget.style.borderColor = '#F0F0F0';
                 }}
               >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <line x1="4" y1="21" x2="4" y2="14" />
+                  <line x1="4" y1="10" x2="4" y2="3" />
+                  <line x1="12" y1="21" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12" y2="3" />
+                  <line x1="20" y1="21" x2="20" y2="16" />
+                  <line x1="20" y1="12" x2="20" y2="3" />
+                  <line x1="1" y1="14" x2="7" y2="14" />
+                  <line x1="9" y1="8" x2="15" y2="8" />
+                  <line x1="17" y1="16" x2="23" y2="16" />
+                </svg>
                 More filters
               </button>
             </div>
@@ -555,6 +608,218 @@ export default function BuyPageOncom() {
                 {sortedProperties.length} results
               </span>
             </div>
+          </div>
+
+          {/* Expanded Filters */}
+          {showMoreFilters && (
+            <div style={{
+              maxWidth: '1480px',
+              margin: '0 auto',
+              paddingLeft: 'max(2rem, 3.33vw)',
+              paddingRight: 'max(2rem, 3.33vw)',
+              paddingBottom: '20px',
+              borderTop: '1px solid #F0F0F0',
+              paddingTop: '20px'
+            }}>
+              <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                {/* Bathrooms */}
+                <select
+                  value={filters.bathrooms}
+                  onChange={(e) => setFilters({ ...filters, bathrooms: e.target.value })}
+                  style={{
+                    padding: '12px 20px',
+                    border: '1px solid #F0F0F0',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    outline: 'none',
+                    backgroundColor: '#FFFFFF',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <option value="">Bathrooms</option>
+                  <option value="1">1 Bathroom</option>
+                  <option value="2">2 Bathrooms</option>
+                  <option value="3">3+ Bathrooms</option>
+                </select>
+
+                {/* Parking */}
+                <select
+                  value={filters.parking}
+                  onChange={(e) => setFilters({ ...filters, parking: e.target.value })}
+                  style={{
+                    padding: '12px 20px',
+                    border: '1px solid #F0F0F0',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    outline: 'none',
+                    backgroundColor: '#FFFFFF',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <option value="">Car Spaces</option>
+                  <option value="0">No Parking</option>
+                  <option value="1">1 Space</option>
+                  <option value="2">2 Spaces</option>
+                  <option value="3">3+ Spaces</option>
+                </select>
+
+                {/* Land Size */}
+                <select
+                  value={filters.landSize}
+                  onChange={(e) => setFilters({ ...filters, landSize: e.target.value })}
+                  style={{
+                    padding: '12px 20px',
+                    border: '1px solid #F0F0F0',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    outline: 'none',
+                    backgroundColor: '#FFFFFF',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <option value="">Land Size</option>
+                  <option value="0-400">Under 400m²</option>
+                  <option value="400-600">400-600m²</option>
+                  <option value="600-800">600-800m²</option>
+                  <option value="800+">800m²+</option>
+                </select>
+
+                {/* Year Built */}
+                <select
+                  value={filters.yearBuilt}
+                  onChange={(e) => setFilters({ ...filters, yearBuilt: e.target.value })}
+                  style={{
+                    padding: '12px 20px',
+                    border: '1px solid #F0F0F0',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    outline: 'none',
+                    backgroundColor: '#FFFFFF',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <option value="">Year Built</option>
+                  <option value="2020+">2020 or newer</option>
+                  <option value="2010-2019">2010-2019</option>
+                  <option value="2000-2009">2000-2009</option>
+                  <option value="1990-1999">1990-1999</option>
+                  <option value="pre-1990">Before 1990</option>
+                </select>
+
+                {/* Auction */}
+                <select
+                  value={filters.auction}
+                  onChange={(e) => setFilters({ ...filters, auction: e.target.value })}
+                  style={{
+                    padding: '12px 20px',
+                    border: '1px solid #F0F0F0',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    outline: 'none',
+                    backgroundColor: '#FFFFFF',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <option value="">Sale Method</option>
+                  <option value="auction">Auction</option>
+                  <option value="private">Private Sale</option>
+                  <option value="expressions">Expressions of Interest</option>
+                </select>
+
+                {/* Clear Filters */}
+                {Object.values(filters).some(v => v) && (
+                  <button
+                    onClick={() => setFilters({
+                      priceMin: '',
+                      priceMax: '',
+                      bedrooms: '',
+                      bathrooms: '',
+                      parking: '',
+                      propertyType: '',
+                      suburb: '',
+                      landSize: '',
+                      yearBuilt: '',
+                      auction: ''
+                    })}
+                    style={{
+                      padding: '12px 24px',
+                      border: 'none',
+                      borderRadius: '8px',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      backgroundColor: '#000',
+                      color: '#FFF',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    Clear All
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Results Bar with Sort */}
+        <div style={{
+          backgroundColor: '#fff',
+          borderBottom: '1px solid #e5e5e5',
+          paddingLeft: 'max(2rem, 3.33vw)',
+          paddingRight: 'max(2rem, 3.33vw)',
+          paddingTop: '20px',
+          paddingBottom: '20px',
+          display: isMobile ? 'none' : 'block'
+        }}>
+          <div style={{
+            maxWidth: '1480px',
+            margin: '0 auto',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}>
+            <span style={{
+              fontSize: '16px',
+              color: '#666',
+              fontWeight: '500'
+            }}>
+              {loading ? 'Loading...' : `${sortedProperties.length} properties for sale`}
+            </span>
+
+            {/* Sort Dropdown */}
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              style={{
+                padding: '12px 20px',
+                border: '1px solid #F0F0F0',
+                borderRadius: '8px',
+                fontSize: '14px',
+                fontWeight: '500',
+                outline: 'none',
+                backgroundColor: '#FFFFFF',
+                cursor: 'pointer'
+              }}
+            >
+              <option value="newest">Newest First</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="bedrooms-high">Most Bedrooms</option>
+              <option value="land-size">Largest Land</option>
+            </select>
           </div>
         </div>
 
@@ -1036,7 +1301,10 @@ export default function BuyPageOncom() {
                     bathrooms: '',
                     parking: '',
                     propertyType: '',
-                    suburb: ''
+                    suburb: '',
+                    landSize: '',
+                    yearBuilt: '',
+                    auction: ''
                   });
                 }}
                 style={{

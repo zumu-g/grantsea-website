@@ -26,6 +26,13 @@ export default function HomePageOncom() {
   const [isTablet, setIsTablet] = useState(false);
   const { properties, loading } = useProperties({ limit: 12 });
 
+  // Sort properties by creation date (newest first) for the "New to market" section
+  const sortedPropertiesByDate = [...properties].sort((a, b) => {
+    const dateA = new Date(a.createdAt || a.updatedAt || 0);
+    const dateB = new Date(b.createdAt || b.updatedAt || 0);
+    return dateB.getTime() - dateA.getTime(); // Newest first
+  });
+
   useEffect(() => {
     const checkDevice = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -1159,7 +1166,7 @@ export default function HomePageOncom() {
             color: '#000',
             lineHeight: '1.1'
           }}>
-            You may be interested in
+            New to market
           </h2>
           
           {/* Properties Carousel - Shows 3.5 items */}
@@ -1190,7 +1197,7 @@ export default function HomePageOncom() {
                 gap: isMobile ? '16px' : '24px',
                 paddingBottom: '16px'
               }}>
-                {properties.slice(0, 3).map((property) => (
+                {sortedPropertiesByDate.slice(0, 3).map((property) => (
                 <div key={property.id} style={{
                   position: 'relative',
                   flex: isMobile ? '0 0 85%' : isTablet ? '0 0 calc(50% - 12px)' : '0 0 calc(33.333% - 16px)',

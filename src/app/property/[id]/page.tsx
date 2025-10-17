@@ -70,6 +70,53 @@ interface Property {
   listingDate?: string;
 }
 
+// Helper function to get default features for properties without feature data
+const getDefaultFeatures = (property: Property): string[] => {
+  const features: string[] = [];
+  
+  // Add basic property features based on property data
+  if (property.propertyType === 'House') {
+    features.push('Spacious family home');
+    if (property.landSize && property.landSize > 600) {
+      features.push('Large land size');
+    }
+    if (property.bedrooms && property.bedrooms >= 4) {
+      features.push('Multiple living areas');
+    }
+    if (property.carSpaces && property.carSpaces >= 2) {
+      features.push('Secure parking');
+    }
+  } else if (property.propertyType === 'Apartment' || property.propertyType === 'Unit') {
+    features.push('Modern apartment living');
+    features.push('Low maintenance lifestyle');
+    if (property.bathrooms && property.bathrooms >= 2) {
+      features.push('Multiple bathrooms');
+    }
+  } else if (property.propertyType === 'Townhouse') {
+    features.push('Contemporary townhouse');
+    features.push('Private courtyard');
+    features.push('Modern fixtures');
+  }
+  
+  // Add listing-type specific features
+  if (property.listingType === 'sale') {
+    features.push('Excellent investment opportunity');
+    features.push('Prime location');
+    if (property.suburb) {
+      features.push(`Sought-after ${property.suburb} location`);
+    }
+  } else if (property.listingType === 'lease') {
+    features.push('Available now');
+    features.push('Well-maintained property');
+  }
+  
+  // Add general features
+  features.push('Close to schools and transport');
+  features.push('Near shopping and amenities');
+  
+  return features.slice(0, 8); // Limit to 8 features
+};
+
 export default function PropertyDetailPage() {
   const params = useParams();
   const [property, setProperty] = useState<Property | null>(null);
@@ -1162,8 +1209,15 @@ export default function PropertyDetailPage() {
               </div>
             )}
 
-            {/* Features - ON RUNNING STYLE */}
-            {property.features && property.features.length > 0 && (
+            {/* Key Features - Always show for all properties */}
+            {(() => {
+              // Get features from property data or provide defaults based on property type
+              const features = property.features && property.features.length > 0 
+                ? property.features 
+                : getDefaultFeatures(property);
+              
+              return features && features.length > 0;
+            })() && (
               <div style={{
                 marginBottom: '64px',
                 paddingTop: '48px',
@@ -1189,7 +1243,12 @@ export default function PropertyDetailPage() {
                   padding: 0,
                   margin: 0
                 }}>
-                  {property.features.map((feature, index) => (
+                  {(() => {
+                    const features = property.features && property.features.length > 0 
+                      ? property.features 
+                      : getDefaultFeatures(property);
+                    return features;
+                  })().map((feature, index) => (
                     <li key={index} style={{
                       display: 'flex',
                       alignItems: 'flex-start',

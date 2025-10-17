@@ -893,13 +893,9 @@ export default function PropertyDetailPage() {
               </div>
             </div>
 
-            {/* Inspection Times / Auction Details - ON RUNNING STYLE */}
+            {/* Inspection Times / Auction Details - Minimalist Style */}
             <div style={{
-              padding: '24px',
-              backgroundColor: 'rgb(153, 92, 0)',
-              borderRadius: '0',
-              marginBottom: '48px',
-              border: '2px solid rgb(153, 92, 0)'
+              marginBottom: '48px'
             }}>
                 {property.saleMethod === 'auction' && property.auctionDate && (
                   <div style={{ marginBottom: property.inspectionTimes?.length ? '24px' : 0 }}>
@@ -945,23 +941,23 @@ export default function PropertyDetailPage() {
 
                 <div>
                   <h3 style={{
-                    fontSize: '13px',
-                    fontWeight: '700',
+                    fontSize: '16px',
+                    fontWeight: '600',
                     marginBottom: '12px',
-                    color: '#ffffff',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.1em',
+                    color: '#D4A853',
+                    textTransform: 'none',
+                    letterSpacing: 'normal',
                     fontFamily: '"Helvetica Neue", Arial, sans-serif'
                   }}>
-                    OPEN FOR INSPECTION
+                    Open for inspection
                   </h3>
                   {property.inspectionTimes && property.inspectionTimes.length > 0 ? (
                     property.inspectionTimes.map((inspection) => (
                       <div key={inspection.id} style={{ marginBottom: '12px' }}>
                         <p style={{
-                          fontSize: '17px',
-                          color: '#ffffff',
-                          fontWeight: '500',
+                          fontSize: '16px',
+                          color: '#D4A853',
+                          fontWeight: '400',
                           fontFamily: '"Helvetica Neue", Arial, sans-serif'
                         }}>
                           {new Date(inspection.startTime).toLocaleDateString('en-AU', {
@@ -987,9 +983,9 @@ export default function PropertyDetailPage() {
                     ))
                   ) : (
                     <p style={{
-                      fontSize: '17px',
-                      color: '#ffffff',
-                      fontWeight: '500',
+                      fontSize: '16px',
+                      color: '#D4A853',
+                      fontWeight: '400',
                       fontFamily: '"Helvetica Neue", Arial, sans-serif'
                     }}>
                       Contact agent to arrange an inspection
@@ -1136,7 +1132,7 @@ export default function PropertyDetailPage() {
               <div style={{ marginBottom: '64px' }}>
                 <h2 style={{
                   fontSize: '24px',
-                  fontWeight: '400',
+                  fontWeight: '700',
                   marginBottom: '32px',
                   letterSpacing: 'normal',
                   textTransform: 'none',
@@ -1241,7 +1237,7 @@ export default function PropertyDetailPage() {
             <div style={{ marginBottom: '64px' }}>
               <h2 style={{
                 fontSize: '24px',
-                fontWeight: '400',
+                fontWeight: '700',
                 marginBottom: '32px',
                 letterSpacing: 'normal',
                 textTransform: 'none',
@@ -1649,7 +1645,7 @@ export default function PropertyDetailPage() {
               <div style={{ marginBottom: '64px' }}>
                 <h2 style={{
                   fontSize: '24px',
-                  fontWeight: '400',
+                  fontWeight: '700',
                   marginBottom: '32px',
                   letterSpacing: 'normal',
                   textTransform: 'none',
@@ -1659,15 +1655,19 @@ export default function PropertyDetailPage() {
 
                 <div style={{
                   padding: '48px',
-                  backgroundColor: '#000',
+                  backgroundColor: '#6B7280',
                   color: '#fff'
                 }}>
-                  {/* Show rich Narre Warren lifestyle content for Narre Warren South properties */}
+                  {/* Show rich lifestyle content based on property suburb */}
                   {property.suburb?.toLowerCase().includes('narre warren') ? (
                     <>
                       <div style={{ marginBottom: '32px' }}>
-                        <div style={{ fontSize: '28px', fontWeight: '700', marginBottom: '16px' }}>
-                          We Love Narre Warren! 🌟
+                        <div style={{ fontSize: '28px', fontWeight: '700', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A853" strokeWidth="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                            <polyline points="9,22 9,12 15,12 15,22"/>
+                          </svg>
+                          We Love {property.suburb}!
                         </div>
                         <p style={{ fontSize: '17px', lineHeight: '1.6', color: '#d4d4d4' }}>
                           Discover why Narre Warren is more than just a place to live - it's a place to belong! From award-winning playgrounds to community cafés, this vibrant suburb has everything your family needs.
@@ -1684,19 +1684,37 @@ export default function PropertyDetailPage() {
                         borderTop: '1px solid #333'
                       }}>
                         <div>
-                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>🎠 Family Fun</div>
+                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A853" strokeWidth="2">
+                              <path d="M8 21l4-7h3l3 3v4l-4 4z"/>
+                              <path d="M3 14h3l2-5 2 5h3"/>
+                            </svg>
+                            Family Fun
+                          </div>
                           <div style={{ fontSize: '15px', lineHeight: '1.4' }}>
                             Narre Warren Adventure Playground • Fountain Gate Entertainment • Swimming Pool
                           </div>
                         </div>
                         <div>
-                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>☕ Local Favourites</div>
+                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A853" strokeWidth="2">
+                              <path d="M5 11h14l-5-5m5 5l-5 5"/>
+                            </svg>
+                            Local Favourites
+                          </div>
                           <div style={{ fontSize: '15px', lineHeight: '1.4' }}>
                             Narre Warren Coffee Co. • The Local Bean • Thai Spice Restaurant
                           </div>
                         </div>
                         <div>
-                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>🛍️ Shopping & Lifestyle</div>
+                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A853" strokeWidth="2">
+                              <circle cx="8" cy="21" r="1"/>
+                              <circle cx="19" cy="21" r="1"/>
+                              <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+                            </svg>
+                            Shopping & Lifestyle
+                          </div>
                           <div style={{ fontSize: '15px', lineHeight: '1.4' }}>
                             Fountain Gate Shopping Centre • Local Markets • Boutique Stores
                           </div>
@@ -1720,12 +1738,42 @@ export default function PropertyDetailPage() {
                           fontSize: '14px',
                           lineHeight: '1.5'
                         }}>
-                          <div>⭐ Narre Warren Adventure Playground - Ultimate family destination</div>
-                          <div>☕ Award-winning local coffee roasters and cafés</div>
-                          <div>🌳 Narre Warren Park - 50+ hectares of natural beauty</div>
-                          <div>🎯 Community Centre with programs for all ages</div>
-                          <div>🛍️ Fountain Gate - Everything you need in one place</div>
-                          <div>📚 Modern library with community programs</div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#D4A853">
+                              <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                            Narre Warren Adventure Playground - Ultimate family destination
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#D4A853">
+                              <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                            Award-winning local coffee roasters and cafés
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#D4A853">
+                              <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                            Narre Warren Park - 50+ hectares of natural beauty
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#D4A853">
+                              <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                            Community Centre with programs for all ages
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#D4A853">
+                              <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                            Fountain Gate - Everything you need in one place
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#D4A853">
+                              <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                            Modern library with community programs
+                          </div>
                         </div>
                       </div>
                     </>

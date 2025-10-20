@@ -1,9 +1,26 @@
 # Grant's Estate Agents Website - Development Progress
 
-## Last Updated: 2025-10-17
+## Last Updated: 2025-10-20
 
 ## Current Status
 **WEBSITE FEATURE-COMPLETE WITH ENHANCED UX** - All core features implemented with recent focus on enhanced property details, social sharing, AI integration, and luxury redesigns. Open homes feature fully optimized for comprehensive data retrieval.
+
+### ✅ Recent Accomplishments (October 20, 2025)
+
+1. **Auction and Inspection Pages Deployment Fixed**
+   - Resolved 404 routing issues for all newly created auction/inspection pages
+   - Successfully deployed: `/buy/open-for-inspection`, `/buy/forthcoming-auctions`, `/buy/livestream-auctions`, `/buy/coming-soon`, `/rent/open-for-inspection`
+   - Added all new pages to sitemap.xml for proper SEO indexing
+   - Comprehensive empty states implemented for scenarios with no upcoming auctions/inspections
+   - All pages building and routing correctly with real-time data integration
+
+2. **Enhanced Property Search Filtering**
+   - Added dynamic suburb filtering to Properties for Sale page (`/buy`)
+   - Desktop filter bar: New "Suburbs" dropdown with checkboxes showing all available suburbs
+   - More filters section: Additional suburb dropdown for enhanced filtering
+   - Mobile support: Existing suburb input field maintained
+   - Suburbs dynamically populated from property listings data
+   - Seamless integration with existing filter logic and UI
 
 ### ✅ Recent Accomplishments (October 17, 2025)
 
@@ -373,7 +390,8 @@ CRM_ACCESS_TOKEN=nzinklyrqutvcdodhyaqyizcjflohlayxezuthan
 - **20 Suburb Pages**: All suburbs with guide content now have pages
 - **3 Property Calculators**: Buy/Sell, Borrowing Capacity, Stamp Duty
 - **Schools Guide**: Comprehensive with 125+ schools
-- **Property Search**: Full functionality with filters
+- **Property Search**: Full functionality with enhanced suburb filtering
+- **Auction & Inspection Pages**: 5 comprehensive pages with real-time data
 - **Saved Properties**: Complete with localStorage persistence
 - **Agent Pages**: Listing and individual bio pages
 - **Stories**: 5 customer journey stories integrated
@@ -382,10 +400,11 @@ CRM_ACCESS_TOKEN=nzinklyrqutvcdodhyaqyizcjflohlayxezuthan
 #### 🚀 Next Steps - Priority Order
 
 #### Immediate Tasks (High Priority)
-1. **Fix Vercel Deployment Issues**
-   - Resolve any remaining TypeScript errors
-   - Ensure all API routes work in production
-   - Test all features on live site
+1. **Deployment Infrastructure - COMPLETED ✅**
+   - All TypeScript errors resolved
+   - All API routes working in production
+   - All features tested and operational on live site
+   - Recent additions: auction pages, inspection pages, suburb filtering all deployed successfully
 
 2. **Complete Virtual Tour Integration**
    - Replace placeholder with actual virtual tour providers (Matterport, etc.)
@@ -443,7 +462,9 @@ CRM_ACCESS_TOKEN=nzinklyrqutvcdodhyaqyizcjflohlayxezuthan
 
 ### 🐛 Known Issues
 - **Fixed**: Lease properties now display correctly on details page
-- **Fixed**: Properties not loading due to API timeout issues
+- **Fixed**: Properties not loading due to API timeout issues  
+- **Fixed**: 404 routing issues for auction and inspection pages
+- **Fixed**: Suburb filtering integration across all device types
 - **Minor**: SWC lockfile warning (doesn't affect functionality)
 - **Minor**: Pre-commit hook occasionally needs dev server restart
 - **Note**: Some TypeScript strict mode warnings may appear

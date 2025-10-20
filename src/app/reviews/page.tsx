@@ -75,6 +75,19 @@ const reviews: Review[] = [
 
 export default function ReviewsPage() {
   const [hoveredReview, setHoveredReview] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+
+  React.useEffect(() => {
+    const checkDevice = () => {
+      setIsMobile(window.innerWidth <= 768);
+      setIsTablet(window.innerWidth > 768 && window.innerWidth <= 1024);
+    };
+    
+    checkDevice();
+    window.addEventListener('resize', checkDevice);
+    return () => window.removeEventListener('resize', checkDevice);
+  }, []);
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#fff' }}>
@@ -92,6 +105,18 @@ export default function ReviewsPage() {
           margin: '0 auto',
           padding: '0 20px'
         }}>
+          {/* Page Heading */}
+          <h1 style={{
+            fontSize: isMobile ? '48px' : isTablet ? '64px' : '80px',
+            fontWeight: '300',
+            letterSpacing: '-0.02em',
+            lineHeight: '1.1',
+            margin: '0 0 64px 0',
+            color: '#000'
+          }}>
+            Customer reviews
+          </h1>
+
           {/* Large Rating Display */}
           <div style={{
             fontSize: '120px',

@@ -68,6 +68,7 @@ interface Property {
   };
   daysOnMarket?: number;
   listingDate?: string;
+  status?: string;
 }
 
 // Helper function to get default features for properties without feature data
@@ -146,7 +147,7 @@ export default function PropertyDetailPage() {
   // Detect mobile
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth <= 768);
     };
 
     checkMobile();
@@ -2441,7 +2442,7 @@ export default function PropertyDetailPage() {
         {similarProperties.length > 0 && (
           <div style={{ marginTop: '96px' }}>
             <h2 style={{
-              fontSize: isMobile ? '36px' : isTablet ? '44px' : '56px',
+              fontSize: isMobile ? '36px' : '56px',
               fontWeight: '700',
               letterSpacing: '-0.02em',
               marginBottom: isMobile ? '32px' : '48px',
@@ -2459,7 +2460,7 @@ export default function PropertyDetailPage() {
               {similarProperties.slice(0, 3).map((similarProperty) => (
                 <div key={similarProperty.id} style={{
                   position: 'relative',
-                  flex: isMobile ? '0 0 85%' : isTablet ? '0 0 calc(50% - 12px)' : '0 0 calc(33.333% - 16px)',
+                  flex: isMobile ? '0 0 85%' : '0 0 calc(33.333% - 16px)',
                   minWidth: isMobile ? '320px' : '380px',
                   backgroundColor: '#fff',
                   borderRadius: '12px',
@@ -2539,7 +2540,22 @@ export default function PropertyDetailPage() {
                         right: '8px',
                         zIndex: 1
                       }}>
-                        <SavePropertyButton property={similarProperty} />
+                        <SavePropertyButton property={{
+                          id: similarProperty.id,
+                          address: similarProperty.address || '',
+                          suburb: similarProperty.suburb || '',
+                          state: similarProperty.state || 'VIC',
+                          price: similarProperty.price,
+                          priceDisplay: similarProperty.priceDisplay,
+                          bedrooms: similarProperty.bedrooms || 0,
+                          bathrooms: similarProperty.bathrooms || 0,
+                          carSpaces: similarProperty.carSpaces || 0,
+                          propertyType: similarProperty.propertyType || 'House',
+                          listingType: similarProperty.listingType as 'sale' | 'lease' | 'both',
+                          leasePrice: similarProperty.leasePrice,
+                          leasePriceDisplay: similarProperty.leasePriceDisplay,
+                          images: similarProperty.images
+                        }} />
                       </div>
                       {similarProperty.listingType === 'lease' && (
                         <div style={{

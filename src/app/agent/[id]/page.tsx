@@ -178,7 +178,10 @@ export default function AgentDetailPage() {
           position: 'relative',
           height: isMobile ? '60vh' : '70vh',
           backgroundColor: '#f5f5f5',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          width: '100vw',
+          marginLeft: 'calc(-50vw + 50%)',
+          marginRight: 'calc(-50vw + 50%)'
         }}>
           {/* Background Image */}
           <div style={{

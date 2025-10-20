@@ -13,6 +13,7 @@ export default function OncomHeader() {
   const [showSearch, setShowSearch] = useState(false);
   const [showSavedPanel, setShowSavedPanel] = useState(false);
   const [showAccountPanel, setShowAccountPanel] = useState(false);
+  const [showBurgerPanel, setShowBurgerPanel] = useState(false);
   const [savedProperties, setSavedProperties] = useState<any[]>([]);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -461,6 +462,7 @@ export default function OncomHeader() {
                 setShowSearch(true);
                 setShowSavedPanel(false);
                 setShowAccountPanel(false);
+                setShowBurgerPanel(false);
                 setShowBuyDropdown(false);
                 setShowRentDropdown(false);
               }}
@@ -481,6 +483,7 @@ export default function OncomHeader() {
                 setShowSavedPanel(true);
                 setShowSearch(false);
                 setShowAccountPanel(false);
+                setShowBurgerPanel(false);
                 setShowBuyDropdown(false);
                 setShowRentDropdown(false);
               }}
@@ -522,6 +525,7 @@ export default function OncomHeader() {
                   setShowAccountPanel(true);
                   setShowSearch(false);
                   setShowSavedPanel(false);
+                  setShowBurgerPanel(false);
                   setShowBuyDropdown(false);
                   setShowRentDropdown(false);
                 }}
@@ -542,7 +546,11 @@ export default function OncomHeader() {
             <div style={{ position: 'relative' }}>
               <button 
                 onClick={() => {
-                  setShowDropdown(!showDropdown);
+                  setShowBurgerPanel(true);
+                  setShowDropdown(false);
+                  setShowSearch(false);
+                  setShowSavedPanel(false);
+                  setShowAccountPanel(false);
                   setShowBuyDropdown(false);
                   setShowRentDropdown(false);
                 }}
@@ -563,276 +571,13 @@ export default function OncomHeader() {
                   <path d="M3 12h18M3 6h18M3 18h18" />
                 </svg>
               </button>
-              
-              {showDropdown && (
-                <div style={{
-                  position: 'absolute',
-                  top: '100%',
-                  right: 0,
-                  marginTop: '8px',
-                  backgroundColor: '#fff',
-                  border: '1px solid #e5e5e5',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                  borderRadius: '8px',
-                  minWidth: '220px',
-                  zIndex: 1001
-                }}>
-                  <Link href="/" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Home
-                  </Link>
-                  <Link href="/buy" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Buy
-                  </Link>
-                  <Link href="/rent" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Rent
-                  </Link>
-                  <Link href="/sell" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Sell
-                  </Link>
-                  <Link href="/properties" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    All Properties
-                  </Link>
-                  <Link href="/listings" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Listings
-                  </Link>
-                  <Link href="/agents" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Find Agents
-                  </Link>
-                  <Link href="/reviews" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Reviews
-                  </Link>
-                  <Link href="/team" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Our Team
-                  </Link>
-                  <Link href="/appraisal" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Appraisal
-                  </Link>
-                  <Link href="/offices" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Offices
-                  </Link>
-                  <Link href="/contact" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Contact
-                  </Link>
-                  <Link href="/saved-properties" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Saved Properties
-                  </Link>
-                  <Link href="/search" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Search Properties
-                  </Link>
-                  <Link href="/help" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Help & Support
-                  </Link>
-                  <Link href="/suburbs" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Suburb guides
-                  </Link>
-                  <Link href="/schools" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    School guides
-                  </Link>
-                  <Link href="/careers" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    transition: 'background 0.2s',
-                    borderRadius: '0 0 8px 8px'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Careers
-                  </Link>
-                  
-                  {/* Divider */}
-                  <div style={{
-                    borderTop: '1px solid #e5e5e5',
-                    margin: '8px 0'
-                  }} />
-                  
-                  <Link href="/profile" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.2s'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    My Profile
-                  </Link>
-                  <Link href="/signup" style={{
-                    display: 'block',
-                    padding: '12px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    transition: 'background 0.2s',
-                    borderRadius: '0 0 8px 8px'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Sign Up
-                  </Link>
-                </div>
-              )}
             </div>
           </div>
         </div>
       </header>
 
       {/* Sliding Panel Overlay */}
-      {(showSearch || showSavedPanel || showAccountPanel) && (
+      {(showSearch || showSavedPanel || showAccountPanel || showBurgerPanel) && (
         <div 
           style={{
             position: 'fixed',
@@ -848,6 +593,7 @@ export default function OncomHeader() {
             setShowSearch(false);
             setShowSavedPanel(false);
             setShowAccountPanel(false);
+            setShowBurgerPanel(false);
           }}
         />
       )}
@@ -1232,6 +978,204 @@ export default function OncomHeader() {
               </Link>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Burger Menu Panel - Slides from Right */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        right: showBurgerPanel ? 0 : (isMobile ? '-100%' : '-400px'),
+        bottom: 0,
+        width: isMobile ? '100%' : '400px',
+        backgroundColor: '#fff',
+        boxShadow: '-4px 0 24px rgba(0,0,0,0.1)',
+        transition: 'right 0.3s ease',
+        zIndex: 9999,
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          padding: '24px',
+          borderBottom: '1px solid #e5e5e5',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          <h2 style={{ fontSize: '24px', fontWeight: '600' }}>Menu</h2>
+          <button
+            onClick={() => setShowBurgerPanel(false)}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '8px'
+            }}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
+          <nav style={{ display: 'flex', flexDirection: 'column' }}>
+            <Link href="/" onClick={() => setShowBurgerPanel(false)} style={{
+              display: 'block',
+              padding: '16px 20px',
+              color: '#000',
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '500',
+              borderBottom: '1px solid #f0f0f0',
+              transition: 'background 0.2s'
+            }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+              Home
+            </Link>
+            <Link href="/buy" onClick={() => setShowBurgerPanel(false)} style={{
+              display: 'block',
+              padding: '16px 20px',
+              color: '#000',
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '500',
+              borderBottom: '1px solid #f0f0f0',
+              transition: 'background 0.2s'
+            }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+              Buy
+            </Link>
+            <Link href="/rent" onClick={() => setShowBurgerPanel(false)} style={{
+              display: 'block',
+              padding: '16px 20px',
+              color: '#000',
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '500',
+              borderBottom: '1px solid #f0f0f0',
+              transition: 'background 0.2s'
+            }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+              Rent
+            </Link>
+            <Link href="/sell" onClick={() => setShowBurgerPanel(false)} style={{
+              display: 'block',
+              padding: '16px 20px',
+              color: '#000',
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '500',
+              borderBottom: '1px solid #f0f0f0',
+              transition: 'background 0.2s'
+            }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+              Sell
+            </Link>
+            <Link href="/agents" onClick={() => setShowBurgerPanel(false)} style={{
+              display: 'block',
+              padding: '16px 20px',
+              color: '#000',
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '500',
+              borderBottom: '1px solid #f0f0f0',
+              transition: 'background 0.2s'
+            }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+              Find Agents
+            </Link>
+            <Link href="/reviews" onClick={() => setShowBurgerPanel(false)} style={{
+              display: 'block',
+              padding: '16px 20px',
+              color: '#000',
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '500',
+              borderBottom: '1px solid #f0f0f0',
+              transition: 'background 0.2s'
+            }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+              Reviews
+            </Link>
+            <Link href="/appraisal" onClick={() => setShowBurgerPanel(false)} style={{
+              display: 'block',
+              padding: '16px 20px',
+              color: '#000',
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '500',
+              borderBottom: '1px solid #f0f0f0',
+              transition: 'background 0.2s'
+            }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+              Free Appraisal
+            </Link>
+            <Link href="/suburbs" onClick={() => setShowBurgerPanel(false)} style={{
+              display: 'block',
+              padding: '16px 20px',
+              color: '#000',
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '500',
+              borderBottom: '1px solid #f0f0f0',
+              transition: 'background 0.2s'
+            }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+              Suburb Guides
+            </Link>
+            <Link href="/schools-guide" onClick={() => setShowBurgerPanel(false)} style={{
+              display: 'block',
+              padding: '16px 20px',
+              color: '#000',
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '500',
+              borderBottom: '1px solid #f0f0f0',
+              transition: 'background 0.2s'
+            }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+              School Guides
+            </Link>
+            <Link href="/calculators" onClick={() => setShowBurgerPanel(false)} style={{
+              display: 'block',
+              padding: '16px 20px',
+              color: '#000',
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '500',
+              borderBottom: '1px solid #f0f0f0',
+              transition: 'background 0.2s'
+            }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+              Calculators
+            </Link>
+            <Link href="/contact" onClick={() => setShowBurgerPanel(false)} style={{
+              display: 'block',
+              padding: '16px 20px',
+              color: '#000',
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '500',
+              borderBottom: '1px solid #f0f0f0',
+              transition: 'background 0.2s'
+            }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+              Contact
+            </Link>
+            <Link href="/help" onClick={() => setShowBurgerPanel(false)} style={{
+              display: 'block',
+              padding: '16px 20px',
+              color: '#000',
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '500',
+              transition: 'background 0.2s'
+            }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+              Help & Support
+            </Link>
+          </nav>
         </div>
       </div>
 

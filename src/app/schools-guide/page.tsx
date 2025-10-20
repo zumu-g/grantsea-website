@@ -713,7 +713,7 @@ function SchoolsGuidePage() {
                   {/* School Image */}
                   <div style={{
                     width: '100%',
-                    height: '240px',
+                    height: '320px',
                     backgroundColor: '#f8f8f8',
                     position: 'relative',
                     overflow: 'hidden'
@@ -745,7 +745,10 @@ function SchoolsGuidePage() {
 
                   {/* Content */}
                   <div style={{
-                    padding: '24px'
+                    padding: '32px',
+                    minHeight: '280px',
+                    display: 'flex',
+                    flexDirection: 'column'
                   }}>
                     {/* School Name and Location */}
                     <div style={{
@@ -779,14 +782,15 @@ function SchoolsGuidePage() {
 
                     {/* Description */}
                     <p style={{
-                      fontSize: '14px',
+                      fontSize: '15px',
                       color: '#666',
-                      marginBottom: '16px',
-                      lineHeight: '1.5',
+                      marginBottom: '20px',
+                      lineHeight: '1.6',
                       display: '-webkit-box',
-                      WebkitLineClamp: 3,
+                      WebkitLineClamp: 4,
                       WebkitBoxOrient: 'vertical',
-                      overflow: 'hidden'
+                      overflow: 'hidden',
+                      flex: 1
                     }}>
                       {school.description}
                     </p>
@@ -796,10 +800,10 @@ function SchoolsGuidePage() {
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
-                      marginBottom: '16px',
-                      padding: '12px',
+                      marginBottom: '20px',
+                      padding: '16px',
                       backgroundColor: '#f8f8f8',
-                      borderRadius: '8px'
+                      borderRadius: '12px'
                     }}>
                       {school.enrolments && school.enrolments !== 'N/A' && (
                         <div style={{ textAlign: 'center' }}>
@@ -842,7 +846,7 @@ function SchoolsGuidePage() {
                       display: 'flex',
                       gap: '8px',
                       flexWrap: 'wrap',
-                      marginBottom: '20px'
+                      marginBottom: '24px'
                     }}>
                       {school.features.slice(0, 3).map((feature, fIdx) => (
                         <span
@@ -873,12 +877,13 @@ function SchoolsGuidePage() {
 
                     {/* View More Button */}
                     <div style={{
-                      paddingTop: '16px',
+                      paddingTop: '20px',
                       borderTop: '1px solid #f0f0f0',
-                      textAlign: 'center'
+                      textAlign: 'center',
+                      marginTop: 'auto'
                     }}>
                       <span style={{
-                        fontSize: '14px',
+                        fontSize: '15px',
                         color: '#002b7f',
                         fontWeight: '600'
                       }}>

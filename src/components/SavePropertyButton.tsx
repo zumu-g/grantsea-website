@@ -54,8 +54,7 @@ export default function SavePropertyButton({ property, className = '', showLabel
         alignItems: 'center',
         gap: '8px',
         padding: '10px',
-        backgroundColor: isSaved ? '#ff0000' : 'rgba(255, 255, 255, 0.95)', // Red when saved
-        backdropFilter: 'blur(10px)',
+        backgroundColor: isSaved ? '#ff0000' : 'rgba(255, 255, 255, 0.98)', // Red when saved
         border: `1px solid ${isSaved ? '#ff0000' : '#F0F0F0'}`,
         borderRadius: '50%',
         cursor: 'pointer',
@@ -90,7 +89,7 @@ export default function SavePropertyButton({ property, className = '', showLabel
       }}
       onMouseLeave={(e) => {
         if (!isSaved) {
-          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
           e.currentTarget.style.borderColor = '#F0F0F0';
           const svg = e.currentTarget.querySelector('svg') as SVGElement;
           if (svg) {

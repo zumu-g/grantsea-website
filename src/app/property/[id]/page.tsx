@@ -133,6 +133,7 @@ export default function PropertyDetailPage() {
   const [showVirtualTour, setShowVirtualTour] = useState(false);
   const [showFloorPlan, setShowFloorPlan] = useState(false);
   const [showDocuments, setShowDocuments] = useState(false);
+  const [showInspectionRequest, setShowInspectionRequest] = useState(false);
   const [enquirySent, setEnquirySent] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [enquiryForm, setEnquiryForm] = useState({
@@ -579,6 +580,219 @@ export default function PropertyDetailPage() {
                 📄 Statement of Information (SOI) includes property details, comparable sales, and vendor information as required by Victorian law.
               </p>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Inspection Request Modal */}
+      {showInspectionRequest && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.4)',
+          zIndex: 3000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 'max(2rem, 3.33vw)'
+        }}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) {
+            setShowInspectionRequest(false);
+          }
+        }}
+        >
+          <div style={{
+            backgroundColor: '#fff',
+            borderRadius: '2px',
+            width: '100%',
+            maxWidth: '500px',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+            border: '1px solid #e8e8e8'
+          }}>
+            {/* Header */}
+            <div style={{
+              padding: 'max(2rem, 3.33vw)',
+              borderBottom: '1px solid #e8e8e8',
+              display: 'flex',
+              alignItems: 'flex-start',
+              justifyContent: 'space-between'
+            }}>
+              <div>
+                <h2 style={{
+                  margin: 0,
+                  fontSize: '24px',
+                  fontWeight: '400',
+                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
+                  color: '#000',
+                  letterSpacing: '-0.01em',
+                  lineHeight: '1.2'
+                }}>
+                  Request Inspection
+                </h2>
+                <p style={{
+                  margin: '8px 0 0 0',
+                  fontSize: '16px',
+                  color: '#666',
+                  fontWeight: '300',
+                  lineHeight: '1.4'
+                }}>
+                  Schedule a viewing for {property?.address}
+                </p>
+              </div>
+              <button
+                onClick={() => setShowInspectionRequest(false)}
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#666',
+                  transition: 'all 0.2s ease',
+                  borderRadius: '2px'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#f5f5f5';
+                  e.currentTarget.style.color = '#000';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.color = '#666';
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+
+            {/* Content */}
+            <div style={{ padding: 'max(2rem, 3.33vw)' }}>
+              <p style={{
+                fontSize: '16px',
+                color: '#333',
+                marginBottom: '24px',
+                lineHeight: '1.5'
+              }}>
+                {property?.inspectionTimes && property.inspectionTimes.length > 0 ? (
+                  <>You can attend one of our scheduled open inspections or request a private viewing at a time that suits you.</>
+                ) : (
+                  <>No open inspections are currently scheduled. Please contact our agent to arrange a private viewing.</>
+                )}
+              </p>
+
+              {/* Scheduled Inspections */}
+              {property?.inspectionTimes && property.inspectionTimes.length > 0 && (
+                <div style={{ marginBottom: '32px' }}>
+                  <h3 style={{
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    marginBottom: '16px',
+                    color: '#000'
+                  }}>
+                    Scheduled Open Inspections
+                  </h3>
+                  {property.inspectionTimes.map((inspection) => (
+                    <div key={inspection.id} style={{
+                      padding: '16px',
+                      backgroundColor: '#f8f8f8',
+                      borderRadius: '4px',
+                      marginBottom: '12px',
+                      border: '1px solid #e8e8e8'
+                    }}>
+                      <div style={{
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        color: '#000',
+                        marginBottom: '4px'
+                      }}>
+                        {new Date(inspection.startTime).toLocaleDateString('en-AU', {
+                          weekday: 'long',
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </div>
+                      <div style={{ fontSize: '14px', color: '#666' }}>
+                        {new Date(inspection.startTime).toLocaleTimeString('en-AU', {
+                          hour: 'numeric',
+                          minute: '2-digit'
+                        })} - {new Date(inspection.endTime).toLocaleTimeString('en-AU', {
+                          hour: 'numeric',
+                          minute: '2-digit'
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Contact Agent Buttons */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {property?.agent?.phone && (
+                  <a
+                    href={`tel:${property.agent.phone}`}
+                    style={{
+                      display: 'block',
+                      padding: '16px',
+                      backgroundColor: '#000',
+                      color: '#fff',
+                      textDecoration: 'none',
+                      borderRadius: '4px',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      textAlign: 'center',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#333';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#000';
+                    }}
+                  >
+                    Call {property.agent.name || 'Agent'}: {property.agent.phone}
+                  </a>
+                )}
+                
+                {property?.agent?.email && (
+                  <a
+                    href={`mailto:${property.agent.email}?subject=Inspection Request - ${property.address}&body=Hi, I would like to schedule an inspection for ${property.address}. Please let me know your available times.`}
+                    style={{
+                      display: 'block',
+                      padding: '16px',
+                      backgroundColor: 'white',
+                      color: '#000',
+                      textDecoration: 'none',
+                      border: '2px solid #000',
+                      borderRadius: '4px',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      textAlign: 'center',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#000';
+                      e.currentTarget.style.color = '#fff';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'white';
+                      e.currentTarget.style.color = '#000';
+                    }}
+                  >
+                    Email {property.agent.name || 'Agent'}
+                  </a>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -1915,12 +2129,27 @@ export default function PropertyDetailPage() {
               top: '20px'
             }}>
               {/* Agent Photo Box */}
-              <div style={{
-                backgroundColor: '#fff',
-                border: '1px solid #e5e5e5',
-                marginBottom: '24px',
-                overflow: 'hidden'
-              }}>
+              <Link 
+                href={`/agent/${property.agent?.id || property.agent?.name?.toLowerCase().replace(/\s+/g, '-') || 'grant'}`}
+                style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+              >
+                <div style={{
+                  backgroundColor: '#fff',
+                  border: '1px solid #e5e5e5',
+                  marginBottom: '24px',
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+                >
                 {property.agent?.photo && !property.agent.photo.includes('default-agent') && property.agent.photo.startsWith('http') ? (
                   <>
                     <img
@@ -2009,7 +2238,8 @@ export default function PropertyDetailPage() {
                     </div>
                   </div>
                 )}
-              </div>
+                </div>
+              </Link>
 
               {/* Agent Contact Card - ON RUNNING STYLE */}
               <div style={{
@@ -2145,6 +2375,7 @@ export default function PropertyDetailPage() {
 
               {/* Request Inspection Button */}
               <button
+                onClick={() => setShowInspectionRequest(true)}
                 style={{
                   width: '100%',
                   padding: '14px',
@@ -2155,7 +2386,16 @@ export default function PropertyDetailPage() {
                   fontSize: '16px',
                   fontWeight: '600',
                   cursor: 'pointer',
-                  marginBottom: '12px'
+                  marginBottom: '12px',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#000';
+                  e.currentTarget.style.color = '#fff';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'white';
+                  e.currentTarget.style.color = '#000';
                 }}
               >
                 Request Inspection

@@ -83,7 +83,7 @@ export default function AgentsPageOncom() {
   }, []);
 
   return (
-    <>
+    <React.Fragment>
       <OncomHeader />
       
       <main style={{ 
@@ -92,7 +92,7 @@ export default function AgentsPageOncom() {
         backgroundColor: '#fff' 
       }}>
         
-        {/* Hero Section - Enhanced with Filtering */}
+        {/* Hero Section */}
         <section style={{
           paddingTop: isMobile ? '40px' : '80px',
           paddingBottom: isMobile ? '40px' : '60px',
@@ -125,7 +125,6 @@ export default function AgentsPageOncom() {
               Local expertise, proven results
             </p>
           </div>
-
         </section>
 
         {/* Agents Grid - Ultra Minimal */}
@@ -273,12 +272,11 @@ export default function AgentsPageOncom() {
                   </div>
                 </div>
               </Link>
-              </div>
             ))}
           </div>
         </section>
 
       </main>
-    </>
+    </React.Fragment>
   );
 }

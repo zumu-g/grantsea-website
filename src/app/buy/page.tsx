@@ -44,6 +44,14 @@ export default function BuyPageOncom() {
     type: 'sale' 
   });
 
+  // Get unique suburbs from properties
+  const getUniqueSuburbs = () => {
+    const suburbs = [...new Set(properties.map(property => 
+      property.suburb || property.address?.split(',')[1]?.trim()
+    ).filter(Boolean))];
+    return suburbs.sort();
+  };
+
   useEffect(() => {
     const checkDevice = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -424,6 +432,106 @@ export default function BuyPageOncom() {
                 )}
               </div>
 
+              {/* Suburbs */}
+              <div style={{ position: 'relative' }}>
+                <button
+                  onClick={() => setShowDropdown(showDropdown === 'suburbs' ? '' : 'suburbs')}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    padding: 0,
+                    fontSize: '14px',
+                    color: '#000',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    borderBottom: '1px solid transparent'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderBottom = '1px solid #000';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderBottom = '1px solid transparent';
+                  }}
+                >
+                  {filters.suburb || 'All suburbs'}
+                </button>
+                {showDropdown === 'suburbs' && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    marginTop: '16px',
+                    backgroundColor: '#fff',
+                    border: '1px solid #e5e5e5',
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+                    minWidth: '200px',
+                    maxHeight: '300px',
+                    overflowY: 'auto',
+                    zIndex: 101,
+                    padding: '16px'
+                  }}>
+                    <div style={{ 
+                      fontWeight: '600', 
+                      fontSize: '14px',
+                      marginBottom: '16px' 
+                    }}>
+                      Suburb
+                    </div>
+                    <label
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        padding: '8px 0',
+                        cursor: 'pointer',
+                        fontSize: '14px'
+                      }}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={filters.suburb === ''}
+                        onChange={() => {
+                          setFilters({ ...filters, suburb: '' });
+                        }}
+                        style={{
+                          width: '18px',
+                          height: '18px',
+                          cursor: 'pointer'
+                        }}
+                      />
+                      All suburbs
+                    </label>
+                    {getUniqueSuburbs().map(suburb => (
+                      <label
+                        key={suburb}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '12px',
+                          padding: '8px 0',
+                          cursor: 'pointer',
+                          fontSize: '14px'
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={filters.suburb === suburb}
+                          onChange={() => {
+                            setFilters({ ...filters, suburb: filters.suburb === suburb ? '' : suburb });
+                          }}
+                          style={{
+                            width: '18px',
+                            height: '18px',
+                            cursor: 'pointer'
+                          }}
+                        />
+                        {suburb}
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               {/* Price */}
               <div style={{ position: 'relative' }}>
                 <button
@@ -663,6 +771,27 @@ export default function BuyPageOncom() {
                   <option value="1">1 Space</option>
                   <option value="2">2 Spaces</option>
                   <option value="3">3+ Spaces</option>
+                </select>
+
+                {/* Suburb Dropdown */}
+                <select
+                  value={filters.suburb}
+                  onChange={(e) => setFilters({ ...filters, suburb: e.target.value })}
+                  style={{
+                    padding: '12px 20px',
+                    border: '1px solid #F0F0F0',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    outline: 'none',
+                    backgroundColor: '#FFFFFF',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <option value="">All Suburbs</option>
+                  {getUniqueSuburbs().map(suburb => (
+                    <option key={suburb} value={suburb}>{suburb}</option>
+                  ))}
                 </select>
 
                 {/* Land Size */}

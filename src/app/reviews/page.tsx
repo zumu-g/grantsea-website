@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import OncomHeader from '@/components/OncomHeader';
 import OncomFooter from '@/components/OncomFooter';
 import AIChatWidget from '@/components/AIChatWidget';
@@ -89,29 +89,48 @@ export default function ReviewsPage() {
     return () => window.removeEventListener('resize', checkDevice);
   }, []);
 
+  // Add CSS keyframes for animations
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
+  }, []);
+
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#fff' }}>
       <OncomHeader />
 
-      {/* Hero - Minimal & Warm */}
+      {/* Hero - Modern & Minimal */}
       <section style={{
-        paddingTop: '180px',
-        paddingBottom: '120px',
+        paddingTop: '90px',
+        paddingBottom: '60px',
         textAlign: 'center',
         backgroundColor: '#fff'
       }}>
         <div style={{
-          maxWidth: '800px',
+          maxWidth: '400px',
           margin: '0 auto',
           padding: '0 20px'
         }}>
           {/* Page Heading */}
           <h1 style={{
-            fontSize: isMobile ? '48px' : isTablet ? '64px' : '80px',
+            fontSize: isMobile ? '24px' : isTablet ? '32px' : '40px',
             fontWeight: '300',
             letterSpacing: '-0.02em',
             lineHeight: '1.1',
-            margin: '0 0 64px 0',
+            margin: '0 0 32px 0',
             color: '#000'
           }}>
             Customer reviews
@@ -119,37 +138,46 @@ export default function ReviewsPage() {
 
           {/* Large Rating Display */}
           <div style={{
-            fontSize: '120px',
+            fontSize: '60px',
             fontWeight: '200',
             lineHeight: '1',
-            marginBottom: '24px',
-            letterSpacing: '-4px'
+            marginBottom: '12px',
+            letterSpacing: '-2px',
+            background: 'linear-gradient(135deg, #000, #333)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text'
           }}>
             4.9
           </div>
 
-          {/* Stars */}
+          {/* Modern Stars */}
           <div style={{
             display: 'flex',
             justifyContent: 'center',
-            gap: '8px',
-            marginBottom: '16px'
+            gap: '4px',
+            marginBottom: '8px'
           }}>
             {[1, 2, 3, 4, 5].map((star) => (
-              <div
+              <svg
                 key={star}
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill={star < 5 ? '#000' : '#e0e0e0'}
                 style={{
-                  width: '24px',
-                  height: '24px',
-                  backgroundColor: star < 5 ? '#000' : '#e0e0e0',
-                  borderRadius: '50%'
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  transform: 'scale(1)',
+                  filter: star < 5 ? 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))' : 'none'
                 }}
-              />
+              >
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
             ))}
           </div>
 
           <p style={{
-            fontSize: '18px',
+            fontSize: '14px',
             color: '#666',
             fontWeight: '400'
           }}>
@@ -158,36 +186,51 @@ export default function ReviewsPage() {
         </div>
       </section>
 
-      {/* Reviews Grid - Clean Cards */}
+      {/* Reviews Grid - Modern Cards */}
       <section style={{
-        padding: '0 max(2rem, 3.33vw) 120px',
-        maxWidth: '1440px',
+        padding: '0 max(2rem, 3.33vw) 60px',
+        maxWidth: '720px',
         margin: '0 auto'
       }}>
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))',
-          gap: '48px'
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '24px'
         }}>
-          {reviews.map((review) => (
+          {reviews.slice(0, 3).map((review, index) => (
             <div
               key={review.id}
               style={{
                 position: 'relative',
-                paddingBottom: '32px',
-                borderBottom: '1px solid #f0f0f0',
+                padding: '24px',
+                backgroundColor: hoveredReview === review.id ? '#fafafa' : '#fff',
+                borderRadius: '12px',
+                border: '1px solid #f0f0f0',
                 cursor: 'pointer',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                transform: hoveredReview === review.id ? 'translateY(-2px)' : 'translateY(0)',
+                boxShadow: hoveredReview === review.id 
+                  ? '0 8px 25px rgba(0,0,0,0.08)' 
+                  : '0 1px 3px rgba(0,0,0,0.02)',
+                animationDelay: `${index * 0.1}s`,
+                opacity: 1,
+                animation: 'fadeInUp 0.6s ease-out forwards'
               }}
               onMouseEnter={() => setHoveredReview(review.id)}
               onMouseLeave={() => setHoveredReview(null)}
             >
-              {/* Quote Mark */}
+              {/* Modern Quote Icon */}
               <div style={{
-                fontSize: '64px',
-                lineHeight: '0.5',
-                color: '#f0f0f0',
-                marginBottom: '24px',
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                backgroundColor: '#f5f5f5',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '16px',
+                fontSize: '14px',
+                color: '#666',
                 fontFamily: 'Georgia, serif'
               }}>
                 "
@@ -195,12 +238,11 @@ export default function ReviewsPage() {
 
               {/* Review Text */}
               <p style={{
-                fontSize: '18px',
-                lineHeight: '1.7',
+                fontSize: '16px',
+                lineHeight: '1.6',
                 color: '#000',
-                marginBottom: '32px',
-                fontWeight: '400',
-                minHeight: '80px'
+                marginBottom: '20px',
+                fontWeight: '400'
               }}>
                 {review.text}
               </p>
@@ -209,19 +251,19 @@ export default function ReviewsPage() {
               <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                alignItems: 'flex-end'
+                alignItems: 'center'
               }}>
                 <div>
                   <div style={{
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    marginBottom: '4px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    marginBottom: '2px',
                     color: '#000'
                   }}>
                     {review.author}
                   </div>
                   <div style={{
-                    fontSize: '14px',
+                    fontSize: '12px',
                     color: '#999'
                   }}>
                     {review.suburb} • {review.date}
@@ -232,10 +274,12 @@ export default function ReviewsPage() {
                   <Link
                     href={`/agents#${review.agentName.toLowerCase().replace(' ', '-')}`}
                     style={{
-                      fontSize: '14px',
-                      color: hoveredReview === review.id ? '#000' : '#999',
+                      fontSize: '12px',
+                      color: '#666',
                       textDecoration: 'none',
-                      transition: 'color 0.3s ease'
+                      transition: 'all 0.3s ease',
+                      opacity: hoveredReview === review.id ? 1 : 0.7,
+                      transform: hoveredReview === review.id ? 'translateX(2px)' : 'translateX(0)'
                     }}
                   >
                     with {review.agentName} →
@@ -246,232 +290,253 @@ export default function ReviewsPage() {
           ))}
         </div>
 
-        {/* View More - Minimal Button */}
+        {/* View More - Modern Button */}
         <div style={{
           textAlign: 'center',
-          marginTop: '80px'
+          marginTop: '40px'
         }}>
           <button
             style={{
-              fontSize: '16px',
+              fontSize: '14px',
               fontWeight: '500',
-              color: '#000',
+              color: '#666',
               background: 'none',
-              border: 'none',
-              borderBottom: '1px solid #000',
-              padding: '8px 0',
+              border: '1px solid #e0e0e0',
+              borderRadius: '24px',
+              padding: '8px 16px',
               cursor: 'pointer',
-              transition: 'all 0.3s ease'
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderBottomWidth = '2px';
+              e.currentTarget.style.backgroundColor = '#000';
+              e.currentTarget.style.color = '#fff';
+              e.currentTarget.style.borderColor = '#000';
+              e.currentTarget.style.transform = 'translateY(-1px)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderBottomWidth = '1px';
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = '#666';
+              e.currentTarget.style.borderColor = '#e0e0e0';
+              e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
-            View all 1,247 reviews
+            View all reviews
           </button>
         </div>
       </section>
 
-      {/* Share Your Experience - Warm CTA */}
+      {/* Share Your Experience - Modern CTA */}
       <section style={{
         backgroundColor: '#fafafa',
-        padding: '120px max(2rem, 3.33vw)',
+        padding: '60px max(2rem, 3.33vw)',
         borderTop: '1px solid #f0f0f0'
       }}>
         <div style={{
-          maxWidth: '600px',
+          maxWidth: '400px',
           margin: '0 auto',
           textAlign: 'center'
         }}>
           <h2 style={{
-            fontSize: '40px',
+            fontSize: '24px',
             fontWeight: '300',
-            marginBottom: '24px',
-            letterSpacing: '-1px'
+            marginBottom: '12px',
+            letterSpacing: '-0.5px'
           }}>
             Share your experience
           </h2>
           <p style={{
-            fontSize: '18px',
+            fontSize: '14px',
             color: '#666',
-            marginBottom: '48px',
-            lineHeight: '1.6'
+            marginBottom: '24px',
+            lineHeight: '1.5'
           }}>
-            Your feedback helps us maintain our exceptional service and assists others in making informed decisions.
+            Help others by sharing your experience with us.
           </p>
 
-          {/* Review Platform Links - Minimal */}
+          {/* Review Platform Links - Modern Pills */}
           <div style={{
             display: 'flex',
-            gap: '32px',
-            justifyContent: 'center'
+            gap: '12px',
+            justifyContent: 'center',
+            flexWrap: 'wrap'
           }}>
             <a
               href="#"
               style={{
-                fontSize: '16px',
+                fontSize: '14px',
                 color: '#000',
                 textDecoration: 'none',
-                padding: '16px 32px',
-                border: '1px solid #000',
-                borderRadius: '2px',
-                transition: 'all 0.3s ease',
-                display: 'inline-block'
+                padding: '8px 16px',
+                border: '1px solid #e0e0e0',
+                borderRadius: '20px',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                display: 'inline-block',
+                backgroundColor: '#fff'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = '#000';
                 e.currentTarget.style.color = '#fff';
+                e.currentTarget.style.transform = 'translateY(-1px)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
+                e.currentTarget.style.backgroundColor = '#fff';
                 e.currentTarget.style.color = '#000';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'none';
               }}
             >
-              Review on Google
+              Google
             </a>
             <a
               href="#"
               style={{
-                fontSize: '16px',
+                fontSize: '14px',
                 color: '#000',
                 textDecoration: 'none',
-                padding: '16px 32px',
-                border: '1px solid #000',
-                borderRadius: '2px',
-                transition: 'all 0.3s ease',
-                display: 'inline-block'
+                padding: '8px 16px',
+                border: '1px solid #e0e0e0',
+                borderRadius: '20px',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                display: 'inline-block',
+                backgroundColor: '#fff'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = '#000';
                 e.currentTarget.style.color = '#fff';
+                e.currentTarget.style.transform = 'translateY(-1px)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
+                e.currentTarget.style.backgroundColor = '#fff';
                 e.currentTarget.style.color = '#000';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'none';
               }}
             >
-              Review on Facebook
+              Facebook
             </a>
           </div>
         </div>
       </section>
 
-      {/* Testimonial Highlight - Large Quote */}
+      {/* Featured Testimonial - Compact */}
       <section style={{
-        padding: '120px max(2rem, 3.33vw)',
-        backgroundColor: '#fff',
-        borderTop: '1px solid #f0f0f0'
+        padding: '60px max(2rem, 3.33vw)',
+        backgroundColor: '#fff'
       }}>
         <div style={{
-          maxWidth: '900px',
+          maxWidth: '450px',
           margin: '0 auto',
           textAlign: 'center'
         }}>
           <div style={{
-            fontSize: '32px',
+            fontSize: '18px',
             fontWeight: '300',
-            lineHeight: '1.5',
-            marginBottom: '48px',
+            lineHeight: '1.4',
+            marginBottom: '20px',
             fontStyle: 'italic',
-            color: '#000'
+            color: '#333'
           }}>
-            "Grant's Estate Agents made what could have been a stressful process absolutely seamless. Their local knowledge and genuine care for their clients sets them apart."
+            "Grant's made our property journey seamless. Their expertise and care sets them apart."
           </div>
           <div style={{
-            fontSize: '18px',
-            fontWeight: '600',
-            marginBottom: '8px'
+            fontSize: '14px',
+            fontWeight: '500',
+            marginBottom: '4px'
           }}>
             The Harrison Family
           </div>
           <div style={{
-            fontSize: '16px',
+            fontSize: '12px',
             color: '#999'
           }}>
-            Sold and bought in Berwick, 2024
+            Berwick, 2024
           </div>
         </div>
       </section>
 
-      {/* Ready to Experience - Simple CTA */}
+      {/* Ready to Experience - Minimal CTA */}
       <section style={{
-        padding: '120px max(2rem, 3.33vw)',
+        padding: '60px max(2rem, 3.33vw)',
         backgroundColor: '#000',
         color: '#fff',
         textAlign: 'center'
       }}>
         <div style={{
-          maxWidth: '600px',
+          maxWidth: '400px',
           margin: '0 auto'
         }}>
           <h2 style={{
-            fontSize: '48px',
+            fontSize: '24px',
             fontWeight: '300',
-            marginBottom: '24px',
-            letterSpacing: '-1px'
+            marginBottom: '12px',
+            letterSpacing: '-0.5px'
           }}>
             Ready to work with us?
           </h2>
           <p style={{
-            fontSize: '18px',
-            marginBottom: '48px',
+            fontSize: '14px',
+            marginBottom: '24px',
             opacity: '0.8',
-            lineHeight: '1.6'
+            lineHeight: '1.5'
           }}>
-            Join thousands of satisfied clients who've found their perfect property with Grant's.
+            Join thousands of satisfied clients.
           </p>
 
           <div style={{
             display: 'flex',
-            gap: '24px',
-            justifyContent: 'center'
+            gap: '12px',
+            justifyContent: 'center',
+            flexWrap: 'wrap'
           }}>
             <Link
               href="/appraisal"
               style={{
-                padding: '16px 40px',
+                padding: '10px 20px',
                 backgroundColor: '#fff',
                 color: '#000',
                 textDecoration: 'none',
-                fontSize: '16px',
+                fontSize: '14px',
                 fontWeight: '500',
-                borderRadius: '2px',
-                transition: 'all 0.3s ease',
+                borderRadius: '20px',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 display: 'inline-block'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = '#f0f0f0';
+                e.currentTarget.style.transform = 'translateY(-1px)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = '#fff';
+                e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
-              Get an appraisal
+              Get appraisal
             </Link>
             <Link
               href="/contact"
               style={{
-                padding: '16px 40px',
+                padding: '10px 20px',
                 backgroundColor: 'transparent',
                 color: '#fff',
                 border: '1px solid #fff',
                 textDecoration: 'none',
-                fontSize: '16px',
+                fontSize: '14px',
                 fontWeight: '500',
-                borderRadius: '2px',
-                transition: 'all 0.3s ease',
+                borderRadius: '20px',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 display: 'inline-block'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = '#fff';
                 e.currentTarget.style.color = '#000';
+                e.currentTarget.style.transform = 'translateY(-1px)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'transparent';
                 e.currentTarget.style.color = '#fff';
+                e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
               Contact us

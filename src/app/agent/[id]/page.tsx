@@ -210,11 +210,11 @@ export default function AgentDetailPage() {
               flexDirection: isMobile ? 'column' : 'row',
               textAlign: isMobile ? 'center' : 'left'
             }}>
-              {/* Agent Photo */}
+              {/* Agent Photo - Full Width */}
               <div style={{
-                width: isMobile ? '160px' : '220px',
-                height: isMobile ? '160px' : '220px',
-                borderRadius: '50%',
+                width: isMobile ? '200px' : '280px',
+                height: isMobile ? '120px' : '160px',
+                borderRadius: '8px',
                 overflow: 'hidden',
                 backgroundColor: '#fff',
                 border: '4px solid #fff',
@@ -223,8 +223,8 @@ export default function AgentDetailPage() {
                 <Image
                   src={agent.photo}
                   alt={agent.name}
-                  width={220}
-                  height={220}
+                  width={280}
+                  height={160}
                   style={{
                     width: '100%',
                     height: '100%',

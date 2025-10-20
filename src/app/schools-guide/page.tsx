@@ -789,34 +789,123 @@ function SchoolsGuidePage() {
           </div>
         </section>
 
-        {/* Enrollment Information */}
+        {/* Enrollment Information - ON.com Layout Style */}
         <section style={{
           backgroundColor: '#f8f8f8',
-          padding: isMobile ? '60px 20px' : '80px 40px'
+          padding: isMobile ? '80px 20px' : '120px 40px'
         }}>
           <div style={{
             maxWidth: '1200px',
-            margin: '0 auto',
-            textAlign: 'center'
+            margin: '0 auto'
           }}>
-            <h2 style={{
-              fontSize: isMobile ? '32px' : '40px',
-              fontWeight: '700',
-              marginBottom: '24px',
-              color: '#000'
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+              gap: isMobile ? '40px' : '80px',
+              alignItems: 'center',
+              marginBottom: '80px'
             }}>
-              School Enrollment Information
-            </h2>
-            <p style={{
-              fontSize: '18px',
-              color: '#666',
-              marginBottom: '48px',
-              maxWidth: '800px',
-              margin: '0 auto 48px auto',
-              lineHeight: '1.6'
-            }}>
-              Important enrollment dates and requirements for schools in Casey and Cardinia Shires.
-            </p>
+              {/* Left Content */}
+              <div>
+                <h2 style={{
+                  fontSize: isMobile ? '36px' : '48px',
+                  fontWeight: '300',
+                  lineHeight: '1.1',
+                  marginBottom: '32px',
+                  color: '#000',
+                  letterSpacing: '-0.02em'
+                }}>
+                  School Enrollment Information
+                </h2>
+                <p style={{
+                  fontSize: '18px',
+                  lineHeight: '1.6',
+                  color: '#666',
+                  marginBottom: '32px'
+                }}>
+                  Important enrollment dates and requirements for schools in Casey and Cardinia Shires. Understanding the enrollment process is crucial for securing your child's place in their preferred school.
+                </p>
+                <div style={{
+                  marginBottom: '40px'
+                }}>
+                  <h3 style={{
+                    fontSize: '20px',
+                    fontWeight: '600',
+                    marginBottom: '16px',
+                    color: '#000'
+                  }}>
+                    Key Enrollment Dates
+                  </h3>
+                  <ul style={{
+                    listStyle: 'none',
+                    padding: 0,
+                    margin: 0
+                  }}>
+                    {[
+                      'Kindergarten: June 30 for following year',
+                      'Primary School: Term 2 for following year',
+                      'Secondary School: May-August enrollment period',
+                      'Private Schools: Often 12+ months in advance'
+                    ].map((item, idx) => (
+                      <li key={idx} style={{
+                        fontSize: '16px',
+                        color: '#666',
+                        marginBottom: '12px',
+                        paddingLeft: '20px',
+                        position: 'relative'
+                      }}>
+                        <span style={{
+                          position: 'absolute',
+                          left: '0',
+                          color: '#002b7f',
+                          fontWeight: '600'
+                        }}>•</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Right Visual */}
+              <div style={{
+                position: 'relative',
+                aspectRatio: '4/3',
+                backgroundColor: '#e8f4f8',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <div style={{
+                  textAlign: 'center',
+                  padding: '40px'
+                }}>
+                  <div style={{
+                    fontSize: '64px',
+                    marginBottom: '24px'
+                  }}>📚</div>
+                  <h4 style={{
+                    fontSize: '24px',
+                    fontWeight: '600',
+                    color: '#002b7f',
+                    marginBottom: '16px'
+                  }}>
+                    Plan Ahead
+                  </h4>
+                  <p style={{
+                    fontSize: '16px',
+                    color: '#004080',
+                    lineHeight: '1.5'
+                  }}>
+                    Early enrollment ensures your child secures their place in your preferred school
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Enhanced Cards Grid */}
 
             <div style={{
               display: 'grid',
@@ -920,6 +1009,7 @@ function SchoolsGuidePage() {
             </div>
           </div>
         </section>
+
 
         {/* Property Search CTA */}
         <section style={{

@@ -8,6 +8,8 @@ function SchoolsGuidePage() {
   const [selectedType, setSelectedType] = React.useState('all');
   const [selectedSuburb, setSelectedSuburb] = React.useState('all');
   const [selectedLevels, setSelectedLevels] = React.useState('all');
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [sortBy, setSortBy] = React.useState('name');
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
@@ -318,7 +320,27 @@ function SchoolsGuidePage() {
                         (selectedLevels === 'primary' && (school.type === 'primary' || school.type === 'combined')) ||
                         (selectedLevels === 'secondary' && (school.type === 'secondary' || school.type === 'combined'));
     const suburbMatch = selectedSuburb === 'all' || school.suburb === selectedSuburb;
-    return typeMatch && levelsMatch && suburbMatch;
+    const searchMatch = searchQuery === '' || 
+                       school.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                       school.suburb.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                       school.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                       school.features.some(feature => feature.toLowerCase().includes(searchQuery.toLowerCase()));
+    return typeMatch && levelsMatch && suburbMatch && searchMatch;
+  }).sort((a, b) => {
+    switch (sortBy) {
+      case 'name':
+        return a.name.localeCompare(b.name);
+      case 'suburb':
+        return a.suburb.localeCompare(b.suburb);
+      case 'type':
+        return a.type.localeCompare(b.type);
+      case 'enrolments':
+        const aEnrolments = parseInt(a.enrolments || '0');
+        const bEnrolments = parseInt(b.enrolments || '0');
+        return bEnrolments - aEnrolments;
+      default:
+        return 0;
+    }
   });
 
   const getTypeColor = (type: string) => {
@@ -452,7 +474,7 @@ function SchoolsGuidePage() {
           </div>
         </section>
 
-        {/* Filter Section */}
+        {/* Search and Filter Section */}
         <section style={{
           padding: isMobile ? '40px 20px' : '60px 40px',
           maxWidth: '1400px',
@@ -468,15 +490,62 @@ function SchoolsGuidePage() {
             <h2 style={{
               fontSize: '24px',
               fontWeight: '600',
-              marginBottom: '24px',
+              marginBottom: '32px',
               color: '#000'
             }}>
-              Filter Schools
+              Find Schools
             </h2>
+            
+            {/* Search Bar */}
+            <div style={{
+              marginBottom: '32px'
+            }}>
+              <div style={{
+                position: 'relative',
+                maxWidth: '600px'
+              }}>
+                <input
+                  type="text"
+                  placeholder="Search schools by name, suburb, or features..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '16px 24px 16px 50px',
+                    fontSize: '16px',
+                    border: '2px solid #e5e5e5',
+                    borderRadius: '50px',
+                    backgroundColor: '#f8f8f8',
+                    outline: 'none',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = '#002b7f';
+                    e.target.style.backgroundColor = '#fff';
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#e5e5e5';
+                    e.target.style.backgroundColor = '#f8f8f8';
+                  }}
+                />
+                <div style={{
+                  position: 'absolute',
+                  left: '18px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  fontSize: '20px',
+                  color: '#666'
+                }}>
+                  🔍
+                </div>
+              </div>
+            </div>
+
+            {/* Filters */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)',
-              gap: '16px',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(5, 1fr)',
+              gap: '20px',
               alignItems: 'end'
             }}>
               <div>
@@ -564,6 +633,34 @@ function SchoolsGuidePage() {
                 </select>
               </div>
 
+              <div>
+                <label style={{
+                  display: 'block',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  marginBottom: '8px',
+                  color: '#333'
+                }}>Sort By</label>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    fontSize: '16px',
+                    border: '1px solid #ddd',
+                    borderRadius: '8px',
+                    backgroundColor: '#fff',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <option value="name">School Name</option>
+                  <option value="suburb">Suburb</option>
+                  <option value="type">School Type</option>
+                  <option value="enrolments">Enrollment Size</option>
+                </select>
+              </div>
+
               <div style={{
                 textAlign: isMobile ? 'left' : 'right',
                 marginTop: isMobile ? '16px' : '0'
@@ -581,211 +678,306 @@ function SchoolsGuidePage() {
           {/* Schools Grid */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(400px, 1fr))',
-            gap: '32px',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(380px, 1fr))',
+            gap: '24px',
             marginBottom: '80px'
           }}>
             {filteredSchools.map((school, idx) => (
-              <div
+              <Link 
                 key={idx}
+                href={`/school/${school.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}
                 style={{
-                  backgroundColor: '#fff',
-                  border: '1px solid #e5e5e5',
-                  borderRadius: '12px',
-                  padding: '32px',
-                  transition: 'all 0.3s ease',
-                  cursor: 'pointer',
-                  height: 'fit-content'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-8px)';
-                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.1)';
-                  e.currentTarget.style.borderColor = '#002b7f';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                  e.currentTarget.style.borderColor = '#e5e5e5';
+                  textDecoration: 'none',
+                  color: 'inherit'
                 }}
               >
-                {/* Header */}
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  marginBottom: '16px'
-                }}>
+                <div
+                  style={{
+                    backgroundColor: '#fff',
+                    borderRadius: '16px',
+                    overflow: 'hidden',
+                    transition: 'all 0.3s ease',
+                    cursor: 'pointer',
+                    height: 'fit-content',
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.05)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-8px)';
+                    e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.05)';
+                  }}
+                >
+                  {/* School Image */}
                   <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px'
+                    width: '100%',
+                    height: '240px',
+                    backgroundColor: '#f8f8f8',
+                    position: 'relative',
+                    overflow: 'hidden'
                   }}>
-                    <div style={{
-                      fontSize: '24px'
-                    }}>
-                      {getTypeIcon(school.type)}
-                    </div>
-                    <h3 style={{
-                      fontSize: '20px',
-                      fontWeight: '700',
-                      margin: 0,
-                      color: '#000',
-                      lineHeight: '1.2'
-                    }}>
-                      {school.name}
-                    </h3>
-                  </div>
-                  <span style={{
-                    padding: '6px 12px',
-                    backgroundColor: getTypeColor(school.type),
-                    color: '#fff',
-                    borderRadius: '6px',
-                    fontSize: '12px',
-                    fontWeight: '600',
-                    textTransform: 'capitalize',
-                    whiteSpace: 'nowrap'
-                  }}>
-                    {school.type}
-                  </span>
-                </div>
-
-                {/* Description */}
-                <p style={{
-                  fontSize: '14px',
-                  color: '#666',
-                  marginBottom: '20px',
-                  lineHeight: '1.6'
-                }}>
-                  {school.description}
-                </p>
-
-                {/* Details */}
-                <div style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '8px',
-                  marginBottom: '20px',
-                  fontSize: '14px',
-                  color: '#333'
-                }}>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    gap: '8px'
-                  }}>
-                    <span>📍</span>
-                    <span>{school.address}</span>
-                  </div>
-
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px'
-                  }}>
-                    <span>📚</span>
-                    <span>{school.levels}</span>
-                  </div>
-
-                  {school.enrolments && school.enrolments !== 'N/A' && (
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px'
-                    }}>
-                      <span>👥</span>
-                      <span>{school.enrolments} students</span>
-                    </div>
-                  )}
-
-                  {school.ratio && (
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px'
-                    }}>
-                      <span>🎯</span>
-                      <span>Student-Teacher Ratio: {school.ratio}</span>
-                    </div>
-                  )}
-
-                  {school.phone && (
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px'
-                    }}>
-                      <span>📞</span>
-                      <span>{school.phone}</span>
-                    </div>
-                  )}
-
-                  {school.hours && (
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px'
-                    }}>
-                      <span>🕰️</span>
-                      <span>{school.hours}</span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Features */}
-                <div style={{
-                  display: 'flex',
-                  gap: '8px',
-                  flexWrap: 'wrap',
-                  marginBottom: '24px'
-                }}>
-                  {school.features.map((feature, fIdx) => (
-                    <span
-                      key={fIdx}
+                    <img
+                      src={`https://images.unsplash.com/photo-${school.type === 'kindergarten' ? '1607696421817-0e94b57e2e2e' : school.type === 'primary' ? '1580582932707-520aed937b7b' : '1523050854a4c978'}`}
+                      alt={school.name}
                       style={{
-                        padding: '6px 12px',
-                        backgroundColor: '#f8f8f8',
-                        borderRadius: '20px',
-                        fontSize: '12px',
-                        color: '#666',
-                        fontWeight: '500',
-                        border: '1px solid #e5e5e5'
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover'
                       }}
-                    >
-                      {feature}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Contact Button */}
-                <div style={{
-                  borderTop: '1px solid #f0f0f0',
-                  paddingTop: '20px'
-                }}>
-                  <a
-                    href={school.email ? `mailto:${school.email}` : '#'}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      fontSize: '14px',
+                    />
+                    <div style={{
+                      position: 'absolute',
+                      top: '16px',
+                      right: '16px',
+                      padding: '6px 12px',
+                      backgroundColor: getTypeColor(school.type),
+                      color: '#fff',
+                      borderRadius: '20px',
+                      fontSize: '12px',
                       fontWeight: '600',
-                      color: '#002b7f',
-                      textDecoration: 'none',
-                      padding: '8px 0'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.textDecoration = 'underline';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.textDecoration = 'none';
-                    }}
-                  >
-                    <span>📧</span>
-                    Contact School
-                  </a>
+                      textTransform: 'capitalize'
+                    }}>
+                      {school.type}
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div style={{
+                    padding: '24px'
+                  }}>
+                    {/* School Name and Location */}
+                    <div style={{
+                      marginBottom: '16px'
+                    }}>
+                      <h3 style={{
+                        fontSize: '20px',
+                        fontWeight: '600',
+                        margin: '0 0 8px 0',
+                        color: '#000',
+                        lineHeight: '1.3'
+                      }}>
+                        {school.name}
+                      </h3>
+                      <p style={{
+                        fontSize: '14px',
+                        color: '#666',
+                        margin: '0 0 4px 0'
+                      }}>
+                        {school.suburb}
+                      </p>
+                      <p style={{
+                        fontSize: '14px',
+                        color: '#002b7f',
+                        margin: 0,
+                        fontWeight: '500'
+                      }}>
+                        {school.levels}
+                      </p>
+                    </div>
+
+                    {/* Description */}
+                    <p style={{
+                      fontSize: '14px',
+                      color: '#666',
+                      marginBottom: '16px',
+                      lineHeight: '1.5',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden'
+                    }}>
+                      {school.description}
+                    </p>
+
+                    {/* Key Stats */}
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginBottom: '16px',
+                      padding: '12px',
+                      backgroundColor: '#f8f8f8',
+                      borderRadius: '8px'
+                    }}>
+                      {school.enrolments && school.enrolments !== 'N/A' && (
+                        <div style={{ textAlign: 'center' }}>
+                          <div style={{
+                            fontSize: '18px',
+                            fontWeight: '600',
+                            color: '#002b7f'
+                          }}>
+                            {school.enrolments}
+                          </div>
+                          <div style={{
+                            fontSize: '12px',
+                            color: '#666'
+                          }}>
+                            Students
+                          </div>
+                        </div>
+                      )}
+                      {school.ratio && (
+                        <div style={{ textAlign: 'center' }}>
+                          <div style={{
+                            fontSize: '18px',
+                            fontWeight: '600',
+                            color: '#002b7f'
+                          }}>
+                            {school.ratio}
+                          </div>
+                          <div style={{
+                            fontSize: '12px',
+                            color: '#666'
+                          }}>
+                            Ratio
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Features */}
+                    <div style={{
+                      display: 'flex',
+                      gap: '8px',
+                      flexWrap: 'wrap',
+                      marginBottom: '20px'
+                    }}>
+                      {school.features.slice(0, 3).map((feature, fIdx) => (
+                        <span
+                          key={fIdx}
+                          style={{
+                            padding: '4px 8px',
+                            backgroundColor: '#f0f4ff',
+                            borderRadius: '12px',
+                            fontSize: '11px',
+                            color: '#002b7f',
+                            fontWeight: '500'
+                          }}
+                        >
+                          {feature}
+                        </span>
+                      ))}
+                      {school.features.length > 3 && (
+                        <span style={{
+                          padding: '4px 8px',
+                          fontSize: '11px',
+                          color: '#666',
+                          fontWeight: '500'
+                        }}>
+                          +{school.features.length - 3} more
+                        </span>
+                      )}
+                    </div>
+
+                    {/* View More Button */}
+                    <div style={{
+                      paddingTop: '16px',
+                      borderTop: '1px solid #f0f0f0',
+                      textAlign: 'center'
+                    }}>
+                      <span style={{
+                        fontSize: '14px',
+                        color: '#002b7f',
+                        fontWeight: '600'
+                      }}>
+                        View Details →
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
+          </div>
+        </section>
+
+        {/* Enhanced CTA Section */}
+        <section style={{
+          backgroundColor: '#f8f8f8',
+          padding: isMobile ? '60px 20px' : '80px 40px'
+        }}>
+          <div style={{
+            maxWidth: '800px',
+            margin: '0 auto',
+            textAlign: 'center'
+          }}>
+            <h2 style={{
+              fontSize: isMobile ? '28px' : '36px',
+              fontWeight: '600',
+              marginBottom: '16px',
+              color: '#000'
+            }}>
+              Need Help Choosing a School?
+            </h2>
+            <p style={{
+              fontSize: '16px',
+              color: '#666',
+              marginBottom: '32px',
+              lineHeight: '1.6'
+            }}>
+              Our local education experts can help you find the perfect school for your family's needs and preferences.
+            </p>
+            <div style={{
+              display: 'flex',
+              gap: '16px',
+              justifyContent: 'center',
+              flexWrap: 'wrap'
+            }}>
+              <Link
+                href="/contact"
+                style={{
+                  display: 'inline-flex',
+                  padding: '14px 28px',
+                  backgroundColor: '#002b7f',
+                  color: '#fff',
+                  textDecoration: 'none',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  transition: 'all 0.3s ease',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#001a5c';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#002b7f';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                Contact Our Team
+              </Link>
+              <Link
+                href="/search"
+                style={{
+                  display: 'inline-flex',
+                  padding: '14px 28px',
+                  backgroundColor: 'transparent',
+                  color: '#002b7f',
+                  textDecoration: 'none',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  border: '2px solid #002b7f',
+                  transition: 'all 0.3s ease',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#002b7f';
+                  e.currentTarget.style.color = '#fff';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.color = '#002b7f';
+                }}
+              >
+                Search Properties by School
+              </Link>
+            </div>
           </div>
         </section>
 

@@ -485,6 +485,8 @@ export default function HomePageOncom() {
                   <Link 
                     key={activity.id}
                     href={`/buy?type=${activity.id}`}
+                    onMouseEnter={() => setHoveredActivity(activity.id)}
+                    onMouseLeave={() => setHoveredActivity('family-homes')}
                     style={{
                       display: 'block',
                       padding: '24px 0',
@@ -558,7 +560,7 @@ export default function HomePageOncom() {
                   style={{
                     position: 'absolute',
                     inset: 0,
-                    opacity: activity.id === 'family-homes' ? 1 : 0,
+                    opacity: activity.id === hoveredActivity ? 1 : 0,
                     transition: 'opacity 0.3s ease',
                     pointerEvents: 'none'
                   }}

@@ -15,7 +15,7 @@ test('Extract style guide from property page', async ({ page }) => {
   
   // Extract comprehensive style information
   const styleData = await page.evaluate(() => {
-    const styles = {
+    const styles: any = {
       metadata: {
         url: window.location.href,
         timestamp: new Date().toISOString(),
@@ -25,35 +25,35 @@ test('Extract style guide from property page', async ({ page }) => {
         }
       },
       typography: {
-        headings: {},
-        body: {},
-        captions: {},
-        links: {}
+        headings: {} as any,
+        body: {} as any,
+        captions: {} as any,
+        links: {} as any
       },
       colors: {
-        primary: [],
-        text: [],
-        background: [],
-        borders: [],
-        shadows: []
+        primary: [] as any[],
+        text: [] as any[],
+        background: [] as any[],
+        borders: [] as any[],
+        shadows: [] as any[]
       },
       spacing: {
-        containers: [],
-        sections: [],
-        components: [],
-        grid: []
+        containers: [] as any[],
+        sections: [] as any[],
+        components: [] as any[],
+        grid: [] as any[] as any[]
       },
       components: {
-        buttons: [],
-        cards: [],
-        badges: [],
-        forms: [],
-        navigation: []
+        buttons: [] as any[],
+        cards: [] as any[],
+        badges: [] as any[],
+        forms: [] as any[],
+        navigation: [] as any[]
       },
       layout: {
-        breakpoints: [],
-        containers: [],
-        grid: []
+        breakpoints: [] as any[],
+        containers: [] as any[],
+        grid: [] as any[]
       }
     };
     
@@ -80,7 +80,7 @@ test('Extract style guide from property page', async ({ page }) => {
       if (elements.length > 0) {
         const el = elements[0];
         const style = window.getComputedStyle(el);
-        styles.typography.headings[tag] = {
+        (styles.typography.headings as any)[tag] = {
           fontSize: style.fontSize,
           fontWeight: style.fontWeight,
           fontFamily: style.fontFamily,
@@ -106,7 +106,7 @@ test('Extract style guide from property page', async ({ page }) => {
         const uniqueStyles = getUniqueStyles(elements, 3);
         uniqueStyles.forEach((item, index) => {
           const { element, style } = item;
-          styles.typography.body[`${selector}-${index + 1}`] = {
+          (styles.typography.body as any)[`${selector}-${index + 1}`] = {
             selector,
             fontSize: style.fontSize,
             fontWeight: style.fontWeight,
@@ -142,7 +142,7 @@ test('Extract style guide from property page', async ({ page }) => {
     
     uniqueButtons.forEach((item, index) => {
       const { element, style } = item;
-      styles.components.buttons.push({
+      (styles.components.buttons as any[]).push({
         type: `button-variant-${index + 1}`,
         backgroundColor: style.backgroundColor,
         color: style.color,
@@ -203,7 +203,7 @@ test('Extract style guide from property page', async ({ page }) => {
       if (elements.length > 0) {
         const el = elements[0];
         const style = window.getComputedStyle(el);
-        styles.spacing.containers.push({
+        (styles.spacing.containers as any[]).push({
           selector,
           maxWidth: style.maxWidth,
           width: style.width,
@@ -221,7 +221,7 @@ test('Extract style guide from property page', async ({ page }) => {
     
     uniqueCards.forEach((item, index) => {
       const { element, style } = item;
-      styles.components.cards.push({
+      (styles.components.cards as any[]).push({
         type: `card-variant-${index + 1}`,
         borderRadius: style.borderRadius,
         boxShadow: style.boxShadow,
@@ -242,7 +242,7 @@ test('Extract style guide from property page', async ({ page }) => {
     uniqueBadges.forEach((item, index) => {
       const { element, style } = item;
       if (element.textContent && element.textContent.trim().length < 20) {
-        styles.components.badges.push({
+        (styles.components.badges as any[]).push({
           type: `badge-variant-${index + 1}`,
           backgroundColor: style.backgroundColor,
           color: style.color,
@@ -263,7 +263,7 @@ test('Extract style guide from property page', async ({ page }) => {
     gridElements.forEach((el, index) => {
       if (index < 3) {
         const style = window.getComputedStyle(el);
-        styles.layout.grid.push({
+        (styles.layout.grid as any[]).push({
           display: style.display,
           gridTemplateColumns: style.gridTemplateColumns,
           gap: style.gap,
@@ -277,7 +277,7 @@ test('Extract style guide from property page', async ({ page }) => {
     if (inputs.length > 0) {
       const input = inputs[0];
       const style = window.getComputedStyle(input);
-      styles.components.forms.push({
+      (styles.components.forms as any[]).push({
         type: 'input',
         backgroundColor: style.backgroundColor,
         borderColor: style.borderColor,
@@ -335,11 +335,11 @@ ${styles.letterSpacing !== 'normal' ? `- **Letter Spacing:** ${styles.letterSpac
 ### Links
 
 ${styleData.typography.links ? `
-- **Color:** ${styleData.typography.links.color}
-- **Text Decoration:** ${styleData.typography.links.textDecoration}
-- **Font Size:** ${styleData.typography.links.fontSize}
-- **Font Weight:** ${styleData.typography.links.fontWeight}
-${styleData.typography.links.transition !== 'none' ? `- **Transition:** ${styleData.typography.links.transition}` : ''}
+- **Color:** ${(styleData.typography.links as any).color}
+- **Text Decoration:** ${(styleData.typography.links as any).textDecoration}
+- **Font Size:** ${(styleData.typography.links as any).fontSize}
+- **Font Weight:** ${(styleData.typography.links as any).fontWeight}
+${(styleData.typography.links as any).transition !== 'none' ? `- **Transition:** ${(styleData.typography.links as any).transition}` : ''}
 ` : 'No link styles found'}
 
 ## Color Palette

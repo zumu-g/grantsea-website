@@ -7,7 +7,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Debug Padding Issues', () => {
   test('Compare left padding across viewports', async ({ page }) => {
     const viewports = [1440, 1280, 1024, 768, 375];
-    const results: any = {};
+    const results: Record<number, any> = {};
 
     // First, analyze on.com
     for (const width of viewports) {
@@ -51,7 +51,7 @@ test.describe('Debug Padding Issues', () => {
         };
       });
 
-      results[`on-${width}`] = onMetrics;
+      (results as any)[`on-${width}`] = onMetrics;
     }
 
     // Then analyze your site
@@ -99,21 +99,26 @@ test.describe('Debug Padding Issues', () => {
         };
       });
 
-      results[`yours-${width}`] = yourMetrics;
+      (results as any)[`yours-${width}`] = yourMetrics;
     }
 
     // Generate comparison report
-    const report = {
+    const report: {
+      timestamp: string;
+      viewports: Record<number, {
+        differences: Record<string, any>;
+      }>;
+    } = {
       timestamp: new Date().toISOString(),
       viewports: {},
     };
 
     for (const width of viewports) {
-      const onData = results[`on-${width}`];
-      const yourData = results[`yours-${width}`];
+      const onData = (results as any)[`on-${width}`];
+      const yourData = (results as any)[`yours-${width}`];
       
       report.viewports[width] = {
-        differences: {},
+        differences: {} as Record<string, any>,
       };
 
       // Compare each element

@@ -33,14 +33,43 @@ export async function GET(request: NextRequest) {
       headers
     );
     
-    // Convert map to array format
+    // Convert map to array format and fetch property details
     let openHomes: any[] = [];
+    
+    // Get all unique property IDs
+    const propertyIds = Array.from(cachedOpenHomesByProperty.keys());
+    
+    // Fetch property details for all properties with open homes
+    const propertyDetailsMap = new Map();
+    
+    for (const propId of propertyIds) {
+      try {
+        const propertyResponse = await fetch(
+          `${API_BASE_URL}/properties/${propId}`,
+          { headers, cache: 'no-store' }
+        );
+        
+        if (propertyResponse.ok) {
+          const propertyData = await propertyResponse.json();
+          // Transform the VaultRE property data using the standard transformer
+          const { transformVaultREProperty } = await import('@/services/api');
+          const transformedProperty = transformVaultREProperty(propertyData);
+          propertyDetailsMap.set(propId, transformedProperty);
+        }
+      } catch (error) {
+        console.error(`Failed to fetch property ${propId}:`, error);
+      }
+    }
+    
+    // Combine inspection times with property details
     cachedOpenHomesByProperty.forEach((inspections, propId) => {
+      const propertyDetails = propertyDetailsMap.get(propId);
+      
       inspections.forEach(inspection => {
         openHomes.push({
           ...inspection,
           propertyId: propId,
-          property: { id: propId }
+          property: propertyDetails || { id: propId }
         });
       });
     });
@@ -105,7 +134,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      data: transformedOpenHomes,
+      openHomes: transformedOpenHomes,
       total: transformedOpenHomes.length
     });
 

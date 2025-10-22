@@ -186,7 +186,7 @@ export default function OncomHeader() {
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
                     Search properties
                   </Link>
-                  <Link href="/open-inspections" style={{
+                  <Link href="/buy/open-for-inspection" style={{
                     display: 'block',
                     padding: '14px 20px',
                     color: '#000',
@@ -356,7 +356,7 @@ export default function OncomHeader() {
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
                     Search properties
                   </Link>
-                  <Link href="/rental-inspections" style={{
+                  <Link href="/rent/open-for-inspection" style={{
                     display: 'block',
                     padding: '14px 20px',
                     color: '#000',

@@ -165,7 +165,7 @@ function RentOpenForInspectionPage() {
   };
 
   return (
-    <>
+    <React.Fragment>
       <OncomHeader />
       
       <main style={{
@@ -754,7 +754,7 @@ function RentOpenForInspectionPage() {
           </div>
         </section>
       </main>
-    </>
+    </React.Fragment>
   );
 }
 

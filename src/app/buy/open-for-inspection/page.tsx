@@ -11,9 +11,14 @@ function OpenForInspectionPage() {
   const [selectedSuburb, setSelectedSuburb] = React.useState('all');
   const [sortBy, setSortBy] = React.useState('time');
   const [isMobile, setIsMobile] = React.useState(false);
+  const [isTablet, setIsTablet] = React.useState(false);
+  const [viewMode, setViewMode] = React.useState<'grid' | 'list'>('grid');
 
   React.useEffect(() => {
-    const checkDevice = () => setIsMobile(window.innerWidth <= 768);
+    const checkDevice = () => {
+      setIsMobile(window.innerWidth <= 768);
+      setIsTablet(window.innerWidth > 768 && window.innerWidth <= 1024);
+    };
     checkDevice();
     window.addEventListener('resize', checkDevice);
     return () => window.removeEventListener('resize', checkDevice);
@@ -146,7 +151,7 @@ function OpenForInspectionPage() {
   };
 
   return (
-    <>
+    <React.Fragment>
       <OncomHeader />
       
       <main style={{
@@ -530,20 +535,28 @@ function OpenForInspectionPage() {
 
         {/* Call to Action */}
         <section style={{
-          backgroundColor: '#f8f8f8',
-          padding: isMobile ? '60px 20px' : '80px 40px',
+          backgroundColor: '#f8f9fa',
+          paddingTop: isMobile ? '60px' : isTablet ? '80px' : '96px',
+          paddingBottom: isMobile ? '60px' : isTablet ? '80px' : '96px',
           textAlign: 'center'
         }}>
+          <div style={{
+            maxWidth: '1440px',
+            margin: '0 auto',
+            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
+          }}>
           <div style={{
             maxWidth: '600px',
             margin: '0 auto'
           }}>
             <h2 style={{
-              fontSize: isMobile ? '32px' : '40px',
-              fontWeight: '300',
+              fontSize: isMobile ? '32px' : isTablet ? '36px' : '40px',
+              fontWeight: '700',
               marginBottom: '20px',
               color: '#000',
-              letterSpacing: '-0.02em'
+              letterSpacing: '-0.02em',
+              lineHeight: '1.1'
             }}>
               Can't Make an Open Inspection?
             </h2>
@@ -599,7 +612,7 @@ function OpenForInspectionPage() {
           </div>
         </section>
       </main>
-    </>
+    </React.Fragment>
   );
 }
 

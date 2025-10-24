@@ -11,9 +11,14 @@ function RentOpenForInspectionPage() {
   const [selectedSuburb, setSelectedSuburb] = React.useState('all');
   const [sortBy, setSortBy] = React.useState('time');
   const [isMobile, setIsMobile] = React.useState(false);
+  const [isTablet, setIsTablet] = React.useState(false);
+  const [viewMode, setViewMode] = React.useState<'grid' | 'list'>('grid');
 
   React.useEffect(() => {
-    const checkDevice = () => setIsMobile(window.innerWidth <= 768);
+    const checkDevice = () => {
+      setIsMobile(window.innerWidth <= 768);
+      setIsTablet(window.innerWidth > 768 && window.innerWidth <= 1024);
+    };
     checkDevice();
     window.addEventListener('resize', checkDevice);
     return () => window.removeEventListener('resize', checkDevice);
@@ -169,17 +174,20 @@ function RentOpenForInspectionPage() {
       }}>
         {/* Hero Section */}
         <section style={{
-          padding: isMobile ? '60px 20px' : '80px 40px',
-          backgroundColor: '#f8f8f8',
+          backgroundColor: '#f8f9fa',
+          paddingTop: isMobile ? '60px' : isTablet ? '80px' : '96px',
+          paddingBottom: isMobile ? '60px' : isTablet ? '80px' : '96px',
           textAlign: 'center'
         }}>
           <div style={{
-            maxWidth: '800px',
-            margin: '0 auto'
+            maxWidth: '1440px',
+            margin: '0 auto',
+            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
           }}>
             <h1 style={{
-              fontSize: isMobile ? '48px' : '64px',
-              fontWeight: '300',
+              fontSize: isMobile ? '36px' : isTablet ? '44px' : '56px',
+              fontWeight: '700',
               letterSpacing: '-0.02em',
               lineHeight: '1.1',
               margin: '0 0 24px 0',
@@ -201,13 +209,16 @@ function RentOpenForInspectionPage() {
 
         {/* Filters */}
         <section style={{
-          padding: isMobile ? '40px 20px' : '60px 40px',
           backgroundColor: '#fff',
+          paddingTop: isMobile ? '40px' : '60px',
+          paddingBottom: isMobile ? '40px' : '60px',
           borderBottom: '1px solid #e5e5e5'
         }}>
           <div style={{
-            maxWidth: '1200px',
-            margin: '0 auto'
+            maxWidth: '1440px',
+            margin: '0 auto',
+            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
           }}>
             <div style={{
               display: 'flex',
@@ -282,24 +293,78 @@ function RentOpenForInspectionPage() {
               </select>
             </div>
 
-            {/* Results Count */}
+            {/* Results Count and View Toggle */}
             <div style={{
-              fontSize: '16px',
-              color: '#666',
-              marginBottom: '20px'
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: '20px',
+              flexDirection: isMobile ? 'column' : 'row',
+              gap: isMobile ? '16px' : '0'
             }}>
-              {loading ? 'Loading...' : `Showing ${filteredOpenHomes.length} rental inspection${filteredOpenHomes.length !== 1 ? 's' : ''}`}
+              <div style={{
+                fontSize: '16px',
+                color: '#666'
+              }}>
+                {loading ? 'Loading...' : `Showing ${filteredOpenHomes.length} rental inspection${filteredOpenHomes.length !== 1 ? 's' : ''}`}
+              </div>
+              
+              {/* View Mode Toggle */}
+              <div style={{
+                display: 'flex',
+                gap: '8px',
+                padding: '4px',
+                backgroundColor: '#f8f8f8',
+                borderRadius: '8px'
+              }}>
+                <button
+                  onClick={() => setViewMode('grid')}
+                  style={{
+                    padding: '8px 16px',
+                    border: 'none',
+                    borderRadius: '6px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    backgroundColor: viewMode === 'grid' ? '#002b7f' : 'transparent',
+                    color: viewMode === 'grid' ? '#fff' : '#666'
+                  }}
+                >
+                  Grid
+                </button>
+                <button
+                  onClick={() => setViewMode('list')}
+                  style={{
+                    padding: '8px 16px',
+                    border: 'none',
+                    borderRadius: '6px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    backgroundColor: viewMode === 'list' ? '#002b7f' : 'transparent',
+                    color: viewMode === 'list' ? '#fff' : '#666'
+                  }}
+                >
+                  List
+                </button>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Open Homes List */}
         <section style={{
-          padding: isMobile ? '40px 20px' : '60px 40px'
+          backgroundColor: '#fff',
+          paddingTop: isMobile ? '40px' : '60px',
+          paddingBottom: isMobile ? '40px' : '60px'
         }}>
           <div style={{
-            maxWidth: '1200px',
-            margin: '0 auto'
+            maxWidth: '1440px',
+            margin: '0 auto',
+            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
           }}>
             {loading ? (
               <div style={{
@@ -381,9 +446,10 @@ function RentOpenForInspectionPage() {
               </div>
             ) : (
               <div style={{
-                display: 'grid',
-                gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(400px, 1fr))',
-                gap: '32px'
+                display: viewMode === 'list' ? 'flex' : 'grid',
+                flexDirection: viewMode === 'list' ? 'column' : undefined,
+                gridTemplateColumns: viewMode === 'grid' ? (isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)') : undefined,
+                gap: viewMode === 'list' ? '16px' : (isMobile ? '16px' : '24px')
               }}>
                 {filteredOpenHomes.map((openHome, index) => {
                   const property = openHome.property;
@@ -408,7 +474,8 @@ function RentOpenForInspectionPage() {
                         cursor: 'pointer',
                         height: '100%',
                         display: 'flex',
-                        flexDirection: 'column'
+                        flexDirection: viewMode === 'list' ? 'row' : 'column',
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.transform = 'translateY(-2px)';
@@ -416,15 +483,16 @@ function RentOpenForInspectionPage() {
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+                        e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.05)';
                       }}>
                         {/* Image */}
                         <div style={{
-                          width: '100%',
-                          height: '240px',
+                          width: viewMode === 'list' ? (isMobile ? '120px' : '200px') : '100%',
+                          height: viewMode === 'list' ? (isMobile ? '120px' : '200px') : '240px',
                           backgroundColor: '#f8f8f8',
                           position: 'relative',
-                          overflow: 'hidden'
+                          overflow: 'hidden',
+                          flexShrink: 0
                         }}>
                           {property?.images && property.images[0] ? (
                             <img
@@ -485,7 +553,7 @@ function RentOpenForInspectionPage() {
 
                         {/* Content */}
                         <div style={{
-                          padding: '24px',
+                          padding: viewMode === 'list' ? (isMobile ? '16px' : '24px') : '24px',
                           flex: 1,
                           display: 'flex',
                           flexDirection: 'column'
@@ -610,10 +678,17 @@ function RentOpenForInspectionPage() {
 
         {/* Call to Action */}
         <section style={{
-          backgroundColor: '#f8f8f8',
-          padding: isMobile ? '60px 20px' : '80px 40px',
+          backgroundColor: '#f8f9fa',
+          paddingTop: isMobile ? '60px' : isTablet ? '80px' : '96px',
+          paddingBottom: isMobile ? '60px' : isTablet ? '80px' : '96px',
           textAlign: 'center'
         }}>
+          <div style={{
+            maxWidth: '1440px',
+            margin: '0 auto',
+            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
+            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
+          }}>
           <div style={{
             maxWidth: '600px',
             margin: '0 auto'
@@ -675,6 +750,7 @@ function RentOpenForInspectionPage() {
                 Browse All Rentals
               </Link>
             </div>
+          </div>
           </div>
         </section>
       </main>

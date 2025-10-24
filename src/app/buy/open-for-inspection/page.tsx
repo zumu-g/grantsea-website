@@ -596,6 +596,7 @@ function OpenForInspectionPage() {
               </Link>
             </div>
           </div>
+          </div>
         </section>
       </main>
     </>

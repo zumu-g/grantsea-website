@@ -105,18 +105,20 @@ export async function GET(request: NextRequest) {
     
     // Transform to our format with timezone conversion from UTC to local time
     const transformedOpenHomes: any[] = [];
-    
+
     openHomesByProperty.forEach((propertyOpenHomes, propId) => {
+      const propertyDetails = propertyDetailsMap.get(propId);
+
       const transformed = propertyOpenHomes.map((oh: any) => {
       // VaultRE returns times in UTC, we need to convert to local time
       const startTimeUTC = oh.start || oh.startTime || oh.startDateTime;
       const endTimeUTC = oh.end || oh.endTime || oh.endDateTime;
-      
+
       // Convert UTC to local time by creating Date objects
       // The API returns UTC times, so we parse them as UTC and then convert
       const startDate = new Date(startTimeUTC);
       const endDate = new Date(endTimeUTC);
-      
+
         return {
           id: oh.id?.toString() || '',
           propertyId: propId,
@@ -126,9 +128,11 @@ export async function GET(request: NextRequest) {
           endTimeLocal: endDate.toLocaleString('en-AU', { timeZone: 'Australia/Melbourne' }),
           type: oh.type || 'public',
           notes: oh.notes || oh.description || '',
+          property: propertyDetails || { id: propId },
+          agent: oh.agent || propertyDetails?.agent
         };
       });
-      
+
       transformedOpenHomes.push(...transformed);
     });
 

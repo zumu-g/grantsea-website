@@ -544,8 +544,10 @@ export default function OncomHeader() {
               </button>
             )}
             <div style={{ position: 'relative' }}>
-              <button 
-                onClick={() => {
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
                   setShowBurgerPanel(true);
                   setShowDropdown(false);
                   setShowSearch(false);
@@ -554,20 +556,38 @@ export default function OncomHeader() {
                   setShowBuyDropdown(false);
                   setShowRentDropdown(false);
                 }}
+                onTouchStart={(e) => {
+                  // iOS Safari touch event handling
+                  e.currentTarget.style.opacity = '0.7';
+                }}
+                onTouchEnd={(e) => {
+                  e.currentTarget.style.opacity = '1';
+                }}
                 style={{
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
                   padding: isMobile ? '12px' : '8px',
                   color: isHomePage && !isScrolled ? '#fff' : '#000',
-                  transition: 'color 0.3s ease',
+                  transition: 'color 0.3s ease, opacity 0.1s ease',
                   minWidth: '44px',
                   minHeight: '44px',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  WebkitTapHighlightColor: 'transparent',
+                  touchAction: 'manipulation',
+                  userSelect: 'none'
                 }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  style={{ pointerEvents: 'none' }}
+                >
                   <path d="M3 12h18M3 6h18M3 18h18" />
                 </svg>
               </button>

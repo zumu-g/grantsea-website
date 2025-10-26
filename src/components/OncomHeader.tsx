@@ -1014,14 +1014,16 @@ export default function OncomHeader() {
         zIndex: 9999,
         display: 'flex',
         flexDirection: 'column',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        paddingTop: isMobile ? 'env(safe-area-inset-top, 0px)' : '0'
       }}>
         <div style={{
-          padding: '24px',
+          padding: isMobile ? '20px 20px 24px 20px' : '24px',
           borderBottom: '1px solid #e5e5e5',
           display: 'flex',
           justifyContent: 'space-between',
-          alignItems: 'center'
+          alignItems: 'center',
+          backgroundColor: '#fff'
         }}>
           <h2 style={{ fontSize: '24px', fontWeight: '600' }}>Menu</h2>
           <button
@@ -1038,8 +1040,18 @@ export default function OncomHeader() {
             </svg>
           </button>
         </div>
-        <div style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
-          <nav style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{
+          flex: 1,
+          overflowY: 'auto',
+          padding: isMobile ? '8px' : '16px',
+          WebkitOverflowScrolling: 'touch',
+          backgroundColor: '#fff'
+        }}>
+          <nav style={{
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: '100%'
+          }}>
             <Link href="/" onClick={() => setShowBurgerPanel(false)} style={{
               display: 'block',
               padding: '16px 20px',

@@ -395,7 +395,7 @@ export default function OncomHeader() {
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
                     Report maintenance: Call/Text 0438 100 545
                   </a>
-                  <Link href="/contact" style={{
+                  <Link href="/landlord-insights" style={{
                     display: 'block',
                     padding: '14px 20px',
                     color: '#000',

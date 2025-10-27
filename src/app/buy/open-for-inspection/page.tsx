@@ -370,20 +370,29 @@ function OpenForInspectionPage() {
                         backgroundColor: '#fff',
                         borderRadius: '12px',
                         overflow: 'hidden',
-                        border: '1px solid #e5e5e5',
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
                         transition: 'all 0.3s ease',
                         cursor: 'pointer',
                         flex: isMobile ? '0 0 85%' : '0 0 calc(33.333% - 16px)',
+                        minWidth: isMobile ? '320px' : '380px',
                         display: 'flex',
                         flexDirection: 'column'
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.transform = 'translateY(-2px)';
                         e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)';
+                        const addressElement = e.currentTarget.querySelector('[data-property-address]') as HTMLElement;
+                        if (addressElement) {
+                          addressElement.style.color = '#AF272F';
+                        }
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+                        e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.05)';
+                        const addressElement = e.currentTarget.querySelector('[data-property-address]') as HTMLElement;
+                        if (addressElement) {
+                          addressElement.style.color = '#000';
+                        }
                       }}>
                         {/* Image */}
                         <div style={{
@@ -426,6 +435,23 @@ function OpenForInspectionPage() {
                             )}
                           </div>
                           
+                          {/* Inspection Time Badge */}
+                          <div style={{
+                            position: 'absolute',
+                            top: '1.5rem',
+                            left: '1.5rem',
+                            backgroundColor: 'rgba(0, 43, 127, 0.9)',
+                            color: '#fff',
+                            padding: '4px 8px',
+                            borderRadius: '4px',
+                            fontSize: '10px',
+                            fontWeight: '600',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.5px'
+                          }}>
+                            Open {formatDateTime(openHome.startTime)}
+                          </div>
+
                           {/* Save Property Button */}
                           <button style={{
                             position: 'absolute',
@@ -465,24 +491,18 @@ function OpenForInspectionPage() {
                           </div>
 
                           {/* Address */}
-                          <h3 style={{
-                            fontSize: '16px',
-                            fontWeight: '600',
-                            margin: '0',
-                            color: '#000',
-                            lineHeight: '1.3'
-                          }}>
+                          <h3 
+                            data-property-address="true"
+                            style={{
+                              fontSize: '16px',
+                              fontWeight: '600',
+                              margin: '0',
+                              color: '#000',
+                              lineHeight: '1.3',
+                              transition: 'color 0.2s ease'
+                            }}>
                             {property?.address?.street}
                           </h3>
-
-                          {/* Inspection Time */}
-                          <div style={{
-                            fontSize: '12px',
-                            color: '#002b7f',
-                            fontWeight: '500'
-                          }}>
-                            Open {formatDateTime(openHome.startTime)}
-                          </div>
 
                           {/* Property Features */}
                           <div style={{
@@ -499,7 +519,7 @@ function OpenForInspectionPage() {
 
                           {/* Price */}
                           <div style={{
-                            fontSize: '16px',
+                            fontSize: '18px',
                             fontWeight: '600',
                             color: '#000',
                             marginTop: '8px'

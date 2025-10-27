@@ -199,7 +199,7 @@ export default function OncomHeader() {
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
                     Open for inspection
                   </Link>
-                  <Link href="/auctions" style={{
+                  <Link href="/buy/forthcoming-auctions" style={{
                     display: 'block',
                     padding: '14px 20px',
                     color: '#000',
@@ -212,7 +212,7 @@ export default function OncomHeader() {
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
                     Forthcoming auctions
                   </Link>
-                  <Link href="/livestream-auctions" style={{
+                  <Link href="/buy/livestream-auctions" style={{
                     display: 'block',
                     padding: '14px 20px',
                     color: '#000',
@@ -225,7 +225,7 @@ export default function OncomHeader() {
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
                     Livestream auctions
                   </Link>
-                  <Link href="/coming-soon" style={{
+                  <Link href="/buy/coming-soon" style={{
                     display: 'block',
                     padding: '14px 20px',
                     color: '#000',
@@ -238,7 +238,7 @@ export default function OncomHeader() {
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
                     Coming soon
                   </Link>
-                  <Link href="/suburbs" style={{
+                  <Link href="/suburbs-guide" style={{
                     display: 'block',
                     padding: '14px 20px',
                     color: '#000',
@@ -369,7 +369,7 @@ export default function OncomHeader() {
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
                     Open for inspections
                   </Link>
-                  <Link href="/rental-appraisal" style={{
+                  <Link href="/appraisal" style={{
                     display: 'block',
                     padding: '14px 20px',
                     color: '#000',
@@ -382,7 +382,7 @@ export default function OncomHeader() {
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
                     Rental appraisal
                   </Link>
-                  <Link href="/maintenance" style={{
+                  <a href="tel:0438100545" style={{
                     display: 'block',
                     padding: '14px 20px',
                     color: '#000',
@@ -393,9 +393,9 @@ export default function OncomHeader() {
                     transition: 'background 0.15s ease'
                   }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Report maintenance
-                  </Link>
-                  <Link href="/landlord-insights" style={{
+                    Report maintenance: Call/Text 0438 100 545
+                  </a>
+                  <Link href="/contact" style={{
                     display: 'block',
                     padding: '14px 20px',
                     color: '#000',
@@ -1164,7 +1164,7 @@ export default function OncomHeader() {
                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
               Free Appraisal
             </Link>
-            <Link href="/suburbs" onClick={() => setShowBurgerPanel(false)} style={{
+            <Link href="/suburbs-guide" onClick={() => setShowBurgerPanel(false)} style={{
               display: 'block',
               padding: '16px 20px',
               color: '#000',

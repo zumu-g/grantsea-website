@@ -7,6 +7,7 @@ import OncomHeader from '@/components/OncomHeader';
 function OpenForInspectionPage() {
   const [openHomes, setOpenHomes] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
   const [selectedDay, setSelectedDay] = React.useState('all');
   const [selectedSuburb, setSelectedSuburb] = React.useState('all');
   const [sortBy, setSortBy] = React.useState('time');
@@ -31,14 +32,18 @@ function OpenForInspectionPage() {
   const fetchOpenHomes = async () => {
     try {
       setLoading(true);
+      setError(null);
       const response = await fetch('/api/open-homes');
       const data = await response.json();
       
       if (data.success) {
         setOpenHomes(data.openHomes);
+      } else {
+        setError(data.error || 'Failed to fetch open homes');
       }
     } catch (error) {
       console.error('Error fetching open homes:', error);
+      setError('Unable to load open homes. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -305,6 +310,47 @@ function OpenForInspectionPage() {
                 }}>
                   Loading open inspections...
                 </div>
+              </div>
+            ) : error ? (
+              <div style={{
+                textAlign: 'center',
+                padding: '80px 20px',
+                color: '#666'
+              }}>
+                <h3 style={{
+                  fontSize: '24px',
+                  fontWeight: '600',
+                  marginBottom: '16px',
+                  color: '#e74c3c'
+                }}>
+                  Unable to Load Open Inspections
+                </h3>
+                <p style={{ 
+                  fontSize: '16px', 
+                  marginBottom: '32px',
+                  maxWidth: '500px',
+                  margin: '0 auto 32px auto',
+                  lineHeight: '1.6'
+                }}>
+                  {error}
+                </p>
+                <button
+                  onClick={fetchOpenHomes}
+                  style={{
+                    display: 'inline-block',
+                    padding: '14px 28px',
+                    backgroundColor: '#002b7f',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '8px',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'background-color 0.3s ease'
+                  }}
+                >
+                  Try Again
+                </button>
               </div>
             ) : filteredOpenHomes.length === 0 ? (
               <div style={{

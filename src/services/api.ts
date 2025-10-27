@@ -4,8 +4,8 @@
 // VaultRE API - Using documented endpoints
 const API_BASE_URL = process.env.NEXT_PUBLIC_CRM_API_URL || 'https://ap-southeast-2.api.vaultre.com.au/api/v1.3';
 // VaultRE requires both API Key and Access Token
-const API_KEY = process.env.NEXT_PUBLIC_CRM_API_KEY || 'igLctQ47aj3qYl1vvHitt8gx3S9u59dpaW2m9ixE';
-const ACCESS_TOKEN = process.env.NEXT_PUBLIC_CRM_ACCESS_TOKEN || 'nzinklyrqutvcdodhyaqyizcjflohlayxezuthan';
+const API_KEY = process.env.NEXT_PUBLIC_CRM_API_KEY || '';
+const ACCESS_TOKEN = process.env.NEXT_PUBLIC_CRM_ACCESS_TOKEN || '';
 
 // Property interface matching Vault RE structure
 export interface Property {

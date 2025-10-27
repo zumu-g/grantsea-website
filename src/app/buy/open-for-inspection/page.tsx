@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import OncomHeader from '@/components/OncomHeader';
+import PropertySkeleton from '@/components/PropertySkeleton';
 
 function OpenForInspectionPage() {
   const [openHomes, setOpenHomes] = React.useState<any[]>([]);
@@ -298,19 +299,7 @@ function OpenForInspectionPage() {
             margin: '0 auto'
           }}>
             {loading ? (
-              <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '200px'
-              }}>
-                <div style={{
-                  fontSize: '18px',
-                  color: '#666'
-                }}>
-                  Loading open inspections...
-                </div>
-              </div>
+              <PropertySkeleton count={6} isMobile={isMobile} />
             ) : error ? (
               <div style={{
                 textAlign: 'center',

@@ -545,7 +545,25 @@ export default function OncomHeader() {
             )}
             <div style={{ position: 'relative' }}>
               <button 
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  console.log('Burger menu clicked!');
+                  setShowBurgerPanel(true);
+                  setShowDropdown(false);
+                  setShowSearch(false);
+                  setShowSavedPanel(false);
+                  setShowAccountPanel(false);
+                  setShowBuyDropdown(false);
+                  setShowRentDropdown(false);
+                }}
+                onTouchStart={(e) => {
+                  console.log('Burger menu touched!');
+                }}
+                onTouchEnd={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  console.log('Burger menu touch ended!');
                   setShowBurgerPanel(true);
                   setShowDropdown(false);
                   setShowSearch(false);
@@ -565,7 +583,9 @@ export default function OncomHeader() {
                   minHeight: '44px',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  WebkitTapHighlightColor: 'transparent',
+                  touchAction: 'manipulation'
                 }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M3 12h18M3 6h18M3 18h18" />
@@ -982,20 +1002,26 @@ export default function OncomHeader() {
       </div>
 
       {/* Burger Menu Panel - Slides from Right */}
-      <div style={{
-        position: 'fixed',
-        top: 0,
-        right: showBurgerPanel ? 0 : (isMobile ? '-100%' : '-400px'),
-        bottom: 0,
-        width: isMobile ? '100%' : '400px',
-        backgroundColor: '#fff',
-        boxShadow: '-4px 0 24px rgba(0,0,0,0.1)',
-        transition: 'right 0.3s ease',
-        zIndex: 9999,
-        display: 'flex',
-        flexDirection: 'column',
-        overflow: 'hidden'
-      }}>
+      <div 
+        style={{
+          position: 'fixed',
+          top: 0,
+          right: showBurgerPanel ? 0 : (isMobile ? '-100%' : '-400px'),
+          bottom: 0,
+          width: isMobile ? '100%' : '400px',
+          backgroundColor: '#fff',
+          boxShadow: '-4px 0 24px rgba(0,0,0,0.1)',
+          transition: 'right 0.3s ease',
+          zIndex: 9999,
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
+          WebkitOverflowScrolling: 'touch',
+          paddingTop: isMobile ? 'env(safe-area-inset-top, 0px)' : '0'
+        }}
+        data-testid="burger-panel"
+        data-visible={showBurgerPanel}
+      >
         <div style={{
           padding: '24px',
           borderBottom: '1px solid #e5e5e5',
@@ -1005,12 +1031,22 @@ export default function OncomHeader() {
         }}>
           <h2 style={{ fontSize: '24px', fontWeight: '600' }}>Menu</h2>
           <button
-            onClick={() => setShowBurgerPanel(false)}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setShowBurgerPanel(false);
+            }}
+            onTouchStart={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
             style={{
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              padding: '8px'
+              padding: '8px',
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation'
             }}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -1018,9 +1054,22 @@ export default function OncomHeader() {
             </svg>
           </button>
         </div>
-        <div style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
-          <nav style={{ display: 'flex', flexDirection: 'column' }}>
-            <Link href="/" onClick={() => setShowBurgerPanel(false)} style={{
+        <div style={{ 
+          flex: 1, 
+          overflowY: 'auto', 
+          padding: '16px',
+          WebkitOverflowScrolling: 'touch'
+        }}>
+          <nav style={{ 
+            display: 'flex', 
+            flexDirection: 'column',
+            minHeight: '100%'
+          }}>
+            <Link href="/" onClick={(e) => {
+              e.preventDefault();
+              setShowBurgerPanel(false);
+              window.location.href = '/';
+            }} style={{
               display: 'block',
               padding: '16px 20px',
               color: '#000',
@@ -1028,9 +1077,13 @@ export default function OncomHeader() {
               fontSize: '16px',
               fontWeight: '500',
               borderBottom: '1px solid #f0f0f0',
-              transition: 'background 0.2s'
+              transition: 'background 0.2s',
+              WebkitTapHighlightColor: 'rgba(0,0,0,0.1)',
+              touchAction: 'manipulation'
             }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
-               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}
+               onTouchStart={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+               onTouchEnd={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
               Home
             </Link>
             <Link href="/buy" onClick={() => setShowBurgerPanel(false)} style={{

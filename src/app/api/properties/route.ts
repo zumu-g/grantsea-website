@@ -147,7 +147,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Transform the properties to our format and optimize for listing view
-    const transformedProperties = allProperties.map(property => {
+    const transformedProperties = allProperties.map((property: any) => {
       const transformed = transformVaultREProperty(property);
       // Optimize for listing view - only include first 2 images to reduce payload size
       if (transformed.images && transformed.images.length > 2) {

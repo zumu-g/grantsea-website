@@ -40,40 +40,51 @@ export async function GET(request: NextRequest) {
 
     let allProperties = [];
 
-    // Fetch based on type
+    // Fetch based on type - optimize for speed
     if (type === 'sale') {
-      // Fetch residential, land, and commercial properties for sale
-      const fetchPromises = [];
-
-      // Residential properties
-      let residentialUrl = `${API_BASE_URL}/properties/residential/sale?published=${published}&limit=${Math.floor(parseInt(limit) / 3)}`;
+      // Focus on residential properties first (most common), add others if needed
+      let residentialUrl = `${API_BASE_URL}/properties/residential/sale?published=${published}&limit=${limit}`;
       if (suburb) {
         residentialUrl += `&suburb=${encodeURIComponent(suburb)}`;
       }
-      fetchPromises.push(fetch(residentialUrl, { headers }));
+      
+      const residentialResponse = await fetch(residentialUrl, { headers });
+      const residentialData = await residentialResponse.json();
+      allProperties = residentialData.items || [];
+      
+      // Only fetch additional property types if we have fewer than requested limit
+      if (allProperties.length < parseInt(limit)) {
+        const remainingLimit = parseInt(limit) - allProperties.length;
+        const fetchPromises = [];
 
-      // Land for sale
-      let landUrl = `${API_BASE_URL}/properties/land/sale?published=${published}&limit=${Math.floor(parseInt(limit) / 3)}`;
-      if (suburb) {
-        landUrl += `&suburb=${encodeURIComponent(suburb)}`;
+        // Land for sale
+        let landUrl = `${API_BASE_URL}/properties/land/sale?published=${published}&limit=${Math.ceil(remainingLimit / 2)}`;
+        if (suburb) {
+          landUrl += `&suburb=${encodeURIComponent(suburb)}`;
+        }
+        fetchPromises.push(fetch(landUrl, { headers }));
+
+        // Commercial properties
+        let commercialUrl = `${API_BASE_URL}/properties/commercial/sale?published=${published}&limit=${Math.ceil(remainingLimit / 2)}`;
+        if (suburb) {
+          commercialUrl += `&suburb=${encodeURIComponent(suburb)}`;
+        }
+        fetchPromises.push(fetch(commercialUrl, { headers }));
+
+        try {
+          const additionalResponses = await Promise.all(fetchPromises);
+          const additionalResults = await Promise.all(additionalResponses.map(r => r.json()));
+          
+          allProperties = [
+            ...allProperties,
+            ...(additionalResults[0].items || []),
+            ...(additionalResults[1].items || [])
+          ];
+        } catch (error) {
+          console.warn('Failed to fetch additional property types:', error);
+          // Continue with just residential properties
+        }
       }
-      fetchPromises.push(fetch(landUrl, { headers }));
-
-      // Commercial properties
-      let commercialUrl = `${API_BASE_URL}/properties/commercial/sale?published=${published}&limit=${Math.floor(parseInt(limit) / 3)}`;
-      if (suburb) {
-        commercialUrl += `&suburb=${encodeURIComponent(suburb)}`;
-      }
-      fetchPromises.push(fetch(commercialUrl, { headers }));
-
-      const responses = await Promise.all(fetchPromises);
-      const dataResults = await Promise.all(responses.map(r => r.json()));
-
-      allProperties = [
-        ...(dataResults[0].items || []),
-        ...(dataResults[1].items || []),
-        ...(dataResults[2].items || [])
-      ];
     } else if (type === 'lease' || type === 'rent') {
       let url = `${API_BASE_URL}/properties/residential/lease?published=${published}&limit=${limit}`;
       if (suburb) {
@@ -135,8 +146,19 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Transform the properties to our format
-    const transformedProperties = allProperties.map(transformVaultREProperty);
+    // Transform the properties to our format and optimize for listing view
+    const transformedProperties = allProperties.map(property => {
+      const transformed = transformVaultREProperty(property);
+      // Optimize for listing view - only include first 2 images to reduce payload size
+      if (transformed.images && transformed.images.length > 2) {
+        transformed.images = transformed.images.slice(0, 2);
+      }
+      // Remove heavy description data for listing view
+      if (transformed.description && transformed.description.length > 200) {
+        transformed.description = transformed.description.substring(0, 200) + '...';
+      }
+      return transformed;
+    });
 
     // Fetch upcoming open homes only for active properties
     try {

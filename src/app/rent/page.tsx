@@ -6,6 +6,7 @@ import OncomHeader from '@/components/OncomHeader';
 import { useProperties } from '@/hooks/useProperties';
 import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
+import PropertySkeleton from '@/components/PropertySkeleton';
 import { motion } from 'framer-motion';
 
 export default function RentPage() {
@@ -472,21 +473,7 @@ export default function RentPage() {
             margin: '0 auto'
           }}>
             {loading ? (
-              <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                minHeight: '400px'
-              }}>
-                <div style={{
-                  width: '48px',
-                  height: '48px',
-                  border: '3px solid #F0F0F0',
-                  borderTop: '3px solid #000',
-                  borderRadius: '50%',
-                  animation: 'spin 1s linear infinite'
-                }} />
-              </div>
+              <PropertySkeleton count={6} isMobile={isMobile} />
             ) : sortedProperties.length === 0 ? (
               <motion.div
                 initial={{ opacity: 0 }}

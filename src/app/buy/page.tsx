@@ -7,6 +7,7 @@ import { formatPrice } from '@/services/api';
 import { formatNextInspection } from '@/utils/formatInspectionTime';
 import SavePropertyButton from '@/components/SavePropertyButton';
 import OncomHeader from '@/components/OncomHeader';
+import PropertySkeleton from '@/components/PropertySkeleton';
 
 export default function BuyPageOncom() {
   const [showDropdown, setShowDropdown] = useState<string>('');
@@ -962,17 +963,7 @@ export default function BuyPageOncom() {
           paddingBottom: isMobile ? '24px' : '40px'
         }}>
           {loading ? (
-            <div style={{ textAlign: 'center', padding: '80px 0' }}>
-              <div style={{
-                width: '40px',
-                height: '40px',
-                border: '3px solid #e0e0e0',
-                borderTop: '3px solid #000',
-                borderRadius: '50%',
-                margin: '0 auto',
-                animation: 'spin 1s linear infinite'
-              }} />
-            </div>
+            <PropertySkeleton count={6} isMobile={isMobile} />
           ) : sortedProperties.length === 0 ? (
             <div style={{
               textAlign: 'center',

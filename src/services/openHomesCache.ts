@@ -34,6 +34,12 @@ class OpenHomesCache {
   clear(): void {
     this.cache.clear();
   }
+
+  // Force clear for debugging
+  forceClear(): void {
+    this.cache.clear();
+    console.log('Open homes cache forcefully cleared');
+  }
 }
 
 // Create a singleton instance

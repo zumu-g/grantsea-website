@@ -3,7 +3,7 @@ import { crmAPI, Property } from '@/services/api';
 
 // Simple cache for properties
 const propertiesCache = new Map<string, { data: Property[], timestamp: number }>();
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const CACHE_DURATION = 15 * 60 * 1000; // 15 minutes (increased from 5)
 
 interface UsePropertiesOptions {
   suburb?: string;
@@ -43,6 +43,12 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
         setProperties(cached.data);
         setLoading(false);
         return;
+      }
+
+      // Show cached data immediately while fetching fresh data
+      if (cached) {
+        setProperties(cached.data);
+        setLoading(false);
       }
 
       let response;

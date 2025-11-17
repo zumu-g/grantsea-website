@@ -41,6 +41,10 @@ export async function POST(req: NextRequest) {
   try {
     body = await req.json();
     
+    if (!body || !body.suburb) {
+      throw new Error('Invalid request body');
+    }
+    
     // Fetch recent sales in the suburb
     const salesResponse = await fetch(
       `${API_BASE_URL}/properties/residential/sold?suburb=${encodeURIComponent(body.suburb)}&per_page=50&sold_in_days=180`,

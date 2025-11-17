@@ -36,7 +36,7 @@ interface EstimateResult {
 }
 
 export async function POST(req: NextRequest) {
-  let body: EstimateRequest;
+  let body: EstimateRequest | undefined;
   
   try {
     body = await req.json();

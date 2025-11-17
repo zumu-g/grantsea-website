@@ -382,7 +382,7 @@ export default function OncomHeader() {
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
                     Rental appraisal
                   </Link>
-                  <a href="tel:0438100545" style={{
+                  <Link href="/rent/report-maintenance" style={{
                     display: 'block',
                     padding: '14px 20px',
                     color: '#000',
@@ -393,8 +393,8 @@ export default function OncomHeader() {
                     transition: 'background 0.15s ease'
                   }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Report maintenance: Call/Text 0438 100 545
-                  </a>
+                    Report maintenance
+                  </Link>
                   <Link href="/landlord-insights" style={{
                     display: 'block',
                     padding: '14px 20px',

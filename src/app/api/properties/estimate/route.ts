@@ -36,10 +36,8 @@ interface EstimateResult {
 }
 
 export async function POST(req: NextRequest) {
-  let body: EstimateRequest | undefined;
-  
   try {
-    body = await req.json();
+    const body: EstimateRequest = await req.json();
     
     if (!body || !body.suburb) {
       throw new Error('Invalid request body');
@@ -109,8 +107,8 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error('Error calculating property estimate:', error);
     
-    // Return mock estimate on error - use default values if body parsing failed
-    const mockEstimate = generateMockEstimate(body || {
+    // Return mock estimate on error - use default values
+    const mockEstimate = generateMockEstimate({
       suburb: 'Unknown',
       propertyType: 'house',
       bedrooms: 3,

@@ -1,0 +1,17 @@
+
+/* Based on on.com analysis */
+.element-light {
+  width: 100%;
+  min-height: 100vh;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: white;
+}
+
+/* Add more specific styles based on analysis */
+    

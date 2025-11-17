@@ -1,0 +1,22 @@
+.variant-hover-wrapper {
+  align-items: flex-start;
+  display: inline-flex;
+  position: relative;
+}
+
+.variant-hover-wrapper .text-wrapper {
+  color: #000000;
+  font-family: "On Mono-Regular", Helvetica;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 1.68px;
+  line-height: 16.8px;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.variant-hover-wrapper:hover {
+  background-color: #000000;
+}

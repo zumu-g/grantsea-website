@@ -1,0 +1,487 @@
+.component-wrapper {
+  height: 3880px;
+  position: relative;
+  width: 300px;
+}
+
+.component-wrapper .component-12 {
+  align-items: flex-start;
+  background-color: #f5f5f5b2;
+  border: 0.5px dashed;
+  border-color: #000000;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 82px;
+  left: 120px;
+  padding: 30px;
+  position: absolute;
+  top: 0;
+  width: 140px;
+}
+
+.component-wrapper .variant {
+  height: 64px !important;
+  position: relative !important;
+  width: 64px !important;
+}
+
+.component-wrapper .icon-instance-node {
+  height: 24px !important;
+  position: relative !important;
+  width: 24px !important;
+}
+
+.component-wrapper .variant-2 {
+  height: 18px !important;
+  position: relative !important;
+  width: 18px !important;
+}
+
+.component-wrapper .variant-3 {
+  height: 80px !important;
+  position: relative !important;
+  width: 80px !important;
+}
+
+.component-wrapper .variant-21 {
+  height: 16px !important;
+  position: relative !important;
+  width: 16px !important;
+}
+
+.component-wrapper .y-axis-legend {
+  height: 3880px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 120px;
+}
+
+.component-wrapper .p {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 54px;
+}
+
+.component-wrapper .span {
+  color: #00000080;
+}
+
+.component-wrapper .text-wrapper-4 {
+  color: #000000;
+}
+
+.component-wrapper .variant-4 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 164px;
+}
+
+.component-wrapper .variant-5 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 274px;
+}
+
+.component-wrapper .variant-6 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 384px;
+}
+
+.component-wrapper .variant-7 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 494px;
+}
+
+.component-wrapper .variant-8 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 604px;
+}
+
+.component-wrapper .variant-9 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 714px;
+}
+
+.component-wrapper .variant-10 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 824px;
+}
+
+.component-wrapper .variant-11 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 934px;
+}
+
+.component-wrapper .variant-12 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 1044px;
+}
+
+.component-wrapper .variant-13 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 1154px;
+}
+
+.component-wrapper .variant-14 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 1264px;
+}
+
+.component-wrapper .variant-15 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 1374px;
+}
+
+.component-wrapper .variant-16 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 1484px;
+}
+
+.component-wrapper .variant-17 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 1594px;
+}
+
+.component-wrapper .variant-18 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 1704px;
+}
+
+.component-wrapper .variant-19 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 1814px;
+}
+
+.component-wrapper .variant-20 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 1924px;
+}
+
+.component-wrapper .variant-22 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 2034px;
+}
+
+.component-wrapper .variant-23 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 2144px;
+}
+
+.component-wrapper .variant-24 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 2254px;
+}
+
+.component-wrapper .variant-25 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 2364px;
+}
+
+.component-wrapper .variant-26 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 2474px;
+}
+
+.component-wrapper .variant-27 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 2584px;
+}
+
+.component-wrapper .variant-28 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 2694px;
+}
+
+.component-wrapper .variant-29 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 2804px;
+}
+
+.component-wrapper .variant-30 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 2914px;
+}
+
+.component-wrapper .variant-31 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 3024px;
+}
+
+.component-wrapper .variant-32 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 3134px;
+}
+
+.component-wrapper .variant-33 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 3244px;
+}
+
+.component-wrapper .variant-34 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 3354px;
+}
+
+.component-wrapper .variant-35 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 3464px;
+}
+
+.component-wrapper .variant-36 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 3574px;
+}
+
+.component-wrapper .variant-37 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 3684px;
+}
+
+.component-wrapper .variant-38 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 3794px;
+}

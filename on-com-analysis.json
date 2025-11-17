@@ -1,0 +1,54 @@
+{
+  "header": {
+    "exists": true,
+    "styles": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "fontFamily": "On, \"Noto Sans JP\", \"Noto Sans KR\", system-ui, -apple-system, \"segoe ui\", roboto, ubuntu, cantarell, \"noto sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "fontSize": "16px",
+      "padding": "0px",
+      "margin": "0px",
+      "display": "flex",
+      "position": "absolute",
+      "height": "90px",
+      "width": "846px"
+    },
+    "height": 90,
+    "navLinks": [
+      {
+        "text": "Shop",
+        "href": "/en-au/shop"
+      },
+      {
+        "text": "Activities",
+        "href": "/en-au/shop"
+      },
+      {
+        "text": "Explore",
+        "href": "/en-au/shop"
+      }
+    ]
+  },
+  "body": {
+    "styles": {
+      "backgroundColor": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "fontFamily": "On, \"Noto Sans JP\", \"Noto Sans KR\", system-ui, -apple-system, \"segoe ui\", roboto, ubuntu, cantarell, \"noto sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "fontSize": "16px",
+      "padding": "0px",
+      "margin": "0px",
+      "display": "block",
+      "position": "static",
+      "height": "5882.3px",
+      "width": "1280px"
+    },
+    "classes": ""
+  },
+  "hero": {
+    "exists": true,
+    "styles": null,
+    "content": "ShopWomen Shop allShoesApparelAccessoriesNew arrivalsBest sellersLast seasonMen Shop allShoesApparelAccessoriesNew arrivalsBest sellersLast seasonKids Shop allShoesAccessoriesSee the collectionShop al"
+  },
+  "fonts": "On, \"Noto Sans JP\", \"Noto Sans KR\", system-ui, -apple-system, \"segoe ui\", roboto, ubuntu, cantarell, \"noto sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+  "mainStructure": 1
+}

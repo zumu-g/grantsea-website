@@ -1,0 +1,68 @@
+.component-screen {
+  height: 130px;
+  width: 973px;
+}
+
+.component-screen .component-8 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 973px;
+}
+
+.component-screen .x-axis-legend {
+  align-self: stretch;
+  height: 30px;
+  position: relative;
+  width: 100%;
+}
+
+.component-screen .text-wrapper-2 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 201px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -1px;
+}
+
+.component-screen .text-wrapper-3 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 676px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -1px;
+}
+
+.component-screen .component-11 {
+  align-self: stretch;
+  background-color: #f5f5f5b2;
+  border: 0.5px dashed;
+  border-color: #000000;
+  border-radius: 5px;
+  height: 100px;
+  position: relative;
+  width: 100%;
+}
+
+.component-screen .variant-hover-true {
+  border-color: unset !important;
+  left: 502px !important;
+  position: absolute !important;
+  top: 30px !important;
+}
+
+.component-screen .variant-hover {
+  border-color: unset !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 30px !important;
+}

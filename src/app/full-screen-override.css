@@ -1,0 +1,117 @@
+/* Full-screen override styles for Anima components */
+
+/* Reset all fixed widths and ensure full viewport usage */
+html, body, #__next, main {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+}
+
+/* Override Anima's fixed container widths */
+.element-light,
+.element-light > *,
+.element-light .overlap-group,
+.element-light .container-4,
+.element-light .container-5,
+.element-light .container-6,
+.element-light .container-7,
+.element-light .container-8,
+.element-light .container-11,
+.element-light .div-wrapper-3,
+.element-light .section-wrapper,
+.element-light .section,
+.element-light .section-2,
+.element-light .footer {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Remove any fixed positioning that limits width */
+.element-light [style*="width: 1512px"] {
+  width: 100% !important;
+}
+
+.element-light [style*="width: 1440px"] {
+  width: 100% !important;
+}
+
+/* Header full width */
+.element-light .header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  z-index: 1000 !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* Content areas full width */
+.element-light .hero-section,
+.element-light .content-section {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 20px !important;
+}
+
+/* Images responsive */
+.element-light img,
+.element-light picture,
+.element-light .picture-fw {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Sections padding adjustment for better mobile view */
+@media (max-width: 768px) {
+  .element-light .section,
+  .element-light .section-2 {
+    padding: 20px 15px !important;
+  }
+  
+  .element-light .container-5 {
+    padding: 0 20px !important;
+  }
+}
+
+/* Footer full width */
+.element-light .footer {
+  position: relative !important;
+  bottom: auto !important;
+  left: 0 !important;
+  right: 0 !important;
+}
+
+/* Grant's AI Chat position fix */
+.GrantsAIChatBox,
+.grants-ai-chat {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 9999 !important;
+}
+
+/* Remove any absolute positioning that might cause overflow */
+.element-light [style*="position: absolute"] {
+  position: relative !important;
+}
+
+/* Ensure no horizontal scrollbar */
+* {
+  max-width: 100vw !important;
+}
+
+/* Override any inline styles that set fixed widths */
+[style*="width: 1512px"],
+[style*="width: 1440px"],
+[style*="width: 1280px"],
+[style*="width: 1024px"] {
+  width: 100% !important;
+  max-width: 100% !important;
+}

@@ -1,0 +1,32 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔍 Running pre-push checks..."
+
+# 1. Build test
+echo "📦 Testing build..."
+npm run build || {
+    echo "❌ Build failed! Please fix errors before pushing."
+    echo "💡 Tip: Check for missing imports, TypeScript errors, or platform-specific dependencies."
+    exit 1
+}
+
+# 2. TypeScript check (if script exists)
+if npm run typecheck --dry-run >/dev/null 2>&1; then
+    echo "🔍 Checking TypeScript..."
+    npm run typecheck || {
+        echo "❌ TypeScript errors found! Please fix before pushing."
+        exit 1
+    }
+fi
+
+# 3. Lint check (if script exists)
+if npm run lint --dry-run >/dev/null 2>&1; then
+    echo "🧹 Running linter..."
+    npm run lint || {
+        echo "❌ Linting errors found! Please fix before pushing."
+        exit 1
+    }
+fi
+
+echo "✅ All checks passed! Pushing to remote..."

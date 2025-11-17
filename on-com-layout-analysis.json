@@ -1,0 +1,196 @@
+{
+  "hero": {
+    "text": "The Race-Day Edit",
+    "positioning": {
+      "textAlign": "left",
+      "left": 42.609375,
+      "top": 442.875,
+      "width": 586.71875,
+      "height": 53.296875,
+      "centerX": 335.96875,
+      "viewportWidth": 1280
+    },
+    "styles": {
+      "fontSize": "48.448px",
+      "fontWeight": "700",
+      "lineHeight": "53.2928px",
+      "letterSpacing": "-0.48448px",
+      "color": "rgb(255, 255, 255)"
+    },
+    "parentContainer": {
+      "display": "block",
+      "justifyContent": "normal",
+      "alignItems": "normal",
+      "textAlign": "left",
+      "width": 586.71875,
+      "maxWidth": "100%"
+    }
+  },
+  "shopByCategory": {
+    "text": "Shop by category",
+    "positioning": {
+      "textAlign": "start",
+      "left": 0,
+      "top": 796.125,
+      "width": 1280
+    },
+    "styles": {
+      "fontSize": "48.448px",
+      "fontWeight": "700",
+      "lineHeight": "53.2928px",
+      "marginBottom": "31.4912px",
+      "paddingBottom": "0px"
+    },
+    "parentContainer": {
+      "display": "block",
+      "justifyContent": "normal",
+      "alignItems": "normal",
+      "textAlign": "start",
+      "maxWidth": "none",
+      "padding": "0px",
+      "margin": "0px"
+    }
+  },
+  "allHeadings": [
+    {
+      "tagName": "H3",
+      "text": "On App",
+      "styles": {
+        "textAlign": "start",
+        "fontSize": "18.72px",
+        "fontWeight": "700",
+        "display": "block"
+      }
+    },
+    {
+      "tagName": "H1",
+      "text": "The Race-Day Edit",
+      "styles": {
+        "textAlign": "left",
+        "fontSize": "48.448px",
+        "fontWeight": "700",
+        "display": "block"
+      }
+    },
+    {
+      "tagName": "H2",
+      "text": "Shop by category",
+      "styles": {
+        "textAlign": "start",
+        "fontSize": "48.448px",
+        "fontWeight": "700",
+        "display": "block"
+      }
+    },
+    {
+      "tagName": "H3",
+      "text": "Activities",
+      "styles": {
+        "textAlign": "start",
+        "fontSize": "20px",
+        "fontWeight": "400",
+        "display": "block"
+      }
+    },
+    {
+      "tagName": "H2",
+      "text": "New arrivals",
+      "styles": {
+        "textAlign": "start",
+        "fontSize": "48.448px",
+        "fontWeight": "700",
+        "display": "block"
+      }
+    },
+    {
+      "tagName": "H2",
+      "text": "Stories that move",
+      "styles": {
+        "textAlign": "start",
+        "fontSize": "48.448px",
+        "fontWeight": "700",
+        "display": "block"
+      }
+    },
+    {
+      "tagName": "H2",
+      "text": "Our mission",
+      "styles": {
+        "textAlign": "start",
+        "fontSize": "48.448px",
+        "fontWeight": "700",
+        "display": "block"
+      }
+    },
+    {
+      "tagName": "H2",
+      "text": "Privacy Preference Settings",
+      "styles": {
+        "textAlign": "left",
+        "fontSize": "28px",
+        "fontWeight": "700",
+        "display": "block"
+      }
+    },
+    {
+      "tagName": "H3",
+      "text": "Manage Consent Preferences",
+      "styles": {
+        "textAlign": "left",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "display": "block"
+      }
+    },
+    {
+      "tagName": "H4",
+      "text": "Essential",
+      "styles": {
+        "textAlign": "left",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "display": "block"
+      }
+    },
+    {
+      "tagName": "H4",
+      "text": "Performance & Functionality",
+      "styles": {
+        "textAlign": "left",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "display": "block"
+      }
+    },
+    {
+      "tagName": "H4",
+      "text": "Web Analysis",
+      "styles": {
+        "textAlign": "left",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "display": "block"
+      }
+    },
+    {
+      "tagName": "H4",
+      "text": "Marketing",
+      "styles": {
+        "textAlign": "left",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "display": "block"
+      }
+    },
+    {
+      "tagName": "H3",
+      "text": "Cookie List",
+      "styles": {
+        "textAlign": "left",
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "display": "inline-block"
+      }
+    }
+  ]
+}

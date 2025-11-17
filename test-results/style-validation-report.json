@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-10-16T23:55:43.977Z",
+  "passed": false,
+  "issues": [
+    "❌ Logo font size should be 24px, found: 16px"
+  ],
+  "checks": {
+    "header": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "height": 64,
+      "position": "fixed"
+    },
+    "headerScrolled": {
+      "transform": "matrix(1, 0, 0, 1, 0, -64)",
+      "isHidden": true
+    },
+    "categoryData": null,
+    "typography": {
+      "logo": {
+        "fontSize": 16,
+        "fontWeight": 400
+      },
+      "nav": {
+        "fontSize": 14,
+        "fontWeight": 500
+      },
+      "hero": {
+        "fontSize": 48
+      }
+    }
+  }
+}

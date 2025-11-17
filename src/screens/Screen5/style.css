@@ -1,0 +1,60 @@
+.screen-5 {
+  height: 114px;
+  position: relative;
+  width: 364px;
+}
+
+.screen-5 .component-16 {
+  align-items: flex-start;
+  background-color: #f5f5f5b2;
+  border: 0.5px dashed;
+  border-color: #000000;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  padding: 30px;
+  position: absolute;
+  top: 30px;
+  width: 364px;
+}
+
+.screen-5 .variant-hover-3 {
+  flex: 0 0 auto !important;
+}
+
+.screen-5 .variant-hover-true-3 {
+  width: 136.78px !important;
+}
+
+.screen-5 .x-axis-legend-5 {
+  height: 30px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 364px;
+}
+
+.screen-5 .text-wrapper-11 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 48px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -1px;
+}
+
+.screen-5 .text-wrapper-12 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 220px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -1px;
+}

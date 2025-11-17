@@ -1,0 +1,30 @@
+.component-7 {
+  align-items: center;
+  background-color: #0000000d;
+  border: 1px solid;
+  border-color: #0000000d;
+  display: flex;
+  flex-direction: column;
+  height: 64px;
+  max-width: 576.05px;
+  padding: 30px 5px 14px 17px;
+  position: relative;
+  width: 576px;
+}
+
+.component-7 .container-2 {
+  align-self: stretch;
+  height: 20px;
+  overflow: scroll;
+  position: relative;
+  width: 100%;
+}
+
+.component-7 .container-2::-webkit-scrollbar {
+  display: none;
+  width: 0;
+}
+
+.component-7:hover {
+  background-color: #00000003;
+}

@@ -1,0 +1,9 @@
+{
+  "fontMatch": false,
+  "differences": [
+    "Font mismatch - ON.com: On, \"Noto Sans JP\", \"Noto Sans KR\", system-ui, -apple-system, \"segoe ui\", roboto, ubuntu, cantarell, \"noto sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\", Ours: On, Helvetica, sans-serif"
+  ],
+  "recommendations": [
+    "Ensure On font family is loaded"
+  ]
+}

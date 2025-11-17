@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Quick validation only - full style validation moved to CI/CD
+echo "🔍 Running quick pre-commit checks..."
+
+# Basic TypeScript check
+echo "Checking TypeScript..."
+npm run typecheck || {
+    echo "❌ TypeScript validation failed!"
+    exit 1
+}
+
+# Basic linting
+echo "Running ESLint..."
+npm run lint || {
+    echo "❌ Linting failed!"
+    exit 1
+}
+
+echo "✅ Quick pre-commit checks passed!"
+echo "📝 Note: Full style validation runs in CI/CD pipeline"

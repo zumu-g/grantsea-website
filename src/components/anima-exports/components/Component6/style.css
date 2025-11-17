@@ -1,0 +1,350 @@
+.component-6 {
+  align-items: flex-start;
+  border-radius: 4px;
+  display: inline-flex;
+  flex-direction: column;
+  height: 480px;
+  justify-content: flex-end;
+  max-width: 340px;
+  overflow: hidden;
+  position: relative;
+}
+
+.component-6 .picture-cloud-wrapper {
+  align-items: flex-start;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  flex-grow: 1;
+  max-height: 480px;
+  max-width: 340px;
+  position: relative;
+  width: 100%;
+}
+
+.component-6 .picture-cloud {
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 480px;
+  max-width: 340px;
+  position: relative;
+  width: 100%;
+}
+
+.component-6 .container-2 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  left: 16px;
+  position: absolute;
+  width: 308px;
+}
+
+.component-6 .cloud-wrapper {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.component-6 .cloud {
+  align-items: flex-end;
+  align-self: stretch;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  max-width: 308px;
+  position: relative;
+}
+
+.component-6 .margin-2 {
+  align-self: stretch;
+  position: relative;
+  z-index: 1;
+}
+
+.component-6 .text-3 {
+  color: #ffffff;
+  font-family: "On-Bold", Helvetica;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 31.2px;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.component-6 .component-1-29 {
+  height: 24px !important;
+  position: relative !important;
+  width: 24px !important;
+  z-index: 0 !important;
+}
+
+.component-6 .variant-8-four {
+  background-image: url(/static/img/picture-fw25-trade-assets-pr-head-to-toe-still-01-3-jpg.png);
+}
+
+.component-6 .variant-8-three {
+  background-image: url(/static/img/picture-ss25-trade-assets-pr-detail-still-look-2-cloudmonster2.png);
+}
+
+.component-6 .variant-8-five {
+  background-image: url(/static/img/picture-fw24-the-roger-new-colors-the-roger-pro-ivory-chambray.png);
+}
+
+.component-6 .variant-8-six {
+  background-image: url(/static/img/picture-fw24-holiday-pad-head-to-toe-still-rgb-01-jpg.png);
+}
+
+.component-6 .variant-8-two {
+  background-image: url(/static/img/picture-fw25-trade-assets-pr-product-still-performance-t-carr.png);
+}
+
+.component-6 .variant-8-one {
+  background-image: url(/static/img/picture-ss25-cloud-6-pad-product-still-cloud-6-white-2062-1.png);
+}
+
+.component-6 .variant-9-four {
+  top: 429px;
+}
+
+.component-6 .variant-9-three {
+  top: 429px;
+}
+
+.component-6 .variant-9-five {
+  top: 429px;
+}
+
+.component-6 .variant-9-six {
+  top: 398px;
+}
+
+.component-6 .variant-9-two {
+  top: 429px;
+}
+
+.component-6 .variant-9-one {
+  top: 429px;
+}
+
+.component-6 .hover-1-true {
+  position: relative;
+}
+
+.component-6 .variant-11-four {
+  flex: 1;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+  width: 79.41px;
+}
+
+.component-6 .variant-11-three {
+  flex: 1;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+  width: 168.02px;
+}
+
+.component-6 .variant-11-five {
+  flex: 1;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+  width: 147.66px;
+}
+
+.component-6 .variant-11-two {
+  flex: 1;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+  width: 195.92px;
+}
+
+.component-6 .variant-11-one {
+  flex: 1;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+  width: 70.42px;
+}
+
+.component-6 .variant-11-six.hover-1-false {
+  color: #ffffff;
+  font-family: "On-Bold", Helvetica;
+  font-size: 26px;
+  font-weight: 700;
+  height: 63px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: 31.2px;
+  position: absolute;
+  top: -2px;
+  width: 148px;
+}
+
+.component-6 .hover-1-true.variant-11-six {
+  align-items: flex-start;
+  background-color: #ffffff;
+  display: inline-flex;
+  top: -1px;
+}
+
+.component-6 .container-2.variant-9-six .cloud-wrapper {
+  min-height: 62.38px;
+}
+
+.component-6 .container-2.variant-9-four .margin-2 {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  min-width: 79.41px;
+  padding: 0px 196.59px 0px 0px;
+}
+
+.component-6 .container-2.variant-9-three .margin-2 {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  min-width: 168.02px;
+  padding: 0px 107.98px 0px 0px;
+}
+
+.component-6 .container-2.variant-9-five .margin-2 {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  min-width: 147.66px;
+  padding: 0px 128.34px 0px 0px;
+}
+
+.component-6 .container-2.variant-9-six .margin-2 {
+  width: 276px;
+}
+
+.component-6 .container-2.variant-9-two .margin-2 {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  min-width: 195.92px;
+  padding: 0px 80.08px 0px 0px;
+}
+
+.component-6 .container-2.variant-9-one .margin-2 {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  min-width: 70.42px;
+  padding: 0px 205.58px 0px 0px;
+}
+
+.component-6 .container-42.hover-1-true .text-7 {
+  position: relative;
+}
+
+.component-6 .container-42.variant-11-six .text-7 {
+  color: #ffffff;
+  font-family: "On-Bold", Helvetica;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 31.2px;
+  margin-top: -1.00px;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.component-6 .container-42.hover-1-false .text-7 {
+  color: #ffffff;
+  font-family: "On-Bold", Helvetica;
+  font-size: 26px;
+  font-weight: 700;
+  height: 32px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: 31.2px;
+  position: absolute;
+  top: -2px;
+  white-space: nowrap;
+}
+
+.component-6 .container-42.variant-11-three.hover-1-false .text-7 {
+  width: 168px;
+}
+
+.component-6 .container-42.hover-1-true.variant-11-four .text-7 {
+  align-items: flex-start;
+  background-color: #ffffff;
+  display: inline-flex;
+  top: -1px;
+}
+
+.component-6 .container-42.variant-11-one.hover-1-false .text-7 {
+  width: 71px;
+}
+
+.component-6 .container-42.hover-1-true.variant-11-two .text-7 {
+  align-items: flex-start;
+  background-color: #ffffff;
+  display: inline-flex;
+  top: -1px;
+}
+
+.component-6 .container-42.hover-1-true.variant-11-one .text-7 {
+  align-items: flex-start;
+  background-color: #ffffff;
+  display: inline-flex;
+  top: -1px;
+}
+
+.component-6 .container-42.variant-11-two.hover-1-false .text-7 {
+  width: 200px;
+}
+
+.component-6 .container-42.variant-11-four.hover-1-false .text-7 {
+  width: 80px;
+}
+
+.component-6 .container-42.hover-1-true.variant-11-three .text-7 {
+  align-items: flex-start;
+  background-color: #ffffff;
+  display: inline-flex;
+  top: -1px;
+}
+
+.component-6 .container-42.variant-11-five.hover-1-false .text-7 {
+  width: 148px;
+}
+
+.component-6 .container-42.hover-1-true.variant-11-five .text-7 {
+  align-items: flex-start;
+  background-color: #ffffff;
+  display: inline-flex;
+  top: -1px;
+}

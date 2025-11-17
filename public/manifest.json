@@ -1,0 +1,116 @@
+{
+  "name": "Grant's Estate Agents",
+  "short_name": "Grant's EA",
+  "description": "Leading real estate agency in Casey and Cardinia. Buy, sell, and rent properties in Southeast Melbourne.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#002b7f",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["business", "real estate", "lifestyle"],
+  "lang": "en-AU",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "scope": "/",
+  "screenshots": [
+    {
+      "src": "/screenshots/homepage.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Homepage showing property listings"
+    },
+    {
+      "src": "/screenshots/property-detail.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Property details page"
+    },
+    {
+      "src": "/screenshots/search.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Property search with filters"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Buy Properties",
+      "short_name": "Buy",
+      "description": "Browse properties for sale",
+      "url": "/buy",
+      "icons": [{ "src": "/icons/buy-icon.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Rent Properties",
+      "short_name": "Rent",
+      "description": "Find rental properties",
+      "url": "/rent",
+      "icons": [{ "src": "/icons/rent-icon.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Property Appraisal",
+      "short_name": "Appraisal",
+      "description": "Get a free property appraisal",
+      "url": "/appraisal",
+      "icons": [{ "src": "/icons/appraisal-icon.png", "sizes": "96x96" }]
+    }
+  ],
+  "features": [
+    "property-search",
+    "saved-properties",
+    "property-alerts",
+    "calculators",
+    "suburb-guides"
+  ]
+}

@@ -1,0 +1,275 @@
+.screen-9 {
+  height: 762px;
+  position: relative;
+  width: 450px;
+}
+
+.screen-9 .component-35 {
+  background-color: #f5f5f5b2;
+  border: 0.5px dashed;
+  border-color: #000000;
+  border-radius: 5px;
+  height: 732px;
+  left: 120px;
+  position: absolute;
+  top: 30px;
+  width: 330px;
+}
+
+.screen-9 .component-3-instance {
+  border-color: unset !important;
+  left: 180px !important;
+  position: absolute !important;
+  top: 30px !important;
+}
+
+.screen-9 .variant-hover-19 {
+  border-color: unset !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 30px !important;
+}
+
+.screen-9 .variant-hover-true-12 {
+  border-color: unset !important;
+  left: 180px !important;
+  position: absolute !important;
+  top: 108px !important;
+}
+
+.screen-9 .variant-hover-20 {
+  border-color: unset !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 108px !important;
+}
+
+.screen-9 .variant-hover-21 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 186px !important;
+}
+
+.screen-9 .variant-hover-22 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 264px !important;
+}
+
+.screen-9 .variant-hover-true-13 {
+  border-color: unset !important;
+  left: 180px !important;
+  position: absolute !important;
+  top: 342px !important;
+}
+
+.screen-9 .variant-hover-23 {
+  border-color: unset !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 342px !important;
+}
+
+.screen-9 .variant-hover-true-14 {
+  border-color: unset !important;
+  left: 180px !important;
+  position: absolute !important;
+  top: 420px !important;
+}
+
+.screen-9 .variant-hover-24 {
+  border-color: unset !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 420px !important;
+}
+
+.screen-9 .variant-hover-25 {
+  left: 30px !important;
+  position: absolute !important;
+  top: 498px !important;
+}
+
+.screen-9 .variant-hover-true-15 {
+  border-color: unset !important;
+  left: 180px !important;
+  position: absolute !important;
+  top: 576px !important;
+}
+
+.screen-9 .variant-hover-26 {
+  border-color: unset !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 576px !important;
+}
+
+.screen-9 .variant-hover-true-16 {
+  border-color: unset !important;
+  left: 180px !important;
+  position: absolute !important;
+  top: 654px !important;
+}
+
+.screen-9 .variant-hover-27 {
+  border-color: unset !important;
+  left: 30px !important;
+  position: absolute !important;
+  top: 654px !important;
+}
+
+.screen-9 .x-axis-legend-8 {
+  height: 30px;
+  left: 120px;
+  position: absolute;
+  top: 0;
+  width: 330px;
+}
+
+.screen-9 .text-wrapper-40 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 40px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -1px;
+}
+
+.screen-9 .text-wrapper-41 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 194px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -1px;
+}
+
+.screen-9 .y-axis-legend-4 {
+  height: 732px;
+  left: 0;
+  position: absolute;
+  top: 30px;
+  width: 120px;
+}
+
+.screen-9 .variant-54 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 38px;
+}
+
+.screen-9 .text-wrapper-42 {
+  color: #00000080;
+}
+
+.screen-9 .text-wrapper-43 {
+  color: #000000;
+}
+
+.screen-9 .variant-55 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 116px;
+}
+
+.screen-9 .variant-56 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 194px;
+}
+
+.screen-9 .variant-57 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 272px;
+}
+
+.screen-9 .variant-58 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 350px;
+}
+
+.screen-9 .variant-59 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 428px;
+}
+
+.screen-9 .variant-60 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 506px;
+}
+
+.screen-9 .variant-61 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 584px;
+}
+
+.screen-9 .variant-62 {
+  color: transparent;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 300;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 662px;
+}

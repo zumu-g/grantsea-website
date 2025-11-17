@@ -104,7 +104,7 @@ export async function POST(req: NextRequest) {
     console.error('Error calculating property estimate:', error);
     
     // Return mock estimate on error
-    const mockEstimate = generateMockEstimate(req.body as EstimateRequest);
+    const mockEstimate = generateMockEstimate(body);
     return NextResponse.json({ estimate: mockEstimate });
   }
 }

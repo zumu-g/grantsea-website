@@ -45,13 +45,41 @@ export async function GET(request: NextRequest) {
     
     for (const propId of propertyIds) {
       try {
-        const propertyResponse = await fetch(
-          `${API_BASE_URL}/properties/${propId}`,
-          { headers, cache: 'no-store' }
-        );
+        let propertyData = null;
         
-        if (propertyResponse.ok) {
-          const propertyData = await propertyResponse.json();
+        // Try residential sale endpoint first
+        try {
+          const saleResponse = await fetch(
+            `${API_BASE_URL}/properties/residential/sale/${propId}`,
+            { headers, cache: 'no-store' }
+          );
+          
+          if (saleResponse.ok) {
+            const data = await saleResponse.json();
+            propertyData = data.data || data;
+          }
+        } catch (e) {
+          // Continue to lease endpoint
+        }
+        
+        // If not found in sale, try lease endpoint
+        if (!propertyData) {
+          try {
+            const leaseResponse = await fetch(
+              `${API_BASE_URL}/properties/residential/lease/${propId}`,
+              { headers, cache: 'no-store' }
+            );
+            
+            if (leaseResponse.ok) {
+              const data = await leaseResponse.json();
+              propertyData = data.data || data;
+            }
+          } catch (e) {
+            // Property not found
+          }
+        }
+        
+        if (propertyData) {
           // Transform the VaultRE property data using the standard transformer
           const { transformVaultREProperty } = await import('@/services/api');
           const transformedProperty = transformVaultREProperty(propertyData);

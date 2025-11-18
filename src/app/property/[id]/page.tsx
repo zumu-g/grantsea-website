@@ -69,6 +69,9 @@ interface Property {
   daysOnMarket?: number;
   listingDate?: string;
   status?: string;
+  agency?: string;
+  agentName?: string;
+  externalUrl?: string;
 }
 
 // Helper function to get default features for properties without feature data
@@ -203,23 +206,58 @@ export default function PropertyDetailPage() {
           
           // Fetch similar properties
           if (data.data.suburb) {
-            parallelFetches.push(
-              fetch(`/api/properties?suburb=${data.data.suburb}&limit=10&type=${data.data.listingType || 'all'}`)
-                .then(res => res.json())
-                .then(similarData => {
-                  if (similarData.success && similarData.data) {
-                    // Filter to only show properties of the same listing type
-                    const filteredProperties = similarData.data.filter((p: Property) => 
-                      p.id !== data.data.id && 
-                      p.listingType === data.data.listingType
-                    );
-                    setSimilarProperties(filteredProperties.slice(0, 3));
-                  }
-                })
-                .catch(err => {
-                  console.error('[PropertyPage] Failed to load similar properties:', err);
-                })
-            );
+            // For lease properties, fetch from market search to show other agencies
+            if (data.data.listingType === 'lease' && data.data.address) {
+              // Extract street name from address
+              const streetMatch = data.data.address.match(/^(\d+\s+)?(.+?),/);
+              const streetName = streetMatch ? streetMatch[2] : '';
+              
+              if (streetName) {
+                parallelFetches.push(
+                  fetch(`/api/properties/market-search?street=${encodeURIComponent(streetName)}&suburb=${encodeURIComponent(data.data.suburb)}&type=lease&excludeId=${data.data.id}`)
+                    .then(res => res.json())
+                    .then(marketData => {
+                      if (marketData.success && marketData.properties) {
+                        setSimilarProperties(marketData.properties);
+                      }
+                    })
+                    .catch(err => {
+                      console.error('[PropertyPage] Failed to load market properties:', err);
+                      // Fallback to internal properties
+                      return fetch(`/api/properties?suburb=${data.data.suburb}&limit=10&type=${data.data.listingType || 'all'}`)
+                        .then(res => res.json())
+                        .then(similarData => {
+                          if (similarData.success && similarData.data) {
+                            const filteredProperties = similarData.data.filter((p: Property) => 
+                              p.id !== data.data.id && 
+                              p.listingType === data.data.listingType
+                            );
+                            setSimilarProperties(filteredProperties.slice(0, 3));
+                          }
+                        });
+                    })
+                );
+              }
+            } else {
+              // For sale properties, use internal properties
+              parallelFetches.push(
+                fetch(`/api/properties?suburb=${data.data.suburb}&limit=10&type=${data.data.listingType || 'all'}`)
+                  .then(res => res.json())
+                  .then(similarData => {
+                    if (similarData.success && similarData.data) {
+                      // Filter to only show properties of the same listing type
+                      const filteredProperties = similarData.data.filter((p: Property) => 
+                        p.id !== data.data.id && 
+                        p.listingType === data.data.listingType
+                      );
+                      setSimilarProperties(filteredProperties.slice(0, 3));
+                    }
+                  })
+                  .catch(err => {
+                    console.error('[PropertyPage] Failed to load similar properties:', err);
+                  })
+              );
+            }
           }
           
           // Wait for all parallel fetches to complete (but don't block rendering)
@@ -2508,13 +2546,17 @@ export default function PropertyDetailPage() {
                     addressElement.style.color = '#000';
                   }
                 }}>
-                  <Link href={`/property/${similarProperty.id}`} style={{
-                    textDecoration: 'none',
-                    color: 'inherit',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: '100%'
-                  }}>
+                  <Link 
+                    href={similarProperty.externalUrl || `/property/${similarProperty.id}`}
+                    target={similarProperty.externalUrl ? '_blank' : undefined}
+                    rel={similarProperty.externalUrl ? 'noopener noreferrer' : undefined}
+                    style={{
+                      textDecoration: 'none',
+                      color: 'inherit',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      height: '100%'
+                    }}>
                     <div style={{
                       position: 'relative',
                       paddingTop: '100%', // 1:1 square aspect ratio
@@ -2559,29 +2601,31 @@ export default function PropertyDetailPage() {
                           </div>
                         )}
                       </div>
-                      <div style={{
-                        position: 'absolute',
-                        top: '8px',
-                        right: '8px',
-                        zIndex: 1
-                      }}>
-                        <SavePropertyButton property={{
-                          id: similarProperty.id,
-                          address: similarProperty.address || '',
-                          suburb: similarProperty.suburb || '',
-                          state: similarProperty.state || 'VIC',
-                          price: similarProperty.price,
-                          priceDisplay: similarProperty.priceDisplay,
-                          bedrooms: similarProperty.bedrooms || 0,
-                          bathrooms: similarProperty.bathrooms || 0,
-                          carSpaces: similarProperty.carSpaces || 0,
-                          propertyType: similarProperty.propertyType || 'House',
-                          listingType: similarProperty.listingType as 'sale' | 'lease' | 'both',
-                          leasePrice: similarProperty.leasePrice,
-                          leasePriceDisplay: similarProperty.leasePriceDisplay,
-                          images: similarProperty.images
-                        }} />
-                      </div>
+                      {!similarProperty.externalUrl && (
+                        <div style={{
+                          position: 'absolute',
+                          top: '8px',
+                          right: '8px',
+                          zIndex: 1
+                        }}>
+                          <SavePropertyButton property={{
+                            id: similarProperty.id,
+                            address: similarProperty.address || '',
+                            suburb: similarProperty.suburb || '',
+                            state: similarProperty.state || 'VIC',
+                            price: similarProperty.price,
+                            priceDisplay: similarProperty.priceDisplay,
+                            bedrooms: similarProperty.bedrooms || 0,
+                            bathrooms: similarProperty.bathrooms || 0,
+                            carSpaces: similarProperty.carSpaces || 0,
+                            propertyType: similarProperty.propertyType || 'House',
+                            listingType: similarProperty.listingType as 'sale' | 'lease' | 'both',
+                            leasePrice: similarProperty.leasePrice,
+                            leasePriceDisplay: similarProperty.leasePriceDisplay,
+                            images: similarProperty.images
+                          }} />
+                        </div>
+                      )}
                       {similarProperty.listingType === 'lease' && (
                         <div style={{
                           position: 'absolute',
@@ -2671,13 +2715,26 @@ export default function PropertyDetailPage() {
                         fontSize: '1.125rem',
                         fontWeight: '600',
                         color: '#000',
-                        letterSpacing: '-0.01em'
+                        letterSpacing: '-0.01em',
+                        marginBottom: similarProperty.agency ? '0.5rem' : 0
                       }}>
                         {similarProperty.listingType === 'lease'
                           ? (similarProperty.leasePriceDisplay || (similarProperty.leasePrice ? `$${similarProperty.leasePrice} per week` : 'Contact Agent'))
                           : (similarProperty.priceDisplay || formatPrice(similarProperty.price || 0))
                         }
                       </p>
+                      {similarProperty.agency && (
+                        <div style={{
+                          fontSize: '0.75rem',
+                          color: '#666',
+                          marginTop: 'auto'
+                        }}>
+                          <span style={{ fontWeight: '500' }}>{similarProperty.agency}</span>
+                          {similarProperty.agentName && (
+                            <span> • {similarProperty.agentName}</span>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </Link>
                 </div>

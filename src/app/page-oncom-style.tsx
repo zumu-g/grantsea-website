@@ -693,7 +693,7 @@ export default function HomePageOncom() {
                   {
                     name: 'Clyde',
                     tagline: 'Building tomorrow',
-                    image: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600&h=800&fit=crop',
+                    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=800&fit=crop',
                     link: '/suburbs/clyde'
                   },
                   {
@@ -705,7 +705,7 @@ export default function HomePageOncom() {
                   {
                     name: 'Hallam',
                     tagline: 'Established convenience',
-                    image: 'https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=600&h=800&fit=crop',
+                    image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=800&fit=crop',
                     link: '/suburbs/hallam'
                   },
                   {

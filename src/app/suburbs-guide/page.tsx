@@ -22,7 +22,6 @@ function SuburbsGuidePage() {
       slug: 'berwick',
       description: 'Family-friendly suburb with excellent schools, shopping centres, and parks. Close to Fountain Gate and Casey Central.',
       features: ['Train Station', 'Shopping Centres', 'Great Schools', 'Parks & Recreation'],
-      medianPrice: '$850,000',
       type: 'established',
       population: '45,000',
       distanceToCbd: '42km'
@@ -32,7 +31,6 @@ function SuburbsGuidePage() {
       slug: 'narre-warren',
       description: 'Well-established suburb with mature infrastructure, close to Westfield Fountain Gate and excellent transport links.',
       features: ['Shopping Centre', 'Train Station', 'Schools', 'Medical Facilities'],
-      medianPrice: '$780,000',
       type: 'established',
       population: '26,000',
       distanceToCbd: '39km'
@@ -42,7 +40,6 @@ function SuburbsGuidePage() {
       slug: 'narre-warren-south',
       description: 'Premium residential area with larger blocks, quality homes, and proximity to top schools and amenities.',
       features: ['Large Blocks', 'Quality Homes', 'Schools', 'Quiet Streets'],
-      medianPrice: '$920,000',
       type: 'established',
       population: '18,000',
       distanceToCbd: '41km'
@@ -52,7 +49,6 @@ function SuburbsGuidePage() {
       slug: 'cranbourne',
       description: 'Growing suburb with new developments, shopping precincts, and excellent connectivity to Melbourne.',
       features: ['New Developments', 'Train Station', 'Shopping', 'Growth Area'],
-      medianPrice: '$720,000',
       type: 'growth',
       population: '22,000',
       distanceToCbd: '48km'
@@ -62,7 +58,6 @@ function SuburbsGuidePage() {
       slug: 'cranbourne-north',
       description: 'Established residential area with family homes, parks, and close proximity to amenities and transport.',
       features: ['Family Homes', 'Parks', 'Schools', 'Transport Links'],
-      medianPrice: '$750,000',
       type: 'established',
       population: '20,000',
       distanceToCbd: '46km'
@@ -72,7 +67,6 @@ function SuburbsGuidePage() {
       slug: 'pakenham',
       description: 'Fast-growing suburb with new estates, shopping centres, and excellent train connections to the city.',
       features: ['New Estates', 'Train Station', 'Shopping Centre', 'Growth Corridor'],
-      medianPrice: '$680,000',
       type: 'growth',
       population: '35,000',
       distanceToCbd: '56km'
@@ -82,7 +76,6 @@ function SuburbsGuidePage() {
       slug: 'officer',
       description: 'Modern suburb with contemporary housing, parks, and growing amenities. Perfect for families and professionals.',
       features: ['Modern Homes', 'Train Station', 'Parks', 'New Amenities'],
-      medianPrice: '$650,000',
       type: 'growth',
       population: '15,000',
       distanceToCbd: '53km'
@@ -92,7 +85,6 @@ function SuburbsGuidePage() {
       slug: 'clyde',
       description: 'Emerging suburb with new housing developments, planned infrastructure, and future growth potential.',
       features: ['New Developments', 'Planned Infrastructure', 'Investment Potential', 'Family Friendly'],
-      medianPrice: '$620,000',
       type: 'emerging',
       population: '8,000',
       distanceToCbd: '58km'
@@ -102,7 +94,6 @@ function SuburbsGuidePage() {
       slug: 'clyde-north',
       description: 'Premium new estates with modern amenities, parks, and planned community facilities in a growing corridor.',
       features: ['Premium Estates', 'Modern Amenities', 'Parks', 'Planned Growth'],
-      medianPrice: '$680,000',
       type: 'emerging',
       population: '12,000',
       distanceToCbd: '55km'
@@ -112,7 +103,6 @@ function SuburbsGuidePage() {
       slug: 'beaconsfield',
       description: 'Charming suburb with heritage character, excellent schools, and beautiful natural surroundings.',
       features: ['Heritage Character', 'Top Schools', 'Natural Beauty', 'Train Station'],
-      medianPrice: '$890,000',
       type: 'established',
       population: '7,000',
       distanceToCbd: '46km'
@@ -122,7 +112,6 @@ function SuburbsGuidePage() {
       slug: 'beaconsfield-upper',
       description: 'Semi-rural lifestyle with large properties, stunning views, and close to quality schools and amenities.',
       features: ['Large Properties', 'Stunning Views', 'Semi-Rural', 'Quality Schools'],
-      medianPrice: '$1,100,000',
       type: 'premium',
       population: '3,000',
       distanceToCbd: '50km'
@@ -132,7 +121,6 @@ function SuburbsGuidePage() {
       slug: 'hallam',
       description: 'Established suburb with good transport links, shopping centres, and a strong sense of community.',
       features: ['Transport Links', 'Shopping Centres', 'Community Feel', 'Established Area'],
-      medianPrice: '$720,000',
       type: 'established',
       population: '14,000',
       distanceToCbd: '35km'
@@ -142,7 +130,6 @@ function SuburbsGuidePage() {
       slug: 'hampton-park',
       description: 'Family-oriented suburb with parks, schools, and shopping facilities. Great value for families.',
       features: ['Family Oriented', 'Parks', 'Schools', 'Value for Money'],
-      medianPrice: '$650,000',
       type: 'established',
       population: '25,000',
       distanceToCbd: '37km'
@@ -152,7 +139,6 @@ function SuburbsGuidePage() {
       slug: 'endeavour-hills',
       description: 'Well-planned suburb with excellent facilities, parks, and proximity to Monash University.',
       features: ['Well Planned', 'Excellent Facilities', 'Near University', 'Parks'],
-      medianPrice: '$750,000',
       type: 'established',
       population: '15,000',
       distanceToCbd: '32km'
@@ -162,7 +148,6 @@ function SuburbsGuidePage() {
       slug: 'garfield',
       description: 'Rural township with acreage properties, peaceful lifestyle, and growing community amenities.',
       features: ['Acreage Properties', 'Rural Lifestyle', 'Peaceful', 'Growing Community'],
-      medianPrice: '$580,000',
       type: 'rural',
       population: '2,000',
       distanceToCbd: '65km'
@@ -172,7 +157,6 @@ function SuburbsGuidePage() {
       slug: 'harkaway',
       description: 'Rural suburb with large properties, horse facilities, and a country lifestyle close to the city.',
       features: ['Large Properties', 'Horse Facilities', 'Country Lifestyle', 'Close to City'],
-      medianPrice: '$950,000',
       type: 'rural',
       population: '1,500',
       distanceToCbd: '48km'
@@ -182,7 +166,6 @@ function SuburbsGuidePage() {
       slug: 'koo-wee-rup',
       description: 'Agricultural town with heritage charm, growing residential areas, and excellent community spirit.',
       features: ['Agricultural Town', 'Heritage Charm', 'Growing Areas', 'Community Spirit'],
-      medianPrice: '$520,000',
       type: 'rural',
       population: '3,500',
       distanceToCbd: '72km'
@@ -192,7 +175,6 @@ function SuburbsGuidePage() {
       slug: 'narre-warren-east',
       description: 'Established residential area with quality homes, parks, and proximity to excellent schools.',
       features: ['Quality Homes', 'Parks', 'Excellent Schools', 'Established'],
-      medianPrice: '$820,000',
       type: 'established',
       population: '6,000',
       distanceToCbd: '43km'
@@ -202,7 +184,6 @@ function SuburbsGuidePage() {
       slug: 'tynong',
       description: 'Semi-rural community with larger blocks, peaceful environment, and growing local amenities.',
       features: ['Larger Blocks', 'Peaceful Environment', 'Semi-Rural', 'Growing Amenities'],
-      medianPrice: '$600,000',
       type: 'rural',
       population: '1,800',
       distanceToCbd: '62km'
@@ -212,7 +193,6 @@ function SuburbsGuidePage() {
       slug: 'bunyip',
       description: 'Country town with rural charm, acreage lifestyle, and strong community connections.',
       features: ['Rural Charm', 'Acreage Lifestyle', 'Country Town', 'Community Connections'],
-      medianPrice: '$480,000',
       type: 'rural',
       population: '2,200',
       distanceToCbd: '78km'
@@ -249,10 +229,6 @@ function SuburbsGuidePage() {
     )
     .sort((a, b) => {
       switch (sortBy) {
-        case 'price-low':
-          return parseInt(a.medianPrice.replace(/[$,]/g, '')) - parseInt(b.medianPrice.replace(/[$,]/g, ''));
-        case 'price-high':
-          return parseInt(b.medianPrice.replace(/[$,]/g, '')) - parseInt(a.medianPrice.replace(/[$,]/g, ''));
         case 'distance':
           return parseInt(a.distanceToCbd) - parseInt(b.distanceToCbd);
         case 'population':
@@ -357,8 +333,6 @@ function SuburbsGuidePage() {
                 }}
               >
                 <option value="name">Sort by Name</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
                 <option value="distance">Distance to CBD</option>
                 <option value="population">Population</option>
               </select>
@@ -472,24 +446,11 @@ function SuburbsGuidePage() {
                           {suburb.name}
                         </h3>
                         <div style={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
+                          fontSize: '14px',
+                          color: '#666',
                           marginBottom: '12px'
                         }}>
-                          <span style={{
-                            fontSize: '20px',
-                            fontWeight: '700',
-                            color: '#002b7f'
-                          }}>
-                            {suburb.medianPrice}
-                          </span>
-                          <span style={{
-                            fontSize: '14px',
-                            color: '#666'
-                          }}>
-                            {suburb.distanceToCbd} from CBD
-                          </span>
+                          {suburb.distanceToCbd} from CBD
                         </div>
                       </div>
 

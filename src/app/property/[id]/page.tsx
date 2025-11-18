@@ -169,6 +169,8 @@ export default function PropertyDetailPage() {
     const fetchData = async () => {
       try {
         console.log('[PropertyPage] Starting fetch for:', `/api/properties/${params.id}`);
+        
+        // Fetch property details first (critical data)
         const response = await fetch(`/api/properties/${params.id}`);
         console.log('[PropertyPage] Response status:', response.status);
         const data = await response.json();
@@ -177,44 +179,60 @@ export default function PropertyDetailPage() {
         if (response.ok && data.success && data.data) {
           console.log('[PropertyPage] Property loaded successfully');
           
-          // Fetch open homes for this property
-          const openHomes = await fetchPropertyOpenHomes(params.id as string);
-          console.log('[PropertyPage] Open homes fetched:', openHomes);
+          // Set property immediately for faster rendering
+          setProperty(data.data);
+          setLoading(false); // Stop loading spinner immediately after main data loads
           
-          // Merge open homes into property data
-          const propertyWithOpenHomes = {
-            ...data.data,
-            inspectionTimes: openHomes.length > 0 ? openHomes : data.data.inspectionTimes || []
-          };
+          // Fetch additional data in parallel (non-blocking)
+          const parallelFetches = [];
           
-          setProperty(propertyWithOpenHomes);
-
+          // Fetch open homes
+          parallelFetches.push(
+            fetchPropertyOpenHomes(params.id as string).then(openHomes => {
+              console.log('[PropertyPage] Open homes fetched:', openHomes);
+              if (openHomes.length > 0) {
+                setProperty(prev => ({
+                  ...prev!,
+                  inspectionTimes: openHomes
+                }));
+              }
+            }).catch(err => {
+              console.error('[PropertyPage] Failed to load open homes:', err);
+            })
+          );
+          
           // Fetch similar properties
           if (data.data.suburb) {
-            try {
-              const similarResponse = await fetch(`/api/properties?suburb=${data.data.suburb}&limit=10&type=${data.data.listingType || 'all'}`);
-              const similarData = await similarResponse.json();
-              if (similarData.success && similarData.data) {
-                // Filter to only show properties of the same listing type
-                const filteredProperties = similarData.data.filter((p: Property) => 
-                  p.id !== data.data.id && 
-                  p.listingType === data.data.listingType
-                );
-                setSimilarProperties(filteredProperties.slice(0, 3));
-              }
-            } catch (err) {
-              console.error('[PropertyPage] Failed to load similar properties:', err);
-            }
+            parallelFetches.push(
+              fetch(`/api/properties?suburb=${data.data.suburb}&limit=10&type=${data.data.listingType || 'all'}`)
+                .then(res => res.json())
+                .then(similarData => {
+                  if (similarData.success && similarData.data) {
+                    // Filter to only show properties of the same listing type
+                    const filteredProperties = similarData.data.filter((p: Property) => 
+                      p.id !== data.data.id && 
+                      p.listingType === data.data.listingType
+                    );
+                    setSimilarProperties(filteredProperties.slice(0, 3));
+                  }
+                })
+                .catch(err => {
+                  console.error('[PropertyPage] Failed to load similar properties:', err);
+                })
+            );
           }
+          
+          // Wait for all parallel fetches to complete (but don't block rendering)
+          await Promise.allSettled(parallelFetches);
+          
         } else {
           console.error('[PropertyPage] Failed to load property:', data.error);
           setError(data.error || 'Failed to load property');
+          setLoading(false);
         }
       } catch (err) {
         console.error('[PropertyPage] Fetch error:', err);
         setError('Failed to load property: ' + (err instanceof Error ? err.message : 'Unknown error'));
-      } finally {
-        console.log('[PropertyPage] Setting loading to false');
         setLoading(false);
       }
     };

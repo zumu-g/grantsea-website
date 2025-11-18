@@ -11,6 +11,9 @@ function SchoolsGuidePage() {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [sortBy, setSortBy] = React.useState('name');
   const [isMobile, setIsMobile] = React.useState(false);
+  const [selectedFeatures, setSelectedFeatures] = React.useState<string[]>([]);
+  const [selectedSize, setSelectedSize] = React.useState('all');
+  const [showAdvancedFilters, setShowAdvancedFilters] = React.useState(false);
 
   React.useEffect(() => {
     const checkDevice = () => setIsMobile(window.innerWidth <= 768);
@@ -311,7 +314,31 @@ function SchoolsGuidePage() {
     }
   ];
 
-  const suburbs = ['all', ...new Set(schools.map(s => s.suburb))].sort();
+  // Get suburbs with school counts
+  const suburbsData = schools.reduce((acc, school) => {
+    if (!acc[school.suburb]) {
+      acc[school.suburb] = 0;
+    }
+    acc[school.suburb]++;
+    return acc;
+  }, {} as { [key: string]: number });
+  
+  const suburbs = Object.keys(suburbsData).sort();
+  
+  // Get all unique features
+  const allFeatures = Array.from(new Set(schools.flatMap(school => school.features))).sort();
+  
+  // Common features for quick filters
+  const commonFeatures = [
+    'STEM Excellence',
+    'Music Excellence', 
+    'Arts Programs',
+    'Sports Academy',
+    'Small Classes',
+    'Environmental Education',
+    'Performing Arts',
+    'Community Focus'
+  ].filter(feature => allFeatures.includes(feature));
 
   const filteredSchools = schools.filter(school => {
     const typeMatch = selectedType === 'all' || school.type === selectedType;
@@ -325,7 +352,19 @@ function SchoolsGuidePage() {
                        school.suburb.toLowerCase().includes(searchQuery.toLowerCase()) ||
                        school.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
                        school.features.some(feature => feature.toLowerCase().includes(searchQuery.toLowerCase()));
-    return typeMatch && levelsMatch && suburbMatch && searchMatch;
+    
+    // Feature match - school must have ALL selected features
+    const featureMatch = selectedFeatures.length === 0 || 
+                        selectedFeatures.every(feature => school.features.includes(feature));
+    
+    // Size match based on enrollment
+    const sizeMatch = selectedSize === 'all' || 
+                     (selectedSize === 'small' && school.enrolments && parseInt(school.enrolments) <= 300) ||
+                     (selectedSize === 'medium' && school.enrolments && parseInt(school.enrolments) > 300 && parseInt(school.enrolments) <= 600) ||
+                     (selectedSize === 'large' && school.enrolments && parseInt(school.enrolments) > 600) ||
+                     (selectedSize === 'na' && (!school.enrolments || school.enrolments === 'N/A'));
+    
+    return typeMatch && levelsMatch && suburbMatch && searchMatch && featureMatch && sizeMatch;
   }).sort((a, b) => {
     switch (sortBy) {
       case 'name':
@@ -496,6 +535,63 @@ function SchoolsGuidePage() {
               Find Schools
             </h2>
             
+            {/* Quick Filters */}
+            <div style={{
+              marginBottom: '24px'
+            }}>
+              <h3 style={{
+                fontSize: '16px',
+                fontWeight: '600',
+                marginBottom: '12px',
+                color: '#666'
+              }}>
+                Quick Filters
+              </h3>
+              <div style={{
+                display: 'flex',
+                gap: '12px',
+                flexWrap: 'wrap'
+              }}>
+                {[
+                  { label: '🎯 Selective Entry', filter: () => { setSearchQuery('selective'); } },
+                  { label: '🎵 Music Programs', filter: () => { setSelectedFeatures(['Music Excellence']); setShowAdvancedFilters(true); } },
+                  { label: '⚡ STEM Focus', filter: () => { setSelectedFeatures(['STEM Excellence']); setShowAdvancedFilters(true); } },
+                  { label: '🌿 Environmental', filter: () => { setSelectedFeatures(['Environmental Education']); setShowAdvancedFilters(true); } },
+                  { label: '🏃 Sports Academy', filter: () => { setSelectedFeatures(['Sports Academy']); setShowAdvancedFilters(true); } },
+                  { label: '👨‍👩‍👧 Small Classes', filter: () => { setSelectedFeatures(['Small Classes']); setShowAdvancedFilters(true); } },
+                ].map((quick, idx) => (
+                  <button
+                    key={idx}
+                    onClick={quick.filter}
+                    style={{
+                      padding: '8px 16px',
+                      backgroundColor: '#f0f4ff',
+                      color: '#002b7f',
+                      border: '1px solid #e0e8ff',
+                      borderRadius: '20px',
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      whiteSpace: 'nowrap'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#002b7f';
+                      e.currentTarget.style.color = '#fff';
+                      e.currentTarget.style.borderColor = '#002b7f';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#f0f4ff';
+                      e.currentTarget.style.color = '#002b7f';
+                      e.currentTarget.style.borderColor = '#e0e8ff';
+                    }}
+                  >
+                    {quick.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            
             {/* Search Bar */}
             <div style={{
               marginBottom: '32px'
@@ -544,7 +640,7 @@ function SchoolsGuidePage() {
             {/* Filters */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(5, 1fr)',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)',
               gap: '20px',
               alignItems: 'end'
             }}>
@@ -626,9 +722,11 @@ function SchoolsGuidePage() {
                     cursor: 'pointer'
                   }}
                 >
-                  <option value="all">All Suburbs</option>
-                  {suburbs.slice(1).map(suburb => (
-                    <option key={suburb} value={suburb}>{suburb}</option>
+                  <option value="all">All Suburbs ({schools.length} schools)</option>
+                  {suburbs.map(suburb => (
+                    <option key={suburb} value={suburb}>
+                      {suburb} ({suburbsData[suburb]} {suburbsData[suburb] === 1 ? 'school' : 'schools'})
+                    </option>
                   ))}
                 </select>
               </div>
@@ -660,10 +758,82 @@ function SchoolsGuidePage() {
                   <option value="enrolments">Enrollment Size</option>
                 </select>
               </div>
+            </div>
+
+            {/* Advanced Filters Toggle and Results Count */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginTop: '24px',
+              marginBottom: showAdvancedFilters ? '24px' : '0',
+              flexWrap: 'wrap',
+              gap: '16px'
+            }}>
+              <button
+                onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '12px 24px',
+                  backgroundColor: showAdvancedFilters ? '#002b7f' : '#f8f8f8',
+                  color: showAdvancedFilters ? '#fff' : '#000',
+                  border: '1px solid #e5e5e5',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  if (!showAdvancedFilters) {
+                    e.currentTarget.style.backgroundColor = '#f0f0f0';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!showAdvancedFilters) {
+                    e.currentTarget.style.backgroundColor = '#f8f8f8';
+                  }
+                }}
+              >
+                <svg 
+                  width="16" 
+                  height="16" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2"
+                >
+                  <line x1="4" y1="21" x2="4" y2="14" />
+                  <line x1="4" y1="10" x2="4" y2="3" />
+                  <line x1="12" y1="21" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12" y2="3" />
+                  <line x1="20" y1="21" x2="20" y2="16" />
+                  <line x1="20" y1="12" x2="20" y2="3" />
+                  <line x1="1" y1="14" x2="7" y2="14" />
+                  <line x1="9" y1="8" x2="15" y2="8" />
+                  <line x1="17" y1="16" x2="23" y2="16" />
+                </svg>
+                Advanced Filters
+                {(selectedFeatures.length > 0 || selectedSize !== 'all') && (
+                  <span style={{
+                    backgroundColor: showAdvancedFilters ? '#fff' : '#002b7f',
+                    color: showAdvancedFilters ? '#002b7f' : '#fff',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    fontSize: '12px',
+                    fontWeight: '600'
+                  }}>
+                    {selectedFeatures.length + (selectedSize !== 'all' ? 1 : 0)}
+                  </span>
+                )}
+              </button>
 
               <div style={{
-                textAlign: isMobile ? 'left' : 'right',
-                marginTop: isMobile ? '16px' : '0'
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px'
               }}>
                 <div style={{
                   fontSize: '18px',
@@ -672,9 +842,351 @@ function SchoolsGuidePage() {
                 }}>
                   {filteredSchools.length} schools found
                 </div>
+                {(selectedType !== 'all' || selectedSuburb !== 'all' || selectedLevels !== 'all' || 
+                  searchQuery !== '' || selectedFeatures.length > 0 || selectedSize !== 'all') && (
+                  <button
+                    onClick={() => {
+                      setSelectedType('all');
+                      setSelectedSuburb('all');
+                      setSelectedLevels('all');
+                      setSearchQuery('');
+                      setSelectedFeatures([]);
+                      setSelectedSize('all');
+                      setShowAdvancedFilters(false);
+                    }}
+                    style={{
+                      padding: '8px 16px',
+                      backgroundColor: 'transparent',
+                      color: '#dc2626',
+                      border: '1px solid #dc2626',
+                      borderRadius: '8px',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#dc2626';
+                      e.currentTarget.style.color = '#fff';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                      e.currentTarget.style.color = '#dc2626';
+                    }}
+                  >
+                    Clear All
+                  </button>
+                )}
               </div>
             </div>
+
+            {/* Advanced Filters Panel */}
+            {showAdvancedFilters && (
+              <div style={{
+                backgroundColor: '#f8f8f8',
+                borderRadius: '12px',
+                padding: '24px',
+                marginTop: '0'
+              }}>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+                  gap: '32px'
+                }}>
+                  {/* School Size Filter */}
+                  <div>
+                    <h4 style={{
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      marginBottom: '16px',
+                      color: '#000'
+                    }}>
+                      School Size
+                    </h4>
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(2, 1fr)',
+                      gap: '12px'
+                    }}>
+                      {[
+                        { value: 'all', label: 'All Sizes' },
+                        { value: 'small', label: 'Small (≤300)' },
+                        { value: 'medium', label: 'Medium (300-600)' },
+                        { value: 'large', label: 'Large (>600)' }
+                      ].map(size => (
+                        <label
+                          key={size.value}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            padding: '10px 16px',
+                            backgroundColor: selectedSize === size.value ? '#e8f4f8' : '#fff',
+                            border: `1px solid ${selectedSize === size.value ? '#002b7f' : '#e5e5e5'}`,
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            fontSize: '14px',
+                            transition: 'all 0.2s ease'
+                          }}
+                        >
+                          <input
+                            type="radio"
+                            name="schoolSize"
+                            value={size.value}
+                            checked={selectedSize === size.value}
+                            onChange={(e) => setSelectedSize(e.target.value)}
+                            style={{ display: 'none' }}
+                          />
+                          {size.label}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Features Filter */}
+                  <div>
+                    <h4 style={{
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      marginBottom: '16px',
+                      color: '#000'
+                    }}>
+                      Special Programs & Features
+                    </h4>
+                    <div style={{
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      gap: '8px'
+                    }}>
+                      {commonFeatures.map(feature => (
+                        <label
+                          key={feature}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            padding: '8px 16px',
+                            backgroundColor: selectedFeatures.includes(feature) ? '#002b7f' : '#fff',
+                            color: selectedFeatures.includes(feature) ? '#fff' : '#000',
+                            border: `1px solid ${selectedFeatures.includes(feature) ? '#002b7f' : '#e5e5e5'}`,
+                            borderRadius: '20px',
+                            cursor: 'pointer',
+                            fontSize: '14px',
+                            fontWeight: '500',
+                            transition: 'all 0.2s ease'
+                          }}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={selectedFeatures.includes(feature)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setSelectedFeatures([...selectedFeatures, feature]);
+                              } else {
+                                setSelectedFeatures(selectedFeatures.filter(f => f !== feature));
+                              }
+                            }}
+                            style={{ display: 'none' }}
+                          />
+                          {feature}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Clear Filters */}
+                {(selectedFeatures.length > 0 || selectedSize !== 'all') && (
+                  <div style={{
+                    textAlign: 'right',
+                    marginTop: '24px'
+                  }}>
+                    <button
+                      onClick={() => {
+                        setSelectedFeatures([]);
+                        setSelectedSize('all');
+                      }}
+                      style={{
+                        padding: '10px 20px',
+                        backgroundColor: 'transparent',
+                        color: '#002b7f',
+                        border: '1px solid #002b7f',
+                        borderRadius: '8px',
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = '#002b7f';
+                        e.currentTarget.style.color = '#fff';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.color = '#002b7f';
+                      }}
+                    >
+                      Clear Advanced Filters
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
+          </div>
+
+          {/* Selected Suburb Indicator */}
+          {selectedSuburb !== 'all' && (
+            <div style={{
+              backgroundColor: '#e8f4f8',
+              borderRadius: '12px',
+              padding: '24px',
+              marginBottom: '32px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '16px'
+            }}>
+              <div>
+                <h3 style={{
+                  fontSize: '24px',
+                  fontWeight: '600',
+                  color: '#002b7f',
+                  marginBottom: '8px'
+                }}>
+                  {selectedSuburb}
+                </h3>
+                <p style={{
+                  fontSize: '16px',
+                  color: '#666',
+                  margin: 0
+                }}>
+                  {filteredSchools.length} {filteredSchools.length === 1 ? 'school' : 'schools'} in this suburb
+                </p>
+              </div>
+              <button
+                onClick={() => setSelectedSuburb('all')}
+                style={{
+                  padding: '12px 24px',
+                  backgroundColor: '#002b7f',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#001a5c';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#002b7f';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                View All Suburbs
+              </button>
+            </div>
+          )}
+
+          {/* Suburbs Overview - Only show when no suburb is selected */}
+          {selectedSuburb === 'all' && searchQuery === '' && (
+            <div style={{
+              backgroundColor: '#f8f8f8',
+              borderRadius: '12px',
+              padding: '32px',
+              marginBottom: '48px'
+            }}>
+              <h3 style={{
+                fontSize: '20px',
+                fontWeight: '600',
+                marginBottom: '24px',
+                color: '#000'
+              }}>
+                Schools by Suburb
+              </h3>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(200px, 1fr))',
+                gap: '16px'
+              }}>
+                {suburbs.map(suburb => {
+                  const schoolsInSuburb = schools.filter(s => s.suburb === suburb);
+                  const kindergartens = schoolsInSuburb.filter(s => s.type === 'kindergarten').length;
+                  const primaries = schoolsInSuburb.filter(s => s.type === 'primary').length;
+                  const secondaries = schoolsInSuburb.filter(s => s.type === 'secondary').length;
+                  const combined = schoolsInSuburb.filter(s => s.type === 'combined').length;
+                  
+                  return (
+                    <div
+                      key={suburb}
+                      onClick={() => setSelectedSuburb(suburb)}
+                      style={{
+                        backgroundColor: '#fff',
+                        border: '1px solid #e5e5e5',
+                        borderRadius: '12px',
+                        padding: '20px',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        position: 'relative',
+                        overflow: 'hidden'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = '#002b7f';
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                        e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.08)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = '#e5e5e5';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = 'none';
+                      }}
+                    >
+                      <h4 style={{
+                        fontSize: '18px',
+                        fontWeight: '600',
+                        marginBottom: '8px',
+                        color: '#000'
+                      }}>
+                        {suburb}
+                      </h4>
+                      <div style={{
+                        fontSize: '24px',
+                        fontWeight: '700',
+                        color: '#002b7f',
+                        marginBottom: '12px'
+                      }}>
+                        {suburbsData[suburb]}
+                      </div>
+                      <div style={{
+                        fontSize: '12px',
+                        color: '#666',
+                        lineHeight: '1.5'
+                      }}>
+                        {kindergartens > 0 && <div>🧸 {kindergartens} Kindergarten{kindergartens > 1 ? 's' : ''}</div>}
+                        {primaries > 0 && <div>📚 {primaries} Primary</div>}
+                        {secondaries > 0 && <div>🎓 {secondaries} Secondary</div>}
+                        {combined > 0 && <div>🏫 {combined} Combined</div>}
+                      </div>
+                      <div style={{
+                        position: 'absolute',
+                        bottom: '16px',
+                        right: '16px',
+                        color: '#002b7f',
+                        fontSize: '14px',
+                        fontWeight: '500'
+                      }}>
+                        View →
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {/* Schools Grid */}
           <div style={{
             display: 'grid',

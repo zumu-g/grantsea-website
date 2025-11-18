@@ -60,7 +60,7 @@ export async function fetchUpcomingOpenHomes(days: number = 30): Promise<Map<str
 export async function fetchPropertyOpenHomes(propertyId: string): Promise<InspectionTime[]> {
   try {
     const response = await fetch(`/api/open-homes?propertyId=${propertyId}`, {
-      cache: 'no-store'
+      next: { revalidate: 300 } // Cache for 5 minutes
     });
     
     if (!response.ok) {

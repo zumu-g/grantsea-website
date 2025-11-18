@@ -39,7 +39,7 @@ export async function GET(
         `${API_BASE_URL}/properties/residential/sale/${id}`,
         {
           headers,
-          cache: 'no-store'
+          next: { revalidate: 60 } // Cache for 1 minute
         }
       );
 
@@ -58,7 +58,7 @@ export async function GET(
           `${API_BASE_URL}/properties/residential/lease/${id}`,
           {
             headers,
-            cache: 'no-store'
+            next: { revalidate: 60 } // Cache for 1 minute
           }
         );
 
@@ -94,6 +94,10 @@ export async function GET(
       return NextResponse.json({
         success: true,
         data: transformedProperty
+      }, {
+        headers: {
+          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300'
+        }
       });
     } else {
       return NextResponse.json(

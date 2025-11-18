@@ -1190,6 +1190,19 @@ export default function OncomHeader() {
                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
               School Guides
             </Link>
+            <Link href="/childcare-guide" onClick={() => setShowBurgerPanel(false)} style={{
+              display: 'block',
+              padding: '16px 20px',
+              color: '#000',
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '500',
+              borderBottom: '1px solid #f0f0f0',
+              transition: 'background 0.2s'
+            }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+              Childcare Centres Guide
+            </Link>
             <Link href="/calculators" onClick={() => setShowBurgerPanel(false)} style={{
               display: 'block',
               padding: '16px 20px',

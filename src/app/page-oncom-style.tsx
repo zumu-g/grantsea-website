@@ -693,7 +693,7 @@ export default function HomePageOncom() {
                   {
                     name: 'Clyde',
                     tagline: 'Building tomorrow',
-                    image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&h=800&fit=crop',
+                    image: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600&h=800&fit=crop',
                     link: '/suburbs/clyde'
                   },
                   {
@@ -705,7 +705,7 @@ export default function HomePageOncom() {
                   {
                     name: 'Hallam',
                     tagline: 'Established convenience',
-                    image: 'https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=600&h=800&fit=crop',
+                    image: 'https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=600&h=800&fit=crop',
                     link: '/suburbs/hallam'
                   },
                   {
@@ -1166,7 +1166,8 @@ export default function HomePageOncom() {
             letterSpacing: '-0.02em',
             marginBottom: isMobile ? '32px' : '48px',
             color: '#000',
-            lineHeight: '1.1'
+            lineHeight: '1.1',
+            whiteSpace: 'nowrap'
           }}>
             New to market
           </h2>

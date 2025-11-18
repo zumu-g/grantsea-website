@@ -134,7 +134,12 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
             </p>
           </div>
           <button
-            onClick={onClose}
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onClose();
+            }}
             style={{
               width: '40px',
               height: '40px',

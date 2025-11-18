@@ -286,6 +286,7 @@ export default function SearchPageOncomExact() {
                   <Link
                     key={property.id}
                     href={`/property/${property.id}`}
+                    prefetch={true}
                     style={{
                       backgroundColor: '#fff',
                       borderRadius: '8px',

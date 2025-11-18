@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Agent profile pages -->
+  <url>
+    <loc>https://www.grantsestateagents.com.au/agent/stuart-grant</loc>
+    <lastmod>2025-09-08T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.grantsestateagents.com.au/agent/john-smith</loc>
+    <lastmod>2025-09-08T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.grantsestateagents.com.au/agent/sarah-jones</loc>
+    <lastmod>2025-09-08T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <!-- Add more agent URLs dynamically -->
+</urlset>

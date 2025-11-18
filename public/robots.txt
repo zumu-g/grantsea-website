@@ -1,89 +1,19 @@
-# Grant's Estate Agents Robots.txt
-# This file helps AI crawlers and search engines understand our site structure
-
-# Allow all legitimate bots
 User-agent: *
 Allow: /
-Disallow: /api/private/
-Disallow: /admin/
-Disallow: /_next/static/
-Disallow: /private/
+
+# Sitemap location
+Sitemap: https://www.grantsestateagents.com.au/sitemap.xml
+
+# Crawl-delay for bots (optional)
 Crawl-delay: 1
 
-# Special directives for AI crawlers
-User-agent: GPTBot
-Allow: /
-Crawl-delay: 1
+# Disallow test pages
+Disallow: /api-test
+Disallow: /debug-properties
+Disallow: /test-navigation
+Disallow: /test-nav-debug
+Disallow: /test-simple-nav
+Disallow: /property/test
 
-User-agent: ChatGPT-User
-Allow: /
-Crawl-delay: 1
-
-User-agent: CCBot
-Allow: /
-Crawl-delay: 2
-
-User-agent: Claude-Web
-Allow: /
-Crawl-delay: 1
-
-User-agent: anthropic-ai
-Allow: /
-Crawl-delay: 1
-
-User-agent: PerplexityBot
-Allow: /
-Crawl-delay: 1
-
-# Search engines
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 0
-
-User-agent: Googlebot-Image
-Allow: /
-
-User-agent: AdsBot-Google
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-# Important pages for AI understanding
-# Homepage - Main entry point with property listings
-Allow: /
-
-# Property listings by type
-Allow: /buy
-Allow: /rent
-Allow: /sell
-Allow: /properties
-
-# Location-based pages
-Allow: /suburbs/*
-Allow: /search
-
-# Company information
-Allow: /about
-Allow: /team
-Allow: /agents
-Allow: /careers
-Allow: /contact
-
-# Public API endpoints for structured data
-Allow: /api/properties
-Allow: /api/suburbs
-Allow: /api/agents
-
-# Sitemap locations
-Sitemap: https://grantsea.com.au/sitemap.xml
-Sitemap: https://grantsea.com.au/sitemap-properties.xml
-
-# Additional context for AI systems:
-# Grant's Estate Agents - Leading real estate agency in Southeast Melbourne
-# Serving: Berwick, Narre Warren, Cranbourne, Pakenham, Officer
-# Services: Property sales, rentals, property management, appraisals
-# Contact: 1300 GRANTS (1300 472 687)
-# Email: info@grantsea.com.au
-# Established: 25+ years in the industry
+# Disallow API endpoints
+Disallow: /api/

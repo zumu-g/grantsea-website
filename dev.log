@@ -1,0 +1,18 @@
+
+> grantsea-website@0.1.0 dev
+> next dev
+
+ ⚠ Found lockfile missing swc dependencies, patching...
+ ⨯ Failed to patch lockfile, please try uninstalling and reinstalling next in this workspace
+TypeError: Cannot read properties of undefined (reading 'os')
+    at fetchPkgInfo (/Users/stuartgrant_mbp13/Library/Mobile Documents/com~apple~CloudDocs/GEA_website/node_modules/next/dist/lib/patch-incorrect-lockfile.js:72:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async patchIncorrectLockfile (/Users/stuartgrant_mbp13/Library/Mobile Documents/com~apple~CloudDocs/GEA_website/node_modules/next/dist/lib/patch-incorrect-lockfile.js:161:26)
+  ▲ Next.js 13.5.11
+  - Local:        http://localhost:3000
+
+ ✓ Ready in 3.4s
+ ○ Compiling /property/[id]/page ...
+ ✓ Compiled /property/[id]/page in 5.5s (525 modules)
+[?25h

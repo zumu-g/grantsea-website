@@ -8,6 +8,8 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const propertyId = searchParams.get('propertyId');
   const days = searchParams.get('days') || '30'; // Look ahead 30 days by default
+  const offset = parseInt(searchParams.get('offset') || '0');
+  const limit = parseInt(searchParams.get('limit') || '50');
 
   if (!API_KEY || !ACCESS_TOKEN) {
     return NextResponse.json(
@@ -40,11 +42,14 @@ export async function GET(request: NextRequest) {
     // Get all unique property IDs
     const propertyIds = Array.from(cachedOpenHomesByProperty.keys());
     
-    // Fetch property details for all properties with open homes
+    // Batch fetch property details in parallel (limit concurrent requests)
     const propertyDetailsMap = new Map();
+    const BATCH_SIZE = 10; // Process properties in batches
     
-    for (const propId of propertyIds) {
-      try {
+    for (let i = 0; i < propertyIds.length; i += BATCH_SIZE) {
+      const batch = propertyIds.slice(i, i + BATCH_SIZE);
+      const batchPromises = batch.map(async (propId) => {
+        try {
         let propertyData = null;
         
         // Try residential sale endpoint first
@@ -85,9 +90,13 @@ export async function GET(request: NextRequest) {
           const transformedProperty = transformVaultREProperty(propertyData);
           propertyDetailsMap.set(propId, transformedProperty);
         }
-      } catch (error) {
-        console.error(`Failed to fetch property ${propId}:`, error);
-      }
+        } catch (error) {
+          console.error(`Failed to fetch property ${propId}:`, error);
+        }
+      });
+      
+      // Wait for batch to complete before starting next batch
+      await Promise.all(batchPromises);
     }
     
     // Combine inspection times with property details
@@ -118,10 +127,14 @@ export async function GET(request: NextRequest) {
       return startA.getTime() - startB.getTime();
     });
 
-    // Group by property ID
+    // Apply pagination
+    const totalCount = openHomes.length;
+    const paginatedOpenHomes = openHomes.slice(offset, offset + limit);
+
+    // Group by property ID before transformation for efficiency
     const openHomesByProperty = new Map<string, any[]>();
     
-    openHomes.forEach((oh: any) => {
+    paginatedOpenHomes.forEach((oh: any) => {
       const propId = oh.property?.id?.toString() || oh.propertyId?.toString();
       if (propId) {
         if (!openHomesByProperty.has(propId)) {
@@ -154,19 +167,31 @@ export async function GET(request: NextRequest) {
           endTimeLocal: endDate.toLocaleString('en-AU', { timeZone: 'Australia/Melbourne' }),
           type: oh.type || 'public',
           notes: oh.notes || oh.description || '',
-          property: propertyDetailsMap.get(propId) || { id: propId }
+          property: propertyDetailsMap.get(propId) || { id: propId, images: [] } // Ensure images array exists
         };
       });
       
       transformedOpenHomes.push(...transformed);
     });
 
-    console.log(`Found ${transformedOpenHomes.length} upcoming open homes from VaultRE API`);
+    // Apply pagination to transformed results
+    const paginatedTransformed = transformedOpenHomes.slice(offset, offset + limit);
+
+    console.log(`Found ${transformedOpenHomes.length} upcoming open homes from VaultRE API, returning ${paginatedTransformed.length} after pagination`);
 
     return NextResponse.json({
       success: true,
-      openHomes: transformedOpenHomes,
-      total: transformedOpenHomes.length
+      openHomes: paginatedTransformed,
+      total: transformedOpenHomes.length,
+      offset,
+      limit,
+      hasMore: offset + limit < transformedOpenHomes.length
+    }, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+        'CDN-Cache-Control': 'max-age=300',
+        'Vercel-CDN-Cache-Control': 'max-age=300'
+      }
     });
 
   } catch (error) {

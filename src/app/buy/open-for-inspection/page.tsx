@@ -15,6 +15,9 @@ function OpenForInspectionPage() {
   const [isMobile, setIsMobile] = React.useState(false);
   const [isTablet, setIsTablet] = React.useState(false);
   const [viewMode, setViewMode] = React.useState<'grid' | 'list'>('grid');
+  const [isInitialLoad, setIsInitialLoad] = React.useState(true);
+  const [visibleProperties, setVisibleProperties] = React.useState<Set<number>>(new Set());
+  const fetchPromiseRef = React.useRef<Promise<void> | null>(null);
 
   React.useEffect(() => {
     const checkDevice = () => {
@@ -26,29 +29,85 @@ function OpenForInspectionPage() {
     return () => window.removeEventListener('resize', checkDevice);
   }, []);
 
+  // Intersection Observer for lazy loading
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.getAttribute('data-index') || '0');
+            setVisibleProperties((prev) => new Set(prev).add(index));
+          }
+        });
+      },
+      {
+        rootMargin: '100px',
+        threshold: 0.01
+      }
+    );
+
+    // Observe all property cards
+    const cards = document.querySelectorAll('[data-property-card]');
+    cards.forEach((card) => observer.observe(card));
+
+    return () => observer.disconnect();
+  }, [filteredOpenHomes]);
+
   React.useEffect(() => {
     fetchOpenHomes();
   }, []);
 
-  const fetchOpenHomes = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await fetch('/api/open-homes');
-      const data = await response.json();
-      
-      if (data.success) {
-        setOpenHomes(data.openHomes);
-      } else {
-        setError(data.error || 'Failed to fetch open homes');
-      }
-    } catch (error) {
-      console.error('Error fetching open homes:', error);
-      setError('Unable to load open homes. Please try again later.');
-    } finally {
-      setLoading(false);
+  const fetchOpenHomes = React.useCallback(async () => {
+    // Prevent duplicate requests
+    if (fetchPromiseRef.current) {
+      return fetchPromiseRef.current;
     }
-  };
+
+    const fetchData = async () => {
+      try {
+        // Only show loading on initial load or refresh
+        if (!isInitialLoad) {
+          setLoading(true);
+        }
+        setError(null);
+        
+        // Use AbortController for better request management
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+        
+        // Fetch with cache for better performance
+        const response = await fetch('/api/open-homes', {
+          signal: controller.signal,
+          next: { revalidate: 300 } // Cache for 5 minutes
+        });
+        
+        clearTimeout(timeoutId);
+        const data = await response.json();
+        
+        if (data.success) {
+          setOpenHomes(data.openHomes || []);
+          setIsInitialLoad(false);
+        } else {
+          setError(data.error || 'Failed to fetch open homes');
+        }
+      } catch (error: any) {
+        if (error.name === 'AbortError') {
+          setError('Request timeout. Please check your connection and try again.');
+        } else {
+          console.error('Error fetching open homes:', error);
+          setError('Unable to load open homes. Please try again later.');
+        }
+      } finally {
+        setLoading(false);
+        setIsInitialLoad(false);
+        fetchPromiseRef.current = null;
+      }
+    };
+
+    const promise = fetchData();
+    fetchPromiseRef.current = promise;
+    return promise;
+  }, [isInitialLoad]);
 
   const formatPrice = (price: any) => {
     if (!price) return 'Price on application';
@@ -112,39 +171,41 @@ function OpenForInspectionPage() {
     return date.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
   };
 
-  const getUniqueSuburbs = () => {
-    const suburbs = [...new Set(openHomes.map(home => home.property?.address?.suburb).filter(Boolean))];
+  const uniqueSuburbs = React.useMemo(() => {
+    const suburbs = [...new Set(openHomes.map(home => home.property?.suburb || home.property?.address?.suburb).filter(Boolean))];
     return suburbs.sort();
-  };
+  }, [openHomes]);
 
-  const filteredOpenHomes = openHomes
-    .filter(home => {
-      if (selectedDay !== 'all') {
-        const dayOfWeek = getDayOfWeek(home.startTime);
-        if (selectedDay !== dayOfWeek) return false;
-      }
-      
-      if (selectedSuburb !== 'all') {
-        const suburb = home.property?.address?.suburb;
-        if (suburb !== selectedSuburb) return false;
-      }
-      
-      return true;
-    })
-    .sort((a, b) => {
-      switch (sortBy) {
-        case 'time':
-          return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
-        case 'suburb':
-          return (a.property?.address?.suburb || '').localeCompare(b.property?.address?.suburb || '');
-        case 'price':
-          const priceA = a.property?.price?.from || a.property?.price || 0;
-          const priceB = b.property?.price?.from || b.property?.price || 0;
-          return parseInt(String(priceA).replace(/[^0-9]/g, '') || '0') - parseInt(String(priceB).replace(/[^0-9]/g, '') || '0');
-        default:
-          return 0;
-      }
-    });
+  const filteredOpenHomes = React.useMemo(() => {
+    return openHomes
+      .filter(home => {
+        if (selectedDay !== 'all') {
+          const dayOfWeek = getDayOfWeek(home.startTime);
+          if (selectedDay !== dayOfWeek) return false;
+        }
+        
+        if (selectedSuburb !== 'all') {
+          const suburb = home.property?.suburb || home.property?.address?.suburb;
+          if (suburb !== selectedSuburb) return false;
+        }
+        
+        return true;
+      })
+      .sort((a, b) => {
+        switch (sortBy) {
+          case 'time':
+            return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
+          case 'suburb':
+            return (a.property?.suburb || a.property?.address?.suburb || '').localeCompare(b.property?.suburb || b.property?.address?.suburb || '');
+          case 'price':
+            const priceA = a.property?.price?.from || a.property?.price || 0;
+            const priceB = b.property?.price?.from || b.property?.price || 0;
+            return parseInt(String(priceA).replace(/[^0-9]/g, '') || '0') - parseInt(String(priceB).replace(/[^0-9]/g, '') || '0');
+          default:
+            return 0;
+        }
+      });
+  }, [openHomes, selectedDay, selectedSuburb, sortBy]);
 
   const getTimeStatus = (startTime: string, endTime: string) => {
     const now = new Date();
@@ -254,7 +315,7 @@ function OpenForInspectionPage() {
                 }}
               >
                 <option value="all">All Suburbs</option>
-                {getUniqueSuburbs().map(suburb => (
+                {uniqueSuburbs.map(suburb => (
                   <option key={suburb} value={suburb}>{suburb}</option>
                 ))}
               </select>
@@ -281,11 +342,43 @@ function OpenForInspectionPage() {
 
             {/* Results Count */}
             <div style={{
-              fontSize: '16px',
-              color: '#666',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
               marginBottom: '20px'
             }}>
-              {loading ? 'Loading...' : `Showing ${filteredOpenHomes.length} open inspection${filteredOpenHomes.length !== 1 ? 's' : ''}`}
+              <div style={{
+                fontSize: '16px',
+                color: '#666'
+              }}>
+                {loading && isInitialLoad ? 'Loading...' : `Showing ${filteredOpenHomes.length} open inspection${filteredOpenHomes.length !== 1 ? 's' : ''}`}
+              </div>
+              {!loading && !error && filteredOpenHomes.length > 0 && (
+                <button
+                  onClick={() => {
+                    setLoading(true);
+                    fetchOpenHomes();
+                  }}
+                  style={{
+                    padding: '8px 16px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '6px',
+                    backgroundColor: '#fff',
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                    fontFamily: 'inherit',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#f8f8f8';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#fff';
+                  }}
+                >
+                  Refresh
+                </button>
+              )}
             </div>
           </div>
         </section>
@@ -298,7 +391,7 @@ function OpenForInspectionPage() {
             maxWidth: '1200px',
             margin: '0 auto'
           }}>
-            {loading ? (
+            {loading && isInitialLoad ? (
               <PropertySkeleton count={6} isMobile={isMobile} />
             ) : error ? (
               <div style={{
@@ -383,13 +476,15 @@ function OpenForInspectionPage() {
               </div>
             ) : (
               <div style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: isMobile ? '16px' : '24px'
+                display: 'grid',
+                gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+                gap: isMobile ? '16px' : '24px',
+                width: '100%'
               }}>
                 {filteredOpenHomes.map((openHome, index) => {
                   const property = openHome.property;
                   const status = getTimeStatus(openHome.startTime, openHome.endTime);
+                  const isVisible = visibleProperties.has(index);
                   
                   return (
                     <Link
@@ -401,32 +496,38 @@ function OpenForInspectionPage() {
                         display: 'block'
                       }}
                     >
-                      <div style={{
+                      <div 
+                        data-property-card
+                        data-index={index}
+                        style={{
                         backgroundColor: '#fff',
                         borderRadius: '12px',
                         overflow: 'hidden',
                         boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
                         transition: 'all 0.3s ease',
                         cursor: 'pointer',
-                        flex: isMobile ? '0 0 85%' : '0 0 calc(33.333% - 16px)',
-                        minWidth: isMobile ? '320px' : '380px',
                         display: 'flex',
-                        flexDirection: 'column'
+                        flexDirection: 'column',
+                        width: '100%'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-2px)';
-                        e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)';
-                        const addressElement = e.currentTarget.querySelector('[data-property-address]') as HTMLElement;
-                        if (addressElement) {
-                          addressElement.style.color = '#AF272F';
+                        if (!isMobile) {
+                          e.currentTarget.style.transform = 'translateY(-2px)';
+                          e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)';
+                          const addressElement = e.currentTarget.querySelector('[data-property-address]') as HTMLElement;
+                          if (addressElement) {
+                            addressElement.style.color = '#AF272F';
+                          }
                         }
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.05)';
-                        const addressElement = e.currentTarget.querySelector('[data-property-address]') as HTMLElement;
-                        if (addressElement) {
-                          addressElement.style.color = '#000';
+                        if (!isMobile) {
+                          e.currentTarget.style.transform = 'translateY(0)';
+                          e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.05)';
+                          const addressElement = e.currentTarget.querySelector('[data-property-address]') as HTMLElement;
+                          if (addressElement) {
+                            addressElement.style.color = '#000';
+                          }
                         }
                       }}>
                         {/* Image */}
@@ -445,16 +546,35 @@ function OpenForInspectionPage() {
                             overflow: 'hidden',
                             backgroundColor: '#f8f8f8'
                           }}>
-                            {property?.images && property.images[0] ? (
+                            {property?.images && property.images[0] && isVisible ? (
                               <img
                                 src={property.images[0]}
                                 alt={`${property.address?.street}, ${property.address?.suburb}`}
+                                loading="lazy"
                                 style={{
                                   width: '100%',
                                   height: '100%',
                                   objectFit: 'cover'
                                 }}
                               />
+                            ) : property?.images && property.images[0] ? (
+                              <div style={{
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: '#f8f8f8',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                              }}>
+                                <div style={{
+                                  width: '40px',
+                                  height: '40px',
+                                  border: '3px solid #ddd',
+                                  borderRadius: '50%',
+                                  borderTopColor: '#002b7f',
+                                  animation: 'spin 1s linear infinite'
+                                }} />
+                              </div>
                             ) : (
                               <div style={{
                                 width: '100%',
@@ -488,7 +608,12 @@ function OpenForInspectionPage() {
                           </div>
 
                           {/* Save Property Button */}
-                          <button style={{
+                          <button 
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                            }}
+                            style={{
                             position: 'absolute',
                             top: '2rem',
                             right: '2rem',
@@ -665,6 +790,12 @@ function OpenForInspectionPage() {
           </div>
         </section>
       </main>
+      <style jsx>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
     </React.Fragment>
   );
 }

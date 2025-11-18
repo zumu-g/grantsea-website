@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
     const mockProperties = [
       {
         id: 'ext-1',
-        address: `${street}, ${suburb} VIC`,
+        address: `12 ${street}, ${suburb} VIC`,
         suburb: suburb,
         price: listingType === 'lease' ? '650' : '950000',
         priceDisplay: listingType === 'lease' ? '$650 per week' : '$950,000',
@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
       },
       {
         id: 'ext-2',
-        address: `${street}, ${suburb} VIC`,
+        address: `24 ${street}, ${suburb} VIC`,
         suburb: suburb,
         price: listingType === 'lease' ? '580' : '880000',
         priceDisplay: listingType === 'lease' ? '$580 per week' : '$880,000 - $920,000',
@@ -55,7 +55,7 @@ export async function GET(request: NextRequest) {
       },
       {
         id: 'ext-3',
-        address: `${street}, ${suburb} VIC`,
+        address: `36 ${street}, ${suburb} VIC`,
         suburb: suburb,
         price: listingType === 'lease' ? '700' : '1050000',
         priceDisplay: listingType === 'lease' ? '$700 per week' : 'Contact Agent',

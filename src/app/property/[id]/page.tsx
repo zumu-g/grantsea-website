@@ -2510,9 +2510,10 @@ export default function PropertyDetailPage() {
               letterSpacing: '-0.02em',
               marginBottom: isMobile ? '32px' : '48px',
               color: '#000',
-              lineHeight: '1.1'
+              lineHeight: '1.1',
+              whiteSpace: 'nowrap'
             }}>
-              {property.listingType === 'lease' ? 'Also on the market for Lease' : 'You might also like'}
+              You might also like
             </h2>
 
             <div style={{

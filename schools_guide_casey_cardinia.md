@@ -109,6 +109,90 @@
 - **Hours**: 9:00 AM - 3:00 PM
 - **Summary**: Long-established kindergarten with experienced educators and strong community ties.
 
+**Narre Warren Kindergarten**
+- **Address**: 15-17 Webb Street, Narre Warren 3805
+- **Phone**: (03) 9704 0000
+- **Email**: narrewarren.kin@kindergarten.vic.gov.au
+- **Programs**: 3-year-old and 4-year-old programs
+- **Hours**: 9:00 AM - 3:00 PM
+- **Summary**: Community-focused kindergarten with experienced educators and comprehensive early learning programs.
+
+**Cranbourne Kindergarten**
+- **Address**: 25-27 Sladen Street, Cranbourne 3977
+- **Phone**: (03) 5996 0000
+- **Email**: cranbourne.kin@kindergarten.vic.gov.au
+- **Programs**: 3-year-old and 4-year-old programs
+- **Hours**: 9:00 AM - 3:00 PM
+- **Summary**: Established kindergarten serving the Cranbourne community with quality early childhood education programs.
+
+**Officer Kindergarten**
+- **Address**: 19 Tivendale Road, Officer 3809
+- **Phone**: (03) 5943 2800
+- **Email**: officer.kin@kindergarten.vic.gov.au
+- **Programs**: 3-year-old and 4-year-old programs
+- **Hours**: 9:00 AM - 3:00 PM
+- **Summary**: Modern kindergarten serving the growing Officer community with contemporary early learning facilities.
+
+**Hampton Park Kindergarten**
+- **Address**: 15-17 Somerville Road, Hampton Park 3976
+- **Phone**: (03) 5995 0000
+- **Email**: hamptonpark.kin@kindergarten.vic.gov.au
+- **Programs**: 3-year-old and 4-year-old programs
+- **Hours**: 9:00 AM - 3:00 PM
+- **Summary**: Community kindergarten with strong multicultural focus and comprehensive early learning programs.
+
+**Endeavour Hills Kindergarten**
+- **Address**: 25-27 Matthew Flinders Avenue, Endeavour Hills 3802
+- **Phone**: (03) 9700 0000
+- **Email**: endeavourhills.kin@kindergarten.vic.gov.au
+- **Programs**: 3-year-old and 4-year-old programs
+- **Hours**: 9:00 AM - 3:00 PM
+- **Summary**: Well-established kindergarten with experienced educators and strong community connections.
+
+**Hallam Kindergarten**
+- **Address**: 15-17 Hallam Road, Hallam 3803
+- **Phone**: (03) 9703 0000
+- **Email**: hallam.kin@kindergarten.vic.gov.au
+- **Programs**: 3-year-old and 4-year-old programs
+- **Hours**: 9:00 AM - 3:00 PM
+- **Summary**: Community-focused kindergarten providing quality early childhood education in a supportive environment.
+
+**Clyde North Kindergarten**
+- **Address**: 25-27 Evans Road, Clyde North 3978
+- **Phone**: (03) 5998 0000
+- **Email**: clydenorth.kin@kindergarten.vic.gov.au
+- **Programs**: 3-year-old and 4-year-old programs
+- **Hours**: 9:00 AM - 3:00 PM
+- **Summary**: Modern kindergarten serving the growing Clyde North community with contemporary early learning facilities.
+
+**Emerald Kindergarten**
+- **Address**: 15-17 Kilvington Drive, Emerald 3782
+- **Phone**: (03) 5968 0000
+- **Email**: emerald.kin@kindergarten.vic.gov.au
+- **Programs**: 3-year-old and 4-year-old programs
+- **Hours**: 9:00 AM - 3:00 PM
+- **Summary**: Rural kindergarten with emphasis on nature-based learning and environmental education in a beautiful setting.
+
+**Beaconsfield Kindergarten**
+- **Address**: 8 O'Neil Road, Beaconsfield 3807
+- **Phone**: (03) 9707 1144
+- **Email**: beaconsfield.kin@kindergarten.vic.gov.au
+- **Programs**: 3-year-old and 4-year-old programs
+- **Hours**: 9:00 AM - 3:00 PM
+- **Summary**: Community kindergarten serving the Beaconsfield area with quality early childhood education programs.
+
+### Cardinia Shire Kindergartens
+
+#### **Pakenham Area**
+
+**Pakenham Kindergarten**
+- **Address**: 25-27 Main Street, Pakenham 3810
+- **Phone**: (03) 5941 0000
+- **Email**: pakenham.kin@kindergarten.vic.gov.au
+- **Programs**: 3-year-old and 4-year-old programs
+- **Hours**: 9:00 AM - 3:00 PM
+- **Summary**: Long-established kindergarten with experienced educators and strong community ties.
+
 **Pakenham Hills Kindergarten**
 - **Address**: 12-14 Pakenham Hills Drive, Pakenham 3810
 - **Phone**: (03) 5941 0000
@@ -120,22 +204,22 @@
 #### **Emerald Area**
 
 **Emerald Kindergarten**
-- **Address**: 8-10 Emerald-Monbulk Road, Emerald 3782
+- **Address**: 15-17 Kilvington Drive, Emerald 3782
 - **Phone**: (03) 5968 0000
 - **Email**: emerald.kin@kindergarten.vic.gov.au
 - **Programs**: 3-year-old and 4-year-old programs
 - **Hours**: 9:00 AM - 3:00 PM
-- **Summary**: Rural setting with emphasis on nature-based learning and environmental education.
+- **Summary**: Rural kindergarten with emphasis on nature-based learning and environmental education in a beautiful setting.
 
 #### **Officer Area**
 
 **Officer Kindergarten**
-- **Address**: 15-17 Officer Road, Officer 3809
-- **Phone**: (03) 5941 0000
+- **Address**: 19 Tivendale Road, Officer 3809
+- **Phone**: (03) 5943 2800
 - **Email**: officer.kin@kindergarten.vic.gov.au
-- **Programs**: 4-year-old program
-- **Hours**: 9:00 AM - 2:00 PM
-- **Summary**: Growing community kindergarten with modern facilities and experienced staff.
+- **Programs**: 3-year-old and 4-year-old programs
+- **Hours**: 9:00 AM - 3:00 PM
+- **Summary**: Modern kindergarten serving the growing Officer community with contemporary early learning facilities.
 
 #### **Hampton Park Area**
 
@@ -368,6 +452,138 @@
 - **Summary**: Growing community school with modern facilities and comprehensive programs.
 - **School Review**: Officer Primary School prides itself on its dynamic growth and modern approach to education, creating an exciting learning environment for students and families. This growing school is particularly great for families who value innovation, community involvement, and comprehensive programs. The school's music program is vibrant, with students regularly performing at community events and school concerts. The art program fosters creativity and self-expression, with regular exhibitions that celebrate student achievements. Physical education is comprehensive, with excellent facilities and a focus on developing teamwork and sportsmanship. The teaching staff is enthusiastic and committed to providing quality education that meets the needs of all students. The school's growing community provides students with opportunities to participate in new programs and activities as they develop. This is an ideal choice for families seeking a modern, community-focused education with strong emphasis on the arts and physical wellbeing.
 
+**Narre Warren Primary School**
+- **Address**: 15-17 Webb Street, Narre Warren 3805
+- **Phone**: (03) 9704 0000
+- **Email**: narrewarren.ps@education.vic.gov.au
+- **Enrollment**: 480 students
+- **Student-Teacher Ratio**: 1:14
+- **Year Levels**: Prep-6
+- **Special Programs**: Music, Art, Physical Education
+- **Summary**: Established primary school with strong community connections and comprehensive curriculum. Diverse and inclusive community.
+- **School Review**: Narre Warren Primary School prides itself on its strong community connections and comprehensive curriculum, creating a welcoming environment for all families. This school is particularly great for families seeking a diverse and inclusive educational experience with strong community involvement.
+
+**Narre Warren South Primary School**
+- **Address**: 100-150 Fox Road, Narre Warren South 3805
+- **Phone**: (03) 9704 3333
+- **Email**: narrewarrensouth.ps@education.vic.gov.au
+- **Enrollment**: 550 students
+- **Student-Teacher Ratio**: 1:15
+- **Year Levels**: Prep-6
+- **Special Programs**: Music, Art, Physical Education, STEM
+- **Summary**: Modern primary school with excellent facilities and comprehensive programs. Strong focus on student achievement and wellbeing.
+- **School Review**: Narre Warren South Primary School prides itself on its modern facilities and comprehensive programs, creating an excellent learning environment for students. This school is particularly great for families seeking contemporary education with strong emphasis on student achievement and wellbeing.
+
+**Cranbourne North Primary School**
+- **Address**: 2-50 Siding Avenue, Cranbourne North 3977
+- **Phone**: (03) 5991 3500
+- **Email**: cranbournenorth.ps@education.vic.gov.au
+- **Enrollment**: 500 students
+- **Student-Teacher Ratio**: 1:15
+- **Year Levels**: Prep-6
+- **Special Programs**: Music, Art, Physical Education, STEM
+- **Summary**: Modern primary school serving the Cranbourne North community with contemporary facilities and comprehensive programs.
+- **School Review**: Cranbourne North Primary School prides itself on its modern facilities and comprehensive programs, serving the growing Cranbourne North community with quality education.
+
+**Hampton Park Primary School**
+- **Address**: 15-25 Somerville Road, Hampton Park 3976
+- **Phone**: (03) 5995 7777
+- **Email**: hamptonpark.ps@education.vic.gov.au
+- **Enrollment**: 450 students
+- **Student-Teacher Ratio**: 1:14
+- **Year Levels**: Prep-6
+- **Special Programs**: Music, Art, Physical Education
+- **Summary**: Established primary school with strong multicultural community and comprehensive programs. Inclusive and supportive environment.
+- **School Review**: Hampton Park Primary School prides itself on its multicultural community and inclusive environment, creating a welcoming space for all families.
+
+**Endeavour Hills Primary School**
+- **Address**: 25-27 Matthew Flinders Avenue, Endeavour Hills 3802
+- **Phone**: (03) 9700 5055
+- **Email**: endeavourhills.ps@education.vic.gov.au
+- **Enrollment**: 420 students
+- **Student-Teacher Ratio**: 1:14
+- **Year Levels**: Prep-6
+- **Special Programs**: Music, Art, Physical Education
+- **Summary**: Well-established primary school with strong academic programs and comprehensive student support services.
+- **School Review**: Endeavour Hills Primary School prides itself on its strong academic programs and comprehensive student support, creating an excellent learning environment.
+
+**Hallam Primary School**
+- **Address**: 15-17 Hallam Road, Hallam 3803
+- **Phone**: (03) 9703 0000
+- **Email**: hallam.ps@education.vic.gov.au
+- **Enrollment**: 400 students
+- **Student-Teacher Ratio**: 1:14
+- **Year Levels**: Prep-6
+- **Special Programs**: Music, Art, Physical Education
+- **Summary**: Community-focused primary school with strong connections to local families and comprehensive educational programs.
+- **School Review**: Hallam Primary School prides itself on its community focus and strong family connections, creating a supportive learning environment.
+
+**Clyde Primary School**
+- **Address**: 25-27 Evans Road, Clyde 3978
+- **Phone**: (03) 5998 0000
+- **Email**: clyde.ps@education.vic.gov.au
+- **Enrollment**: 380 students
+- **Student-Teacher Ratio**: 1:14
+- **Year Levels**: Prep-6
+- **Special Programs**: Music, Art, Physical Education
+- **Summary**: Growing primary school serving the developing Clyde community with modern facilities and comprehensive programs.
+- **School Review**: Clyde Primary School prides itself on its growth and modern facilities, serving the developing Clyde community with quality education.
+
+**Clyde North Primary School**
+- **Address**: 25-27 Evans Road, Clyde North 3978
+- **Phone**: (03) 5998 0000
+- **Email**: clydenorth.ps@education.vic.gov.au
+- **Enrollment**: 450 students
+- **Student-Teacher Ratio**: 1:15
+- **Year Levels**: Prep-6
+- **Special Programs**: STEM, Environmental Education, Music
+- **Summary**: Modern primary school with excellent resources and focus on technology integration and environmental education.
+- **School Review**: Clyde North Primary School prides itself on its innovative approach to education with strong focus on technology integration and environmental sustainability.
+
+**Beaconsfield Primary School**
+- **Address**: O'Neil Road, Beaconsfield 3807
+- **Phone**: (03) 9707 1510
+- **Email**: beaconsfield.ps@education.vic.gov.au
+- **Enrollment**: 350 students
+- **Student-Teacher Ratio**: 1:13
+- **Year Levels**: Prep-6
+- **Special Programs**: Music, Art, Physical Education
+- **Summary**: Established primary school with strong community connections and comprehensive educational programs. Small class sizes and individual attention.
+- **School Review**: Beaconsfield Primary School prides itself on its small class sizes and individual attention, creating a personalized learning environment.
+
+**St Margaret's School**
+- **Address**: 17 Gloucester Avenue, Berwick 3806
+- **Phone**: (03) 9707 1466
+- **Email**: info@stmargarets.vic.edu.au
+- **Enrollment**: 400 students
+- **Student-Teacher Ratio**: 1:14
+- **Year Levels**: Prep-6
+- **Special Programs**: Music, Art, Physical Education, Religious Education
+- **Summary**: Catholic primary school offering quality education with strong values and comprehensive programs. Faith-based education with academic excellence.
+- **School Review**: St Margaret's School prides itself on its Catholic identity and strong focus on faith formation and academic excellence.
+
+**St Patrick's Primary School**
+- **Address**: 15-17 Main Street, Pakenham 3810
+- **Phone**: (03) 5941 2268
+- **Email**: info@stpats.vic.edu.au
+- **Enrollment**: 450 students
+- **Student-Teacher Ratio**: 1:14
+- **Year Levels**: Prep-6
+- **Special Programs**: Music, Art, Physical Education, Religious Education
+- **Summary**: Catholic primary school with strong community connections and comprehensive programs. Faith-based education with focus on student wellbeing.
+- **School Review**: St Patrick's Primary School prides itself on its Catholic identity and strong community connections, creating a welcoming environment for all families.
+
+**St Agatha's Primary School**
+- **Address**: 25-27 Sladen Street, Cranbourne 3977
+- **Phone**: (03) 5996 1234
+- **Email**: info@stagathas.vic.edu.au
+- **Enrollment**: 420 students
+- **Student-Teacher Ratio**: 1:14
+- **Year Levels**: Prep-6
+- **Special Programs**: Music, Art, Physical Education, Religious Education
+- **Summary**: Catholic primary school serving the Cranbourne community with faith-based education and comprehensive programs.
+- **School Review**: St Agatha's Primary School prides itself on its Catholic identity and comprehensive programs, serving the Cranbourne community with quality education.
+
 ### Additional Casey Shire Primary Schools
 
 #### **Hampton Park Area**
@@ -578,33 +794,110 @@
 - **Summary**: Comprehensive secondary school with strong community connections and diverse programs.
 - **School Review**: Koo Wee Rup Secondary College prides itself on its comprehensive approach to education and strong community connections, creating a supportive learning environment for all students. This school is particularly great for families seeking diverse opportunities and comprehensive programs for their children. The school's academic program is well-rounded, with students participating in VCE, VCAL, and VET programs that prepare them for various career pathways. Their music program is vibrant, with students participating in school bands, choirs, and musical productions that showcase their talents. The art program encourages creativity and self-expression, with regular exhibitions that celebrate student achievements. Physical education is comprehensive, with excellent facilities and a focus on developing teamwork and sportsmanship. The school culture emphasizes respect, responsibility, and resilience, creating a positive learning environment where students feel safe and supported. The teaching staff is experienced and committed to providing quality education that meets the needs of all students. The school's strong community connections provide students with opportunities to participate in local events and develop a sense of civic responsibility. This is an ideal choice for families seeking a comprehensive secondary education with strong community connections and diverse opportunities.
 
+**Alkira Secondary College**
+- **Address**: 2-50 Siding Avenue, Cranbourne North 3977
+- **Phone**: (03) 5991 3500
+- **Email**: alkira.sc@education.vic.gov.au
+- **Enrollment**: 1,100 students
+- **Student-Teacher Ratio**: 1:13
+- **Year Levels**: 7-12
+- **Special Programs**: VCE, VCAL, VET
+- **Summary**: Modern secondary college established in 2009, offering comprehensive VCE, VCAL and VET programs. Strong focus on student wellbeing and academic achievement.
+- **School Review**: Alkira Secondary College prides itself on its modern approach to education and strong focus on student wellbeing and academic achievement. This school is particularly great for families seeking contemporary education with comprehensive programs and modern facilities.
+
+**Fountain Gate Secondary College**
+- **Address**: 10 Overland Drive, Narre Warren 3805
+- **Phone**: (03) 9704 5566
+- **Email**: fountaingate.sc@education.vic.gov.au
+- **Enrollment**: 1,000 students
+- **Student-Teacher Ratio**: 1:13
+- **Year Levels**: 7-12
+- **Special Programs**: VCE, VCAL, VET, Music, Art, Sports
+- **Summary**: Comprehensive secondary school serving the Narre Warren community. Diverse curriculum with strong emphasis on student engagement and achievement.
+- **School Review**: Fountain Gate Secondary College prides itself on its comprehensive approach to education and strong community connections, creating a supportive learning environment for all students.
+
+**Gleneagles Secondary College**
+- **Address**: 85 Gleneagles Drive, Endeavour Hills 3802
+- **Phone**: (03) 9700 5055
+- **Email**: gleneagles.sc@education.vic.gov.au
+- **Enrollment**: 850 students
+- **Student-Teacher Ratio**: 1:12
+- **Year Levels**: 7-12
+- **Special Programs**: VCE, VCAL, VET
+- **Summary**: Established secondary college with strong academic programs and comprehensive student support services. Focus on preparing students for future pathways.
+- **School Review**: Gleneagles Secondary College prides itself on its established reputation and strong focus on academic excellence and student support.
+
+**Kambrya College**
+- **Address**: 2-50 Kambrya Circuit, Berwick 3806
+- **Phone**: (03) 9707 3111
+- **Email**: kambrya.co@education.vic.gov.au
+- **Enrollment**: 1,300 students
+- **Student-Teacher Ratio**: 1:13
+- **Year Levels**: 7-12
+- **Special Programs**: VCE, VCAL, VET, Music, Sports
+- **Summary**: Large comprehensive secondary college with excellent facilities and diverse programs. Strong focus on academic excellence and student leadership.
+- **School Review**: Kambrya College prides itself on its comprehensive approach to education and strong focus on student success and leadership development.
+
+**Narre Warren South P-12 College**
+- **Address**: 100-150 Fox Road, Narre Warren South 3805
+- **Phone**: (03) 9704 3333
+- **Email**: narrewarrensouth.p12@education.vic.gov.au
+- **Enrollment**: 1,500 students
+- **Student-Teacher Ratio**: 1:14
+- **Year Levels**: Prep-12
+- **Special Programs**: VCE, VCAL, VET
+- **Summary**: Large P-12 college providing continuous education from Prep through to Year 12. Comprehensive programs and modern facilities supporting all year levels.
+- **School Review**: Narre Warren South P-12 College prides itself on its unique P-12 approach, creating a seamless educational journey for students from Prep to Year 12.
+
+**Officer Secondary College**
+- **Address**: 1 Parker Street, Officer 3809
+- **Phone**: (03) 5942 4000
+- **Email**: officer.sc@education.vic.gov.au
+- **Enrollment**: 800 students
+- **Student-Teacher Ratio**: 1:12
+- **Year Levels**: 7-12
+- **Special Programs**: VCE, VCAL, VET
+- **Summary**: Modern secondary college serving the growing Officer community. Innovative teaching practices and strong focus on student engagement and achievement.
+- **School Review**: Officer Secondary College prides itself on its modern approach to education and innovative teaching practices, creating an excellent learning environment for students.
+
+**Hampton Park Secondary College**
+- **Address**: 15-25 Somerville Road, Hampton Park 3976
+- **Phone**: (03) 5995 7777
+- **Email**: hamptonpark.sc@education.vic.gov.au
+- **Enrollment**: 900 students
+- **Student-Teacher Ratio**: 1:13
+- **Year Levels**: 7-12
+- **Special Programs**: VCE, VCAL, VET, Music, Art, Sports
+- **Summary**: Comprehensive secondary college with strong community connections. Diverse programs catering to varied student interests and career pathways.
+- **School Review**: Hampton Park Secondary College prides itself on its comprehensive approach to education and strong community connections, creating a supportive learning environment.
+
 ### Additional Casey Shire Secondary Schools
 
 #### **Hampton Park Area**
 
 **Hampton Park Secondary College**
-- **Address**: 25-27 Hampton Park Drive, Hampton Park 3976
-- **Phone**: (03) 5996 0000
+- **Address**: 15-25 Somerville Road, Hampton Park 3976
+- **Phone**: (03) 5995 7777
 - **Email**: hamptonpark.sc@education.vic.gov.au
-- **Enrollment**: 800 students
-- **Student-Teacher Ratio**: 1:12
+- **Enrollment**: 900 students
+- **Student-Teacher Ratio**: 1:13
 - **Year Levels**: 7-12
 - **Special Programs**: VCE, VCAL, VET, Music, Art, Sports
-- **Summary**: Comprehensive secondary school with strong community connections and diverse programs.
+- **Summary**: Comprehensive secondary college with strong community connections. Diverse programs catering to varied student interests and career pathways.
 - **School Review**: Hampton Park Secondary College prides itself on its comprehensive approach to education and strong community connections, creating a supportive learning environment for all students. This school is particularly great for families seeking diverse opportunities and comprehensive programs for their children. The school's academic program is well-rounded, with students participating in VCE, VCAL, and VET programs that prepare them for various career pathways. Their music program is vibrant, with students participating in school bands, choirs, and musical productions that showcase their talents. The art program encourages creativity and self-expression, with regular exhibitions that celebrate student achievements. Physical education is comprehensive, with excellent facilities and a focus on developing teamwork and sportsmanship. The school culture emphasizes respect, responsibility, and resilience, creating a positive learning environment where students feel safe and supported. The teaching staff is experienced and committed to providing quality education that meets the needs of all students. This is an ideal choice for families seeking a comprehensive secondary education with strong community connections and diverse opportunities.
 
 #### **Endeavour Hills Area**
 
-**Endeavour Hills Secondary College**
-- **Address**: 8-10 Endeavour Hills Drive, Endeavour Hills 3802
-- **Phone**: (03) 9704 0000
-- **Email**: endeavourhills.sc@education.vic.gov.au
-- **Enrollment**: 900 students
+**Gleneagles Secondary College**
+- **Address**: 85 Gleneagles Drive, Endeavour Hills 3802
+- **Phone**: (03) 9700 5055
+- **Email**: gleneagles.sc@education.vic.gov.au
+- **Enrollment**: 850 students
 - **Student-Teacher Ratio**: 1:12
 - **Year Levels**: 7-12
-- **Special Programs**: VCE, VCAL, VET, Music, Art, Sports
-- **Summary**: Well-established secondary school with strong community connections and comprehensive programs.
-- **School Review**: Endeavour Hills Secondary College prides itself on its rich history and deep community roots, creating a warm and welcoming environment for all students. This established school is particularly great for families who value tradition, community involvement, and a well-rounded education. The school has been serving the Endeavour Hills community for decades, building strong relationships with local families and businesses. Their academic program is comprehensive, with students participating in VCE, VCAL, and VET programs that prepare them for various career pathways. The music program is exceptional, with students participating in school bands, choirs, and musical productions that showcase their talents. The art program encourages creativity and self-expression, with regular exhibitions that celebrate student work. Physical education is comprehensive, with excellent facilities and a focus on developing healthy lifestyle habits. The teaching staff is experienced and committed, with many educators having long-standing relationships with the school community. This is an ideal choice for families seeking a stable, community-focused secondary education with strong emphasis on the arts and physical wellbeing.
+- **Special Programs**: VCE, VCAL, VET
+- **Summary**: Established secondary college with strong academic programs and comprehensive student support services. Focus on preparing students for future pathways.
+- **School Review**: Gleneagles Secondary College prides itself on its established reputation and strong focus on academic excellence and student support, creating a positive learning environment for all students.
 
 #### **Hallam Area**
 

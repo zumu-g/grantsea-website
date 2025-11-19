@@ -197,9 +197,31 @@ export async function GET(request: NextRequest) {
       };
     });
 
-    // REMOVED: Open homes fetch - this was causing 30+ second delays
-    // Open homes should be fetched separately on-demand or client-side
-    // This dramatically improves initial page load from 30+ seconds to ~2 seconds
+    // Fetch open homes optimized for active properties only
+    // This is much faster than scanning all pages
+    try {
+      const { fetchOpenHomesForActiveProperties } = await import('@/services/openHomesOptimized');
+      
+      // Get list of property IDs from current active properties
+      const activePropertyIds = transformedProperties.map((p: any) => p.id);
+      
+      // Use optimized fetch that only looks at recent/upcoming open homes
+      const openHomesByProperty = await fetchOpenHomesForActiveProperties(
+        API_BASE_URL,
+        headers,
+        activePropertyIds
+      );
+      
+      // Add open homes to properties
+      transformedProperties.forEach((property: any) => {
+        property.inspectionTimes = openHomesByProperty.get(property.id) || [];
+      });
+      
+      console.log(`Added open homes to ${openHomesByProperty.size} properties`);
+    } catch (error) {
+      console.error('Failed to fetch open homes:', error);
+      // Continue without open homes data rather than blocking
+    }
     
 
     // Cache the results with extended TTL

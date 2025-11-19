@@ -40,9 +40,11 @@ export default function BuyPageOncom() {
   });
   const [sortBy, setSortBy] = useState('newest');
   const [searchSaved, setSearchSaved] = useState(false);
+  const [currentLimit, setCurrentLimit] = useState(50);
   
   const { properties, loading } = useProperties({ 
-    type: 'sale' 
+    type: 'sale',
+    limit: currentLimit
   });
 
   // Get unique suburbs from properties
@@ -1130,25 +1132,27 @@ export default function BuyPageOncom() {
           )}
 
           {/* Load More */}
-          {!loading && sortedProperties.length > 0 && (
+          {!loading && sortedProperties.length > 0 && sortedProperties.length >= currentLimit && (
             <div style={{
               textAlign: 'center',
               marginTop: '64px'
             }}>
-              <button style={{
-                padding: '16px 48px',
-                backgroundColor: '#000',
-                color: '#fff',
-                border: 'none',
-                fontSize: '14px',
-                fontWeight: '600',
-                letterSpacing: '0.5px',
-                textTransform: 'uppercase',
-                cursor: 'pointer',
-                transition: 'opacity 0.2s ease'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
-              onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+              <button 
+                onClick={() => setCurrentLimit(prev => prev + 50)}
+                style={{
+                  padding: '16px 48px',
+                  backgroundColor: '#000',
+                  color: '#fff',
+                  border: 'none',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  letterSpacing: '0.5px',
+                  textTransform: 'uppercase',
+                  cursor: 'pointer',
+                  transition: 'opacity 0.2s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
+                onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
               >
                 Load more properties
               </button>

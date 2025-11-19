@@ -1032,7 +1032,6 @@ function SchoolsGuidePage() {
               </div>
             )}
           </div>
-          </div>
 
           {/* Selected Suburb Indicator */}
           {selectedSuburb !== 'all' && (
@@ -1186,7 +1185,14 @@ function SchoolsGuidePage() {
               </div>
             </div>
           )}
+        </section>
 
+        {/* Schools Results Section */}
+        <section style={{
+          padding: isMobile ? '40px 20px' : '60px 40px',
+          maxWidth: '1400px',
+          margin: '0 auto'
+        }}>
           {/* Schools Grid */}
           <div style={{
             display: 'grid',

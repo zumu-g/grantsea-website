@@ -9,6 +9,7 @@ import SavePropertyButton from '@/components/SavePropertyButton';
 import AskAI from '@/components/AskAI';
 import OncomHeader from '@/components/OncomHeader';
 import { formatNextInspection } from '@/utils/formatInspectionTime';
+import { warmUpCache } from '@/utils/prefetch';
 
 // Helper function to check if a property is new (within last 7 days)
 const isNewListing = (createdAt?: string) => {
@@ -26,7 +27,7 @@ export default function HomePageOncom() {
   const [isTablet, setIsTablet] = useState(false);
   const { properties, loading } = useProperties({ limit: 12 });
 
-  // Sort properties by creation date (newest first) for the "New to market" section
+  // Sort properties by creation date (newest first) for the "You also might like" section
   const sortedPropertiesByDate = [...properties].sort((a, b) => {
     const dateA = new Date(a.createdAt || a.updatedAt || 0);
     const dateB = new Date(b.createdAt || b.updatedAt || 0);
@@ -41,6 +42,10 @@ export default function HomePageOncom() {
     
     checkDevice();
     window.addEventListener('resize', checkDevice);
+    
+    // Warm up cache for faster subsequent navigation
+    warmUpCache();
+    
     return () => window.removeEventListener('resize', checkDevice);
   }, []);
 
@@ -1983,7 +1988,7 @@ export default function HomePageOncom() {
               fontWeight: '700',
               letterSpacing: '-0.02em'
             }}>
-              New to market
+              You also might like
             </h2>
             <Link href="/buy" style={{
               color: '#000',

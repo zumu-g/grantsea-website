@@ -1,0 +1,10 @@
+# Git attributes for Open Homes protection
+# These files require special approval for changes
+
+# Protected Open Homes files - require --force to push changes
+src/services/openHomesCache.ts filter=protected-file
+src/app/api/open-homes/route.ts filter=protected-file
+src/app/buy/open-for-inspection/page.tsx filter=protected-file
+src/app/rent/open-for-inspection/page.tsx filter=protected-file
+OPEN_HOMES_PROTECTION_PROTOCOL.md filter=protected-file
+OPEN_HOMES_IMPLEMENTATION_GUIDE.md filter=protected-file

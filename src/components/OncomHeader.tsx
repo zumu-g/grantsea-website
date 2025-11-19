@@ -10,6 +10,8 @@ export default function OncomHeader() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showBuyDropdown, setShowBuyDropdown] = useState(false);
   const [showRentDropdown, setShowRentDropdown] = useState(false);
+  const [showResearchDropdown, setShowResearchDropdown] = useState(false);
+  const [showGrantsGuidesDropdown, setShowGrantsGuidesDropdown] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [showSavedPanel, setShowSavedPanel] = useState(false);
   const [showAccountPanel, setShowAccountPanel] = useState(false);
@@ -432,27 +434,218 @@ export default function OncomHeader() {
               e.currentTarget.style.outline = 'none';
               e.currentTarget.style.boxShadow = 'none';
             }}>Find Agents</Link>
-            <Link href="/reviews" style={{
-              color: isHomePage && !isScrolled ? '#fff' : '#000',
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: '500',
-              padding: '8px 12px',
-              position: 'relative',
-              outline: 'none',
-              borderBottom: '2px solid transparent',
-              transition: 'border-color 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderBottomColor = isHomePage && !isScrolled ? '#fff' : '#000';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderBottomColor = 'transparent';
-            }}
-            onFocus={(e) => {
-              e.currentTarget.style.outline = 'none';
-              e.currentTarget.style.boxShadow = 'none';
-            }}>Reviews</Link>
+            {/* Research Dropdown */}
+            <div style={{ position: 'relative' }}>
+              <button 
+                onMouseEnter={() => setShowResearchDropdown(true)}
+                onMouseLeave={() => setShowResearchDropdown(false)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: isHomePage && !isScrolled ? '#fff' : '#000',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  padding: '8px 12px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  outline: 'none',
+                  borderBottom: '2px solid transparent',
+                  transition: 'border-color 0.3s ease'
+                }}
+              >
+                Research
+                <svg 
+                  width="12" 
+                  height="12" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2"
+                  style={{
+                    transform: showResearchDropdown ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.2s ease'
+                  }}
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+              
+              {showResearchDropdown && (
+                <div 
+                  style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    marginTop: '8px',
+                    backgroundColor: '#fff',
+                    border: '1px solid #e5e5e5',
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
+                    borderRadius: '8px',
+                    minWidth: '200px',
+                    zIndex: 1001,
+                    opacity: 1,
+                    animation: 'dropdownFadeIn 0.2s ease-out'
+                  }}
+                  onMouseEnter={() => setShowResearchDropdown(true)}
+                  onMouseLeave={() => setShowResearchDropdown(false)}
+                >
+                  <Link href="/reviews" style={{
+                    display: 'block',
+                    padding: '14px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    fontWeight: '400',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.15s ease'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Reviews page
+                  </Link>
+                  <Link href="/grants-report" style={{
+                    display: 'block',
+                    padding: '14px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    fontWeight: '400',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.15s ease'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Grants Report
+                  </Link>
+                  <Link href="/market-update" style={{
+                    display: 'block',
+                    padding: '14px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    fontWeight: '400',
+                    transition: 'background 0.15s ease'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Market Updates
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Grants Guides Dropdown */}
+            <div style={{ position: 'relative' }}>
+              <button 
+                onMouseEnter={() => setShowGrantsGuidesDropdown(true)}
+                onMouseLeave={() => setShowGrantsGuidesDropdown(false)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: isHomePage && !isScrolled ? '#fff' : '#000',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  padding: '8px 12px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  outline: 'none',
+                  borderBottom: '2px solid transparent',
+                  transition: 'border-color 0.3s ease'
+                }}
+              >
+                Grants Guides
+                <svg 
+                  width="12" 
+                  height="12" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2"
+                  style={{
+                    transform: showGrantsGuidesDropdown ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.2s ease'
+                  }}
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+              
+              {showGrantsGuidesDropdown && (
+                <div 
+                  style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    marginTop: '8px',
+                    backgroundColor: '#fff',
+                    border: '1px solid #e5e5e5',
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
+                    borderRadius: '8px',
+                    minWidth: '200px',
+                    zIndex: 1001,
+                    opacity: 1,
+                    animation: 'dropdownFadeIn 0.2s ease-out'
+                  }}
+                  onMouseEnter={() => setShowGrantsGuidesDropdown(true)}
+                  onMouseLeave={() => setShowGrantsGuidesDropdown(false)}
+                >
+                  <Link href="/guides" style={{
+                    display: 'block',
+                    padding: '14px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    fontWeight: '400',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.15s ease'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    All Guides
+                  </Link>
+                  <Link href="/guides/first-time-buyer" style={{
+                    display: 'block',
+                    padding: '14px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    fontWeight: '400',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.15s ease'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    First Time Buyer
+                  </Link>
+                  <Link href="/guides/investment" style={{
+                    display: 'block',
+                    padding: '14px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    fontWeight: '400',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.15s ease'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Investment Guide
+                  </Link>
+                  <Link href="/guides/selling" style={{
+                    display: 'block',
+                    padding: '14px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    fontWeight: '400',
+                    transition: 'background 0.15s ease'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Selling Guide
+                  </Link>
+                </div>
+              )}
+            </div>
             </nav>
           )}
 
@@ -1138,19 +1331,121 @@ export default function OncomHeader() {
                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
               Find Agents
             </Link>
-            <Link href="/reviews" onClick={() => setShowBurgerPanel(false)} style={{
-              display: 'block',
-              padding: '16px 20px',
-              color: '#000',
-              textDecoration: 'none',
-              fontSize: '16px',
-              fontWeight: '500',
-              borderBottom: '1px solid #f0f0f0',
-              transition: 'background 0.2s'
-            }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
-               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-              Reviews
-            </Link>
+            {/* Research Section in Mobile Menu */}
+            <div style={{
+              borderBottom: '1px solid #f0f0f0'
+            }}>
+              <div style={{
+                padding: '16px 20px',
+                fontSize: '16px',
+                fontWeight: '600',
+                color: '#000',
+                borderBottom: '1px solid #f8f8f8'
+              }}>
+                Research
+              </div>
+              <Link href="/reviews" onClick={() => setShowBurgerPanel(false)} style={{
+                display: 'block',
+                padding: '12px 20px 12px 40px',
+                color: '#666',
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: '400',
+                transition: 'background 0.2s'
+              }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                Reviews page
+              </Link>
+              <Link href="/grants-report" onClick={() => setShowBurgerPanel(false)} style={{
+                display: 'block',
+                padding: '12px 20px 12px 40px',
+                color: '#666',
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: '400',
+                transition: 'background 0.2s'
+              }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                Grants Report
+              </Link>
+              <Link href="/market-update" onClick={() => setShowBurgerPanel(false)} style={{
+                display: 'block',
+                padding: '12px 20px 12px 40px',
+                color: '#666',
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: '400',
+                borderBottom: '1px solid #f8f8f8',
+                transition: 'background 0.2s'
+              }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                Market Updates
+              </Link>
+            </div>
+            
+            {/* Grants Guides Section in Mobile Menu */}
+            <div style={{
+              borderBottom: '1px solid #f0f0f0'
+            }}>
+              <div style={{
+                padding: '16px 20px',
+                fontSize: '16px',
+                fontWeight: '600',
+                color: '#000',
+                borderBottom: '1px solid #f8f8f8'
+              }}>
+                Grants Guides
+              </div>
+              <Link href="/guides" onClick={() => setShowBurgerPanel(false)} style={{
+                display: 'block',
+                padding: '12px 20px 12px 40px',
+                color: '#666',
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: '400',
+                transition: 'background 0.2s'
+              }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                All Guides
+              </Link>
+              <Link href="/guides/first-time-buyer" onClick={() => setShowBurgerPanel(false)} style={{
+                display: 'block',
+                padding: '12px 20px 12px 40px',
+                color: '#666',
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: '400',
+                transition: 'background 0.2s'
+              }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                First Time Buyer
+              </Link>
+              <Link href="/guides/investment" onClick={() => setShowBurgerPanel(false)} style={{
+                display: 'block',
+                padding: '12px 20px 12px 40px',
+                color: '#666',
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: '400',
+                transition: 'background 0.2s'
+              }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                Investment Guide
+              </Link>
+              <Link href="/guides/selling" onClick={() => setShowBurgerPanel(false)} style={{
+                display: 'block',
+                padding: '12px 20px 12px 40px',
+                color: '#666',
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: '400',
+                borderBottom: '1px solid #f8f8f8',
+                transition: 'background 0.2s'
+              }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                Selling Guide
+              </Link>
+            </div>
             <Link href="/appraisal" onClick={() => setShowBurgerPanel(false)} style={{
               display: 'block',
               padding: '16px 20px',

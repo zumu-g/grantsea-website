@@ -60,10 +60,10 @@ export default function CalculatorsPage() {
   ];
 
   return (
-    <React.Fragment>
+    <main>
       <OncomHeader />
 
-      <main style={{
+      <div style={{
         paddingTop: isMobile ? '180px' : '200px',
         minHeight: '100vh',
         backgroundColor: '#fff'
@@ -367,7 +367,7 @@ export default function CalculatorsPage() {
             </Link>
           </div>
         </section>
-      </main>
-    </React.Fragment>
+      </div>
+    </main>
   );
 }

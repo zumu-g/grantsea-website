@@ -141,17 +141,9 @@ export default function PropertyDetailPage() {
         if (response.ok && data.success && data.data) {
           console.log('[PropertyPage] Property loaded successfully');
           
-          // Fetch open homes for this property
-          const openHomes = await fetchPropertyOpenHomes(params.id as string);
-          console.log('[PropertyPage] Open homes fetched:', openHomes);
-          
-          // Merge open homes into property data
-          const propertyWithOpenHomes = {
-            ...data.data,
-            inspectionTimes: openHomes.length > 0 ? openHomes : data.data.inspectionTimes || []
-          };
-          
-          setProperty(propertyWithOpenHomes);
+          // TEMPORARILY DISABLED: Open homes fetch to fix loading issue
+          // Just use the property data as-is
+          setProperty(data.data);
 
           // Fetch similar properties
           if (data.data.suburb) {

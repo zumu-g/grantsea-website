@@ -141,29 +141,49 @@ export default function PropertyDetailPage() {
         if (response.ok && data.success && data.data) {
           console.log('[PropertyPage] Property loaded successfully');
           
-          // Fetch open homes for this property
-          const openHomes = await fetchPropertyOpenHomes(params.id as string);
-          console.log('[PropertyPage] Open homes fetched:', openHomes);
+          // Set property immediately for faster initial render
+          setProperty(data.data);
           
-          // Merge open homes into property data
+          // Fetch open homes and similar properties in parallel
+          const promises = [];
+          
+          // Open homes fetch
+          promises.push(
+            fetchPropertyOpenHomes(params.id as string).catch(err => {
+              console.error('[PropertyPage] Failed to load open homes:', err);
+              return [];
+            })
+          );
+          
+          // Similar properties fetch (only need 3, fetch 6 to allow for filtering)
+          if (data.data.suburb) {
+            promises.push(
+              fetch(`/api/properties?suburb=${data.data.suburb}&limit=6&type=${data.data.listingType || 'all'}`)
+                .then(res => res.json())
+                .catch(err => {
+                  console.error('[PropertyPage] Failed to load similar properties:', err);
+                  return { success: false, data: [] };
+                })
+            );
+          } else {
+            promises.push(Promise.resolve({ success: false, data: [] }));
+          }
+          
+          // Wait for both to complete
+          const [openHomes, similarData] = await Promise.all(promises);
+          console.log('[PropertyPage] Additional data loaded:', { openHomes, similarData });
+          
+          // Update property with open homes
           const propertyWithOpenHomes = {
             ...data.data,
             inspectionTimes: openHomes.length > 0 ? openHomes : data.data.inspectionTimes || []
           };
           
           setProperty(propertyWithOpenHomes);
-
-          // Fetch similar properties
-          if (data.data.suburb) {
-            try {
-              const similarResponse = await fetch(`/api/properties?suburb=${data.data.suburb}&limit=4&type=${data.data.listingType || 'all'}`);
-              const similarData = await similarResponse.json();
-              if (similarData.success && similarData.data) {
-                setSimilarProperties(similarData.data.filter((p: Property) => p.id !== data.data.id).slice(0, 3));
-              }
-            } catch (err) {
-              console.error('[PropertyPage] Failed to load similar properties:', err);
-            }
+          
+          // Update similar properties
+          if (similarData.success && similarData.data) {
+            setSimilarProperties(similarData.data.filter((p: Property) => p.id !== data.data.id).slice(0, 3));
           }
         } else {
           console.error('[PropertyPage] Failed to load property:', data.error);

@@ -147,14 +147,14 @@ export default function PropertyDetailPage() {
           // Then try to fetch open homes with timeout (non-blocking)
           try {
             const openHomesPromise = fetchPropertyOpenHomes(params.id as string);
-            const timeoutPromise = new Promise((_, reject) => 
+            const timeoutPromise = new Promise<any[]>((_, reject) => 
               setTimeout(() => reject(new Error('Open homes fetch timeout')), 2000)
             );
             
-            const openHomes = await Promise.race([openHomesPromise, timeoutPromise]).catch(() => []);
+            const openHomes = await Promise.race([openHomesPromise, timeoutPromise]);
             console.log('[PropertyPage] Open homes fetched:', openHomes);
             
-            if (openHomes && openHomes.length > 0) {
+            if (openHomes && Array.isArray(openHomes) && openHomes.length > 0) {
               // Update property with open homes if we got them
               setProperty(prev => ({
                 ...prev,

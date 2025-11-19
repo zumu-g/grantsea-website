@@ -156,10 +156,10 @@ export default function PropertyDetailPage() {
             
             if (openHomes && Array.isArray(openHomes) && openHomes.length > 0) {
               // Update property with open homes if we got them
-              setProperty(prev => ({
+              setProperty(prev => prev ? {
                 ...prev,
                 inspectionTimes: openHomes
-              }));
+              } : prev);
             }
           } catch (error) {
             console.log('[PropertyPage] Open homes fetch failed or timed out, continuing without them');

@@ -29,30 +29,6 @@ function OpenForInspectionPage() {
     return () => window.removeEventListener('resize', checkDevice);
   }, []);
 
-  // Intersection Observer for lazy loading
-  React.useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = parseInt(entry.target.getAttribute('data-index') || '0');
-            setVisibleProperties((prev) => new Set(prev).add(index));
-          }
-        });
-      },
-      {
-        rootMargin: '100px',
-        threshold: 0.01
-      }
-    );
-
-    // Observe all property cards
-    const cards = document.querySelectorAll('[data-property-card]');
-    cards.forEach((card) => observer.observe(card));
-
-    return () => observer.disconnect();
-  }, [filteredOpenHomes]);
-
   React.useEffect(() => {
     fetchOpenHomes();
   }, []);
@@ -206,6 +182,30 @@ function OpenForInspectionPage() {
         }
       });
   }, [openHomes, selectedDay, selectedSuburb, sortBy]);
+
+  // Intersection Observer for lazy loading
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.getAttribute('data-index') || '0');
+            setVisibleProperties((prev) => new Set(prev).add(index));
+          }
+        });
+      },
+      {
+        rootMargin: '100px',
+        threshold: 0.01
+      }
+    );
+
+    // Observe all property cards
+    const cards = document.querySelectorAll('[data-property-card]');
+    cards.forEach((card) => observer.observe(card));
+
+    return () => observer.disconnect();
+  }, [filteredOpenHomes]);
 
   const getTimeStatus = (startTime: string, endTime: string) => {
     const now = new Date();

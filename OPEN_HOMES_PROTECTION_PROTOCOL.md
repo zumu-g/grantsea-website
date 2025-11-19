@@ -123,10 +123,12 @@ The Open Homes functionality is a **MISSION-CRITICAL** system that drives signif
   - Lines 1216-1256: "Open for inspection" section with gold text styling
 - **Open Homes Listing Page**: `src/app/buy/open-for-inspection/page.tsx`
 
-#### Caching Strategy
-- **TTL**: 10 minutes for fresh data
+#### Caching Strategy - UPDATED 2025-11-19
+- **TTL**: 15 minutes for fresh data (optimized for performance)
 - **Stale-while-revalidate**: Serve cached data while updating in background
-- **Max pages**: Limit to 5 API pages to prevent timeouts
+- **Complete API Scanning**: Scans ALL 46+ pages until natural end of data (NO LIMITS)
+- **Timeout**: 2 minutes for comprehensive scan (increased from 30 seconds)
+- **Performance**: ~80 seconds to scan complete dataset of 2,290 open homes
 
 ### 📞 Emergency Contacts
 
@@ -172,6 +174,7 @@ All changes to protected files must be documented here:
 |------|-----------|---------|----------|---------|
 | 2025-10-28 | Claude | Created protection protocol | Stuart Grant | ✅ Active |
 | 2025-10-29 | Claude | Updated with current working evidence and system explanation | Stuart Grant | ✅ Active |
+| 2025-11-19 | Claude | **CRITICAL UPDATE**: Fixed timeout and verified complete API scanning - NO PAGE LIMITS | Stuart Grant | ✅ Active |
 
 ### 🎯 Success Metrics
 

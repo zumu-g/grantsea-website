@@ -4,6 +4,12 @@
 # Quick validation only - full style validation moved to CI/CD
 echo "🔍 Running quick pre-commit checks..."
 
+# Check protected files first
+echo "🛡️ Checking protected files..."
+npm run check-protected || {
+    echo "⚠️ Protected files check completed with warnings"
+}
+
 # Basic TypeScript check
 echo "Checking TypeScript..."
 npm run typecheck || {

@@ -263,7 +263,7 @@ export default function CalculatorsPage() {
                   color: '#000',
                   marginBottom: '8px'
                 }}>
-                  <2s
+                  {'<2s'}
                 </div>
                 <p style={{
                   fontSize: '14px',

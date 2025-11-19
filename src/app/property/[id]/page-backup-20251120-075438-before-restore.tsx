@@ -141,42 +141,14 @@ export default function PropertyDetailPage() {
         if (response.ok && data.success && data.data) {
           console.log('[PropertyPage] Property loaded successfully');
           
-          // Set property data immediately so page loads fast
+          // TEMPORARILY DISABLED: Open homes fetch to fix loading issue
+          // Just use the property data as-is
           setProperty(data.data);
-          
-          // Then try to fetch open homes with timeout (non-blocking)
-          try {
-            const openHomesPromise = fetchPropertyOpenHomes(params.id as string);
-            const timeoutPromise = new Promise((_, reject) => 
-              setTimeout(() => reject(new Error('Open homes fetch timeout')), 2000)
-            );
-            
-            const openHomes = await Promise.race([openHomesPromise, timeoutPromise]).catch(() => []);
-            console.log('[PropertyPage] Open homes fetched:', openHomes);
-            
-            if (openHomes && openHomes.length > 0) {
-              // Update property with open homes if we got them
-              setProperty(prev => ({
-                ...prev,
-                inspectionTimes: openHomes
-              }));
-            }
-          } catch (error) {
-            console.log('[PropertyPage] Open homes fetch failed or timed out, continuing without them');
-          }
 
           // Fetch similar properties
           if (data.data.suburb) {
             try {
-              // Add timeout to similar properties fetch
-              const controller = new AbortController();
-              const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout
-              
-              const similarResponse = await fetch(
-                `/api/properties?suburb=${data.data.suburb}&limit=4&type=${data.data.listingType || 'all'}`,
-                { signal: controller.signal }
-              );
-              clearTimeout(timeoutId);
+              const similarResponse = await fetch(`/api/properties?suburb=${data.data.suburb}&limit=4&type=${data.data.listingType || 'all'}`);
               const similarData = await similarResponse.json();
               if (similarData.success && similarData.data) {
                 setSimilarProperties(similarData.data.filter((p: Property) => p.id !== data.data.id).slice(0, 3));

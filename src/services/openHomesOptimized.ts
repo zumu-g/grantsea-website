@@ -40,14 +40,19 @@ export async function fetchOpenHomesForActiveProperties(
     
     // Fetch open homes with date filter and limit
     // Start with a smaller page size and only fetch what we need
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+    
     const response = await fetch(
       `${apiBaseUrl}/openHomes?from=${fromDate}&to=${toDate}&limit=200&page=1&sort=startTime`,
       { 
         headers, 
         cache: 'no-store',
-        signal: AbortSignal.timeout(5000) // 5 second timeout
+        signal: controller.signal
       }
     );
+    
+    clearTimeout(timeoutId);
     
     if (!response.ok) {
       console.error('Failed to fetch open homes:', response.status);

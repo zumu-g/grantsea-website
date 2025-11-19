@@ -197,8 +197,10 @@ export async function GET(request: NextRequest) {
       };
     });
 
+    // TEMPORARILY DISABLED: Open homes fetch to debug property loading issue
     // Fetch open homes optimized for active properties only
     // This is much faster than scanning all pages
+    /*
     try {
       const { fetchOpenHomesForActiveProperties } = await import('@/services/openHomesOptimized');
       
@@ -222,6 +224,7 @@ export async function GET(request: NextRequest) {
       console.error('Failed to fetch open homes:', error);
       // Continue without open homes data rather than blocking
     }
+    */
     
 
     // Cache the results with extended TTL

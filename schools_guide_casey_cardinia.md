@@ -22,20 +22,20 @@
 ## Quick Reference Guide
 
 ### Casey Shire Schools Summary
-- **Total Schools**: 100+ educational institutions
-- **Government Primary Schools**: 20+ 
+- **Total Schools**: 59+ educational institutions
+- **Government Primary Schools**: 15+ 
 - **Government Secondary Schools**: 10+
-- **Private Primary Schools**: 5+ (Independent, Catholic, Christian)
-- **Private Secondary Schools**: 8+ (Independent, Catholic, Christian)
-- **Kindergartens**: 30+ (Council-managed & Private)
+- **Private Primary Schools**: 3+ (Independent, Catholic, Christian)
+- **Private Secondary Schools**: 7+ (Independent, Catholic, Christian)
+- **Kindergartens**: 14+ (Council-managed & Private)
 
 ### Cardinia Shire Schools Summary
-- **Total Schools**: 50+ educational institutions
-- **Government Primary Schools**: 15+
-- **Government Secondary Schools**: 5+
+- **Total Schools**: 20+ educational institutions
+- **Government Primary Schools**: 8+
+- **Government Secondary Schools**: 3+
 - **Private Primary Schools**: 3+ (Independent, Catholic, Christian)
-- **Private Secondary Schools**: 4+ (Independent, Catholic, Christian)
-- **Kindergartens**: 20+ (Council-managed & Private)
+- **Private Secondary Schools**: 6+ (Independent, Catholic, Christian)
+- **Kindergartens**: 5+ (Council-managed & Private)
 
 ---
 
@@ -1085,19 +1085,145 @@
 - **Summary**: Catholic primary school offering comprehensive education with strong focus on faith formation and academic excellence.
 - **School Review**: St Francis Xavier Primary School prides itself on its Catholic identity and strong focus on faith formation and academic excellence. This school is particularly great for families seeking a Catholic education with strong values and comprehensive programs. The school's academic program is well-rounded, with students participating in music, art, and physical education programs that develop their talents and interests. Their religious education program is comprehensive, with students participating in Mass, prayer, and community service projects. The music program is vibrant, with students regularly performing at community events and school concerts. The art program encourages creativity and self-expression, with regular exhibitions that celebrate student achievements. Physical education is comprehensive, with excellent facilities and a focus on developing teamwork and sportsmanship. The school culture emphasizes respect, responsibility, and resilience, creating a positive learning environment where students feel safe and supported. This is an ideal choice for families seeking a Catholic education that fosters faith formation and academic excellence.
 
-**St Peter's College (Cranbourne)**
-- **Address**: 12-14 St Peter's Drive, Cranbourne 3977
-- **Phone**: (03) 5996 0000
-- **Email**: info@stpeters.catholic.edu.au
-- **Website**: www.stpeters.catholic.edu.au
+**St Francis Xavier College - Beaconsfield Campus**
+- **Address**: 4 Beaconsfield Avenue, Beaconsfield 3807
+- **Phone**: (03) 9707 3111
+- **Email**: info@sfx.vic.edu.au
+- **Website**: www.sfx.vic.edu.au
 - **Type**: Catholic, Co-educational
-- **Year Levels**: Year 7 - Year 12
-- **Enrollment**: 800 students
+- **Year Levels**: Year 10 - Year 12
+- **Enrollment**: 600 students
 - **Student-Teacher Ratio**: 1:12
 - **Special Programs**: VCE, VCAL, VET, Music, Art, Sports, Religious Education
 - **Fees**: $5,000 - $8,000 per year
-- **Summary**: Catholic secondary school offering comprehensive education with strong focus on faith formation and academic excellence.
-- **School Review**: St Peter's College prides itself on its Catholic identity and strong focus on faith formation and academic excellence. This school is particularly great for families seeking a Catholic education with strong values and comprehensive programs. The school's academic program is well-rounded, with students participating in VCE, VCAL, and VET programs that prepare them for various career pathways. Their religious education program is comprehensive, with students participating in Mass, prayer, and community service projects. The music program is vibrant, with students regularly performing at community events and school concerts. The art program encourages creativity and self-expression, with regular exhibitions that celebrate student achievements. Physical education is comprehensive, with excellent facilities and a focus on developing teamwork and sportsmanship. The school culture emphasizes respect, responsibility, and resilience, creating a positive learning environment where students feel safe and supported. This is an ideal choice for families seeking a Catholic education that fosters faith formation and academic excellence.
+- **Summary**: Catholic co-educational secondary school. Senior campus offering Years 10-12 with strong academic programs and faith-based education.
+- **School Review**: St Francis Xavier College Beaconsfield Campus prides itself on its Catholic identity and strong focus on faith formation and academic excellence for senior students.
+
+**St Francis Xavier College - Berwick Campus**
+- **Address**: 75 Ridgemont Drive, Berwick 3806
+- **Phone**: (03) 9707 3111
+- **Email**: info@sfx.vic.edu.au
+- **Website**: www.sfx.vic.edu.au
+- **Type**: Catholic, Co-educational
+- **Year Levels**: Year 7 - Year 9
+- **Enrollment**: 800 students
+- **Student-Teacher Ratio**: 1:12
+- **Special Programs**: VCE Preparation, Music, Art, Sports, Religious Education
+- **Fees**: $5,000 - $8,000 per year
+- **Summary**: Catholic co-educational secondary school. Junior campus offering Years 7-9 with comprehensive programs and strong pastoral care.
+- **School Review**: St Francis Xavier College Berwick Campus prides itself on its Catholic identity and strong focus on faith formation and comprehensive programs for junior students.
+
+**St Francis Xavier College - Officer Campus**
+- **Address**: 21 Majestic Drive, Officer 3809
+- **Phone**: (03) 9707 3111
+- **Email**: info@sfx.vic.edu.au
+- **Website**: www.sfx.vic.edu.au
+- **Type**: Catholic, Co-educational
+- **Year Levels**: Year 7 - Year 9
+- **Enrollment**: 700 students
+- **Student-Teacher Ratio**: 1:12
+- **Special Programs**: VCE Preparation, Music, Art, Sports, Religious Education
+- **Fees**: $5,000 - $8,000 per year
+- **Summary**: Catholic co-educational secondary school. Junior campus serving the growing Officer community with faith-based education and modern facilities.
+- **School Review**: St Francis Xavier College Officer Campus prides itself on its Catholic identity and modern facilities, serving the growing Officer community with quality education.
+
+**St Peter's College - Cranbourne Campus**
+- **Address**: 55 Kangan Drive, Cranbourne 3977
+- **Phone**: (03) 5990 7777
+- **Email**: info@stpeters.vic.edu.au
+- **Website**: www.stpeters.vic.edu.au
+- **Type**: Catholic, Co-educational
+- **Year Levels**: Year 7 - Year 12
+- **Enrollment**: 1,200 students
+- **Student-Teacher Ratio**: 1:13
+- **Special Programs**: VCE, VCAL, VET, Music, Art, Sports, Religious Education
+- **Fees**: $5,000 - $8,000 per year
+- **Summary**: Catholic co-educational secondary school offering comprehensive education from Years 7-12. Strong academic programs and faith-based values.
+- **School Review**: St Peter's College Cranbourne Campus prides itself on its Catholic identity and strong focus on faith formation and academic excellence.
+
+**St Peter's College - Clyde North Campus**
+- **Address**: 55 Kangan Drive, Clyde North 3978
+- **Phone**: (03) 5990 7777
+- **Email**: info@stpeters.vic.edu.au
+- **Website**: www.stpeters.vic.edu.au
+- **Type**: Catholic, Co-educational
+- **Year Levels**: Year 7 - Year 12
+- **Enrollment**: 1,000 students
+- **Student-Teacher Ratio**: 1:13
+- **Special Programs**: VCE, VCAL, VET, Music, Art, Sports, Religious Education
+- **Fees**: $5,000 - $8,000 per year
+- **Summary**: Catholic co-educational secondary school serving the Clyde North community. Modern facilities and comprehensive programs with faith-based education.
+- **School Review**: St Peter's College Clyde North Campus prides itself on its Catholic identity and modern facilities, serving the Clyde North community with quality education.
+
+**Casey Grammar School**
+- **Address**: 3 New Holland Drive, Cranbourne East 3977
+- **Phone**: (03) 5991 0800
+- **Email**: info@caseygrammar.vic.edu.au
+- **Website**: www.caseygrammar.vic.edu.au
+- **Type**: Independent, Co-educational
+- **Year Levels**: Prep - Year 12
+- **Enrollment**: 850 students
+- **Student-Teacher Ratio**: 1:12
+- **Special Programs**: VCE, Music, Art, Sports
+- **Fees**: $8,000 - $15,000 per year
+- **Summary**: Independent co-educational school offering Prep through Year 12. Strong academic focus with comprehensive programs and modern facilities.
+- **School Review**: Casey Grammar School prides itself on its independent approach to education and strong focus on academic excellence and comprehensive programs.
+
+**Maranatha Christian School**
+- **Address**: 62 Rix Road, Officer 3809
+- **Phone**: (03) 5943 2000
+- **Email**: info@maranatha.vic.edu.au
+- **Website**: www.maranatha.vic.edu.au
+- **Type**: Independent Christian, Co-educational
+- **Year Levels**: Prep - Year 12
+- **Enrollment**: 600 students
+- **Student-Teacher Ratio**: 1:12
+- **Special Programs**: VCE, Music, Art, Sports, Christian Studies
+- **Fees**: $7,000 - $12,000 per year
+- **Summary**: Independent Christian co-educational school offering Prep through Year 12. Faith-based education with strong academic programs and community focus.
+- **School Review**: Maranatha Christian School prides itself on its Christian identity and strong focus on faith formation and academic excellence.
+
+**Beaconhills College**
+- **Address**: 30-34 Toomuc Valley Road, Pakenham 3810
+- **Phone**: (03) 5945 3000
+- **Email**: info@beaconhills.vic.edu.au
+- **Website**: www.beaconhills.vic.edu.au
+- **Type**: Independent Anglican, Co-educational
+- **Year Levels**: Prep - Year 12
+- **Enrollment**: 1,800 students
+- **Student-Teacher Ratio**: 1:13
+- **Special Programs**: VCE, Music, Art, Sports
+- **Fees**: $10,000 - $18,000 per year
+- **Summary**: Independent Anglican co-educational school offering Prep through Year 12. Large school with comprehensive programs and excellent facilities.
+- **School Review**: Beaconhills College prides itself on its Anglican identity and comprehensive approach to education, offering excellent facilities and programs.
+
+**Chairo Christian School**
+- **Address**: 585 Bald Hill Road, Pakenham 3810
+- **Phone**: (03) 5941 5511
+- **Email**: info@chairo.vic.edu.au
+- **Website**: www.chairo.vic.edu.au
+- **Type**: Independent Christian, Co-educational
+- **Year Levels**: Prep - Year 12
+- **Enrollment**: 1,200 students
+- **Student-Teacher Ratio**: 1:13
+- **Special Programs**: VCE, Music, Art, Sports, Christian Studies
+- **Fees**: $7,000 - $12,000 per year
+- **Summary**: Independent Christian co-educational school offering Prep through Year 12. Faith-based education with strong academic programs and pastoral care.
+- **School Review**: Chairo Christian School prides itself on its Christian identity and strong focus on faith formation and academic excellence.
+
+**Waverley Christian College**
+- **Address**: 315-335 Police Road, Narre Warren South 3805
+- **Phone**: (03) 9701 1900
+- **Email**: info@waverley.vic.edu.au
+- **Website**: www.waverley.vic.edu.au
+- **Type**: Independent Christian, Co-educational
+- **Year Levels**: Prep - Year 12
+- **Enrollment**: 1,500 students
+- **Student-Teacher Ratio**: 1:13
+- **Special Programs**: VCE, Music, Art, Sports, Christian Studies
+- **Fees**: $8,000 - $15,000 per year
+- **Summary**: Independent Christian co-educational school offering Prep through Year 12. Large school with comprehensive programs and strong community connections.
+- **School Review**: Waverley Christian College prides itself on its Christian identity and comprehensive approach to education, offering excellent facilities and programs.
 
 #### **Cardinia Shire Catholic Schools**
 

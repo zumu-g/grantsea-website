@@ -247,7 +247,7 @@ function ChildcareGuidePage() {
     const searchMatch = searchQuery === '' || 
                        centre.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                        centre.suburb.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                       centre.description?.toLowerCase().includes(searchQuery.toLowerCase());
+                       centre.address.toLowerCase().includes(searchQuery.toLowerCase());
     
     // Service match - centre must have ALL selected services
     const serviceMatch = selectedServices.length === 0 || 

@@ -141,42 +141,22 @@ export default function PropertyDetailPage() {
         if (response.ok && data.success && data.data) {
           console.log('[PropertyPage] Property loaded successfully');
           
-          // Set property data immediately so page loads fast
-          setProperty(data.data);
+          // Fetch open homes for this property
+          const openHomes = await fetchPropertyOpenHomes(params.id as string);
+          console.log('[PropertyPage] Open homes fetched:', openHomes);
           
-          // Then try to fetch open homes with timeout (non-blocking)
-          try {
-            const openHomesPromise = fetchPropertyOpenHomes(params.id as string);
-            const timeoutPromise = new Promise<any[]>((_, reject) => 
-              setTimeout(() => reject(new Error('Open homes fetch timeout')), 2000)
-            );
-            
-            const openHomes = await Promise.race([openHomesPromise, timeoutPromise]);
-            console.log('[PropertyPage] Open homes fetched:', openHomes);
-            
-            if (openHomes && Array.isArray(openHomes) && openHomes.length > 0) {
-              // Update property with open homes if we got them
-              setProperty(prev => prev ? {
-                ...prev,
-                inspectionTimes: openHomes
-              } : prev);
-            }
-          } catch (error) {
-            console.log('[PropertyPage] Open homes fetch failed or timed out, continuing without them');
-          }
+          // Merge open homes into property data
+          const propertyWithOpenHomes = {
+            ...data.data,
+            inspectionTimes: openHomes.length > 0 ? openHomes : data.data.inspectionTimes || []
+          };
+          
+          setProperty(propertyWithOpenHomes);
 
           // Fetch similar properties
           if (data.data.suburb) {
             try {
-              // Add timeout to similar properties fetch
-              const controller = new AbortController();
-              const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout
-              
-              const similarResponse = await fetch(
-                `/api/properties?suburb=${data.data.suburb}&limit=4&type=${data.data.listingType || 'all'}`,
-                { signal: controller.signal }
-              );
-              clearTimeout(timeoutId);
+              const similarResponse = await fetch(`/api/properties?suburb=${data.data.suburb}&limit=4&type=${data.data.listingType || 'all'}`);
               const similarData = await similarResponse.json();
               if (similarData.success && similarData.data) {
                 setSimilarProperties(similarData.data.filter((p: Property) => p.id !== data.data.id).slice(0, 3));

@@ -68,58 +68,16 @@ interface Property {
   };
   daysOnMarket?: number;
   listingDate?: string;
-  status?: string;
-  agency?: string;
-  agentName?: string;
-  externalUrl?: string;
 }
 
-// Helper function to get default features for properties without feature data
-const getDefaultFeatures = (property: Property): string[] => {
-  const features: string[] = [];
-  
-  // Add basic property features based on property data
-  if (property.propertyType === 'House') {
-    features.push('Spacious family home');
-    if (property.landSize && property.landSize > 600) {
-      features.push('Large land size');
-    }
-    if (property.bedrooms && property.bedrooms >= 4) {
-      features.push('Multiple living areas');
-    }
-    if (property.carSpaces && property.carSpaces >= 2) {
-      features.push('Secure parking');
-    }
-  } else if (property.propertyType === 'Apartment' || property.propertyType === 'Unit') {
-    features.push('Modern apartment living');
-    features.push('Low maintenance lifestyle');
-    if (property.bathrooms && property.bathrooms >= 2) {
-      features.push('Multiple bathrooms');
-    }
-  } else if (property.propertyType === 'Townhouse') {
-    features.push('Contemporary townhouse');
-    features.push('Private courtyard');
-    features.push('Modern fixtures');
-  }
-  
-  // Add listing-type specific features
-  if (property.listingType === 'sale') {
-    features.push('Excellent investment opportunity');
-    features.push('Prime location');
-    if (property.suburb) {
-      features.push(`Sought-after ${property.suburb} location`);
-    }
-  } else if (property.listingType === 'lease') {
-    features.push('Available now');
-    features.push('Well-maintained property');
-  }
-  
-  // Add general features
-  features.push('Close to schools and transport');
-  features.push('Near shopping and amenities');
-  
-  return features.slice(0, 8); // Limit to 8 features
-};
+// Mock schools data - in production this would come from an API
+const mockSchools = [
+  { name: 'Berwick Primary School', type: 'Primary', distance: '0.8km', rating: 4.5 },
+  { name: 'Nossal High School', type: 'Secondary', distance: '1.2km', rating: 4.8 },
+  { name: 'St Margaret\'s School', type: 'Primary', distance: '1.5km', rating: 4.3 },
+  { name: 'Berwick College', type: 'Secondary', distance: '2.1km', rating: 4.2 },
+  { name: 'Berwick Fields Primary School', type: 'Primary', distance: '2.3km', rating: 4.4 }
+];
 
 export default function PropertyDetailPage() {
   const params = useParams();
@@ -137,9 +95,12 @@ export default function PropertyDetailPage() {
   const [showVirtualTour, setShowVirtualTour] = useState(false);
   const [showFloorPlan, setShowFloorPlan] = useState(false);
   const [showDocuments, setShowDocuments] = useState(false);
-  const [showInspectionRequest, setShowInspectionRequest] = useState(false);
   const [enquirySent, setEnquirySent] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [showShareMenu, setShowShareMenu] = useState(false);
+  const [showAIChat, setShowAIChat] = useState(false);
+  const [aiMessages, setAiMessages] = useState<Array<{role: 'user' | 'ai', content: string}>>([]);
+  const [aiInput, setAiInput] = useState('');
   const [enquiryForm, setEnquiryForm] = useState({
     name: '',
     email: '',
@@ -150,7 +111,7 @@ export default function PropertyDetailPage() {
   // Detect mobile
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth < 768);
     };
 
     checkMobile();
@@ -172,8 +133,6 @@ export default function PropertyDetailPage() {
     const fetchData = async () => {
       try {
         console.log('[PropertyPage] Starting fetch for:', `/api/properties/${params.id}`);
-        
-        // Fetch property details first (critical data)
         const response = await fetch(`/api/properties/${params.id}`);
         console.log('[PropertyPage] Response status:', response.status);
         const data = await response.json();
@@ -182,95 +141,39 @@ export default function PropertyDetailPage() {
         if (response.ok && data.success && data.data) {
           console.log('[PropertyPage] Property loaded successfully');
           
-          // Set property immediately for faster rendering
-          setProperty(data.data);
-          setLoading(false); // Stop loading spinner immediately after main data loads
+          // Fetch open homes for this property
+          const openHomes = await fetchPropertyOpenHomes(params.id as string);
+          console.log('[PropertyPage] Open homes fetched:', openHomes);
           
-          // Fetch additional data in parallel (non-blocking)
-          const parallelFetches = [];
+          // Merge open homes into property data
+          const propertyWithOpenHomes = {
+            ...data.data,
+            inspectionTimes: openHomes.length > 0 ? openHomes : data.data.inspectionTimes || []
+          };
           
-          // Fetch open homes
-          parallelFetches.push(
-            fetchPropertyOpenHomes(params.id as string).then(openHomes => {
-              console.log('[PropertyPage] Open homes fetched:', openHomes);
-              if (openHomes.length > 0) {
-                setProperty(prev => ({
-                  ...prev!,
-                  inspectionTimes: openHomes
-                }));
-              }
-            }).catch(err => {
-              console.error('[PropertyPage] Failed to load open homes:', err);
-            })
-          );
-          
+          setProperty(propertyWithOpenHomes);
+
           // Fetch similar properties
           if (data.data.suburb) {
-            // For lease properties, fetch from market search to show other agencies
-            if (data.data.listingType === 'lease' && data.data.address) {
-              // Extract street name from address
-              const streetMatch = data.data.address.match(/^(\d+\s+)?(.+?),/);
-              const streetName = streetMatch ? streetMatch[2] : '';
-              
-              if (streetName) {
-                parallelFetches.push(
-                  fetch(`/api/properties/market-search?street=${encodeURIComponent(streetName)}&suburb=${encodeURIComponent(data.data.suburb)}&type=lease&excludeId=${data.data.id}`)
-                    .then(res => res.json())
-                    .then(marketData => {
-                      if (marketData.success && marketData.properties) {
-                        setSimilarProperties(marketData.properties);
-                      }
-                    })
-                    .catch(err => {
-                      console.error('[PropertyPage] Failed to load market properties:', err);
-                      // Fallback to internal properties
-                      return fetch(`/api/properties?suburb=${data.data.suburb}&limit=10&type=${data.data.listingType || 'all'}`)
-                        .then(res => res.json())
-                        .then(similarData => {
-                          if (similarData.success && similarData.data) {
-                            const filteredProperties = similarData.data.filter((p: Property) => 
-                              p.id !== data.data.id && 
-                              p.listingType === data.data.listingType
-                            );
-                            setSimilarProperties(filteredProperties.slice(0, 3));
-                          }
-                        });
-                    })
-                );
+            try {
+              const similarResponse = await fetch(`/api/properties?suburb=${data.data.suburb}&limit=4&type=${data.data.listingType || 'all'}`);
+              const similarData = await similarResponse.json();
+              if (similarData.success && similarData.data) {
+                setSimilarProperties(similarData.data.filter((p: Property) => p.id !== data.data.id).slice(0, 3));
               }
-            } else {
-              // For sale properties, use internal properties
-              parallelFetches.push(
-                fetch(`/api/properties?suburb=${data.data.suburb}&limit=10&type=${data.data.listingType || 'all'}`)
-                  .then(res => res.json())
-                  .then(similarData => {
-                    if (similarData.success && similarData.data) {
-                      // Filter to only show properties of the same listing type
-                      const filteredProperties = similarData.data.filter((p: Property) => 
-                        p.id !== data.data.id && 
-                        p.listingType === data.data.listingType
-                      );
-                      setSimilarProperties(filteredProperties.slice(0, 3));
-                    }
-                  })
-                  .catch(err => {
-                    console.error('[PropertyPage] Failed to load similar properties:', err);
-                  })
-              );
+            } catch (err) {
+              console.error('[PropertyPage] Failed to load similar properties:', err);
             }
           }
-          
-          // Wait for all parallel fetches to complete (but don't block rendering)
-          await Promise.allSettled(parallelFetches);
-          
         } else {
           console.error('[PropertyPage] Failed to load property:', data.error);
           setError(data.error || 'Failed to load property');
-          setLoading(false);
         }
       } catch (err) {
         console.error('[PropertyPage] Fetch error:', err);
         setError('Failed to load property: ' + (err instanceof Error ? err.message : 'Unknown error'));
+      } finally {
+        console.log('[PropertyPage] Setting loading to false');
         setLoading(false);
       }
     };
@@ -299,15 +202,46 @@ export default function PropertyDetailPage() {
   }, [showFullscreenCarousel, currentImageIndex, property?.images]);
 
   const handleShare = () => {
-    if (navigator.share && property) {
-      navigator.share({
-        title: property.address,
-        text: `Check out this property: ${property.address}, ${property.suburb}`,
-        url: window.location.href,
-      });
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-      alert('Link copied to clipboard!');
+    setShowShareMenu(!showShareMenu);
+  };
+  
+  const shareToSocial = (platform: string) => {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(`Check out this property: ${property?.address}, ${property?.suburb}`);
+    
+    let shareUrl = '';
+    switch(platform) {
+      case 'facebook':
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+        break;
+      case 'twitter':
+        shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+        break;
+      case 'linkedin':
+        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+        break;
+      case 'whatsapp':
+        shareUrl = `https://wa.me/?text=${text}%20${url}`;
+        break;
+      case 'instagram':
+        // Instagram doesn't have direct share URL, so we copy to clipboard
+        navigator.clipboard.writeText(window.location.href);
+        alert('Link copied! Share it on Instagram');
+        setShowShareMenu(false);
+        return;
+      case 'email':
+        shareUrl = `mailto:?subject=${text}&body=${text}%20${url}`;
+        break;
+      case 'copy':
+        navigator.clipboard.writeText(window.location.href);
+        alert('Link copied to clipboard!');
+        setShowShareMenu(false);
+        return;
+    }
+    
+    if (shareUrl) {
+      window.open(shareUrl, '_blank', 'width=600,height=400');
+      setShowShareMenu(false);
     }
   };
 
@@ -316,6 +250,43 @@ export default function PropertyDetailPage() {
     console.log('Enquiry sent:', enquiryForm);
     setEnquirySent(true);
     setTimeout(() => setEnquirySent(false), 3000);
+  };
+
+  const handleAISend = () => {
+    if (!aiInput.trim()) return;
+    
+    setAiMessages([...aiMessages, { role: 'user', content: aiInput }]);
+    setAiInput('');
+    
+    // Simulate AI response
+    setTimeout(() => {
+      setAiMessages(prev => [...prev, {
+        role: 'ai',
+        content: `I can help you with information about this property at ${property?.address}. The property features ${property?.bedrooms} bedrooms and ${property?.bathrooms} bathrooms. What specific information would you like to know?`
+      }]);
+    }, 1000);
+  };
+
+  const addToCalendar = () => {
+    if (!property?.inspectionTimes || property.inspectionTimes.length === 0) return;
+    
+    const inspection = property.inspectionTimes[0];
+    const startDate = new Date(inspection.startTime);
+    const endDate = new Date(inspection.endTime);
+    
+    // Format dates for calendar
+    const formatDate = (date: Date) => {
+      return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    };
+    
+    const title = encodeURIComponent(`Property Inspection: ${property.address}`);
+    const details = encodeURIComponent(`Viewing property at ${property.address}, ${property.suburb}`);
+    const location = encodeURIComponent(`${property.address}, ${property.suburb} ${property.state} ${property.postcode}`);
+    
+    // Google Calendar URL
+    const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${formatDate(startDate)}/${formatDate(endDate)}&details=${details}&location=${location}`;
+    
+    window.open(googleUrl, '_blank');
   };
 
   if (loading) {
@@ -607,9 +578,8 @@ export default function PropertyDetailPage() {
                     backgroundColor: '#f5f5f5',
                     borderRadius: '8px',
                     textDecoration: 'none',
-                    color: '#000',
-                    transition: 'background-color 0.2s',
-                    border: '1px solid #e5e5e5'
+                    color: '#333',
+                    transition: 'background-color 0.2s'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = '#e5e5e5';
@@ -620,255 +590,30 @@ export default function PropertyDetailPage() {
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
-                    <div>
-                      <div style={{ fontWeight: '600', fontSize: '16px' }}>{doc.name}</div>
-                      {doc.format && (
-                        <div style={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>
-                          {doc.format} Document
-                        </div>
-                      )}
-                    </div>
+                    <span style={{ fontSize: '16px', fontWeight: '500' }}>{doc.name}</span>
                   </div>
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3 3m0 0l-3-3m3 3V8" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
                 </a>
               ))}
             </div>
-            {property.documents.some(doc => doc.type === 'soi') && (
-              <p style={{ marginTop: '20px', fontSize: '13px', color: '#666', lineHeight: '1.6' }}>
-                📄 Statement of Information (SOI) includes property details, comparable sales, and vendor information as required by Victorian law.
-              </p>
-            )}
           </div>
         </div>
       )}
 
-      {/* Inspection Request Modal */}
-      {showInspectionRequest && (
+      {/* Fullscreen Photo Carousel */}
+      {showFullscreenCarousel && images.length > 0 && (
         <div style={{
           position: 'fixed',
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.4)',
-          zIndex: 3000,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 'max(2rem, 3.33vw)'
-        }}
-        onClick={(e) => {
-          if (e.target === e.currentTarget) {
-            setShowInspectionRequest(false);
-          }
-        }}
-        >
-          <div style={{
-            backgroundColor: '#fff',
-            borderRadius: '2px',
-            width: '100%',
-            maxWidth: '500px',
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
-            border: '1px solid #e8e8e8'
-          }}>
-            {/* Header */}
-            <div style={{
-              padding: 'max(2rem, 3.33vw)',
-              borderBottom: '1px solid #e8e8e8',
-              display: 'flex',
-              alignItems: 'flex-start',
-              justifyContent: 'space-between'
-            }}>
-              <div>
-                <h2 style={{
-                  margin: 0,
-                  fontSize: '24px',
-                  fontWeight: '400',
-                  fontFamily: '"Essonnes Display", "On", Helvetica, sans-serif',
-                  color: '#000',
-                  letterSpacing: '-0.01em',
-                  lineHeight: '1.2'
-                }}>
-                  Request Inspection
-                </h2>
-                <p style={{
-                  margin: '8px 0 0 0',
-                  fontSize: '16px',
-                  color: '#666',
-                  fontWeight: '300',
-                  lineHeight: '1.4'
-                }}>
-                  Schedule a viewing for {property?.address}
-                </p>
-              </div>
-              <button
-                onClick={() => setShowInspectionRequest(false)}
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  backgroundColor: 'transparent',
-                  border: 'none',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#666',
-                  transition: 'all 0.2s ease',
-                  borderRadius: '2px'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#f5f5f5';
-                  e.currentTarget.style.color = '#000';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.color = '#666';
-                }}
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </button>
-            </div>
-
-            {/* Content */}
-            <div style={{ padding: 'max(2rem, 3.33vw)' }}>
-              <p style={{
-                fontSize: '16px',
-                color: '#333',
-                marginBottom: '24px',
-                lineHeight: '1.5'
-              }}>
-                {property?.inspectionTimes && property.inspectionTimes.length > 0 ? (
-                  <>You can attend one of our scheduled open inspections or request a private viewing at a time that suits you.</>
-                ) : (
-                  <>No open inspections are currently scheduled. Please contact our agent to arrange a private viewing.</>
-                )}
-              </p>
-
-              {/* Scheduled Inspections */}
-              {property?.inspectionTimes && property.inspectionTimes.length > 0 && (
-                <div style={{ marginBottom: '32px' }}>
-                  <h3 style={{
-                    fontSize: '18px',
-                    fontWeight: '600',
-                    marginBottom: '16px',
-                    color: '#000'
-                  }}>
-                    Scheduled Open Inspections
-                  </h3>
-                  {property.inspectionTimes.map((inspection) => (
-                    <div key={inspection.id} style={{
-                      padding: '16px',
-                      backgroundColor: '#f8f8f8',
-                      borderRadius: '4px',
-                      marginBottom: '12px',
-                      border: '1px solid #e8e8e8'
-                    }}>
-                      <div style={{
-                        fontSize: '16px',
-                        fontWeight: '600',
-                        color: '#000',
-                        marginBottom: '4px'
-                      }}>
-                        {new Date(inspection.startTime).toLocaleDateString('en-AU', {
-                          weekday: 'long',
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        })}
-                      </div>
-                      <div style={{ fontSize: '14px', color: '#666' }}>
-                        {new Date(inspection.startTime).toLocaleTimeString('en-AU', {
-                          hour: 'numeric',
-                          minute: '2-digit'
-                        })} - {new Date(inspection.endTime).toLocaleTimeString('en-AU', {
-                          hour: 'numeric',
-                          minute: '2-digit'
-                        })}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Contact Agent Buttons */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {property?.agent?.phone && (
-                  <a
-                    href={`tel:${property.agent.phone}`}
-                    style={{
-                      display: 'block',
-                      padding: '16px',
-                      backgroundColor: '#000',
-                      color: '#fff',
-                      textDecoration: 'none',
-                      borderRadius: '4px',
-                      fontSize: '16px',
-                      fontWeight: '600',
-                      textAlign: 'center',
-                      transition: 'all 0.2s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = '#333';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = '#000';
-                    }}
-                  >
-                    Call {property.agent.name || 'Agent'}: {property.agent.phone}
-                  </a>
-                )}
-                
-                {property?.agent?.email && (
-                  <a
-                    href={`mailto:${property.agent.email}?subject=Inspection Request - ${property.address}&body=Hi, I would like to schedule an inspection for ${property.address}. Please let me know your available times.`}
-                    style={{
-                      display: 'block',
-                      padding: '16px',
-                      backgroundColor: 'white',
-                      color: '#000',
-                      textDecoration: 'none',
-                      border: '2px solid #000',
-                      borderRadius: '4px',
-                      fontSize: '16px',
-                      fontWeight: '600',
-                      textAlign: 'center',
-                      transition: 'all 0.2s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = '#000';
-                      e.currentTarget.style.color = '#fff';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = 'white';
-                      e.currentTarget.style.color = '#000';
-                    }}
-                  >
-                    Email {property.agent.name || 'Agent'}
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Fullscreen Image Carousel */}
-      {showFullscreenCarousel && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'black',
-          zIndex: 1000,
+          backgroundColor: '#000',
+          zIndex: 2000,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center'
@@ -879,12 +624,14 @@ export default function PropertyDetailPage() {
               position: 'absolute',
               top: '20px',
               right: '20px',
-              color: 'white',
-              background: 'none',
+              background: 'white',
               border: 'none',
-              fontSize: '36px',
+              borderRadius: '50%',
+              width: '40px',
+              height: '40px',
+              fontSize: '20px',
               cursor: 'pointer',
-              zIndex: 1001
+              zIndex: 2001
             }}
           >
             ×
@@ -896,44 +643,29 @@ export default function PropertyDetailPage() {
             style={{
               position: 'absolute',
               left: '20px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              background: 'rgba(255, 255, 255, 0.9)',
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
               border: 'none',
               borderRadius: '50%',
-              width: '50px',
-              height: '50px',
-              fontSize: '24px',
+              width: '60px',
+              height: '60px',
+              fontSize: '30px',
               cursor: currentImageIndex === 0 ? 'not-allowed' : 'pointer',
-              opacity: currentImageIndex === 0 ? 0.3 : 1
+              opacity: currentImageIndex === 0 ? 0.3 : 1,
+              zIndex: 2001
             }}
           >
             ‹
           </button>
 
-          <div style={{ position: 'relative', maxWidth: '90vw', maxHeight: '90vh' }}>
-            {images[currentImageIndex] && (
-              <img
-                src={images[currentImageIndex].url}
-                alt={`Property image ${currentImageIndex + 1}`}
-                style={{
-                  maxWidth: '100%',
-                  maxHeight: '90vh',
-                  objectFit: 'contain'
-                }}
-              />
-            )}
-            <div style={{
-              position: 'absolute',
-              bottom: '20px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              color: 'white',
-              fontSize: '18px'
-            }}>
-              {currentImageIndex + 1} / {images.length}
-            </div>
-          </div>
+          <img
+            src={images[currentImageIndex].url}
+            alt={`Property image ${currentImageIndex + 1}`}
+            style={{
+              maxWidth: '90%',
+              maxHeight: '90%',
+              objectFit: 'contain'
+            }}
+          />
 
           <button
             onClick={() => setCurrentImageIndex(Math.min(images.length - 1, currentImageIndex + 1))}
@@ -941,287 +673,292 @@ export default function PropertyDetailPage() {
             style={{
               position: 'absolute',
               right: '20px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              background: 'rgba(255, 255, 255, 0.9)',
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
               border: 'none',
               borderRadius: '50%',
-              width: '50px',
-              height: '50px',
-              fontSize: '24px',
+              width: '60px',
+              height: '60px',
+              fontSize: '30px',
               cursor: currentImageIndex === images.length - 1 ? 'not-allowed' : 'pointer',
-              opacity: currentImageIndex === images.length - 1 ? 0.3 : 1
+              opacity: currentImageIndex === images.length - 1 ? 0.3 : 1,
+              zIndex: 2001
             }}
           >
             ›
           </button>
+
+          <div style={{
+            position: 'absolute',
+            bottom: '20px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            color: 'white',
+            fontSize: '16px',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            padding: '8px 16px',
+            borderRadius: '20px'
+          }}>
+            {currentImageIndex + 1} / {images.length}
+          </div>
         </div>
       )}
 
       {/* Main Content */}
-      <div style={{
-        maxWidth: '1400px',
-        margin: '0 auto',
-        paddingLeft: isMobile ? 'clamp(1rem, 4.2667vw, 2rem)' : 'max(2rem, 3.33vw)',
-        paddingRight: isMobile ? 'clamp(1rem, 4.2667vw, 2rem)' : 'max(2rem, 3.33vw)',
-        paddingTop: '20px',
-        paddingBottom: '60px'
-      }}>
-        {/* Breadcrumb */}
-        <div style={{ marginBottom: '20px', fontSize: '14px' }}>
-          <Link href="/" style={{ color: '#666', textDecoration: 'none' }}>Home</Link>
-          <span style={{ margin: '0 8px', color: '#999' }}>/</span>
-          <Link href="/listings" style={{ color: '#666', textDecoration: 'none' }}>Properties</Link>
-          <span style={{ margin: '0 8px', color: '#999' }}>/</span>
-          <span style={{ color: '#000' }}>{property.address}</span>
-        </div>
-
-        {/* Image Grid - Enhanced Designer Layout */}
+      <div style={{ padding: isMobile ? '0' : '0' }}>
+        {/* Image Gallery */}
         {images.length > 0 && (
-          <div style={{ marginBottom: '60px' }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : (images.length > 1 ? '2fr 1fr 1fr' : '1fr'),
-              gridTemplateRows: isMobile ? 'repeat(auto-fit, 400px)' : '500px 240px',
-              gap: '12px',
-              marginBottom: '24px',
-              borderRadius: '8px',
-              overflow: 'hidden'
-            }}>
-              {displayImages.map((image, index) => (
-                <div
-                  key={index}
-                  style={{
-                    gridRow: !isMobile && index === 0 ? 'span 2' : 'span 1',
-                    gridColumn: !isMobile && index === 0 && images.length > 1 ? 'span 1' : 'span 1',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    borderRadius: '4px',
-                    cursor: 'pointer',
-                    backgroundColor: '#f5f5f5',
-                    transition: 'transform 0.2s ease'
-                  }}
-                  onClick={() => {
-                    setCurrentImageIndex(index);
-                    setShowFullscreenCarousel(true);
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'scale(1.02)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'scale(1)';
-                  }}
-                >
-                  <img
-                    src={image.url}
-                    alt={`Property image ${index + 1}`}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover'
-                    }}
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y1ZjVmNSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjIwMCIgeT0iMTUwIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiI+SW1hZ2Ugbm90IGF2YWlsYWJsZTwvdGV4dD48L3N2Zz4=';
-                    }}
-                  />
-                  {index === displayImages.length - 1 && !showAllPhotos && images.length > 5 && (
-                    <div style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'white',
-                      fontSize: '20px',
-                      fontWeight: '600'
-                    }}>
-                      +{images.length - 5} more
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            {/* Show all photos button */}
-            {images.length > 5 && (
-              <button
-                onClick={() => setShowAllPhotos(!showAllPhotos)}
-                style={{
-                  padding: '12px 24px',
-                  backgroundColor: 'white',
-                  border: '1px solid #000',
-                  borderRadius: '4px',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease'
+          <div style={{ marginBottom: '40px' }}>
+            {images.length === 1 ? (
+              <div 
+                style={{ 
+                  position: 'relative', 
+                  height: isMobile ? '300px' : '600px', 
+                  overflow: 'hidden',
+                  cursor: 'pointer' 
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#000';
-                  e.currentTarget.style.color = '#fff';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'white';
-                  e.currentTarget.style.color = '#000';
+                onClick={() => {
+                  setCurrentImageIndex(0);
+                  setShowFullscreenCarousel(true);
                 }}
               >
-                {showAllPhotos ? 'Show less' : `Show all ${images.length} photos`}
-              </button>
+                <img
+                  src={images[0].url}
+                  alt={property.address}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
+                  }}
+                />
+                <div style={{
+                  position: 'absolute',
+                  top: '20px',
+                  right: '20px',
+                  width: '48px',
+                  height: '48px',
+                  zIndex: 10
+                }}>
+                  <SavePropertyButton
+                    property={{
+                      ...property,
+                      address: property.address || '',
+                      id: property.id || ''
+                    } as any}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div 
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: images.length === 2 ? '1fr 1fr' : images.length === 3 ? '2fr 1fr' : '2fr 1fr 1fr',
+                    gap: '8px',
+                    height: isMobile ? '300px' : '600px',
+                    overflow: 'hidden'
+                  }}
+                >
+                  {displayImages.map((image, index) => (
+                    <div 
+                      key={index}
+                      style={{
+                        position: 'relative',
+                        gridColumn: index === 0 ? (images.length === 3 ? 'span 1' : 'span 1') : undefined,
+                        gridRow: index === 0 && images.length > 3 ? 'span 2' : undefined,
+                        height: '100%',
+                        overflow: 'hidden',
+                        cursor: 'pointer'
+                      }}
+                      onClick={() => {
+                        setCurrentImageIndex(index);
+                        setShowFullscreenCarousel(true);
+                      }}
+                    >
+                      <img
+                        src={image.url}
+                        alt={`Property image ${index + 1}`}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          transition: 'transform 0.3s ease'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = 'scale(1.05)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                        }}
+                      />
+                      {index === 0 && (
+                        <div style={{
+                          position: 'absolute',
+                          top: '20px',
+                          right: '20px',
+                          width: '48px',
+                          height: '48px',
+                          zIndex: 10
+                        }}>
+                          <SavePropertyButton
+                            property={{
+                              ...property,
+                              address: property.address || '',
+                              id: property.id || ''
+                            } as any}
+                          />
+                        </div>
+                      )}
+                      {index === displayImages.length - 1 && images.length > 5 && !showAllPhotos && (
+                        <div 
+                          style={{
+                            position: 'absolute',
+                            inset: 0,
+                            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: 'white',
+                            fontSize: '20px',
+                            fontWeight: '600'
+                          }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setShowAllPhotos(true);
+                          }}
+                        >
+                          +{images.length - 5} more
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                
+                {showAllPhotos && images.length > 5 && (
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+                    gap: '8px',
+                    marginTop: '8px'
+                  }}>
+                    {images.slice(5).map((image, index) => (
+                      <div
+                        key={index + 5}
+                        style={{
+                          aspectRatio: '4/3',
+                          overflow: 'hidden',
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => {
+                          setCurrentImageIndex(index + 5);
+                          setShowFullscreenCarousel(true);
+                        }}
+                      >
+                        <img
+                          src={image.url}
+                          alt={`Property image ${index + 6}`}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            transition: 'transform 0.3s ease'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = 'scale(1.05)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = 'scale(1)';
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             )}
           </div>
         )}
 
-        {/* Property Details Grid */}
+        {/* Property Details and Agent Section */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : 'calc(66.666% - 27px) calc(33.333% - 13px)',
-          gap: isMobile ? '32px' : '60px',
-          width: '100%'
+          gridTemplateColumns: isMobile ? '1fr' : '1fr 400px',
+          gap: '40px',
+          maxWidth: '1400px',
+          margin: '0 auto',
+          padding: isMobile ? '20px' : '40px'
         }}>
-          {/* Left Column */}
+          {/* Left Column - Property Details */}
           <div>
             {/* Property Header - ON RUNNING STYLE */}
-            <div style={{ marginBottom: '64px' }}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '32px' }}>
-                <div>
-                  {/* Property Type Label */}
-                  <div style={{
-                    fontSize: '11px',
-                    fontWeight: '600',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.1em',
-                    color: '#525252',
-                    marginBottom: '16px',
-                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                  }}>
-                    {property.propertyType || 'HOUSE'} FOR {property.listingType === 'lease' ? 'LEASE' : 'SALE'}
-                  </div>
-
-                  {/* Address - UPPERCASE BOLD */}
-                  <h1 style={{
-                    fontSize: isMobile ? '36px' : '48px',
-                    fontWeight: '700',
-                    marginBottom: '16px',
-                    letterSpacing: '-0.02em',
-                    lineHeight: '1',
-                    textTransform: 'uppercase',
-                    color: '#000000',
-                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                  }}>
-                    {property.address ? property.address.replace(/, VIC$/, '').replace(/VIC$/, '').split(',')[0].trim() : 'PROPERTY ADDRESS'}
-                  </h1>
-
-                  {/* Suburb - Uppercase */}
-                  <p style={{
-                    fontSize: '17px',
-                    color: '#404040',
-                    fontWeight: '500',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                  }}>
-                    {property.suburb}{property.state && property.state !== 'VIC' ? `, ${property.state}` : ''} {property.postcode}
-                  </p>
-                </div>
-                <SavePropertyButton property={{
-                  id: property.id,
-                  address: property.address || 'Address not available',
-                  suburb: property.suburb || '',
-                  state: property.state || 'VIC',
-                  price: property.price,
-                  priceDisplay: property.priceDisplay,
-                  bedrooms: property.bedrooms || 0,
-                  bathrooms: property.bathrooms || 0,
-                  carSpaces: property.carSpaces || 0,
-                  propertyType: property.propertyType || 'House',
-                  listingType: (property.listingType as 'sale' | 'lease' | 'both') || 'sale',
-                  leasePrice: property.leasePrice,
-                  leasePriceDisplay: property.leasePriceDisplay,
-                  images: property.images || []
-                }} />
-              </div>
-
-              {/* Specs Grid - Swiss Precision */}
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(120px, 1fr))',
-                gap: isMobile ? '16px' : '24px',
-                padding: '24px 0',
-                borderTop: '2px solid #000000',
-                borderBottom: '2px solid #000000'
+            <div style={{ marginBottom: '48px' }}>
+              <h1 style={{
+                fontSize: isMobile ? '36px' : '48px',
+                fontWeight: '700',
+                marginBottom: '16px',
+                letterSpacing: '-0.02em',
+                fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                lineHeight: '1.1',
+                color: '#000000'
               }}>
-                <div>
-                  <div style={{
-                    fontSize: '36px',
-                    fontWeight: '700',
-                    marginBottom: '8px',
-                    color: '#000000',
-                    fontFamily: '"Helvetica Neue", Arial, sans-serif',
-                    lineHeight: '1'
-                  }}>
-                    {property.listingType === 'lease'
-                      ? (property.leasePriceDisplay || (property.leasePrice ? `$${property.leasePrice} per week` : 'TBA'))
-                      : (property.priceDisplay || formatPrice(property.price || 0))}
-                  </div>
-                  {property.listingType !== 'lease' && (
-                    <div style={{
-                      fontSize: '11px',
-                      color: '#525252',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.1em',
-                      fontWeight: '600',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                    }}>
-                      PRICE
-                    </div>
-                  )}
-                </div>
-                <div>
-                  <div style={{ fontSize: '36px', fontWeight: '700', marginBottom: '8px', color: '#000000', fontFamily: '"Helvetica Neue", Arial, sans-serif', lineHeight: '1' }}>
-                    {property.bedrooms || '–'}
-                  </div>
-                  <div style={{ fontSize: '11px', color: '#525252', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '600', fontFamily: '"Helvetica Neue", Arial, sans-serif' }}>
-                    BEDROOMS
-                  </div>
-                </div>
-                <div>
-                  <div style={{ fontSize: '36px', fontWeight: '700', marginBottom: '8px', color: '#000000', fontFamily: '"Helvetica Neue", Arial, sans-serif', lineHeight: '1' }}>
-                    {property.bathrooms || '–'}
-                  </div>
-                  <div style={{ fontSize: '11px', color: '#525252', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '600', fontFamily: '"Helvetica Neue", Arial, sans-serif' }}>
-                    BATHROOMS
-                  </div>
-                </div>
-                <div>
-                  <div style={{ fontSize: '36px', fontWeight: '700', marginBottom: '8px', color: '#000000', fontFamily: '"Helvetica Neue", Arial, sans-serif', lineHeight: '1' }}>
-                    {property.carSpaces || '–'}
-                  </div>
-                  <div style={{ fontSize: '11px', color: '#525252', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '600', fontFamily: '"Helvetica Neue", Arial, sans-serif' }}>
-                    PARKING
-                  </div>
-                </div>
-                {property.landSize && property.landSize > 0 && (
-                  <div>
-                    <div style={{ fontSize: '36px', fontWeight: '700', marginBottom: '8px', color: '#000000', fontFamily: '"Helvetica Neue", Arial, sans-serif', lineHeight: '1' }}>
-                      {property.landSize >= 4047 ? `${(property.landSize / 4047).toFixed(1)}` : property.landSize}
-                    </div>
-                    <div style={{ fontSize: '11px', color: '#525252', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '600', fontFamily: '"Helvetica Neue", Arial, sans-serif' }}>
-                      {property.landSize >= 4047 ? 'ACRES' : 'LAND M²'}
-                    </div>
-                  </div>
+                {property.listingType === 'lease' 
+                  ? (property.leasePriceDisplay || (property.leasePrice ? `$${property.leasePrice} per week` : 'Contact Agent'))
+                  : (property.priceDisplay || formatPrice(property.price || 0))
+                }
+              </h1>
+              <p style={{
+                fontSize: '24px',
+                color: '#000000',
+                marginBottom: '8px',
+                fontWeight: '500',
+                fontFamily: '"Helvetica Neue", Arial, sans-serif'
+              }}>
+                {(property.address || '').replace(/ VIC$/, '')}, {property.suburb}
+              </p>
+              <div style={{
+                display: 'flex',
+                gap: '32px',
+                fontSize: '17px',
+                color: '#525252',
+                marginBottom: '24px',
+                fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                fontWeight: '500'
+              }}>
+                {property.bedrooms !== undefined && property.bedrooms !== null && (
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    <strong>{property.bedrooms}</strong> Bedrooms
+                  </span>
+                )}
+                {property.bathrooms !== undefined && property.bathrooms !== null && (
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0a1 1 0 011 1v11a2 2 0 01-2 2H5a2 2 0 01-2-2V8a1 1 0 011-1h4m12 0V4a1 1 0 00-1-1h-6a1 1 0 00-1 1v3m-9 5v6" />
+                    </svg>
+                    <strong>{property.bathrooms}</strong> Bathrooms
+                  </span>
+                )}
+                {property.carSpaces !== undefined && property.carSpaces !== null && (
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <strong>{property.carSpaces}</strong> Cars
+                  </span>
                 )}
               </div>
             </div>
 
-            {/* Inspection Times / Auction Details - Minimalist Style */}
-            <div style={{
-              marginBottom: '48px'
-            }}>
+            {/* Open for Inspection & Auction - ON RUNNING STYLE */}
+            {(property.inspectionTimes?.length || property.auctionDate) && (
+              <div style={{
+                padding: '32px',
+                backgroundColor: '#000000',
+                borderRadius: '0',
+                marginBottom: '48px',
+                border: '2px solid #000000'
+              }}>
                 {property.saleMethod === 'auction' && property.auctionDate && (
                   <div style={{ marginBottom: property.inspectionTimes?.length ? '24px' : 0 }}>
                     <h3 style={{
@@ -1266,23 +1003,23 @@ export default function PropertyDetailPage() {
 
                 <div>
                   <h3 style={{
-                    fontSize: '16px',
-                    fontWeight: '600',
+                    fontSize: '13px',
+                    fontWeight: '700',
                     marginBottom: '12px',
-                    color: '#D4A853',
-                    textTransform: 'none',
-                    letterSpacing: 'normal',
+                    color: '#ffffff',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
                     fontFamily: '"Helvetica Neue", Arial, sans-serif'
                   }}>
-                    Open for inspection
+                    OPEN FOR INSPECTION
                   </h3>
                   {property.inspectionTimes && property.inspectionTimes.length > 0 ? (
                     property.inspectionTimes.map((inspection) => (
                       <div key={inspection.id} style={{ marginBottom: '12px' }}>
                         <p style={{
-                          fontSize: '16px',
-                          color: '#D4A853',
-                          fontWeight: '400',
+                          fontSize: '17px',
+                          color: '#ffffff',
+                          fontWeight: '500',
                           fontFamily: '"Helvetica Neue", Arial, sans-serif'
                         }}>
                           {new Date(inspection.startTime).toLocaleDateString('en-AU', {
@@ -1308,9 +1045,9 @@ export default function PropertyDetailPage() {
                     ))
                   ) : (
                     <p style={{
-                      fontSize: '16px',
-                      color: '#D4A853',
-                      fontWeight: '400',
+                      fontSize: '17px',
+                      color: '#ffffff',
+                      fontWeight: '500',
                       fontFamily: '"Helvetica Neue", Arial, sans-serif'
                     }}>
                       Contact agent to arrange an inspection
@@ -1318,6 +1055,7 @@ export default function PropertyDetailPage() {
                   )}
                 </div>
               </div>
+            )}
 
             {/* Interactive Features - ON RUNNING STYLE */}
             <div style={{ marginBottom: '64px' }}>
@@ -1359,6 +1097,7 @@ export default function PropertyDetailPage() {
                     {property.virtualTourType === 'matterport' ? '3D Virtual Tour' : 'Virtual Tour'}
                   </button>
                 )}
+                
                 {property.floorPlans && property.floorPlans.length > 0 && (
                   <button
                     onClick={() => {
@@ -1397,39 +1136,138 @@ export default function PropertyDetailPage() {
                     Floor Plan{property.floorPlans.length > 1 ? 's' : ''}
                   </button>
                 )}
-                <button
-                  onClick={handleShare}
-                  style={{
-                    padding: '16px 32px',
-                    backgroundColor: '#ffffff',
-                    color: '#000000',
-                    border: '2px solid #000000',
-                    borderRadius: '0',
-                    fontSize: '13px',
-                    fontWeight: '700',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.1em',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    fontFamily: '"Helvetica Neue", Arial, sans-serif',
-                    transition: 'all 300ms ease-out'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#f5f5f5';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '#ffffff';
-                  }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                  </svg>
-                  Share
-                </button>
+                
+                {/* Share Button with Dropdown */}
+                <div style={{ position: 'relative' }}>
+                  <button
+                    onClick={handleShare}
+                    style={{
+                      padding: '16px 32px',
+                      backgroundColor: '#ffffff',
+                      color: '#000000',
+                      border: '2px solid #000000',
+                      borderRadius: '0',
+                      fontSize: '13px',
+                      fontWeight: '700',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                      transition: 'all 300ms ease-out'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#f5f5f5';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#ffffff';
+                    }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                    </svg>
+                    Share
+                  </button>
+                  
+                  {/* Share Menu Dropdown */}
+                  {showShareMenu && (
+                    <div style={{
+                      position: 'absolute',
+                      top: '100%',
+                      right: 0,
+                      marginTop: '8px',
+                      backgroundColor: '#ffffff',
+                      border: '2px solid #000000',
+                      borderRadius: '0',
+                      minWidth: '200px',
+                      zIndex: 100,
+                      boxShadow: '0 4px 16px rgba(0,0,0,0.1)'
+                    }}>
+                      {[
+                        { name: 'Facebook', icon: 'M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z', platform: 'facebook' },
+                        { name: 'X (Twitter)', icon: 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z', platform: 'twitter' },
+                        { name: 'LinkedIn', icon: 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z M2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z', platform: 'linkedin' },
+                        { name: 'WhatsApp', icon: 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z', platform: 'whatsapp' },
+                        { name: 'Instagram', icon: 'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.405a1.44 1.44 0 112.881.001 1.44 1.44 0 01-2.881-.001z', platform: 'instagram' },
+                        { name: 'Email', icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10h5v-2h-5c-4.34 0-8-3.66-8-8s3.66-8 8-8 8 3.66 8 8v1.43c0 .79-.71 1.57-1.5 1.57s-1.5-.78-1.5-1.57V12c0-2.76-2.24-5-5-5s-5 2.24-5 5 2.24 5 5 5c1.38 0 2.64-.56 3.54-1.47.65.89 1.77 1.47 2.96 1.47 1.97 0 3.5-1.6 3.5-3.57V12c0-5.52-4.48-10-10-10zm0 13c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z', platform: 'email' },
+                        { name: 'Copy Link', icon: 'M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244', platform: 'copy' }
+                      ].map((social) => (
+                        <button
+                          key={social.platform}
+                          onClick={() => shareToSocial(social.platform)}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '12px',
+                            width: '100%',
+                            padding: '12px 16px',
+                            backgroundColor: 'transparent',
+                            border: 'none',
+                            fontSize: '14px',
+                            fontWeight: '500',
+                            cursor: 'pointer',
+                            transition: 'background-color 0.2s',
+                            fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = '#f5f5f5';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                          }}
+                        >
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d={social.icon} />
+                          </svg>
+                          {social.name}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                
+                {/* Add to Calendar Button */}
+                {property.inspectionTimes && property.inspectionTimes.length > 0 && (
+                  <button
+                    onClick={addToCalendar}
+                    style={{
+                      padding: '16px 32px',
+                      backgroundColor: '#ffffff',
+                      color: '#000000',
+                      border: '2px solid #000000',
+                      borderRadius: '0',
+                      fontSize: '13px',
+                      fontWeight: '700',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                      transition: 'all 300ms ease-out'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#f5f5f5';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#ffffff';
+                    }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <rect x="3" y="4" width="18" height="18" rx="2" strokeWidth="2"/>
+                      <line x1="16" y1="2" x2="16" y2="6" strokeWidth="2"/>
+                      <line x1="8" y1="2" x2="8" y2="6" strokeWidth="2"/>
+                      <line x1="3" y1="10" x2="21" y2="10" strokeWidth="2"/>
+                    </svg>
+                    Add to Calendar
+                  </button>
+                )}
+                
                 <AskAI
-                  propertyId={property.id}
+                  propertyId={property.id || ''}
                   propertyAddress={`${(property.address || '').replace(/ VIC$/, '')}, ${property.suburb || ''} ${property.postcode || ''}`}
                   propertyData={{
                     price: property.price,
@@ -1452,6 +1290,170 @@ export default function PropertyDetailPage() {
               </div>
             </div>
 
+            {/* AI Assistant Box - Styled like reviews page */}
+            <div style={{
+              marginBottom: '64px',
+              backgroundColor: '#000',
+              padding: '40px',
+              borderRadius: '0',
+              border: '2px solid #000'
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginBottom: '24px'
+              }}>
+                <h3 style={{
+                  fontSize: '20px',
+                  fontWeight: '700',
+                  color: '#fff',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                  margin: 0,
+                  fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                }}>
+                  Grant's AI Property Assistant
+                </h3>
+                <span style={{
+                  backgroundColor: '#FFD700',
+                  color: '#000',
+                  padding: '4px 12px',
+                  borderRadius: '16px',
+                  fontSize: '11px',
+                  fontWeight: '700',
+                  textTransform: 'uppercase'
+                }}>
+                  NEW
+                </span>
+              </div>
+              
+              {!showAIChat ? (
+                <div style={{ textAlign: 'center' }}>
+                  <p style={{
+                    color: '#fff',
+                    fontSize: '16px',
+                    marginBottom: '24px',
+                    opacity: 0.9,
+                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                  }}>
+                    Get instant answers about this property, the area, schools, and more
+                  </p>
+                  <button
+                    onClick={() => setShowAIChat(true)}
+                    style={{
+                      padding: '16px 32px',
+                      backgroundColor: '#fff',
+                      color: '#000',
+                      border: 'none',
+                      borderRadius: '0',
+                      fontSize: '14px',
+                      fontWeight: '700',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      cursor: 'pointer',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                      transition: 'all 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#f5f5f5';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#fff';
+                    }}
+                  >
+                    Start Conversation
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <div style={{
+                    height: '300px',
+                    overflowY: 'auto',
+                    marginBottom: '16px',
+                    backgroundColor: '#111',
+                    padding: '20px',
+                    borderRadius: '0'
+                  }}>
+                    {aiMessages.length === 0 && (
+                      <div style={{
+                        color: '#fff',
+                        opacity: 0.7,
+                        textAlign: 'center',
+                        marginTop: '40px',
+                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                      }}>
+                        Hi! I'm here to help answer any questions about {property.address}. What would you like to know?
+                      </div>
+                    )}
+                    {aiMessages.map((msg, index) => (
+                      <div
+                        key={index}
+                        style={{
+                          marginBottom: '16px',
+                          display: 'flex',
+                          justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start'
+                        }}
+                      >
+                        <div
+                          style={{
+                            maxWidth: '70%',
+                            padding: '12px 16px',
+                            backgroundColor: msg.role === 'user' ? '#fff' : '#222',
+                            color: msg.role === 'user' ? '#000' : '#fff',
+                            borderRadius: '0',
+                            fontSize: '14px',
+                            fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                          }}
+                        >
+                          {msg.content}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div style={{ display: 'flex', gap: '12px' }}>
+                    <input
+                      type="text"
+                      value={aiInput}
+                      onChange={(e) => setAiInput(e.target.value)}
+                      onKeyPress={(e) => {
+                        if (e.key === 'Enter') handleAISend();
+                      }}
+                      placeholder="Ask about price, features, schools, area..."
+                      style={{
+                        flex: 1,
+                        padding: '12px 16px',
+                        backgroundColor: '#222',
+                        border: '2px solid #444',
+                        borderRadius: '0',
+                        color: '#fff',
+                        fontSize: '14px',
+                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                      }}
+                    />
+                    <button
+                      onClick={handleAISend}
+                      style={{
+                        padding: '12px 24px',
+                        backgroundColor: '#fff',
+                        color: '#000',
+                        border: 'none',
+                        borderRadius: '0',
+                        fontSize: '14px',
+                        fontWeight: '700',
+                        cursor: 'pointer',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                      }}
+                    >
+                      Send
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
             {/* Description - ON RUNNING STYLE */}
             {property.description && (
               <div style={{ marginBottom: '64px' }}>
@@ -1459,8 +1461,8 @@ export default function PropertyDetailPage() {
                   fontSize: '24px',
                   fontWeight: '700',
                   marginBottom: '32px',
-                  letterSpacing: 'normal',
-                  textTransform: 'none',
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
                   color: '#000000',
                   fontFamily: '"Helvetica Neue", Arial, sans-serif'
                 }}>About this property</h2>
@@ -1487,15 +1489,8 @@ export default function PropertyDetailPage() {
               </div>
             )}
 
-            {/* Key Features - Always show for all properties */}
-            {(() => {
-              // Get features from property data or provide defaults based on property type
-              const features = property.features && property.features.length > 0 
-                ? property.features 
-                : getDefaultFeatures(property);
-              
-              return features && features.length > 0;
-            })() && (
+            {/* Features - ON RUNNING STYLE */}
+            {property.features && property.features.length > 0 && (
               <div style={{
                 marginBottom: '64px',
                 paddingTop: '48px',
@@ -1521,12 +1516,7 @@ export default function PropertyDetailPage() {
                   padding: 0,
                   margin: 0
                 }}>
-                  {(() => {
-                    const features = property.features && property.features.length > 0 
-                      ? property.features 
-                      : getDefaultFeatures(property);
-                    return features;
-                  })().map((feature, index) => (
+                  {property.features.map((feature, index) => (
                     <li key={index} style={{
                       display: 'flex',
                       alignItems: 'flex-start',
@@ -1570,14 +1560,131 @@ export default function PropertyDetailPage() {
               </div>
             )}
 
+            {/* Nearby Schools Section */}
+            <div style={{ marginBottom: '64px' }}>
+              <h2 style={{
+                fontSize: '24px',
+                fontWeight: '700',
+                marginBottom: '32px',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                color: '#000000',
+                fontFamily: '"Helvetica Neue", Arial, sans-serif'
+              }}>Nearby Schools</h2>
+              
+              <div style={{
+                display: 'grid',
+                gap: '16px'
+              }}>
+                {mockSchools.map((school, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      padding: '20px',
+                      backgroundColor: '#f5f5f5',
+                      borderRadius: '0',
+                      border: '1px solid #e5e5e5',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = '#000';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = '#e5e5e5';
+                    }}
+                  >
+                    <div>
+                      <h3 style={{
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        marginBottom: '4px',
+                        color: '#000',
+                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                      }}>
+                        {school.name}
+                      </h3>
+                      <p style={{
+                        fontSize: '14px',
+                        color: '#666',
+                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                      }}>
+                        {school.type} • {school.distance}
+                      </p>
+                    </div>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px'
+                    }}>
+                      <div style={{
+                        display: 'flex',
+                        gap: '2px'
+                      }}>
+                        {[...Array(5)].map((_, starIndex) => (
+                          <svg
+                            key={starIndex}
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill={starIndex < Math.floor(school.rating) ? '#FFD700' : 'none'}
+                            stroke={starIndex < Math.floor(school.rating) ? '#FFD700' : '#ccc'}
+                            strokeWidth="2"
+                          >
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                          </svg>
+                        ))}
+                      </div>
+                      <span style={{
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        color: '#333',
+                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                      }}>
+                        {school.rating}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              <a
+                href="/schools-guide"
+                style={{
+                  display: 'inline-block',
+                  marginTop: '24px',
+                  padding: '16px 32px',
+                  backgroundColor: '#000',
+                  color: '#fff',
+                  textDecoration: 'none',
+                  fontSize: '13px',
+                  fontWeight: '700',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.1em',
+                  transition: 'background-color 0.2s',
+                  fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#262626';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#000';
+                }}
+              >
+                View Full Schools Guide →
+              </a>
+            </div>
+
             {/* Property Details Grid - ON RUNNING STYLE */}
             <div style={{ marginBottom: '64px' }}>
               <h2 style={{
                 fontSize: '24px',
                 fontWeight: '700',
                 marginBottom: '32px',
-                letterSpacing: 'normal',
-                textTransform: 'none',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
                 color: '#000000',
                 fontFamily: '"Helvetica Neue", Arial, sans-serif'
               }}>Property Information</h2>
@@ -1641,44 +1748,6 @@ export default function PropertyDetailPage() {
                     fontFamily: '"Helvetica Neue", Arial, sans-serif'
                   }}>{property.bathrooms !== undefined && property.bathrooms !== null ? property.bathrooms : '–'}</div>
                 </div>
-                {property.ensuites !== undefined && property.ensuites > 0 && (
-                  <div>
-                    <div style={{
-                      fontSize: '11px',
-                      color: '#525252',
-                      marginBottom: '8px',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.1em',
-                      fontWeight: '700',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                    }}>Ensuites</div>
-                    <div style={{
-                      fontSize: '17px',
-                      fontWeight: '700',
-                      color: '#000000',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                    }}>{property.ensuites}</div>
-                  </div>
-                )}
-                {property.toilets !== undefined && property.toilets > 0 && (
-                  <div>
-                    <div style={{
-                      fontSize: '11px',
-                      color: '#525252',
-                      marginBottom: '8px',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.1em',
-                      fontWeight: '700',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                    }}>Toilets</div>
-                    <div style={{
-                      fontSize: '17px',
-                      fontWeight: '700',
-                      color: '#000000',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                    }}>{property.toilets}</div>
-                  </div>
-                )}
                 <div>
                   <div style={{
                     fontSize: '11px',
@@ -1696,7 +1765,7 @@ export default function PropertyDetailPage() {
                     fontFamily: '"Helvetica Neue", Arial, sans-serif'
                   }}>{property.carSpaces !== undefined && property.carSpaces !== null ? property.carSpaces : '–'}</div>
                 </div>
-                {property.landSize && property.landSize > 0 && (
+                {property.landSize && (
                   <div>
                     <div style={{
                       fontSize: '11px',
@@ -1712,12 +1781,10 @@ export default function PropertyDetailPage() {
                       fontWeight: '700',
                       color: '#000000',
                       fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                    }}>
-                      {property.landSize >= 4047 ? `${(property.landSize / 4047).toFixed(2)} acres` : `${property.landSize} m²`}
-                    </div>
+                    }}>{property.landSize} m²</div>
                   </div>
                 )}
-                {property.buildingSize && property.buildingSize > 0 && (
+                {property.buildingSize && (
                   <div>
                     <div style={{
                       fontSize: '11px',
@@ -1774,129 +1841,11 @@ export default function PropertyDetailPage() {
                     }}>{property.energyRating} stars</div>
                   </div>
                 )}
-                {property.zoning && (
-                  <div>
-                    <div style={{
-                      fontSize: '11px',
-                      color: '#525252',
-                      marginBottom: '8px',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.1em',
-                      fontWeight: '700',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                    }}>Zoning</div>
-                    <div style={{
-                      fontSize: '17px',
-                      fontWeight: '700',
-                      color: '#000000',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                    }}>{property.zoning}</div>
-                  </div>
-                )}
-                {property.saleMethod && (
-                  <div>
-                    <div style={{
-                      fontSize: '11px',
-                      color: '#525252',
-                      marginBottom: '8px',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.1em',
-                      fontWeight: '700',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                    }}>Sale Method</div>
-                    <div style={{
-                      fontSize: '17px',
-                      fontWeight: '700',
-                      color: '#000000',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif',
-                      textTransform: 'capitalize'
-                    }}>{property.saleMethod}</div>
-                  </div>
-                )}
-                {property.listingType && (
-                  <div>
-                    <div style={{
-                      fontSize: '11px',
-                      color: '#525252',
-                      marginBottom: '8px',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.1em',
-                      fontWeight: '700',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                    }}>Listing Type</div>
-                    <div style={{
-                      fontSize: '17px',
-                      fontWeight: '700',
-                      color: '#000000',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif',
-                      textTransform: 'capitalize'
-                    }}>
-                      {property.listingType === 'sale' ? 'For Sale' : property.listingType === 'lease' ? 'For Lease' : 'Sale & Lease'}
-                    </div>
-                  </div>
-                )}
-                {property.isNewHome && (
-                  <div>
-                    <div style={{
-                      fontSize: '11px',
-                      color: '#525252',
-                      marginBottom: '8px',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.1em',
-                      fontWeight: '700',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                    }}>Condition</div>
-                    <div style={{
-                      fontSize: '17px',
-                      fontWeight: '700',
-                      color: '#000000',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                    }}>New Home</div>
-                  </div>
-                )}
-                {property.tenanted && (
-                  <div>
-                    <div style={{
-                      fontSize: '11px',
-                      color: '#525252',
-                      marginBottom: '8px',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.1em',
-                      fontWeight: '700',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                    }}>Status</div>
-                    <div style={{
-                      fontSize: '17px',
-                      fontWeight: '700',
-                      color: '#000000',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                    }}>Currently Tenanted</div>
-                  </div>
-                )}
-                {property.daysOnMarket !== undefined && (
-                  <div>
-                    <div style={{
-                      fontSize: '11px',
-                      color: '#525252',
-                      marginBottom: '8px',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.1em',
-                      fontWeight: '700',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                    }}>Days on Market</div>
-                    <div style={{
-                      fontSize: '17px',
-                      fontWeight: '700',
-                      color: '#000000',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                    }}>{property.daysOnMarket} days</div>
-                  </div>
-                )}
               </div>
             </div>
 
-            {/* Rates and Fees - ON RUNNING STYLE */}
-            {property.rates && (property.rates.council || property.rates.water || property.rates.strata) && (
+            {/* Local Area Guide - ON RUNNING STYLE */}
+            {property.suburb && (
               <div style={{ marginBottom: '64px' }}>
                 <h2 style={{
                   fontSize: '24px',
@@ -1906,256 +1855,50 @@ export default function PropertyDetailPage() {
                   textTransform: 'uppercase',
                   color: '#000000',
                   fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                }}>Rates & Fees</h2>
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(220px, 1fr))',
-                  gap: '24px',
-                  padding: '48px',
-                  backgroundColor: '#f5f5f5',
-                  borderRadius: '0',
-                  border: '2px solid #d4d4d4'
-                }}>
-                  {property.rates.council !== undefined && property.rates.council > 0 && (
-                    <div>
-                      <div style={{
-                        fontSize: '11px',
-                        color: '#525252',
-                        marginBottom: '8px',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.1em',
-                        fontWeight: '700',
-                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                      }}>Council Rates</div>
-                      <div style={{
-                        fontSize: '17px',
-                        fontWeight: '700',
-                        color: '#000000',
-                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                      }}>${property.rates.council.toLocaleString()} p.a.</div>
-                    </div>
-                  )}
-                  {property.rates.water !== undefined && property.rates.water > 0 && (
-                    <div>
-                      <div style={{
-                        fontSize: '11px',
-                        color: '#525252',
-                        marginBottom: '8px',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.1em',
-                        fontWeight: '700',
-                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                      }}>Water Rates</div>
-                      <div style={{
-                        fontSize: '17px',
-                        fontWeight: '700',
-                        color: '#000000',
-                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                      }}>${property.rates.water.toLocaleString()} p.a.</div>
-                    </div>
-                  )}
-                  {property.rates.strata !== undefined && property.rates.strata > 0 && (
-                    <div>
-                      <div style={{
-                        fontSize: '11px',
-                        color: '#525252',
-                        marginBottom: '8px',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.1em',
-                        fontWeight: '700',
-                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                      }}>Strata Fees</div>
-                      <div style={{
-                        fontSize: '17px',
-                        fontWeight: '700',
-                        color: '#000000',
-                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                      }}>${property.rates.strata.toLocaleString()} p.a.</div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* Local Area Guide - ON RUNNING STYLE */}
-            {property.suburb && (
-              <div style={{ marginBottom: '64px' }}>
-                <h2 style={{
-                  fontSize: '24px',
-                  fontWeight: '700',
-                  marginBottom: '32px',
-                  letterSpacing: 'normal',
-                  textTransform: 'none',
-                  color: '#000000',
-                  fontFamily: '"Helvetica Neue", Arial, sans-serif'
                 }}>Local Area</h2>
 
                 <div style={{
                   padding: '48px',
-                  backgroundColor: '#6B7280',
+                  backgroundColor: '#000',
                   color: '#fff'
                 }}>
-                  {/* Show rich lifestyle content based on property suburb */}
-                  {property.suburb?.toLowerCase().includes('narre warren') ? (
-                    <>
-                      <div style={{ marginBottom: '32px' }}>
-                        <div style={{ fontSize: '28px', fontWeight: '700', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A853" strokeWidth="2">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                            <polyline points="9,22 9,12 15,12 15,22"/>
-                          </svg>
-                          We Love {property.suburb}!
-                        </div>
-                        <p style={{ fontSize: '17px', lineHeight: '1.6', color: '#d4d4d4' }}>
-                          Discover why Narre Warren is more than just a place to live - it's a place to belong! From award-winning playgrounds to community cafés, this vibrant suburb has everything your family needs.
-                        </p>
-                      </div>
+                  <div style={{ marginBottom: '24px' }}>
+                    <div style={{ fontSize: '28px', fontWeight: '700', marginBottom: '16px' }}>
+                      Discover {property.suburb}
+                    </div>
+                    <p style={{ fontSize: '17px', lineHeight: '1.6', color: '#d4d4d4' }}>
+                      Explore schools, transport, shopping, parks, healthcare, and everything else this area has to offer.
+                    </p>
+                  </div>
 
-                      {/* Featured Categories */}
-                      <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-                        gap: '24px',
-                        marginBottom: '32px',
-                        paddingTop: '24px',
-                        borderTop: '1px solid #333'
-                      }}>
-                        <div>
-                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A853" strokeWidth="2">
-                              <path d="M8 21l4-7h3l3 3v4l-4 4z"/>
-                              <path d="M3 14h3l2-5 2 5h3"/>
-                            </svg>
-                            Family Fun
-                          </div>
-                          <div style={{ fontSize: '15px', lineHeight: '1.4' }}>
-                            Narre Warren Adventure Playground • Fountain Gate Entertainment • Swimming Pool
-                          </div>
-                        </div>
-                        <div>
-                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A853" strokeWidth="2">
-                              <path d="M5 11h14l-5-5m5 5l-5 5"/>
-                            </svg>
-                            Local Favourites
-                          </div>
-                          <div style={{ fontSize: '15px', lineHeight: '1.4' }}>
-                            Narre Warren Coffee Co. • The Local Bean • Thai Spice Restaurant
-                          </div>
-                        </div>
-                        <div>
-                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A853" strokeWidth="2">
-                              <circle cx="8" cy="21" r="1"/>
-                              <circle cx="19" cy="21" r="1"/>
-                              <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
-                            </svg>
-                            Shopping & Lifestyle
-                          </div>
-                          <div style={{ fontSize: '15px', lineHeight: '1.4' }}>
-                            Fountain Gate Shopping Centre • Local Markets • Boutique Stores
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Quick Highlights */}
-                      <div style={{
-                        backgroundColor: '#111',
-                        padding: '24px',
-                        borderRadius: '8px',
-                        marginBottom: '32px'
-                      }}>
-                        <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '16px', color: '#fff' }}>
-                          Local Highlights
-                        </div>
-                        <div style={{
-                          display: 'grid',
-                          gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-                          gap: '16px',
-                          fontSize: '14px',
-                          lineHeight: '1.5'
-                        }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#D4A853">
-                              <circle cx="12" cy="12" r="10"/>
-                            </svg>
-                            Narre Warren Adventure Playground - Ultimate family destination
-                          </div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#D4A853">
-                              <circle cx="12" cy="12" r="10"/>
-                            </svg>
-                            Award-winning local coffee roasters and cafés
-                          </div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#D4A853">
-                              <circle cx="12" cy="12" r="10"/>
-                            </svg>
-                            Narre Warren Park - 50+ hectares of natural beauty
-                          </div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#D4A853">
-                              <circle cx="12" cy="12" r="10"/>
-                            </svg>
-                            Community Centre with programs for all ages
-                          </div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#D4A853">
-                              <circle cx="12" cy="12" r="10"/>
-                            </svg>
-                            Fountain Gate - Everything you need in one place
-                          </div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#D4A853">
-                              <circle cx="12" cy="12" r="10"/>
-                            </svg>
-                            Modern library with community programs
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    /* Default content for other suburbs */
-                    <>
-                      <div style={{ marginBottom: '24px' }}>
-                        <div style={{ fontSize: '28px', fontWeight: '700', marginBottom: '16px' }}>
-                          Discover {property.suburb}
-                        </div>
-                        <p style={{ fontSize: '17px', lineHeight: '1.6', color: '#d4d4d4' }}>
-                          Explore schools, transport, shopping, parks, healthcare, and everything else this area has to offer.
-                        </p>
-                      </div>
-
-                      <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)',
-                        gap: '24px',
-                        marginBottom: '32px',
-                        paddingTop: '24px',
-                        borderTop: '1px solid #333'
-                      }}>
-                        <div>
-                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Transport</div>
-                          <div style={{ fontSize: '15px' }}>Train • Bus • Freeway</div>
-                        </div>
-                        <div>
-                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Shopping</div>
-                          <div style={{ fontSize: '15px' }}>Malls • Supermarkets</div>
-                        </div>
-                        <div>
-                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Education</div>
-                          <div style={{ fontSize: '15px' }}>Schools • Childcare</div>
-                        </div>
-                        <div>
-                          <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Lifestyle</div>
-                          <div style={{ fontSize: '15px' }}>Parks • Healthcare</div>
-                        </div>
-                      </div>
-                    </>
-                  )}
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)',
+                    gap: '24px',
+                    marginBottom: '32px',
+                    paddingTop: '24px',
+                    borderTop: '1px solid #333'
+                  }}>
+                    <div>
+                      <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Transport</div>
+                      <div style={{ fontSize: '15px' }}>Train • Bus • Freeway</div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Shopping</div>
+                      <div style={{ fontSize: '15px' }}>Malls • Supermarkets</div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Education</div>
+                      <div style={{ fontSize: '15px' }}>Schools • Childcare</div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '13px', color: '#999', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Lifestyle</div>
+                      <div style={{ fontSize: '15px' }}>Parks • Healthcare</div>
+                    </div>
+                  </div>
 
                   <a
-                    href={`/local-area/${property.suburb?.toLowerCase().replace(/\s+/g, '-')}`}
+                    href={`/suburbs/${property.suburb.toLowerCase().replace(/\s+/g, '-')}`}
                     style={{
                       display: 'inline-block',
                       padding: '16px 32px',
@@ -2176,10 +1919,7 @@ export default function PropertyDetailPage() {
                       e.currentTarget.style.backgroundColor = '#fff';
                     }}
                   >
-                    {property.suburb?.toLowerCase().includes('narre warren') 
-                      ? 'Explore Full Lifestyle Guide →' 
-                      : 'View Local Area Guide →'
-                    }
+                    View Local Area Guide →
                   </a>
                 </div>
               </div>
@@ -2193,27 +1933,12 @@ export default function PropertyDetailPage() {
               top: '20px'
             }}>
               {/* Agent Photo Box */}
-              <Link 
-                href={`/agent/${property.agent?.id || property.agent?.name?.toLowerCase().replace(/\s+/g, '-') || 'grant'}`}
-                style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
-              >
-                <div style={{
-                  backgroundColor: '#fff',
-                  border: '1px solid #e5e5e5',
-                  marginBottom: '24px',
-                  overflow: 'hidden',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-                >
+              <div style={{
+                backgroundColor: '#fff',
+                border: '1px solid #e5e5e5',
+                marginBottom: '24px',
+                overflow: 'hidden'
+              }}>
                 {property.agent?.photo && !property.agent.photo.includes('default-agent') && property.agent.photo.startsWith('http') ? (
                   <>
                     <img
@@ -2302,8 +2027,61 @@ export default function PropertyDetailPage() {
                     </div>
                   </div>
                 )}
-                </div>
-              </Link>
+              </div>
+
+              {/* What's Your Home Worth Box */}
+              <div style={{
+                padding: '32px',
+                backgroundColor: '#f5f5f5',
+                border: '2px solid #e5e5e5',
+                borderRadius: '0',
+                marginBottom: '24px',
+                textAlign: 'center'
+              }}>
+                <h3 style={{
+                  fontSize: '20px',
+                  fontWeight: '700',
+                  marginBottom: '16px',
+                  color: '#000',
+                  fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                }}>
+                  Like to know what your home is worth?
+                </h3>
+                <p style={{
+                  fontSize: '14px',
+                  color: '#666',
+                  marginBottom: '24px',
+                  lineHeight: '1.6',
+                  fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                }}>
+                  Get a free market appraisal from our expert team
+                </p>
+                <a
+                  href="/appraisal"
+                  style={{
+                    display: 'inline-block',
+                    width: '100%',
+                    padding: '16px 32px',
+                    backgroundColor: '#000',
+                    color: '#fff',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    fontWeight: '700',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    transition: 'background-color 0.2s',
+                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#262626';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#000';
+                  }}
+                >
+                  Get Free Appraisal
+                </a>
+              </div>
 
               {/* Agent Contact Card - ON RUNNING STYLE */}
               <div style={{
@@ -2439,7 +2217,6 @@ export default function PropertyDetailPage() {
 
               {/* Request Inspection Button */}
               <button
-                onClick={() => setShowInspectionRequest(true)}
                 style={{
                   width: '100%',
                   padding: '14px',
@@ -2450,16 +2227,7 @@ export default function PropertyDetailPage() {
                   fontSize: '16px',
                   fontWeight: '600',
                   cursor: 'pointer',
-                  marginBottom: '12px',
-                  transition: 'all 0.2s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#000';
-                  e.currentTarget.style.color = '#fff';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'white';
-                  e.currentTarget.style.color = '#000';
+                  marginBottom: '12px'
                 }}
               >
                 Request Inspection
@@ -2501,206 +2269,102 @@ export default function PropertyDetailPage() {
           </div>
         </div>
 
-        {/* Similar Properties - Homepage Style */}
+        {/* Similar Properties */}
         {similarProperties.length > 0 && (
-          <div style={{ marginTop: '96px' }}>
+          <div style={{ marginTop: '60px' }}>
             <h2 style={{
-              fontSize: isMobile ? '36px' : '56px',
+              fontSize: '32px',
               fontWeight: '700',
-              letterSpacing: '-0.02em',
-              marginBottom: isMobile ? '32px' : '48px',
-              color: '#000',
-              lineHeight: '1.1',
-              whiteSpace: 'nowrap'
+              marginBottom: '32px',
+              letterSpacing: '-0.02em'
             }}>
-              You might also like
+              Similar Properties in {property.suburb}
             </h2>
 
             <div style={{
-              display: 'flex',
-              gap: isMobile ? '16px' : '24px',
-              flexWrap: 'wrap'
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+              gap: '32px'
             }}>
-              {similarProperties.slice(0, 3).map((similarProperty) => (
-                <div key={similarProperty.id} style={{
-                  position: 'relative',
-                  flex: isMobile ? '0 0 85%' : '0 0 calc(33.333% - 16px)',
-                  minWidth: isMobile ? '320px' : '380px',
-                  backgroundColor: '#fff',
-                  borderRadius: '12px',
-                  overflow: 'hidden',
-                  transition: 'transform 0.2s ease',
-                  cursor: 'pointer',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  const addressElement = e.currentTarget.querySelector('[data-property-address]') as HTMLElement;
-                  if (addressElement) {
-                    addressElement.style.color = '#AF272F'; // Grant's red PMS187c
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  const addressElement = e.currentTarget.querySelector('[data-property-address]') as HTMLElement;
-                  if (addressElement) {
-                    addressElement.style.color = '#000';
-                  }
-                }}>
-                  <Link 
-                    href={similarProperty.externalUrl || `/property/${similarProperty.id}`}
-                    target={similarProperty.externalUrl ? '_blank' : undefined}
-                    rel={similarProperty.externalUrl ? 'noopener noreferrer' : undefined}
-                    style={{
-                      textDecoration: 'none',
-                      color: 'inherit',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      height: '100%'
-                    }}>
-                    <div style={{
-                      position: 'relative',
-                      paddingTop: '100%', // 1:1 square aspect ratio
-                      backgroundColor: '#fff',
-                      overflow: 'hidden'
-                    }}>
+              {similarProperties.map((similarProperty) => (
+                <Link
+                  key={similarProperty.id}
+                  href={`/property/${similarProperty.id}`}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <div style={{
+                    borderRadius: '8px',
+                    overflow: 'hidden',
+                    transition: 'transform 0.2s, box-shadow 0.2s',
+                    cursor: 'pointer',
+                    backgroundColor: 'white'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.1)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}>
+                    {similarProperty.images && similarProperty.images[0] ? (
                       <div style={{
-                        position: 'absolute',
-                        inset: '1.5rem',
+                        height: '200px',
+                        backgroundColor: '#f5f5f5',
+                        position: 'relative'
+                      }}>
+                        <img
+                          src={similarProperty.images[0].url}
+                          alt={similarProperty.address}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover'
+                          }}
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y1ZjVmNSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjIwMCIgeT0iMTUwIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiI+SW1hZ2Ugbm90IGF2YWlsYWJsZTwvdGV4dD48L3N2Zz4=';
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <div style={{
+                        height: '200px',
+                        backgroundColor: '#f5f5f5',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center'
                       }}>
-                        {similarProperty.images && similarProperty.images[0] ? (
-                          <img
-                            src={typeof similarProperty.images[0] === 'string' ? similarProperty.images[0] : similarProperty.images[0].url}
-                            alt={similarProperty.address}
-                            style={{
-                              position: 'absolute',
-                              inset: 0,
-                              width: '100%',
-                              height: '100%',
-                              objectFit: 'cover',
-                              borderRadius: '4px'
-                            }}
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y1ZjVmNSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjIwMCIgeT0iMTUwIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiI+SW1hZ2Ugbm90IGF2YWlsYWJsZTwvdGV4dD48L3N2Zz4=';
-                            }}
-                          />
-                        ) : (
-                          <div style={{
-                            position: 'absolute',
-                            inset: 0,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: '#999',
-                            fontSize: '12px'
-                          }}>
-                            No image
-                          </div>
-                        )}
+                        <span style={{ color: '#999' }}>No image available</span>
                       </div>
-                      {!similarProperty.externalUrl && (
-                        <div style={{
-                          position: 'absolute',
-                          top: '8px',
-                          right: '8px',
-                          zIndex: 1
-                        }}>
-                          <SavePropertyButton property={{
-                            id: similarProperty.id,
-                            address: similarProperty.address || '',
-                            suburb: similarProperty.suburb || '',
-                            state: similarProperty.state || 'VIC',
-                            price: similarProperty.price,
-                            priceDisplay: similarProperty.priceDisplay,
-                            bedrooms: similarProperty.bedrooms || 0,
-                            bathrooms: similarProperty.bathrooms || 0,
-                            carSpaces: similarProperty.carSpaces || 0,
-                            propertyType: similarProperty.propertyType || 'House',
-                            listingType: similarProperty.listingType as 'sale' | 'lease' | 'both',
-                            leasePrice: similarProperty.leasePrice,
-                            leasePriceDisplay: similarProperty.leasePriceDisplay,
-                            images: similarProperty.images
-                          }} />
-                        </div>
-                      )}
-                      {similarProperty.listingType === 'lease' && (
-                        <div style={{
-                          position: 'absolute',
-                          top: '2rem',
-                          left: '2rem',
-                          backgroundColor: '#AF272F',
-                          color: '#fff',
-                          padding: '6px 12px',
-                          borderRadius: '4px',
-                          fontSize: '12px',
-                          fontWeight: '600',
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.5px',
-                          zIndex: 1
-                        }}>
-                          For Lease
-                        </div>
-                      )}
-                      {similarProperty.status === 'unconditional' && (
-                        <div style={{
-                          position: 'absolute',
-                          top: '2rem',
-                          left: '2rem',
-                          backgroundColor: '#FFA500',
-                          color: '#fff',
-                          padding: '6px 12px',
-                          borderRadius: '4px',
-                          fontSize: '12px',
-                          fontWeight: '600',
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.5px',
-                          zIndex: 1
-                        }}>
-                          Under Contract
-                        </div>
-                      )}
-                    </div>
-                    
-                    <div style={{ 
-                      padding: '1rem',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '0.25rem',
-                      flex: '1'
-                    }}>
-                      <p style={{
-                        fontSize: '0.75rem',
-                        color: '#666',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.05em',
-                        fontWeight: '500',
-                        marginBottom: '0.25rem'
+                    )}
+                    <div style={{ padding: '20px' }}>
+                      <h3 style={{
+                        fontSize: '24px',
+                        fontWeight: '600',
+                        marginBottom: '8px',
+                        letterSpacing: '-0.01em'
                       }}>
-                        {similarProperty.suburb}
-                      </p>
-                      <h3
-                        data-property-address="true"
-                        style={{
-                          fontSize: '1rem',
-                          fontWeight: '600',
-                          color: '#000',
-                          letterSpacing: '-0.01em',
-                          lineHeight: '1.3',
-                          marginBottom: '0.5rem',
-                          transition: 'color 0.2s ease'
-                        }}>
-                        {similarProperty.address?.replace(', VIC', '')}
+                        {similarProperty.listingType === 'lease'
+                          ? (similarProperty.leasePriceDisplay || (similarProperty.leasePrice ? `$${similarProperty.leasePrice} per week` : 'Contact Agent'))
+                          : (similarProperty.priceDisplay || formatPrice(similarProperty.price || 0))
+                        }
                       </h3>
+                      <p style={{
+                        fontSize: '16px',
+                        color: '#666',
+                        marginBottom: '16px',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap'
+                      }}>
+                        {similarProperty.address}
+                      </p>
                       <div style={{
                         display: 'flex',
-                        gap: '12px',
-                        fontSize: '0.75rem',
-                        color: '#666',
-                        marginBottom: '0.5rem'
+                        gap: '16px',
+                        fontSize: '14px',
+                        color: '#333'
                       }}>
                         {similarProperty.bedrooms && (
                           <span>{similarProperty.bedrooms} bed</span>
@@ -2712,33 +2376,9 @@ export default function PropertyDetailPage() {
                           <span>{similarProperty.carSpaces} car</span>
                         )}
                       </div>
-                      <p style={{
-                        fontSize: '1.125rem',
-                        fontWeight: '600',
-                        color: '#000',
-                        letterSpacing: '-0.01em',
-                        marginBottom: similarProperty.agency ? '0.5rem' : 0
-                      }}>
-                        {similarProperty.listingType === 'lease'
-                          ? (similarProperty.leasePriceDisplay || (similarProperty.leasePrice ? `$${similarProperty.leasePrice} per week` : 'Contact Agent'))
-                          : (similarProperty.priceDisplay || formatPrice(similarProperty.price || 0))
-                        }
-                      </p>
-                      {similarProperty.agency && (
-                        <div style={{
-                          fontSize: '0.75rem',
-                          color: '#666',
-                          marginTop: 'auto'
-                        }}>
-                          <span style={{ fontWeight: '500' }}>{similarProperty.agency}</span>
-                          {similarProperty.agentName && (
-                            <span> • {similarProperty.agentName}</span>
-                          )}
-                        </div>
-                      )}
                     </div>
-                  </Link>
-                </div>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>

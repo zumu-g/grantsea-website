@@ -60,7 +60,7 @@ export default function CalculatorsPage() {
   ];
 
   return (
-    <div>
+    <React.Fragment>
       <OncomHeader />
 
       <main style={{
@@ -368,6 +368,6 @@ export default function CalculatorsPage() {
           </div>
         </section>
       </main>
-    </div>
+    </React.Fragment>
   );
 }

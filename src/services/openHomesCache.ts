@@ -58,7 +58,7 @@ async function refreshOpenHomesInBackground(
     let totalPagesScanned = 0;
     // RULE: NEVER STOP - CHECK ALL PAGES to find upcoming open homes buried in later pages
     // No maxPages limit - scan until API returns empty pages
-    const timeoutMs = 30000; // Increased timeout for full scan
+    const timeoutMs = 120000; // Extended timeout to 2 minutes for full scan
     let upcomingOpenHomes: any[] = [];
     
     console.log('Background refresh: fetching fresh open homes data from ALL pages...');
@@ -101,6 +101,11 @@ async function refreshOpenHomesInBackground(
             
             totalPagesScanned++;
             page++;
+            
+            // Add small delay to avoid rate limiting but keep scan moving
+            if (page % 5 === 0) {
+              await new Promise(resolve => setTimeout(resolve, 100)); // Brief pause every 5 pages
+            }
           }
         }
         
@@ -160,7 +165,7 @@ export async function fetchUpcomingOpenHomesWithCache(
     let totalPagesScanned = 0;
     // RULE: NEVER STOP - CHECK ALL PAGES to find upcoming open homes buried in later pages
     // Removed maxPages limit - scan until API returns empty pages (could be 50+ pages)
-    const timeoutMs = 30000; // Increased timeout for comprehensive scan
+    const timeoutMs = 120000; // Extended timeout to 2 minutes for comprehensive scan
     
     console.log('Starting comprehensive open homes scan (ALL pages, no limit)...');
     
@@ -209,6 +214,11 @@ export async function fetchUpcomingOpenHomesWithCache(
             
             totalPagesScanned++;
             page++;
+            
+            // Add small delay to avoid rate limiting but keep scan moving
+            if (page % 5 === 0) {
+              await new Promise(resolve => setTimeout(resolve, 100)); // Brief pause every 5 pages
+            }
           }
         }
         

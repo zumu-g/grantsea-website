@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { transformVaultREProperty } from '@/services/api';
 import { fetchUpcomingOpenHomesWithCache } from '@/services/openHomesCache';
+import { propertyCache, fetchWithCache } from '@/services/propertyCache';
 
 // In API routes, we can't access NEXT_PUBLIC_ variables on the server
 // We need to use regular env vars or duplicate them without the prefix
@@ -37,6 +38,21 @@ export async function GET(request: NextRequest) {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     };
+
+    // Check cache first
+    const cacheParams = { type, limit, suburb: suburb || undefined, published };
+    const cachedProperties = propertyCache.getCachedProperties(cacheParams);
+    
+    if (cachedProperties) {
+      console.log(`Returning ${cachedProperties.length} cached properties`);
+      return NextResponse.json({
+        success: true,
+        data: cachedProperties,
+        total: cachedProperties.length,
+        properties: cachedProperties,
+        cached: true
+      });
+    }
 
     let allProperties = [];
 

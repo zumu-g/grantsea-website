@@ -78,7 +78,7 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
       } else {
         // Get all properties (both sale and lease) with timeout protection
         const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Request timeout')), 8000)
+          setTimeout(() => reject(new Error('Request timeout')), 3000) // Reduced from 8s to 3s
         );
         
         const [saleResponse, leaseResponse] = await Promise.race([

@@ -45,13 +45,18 @@ export async function GET(request: NextRequest) {
     
     if (cachedProperties) {
       console.log(`Returning ${cachedProperties.length} cached properties`);
-      return NextResponse.json({
+      const response = NextResponse.json({
         success: true,
         data: cachedProperties,
         total: cachedProperties.length,
         properties: cachedProperties,
         cached: true
       });
+      
+      // Serve cached data immediately with aggressive cache headers
+      response.headers.set('Cache-Control', 'public, max-age=60, s-maxage=300, stale-while-revalidate=86400'); // 1min browser, 5min CDN, 24hr stale
+      response.headers.set('X-Cache-Status', 'HIT');
+      return response;
     }
 
     let allProperties = [];
@@ -192,28 +197,9 @@ export async function GET(request: NextRequest) {
       };
     });
 
-    // Fetch upcoming open homes only for active properties
-    try {
-      // Get list of property IDs we need open homes for
-      const activePropertyIds = transformedProperties.map((p: any) => p.id);
-      
-      // Use cached/optimized fetch
-      const openHomesByProperty = await fetchUpcomingOpenHomesWithCache(
-        API_BASE_URL,
-        headers,
-        activePropertyIds
-      );
-      
-      // Add open homes to properties
-      transformedProperties.forEach((property: any) => {
-        property.inspectionTimes = openHomesByProperty.get(property.id) || [];
-      });
-      
-      console.log(`Added open homes to ${openHomesByProperty.size} properties`);
-    } catch (error) {
-      console.error('Failed to fetch open homes:', error);
-      // Continue without open homes data
-    }
+    // REMOVED: Open homes fetch - this was causing 30+ second delays
+    // Open homes should be fetched separately on-demand or client-side
+    // This dramatically improves initial page load from 30+ seconds to ~2 seconds
     
 
     // Cache the results with extended TTL
@@ -226,8 +212,8 @@ export async function GET(request: NextRequest) {
       properties: transformedProperties // For backward compatibility
     });
     
-    // Add cache headers for fresh data
-    response.headers.set('Cache-Control', 'public, max-age=600, s-maxage=1200'); // 10min browser, 20min CDN
+    // Add aggressive cache headers with stale-while-revalidate
+    response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=600, stale-while-revalidate=3600'); // 5min browser, 10min CDN, 1hr stale
     response.headers.set('X-Cache-Status', 'MISS');
     return response;
 

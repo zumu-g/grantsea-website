@@ -952,7 +952,7 @@ function SchoolsGuidePage() {
                   fontSize: '20px',
                   fontWeight: '600',
                   color: '#000'
-                }}>30+</div>
+                }}>{schools.filter(s => s.type === 'kindergarten').length}</div>
                 <div style={{
                   fontSize: '14px',
                   color: '#666'
@@ -967,7 +967,7 @@ function SchoolsGuidePage() {
                   fontSize: '20px',
                   fontWeight: '600',
                   color: '#000'
-                }}>70+</div>
+                }}>{schools.filter(s => s.type === 'primary').length}</div>
                 <div style={{
                   fontSize: '14px',
                   color: '#666'
@@ -982,7 +982,7 @@ function SchoolsGuidePage() {
                   fontSize: '20px',
                   fontWeight: '600',
                   color: '#000'
-                }}>28+</div>
+                }}>{schools.filter(s => s.type === 'secondary').length}</div>
                 <div style={{
                   fontSize: '14px',
                   color: '#666'
@@ -997,7 +997,7 @@ function SchoolsGuidePage() {
                   fontSize: '20px',
                   fontWeight: '600',
                   color: '#000'
-                }}>125+</div>
+                }}>{schools.length}</div>
                 <div style={{
                   fontSize: '14px',
                   color: '#666'

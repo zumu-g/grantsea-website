@@ -25,7 +25,7 @@ export default function HomePageOncom() {
   const [carouselScroll, setCarouselScroll] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
-  const { properties, loading } = useProperties({ limit: 12 });
+  const { properties, loading } = useProperties({ limit: 6 }); // Reduced from 12 to 6 for faster initial load
 
   // Sort properties by creation date (newest first) for the "You also might like" section
   const sortedPropertiesByDate = [...properties].sort((a, b) => {

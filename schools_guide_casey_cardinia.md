@@ -22,18 +22,18 @@
 ## Quick Reference Guide
 
 ### Casey Shire Schools Summary
-- **Total Schools**: 59+ educational institutions
-- **Government Primary Schools**: 15+ 
+- **Total Schools**: 100+ educational institutions
+- **Government Primary Schools**: 40+ 
 - **Government Secondary Schools**: 10+
-- **Private Primary Schools**: 3+ (Independent, Catholic, Christian)
+- **Private Primary Schools**: 8+ (Independent, Catholic, Christian)
 - **Private Secondary Schools**: 7+ (Independent, Catholic, Christian)
-- **Kindergartens**: 14+ (Council-managed & Private)
+- **Kindergartens**: 25+ (Council-managed & Private)
 
 ### Cardinia Shire Schools Summary
-- **Total Schools**: 20+ educational institutions
-- **Government Primary Schools**: 8+
+- **Total Schools**: 30+ educational institutions
+- **Government Primary Schools**: 15+
 - **Government Secondary Schools**: 3+
-- **Private Primary Schools**: 3+ (Independent, Catholic, Christian)
+- **Private Primary Schools**: 5+ (Independent, Catholic, Christian)
 - **Private Secondary Schools**: 6+ (Independent, Catholic, Christian)
 - **Kindergartens**: 5+ (Council-managed & Private)
 

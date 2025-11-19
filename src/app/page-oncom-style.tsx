@@ -9,6 +9,7 @@ import SavePropertyButton from '@/components/SavePropertyButton';
 import AskAI from '@/components/AskAI';
 import OncomHeader from '@/components/OncomHeader';
 import { formatNextInspection } from '@/utils/formatInspectionTime';
+import { warmUpCache } from '@/utils/prefetch';
 
 // Helper function to check if a property is new (within last 7 days)
 const isNewListing = (createdAt?: string) => {
@@ -41,6 +42,10 @@ export default function HomePageOncom() {
     
     checkDevice();
     window.addEventListener('resize', checkDevice);
+    
+    // Warm up cache for faster subsequent navigation
+    warmUpCache();
+    
     return () => window.removeEventListener('resize', checkDevice);
   }, []);
 

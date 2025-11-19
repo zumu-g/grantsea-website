@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { crmAPI, Property } from '@/services/api';
 
-// Simple cache for properties
+// Simple cache for properties with aggressive caching
 const propertiesCache = new Map<string, { data: Property[], timestamp: number }>();
-const CACHE_DURATION = 15 * 60 * 1000; // 15 minutes (increased from 5)
+const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes for better performance
 
 interface UsePropertiesOptions {
   suburb?: string;
@@ -23,6 +23,9 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  
+  // Immediately check cache on mount to reduce loading time
+  const [initialCacheChecked, setInitialCacheChecked] = useState(false);
 
   const fetchProperties = async () => {
     try {
@@ -49,6 +52,11 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
       if (cached) {
         setProperties(cached.data);
         setLoading(false);
+        
+        // Return early if cache is still reasonably fresh (within 5 minutes)
+        if (Date.now() - cached.timestamp < 5 * 60 * 1000) {
+          return;
+        }
       }
 
       let response;
@@ -68,17 +76,24 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
           limit: options?.limit
         });
       } else {
-        // Get all properties (both sale and lease)
-        const [saleResponse, leaseResponse] = await Promise.all([
-          crmAPI.properties.getPropertiesForSale({
-            suburb: options?.suburb,
-            limit: options?.limit ? Math.floor(options.limit / 2) : 10
-          }),
-          crmAPI.properties.getPropertiesForLease({
-            suburb: options?.suburb,
-            limit: options?.limit ? Math.floor(options.limit / 2) : 10
-          })
-        ]);
+        // Get all properties (both sale and lease) with timeout protection
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Request timeout')), 8000)
+        );
+        
+        const [saleResponse, leaseResponse] = await Promise.race([
+          Promise.all([
+            crmAPI.properties.getPropertiesForSale({
+              suburb: options?.suburb,
+              limit: options?.limit ? Math.floor(options.limit / 2) : 10
+            }),
+            crmAPI.properties.getPropertiesForLease({
+              suburb: options?.suburb,
+              limit: options?.limit ? Math.floor(options.limit / 2) : 10
+            })
+          ]),
+          timeoutPromise
+        ]) as [any, any];
         
         response = {
           success: true,
@@ -114,10 +129,29 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
     }
   };
 
+  // Check cache immediately on mount before starting network request
   useEffect(() => {
+    if (!initialCacheChecked) {
+      const cacheKey = JSON.stringify({
+        suburb: options?.suburb,
+        limit: options?.limit,
+        featured: options?.featured,
+        type: options?.type
+      });
+
+      const cached = propertiesCache.get(cacheKey);
+      if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+        setProperties(cached.data);
+        setLoading(false);
+        setInitialCacheChecked(true);
+        return;
+      }
+      setInitialCacheChecked(true);
+    }
+    
     fetchProperties();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options?.suburb, options?.limit, options?.featured, options?.type]);
+  }, [options?.suburb, options?.limit, options?.featured, options?.type, initialCacheChecked]);
 
   return {
     properties,

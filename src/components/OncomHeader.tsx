@@ -384,19 +384,6 @@ export default function OncomHeader() {
                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
                     Rental appraisal
                   </Link>
-                  <Link href="/rent/report-maintenance" style={{
-                    display: 'block',
-                    padding: '14px 20px',
-                    color: '#000',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    fontWeight: '400',
-                    borderBottom: '1px solid #f0f0f0',
-                    transition: 'background 0.15s ease'
-                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
-                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                    Report maintenance
-                  </Link>
                   <Link href="/landlord-insights" style={{
                     display: 'block',
                     padding: '14px 20px',

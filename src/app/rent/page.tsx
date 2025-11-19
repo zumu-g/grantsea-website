@@ -111,40 +111,6 @@ export default function RentPage() {
               }}>
               Properties for rent
             </motion.h1>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}
-            >
-              <Link
-                href="/rent/report-maintenance"
-                style={{
-                  display: 'inline-block',
-                  padding: '14px 28px',
-                  backgroundColor: '#002b7f',
-                  color: '#FFFFFF',
-                  textDecoration: 'none',
-                  borderRadius: '8px',
-                  fontSize: '16px',
-                  fontWeight: '600',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#001d5c';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#002b7f';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
-                }}
-              >
-                Report Maintenance
-              </Link>
-            </motion.div>
           </div>
         </section>
 

@@ -162,18 +162,34 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Transform the properties to our format and optimize for listing view
+    // Transform the properties to our format and optimize aggressively for listing view
     const transformedProperties = allProperties.map((property: any) => {
       const transformed = transformVaultREProperty(property);
-      // Optimize for listing view - only include first 2 images to reduce payload size
-      if (transformed.images && transformed.images.length > 2) {
-        transformed.images = transformed.images.slice(0, 2);
-      }
-      // Remove heavy description data for listing view
-      if (transformed.description && transformed.description.length > 200) {
-        transformed.description = transformed.description.substring(0, 200) + '...';
-      }
-      return transformed;
+      
+      // Aggressive optimization for listing view
+      return {
+        id: transformed.id,
+        address: transformed.address,
+        suburb: transformed.suburb,
+        state: transformed.state,
+        postcode: transformed.postcode,
+        price: transformed.price,
+        priceDisplay: transformed.priceDisplay,
+        leasePrice: transformed.leasePrice,
+        leasePriceDisplay: transformed.leasePriceDisplay,
+        listingType: transformed.listingType,
+        bedrooms: transformed.bedrooms,
+        bathrooms: transformed.bathrooms,
+        carSpaces: transformed.carSpaces,
+        propertyType: transformed.propertyType,
+        status: transformed.status,
+        // Only include first image to minimize payload
+        images: transformed.images?.slice(0, 1) || [],
+        // Shortened description for listing
+        description: transformed.description?.substring(0, 150) || '',
+        createdAt: transformed.createdAt,
+        updatedAt: transformed.updatedAt
+      };
     });
 
     // Fetch upcoming open homes only for active properties
@@ -200,12 +216,20 @@ export async function GET(request: NextRequest) {
     }
     
 
-    return NextResponse.json({
+    // Cache the results with extended TTL
+    propertyCache.setCachedProperties(cacheParams, transformedProperties, 30 * 60 * 1000); // 30 minutes
+    
+    const response = NextResponse.json({
       success: true,
       data: transformedProperties,
       total: transformedProperties.length,
       properties: transformedProperties // For backward compatibility
     });
+    
+    // Add cache headers for fresh data
+    response.headers.set('Cache-Control', 'public, max-age=600, s-maxage=1200'); // 10min browser, 20min CDN
+    response.headers.set('X-Cache-Status', 'MISS');
+    return response;
 
   } catch (error) {
     console.error('API Route Error:', error);

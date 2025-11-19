@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import OncomHeader from '@/components/OncomHeader';
 
@@ -60,10 +60,9 @@ export default function CalculatorsPage() {
   ];
 
   return (
-    <main>
+    <>
       <OncomHeader />
-
-      <div style={{
+      <main style={{
         paddingTop: isMobile ? '180px' : '200px',
         minHeight: '100vh',
         backgroundColor: '#fff'
@@ -367,7 +366,7 @@ export default function CalculatorsPage() {
             </Link>
           </div>
         </section>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }

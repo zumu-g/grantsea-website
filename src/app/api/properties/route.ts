@@ -45,18 +45,13 @@ export async function GET(request: NextRequest) {
     
     if (cachedProperties) {
       console.log(`Returning ${cachedProperties.length} cached properties`);
-      const response = NextResponse.json({
+      return NextResponse.json({
         success: true,
         data: cachedProperties,
         total: cachedProperties.length,
         properties: cachedProperties,
         cached: true
       });
-      
-      // Serve cached data immediately with aggressive cache headers
-      response.headers.set('Cache-Control', 'public, max-age=60, s-maxage=300, stale-while-revalidate=86400'); // 1min browser, 5min CDN, 24hr stale
-      response.headers.set('X-Cache-Status', 'HIT');
-      return response;
     }
 
     let allProperties = [];
@@ -197,18 +192,13 @@ export async function GET(request: NextRequest) {
       };
     });
 
-    // TEMPORARILY DISABLED: Open homes fetch to debug property loading issue
-    // Fetch open homes optimized for active properties only
-    // This is much faster than scanning all pages
-    /*
+    // Fetch upcoming open homes only for active properties
     try {
-      const { fetchOpenHomesForActiveProperties } = await import('@/services/openHomesOptimized');
-      
-      // Get list of property IDs from current active properties
+      // Get list of property IDs we need open homes for
       const activePropertyIds = transformedProperties.map((p: any) => p.id);
       
-      // Use optimized fetch that only looks at recent/upcoming open homes
-      const openHomesByProperty = await fetchOpenHomesForActiveProperties(
+      // Use cached/optimized fetch
+      const openHomesByProperty = await fetchUpcomingOpenHomesWithCache(
         API_BASE_URL,
         headers,
         activePropertyIds
@@ -222,9 +212,8 @@ export async function GET(request: NextRequest) {
       console.log(`Added open homes to ${openHomesByProperty.size} properties`);
     } catch (error) {
       console.error('Failed to fetch open homes:', error);
-      // Continue without open homes data rather than blocking
+      // Continue without open homes data
     }
-    */
     
 
     // Cache the results with extended TTL
@@ -237,8 +226,8 @@ export async function GET(request: NextRequest) {
       properties: transformedProperties // For backward compatibility
     });
     
-    // Add aggressive cache headers with stale-while-revalidate
-    response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=600, stale-while-revalidate=3600'); // 5min browser, 10min CDN, 1hr stale
+    // Add cache headers for fresh data
+    response.headers.set('Cache-Control', 'public, max-age=600, s-maxage=1200'); // 10min browser, 20min CDN
     response.headers.set('X-Cache-Status', 'MISS');
     return response;
 

@@ -339,14 +339,7 @@ export const propertyAPI = {
       }
 
       try {
-        // Add timeout to prevent long waits
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
-        
-        const response = await fetch(`/api/properties?${params.toString()}`, {
-          signal: controller.signal
-        });
-        clearTimeout(timeoutId);
+        const response = await fetch(`/api/properties?${params.toString()}`);
         const data = await response.json();
 
         if (!response.ok) {
@@ -396,14 +389,7 @@ export const propertyAPI = {
       }
 
       try {
-        // Add timeout to prevent long waits
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
-        
-        const response = await fetch(`/api/properties?${params.toString()}`, {
-          signal: controller.signal
-        });
-        clearTimeout(timeoutId);
+        const response = await fetch(`/api/properties?${params.toString()}`);
         const data = await response.json();
 
         if (!response.ok) {

@@ -204,61 +204,82 @@ export default function PropertyDetailPage() {
             })
           );
           
-          // Fetch similar properties
-          if (data.data.suburb) {
-            // For lease properties, fetch from market search to show other agencies
-            if (data.data.listingType === 'lease' && data.data.address) {
-              // Extract street name from address
-              const streetMatch = data.data.address.match(/^(\d+\s+)?(.+?),/);
-              const streetName = streetMatch ? streetMatch[2] : '';
+          // Always fetch similar properties to ensure the section shows
+          parallelFetches.push(
+            // Try multiple strategies to get similar properties
+            Promise.all([
+              // Strategy 1: Suburb-based properties (primary)
+              fetch(`/api/properties?suburb=${data.data.suburb || ''}&limit=12&type=all`)
+                .then(res => res.json())
+                .catch(() => ({ success: false, data: [] })),
               
-              if (streetName) {
-                parallelFetches.push(
-                  fetch(`/api/properties/market-search?street=${encodeURIComponent(streetName)}&suburb=${encodeURIComponent(data.data.suburb)}&type=lease&excludeId=${data.data.id}`)
-                    .then(res => res.json())
-                    .then(marketData => {
-                      if (marketData.success && marketData.properties) {
-                        setSimilarProperties(marketData.properties);
-                      }
-                    })
-                    .catch(err => {
-                      console.error('[PropertyPage] Failed to load market properties:', err);
-                      // Fallback to internal properties
-                      return fetch(`/api/properties?suburb=${data.data.suburb}&limit=10&type=${data.data.listingType || 'all'}`)
-                        .then(res => res.json())
-                        .then(similarData => {
-                          if (similarData.success && similarData.data) {
-                            const filteredProperties = similarData.data.filter((p: Property) => 
-                              p.id !== data.data.id && 
-                              p.listingType === data.data.listingType
-                            );
-                            setSimilarProperties(filteredProperties.slice(0, 3));
-                          }
-                        });
-                    })
-                );
+              // Strategy 2: General properties (fallback)
+              fetch(`/api/properties?limit=12&type=all`)
+                .then(res => res.json())
+                .catch(() => ({ success: false, data: [] })),
+                
+              // Strategy 3: Market search for lease properties (bonus)
+              data.data.listingType === 'lease' && data.data.address ? 
+                (() => {
+                  const streetMatch = data.data.address.match(/^(\d+\s+)?(.+?),/);
+                  const streetName = streetMatch ? streetMatch[2] : '';
+                  if (streetName) {
+                    return fetch(`/api/properties/market-search?street=${encodeURIComponent(streetName)}&suburb=${encodeURIComponent(data.data.suburb || '')}&type=lease&excludeId=${data.data.id}`)
+                      .then(res => res.json())
+                      .catch(() => ({ success: false, properties: [] }));
+                  }
+                  return Promise.resolve({ success: false, properties: [] });
+                })() : Promise.resolve({ success: false, properties: [] })
+            ]).then(([suburbData, generalData, marketData]) => {
+              let allProperties: Property[] = [];
+              
+              // Combine all data sources
+              if (suburbData.success && suburbData.data) {
+                allProperties = [...allProperties, ...suburbData.data];
               }
-            } else {
-              // For sale properties, use internal properties
-              parallelFetches.push(
-                fetch(`/api/properties?suburb=${data.data.suburb}&limit=10&type=${data.data.listingType || 'all'}`)
-                  .then(res => res.json())
-                  .then(similarData => {
-                    if (similarData.success && similarData.data) {
-                      // Filter to only show properties of the same listing type
-                      const filteredProperties = similarData.data.filter((p: Property) => 
-                        p.id !== data.data.id && 
-                        p.listingType === data.data.listingType
-                      );
-                      setSimilarProperties(filteredProperties.slice(0, 3));
-                    }
-                  })
-                  .catch(err => {
-                    console.error('[PropertyPage] Failed to load similar properties:', err);
-                  })
+              if (generalData.success && generalData.data) {
+                allProperties = [...allProperties, ...generalData.data];
+              }
+              if (marketData.success && marketData.properties) {
+                allProperties = [...allProperties, ...marketData.properties];
+              }
+              
+              // Remove duplicates and current property
+              const uniqueProperties = allProperties.filter((property, index, self) =>
+                property.id !== data.data.id &&
+                index === self.findIndex(p => p.id === property.id)
               );
-            }
-          }
+              
+              // Prioritize same listing type, then same suburb, then any
+              const prioritizedProperties = [
+                ...uniqueProperties.filter(p => 
+                  p.listingType === data.data.listingType && 
+                  (p.suburb === data.data.suburb || p.address?.includes(data.data.suburb || ''))
+                ),
+                ...uniqueProperties.filter(p => 
+                  p.listingType === data.data.listingType &&
+                  !(p.suburb === data.data.suburb || p.address?.includes(data.data.suburb || ''))
+                ),
+                ...uniqueProperties.filter(p => 
+                  p.listingType !== data.data.listingType &&
+                  (p.suburb === data.data.suburb || p.address?.includes(data.data.suburb || ''))
+                ),
+                ...uniqueProperties.filter(p => 
+                  p.listingType !== data.data.listingType &&
+                  !(p.suburb === data.data.suburb || p.address?.includes(data.data.suburb || ''))
+                )
+              ];
+              
+              // Take the first 6 properties
+              setSimilarProperties(prioritizedProperties.slice(0, 6));
+              console.log(`[PropertyPage] Found ${prioritizedProperties.length} similar properties`);
+            })
+            .catch(err => {
+              console.error('[PropertyPage] Failed to load similar properties:', err);
+              // Even if everything fails, set empty array to prevent undefined state
+              setSimilarProperties([]);
+            })
+          );
           
           // Wait for all parallel fetches to complete (but don't block rendering)
           await Promise.allSettled(parallelFetches);
@@ -2502,7 +2523,7 @@ export default function PropertyDetailPage() {
         </div>
 
         {/* Similar Properties - Homepage Style */}
-        {similarProperties.length > 0 && (
+        {(loading || similarProperties.length > 0) && (
           <div style={{ marginTop: '96px' }}>
             <div style={{
               display: 'flex',
@@ -2533,11 +2554,60 @@ export default function PropertyDetailPage() {
               </Link>
             </div>
 
-            <div className="property-grid" style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: isMobile ? '20px' : '24px'
-            }}>
+            {loading ? (
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: isMobile ? '20px' : '24px'
+              }}>
+                {/* Loading skeletons */}
+                {Array.from({ length: 6 }).map((_, index) => (
+                  <div key={index} style={{
+                    backgroundColor: '#f5f5f5',
+                    borderRadius: '4px',
+                    overflow: 'hidden'
+                  }}>
+                    <div style={{
+                      aspectRatio: '4/3',
+                      backgroundColor: '#e5e5e5'
+                    }} />
+                    <div style={{ padding: '1rem' }}>
+                      <div style={{
+                        height: '12px',
+                        backgroundColor: '#e5e5e5',
+                        marginBottom: '8px',
+                        borderRadius: '2px',
+                        width: '60%'
+                      }} />
+                      <div style={{
+                        height: '16px',
+                        backgroundColor: '#e5e5e5',
+                        marginBottom: '8px',
+                        borderRadius: '2px'
+                      }} />
+                      <div style={{
+                        height: '14px',
+                        backgroundColor: '#e5e5e5',
+                        marginBottom: '8px',
+                        borderRadius: '2px',
+                        width: '80%'
+                      }} />
+                      <div style={{
+                        height: '14px',
+                        backgroundColor: '#e5e5e5',
+                        borderRadius: '2px',
+                        width: '50%'
+                      }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : similarProperties.length > 0 ? (
+              <div className="property-grid" style={{
+                display: 'grid',
+                gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: isMobile ? '20px' : '24px'
+              }}>
               {similarProperties.slice(0, 6).map((similarProperty) => (
                 <div key={similarProperty.id} style={{
                   backgroundColor: '#fff',
@@ -2719,7 +2789,31 @@ export default function PropertyDetailPage() {
                   </Link>
                 </div>
               ))}
-            </div>
+              </div>
+            ) : (
+              <div style={{
+                textAlign: 'center',
+                padding: '60px 20px',
+                color: '#666'
+              }}>
+                <p style={{ fontSize: '16px', marginBottom: '20px' }}>No similar properties found at the moment.</p>
+                <Link 
+                  href={property.listingType === 'lease' ? '/rent' : '/buy'}
+                  style={{
+                    display: 'inline-block',
+                    padding: '12px 24px',
+                    backgroundColor: '#000',
+                    color: '#fff',
+                    textDecoration: 'none',
+                    borderRadius: '4px',
+                    fontSize: '14px',
+                    fontWeight: '600'
+                  }}
+                >
+                  Browse All Properties
+                </Link>
+              </div>
+            )}
           </div>
         )}
       </div>

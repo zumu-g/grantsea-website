@@ -2504,47 +2504,56 @@ export default function PropertyDetailPage() {
         {/* Similar Properties - Homepage Style */}
         {similarProperties.length > 0 && (
           <div style={{ marginTop: '96px' }}>
-            <h2 style={{
-              fontSize: isMobile ? '36px' : '56px',
-              fontWeight: '700',
-              letterSpacing: '-0.02em',
-              marginBottom: isMobile ? '32px' : '48px',
-              color: '#000',
-              lineHeight: '1.1'
-            }}>
-              {property.listingType === 'lease' ? 'Also on the market for Lease' : 'You might also like'}
-            </h2>
-
             <div style={{
               display: 'flex',
-              gap: isMobile ? '16px' : '24px',
-              flexWrap: 'wrap'
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: '48px'
             }}>
-              {similarProperties.slice(0, 3).map((similarProperty) => (
+              <h2 style={{
+                fontSize: isMobile ? '28px' : '36px',
+                fontWeight: '700',
+                letterSpacing: '-0.02em'
+              }}>
+                {property.listingType === 'lease' ? 'Also on the market for Lease' : 'You also might like'}
+              </h2>
+              <Link href={property.listingType === 'lease' ? '/rent' : '/buy'} style={{
+                color: '#000',
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: '500',
+                borderBottom: '1px solid #000',
+                paddingBottom: '2px',
+                transition: 'opacity 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
+              onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+              >
+                View all properties →
+              </Link>
+            </div>
+
+            <div className="property-grid" style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: isMobile ? '20px' : '24px'
+            }}>
+              {similarProperties.slice(0, 6).map((similarProperty) => (
                 <div key={similarProperty.id} style={{
-                  position: 'relative',
-                  flex: isMobile ? '0 0 85%' : '0 0 calc(33.333% - 16px)',
-                  minWidth: isMobile ? '320px' : '380px',
                   backgroundColor: '#fff',
-                  borderRadius: '12px',
+                  borderRadius: '4px',
                   overflow: 'hidden',
-                  transition: 'transform 0.2s ease',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
                   cursor: 'pointer',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-2px)';
-                  const addressElement = e.currentTarget.querySelector('[data-property-address]') as HTMLElement;
-                  if (addressElement) {
-                    addressElement.style.color = '#AF272F'; // Grant's red PMS187c
-                  }
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  const addressElement = e.currentTarget.querySelector('[data-property-address]') as HTMLElement;
-                  if (addressElement) {
-                    addressElement.style.color = '#000';
-                  }
+                  e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
                 }}>
                   <Link 
                     href={similarProperty.externalUrl || `/property/${similarProperty.id}`}
@@ -2553,60 +2562,45 @@ export default function PropertyDetailPage() {
                     style={{
                       textDecoration: 'none',
                       color: 'inherit',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      height: '100%'
+                      display: 'block'
                     }}>
                     <div style={{
                       position: 'relative',
-                      paddingTop: '100%', // 1:1 square aspect ratio
-                      backgroundColor: '#fff',
+                      aspectRatio: '4/3',
+                      backgroundColor: '#f5f5f5',
                       overflow: 'hidden'
                     }}>
-                      <div style={{
-                        position: 'absolute',
-                        inset: '1.5rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}>
-                        {similarProperty.images && similarProperty.images[0] ? (
-                          <img
-                            src={typeof similarProperty.images[0] === 'string' ? similarProperty.images[0] : similarProperty.images[0].url}
-                            alt={similarProperty.address}
-                            style={{
-                              position: 'absolute',
-                              inset: 0,
-                              width: '100%',
-                              height: '100%',
-                              objectFit: 'cover',
-                              borderRadius: '4px'
-                            }}
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y1ZjVmNSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjIwMCIgeT0iMTUwIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiI+SW1hZ2Ugbm90IGF2YWlsYWJsZTwvdGV4dD48L3N2Zz4=';
-                            }}
-                          />
-                        ) : (
-                          <div style={{
-                            position: 'absolute',
-                            inset: 0,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: '#999',
-                            fontSize: '12px'
-                          }}>
-                            No image
-                          </div>
-                        )}
-                      </div>
+                      {similarProperty.images && similarProperty.images[0] ? (
+                        <img
+                          src={typeof similarProperty.images[0] === 'string' ? similarProperty.images[0] : similarProperty.images[0].url}
+                          alt={similarProperty.address}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover'
+                          }}
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y1ZjVmNSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjIwMCIgeT0iMTUwIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiI+SW1hZ2Ugbm90IGF2YWlsYWJsZTwvdGV4dD48L3N2Zz4=';
+                          }}
+                        />
+                      ) : (
+                        <div style={{
+                          width: '100%',
+                          height: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#999'
+                        }}>
+                          No image
+                        </div>
+                      )}
                       {!similarProperty.externalUrl && (
                         <div style={{
                           position: 'absolute',
-                          top: '8px',
-                          right: '8px',
-                          zIndex: 1
+                          top: '16px',
+                          right: '16px'
                         }}>
                           <SavePropertyButton property={{
                             id: similarProperty.id,
@@ -2629,37 +2623,33 @@ export default function PropertyDetailPage() {
                       {similarProperty.listingType === 'lease' && (
                         <div style={{
                           position: 'absolute',
-                          top: '2rem',
-                          left: '2rem',
-                          backgroundColor: '#AF272F',
+                          top: '16px',
+                          left: '16px',
+                          backgroundColor: '#000',
                           color: '#fff',
-                          padding: '6px 12px',
-                          borderRadius: '4px',
+                          padding: '4px 12px',
                           fontSize: '12px',
                           fontWeight: '600',
-                          textTransform: 'uppercase',
                           letterSpacing: '0.5px',
-                          zIndex: 1
+                          textTransform: 'uppercase'
                         }}>
                           For Lease
                         </div>
                       )}
-                      {similarProperty.status === 'unconditional' && (
+                      {similarProperty.status === 'new' && (
                         <div style={{
                           position: 'absolute',
-                          top: '2rem',
-                          left: '2rem',
-                          backgroundColor: '#FFA500',
+                          top: '16px',
+                          left: '16px',
+                          backgroundColor: '#000',
                           color: '#fff',
-                          padding: '6px 12px',
-                          borderRadius: '4px',
+                          padding: '4px 12px',
                           fontSize: '12px',
                           fontWeight: '600',
-                          textTransform: 'uppercase',
                           letterSpacing: '0.5px',
-                          zIndex: 1
+                          textTransform: 'uppercase'
                         }}>
-                          Under Contract
+                          New
                         </div>
                       )}
                     </div>
@@ -2681,42 +2671,32 @@ export default function PropertyDetailPage() {
                       }}>
                         {similarProperty.suburb}
                       </p>
-                      <h3
-                        data-property-address="true"
-                        style={{
-                          fontSize: '1rem',
-                          fontWeight: '600',
-                          color: '#000',
-                          letterSpacing: '-0.01em',
-                          lineHeight: '1.3',
-                          marginBottom: '0.5rem',
-                          transition: 'color 0.2s ease'
-                        }}>
+                      <h3 style={{
+                        fontSize: '1rem',
+                        fontWeight: '600',
+                        color: '#000',
+                        letterSpacing: '-0.01em',
+                        lineHeight: '1.3',
+                        marginBottom: '0.5rem',
+                        transition: 'color 0.3s ease'
+                      }}>
                         {similarProperty.address?.replace(', VIC', '')}
                       </h3>
                       <div style={{
                         display: 'flex',
-                        gap: '12px',
-                        fontSize: '0.75rem',
+                        gap: '0.75rem',
+                        fontSize: '0.875rem',
                         color: '#666',
                         marginBottom: '0.5rem'
                       }}>
-                        {similarProperty.bedrooms && (
-                          <span>{similarProperty.bedrooms} bed</span>
-                        )}
-                        {similarProperty.bathrooms && (
-                          <span>{similarProperty.bathrooms} bath</span>
-                        )}
-                        {similarProperty.carSpaces !== undefined && (
-                          <span>{similarProperty.carSpaces} car</span>
-                        )}
+                        <span>{similarProperty.bedrooms} bed</span>
+                        <span>{similarProperty.bathrooms} bath</span>
+                        <span>{similarProperty.carSpaces} car</span>
                       </div>
                       <p style={{
-                        fontSize: '1.125rem',
-                        fontWeight: '600',
-                        color: '#000',
-                        letterSpacing: '-0.01em',
-                        marginBottom: similarProperty.agency ? '0.5rem' : 0
+                        fontSize: '0.875rem',
+                        color: '#666',
+                        marginTop: 'auto'
                       }}>
                         {similarProperty.listingType === 'lease'
                           ? (similarProperty.leasePriceDisplay || (similarProperty.leasePrice ? `$${similarProperty.leasePrice} per week` : 'Contact Agent'))
@@ -2726,8 +2706,8 @@ export default function PropertyDetailPage() {
                       {similarProperty.agency && (
                         <div style={{
                           fontSize: '0.75rem',
-                          color: '#666',
-                          marginTop: 'auto'
+                          color: '#999',
+                          marginTop: '4px'
                         }}>
                           <span style={{ fontWeight: '500' }}>{similarProperty.agency}</span>
                           {similarProperty.agentName && (

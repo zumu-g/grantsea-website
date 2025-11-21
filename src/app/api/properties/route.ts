@@ -216,8 +216,8 @@ export async function GET(request: NextRequest) {
     }
     
 
-    // Cache the results with extended TTL
-    propertyCache.setCachedProperties(cacheParams, transformedProperties, 30 * 60 * 1000); // 30 minutes
+    // Cache the results aggressively for faster loading
+    propertyCache.setCachedProperties(cacheParams, transformedProperties, 2 * 60 * 1000); // 2 minutes for balance
     
     const response = NextResponse.json({
       success: true,
@@ -226,8 +226,8 @@ export async function GET(request: NextRequest) {
       properties: transformedProperties // For backward compatibility
     });
     
-    // Add cache headers for fresh data
-    response.headers.set('Cache-Control', 'public, max-age=600, s-maxage=1200'); // 10min browser, 20min CDN
+    // Add aggressive cache headers for speed
+    response.headers.set('Cache-Control', 'public, max-age=120, s-maxage=300'); // 2min browser, 5min CDN
     response.headers.set('X-Cache-Status', 'MISS');
     return response;
 

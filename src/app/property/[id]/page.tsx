@@ -204,60 +204,60 @@ export default function PropertyDetailPage() {
             })
           );
           
-          // Fetch similar properties
+          // Fetch similar properties - simplified robust approach
           if (data.data.suburb) {
-            // For lease properties, fetch from market search to show other agencies
-            if (data.data.listingType === 'lease' && data.data.address) {
-              // Extract street name from address
-              const streetMatch = data.data.address.match(/^(\d+\s+)?(.+?),/);
-              const streetName = streetMatch ? streetMatch[2] : '';
-              
-              if (streetName) {
-                parallelFetches.push(
-                  fetch(`/api/properties/market-search?street=${encodeURIComponent(streetName)}&suburb=${encodeURIComponent(data.data.suburb)}&type=lease&excludeId=${data.data.id}`)
-                    .then(res => res.json())
-                    .then(marketData => {
-                      if (marketData.success && marketData.properties) {
-                        setSimilarProperties(marketData.properties);
-                      }
-                    })
-                    .catch(err => {
-                      console.error('[PropertyPage] Failed to load market properties:', err);
-                      // Fallback to internal properties
-                      return fetch(`/api/properties?suburb=${data.data.suburb}&limit=10&type=${data.data.listingType || 'all'}`)
-                        .then(res => res.json())
-                        .then(similarData => {
-                          if (similarData.success && similarData.data) {
-                            const filteredProperties = similarData.data.filter((p: Property) => 
-                              p.id !== data.data.id && 
-                              p.listingType === data.data.listingType
-                            );
-                            setSimilarProperties(filteredProperties.slice(0, 3));
-                          }
-                        });
-                    })
-                );
-              }
-            } else {
-              // For sale properties, use internal properties
-              parallelFetches.push(
-                fetch(`/api/properties?suburb=${data.data.suburb}&limit=10&type=${data.data.listingType || 'all'}`)
-                  .then(res => res.json())
-                  .then(similarData => {
-                    if (similarData.success && similarData.data) {
-                      // Filter to only show properties of the same listing type
-                      const filteredProperties = similarData.data.filter((p: Property) => 
-                        p.id !== data.data.id && 
-                        p.listingType === data.data.listingType
-                      );
-                      setSimilarProperties(filteredProperties.slice(0, 3));
+            parallelFetches.push(
+              // Try multiple sources in priority order
+              Promise.resolve().then(async () => {
+                try {
+                  // First try: Internal properties from same suburb and listing type
+                  const similarResponse = await fetch(`/api/properties?suburb=${encodeURIComponent(data.data.suburb)}&limit=12&type=${data.data.listingType || 'all'}`);
+                  const similarData = await similarResponse.json();
+                  
+                  if (similarData.success && similarData.data && similarData.data.length > 0) {
+                    const filteredProperties = similarData.data.filter((p: Property) => 
+                      p.id !== data.data.id
+                    );
+                    
+                    // If we have similar properties, set them
+                    if (filteredProperties.length > 0) {
+                      setSimilarProperties(filteredProperties.slice(0, 6));
+                      return;
                     }
-                  })
-                  .catch(err => {
-                    console.error('[PropertyPage] Failed to load similar properties:', err);
-                  })
-              );
-            }
+                  }
+                  
+                  // Fallback: Try market search for lease properties
+                  if (data.data.listingType === 'lease' && data.data.address) {
+                    const streetMatch = data.data.address.match(/^(\d+\s+)?(.+?),/);
+                    const streetName = streetMatch ? streetMatch[2] : '';
+                    
+                    if (streetName) {
+                      const marketResponse = await fetch(`/api/properties/market-search?street=${encodeURIComponent(streetName)}&suburb=${encodeURIComponent(data.data.suburb)}&type=lease&excludeId=${data.data.id}`);
+                      const marketData = await marketResponse.json();
+                      
+                      if (marketData.success && marketData.properties && marketData.properties.length > 0) {
+                        setSimilarProperties(marketData.properties.slice(0, 3));
+                        return;
+                      }
+                    }
+                  }
+                  
+                  // Final fallback: Get any recent properties regardless of suburb
+                  const fallbackResponse = await fetch(`/api/properties?limit=12&type=${data.data.listingType || 'all'}`);
+                  const fallbackData = await fallbackResponse.json();
+                  
+                  if (fallbackData.success && fallbackData.data) {
+                    const filteredFallback = fallbackData.data.filter((p: Property) => p.id !== data.data.id);
+                    setSimilarProperties(filteredFallback.slice(0, 3));
+                  }
+                  
+                } catch (err) {
+                  console.error('[PropertyPage] Failed to load similar properties:', err);
+                  // Set empty array to ensure section doesn't show if we can't load anything
+                  setSimilarProperties([]);
+                }
+              })
+            );
           }
           
           // Wait for all parallel fetches to complete (but don't block rendering)

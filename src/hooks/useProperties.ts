@@ -3,7 +3,8 @@ import { crmAPI, Property } from '@/services/api';
 
 // Simple cache for properties with aggressive caching
 const propertiesCache = new Map<string, { data: Property[], timestamp: number }>();
-const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes for better performance
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes for faster refresh
+const FRESH_CACHE_DURATION = 2 * 60 * 1000; // 2 minutes for super fresh data
 
 interface UsePropertiesOptions {
   suburb?: string;
@@ -40,23 +41,18 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
         type: options?.type
       });
 
-      // Check cache first
+      // Check cache first - serve immediately if very fresh
       const cached = propertiesCache.get(cacheKey);
-      if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+      if (cached && Date.now() - cached.timestamp < FRESH_CACHE_DURATION) {
         setProperties(cached.data);
         setLoading(false);
         return;
       }
 
-      // Show cached data immediately while fetching fresh data
-      if (cached) {
+      // Show cached data immediately while fetching fresh data in background
+      if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
         setProperties(cached.data);
         setLoading(false);
-        
-        // Return early if cache is still reasonably fresh (within 5 minutes)
-        if (Date.now() - cached.timestamp < 5 * 60 * 1000) {
-          return;
-        }
       }
 
       let response;
@@ -70,10 +66,11 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
           limit: options?.limit
         });
       } else if (options?.type === 'sale') {
-        // Use the specific sale endpoint
+        // Use the specific sale endpoint with optimized limit
+        const actualLimit = options?.limit || 12;
         response = await crmAPI.properties.getPropertiesForSale({
           suburb: options?.suburb,
-          limit: options?.limit
+          limit: Math.min(actualLimit, 24) // Reasonable limit for good UX
         });
       } else {
         // Get all properties (both sale and lease) with timeout protection

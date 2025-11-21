@@ -40,7 +40,7 @@ export default function BuyPageOncom() {
   });
   const [sortBy, setSortBy] = useState('newest');
   const [searchSaved, setSearchSaved] = useState(false);
-  const [currentLimit, setCurrentLimit] = useState(50);
+  const [currentLimit, setCurrentLimit] = useState(12);
   
   const { properties, loading } = useProperties({ 
     type: 'sale',
@@ -964,7 +964,7 @@ export default function BuyPageOncom() {
           paddingTop: isMobile ? '24px' : '40px',
           paddingBottom: isMobile ? '24px' : '40px'
         }}>
-          {loading ? (
+          {loading && properties.length === 0 ? (
             <PropertySkeleton count={6} isMobile={isMobile} />
           ) : sortedProperties.length === 0 ? (
             <div style={{
@@ -1016,6 +1016,8 @@ export default function BuyPageOncom() {
                         <img
                           src={typeof property.images[0] === 'string' ? property.images[0] : property.images[0].url}
                           alt={property.address}
+                          loading="lazy"
+                          decoding="async"
                           style={{
                             width: '100%',
                             height: '100%',
@@ -1138,7 +1140,7 @@ export default function BuyPageOncom() {
               marginTop: '64px'
             }}>
               <button 
-                onClick={() => setCurrentLimit(prev => prev + 50)}
+                onClick={() => setCurrentLimit(prev => prev + 12)}
                 style={{
                   padding: '16px 48px',
                   backgroundColor: '#000',

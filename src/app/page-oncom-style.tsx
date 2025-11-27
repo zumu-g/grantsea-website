@@ -931,6 +931,13 @@ export default function HomePageOncom() {
                 animation: 'spin 1s linear infinite'
               }} />
             </div>
+          ) : sortedPropertiesByDate.length === 0 ? (
+            <div style={{ textAlign: 'center', paddingTop: '40px', paddingBottom: '40px', color: '#666' }}>
+              <p>No properties available at the moment. Properties are loaded from VaultRE API.</p>
+              <p style={{ fontSize: '14px', marginTop: '8px' }}>
+                Total properties: {properties.length}, Sorted: {sortedPropertiesByDate.length}
+              </p>
+            </div>
           ) : (
             <div className="property-carousel" style={{
               overflowX: 'auto',
@@ -2017,6 +2024,13 @@ export default function HomePageOncom() {
                 margin: '0 auto',
                 animation: 'spin 1s linear infinite'
               }} />
+            </div>
+          ) : properties.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '80px 0', color: '#666' }}>
+              <p>No properties available at the moment. Properties are loaded from VaultRE API.</p>
+              <p style={{ fontSize: '14px', marginTop: '8px' }}>
+                Total properties: {properties.length}
+              </p>
             </div>
           ) : (
             <div className="property-grid" style={{

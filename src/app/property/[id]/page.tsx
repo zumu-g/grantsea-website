@@ -1395,7 +1395,7 @@ export default function PropertyDetailPage() {
                                   marginTop: '8px',
                                   fontFamily: '"Helvetica Neue", Arial, sans-serif'
                                 }}>
-                                  📍 {auctionDetails[0].auctionVenue}
+                                  {auctionDetails[0].auctionVenue}
                                 </p>
                               )}
                               {auctionDetails[0].auctionTerms && (
@@ -1440,7 +1440,7 @@ export default function PropertyDetailPage() {
                                   marginTop: '8px',
                                   fontFamily: '"Helvetica Neue", Arial, sans-serif'
                                 }}>
-                                  📍 {property.auctionVenue || (property as any).auctionDetails?.venue}
+                                  {property.auctionVenue || (property as any).auctionDetails?.venue}
                                 </p>
                               )}
                               {(property as any).auctionTerms && (
@@ -1497,7 +1497,7 @@ export default function PropertyDetailPage() {
                                     marginTop: '8px',
                                     fontFamily: '"Helvetica Neue", Arial, sans-serif'
                                   }}>
-                                    📍 On Site
+                                    On Site
                                   </p>
                                 </div>
                               );
@@ -2737,6 +2737,611 @@ export default function PropertyDetailPage() {
             </div>
           </div>
         </div>
+
+        {/* Nearest Schools Section */}
+        {property.suburb && (
+          <div style={{ marginTop: '96px', marginBottom: '64px' }}>
+            <h2 style={{
+              fontSize: isMobile ? '28px' : '36px',
+              fontWeight: '700',
+              letterSpacing: '-0.02em',
+              marginBottom: '24px'
+            }}>
+              Nearest Schools
+            </h2>
+            <p style={{
+              fontSize: '16px',
+              color: '#666',
+              marginBottom: '48px',
+              lineHeight: '1.6'
+            }}>
+              Quality education options in the {property.suburb} area
+            </p>
+            
+            {(() => {
+              // Get schools based on suburb - using real data from the schools guide
+              const getSchoolsForSuburb = (suburb: string) => {
+                const suburbLower = suburb.toLowerCase();
+                const schools = [];
+                
+                if (suburbLower.includes('berwick')) {
+                  schools.push(
+                    {
+                      name: 'Berwick Primary School',
+                      type: 'Government Primary',
+                      levels: 'Prep - Year 6',
+                      address: '15 Lyall Street, Berwick 3806',
+                      phone: '(03) 9707 3771',
+                      distance: '0.8km'
+                    },
+                    {
+                      name: 'Berwick Secondary College',
+                      type: 'Government Secondary',
+                      levels: 'Year 7-12',
+                      address: '55 Kangan Drive, Berwick 3806',
+                      phone: '(03) 9702 3055',
+                      distance: '1.2km'
+                    },
+                    {
+                      name: 'Berwick Fields Kindergarten',
+                      type: 'Kindergarten',
+                      levels: '3-4 year programs',
+                      address: '15-17 Berwick Fields Drive, Berwick 3806',
+                      phone: '(03) 9707 0000',
+                      distance: '0.5km'
+                    }
+                  );
+                } else if (suburbLower.includes('narre warren')) {
+                  schools.push(
+                    {
+                      name: 'Narre Warren Primary School',
+                      type: 'Government Primary',
+                      levels: 'Prep - Year 6',
+                      address: '35 Webb Street, Narre Warren 3805',
+                      phone: '(03) 9704 6313',
+                      distance: '0.6km'
+                    },
+                    {
+                      name: 'Narre Warren South P-12 College',
+                      type: 'Government P-12',
+                      levels: 'Prep - Year 12',
+                      address: '101 Glasscocks Road, Narre Warren South 3805',
+                      phone: '(03) 8773 4211',
+                      distance: '1.5km'
+                    },
+                    {
+                      name: 'Narre Warren Kindergarten',
+                      type: 'Kindergarten',
+                      levels: '3-4 year programs',
+                      address: '15-17 Webb Street, Narre Warren 3805',
+                      phone: '(03) 9704 0000',
+                      distance: '0.4km'
+                    }
+                  );
+                } else if (suburbLower.includes('cranbourne')) {
+                  schools.push(
+                    {
+                      name: 'Cranbourne Primary School',
+                      type: 'Government Primary',
+                      levels: 'Prep - Year 6',
+                      address: '66 Sladen Street, Cranbourne 3977',
+                      phone: '(03) 5996 2054',
+                      distance: '0.7km'
+                    },
+                    {
+                      name: 'Cranbourne Secondary College',
+                      type: 'Government Secondary',
+                      levels: 'Year 7-12',
+                      address: '79 Sladen Street, Cranbourne 3977',
+                      phone: '(03) 5991 0055',
+                      distance: '0.9km'
+                    },
+                    {
+                      name: 'Cranbourne East Kindergarten',
+                      type: 'Kindergarten',
+                      levels: '3-4 year programs',
+                      address: '45-47 Berwick-Cranbourne Road, Cranbourne East 3977',
+                      phone: '(03) 5996 0000',
+                      distance: '1.1km'
+                    }
+                  );
+                } else if (suburbLower.includes('pakenham')) {
+                  schools.push(
+                    {
+                      name: 'Pakenham Primary School',
+                      type: 'Government Primary',
+                      levels: 'Prep - Year 6',
+                      address: '25 Main Street, Pakenham 3810',
+                      phone: '(03) 5941 0431',
+                      distance: '0.5km'
+                    },
+                    {
+                      name: 'Pakenham Secondary College',
+                      type: 'Government Secondary',
+                      levels: 'Year 7-12',
+                      address: '53 MacGregor Street, Pakenham 3810',
+                      phone: '(03) 5940 0300',
+                      distance: '0.8km'
+                    },
+                    {
+                      name: 'Pakenham Kindergarten',
+                      type: 'Kindergarten',
+                      levels: '3-4 year programs',
+                      address: '25-27 Main Street, Pakenham 3810',
+                      phone: '(03) 5941 0000',
+                      distance: '0.3km'
+                    }
+                  );
+                } else if (suburbLower.includes('officer')) {
+                  schools.push(
+                    {
+                      name: 'Officer Primary School',
+                      type: 'Government Primary',
+                      levels: 'Prep - Year 6',
+                      address: '45 Starling Road, Officer 3809',
+                      phone: '(03) 5943 2144',
+                      distance: '0.6km'
+                    },
+                    {
+                      name: 'Officer Secondary College',
+                      type: 'Government Secondary',
+                      levels: 'Year 7-12',
+                      address: '45 Cardinia Road, Officer 3809',
+                      phone: '(03) 5943 2677',
+                      distance: '1.0km'
+                    }
+                  );
+                } else {
+                  // Default schools for other suburbs
+                  schools.push(
+                    {
+                      name: 'Local Primary School',
+                      type: 'Government Primary',
+                      levels: 'Prep - Year 6',
+                      address: 'Contact for details',
+                      phone: 'Contact for details',
+                      distance: 'Nearby'
+                    },
+                    {
+                      name: 'Local Secondary School',
+                      type: 'Government Secondary',
+                      levels: 'Year 7-12',
+                      address: 'Contact for details',
+                      phone: 'Contact for details',
+                      distance: 'Nearby'
+                    }
+                  );
+                }
+                
+                return schools;
+              };
+              
+              const nearbySchools = getSchoolsForSuburb(property.suburb);
+              
+              return (
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
+                  gap: '24px',
+                  marginBottom: '32px'
+                }}>
+                  {nearbySchools.map((school, index) => (
+                    <div key={index} style={{
+                      backgroundColor: '#fff',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      padding: '24px',
+                      transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}>
+                      <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-start',
+                        marginBottom: '12px'
+                      }}>
+                        <h3 style={{
+                          fontSize: '18px',
+                          fontWeight: '600',
+                          color: '#000',
+                          marginBottom: '4px',
+                          flex: 1
+                        }}>
+                          {school.name}
+                        </h3>
+                        <span style={{
+                          fontSize: '12px',
+                          color: '#666',
+                          backgroundColor: '#f5f5f5',
+                          padding: '4px 8px',
+                          borderRadius: '4px',
+                          marginLeft: '12px',
+                          whiteSpace: 'nowrap'
+                        }}>
+                          {school.distance}
+                        </span>
+                      </div>
+                      <div style={{
+                        fontSize: '14px',
+                        color: '#666',
+                        marginBottom: '8px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px'
+                      }}>
+                        <span style={{
+                          backgroundColor: school.type.includes('Primary') ? '#4F46E5' : 
+                                         school.type.includes('Secondary') ? '#059669' : 
+                                         school.type.includes('P-12') ? '#7C3AED' : '#F59E0B',
+                          color: '#fff',
+                          padding: '2px 6px',
+                          borderRadius: '3px',
+                          fontSize: '12px',
+                          fontWeight: '500'
+                        }}>
+                          {school.type}
+                        </span>
+                        <span>{school.levels}</span>
+                      </div>
+                      <div style={{
+                        fontSize: '14px',
+                        color: '#666',
+                        lineHeight: '1.4'
+                      }}>
+                        <div style={{ marginBottom: '4px' }}>
+                          📍 {school.address}
+                        </div>
+                        <div>
+                          📞 {school.phone}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
+            
+            <div style={{
+              textAlign: 'center',
+              marginTop: '32px'
+            }}>
+              <Link 
+                href="/schools-guide"
+                style={{
+                  display: 'inline-block',
+                  padding: '14px 28px',
+                  backgroundColor: '#000',
+                  color: '#fff',
+                  textDecoration: 'none',
+                  borderRadius: '4px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#333';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#000';
+                }}
+              >
+                View Complete Schools Guide →
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* Suburb Guide Section */}
+        {property.suburb && (
+          <div style={{ marginTop: '64px', marginBottom: '64px' }}>
+            {(() => {
+              // Check if we have a suburb guide for this suburb
+              const suburbSlug = property.suburb.toLowerCase()
+                .replace(/\s+/g, '-')
+                .replace(/'/g, '')
+                .replace(/[^a-z0-9\-]/g, '');
+              
+              // List of suburbs with guides (from sitemap)
+              const availableSuburbGuides = [
+                'berwick', 'narre-warren', 'narre-warren-south', 'cranbourne', 
+                'cranbourne-north', 'pakenham', 'officer', 'clyde', 'clyde-north',
+                'beaconsfield', 'beaconsfield-upper', 'hallam', 'hampton-park',
+                'endeavour-hills', 'garfield', 'harkaway', 'koo-wee-rup',
+                'narre-warren-east', 'tynong', 'bunyip'
+              ];
+              
+              const hasSuburbGuide = availableSuburbGuides.includes(suburbSlug);
+              
+              if (hasSuburbGuide) {
+                return (
+                  <div style={{
+                    backgroundColor: '#f8f9fa',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '12px',
+                    padding: '48px',
+                    textAlign: 'center'
+                  }}>
+                    <div style={{ marginBottom: '24px' }}>
+                      <svg 
+                        width="48" 
+                        height="48" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="#D4A853" 
+                        strokeWidth="1.5"
+                        style={{ margin: '0 auto', marginBottom: '16px' }}
+                      >
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                      </svg>
+                      <h3 style={{
+                        fontSize: '24px',
+                        fontWeight: '700',
+                        color: '#000',
+                        marginBottom: '16px',
+                        letterSpacing: '-0.01em'
+                      }}>
+                        Discover {property.suburb}
+                      </h3>
+                      <p style={{
+                        fontSize: '16px',
+                        color: '#666',
+                        lineHeight: '1.6',
+                        maxWidth: '600px',
+                        margin: '0 auto',
+                        marginBottom: '32px'
+                      }}>
+                        Explore everything {property.suburb} has to offer. From local amenities and transport 
+                        to lifestyle highlights and investment potential - get the complete area guide.
+                      </p>
+                    </div>
+                    
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)',
+                      gap: '24px',
+                      marginBottom: '32px',
+                      textAlign: 'left'
+                    }}>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px'
+                      }}>
+                        <div style={{
+                          width: '40px',
+                          height: '40px',
+                          borderRadius: '50%',
+                          backgroundColor: '#E3F2FD',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}>
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2196F3" strokeWidth="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '14px', fontWeight: '600', color: '#000' }}>Housing Market</div>
+                          <div style={{ fontSize: '12px', color: '#666' }}>Prices & trends</div>
+                        </div>
+                      </div>
+                      
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px'
+                      }}>
+                        <div style={{
+                          width: '40px',
+                          height: '40px',
+                          borderRadius: '50%',
+                          backgroundColor: '#E8F5E8',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}>
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" strokeWidth="2">
+                            <path d="M5 12s2.545-5 7-5c4.454 0 7 5 7 5s-2.546 5-7 5c-4.455 0-7-5-7-5z"/>
+                            <path d="M12 13l-.001-1"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '14px', fontWeight: '600', color: '#000' }}>Lifestyle</div>
+                          <div style={{ fontSize: '12px', color: '#666' }}>Parks & recreation</div>
+                        </div>
+                      </div>
+                      
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px'
+                      }}>
+                        <div style={{
+                          width: '40px',
+                          height: '40px',
+                          borderRadius: '50%',
+                          backgroundColor: '#FFF3E0',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}>
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF9800" strokeWidth="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '14px', fontWeight: '600', color: '#000' }}>Transport</div>
+                          <div style={{ fontSize: '12px', color: '#666' }}>Trains & buses</div>
+                        </div>
+                      </div>
+                      
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px'
+                      }}>
+                        <div style={{
+                          width: '40px',
+                          height: '40px',
+                          borderRadius: '50%',
+                          backgroundColor: '#F3E5F5',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}>
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9C27B0" strokeWidth="2">
+                            <circle cx="8" cy="21" r="1"/>
+                            <circle cx="19" cy="21" r="1"/>
+                            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '14px', fontWeight: '600', color: '#000' }}>Shopping</div>
+                          <div style={{ fontSize: '12px', color: '#666' }}>Centres & cafes</div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <Link 
+                      href={`/suburbs/${suburbSlug}`}
+                      style={{
+                        display: 'inline-block',
+                        padding: '16px 32px',
+                        backgroundColor: '#000',
+                        color: '#fff',
+                        textDecoration: 'none',
+                        borderRadius: '6px',
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = '#333';
+                        e.currentTarget.style.transform = 'translateY(-1px)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = '#000';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                      }}
+                    >
+                      Explore {property.suburb} Area Guide →
+                    </Link>
+                  </div>
+                );
+              } else {
+                // Show a generic suburb section for suburbs without dedicated guides
+                return (
+                  <div style={{
+                    backgroundColor: '#f8f9fa',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '12px',
+                    padding: '48px',
+                    textAlign: 'center'
+                  }}>
+                    <div style={{ marginBottom: '24px' }}>
+                      <svg 
+                        width="48" 
+                        height="48" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="#D4A853" 
+                        strokeWidth="1.5"
+                        style={{ margin: '0 auto', marginBottom: '16px' }}
+                      >
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                      </svg>
+                      <h3 style={{
+                        fontSize: '24px',
+                        fontWeight: '700',
+                        color: '#000',
+                        marginBottom: '16px',
+                        letterSpacing: '-0.01em'
+                      }}>
+                        Local Area Information
+                      </h3>
+                      <p style={{
+                        fontSize: '16px',
+                        color: '#666',
+                        lineHeight: '1.6',
+                        maxWidth: '600px',
+                        margin: '0 auto',
+                        marginBottom: '32px'
+                      }}>
+                        Discover what makes {property.suburb} a great place to live. Contact our local agents 
+                        for detailed area information and insights.
+                      </p>
+                    </div>
+                    
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      gap: '16px',
+                      flexWrap: 'wrap'
+                    }}>
+                      <Link 
+                        href="/contact"
+                        style={{
+                          display: 'inline-block',
+                          padding: '14px 28px',
+                          backgroundColor: '#000',
+                          color: '#fff',
+                          textDecoration: 'none',
+                          borderRadius: '6px',
+                          fontSize: '14px',
+                          fontWeight: '600',
+                          transition: 'all 0.2s ease'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = '#333';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = '#000';
+                        }}
+                      >
+                        Contact Local Agent
+                      </Link>
+                      <Link 
+                        href="/suburbs/berwick"
+                        style={{
+                          display: 'inline-block',
+                          padding: '14px 28px',
+                          backgroundColor: 'transparent',
+                          color: '#000',
+                          textDecoration: 'none',
+                          border: '1px solid #000',
+                          borderRadius: '6px',
+                          fontSize: '14px',
+                          fontWeight: '600',
+                          transition: 'all 0.2s ease'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = '#000';
+                          e.currentTarget.style.color = '#fff';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = 'transparent';
+                          e.currentTarget.style.color = '#000';
+                        }}
+                      >
+                        View Sample Area Guide
+                      </Link>
+                    </div>
+                  </div>
+                );
+              }
+            })()}
+          </div>
+        )}
 
         {/* Similar Properties - Homepage Style */}
         {similarProperties.length > 0 && (

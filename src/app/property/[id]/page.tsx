@@ -217,6 +217,7 @@ export default function PropertyDetailPage() {
               console.log('[PropertyPage] Auctions fetched:', auctions);
               // Filter to only include upcoming auctions
               const upcomingAuctions = auctions.filter(auction => auction.status === 'upcoming');
+              console.log('[PropertyPage] Upcoming auctions after filtering:', upcomingAuctions);
               // Sort by auction date/time (earliest first)
               if (upcomingAuctions.length > 0) {
                 const sortedAuctions = upcomingAuctions.sort((a, b) => {
@@ -224,10 +225,15 @@ export default function PropertyDetailPage() {
                   const dateB = new Date(`${b.auctionDate} ${b.auctionTime}`);
                   return dateA.getTime() - dateB.getTime();
                 });
+                console.log('[PropertyPage] Setting auction details:', sortedAuctions);
                 setAuctionDetails(sortedAuctions);
+              } else {
+                console.log('[PropertyPage] No upcoming auctions found');
+                setAuctionDetails([]);
               }
             }).catch(err => {
               console.error('[PropertyPage] Failed to load auctions:', err);
+              setAuctionDetails([]);
             })
           );
           
@@ -1309,7 +1315,32 @@ export default function PropertyDetailPage() {
 
                 {/* Auction Details - Right Column */}
                 <div>
-                  {((property as any).saleMethod === 'auction' || (property as any).methodOfSale?.name?.toLowerCase()?.includes('auction') || auctionDetails.length > 0) ? (
+                  {(() => {
+                    const isAuctionBySaleMethod = (property as any).saleMethod === 'auction';
+                    const isAuctionByMethodOfSale = (property as any).methodOfSale?.name?.toLowerCase()?.includes('auction');
+                    const hasAuctionDetails = auctionDetails.length > 0;
+                    const hasAuctionDate = (property as any).auctionDate || (property as any).auctionDetails?.dateTime;
+                    const hasAuctionVenue = (property as any).auctionVenue || (property as any).auctionDetails?.venue;
+                    
+                    const isAuction = isAuctionBySaleMethod || isAuctionByMethodOfSale || hasAuctionDetails || hasAuctionDate || hasAuctionVenue;
+                    
+                    console.log('[PropertyPage] Auction detection:', {
+                      isAuctionBySaleMethod,
+                      isAuctionByMethodOfSale,
+                      hasAuctionDetails,
+                      hasAuctionDate,
+                      hasAuctionVenue,
+                      auctionDetailsLength: auctionDetails.length,
+                      saleMethod: (property as any).saleMethod,
+                      methodOfSale: (property as any).methodOfSale,
+                      auctionDate: (property as any).auctionDate,
+                      auctionVenue: (property as any).auctionVenue,
+                      auctionDetails: auctionDetails,
+                      isAuction
+                    });
+                    
+                    return isAuction;
+                  })() ? (
                     <>
                       <h3 style={{
                         fontSize: '16px',

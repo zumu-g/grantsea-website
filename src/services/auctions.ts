@@ -95,6 +95,7 @@ export async function fetchPropertyAuctions(propertyId: string): Promise<Auction
     }
     
     const data = await response.json();
+    console.log('[fetchPropertyAuctions] API response:', data);
     const auctions = data.data || [];
     
     return auctions.map((auction: any) => ({

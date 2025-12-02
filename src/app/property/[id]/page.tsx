@@ -75,6 +75,7 @@ interface Property {
   externalUrl?: string;
 }
 
+
 // Helper function to get default features for properties without feature data
 const getDefaultFeatures = (property: Property): string[] => {
   const features: string[] = [];
@@ -1303,77 +1304,89 @@ export default function PropertyDetailPage() {
                 </div>
 
                 {/* Auction Details - Right Column */}
-                {((property as any).saleMethod === 'auction' || (property as any).methodOfSale?.name?.toLowerCase()?.includes('auction')) && (
-                  <div>
-                    <h3 style={{
-                      fontSize: '16px',
-                      fontWeight: '600',
-                      marginBottom: '12px',
-                      color: '#D4A853',
-                      textTransform: 'none',
-                      letterSpacing: 'normal',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px'
-                    }}>
-                      <svg style={{ width: '16px', height: '16px', color: '#D4A853' }} fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M6 2l3 6 5-4-3 6.5c.33 2 1.5 3.14 2.5 3.5l-2.5 4.5c-.86 1.53-3 1-3-1l-2 .5c-1 .25-1.5-.75-1-1.5L6 10 4 8z"/>
-                      </svg>
-                      Auction
-                    </h3>
-                    {(property.auctionDate || (property as any).auctionDetails?.dateTime) ? (
-                      <div style={{ marginBottom: '12px' }}>
+                <div>
+                  {((property as any).saleMethod === 'auction' || (property as any).methodOfSale?.name?.toLowerCase()?.includes('auction')) ? (
+                    <>
+                      <h3 style={{
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        marginBottom: '12px',
+                        color: '#D4A853',
+                        textTransform: 'none',
+                        letterSpacing: 'normal',
+                        fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px'
+                      }}>
+                        <svg style={{ width: '16px', height: '16px', color: '#D4A853' }} fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M6 2l3 6 5-4-3 6.5c.33 2 1.5 3.14 2.5 3.5l-2.5 4.5c-.86 1.53-3 1-3-1l-2 .5c-1 .25-1.5-.75-1-1.5L6 10 4 8z"/>
+                        </svg>
+                        Auction
+                      </h3>
+                      {(property.auctionDate || (property as any).auctionDetails?.dateTime) ? (
+                        <div style={{ marginBottom: '12px' }}>
+                          <p style={{
+                            fontSize: '16px',
+                            color: '#D4A853',
+                            fontWeight: '400',
+                            fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                          }}>
+                            {new Date(property.auctionDate || (property as any).auctionDetails?.dateTime).toLocaleDateString('en-AU', {
+                              weekday: 'long',
+                              day: 'numeric',
+                              month: 'long',
+                              year: 'numeric',
+                              hour: 'numeric',
+                              minute: 'numeric',
+                              timeZone: 'Australia/Melbourne'
+                            })}
+                          </p>
+                          {(property.auctionVenue || (property as any).auctionDetails?.venue) && (
+                            <p style={{
+                              fontSize: '16px',
+                              color: '#D4A853',
+                              marginTop: '8px',
+                              fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                            }}>
+                              📍 {property.auctionVenue || (property as any).auctionDetails?.venue}
+                            </p>
+                          )}
+                          {(property as any).auctionTerms && (
+                            <p style={{
+                              fontSize: '14px',
+                              color: '#D4A853',
+                              marginTop: '8px',
+                              fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                              fontStyle: 'italic'
+                            }}>
+                              Terms: {(property as any).auctionTerms}
+                            </p>
+                          )}
+                        </div>
+                      ) : (
                         <p style={{
                           fontSize: '16px',
                           color: '#D4A853',
                           fontWeight: '400',
                           fontFamily: '"Helvetica Neue", Arial, sans-serif'
                         }}>
-                          {new Date(property.auctionDate || (property as any).auctionDetails?.dateTime).toLocaleDateString('en-AU', {
-                            weekday: 'long',
-                            day: 'numeric',
-                            month: 'long',
-                            year: 'numeric',
-                            hour: 'numeric',
-                            minute: 'numeric',
-                            timeZone: 'Australia/Melbourne'
-                          })}
+                          Auction details TBA
                         </p>
-                        {(property.auctionVenue || (property as any).auctionDetails?.venue) && (
-                          <p style={{
-                            fontSize: '16px',
-                            color: '#D4A853',
-                            marginTop: '8px',
-                            fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                          }}>
-                            📍 {property.auctionVenue || (property as any).auctionDetails?.venue}
-                          </p>
-                        )}
-                        {(property as any).auctionTerms && (
-                          <p style={{
-                            fontSize: '14px',
-                            color: '#D4A853',
-                            marginTop: '8px',
-                            fontFamily: '"Helvetica Neue", Arial, sans-serif',
-                            fontStyle: 'italic'
-                          }}>
-                            Terms: {(property as any).auctionTerms}
-                          </p>
-                        )}
-                      </div>
-                    ) : (
-                      <p style={{
-                        fontSize: '16px',
-                        color: '#D4A853',
-                        fontWeight: '400',
-                        fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                      }}>
-                        Auction details TBA
-                      </p>
-                    )}
-                  </div>
-                )}
+                      )}
+                    </>
+                  ) : (
+                    <div style={{
+                      fontSize: '16px',
+                      color: '#888',
+                      fontStyle: 'italic',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>
+                      {/* Show placeholder or property details for non-auction properties */}
+                      {property.listingType === 'lease' ? 'Available for lease' : 'Private sale'}
+                    </div>
+                  )}
+                </div>
 
               </div>
 

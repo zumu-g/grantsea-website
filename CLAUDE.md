@@ -773,6 +773,13 @@ CRM_ACCESS_TOKEN=nzinklyrqutvcdodhyaqyizcjflohlayxezuthan
 - Never use WebFetch for visual/layout analysis
 - Use Task agent with specific Playwright MCP instructions
 
+### Property Details Page Design Protection
+**🚨 DESIGN CHANGES REQUIRE APPROVAL** - See `PROPERTY_DETAILS_STYLE_GUIDE.md` for complete design specifications
+- **Protected Elements**: Two-column layout, gold color scheme (#D4A853), gavel icons, typography hierarchy
+- **Change Protocol**: All modifications to protected design elements require explicit approval from Stuart Grant
+- **Implementation**: Follow established design patterns and accessibility standards
+- **Covers**: Layout structure, color palette, typography system, responsive behavior, interactive elements
+
 ## Current Tech Stack
 - **Framework**: Next.js 13.5.11 with App Router
 - **Language**: TypeScript

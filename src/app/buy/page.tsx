@@ -97,7 +97,7 @@ export default function BuyPageOncom() {
     
     // Auction filter
     if (filters.auction) {
-      const isAuction = property.saleMethod === 'auction' || property.methodOfSale?.toLowerCase()?.includes('auction');
+      const isAuction = property.saleMethod === 'auction' || (property as any).methodOfSale?.name?.toLowerCase()?.includes('auction');
       if (filters.auction === 'auction' && !isAuction) return false;
       if (filters.auction === 'private' && isAuction) return false;
     }
@@ -1122,7 +1122,7 @@ export default function BuyPageOncom() {
                       </div>
 
                       {/* Auction Information */}
-                      {(property.saleMethod === 'auction' || property.methodOfSale?.toLowerCase()?.includes('auction')) && (
+                      {(property.saleMethod === 'auction' || (property as any).methodOfSale?.name?.toLowerCase()?.includes('auction')) && (
                         <div style={{
                           display: 'flex',
                           alignItems: 'center',
@@ -1137,8 +1137,8 @@ export default function BuyPageOncom() {
                             color: 'rgb(153, 92, 0)',
                             fontWeight: '500'
                           }}>
-                            {(property.auctionDate || property.auctionDetails?.dateTime) ? 
-                              `Auction ${new Date(property.auctionDate || property.auctionDetails?.dateTime).toLocaleDateString('en-AU', { 
+                            {(property.auctionDate || (property as any).auctionDetails?.dateTime) ? 
+                              `Auction ${new Date(property.auctionDate || (property as any).auctionDetails?.dateTime).toLocaleDateString('en-AU', { 
                                 weekday: 'short', 
                                 month: 'short', 
                                 day: 'numeric' 

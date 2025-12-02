@@ -1303,7 +1303,7 @@ export default function PropertyDetailPage() {
                 </div>
 
                 {/* Auction Details - Right Column */}
-                {((property as any).saleMethod === 'auction' || (property as any).methodOfSale?.toLowerCase()?.includes('auction')) && (
+                {((property as any).saleMethod === 'auction' || (property as any).methodOfSale?.name?.toLowerCase()?.includes('auction')) && (
                   <div>
                     <h3 style={{
                       fontSize: '16px',

@@ -69,7 +69,7 @@ export async function fetchPropertyOpenHomes(propertyId: string): Promise<Inspec
     }
     
     const data = await response.json();
-    const openHomes = data.data || [];
+    const openHomes = data.openHomes || data.data || [];
     
     return openHomes.map((oh: any) => ({
       id: oh.id,

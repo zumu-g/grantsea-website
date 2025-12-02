@@ -196,14 +196,18 @@ export default function PropertyDetailPage() {
           parallelFetches.push(
             fetchPropertyOpenHomes(params.id as string).then(openHomes => {
               console.log('[PropertyPage] Open homes fetched:', openHomes);
-              if (openHomes.length > 0) {
-                setProperty(prev => ({
-                  ...prev!,
-                  inspectionTimes: openHomes
-                }));
-              }
+              // Always update the property state, even if empty array
+              setProperty(prev => prev ? ({
+                ...prev,
+                inspectionTimes: openHomes || []
+              }) : null);
             }).catch(err => {
               console.error('[PropertyPage] Failed to load open homes:', err);
+              // Set empty array on error
+              setProperty(prev => prev ? ({
+                ...prev,
+                inspectionTimes: []
+              }) : null);
             })
           );
           
@@ -1305,7 +1309,7 @@ export default function PropertyDetailPage() {
 
                 {/* Auction Details - Right Column */}
                 <div>
-                  {((property as any).saleMethod === 'auction' || (property as any).methodOfSale?.name?.toLowerCase()?.includes('auction')) ? (
+                  {((property as any).saleMethod === 'auction' || (property as any).methodOfSale?.name?.toLowerCase()?.includes('auction') || auctionDetails.length > 0) ? (
                     <>
                       <h3 style={{
                         fontSize: '16px',
@@ -1324,7 +1328,47 @@ export default function PropertyDetailPage() {
                         </svg>
                         Auction
                       </h3>
-                      {(property.auctionDate || (property as any).auctionDetails?.dateTime) ? (
+                      {(auctionDetails.length > 0 && auctionDetails[0].auctionDate) ? (
+                        <div style={{ marginBottom: '12px' }}>
+                          <p style={{
+                            fontSize: '16px',
+                            color: '#D4A853',
+                            fontWeight: '400',
+                            fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                          }}>
+                            {new Date(`${auctionDetails[0].auctionDate} ${auctionDetails[0].auctionTime}`).toLocaleDateString('en-AU', {
+                              weekday: 'long',
+                              day: 'numeric',
+                              month: 'long',
+                              year: 'numeric',
+                              hour: 'numeric',
+                              minute: 'numeric',
+                              timeZone: 'Australia/Melbourne'
+                            })}
+                          </p>
+                          {auctionDetails[0].auctionVenue && (
+                            <p style={{
+                              fontSize: '16px',
+                              color: '#D4A853',
+                              marginTop: '8px',
+                              fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                            }}>
+                              📍 {auctionDetails[0].auctionVenue}
+                            </p>
+                          )}
+                          {auctionDetails[0].auctionTerms && (
+                            <p style={{
+                              fontSize: '14px',
+                              color: '#D4A853',
+                              marginTop: '8px',
+                              fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                              fontStyle: 'italic'
+                            }}>
+                              Terms: {auctionDetails[0].auctionTerms}
+                            </p>
+                          )}
+                        </div>
+                      ) : (property.auctionDate || (property as any).auctionDetails?.dateTime) ? (
                         <div style={{ marginBottom: '12px' }}>
                           <p style={{
                             fontSize: '16px',

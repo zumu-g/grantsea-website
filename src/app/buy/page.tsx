@@ -1119,6 +1119,35 @@ export default function BuyPageOncom() {
                           {formatNextInspection(property.inspectionTimes) || 'Contact agent for inspection'}
                         </p>
                       </div>
+
+                      {/* Auction Information */}
+                      {property.saleMethod === 'auction' && (
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          marginBottom: '0.5rem'
+                        }}>
+                          <svg style={{ width: '16px', height: '16px', color: 'rgb(153, 92, 0)' }} fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M6 2l3 6 5-4-3 6.5c.33 2 1.5 3.14 2.5 3.5l-2.5 4.5c-.86 1.53-3 1-3-1l-2 .5c-1 .25-1.5-.75-1-1.5L6 10 4 8z"/>
+                          </svg>
+                          <p style={{
+                            fontSize: '0.813rem',
+                            color: 'rgb(153, 92, 0)',
+                            fontWeight: '500'
+                          }}>
+                            {property.auctionDate ? 
+                              `Auction ${new Date(property.auctionDate).toLocaleDateString('en-AU', { 
+                                weekday: 'short', 
+                                month: 'short', 
+                                day: 'numeric' 
+                              })}` : 
+                              'Auction details TBA'
+                            }
+                          </p>
+                        </div>
+                      )}
+
                       <p style={{
                         fontSize: '0.875rem',
                         color: '#666',

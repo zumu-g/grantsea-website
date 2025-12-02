@@ -1225,20 +1225,26 @@ export default function PropertyDetailPage() {
                 {property.saleMethod === 'auction' && property.auctionDate && (
                   <div style={{ marginBottom: property.inspectionTimes?.length ? '24px' : 0 }}>
                     <h3 style={{
-                      fontSize: '13px',
-                      fontWeight: '700',
+                      fontSize: '16px',
+                      fontWeight: '600',
                       marginBottom: '12px',
-                      color: '#ffffff',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.1em',
-                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                      color: '#D4A853',
+                      textTransform: 'none',
+                      letterSpacing: 'normal',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px'
                     }}>
-                      AUCTION
+                      <svg style={{ width: '16px', height: '16px', color: '#D4A853' }} fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M6 2l3 6 5-4-3 6.5c.33 2 1.5 3.14 2.5 3.5l-2.5 4.5c-.86 1.53-3 1-3-1l-2 .5c-1 .25-1.5-.75-1-1.5L6 10 4 8z"/>
+                      </svg>
+                      Auction
                     </h3>
                     <p style={{
-                      fontSize: '17px',
-                      color: '#ffffff',
-                      fontWeight: '500',
+                      fontSize: '16px',
+                      color: '#D4A853',
+                      fontWeight: '400',
                       fontFamily: '"Helvetica Neue", Arial, sans-serif'
                     }}>
                       {new Date(property.auctionDate).toLocaleDateString('en-AU', {
@@ -1253,8 +1259,8 @@ export default function PropertyDetailPage() {
                     </p>
                     {property.auctionVenue && (
                       <p style={{
-                        fontSize: '13px',
-                        color: '#d4d4d4',
+                        fontSize: '16px',
+                        color: '#D4A853',
                         marginTop: '8px',
                         fontFamily: '"Helvetica Neue", Arial, sans-serif'
                       }}>

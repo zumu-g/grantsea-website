@@ -97,8 +97,9 @@ export default function BuyPageOncom() {
     
     // Auction filter
     if (filters.auction) {
-      if (filters.auction === 'auction' && property.saleMethod !== 'auction') return false;
-      if (filters.auction === 'private' && property.saleMethod === 'auction') return false;
+      const isAuction = property.saleMethod === 'auction' || property.methodOfSale?.toLowerCase()?.includes('auction');
+      if (filters.auction === 'auction' && !isAuction) return false;
+      if (filters.auction === 'private' && isAuction) return false;
     }
     
     return true;
@@ -1121,7 +1122,7 @@ export default function BuyPageOncom() {
                       </div>
 
                       {/* Auction Information */}
-                      {property.saleMethod === 'auction' && (
+                      {(property.saleMethod === 'auction' || property.methodOfSale?.toLowerCase()?.includes('auction')) && (
                         <div style={{
                           display: 'flex',
                           alignItems: 'center',
@@ -1136,8 +1137,8 @@ export default function BuyPageOncom() {
                             color: 'rgb(153, 92, 0)',
                             fontWeight: '500'
                           }}>
-                            {property.auctionDate ? 
-                              `Auction ${new Date(property.auctionDate).toLocaleDateString('en-AU', { 
+                            {(property.auctionDate || property.auctionDetails?.dateTime) ? 
+                              `Auction ${new Date(property.auctionDate || property.auctionDetails?.dateTime).toLocaleDateString('en-AU', { 
                                 weekday: 'short', 
                                 month: 'short', 
                                 day: 'numeric' 

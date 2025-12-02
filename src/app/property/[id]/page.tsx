@@ -1322,7 +1322,12 @@ export default function PropertyDetailPage() {
                     const hasAuctionDate = (property as any).auctionDate || (property as any).auctionDetails?.dateTime;
                     const hasAuctionVenue = (property as any).auctionVenue || (property as any).auctionDetails?.venue;
                     
-                    const isAuction = isAuctionBySaleMethod || isAuctionByMethodOfSale || hasAuctionDetails || hasAuctionDate || hasAuctionVenue;
+                    // Check if auction keyword appears in price display fields
+                    const priceDisplay = property?.priceDisplay?.toLowerCase() || '';
+                    const price = property?.price?.toLowerCase() || '';
+                    const hasAuctionInPrice = priceDisplay.includes('auction') || price.includes('auction');
+                    
+                    const isAuction = isAuctionBySaleMethod || isAuctionByMethodOfSale || hasAuctionDetails || hasAuctionDate || hasAuctionVenue || hasAuctionInPrice;
                     
                     console.log('[PropertyPage] Auction detection:', {
                       isAuctionBySaleMethod,
@@ -1330,6 +1335,9 @@ export default function PropertyDetailPage() {
                       hasAuctionDetails,
                       hasAuctionDate,
                       hasAuctionVenue,
+                      hasAuctionInPrice,
+                      priceDisplay: property?.priceDisplay,
+                      price: property?.price,
                       auctionDetailsLength: auctionDetails.length,
                       saleMethod: (property as any).saleMethod,
                       methodOfSale: (property as any).methodOfSale,
@@ -1359,87 +1367,170 @@ export default function PropertyDetailPage() {
                         </svg>
                         Auction
                       </h3>
-                      {(auctionDetails.length > 0 && auctionDetails[0].auctionDate) ? (
-                        <div style={{ marginBottom: '12px' }}>
-                          <p style={{
-                            fontSize: '16px',
-                            color: '#D4A853',
-                            fontWeight: '400',
-                            fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                          }}>
-                            {new Date(`${auctionDetails[0].auctionDate} ${auctionDetails[0].auctionTime}`).toLocaleDateString('en-AU', {
-                              weekday: 'long',
-                              day: 'numeric',
-                              month: 'long',
-                              year: 'numeric',
-                              hour: 'numeric',
-                              minute: 'numeric',
-                              timeZone: 'Australia/Melbourne'
-                            })}
-                          </p>
-                          {auctionDetails[0].auctionVenue && (
-                            <p style={{
-                              fontSize: '16px',
-                              color: '#D4A853',
-                              marginTop: '8px',
-                              fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                            }}>
-                              📍 {auctionDetails[0].auctionVenue}
-                            </p>
-                          )}
-                          {auctionDetails[0].auctionTerms && (
-                            <p style={{
-                              fontSize: '14px',
-                              color: '#D4A853',
-                              marginTop: '8px',
-                              fontFamily: '"Helvetica Neue", Arial, sans-serif',
-                              fontStyle: 'italic'
-                            }}>
-                              Terms: {auctionDetails[0].auctionTerms}
-                            </p>
-                          )}
-                        </div>
-                      ) : (property.auctionDate || (property as any).auctionDetails?.dateTime) ? (
-                        <div style={{ marginBottom: '12px' }}>
-                          <p style={{
-                            fontSize: '16px',
-                            color: '#D4A853',
-                            fontWeight: '400',
-                            fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                          }}>
-                            {new Date(property.auctionDate || (property as any).auctionDetails?.dateTime).toLocaleDateString('en-AU', {
-                              weekday: 'long',
-                              day: 'numeric',
-                              month: 'long',
-                              year: 'numeric',
-                              hour: 'numeric',
-                              minute: 'numeric',
-                              timeZone: 'Australia/Melbourne'
-                            })}
-                          </p>
-                          {(property.auctionVenue || (property as any).auctionDetails?.venue) && (
-                            <p style={{
-                              fontSize: '16px',
-                              color: '#D4A853',
-                              marginTop: '8px',
-                              fontFamily: '"Helvetica Neue", Arial, sans-serif'
-                            }}>
-                              📍 {property.auctionVenue || (property as any).auctionDetails?.venue}
-                            </p>
-                          )}
-                          {(property as any).auctionTerms && (
-                            <p style={{
-                              fontSize: '14px',
-                              color: '#D4A853',
-                              marginTop: '8px',
-                              fontFamily: '"Helvetica Neue", Arial, sans-serif',
-                              fontStyle: 'italic'
-                            }}>
-                              Terms: {(property as any).auctionTerms}
-                            </p>
-                          )}
-                        </div>
-                      ) : (
+                      {(() => {
+                        // First try fetched auction details
+                        if (auctionDetails.length > 0 && auctionDetails[0].auctionDate) {
+                          return (
+                            <div style={{ marginBottom: '12px' }}>
+                              <p style={{
+                                fontSize: '16px',
+                                color: '#D4A853',
+                                fontWeight: '400',
+                                fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                              }}>
+                                {new Date(`${auctionDetails[0].auctionDate} ${auctionDetails[0].auctionTime}`).toLocaleDateString('en-AU', {
+                                  weekday: 'long',
+                                  day: 'numeric',
+                                  month: 'long',
+                                  year: 'numeric',
+                                  hour: 'numeric',
+                                  minute: 'numeric',
+                                  timeZone: 'Australia/Melbourne'
+                                })}
+                              </p>
+                              {auctionDetails[0].auctionVenue && (
+                                <p style={{
+                                  fontSize: '16px',
+                                  color: '#D4A853',
+                                  marginTop: '8px',
+                                  fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                                }}>
+                                  📍 {auctionDetails[0].auctionVenue}
+                                </p>
+                              )}
+                              {auctionDetails[0].auctionTerms && (
+                                <p style={{
+                                  fontSize: '14px',
+                                  color: '#D4A853',
+                                  marginTop: '8px',
+                                  fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                                  fontStyle: 'italic'
+                                }}>
+                                  Terms: {auctionDetails[0].auctionTerms}
+                                </p>
+                              )}
+                            </div>
+                          );
+                        }
+                        
+                        // Try property auction data
+                        if (property.auctionDate || (property as any).auctionDetails?.dateTime) {
+                          return (
+                            <div style={{ marginBottom: '12px' }}>
+                              <p style={{
+                                fontSize: '16px',
+                                color: '#D4A853',
+                                fontWeight: '400',
+                                fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                              }}>
+                                {new Date(property.auctionDate || (property as any).auctionDetails?.dateTime).toLocaleDateString('en-AU', {
+                                  weekday: 'long',
+                                  day: 'numeric',
+                                  month: 'long',
+                                  year: 'numeric',
+                                  hour: 'numeric',
+                                  minute: 'numeric',
+                                  timeZone: 'Australia/Melbourne'
+                                })}
+                              </p>
+                              {(property.auctionVenue || (property as any).auctionDetails?.venue) && (
+                                <p style={{
+                                  fontSize: '16px',
+                                  color: '#D4A853',
+                                  marginTop: '8px',
+                                  fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                                }}>
+                                  📍 {property.auctionVenue || (property as any).auctionDetails?.venue}
+                                </p>
+                              )}
+                              {(property as any).auctionTerms && (
+                                <p style={{
+                                  fontSize: '14px',
+                                  color: '#D4A853',
+                                  marginTop: '8px',
+                                  fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                                  fontStyle: 'italic'
+                                }}>
+                                  Terms: {(property as any).auctionTerms}
+                                </p>
+                              )}
+                            </div>
+                          );
+                        }
+                        
+                        // Try to parse auction info from priceDisplay
+                        const priceDisplay = property?.priceDisplay || '';
+                        if (priceDisplay && priceDisplay.toLowerCase().includes('auction')) {
+                          // Parse date and time from format like "Auction 13/12/25 at 12.30 pm"
+                          const match = priceDisplay.match(/auction\s+(\d{1,2}\/\d{1,2}\/\d{2,4})\s+at\s+(.+)/i);
+                          if (match) {
+                            const dateStr = match[1];
+                            const timeStr = match[2];
+                            
+                            try {
+                              // Parse the date (assuming DD/MM/YY format)
+                              const [day, month, year] = dateStr.split('/');
+                              const fullYear = year.length === 2 ? `20${year}` : year;
+                              const auctionDateTime = new Date(`${fullYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')} ${timeStr}`);
+                              
+                              return (
+                                <div style={{ marginBottom: '12px' }}>
+                                  <p style={{
+                                    fontSize: '16px',
+                                    color: '#D4A853',
+                                    fontWeight: '400',
+                                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                                  }}>
+                                    {auctionDateTime.toLocaleDateString('en-AU', {
+                                      weekday: 'long',
+                                      day: 'numeric',
+                                      month: 'long',
+                                      year: 'numeric',
+                                      hour: 'numeric',
+                                      minute: 'numeric',
+                                      timeZone: 'Australia/Melbourne'
+                                    })}
+                                  </p>
+                                  <p style={{
+                                    fontSize: '16px',
+                                    color: '#D4A853',
+                                    marginTop: '8px',
+                                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                                  }}>
+                                    📍 On Site
+                                  </p>
+                                </div>
+                              );
+                            } catch (error) {
+                              console.error('Error parsing auction date:', error);
+                              return (
+                                <p style={{
+                                  fontSize: '16px',
+                                  color: '#D4A853',
+                                  fontWeight: '400',
+                                  fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                                }}>
+                                  {priceDisplay}
+                                </p>
+                              );
+                            }
+                          } else {
+                            // Just show the auction text as-is
+                            return (
+                              <p style={{
+                                fontSize: '16px',
+                                color: '#D4A853',
+                                fontWeight: '400',
+                                fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                              }}>
+                                {priceDisplay}
+                              </p>
+                            );
+                          }
+                        }
+                        
+                        return null;
+                      })() || (
                         <p style={{
                           fontSize: '16px',
                           color: '#D4A853',

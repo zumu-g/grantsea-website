@@ -259,21 +259,8 @@ export default function PropertyDetailPage() {
                     }
                   }
                   
-                  // Fallback: Try market search for lease properties
-                  if (data.data.listingType === 'lease' && data.data.address) {
-                    const streetMatch = data.data.address.match(/^(\d+\s+)?(.+?),/);
-                    const streetName = streetMatch ? streetMatch[2] : '';
-                    
-                    if (streetName) {
-                      const marketResponse = await fetch(`/api/properties/market-search?street=${encodeURIComponent(streetName)}&suburb=${encodeURIComponent(data.data.suburb)}&type=lease&excludeId=${data.data.id}`);
-                      const marketData = await marketResponse.json();
-                      
-                      if (marketData.success && marketData.properties && marketData.properties.length > 0) {
-                        setSimilarProperties(marketData.properties.slice(0, 3));
-                        return;
-                      }
-                    }
-                  }
+                  // For lease properties, only show VaultRE properties - NO MOCK DATA
+                  // Skip the market search fallback that returns mock data
                   
                   // Final fallback: Get any recent properties regardless of suburb
                   const fallbackResponse = await fetch(`/api/properties?limit=12&type=${data.data.listingType || 'all'}`);
@@ -3357,7 +3344,7 @@ export default function PropertyDetailPage() {
                 fontWeight: '700',
                 letterSpacing: '-0.02em'
               }}>
-                {property.listingType === 'lease' ? 'Also on the market for Lease' : 'You also might like'}
+                {property.listingType === 'lease' ? 'You also might like' : 'You also might like'}
               </h2>
               <Link href={property.listingType === 'lease' ? '/rent' : '/buy'} style={{
                 color: '#000',

@@ -9,7 +9,7 @@ interface CacheEntry<T> {
 
 class PropertyCache {
   private cache = new Map<string, CacheEntry<any>>();
-  private readonly DEFAULT_TTL = 2 * 60 * 1000; // 2 minutes for faster updates
+  private readonly DEFAULT_TTL = 90 * 1000; // 90 seconds for aggressive speed optimization
 
   /**
    * Generate a cache key based on request parameters

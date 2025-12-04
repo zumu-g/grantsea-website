@@ -3,8 +3,8 @@ import { crmAPI, Property } from '@/services/api';
 
 // Simple cache for properties with aggressive caching
 const propertiesCache = new Map<string, { data: Property[], timestamp: number }>();
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes for faster refresh
-const FRESH_CACHE_DURATION = 2 * 60 * 1000; // 2 minutes for super fresh data
+const CACHE_DURATION = 2 * 60 * 1000; // 2 minutes for faster refresh
+const FRESH_CACHE_DURATION = 30 * 1000; // 30 seconds for super fresh data
 
 interface UsePropertiesOptions {
   suburb?: string;
@@ -70,12 +70,12 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
         const actualLimit = options?.limit || 12;
         response = await crmAPI.properties.getPropertiesForSale({
           suburb: options?.suburb,
-          limit: Math.min(actualLimit, 24) // Reasonable limit for good UX
+          limit: Math.min(actualLimit, 16) // Reduced to 16 for faster loading
         });
       } else {
         // Get all properties (both sale and lease) with timeout protection
         const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Request timeout')), 3000) // Reduced from 8s to 3s
+          setTimeout(() => reject(new Error('Request timeout')), 2000) // Reduced to 2s for speed
         );
         
         const [saleResponse, leaseResponse] = await Promise.race([

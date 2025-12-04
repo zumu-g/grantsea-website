@@ -217,7 +217,7 @@ export async function GET(request: NextRequest) {
     
 
     // Cache the results aggressively for faster loading
-    propertyCache.setCachedProperties(cacheParams, transformedProperties, 2 * 60 * 1000); // 2 minutes for balance
+    propertyCache.setCachedProperties(cacheParams, transformedProperties, 90 * 1000); // 90 seconds for speed
     
     const response = NextResponse.json({
       success: true,
@@ -227,7 +227,7 @@ export async function GET(request: NextRequest) {
     });
     
     // Add aggressive cache headers for speed
-    response.headers.set('Cache-Control', 'public, max-age=120, s-maxage=300'); // 2min browser, 5min CDN
+    response.headers.set('Cache-Control', 'public, max-age=90, s-maxage=180'); // 90s browser, 3min CDN
     response.headers.set('X-Cache-Status', 'MISS');
     return response;
 

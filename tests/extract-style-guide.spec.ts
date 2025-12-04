@@ -25,35 +25,35 @@ test('Extract style guide from property page', async ({ page }) => {
         }
       },
       typography: {
-        headings: {},
-        body: {},
-        captions: {},
-        links: {}
+        headings: {} as any,
+        body: {} as any,
+        captions: {} as any,
+        links: {} as any
       },
       colors: {
-        primary: [],
-        text: [],
-        background: [],
-        borders: [],
-        shadows: []
+        primary: [] as string[],
+        text: [] as string[],
+        background: [] as string[],
+        borders: [] as string[],
+        shadows: [] as string[]
       },
       spacing: {
-        containers: [],
-        sections: [],
-        components: [],
-        grid: []
+        containers: [] as any[],
+        sections: [] as any[],
+        components: [] as any[],
+        grid: [] as any[]
       },
       components: {
-        buttons: [],
-        cards: [],
-        badges: [],
-        forms: [],
-        navigation: []
+        buttons: [] as any[],
+        cards: [] as any[],
+        badges: [] as any[],
+        forms: [] as any[],
+        navigation: [] as any[]
       },
       layout: {
-        breakpoints: [],
-        containers: [],
-        grid: []
+        breakpoints: [] as any[],
+        containers: [] as any[],
+        grid: [] as any[]
       }
     };
     
@@ -80,7 +80,7 @@ test('Extract style guide from property page', async ({ page }) => {
       if (elements.length > 0) {
         const el = elements[0];
         const style = window.getComputedStyle(el);
-        styles.typography.headings[tag] = {
+        (styles.typography.headings as any)[tag] = {
           fontSize: style.fontSize,
           fontWeight: style.fontWeight,
           fontFamily: style.fontFamily,
@@ -106,7 +106,7 @@ test('Extract style guide from property page', async ({ page }) => {
         const uniqueStyles = getUniqueStyles(elements, 3);
         uniqueStyles.forEach((item, index) => {
           const { element, style } = item;
-          styles.typography.body[`${selector}-${index + 1}`] = {
+          (styles.typography.body as any)[`${selector}-${index + 1}`] = {
             selector,
             fontSize: style.fontSize,
             fontWeight: style.fontWeight,
@@ -126,13 +126,13 @@ test('Extract style guide from property page', async ({ page }) => {
     if (links.length > 0) {
       const link = links[0];
       const style = window.getComputedStyle(link);
-      styles.typography.links = {
+      styles.typography.links = { } as any; Object.assign(styles.typography.links, {
         color: style.color,
         textDecoration: style.textDecoration,
         fontSize: style.fontSize,
         fontWeight: style.fontWeight,
         transition: style.transition
-      };
+      });
     }
     
     // Extract button styles

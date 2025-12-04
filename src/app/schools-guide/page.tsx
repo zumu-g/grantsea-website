@@ -1746,11 +1746,11 @@ function SchoolsGuidePage() {
 
   const getTypeIcon = (type: string) => {
     switch (type) {
-      case 'kindergarten': return '🧸';
-      case 'primary': return '📚';
-      case 'secondary': return '🎓';
-      case 'combined': return '🏫';
-      default: return '🏛️';
+      case 'kindergarten': return '●';
+      case 'primary': return '■';
+      case 'secondary': return '▲';
+      case 'combined': return '♦';
+      default: return '♦';
     }
   };
 
@@ -1805,7 +1805,7 @@ function SchoolsGuidePage() {
                 <div style={{
                   fontSize: '32px',
                   marginBottom: '8px'
-                }}>🧸</div>
+                }}>●</div>
                 <div style={{
                   fontSize: '20px',
                   fontWeight: '600',
@@ -1820,7 +1820,7 @@ function SchoolsGuidePage() {
                 <div style={{
                   fontSize: '32px',
                   marginBottom: '8px'
-                }}>📚</div>
+                }}>■</div>
                 <div style={{
                   fontSize: '20px',
                   fontWeight: '600',
@@ -1835,7 +1835,7 @@ function SchoolsGuidePage() {
                 <div style={{
                   fontSize: '32px',
                   marginBottom: '8px'
-                }}>🎓</div>
+                }}>▲</div>
                 <div style={{
                   fontSize: '20px',
                   fontWeight: '600',
@@ -1850,7 +1850,7 @@ function SchoolsGuidePage() {
                 <div style={{
                   fontSize: '32px',
                   marginBottom: '8px'
-                }}>🏫</div>
+                }}>♦</div>
                 <div style={{
                   fontSize: '20px',
                   fontWeight: '600',
@@ -1905,9 +1905,9 @@ function SchoolsGuidePage() {
                 flexWrap: 'wrap'
               }}>
                 {[
-                  { label: '🎯 Selective Entry', filter: () => { setSearchQuery('selective'); } },
+                  { label: '◉ Selective Entry', filter: () => { setSearchQuery('selective'); } },
                   { label: '🎵 Music Programs', filter: () => { setSelectedFeatures(['Music Excellence']); setShowAdvancedFilters(true); } },
-                  { label: '⚡ STEM Focus', filter: () => { setSelectedFeatures(['STEM Excellence']); setShowAdvancedFilters(true); } },
+                  { label: '◈ STEM Focus', filter: () => { setSelectedFeatures(['STEM Excellence']); setShowAdvancedFilters(true); } },
                   { label: '🌿 Environmental', filter: () => { setSelectedFeatures(['Environmental Education']); setShowAdvancedFilters(true); } },
                   { label: '🏃 Sports Academy', filter: () => { setSelectedFeatures(['Sports Academy']); setShowAdvancedFilters(true); } },
                   { label: '👨‍👩‍👧 Small Classes', filter: () => { setSelectedFeatures(['Small Classes']); setShowAdvancedFilters(true); } },
@@ -2516,10 +2516,10 @@ function SchoolsGuidePage() {
                         color: '#666',
                         lineHeight: '1.5'
                       }}>
-                        {kindergartens > 0 && <div>🧸 {kindergartens} Kindergarten{kindergartens > 1 ? 's' : ''}</div>}
-                        {primaries > 0 && <div>📚 {primaries} Primary</div>}
-                        {secondaries > 0 && <div>🎓 {secondaries} Secondary</div>}
-                        {combined > 0 && <div>🏫 {combined} Combined</div>}
+                        {kindergartens > 0 && <div>● {kindergartens} Kindergarten{kindergartens > 1 ? 's' : ''}</div>}
+                        {primaries > 0 && <div>■ {primaries} Primary</div>}
+                        {secondaries > 0 && <div>▲ {secondaries} Secondary</div>}
+                        {combined > 0 && <div>♦ {combined} Combined</div>}
                       </div>
                       <div style={{
                         position: 'absolute',
@@ -2952,7 +2952,7 @@ function SchoolsGuidePage() {
                   <div style={{
                     fontSize: '64px',
                     marginBottom: '24px'
-                  }}>📚</div>
+                  }}>■</div>
                   <h4 style={{
                     fontSize: '24px',
                     fontWeight: '600',
@@ -2989,7 +2989,7 @@ function SchoolsGuidePage() {
                 <div style={{
                   fontSize: '32px',
                   marginBottom: '16px'
-                }}>🧸</div>
+                }}>●</div>
                 <h3 style={{
                   fontSize: '20px',
                   fontWeight: '600',
@@ -3021,7 +3021,7 @@ function SchoolsGuidePage() {
                 <div style={{
                   fontSize: '32px',
                   marginBottom: '16px'
-                }}>📚</div>
+                }}>■</div>
                 <h3 style={{
                   fontSize: '20px',
                   fontWeight: '600',
@@ -3052,7 +3052,7 @@ function SchoolsGuidePage() {
                 <div style={{
                   fontSize: '32px',
                   marginBottom: '16px'
-                }}>🎓</div>
+                }}>▲</div>
                 <h3 style={{
                   fontSize: '20px',
                   fontWeight: '600',

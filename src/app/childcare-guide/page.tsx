@@ -351,7 +351,7 @@ function ChildcareGuidePage() {
                 <div style={{
                   fontSize: '32px',
                   marginBottom: '8px'
-                }}>👶</div>
+                }}>○</div>
                 <div style={{
                   fontSize: '20px',
                   fontWeight: '600',

@@ -47,13 +47,13 @@ export default function EndeavourHillsSuburbPage() {
   }, []);
 
   const navigationItems = [
-    { id: 'overview', label: 'Overview', icon: '🏘️' },
-    { id: 'location', label: 'Location', icon: '📍' },
-    { id: 'lifestyle', label: 'Lifestyle', icon: '🎭' },
-    { id: 'education', label: 'Education', icon: '🎓' },
-    { id: 'transport', label: 'Transport', icon: '🚉' },
-    { id: 'housing', label: 'Housing', icon: '🏡' },
-    { id: 'investment', label: 'Investment', icon: '📈' },
+    { id: 'overview', label: 'Overview', icon: '⬦' },
+    { id: 'location', label: 'Location', icon: '◦' },
+    { id: 'lifestyle', label: 'Lifestyle', icon: '◎' },
+    { id: 'education', label: 'Education', icon: '△' },
+    { id: 'transport', label: 'Transport', icon: '◐' },
+    { id: 'housing', label: 'Housing', icon: '◊' },
+    { id: 'investment', label: 'Investment', icon: '◇' },
   ];
 
   const stats = [
@@ -494,7 +494,7 @@ export default function EndeavourHillsSuburbPage() {
                 <div style={{
                   fontSize: '48px',
                   marginBottom: '16px'
-                }}>🚉</div>
+                }}>◐</div>
                 <h3 style={{
                   fontSize: '18px',
                   fontWeight: '600',
@@ -515,7 +515,7 @@ export default function EndeavourHillsSuburbPage() {
                 <div style={{
                   fontSize: '48px',
                   marginBottom: '16px'
-                }}>🚗</div>
+                }}>◌</div>
                 <h3 style={{
                   fontSize: '18px',
                   fontWeight: '600',
@@ -536,7 +536,7 @@ export default function EndeavourHillsSuburbPage() {
                 <div style={{
                   fontSize: '48px',
                   marginBottom: '16px'
-                }}>🚌</div>
+                }}>□</div>
                 <h3 style={{
                   fontSize: '18px',
                   fontWeight: '600',
@@ -698,7 +698,7 @@ export default function EndeavourHillsSuburbPage() {
                     fontSize: '16px',
                     color: '#666'
                   }}>
-                    <span style={{ color: '#002b7f', fontSize: '20px' }}>📈</span>
+                    <span style={{ color: '#002b7f', fontSize: '20px' }}>◇</span>
                     <span>{factor}</span>
                   </div>
                 ))}

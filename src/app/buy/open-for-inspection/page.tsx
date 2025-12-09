@@ -592,10 +592,10 @@ function OpenForInspectionPage() {
                                 backgroundColor: '#f8f8f8',
                                 overflow: 'hidden'
                               }}>
-                                {property?.images && property.images[0] ? (
+                                {property?.images && property.images[0]?.url ? (
                                   <img
-                                    src={property.images[0]}
-                                    alt={`${property.address?.street}, ${property.address?.suburb}`}
+                                    src={property.images[0].url}
+                                    alt={property?.address || 'Property'}
                                     style={{
                                       width: '100%',
                                       height: '100%',
@@ -676,7 +676,7 @@ function OpenForInspectionPage() {
                                   fontWeight: '500',
                                   margin: '0 0 6px 0'
                                 }}>
-                                  {property?.address?.suburb}
+                                  {property?.suburb}
                                 </p>
 
                                 {/* Address */}
@@ -691,7 +691,7 @@ function OpenForInspectionPage() {
                                     transition: 'color 0.2s ease'
                                   }}
                                 >
-                                  {property?.address?.street}
+                                  {property?.address}
                                 </h3>
 
                                 {/* Features */}
@@ -743,7 +743,7 @@ function OpenForInspectionPage() {
                                   color: '#000',
                                   margin: 0
                                 }}>
-                                  {formatPrice(property?.price)}
+                                  {property?.priceDisplay || 'Contact Agent'}
                                 </p>
                               </div>
                             </article>

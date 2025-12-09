@@ -180,95 +180,111 @@ export default function AgentDetailPage() {
     <div style={{ minHeight: '100vh', backgroundColor: '#fff' }}>
       <OncomHeader />
 
-      <main style={{ paddingTop: isMobile ? '60px' : '64px' }}>
+      <main>
 
-        {/* Hero Section - Clean, Minimal on.com Style */}
+        {/* Hero Section - Full-Width Dramatic Photo */}
         <section style={{
-          padding: isMobile ? '60px 20px 80px' : '100px max(2rem, 3.33vw) 120px',
-          maxWidth: '1440px',
-          margin: '0 auto'
+          position: 'relative',
+          height: isMobile ? '100vh' : '90vh',
+          minHeight: isMobile ? '600px' : '700px',
+          maxHeight: '900px',
+          backgroundColor: '#000',
+          overflow: 'hidden'
         }}>
+          {/* Large Agent Photo - Full Bleed */}
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : '400px 1fr',
-            gap: isMobile ? '40px' : '80px',
-            alignItems: 'start'
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 1
           }}>
-            {/* Agent Photo - Large, Square */}
+            <Image
+              src={agent.photo}
+              alt={agent.name}
+              fill
+              style={{
+                objectFit: 'cover',
+                objectPosition: 'center top'
+              }}
+              priority
+            />
+            {/* Gradient Overlay */}
             <div style={{
-              position: 'relative',
-              aspectRatio: '1',
-              backgroundColor: '#f5f5f5',
-              overflow: 'hidden'
-            }}>
-              <Image
-                src={agent.photo}
-                alt={agent.name}
-                fill
-                style={{ objectFit: 'cover' }}
-                priority
-              />
-            </div>
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: '70%',
+              background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)',
+              zIndex: 2
+            }} />
+          </div>
 
-            {/* Agent Info */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center'
-            }}>
+          {/* Agent Info Overlay - Bottom Left */}
+          <div style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            padding: isMobile ? '40px 24px' : '80px max(2rem, 3.33vw)',
+            zIndex: 3
+          }}>
+            <div style={{ maxWidth: '1440px', margin: '0 auto' }}>
               <p style={{
-                fontSize: '13px',
-                fontWeight: '400',
-                color: '#666',
+                fontSize: '12px',
+                fontWeight: '500',
+                color: 'rgba(255,255,255,0.7)',
                 textTransform: 'uppercase',
-                letterSpacing: '1.5px',
+                letterSpacing: '2px',
                 marginBottom: '16px'
               }}>
                 Property Partner
               </p>
 
               <h1 style={{
-                fontSize: isMobile ? '40px' : '64px',
+                fontSize: isMobile ? '48px' : isTablet ? '64px' : '80px',
                 fontWeight: '300',
                 letterSpacing: '-0.03em',
-                lineHeight: '1.05',
-                marginBottom: '20px',
-                color: '#000'
+                lineHeight: '1',
+                marginBottom: '16px',
+                color: '#fff'
               }}>
                 {agent.name}
               </h1>
 
               <p style={{
-                fontSize: isMobile ? '18px' : '22px',
+                fontSize: isMobile ? '18px' : '24px',
                 fontWeight: '300',
-                color: '#333',
-                marginBottom: '32px',
+                color: 'rgba(255,255,255,0.8)',
+                marginBottom: '40px',
                 lineHeight: '1.4'
               }}>
                 {agent.position}
               </p>
 
-              {/* Quick Stats Row */}
+              {/* Quick Stats Row - On Dark */}
               <div style={{
                 display: 'flex',
-                gap: isMobile ? '24px' : '48px',
+                gap: isMobile ? '32px' : '64px',
                 marginBottom: '40px',
                 flexWrap: 'wrap'
               }}>
                 <div>
                   <div style={{
-                    fontSize: isMobile ? '28px' : '36px',
-                    fontWeight: '300',
+                    fontSize: isMobile ? '36px' : '48px',
+                    fontWeight: '200',
                     letterSpacing: '-0.02em',
-                    color: '#000'
+                    color: '#fff'
                   }}>
                     {agent.stats.soldThisYear}
                   </div>
                   <div style={{
-                    fontSize: '12px',
-                    color: '#666',
+                    fontSize: '11px',
+                    color: 'rgba(255,255,255,0.6)',
                     textTransform: 'uppercase',
-                    letterSpacing: '0.5px',
+                    letterSpacing: '1px',
                     marginTop: '4px'
                   }}>
                     Sales this year
@@ -276,18 +292,18 @@ export default function AgentDetailPage() {
                 </div>
                 <div>
                   <div style={{
-                    fontSize: isMobile ? '28px' : '36px',
-                    fontWeight: '300',
+                    fontSize: isMobile ? '36px' : '48px',
+                    fontWeight: '200',
                     letterSpacing: '-0.02em',
-                    color: '#000'
+                    color: '#fff'
                   }}>
                     {agent.stats.auctionClearanceRate}
                   </div>
                   <div style={{
-                    fontSize: '12px',
-                    color: '#666',
+                    fontSize: '11px',
+                    color: 'rgba(255,255,255,0.6)',
                     textTransform: 'uppercase',
-                    letterSpacing: '0.5px',
+                    letterSpacing: '1px',
                     marginTop: '4px'
                   }}>
                     Clearance rate
@@ -295,21 +311,40 @@ export default function AgentDetailPage() {
                 </div>
                 <div>
                   <div style={{
-                    fontSize: isMobile ? '28px' : '36px',
-                    fontWeight: '300',
+                    fontSize: isMobile ? '36px' : '48px',
+                    fontWeight: '200',
                     letterSpacing: '-0.02em',
-                    color: '#000'
+                    color: '#fff'
                   }}>
                     {agent.stats.avgDaysOnMarket}
                   </div>
                   <div style={{
-                    fontSize: '12px',
-                    color: '#666',
+                    fontSize: '11px',
+                    color: 'rgba(255,255,255,0.6)',
                     textTransform: 'uppercase',
-                    letterSpacing: '0.5px',
+                    letterSpacing: '1px',
                     marginTop: '4px'
                   }}>
                     Avg days on market
+                  </div>
+                </div>
+                <div>
+                  <div style={{
+                    fontSize: isMobile ? '36px' : '48px',
+                    fontWeight: '200',
+                    letterSpacing: '-0.02em',
+                    color: '#fff'
+                  }}>
+                    {agent.stats.totalSalesValue}
+                  </div>
+                  <div style={{
+                    fontSize: '11px',
+                    color: 'rgba(255,255,255,0.6)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px',
+                    marginTop: '4px'
+                  }}>
+                    Total sales value
                   </div>
                 </div>
               </div>
@@ -327,8 +362,8 @@ export default function AgentDetailPage() {
                     alignItems: 'center',
                     gap: '10px',
                     padding: '16px 32px',
-                    backgroundColor: '#000',
-                    color: '#fff',
+                    backgroundColor: '#fff',
+                    color: '#000',
                     textDecoration: 'none',
                     fontSize: '15px',
                     fontWeight: '500',
@@ -336,10 +371,10 @@ export default function AgentDetailPage() {
                     transition: 'all 0.2s ease'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#333';
+                    e.currentTarget.style.backgroundColor = '#f0f0f0';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '#000';
+                    e.currentTarget.style.backgroundColor = '#fff';
                   }}
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -354,9 +389,9 @@ export default function AgentDetailPage() {
                     alignItems: 'center',
                     gap: '10px',
                     padding: '16px 32px',
-                    backgroundColor: '#fff',
-                    color: '#000',
-                    border: '1.5px solid #000',
+                    backgroundColor: 'transparent',
+                    color: '#fff',
+                    border: '1.5px solid rgba(255,255,255,0.5)',
                     fontSize: '15px',
                     fontWeight: '500',
                     borderRadius: '500px',
@@ -364,10 +399,12 @@ export default function AgentDetailPage() {
                     transition: 'all 0.2s ease'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#f5f5f5';
+                    e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                    e.currentTarget.style.borderColor = '#fff';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '#fff';
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)';
                   }}
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

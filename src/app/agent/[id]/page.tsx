@@ -254,495 +254,403 @@ export default function AgentDetailPage() {
                 {agent.position}
               </p>
 
-              {/* Quick Stats - 2x2 Grid */}
+              {/* Bio */}
               <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(2, 1fr)',
-                gap: '32px',
-                marginBottom: '48px',
-                paddingBottom: '48px',
-                borderBottom: '1px solid #e5e5e5'
+                fontSize: '16px',
+                lineHeight: '1.8',
+                color: '#444',
+                whiteSpace: 'pre-line',
+                marginBottom: '40px'
               }}>
-                <div>
-                  <div style={{
-                    fontSize: isMobile ? '40px' : '56px',
-                    fontWeight: '200',
-                    letterSpacing: '-0.02em',
-                    color: '#000',
-                    lineHeight: '1'
-                  }}>
-                    {agent.stats.soldThisYear}
-                  </div>
-                  <div style={{
-                    fontSize: '12px',
-                    color: '#666',
-                    textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                    marginTop: '8px'
-                  }}>
-                    Sales this year
-                  </div>
-                </div>
-                <div>
-                  <div style={{
-                    fontSize: isMobile ? '40px' : '56px',
-                    fontWeight: '200',
-                    letterSpacing: '-0.02em',
-                    color: '#000',
-                    lineHeight: '1'
-                  }}>
-                    {agent.stats.auctionClearanceRate}
-                  </div>
-                  <div style={{
-                    fontSize: '12px',
-                    color: '#666',
-                    textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                    marginTop: '8px'
-                  }}>
-                    Clearance rate
-                  </div>
-                </div>
-                <div>
-                  <div style={{
-                    fontSize: isMobile ? '40px' : '56px',
-                    fontWeight: '200',
-                    letterSpacing: '-0.02em',
-                    color: '#000',
-                    lineHeight: '1'
-                  }}>
-                    {agent.stats.avgDaysOnMarket}
-                  </div>
-                  <div style={{
-                    fontSize: '12px',
-                    color: '#666',
-                    textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                    marginTop: '8px'
-                  }}>
-                    Avg days on market
-                  </div>
-                </div>
-                <div>
-                  <div style={{
-                    fontSize: isMobile ? '40px' : '56px',
-                    fontWeight: '200',
-                    letterSpacing: '-0.02em',
-                    color: '#000',
-                    lineHeight: '1'
-                  }}>
-                    {agent.stats.totalSalesValue}
-                  </div>
-                  <div style={{
-                    fontSize: '12px',
-                    color: '#666',
-                    textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                    marginTop: '8px'
-                  }}>
-                    Total sales value
-                  </div>
-                </div>
+                {agent.bio}
               </div>
 
-              {/* Contact Buttons */}
+              {/* Contact Details */}
               <div style={{
                 display: 'flex',
+                flexDirection: 'column',
                 gap: '12px',
+                marginBottom: '32px'
+              }}>
+                <a
+                  href={`tel:${agent.phone}`}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '16px',
+                    fontWeight: '400'
+                  }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  </svg>
+                  {agent.phone}
+                </a>
+                <a
+                  href={`mailto:${agent.email}`}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '16px',
+                    fontWeight: '400'
+                  }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                  {agent.email}
+                </a>
+              </div>
+
+              {/* Contact Button */}
+              <button
+                onClick={() => setShowContactForm(true)}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '10px',
+                  padding: '16px 32px',
+                  backgroundColor: '#000',
+                  color: '#fff',
+                  border: 'none',
+                  fontSize: '15px',
+                  fontWeight: '500',
+                  borderRadius: '500px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  width: isMobile ? '100%' : 'auto'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#333';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#000';
+                }}
+              >
+                Get in touch
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* What's Your Home Worth Section */}
+        <section style={{
+          padding: isMobile ? '60px 20px' : '100px max(2rem, 3.33vw)',
+          backgroundColor: '#f9f9f9'
+        }}>
+          <div style={{
+            maxWidth: '800px',
+            margin: '0 auto',
+            textAlign: 'center'
+          }}>
+            <h2 style={{
+              fontSize: isMobile ? '32px' : '48px',
+              fontWeight: '300',
+              letterSpacing: '-0.02em',
+              marginBottom: '16px',
+              color: '#000',
+              lineHeight: '1.1'
+            }}>
+              Like to know what your home is worth?
+            </h2>
+            <p style={{
+              fontSize: '16px',
+              color: '#666',
+              marginBottom: '48px',
+              lineHeight: '1.6'
+            }}>
+              Get a free, no-obligation property appraisal from {agent.name.split(' ')[0]}.
+            </p>
+
+            {/* Contact Form */}
+            <form onSubmit={handleSubmit} style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '16px',
+              maxWidth: '500px',
+              margin: '0 auto'
+            }}>
+              <input
+                type="text"
+                placeholder="Your name"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                required
+                style={{
+                  padding: '16px 20px',
+                  fontSize: '15px',
+                  border: '1px solid #e0e0e0',
+                  borderRadius: '0',
+                  backgroundColor: '#fff',
+                  outline: 'none',
+                  transition: 'border-color 0.2s ease'
+                }}
+                onFocus={(e) => e.currentTarget.style.borderColor = '#000'}
+                onBlur={(e) => e.currentTarget.style.borderColor = '#e0e0e0'}
+              />
+              <input
+                type="email"
+                placeholder="Email address"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                required
+                style={{
+                  padding: '16px 20px',
+                  fontSize: '15px',
+                  border: '1px solid #e0e0e0',
+                  borderRadius: '0',
+                  backgroundColor: '#fff',
+                  outline: 'none',
+                  transition: 'border-color 0.2s ease'
+                }}
+                onFocus={(e) => e.currentTarget.style.borderColor = '#000'}
+                onBlur={(e) => e.currentTarget.style.borderColor = '#e0e0e0'}
+              />
+              <input
+                type="tel"
+                placeholder="Phone number"
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                style={{
+                  padding: '16px 20px',
+                  fontSize: '15px',
+                  border: '1px solid #e0e0e0',
+                  borderRadius: '0',
+                  backgroundColor: '#fff',
+                  outline: 'none',
+                  transition: 'border-color 0.2s ease'
+                }}
+                onFocus={(e) => e.currentTarget.style.borderColor = '#000'}
+                onBlur={(e) => e.currentTarget.style.borderColor = '#e0e0e0'}
+              />
+              <input
+                type="text"
+                placeholder="Property address"
+                value={formData.inquiry}
+                onChange={(e) => setFormData({ ...formData, inquiry: e.target.value })}
+                required
+                style={{
+                  padding: '16px 20px',
+                  fontSize: '15px',
+                  border: '1px solid #e0e0e0',
+                  borderRadius: '0',
+                  backgroundColor: '#fff',
+                  outline: 'none',
+                  transition: 'border-color 0.2s ease'
+                }}
+                onFocus={(e) => e.currentTarget.style.borderColor = '#000'}
+                onBlur={(e) => e.currentTarget.style.borderColor = '#e0e0e0'}
+              />
+              <button
+                type="submit"
+                style={{
+                  padding: '16px 32px',
+                  fontSize: '15px',
+                  fontWeight: '500',
+                  backgroundColor: '#000',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '500px',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.2s ease',
+                  marginTop: '8px'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#333'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#000'}
+              >
+                Request appraisal
+              </button>
+            </form>
+
+            {/* Contact Info */}
+            <div style={{
+              marginTop: '48px',
+              paddingTop: '48px',
+              borderTop: '1px solid #e0e0e0'
+            }}>
+              <p style={{
+                fontSize: '14px',
+                color: '#666',
+                marginBottom: '16px'
+              }}>
+                Or contact {agent.name.split(' ')[0]} directly
+              </p>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                gap: '32px',
                 flexWrap: 'wrap'
               }}>
                 <a
                   href={`tel:${agent.phone}`}
                   style={{
-                    display: 'inline-flex',
+                    display: 'flex',
                     alignItems: 'center',
-                    gap: '10px',
-                    padding: '16px 32px',
-                    backgroundColor: '#000',
-                    color: '#fff',
+                    gap: '8px',
+                    color: '#000',
                     textDecoration: 'none',
-                    fontSize: '15px',
-                    fontWeight: '500',
-                    borderRadius: '500px',
-                    transition: 'all 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#333';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '#000';
+                    fontSize: '15px'
                   }}
                 >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                   </svg>
                   {agent.phone}
                 </a>
-                <button
-                  onClick={() => setShowContactForm(true)}
+                <a
+                  href={`mailto:${agent.email}`}
                   style={{
-                    display: 'inline-flex',
+                    display: 'flex',
                     alignItems: 'center',
-                    gap: '10px',
-                    padding: '16px 32px',
-                    backgroundColor: '#fff',
+                    gap: '8px',
                     color: '#000',
-                    border: '1.5px solid #000',
-                    fontSize: '15px',
-                    fontWeight: '500',
-                    borderRadius: '500px',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#f5f5f5';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '#fff';
+                    textDecoration: 'none',
+                    fontSize: '15px'
                   }}
                 >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                     <polyline points="22,6 12,13 2,6"/>
                   </svg>
-                  Send message
-                </button>
+                  {agent.email}
+                </a>
               </div>
             </div>
           </div>
         </section>
 
-        {/* About Section */}
-        <section style={{
-          padding: isMobile ? '60px 20px' : '80px max(2rem, 3.33vw)',
-          backgroundColor: '#f9f9f9'
-        }}>
-          <div style={{
-            maxWidth: '1440px',
-            margin: '0 auto'
-          }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-              gap: isMobile ? '40px' : '80px'
-            }}>
-              {/* Bio */}
-              <div>
-                <h2 style={{
-                  fontSize: isMobile ? '28px' : '36px',
-                  fontWeight: '300',
-                  letterSpacing: '-0.02em',
-                  marginBottom: '32px',
-                  color: '#000'
-                }}>
-                  About {agent.name.split(' ')[0]}
-                </h2>
-                <div style={{
-                  fontSize: '16px',
-                  lineHeight: '1.8',
-                  color: '#444',
-                  whiteSpace: 'pre-line'
-                }}>
-                  {agent.bio}
-                </div>
-              </div>
-
-              {/* Expertise & Achievements */}
-              <div>
-                <div style={{ marginBottom: '48px' }}>
-                  <h3 style={{
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                    color: '#666',
-                    marginBottom: '24px'
-                  }}>
-                    Areas of expertise
-                  </h3>
-                  <div style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: '10px'
-                  }}>
-                    {agent.specialties.map((specialty: string) => (
-                      <span key={specialty} style={{
-                        padding: '10px 20px',
-                        backgroundColor: '#fff',
-                        fontSize: '14px',
-                        color: '#333',
-                        border: '1px solid #e5e5e5'
-                      }}>
-                        {specialty}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h3 style={{
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                    color: '#666',
-                    marginBottom: '24px'
-                  }}>
-                    Recognition
-                  </h3>
-                  <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '12px'
-                  }}>
-                    {agent.achievements.map((achievement: string) => (
-                      <div key={achievement} style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '12px',
-                        fontSize: '15px',
-                        color: '#333'
-                      }}>
-                        <div style={{
-                          width: '6px',
-                          height: '6px',
-                          backgroundColor: '#000',
-                          borderRadius: '50%',
-                          flexShrink: 0
-                        }} />
-                        {achievement}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Performance Stats - Full Width */}
-        <section style={{
-          padding: isMobile ? '60px 20px' : '80px max(2rem, 3.33vw)',
-          backgroundColor: '#000',
-          color: '#fff'
-        }}>
-          <div style={{
-            maxWidth: '1440px',
-            margin: '0 auto'
-          }}>
-            <h2 style={{
-              fontSize: isMobile ? '28px' : '36px',
-              fontWeight: '300',
-              letterSpacing: '-0.02em',
-              marginBottom: isMobile ? '40px' : '60px',
-              textAlign: 'center'
-            }}>
-              Performance
-            </h2>
-
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
-              gap: isMobile ? '40px' : '0',
-              textAlign: 'center'
-            }}>
-              <div style={{
-                borderRight: isMobile ? 'none' : '1px solid rgba(255,255,255,0.15)',
-                padding: '0 20px'
-              }}>
-                <div style={{
-                  fontSize: isMobile ? '48px' : '72px',
-                  fontWeight: '200',
-                  letterSpacing: '-0.03em',
-                  marginBottom: '12px',
-                  lineHeight: '1'
-                }}>
-                  {agent.stats.propertiesSold}
-                </div>
-                <div style={{
-                  fontSize: '13px',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px',
-                  opacity: 0.7
-                }}>
-                  Properties sold
-                </div>
-              </div>
-
-              <div style={{
-                borderRight: isMobile ? 'none' : '1px solid rgba(255,255,255,0.15)',
-                padding: '0 20px'
-              }}>
-                <div style={{
-                  fontSize: isMobile ? '48px' : '72px',
-                  fontWeight: '200',
-                  letterSpacing: '-0.03em',
-                  marginBottom: '12px',
-                  lineHeight: '1'
-                }}>
-                  {agent.stats.totalSalesValue}
-                </div>
-                <div style={{
-                  fontSize: '13px',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px',
-                  opacity: 0.7
-                }}>
-                  Total sales value
-                </div>
-              </div>
-
-              <div style={{
-                borderRight: isMobile ? 'none' : '1px solid rgba(255,255,255,0.15)',
-                padding: '0 20px'
-              }}>
-                <div style={{
-                  fontSize: isMobile ? '48px' : '72px',
-                  fontWeight: '200',
-                  letterSpacing: '-0.03em',
-                  marginBottom: '12px',
-                  lineHeight: '1'
-                }}>
-                  {agent.stats.avgSellingPrice}
-                </div>
-                <div style={{
-                  fontSize: '13px',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px',
-                  opacity: 0.7
-                }}>
-                  Avg. of asking price
-                </div>
-              </div>
-
-              <div style={{ padding: '0 20px' }}>
-                <div style={{
-                  fontSize: isMobile ? '48px' : '72px',
-                  fontWeight: '200',
-                  letterSpacing: '-0.03em',
-                  marginBottom: '12px',
-                  lineHeight: '1'
-                }}>
-                  {agent.yearsExperience}+
-                </div>
-                <div style={{
-                  fontSize: '13px',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px',
-                  opacity: 0.7
-                }}>
-                  Years experience
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Current Listings */}
+        {/* Current Listings - Homepage "New to market" Style */}
         {agentProperties.length > 0 && (
           <section style={{
-            padding: isMobile ? '60px 20px' : '100px max(2rem, 3.33vw)'
+            padding: isMobile ? '60px 0 60px 20px' : '100px 0 100px max(2rem, 3.33vw)'
           }}>
             <div style={{
               maxWidth: '1440px',
-              margin: '0 auto'
+              margin: '0 auto',
+              paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)'
+            }}>
+              <h2 style={{
+                fontSize: isMobile ? '36px' : '48px',
+                fontWeight: '300',
+                letterSpacing: '-0.02em',
+                marginBottom: isMobile ? '32px' : '48px',
+                color: '#000',
+                lineHeight: '1.1'
+              }}>
+                Current listings
+              </h2>
+            </div>
+
+            {/* Horizontal Scrolling Carousel */}
+            <div style={{
+              overflowX: 'auto',
+              overflowY: 'hidden',
+              scrollSnapType: 'x mandatory',
+              scrollBehavior: 'smooth',
+              WebkitOverflowScrolling: 'touch',
+              msOverflowStyle: 'none',
+              scrollbarWidth: 'none',
+              paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+              paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)'
             }}>
               <div style={{
                 display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'flex-end',
-                marginBottom: isMobile ? '32px' : '48px'
-              }}>
-                <div>
-                  <h2 style={{
-                    fontSize: isMobile ? '28px' : '36px',
-                    fontWeight: '300',
-                    letterSpacing: '-0.02em',
-                    color: '#000',
-                    marginBottom: '8px'
-                  }}>
-                    Current listings
-                  </h2>
-                  <p style={{
-                    fontSize: '15px',
-                    color: '#666'
-                  }}>
-                    {agent.stats.currentListings} properties currently on the market
-                  </p>
-                </div>
-                <Link href="/buy" style={{
-                  display: isMobile ? 'none' : 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  fontSize: '14px',
-                  color: '#000',
-                  textDecoration: 'none',
-                  fontWeight: '500'
-                }}>
-                  View all properties
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
-                </Link>
-              </div>
-
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
-                gap: '24px'
+                gap: isMobile ? '16px' : '24px',
+                paddingBottom: '16px'
               }}>
                 {agentProperties.map((property) => (
-                  <Link key={property.id} href={`/property/${property.id}`} style={{
-                    textDecoration: 'none',
-                    color: 'inherit'
+                  <div key={property.id} style={{
+                    position: 'relative',
+                    flex: isMobile ? '0 0 85%' : isTablet ? '0 0 calc(50% - 12px)' : '0 0 calc(33.333% - 16px)',
+                    minWidth: isMobile ? '320px' : '380px',
+                    backgroundColor: '#fff',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                    transition: 'transform 0.2s ease',
+                    cursor: 'pointer',
+                    scrollSnapAlign: 'start',
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    const addressElement = e.currentTarget.querySelector('[data-property-address]') as HTMLElement;
+                    if (addressElement) {
+                      addressElement.style.color = '#AF272F';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    const addressElement = e.currentTarget.querySelector('[data-property-address]') as HTMLElement;
+                    if (addressElement) {
+                      addressElement.style.color = '#000';
+                    }
                   }}>
-                    <article style={{
-                      backgroundColor: '#fff',
-                      transition: 'transform 0.2s ease',
-                      cursor: 'pointer'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-4px)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)';
+                    <Link href={`/property/${property.id}`} style={{
+                      textDecoration: 'none',
+                      color: 'inherit',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      height: '100%'
                     }}>
                       <div style={{
                         position: 'relative',
-                        aspectRatio: '4/3',
-                        backgroundColor: '#f5f5f5',
+                        paddingTop: '100%',
+                        backgroundColor: '#fff',
                         overflow: 'hidden'
                       }}>
-                        {property.images && property.images[0] ? (
-                          <Image
-                            src={typeof property.images[0] === 'string' ? property.images[0] : property.images[0].url}
-                            alt={property.address}
-                            fill
-                            style={{ objectFit: 'cover' }}
-                          />
-                        ) : (
-                          <div style={{
-                            width: '100%',
-                            height: '100%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: '#999',
-                            fontSize: '14px'
-                          }}>
-                            No image
-                          </div>
-                        )}
                         <div style={{
                           position: 'absolute',
-                          top: '12px',
-                          right: '12px'
+                          inset: '1.5rem',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}>
+                          {property.images && property.images[0] ? (
+                            <img
+                              src={typeof property.images[0] === 'string' ? property.images[0] : property.images[0].url}
+                              alt={property.address}
+                              style={{
+                                position: 'absolute',
+                                inset: 0,
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                borderRadius: '4px'
+                              }}
+                            />
+                          ) : (
+                            <div style={{
+                              position: 'absolute',
+                              inset: 0,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              color: '#999',
+                              fontSize: '12px'
+                            }}>
+                              No image
+                            </div>
+                          )}
+                        </div>
+                        <div style={{
+                          position: 'absolute',
+                          top: '8px',
+                          right: '8px',
+                          zIndex: 1
                         }}>
                           <SavePropertyButton property={property} />
                         </div>
                       </div>
 
-                      <div style={{ padding: '20px 0' }}>
+                      <div style={{ padding: '20px' }}>
                         <p style={{
                           fontSize: '12px',
                           color: '#666',
@@ -752,13 +660,17 @@ export default function AgentDetailPage() {
                         }}>
                           {property.suburb}
                         </p>
-                        <h3 style={{
-                          fontSize: '16px',
-                          fontWeight: '400',
-                          marginBottom: '12px',
-                          lineHeight: '1.3',
-                          color: '#000'
-                        }}>
+                        <h3
+                          data-property-address
+                          style={{
+                            fontSize: '16px',
+                            fontWeight: '400',
+                            marginBottom: '12px',
+                            lineHeight: '1.3',
+                            color: '#000',
+                            transition: 'color 0.2s ease'
+                          }}
+                        >
                           {property.address?.replace(', VIC', '').replace(' VIC', '')}
                         </h3>
                         <div style={{
@@ -780,30 +692,9 @@ export default function AgentDetailPage() {
                           {property.priceDisplay || 'Contact Agent'}
                         </p>
                       </div>
-                    </article>
-                  </Link>
+                    </Link>
+                  </div>
                 ))}
-              </div>
-
-              <div style={{
-                textAlign: 'center',
-                marginTop: '40px',
-                display: isMobile ? 'block' : 'none'
-              }}>
-                <Link href="/buy" style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '14px 28px',
-                  backgroundColor: '#000',
-                  color: '#fff',
-                  textDecoration: 'none',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  borderRadius: '500px'
-                }}>
-                  View all properties
-                </Link>
               </div>
             </div>
           </section>

@@ -402,23 +402,34 @@ export default function OncomHeader() {
             </div>
             {/* Research Dropdown */}
             <div style={{ position: 'relative' }}>
-              <button 
-                onMouseEnter={() => setShowResearchDropdown(true)}
-                onMouseLeave={() => setShowResearchDropdown(false)}
+              <button
                 style={{
                   background: 'none',
                   border: 'none',
                   color: isHomePage && !isScrolled ? '#fff' : '#000',
+                  textDecoration: 'none',
                   fontSize: '14px',
                   fontWeight: '500',
                   padding: '8px 12px',
+                  position: 'relative',
+                  outline: 'none',
+                  borderBottom: '2px solid transparent',
+                  transition: 'all 0.3s ease',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '4px',
-                  outline: 'none',
-                  borderBottom: '2px solid transparent',
-                  transition: 'border-color 0.3s ease'
+                  gap: '4px'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderBottomColor = isHomePage && !isScrolled ? '#fff' : '#000';
+                  setShowResearchDropdown(true);
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderBottomColor = 'transparent';
+                }}
+                onFocus={(e) => {
+                  e.currentTarget.style.outline = 'none';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}
               >
                 Research

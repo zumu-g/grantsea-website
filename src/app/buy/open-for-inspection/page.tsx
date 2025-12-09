@@ -512,7 +512,7 @@ function OpenForInspectionPage() {
               </div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
-                {Object.entries(groupedOpenHomes).map(([dateKey, group]) => (
+                {Object.entries(groupedOpenHomes).map(([dateKey, group]: [string, { date: Date; homes: any[] }]) => (
                   <div key={dateKey}>
                     {/* Date Header */}
                     <div style={{

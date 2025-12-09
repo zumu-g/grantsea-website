@@ -74,8 +74,8 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
         });
       } else {
         // Get all properties (both sale and lease) with timeout protection
-        const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Request timeout')), 2000) // Reduced to 2s for speed
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('Request timeout')), 15000) // 15 seconds for production API
         );
         
         const [saleResponse, leaseResponse] = await Promise.race([
@@ -120,6 +120,7 @@ export function useProperties(options?: UsePropertiesOptions): UsePropertiesRetu
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
       // Set empty array instead of mock data
+      console.error('API Error:', err);
       setProperties([]);
     } finally {
       setLoading(false);

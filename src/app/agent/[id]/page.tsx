@@ -5,11 +5,11 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import OncomHeader from '@/components/OncomHeader';
+import OncomFooter from '@/components/OncomFooter';
 import SavePropertyButton from '@/components/SavePropertyButton';
 import { useProperties } from '@/hooks/useProperties';
-import { formatPrice } from '@/services/api';
 
-// Agent data structure inspired by The Agency but with on.com styling
+// Agent data structure with on.com styling
 const mockAgents: Record<string, any> = {
   'stuart-grant': {
     id: 'stuart-grant',
@@ -28,9 +28,7 @@ const mockAgents: Record<string, any> = {
 
 Known for his strategic approach and genuine care for his clients, Stuart has built a reputation as the region's most trusted property advisor. His deep local knowledge, combined with innovative marketing strategies, consistently delivers exceptional results that exceed expectations.
 
-Stuart's commitment to excellence has earned him recognition as the #1 agent in the Casey/Cardinia region, with a 94% auction clearance rate that speaks to his negotiation skills and market insight.
-
-Beyond his professional achievements, Stuart is deeply invested in the local community, supporting local schools, sporting clubs, and community initiatives that make Casey and Cardinia great places to live.`,
+Stuart's commitment to excellence has earned him recognition as the #1 agent in the Casey/Cardinia region, with a 94% auction clearance rate that speaks to his negotiation skills and market insight.`,
     specialties: [
       'Residential Sales',
       'Luxury Properties',
@@ -54,7 +52,7 @@ Beyond his professional achievements, Stuart is deeply invested in the local com
       auctionClearanceRate: '94%',
       currentListings: 8,
       soldThisYear: 35,
-      avgSellingPrice: '105% of asking'
+      avgSellingPrice: '105%'
     },
     testimonials: [
       {
@@ -101,9 +99,7 @@ Beyond his professional achievements, Stuart is deeply invested in the local com
     clearanceRate: '91%',
     bio: `Sarah Thompson brings passion, expertise, and a personal touch to every property transaction. With 8 years of experience in the Casey and Cardinia markets, she has built a reputation for delivering exceptional results while making the buying and selling process enjoyable for her clients.
 
-Sarah's approach combines thorough market knowledge with innovative marketing strategies and genuine care for her clients' needs. Her attention to detail and commitment to communication ensures every client feels supported throughout their property journey.
-
-Ranked in the top 10% of agents nationally, Sarah's success is built on trust, integrity, and a deep understanding of what makes each property unique. Her clients appreciate her honest advice, professional approach, and ability to achieve outstanding results in any market condition.`,
+Sarah's approach combines thorough market knowledge with innovative marketing strategies and genuine care for her clients' needs. Her attention to detail and commitment to communication ensures every client feels supported throughout their property journey.`,
     specialties: [
       'Family Homes',
       'New Home Sales',
@@ -126,7 +122,7 @@ Ranked in the top 10% of agents nationally, Sarah's success is built on trust, i
       auctionClearanceRate: '91%',
       currentListings: 6,
       soldThisYear: 28,
-      avgSellingPrice: '102% of asking'
+      avgSellingPrice: '102%'
     },
     testimonials: [
       {
@@ -147,295 +143,239 @@ export default function AgentDetailPage() {
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
-  const [activeSection, setActiveSection] = useState('about');
-  
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    inquiry: '',
+    message: ''
+  });
+
   const agent = mockAgents[params.id as string] || mockAgents['stuart-grant'];
-  const { properties } = useProperties();
-  
-  // Filter properties for this agent (mock - in reality would filter by agent ID)
+  const { properties } = useProperties({ type: 'sale', limit: 6 });
+
+  // Filter properties for this agent
   const agentProperties = properties.slice(0, agent.stats.currentListings);
-  const soldProperties = properties.slice(0, 6).map(p => ({ ...p, status: 'sold' }));
 
   useEffect(() => {
     const checkDevice = () => {
       setIsMobile(window.innerWidth <= 768);
       setIsTablet(window.innerWidth > 768 && window.innerWidth <= 1024);
     };
-    
+
     checkDevice();
     window.addEventListener('resize', checkDevice);
     return () => window.removeEventListener('resize', checkDevice);
   }, []);
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle form submission
+    console.log('Form submitted:', formData);
+    setShowContactForm(false);
+    setFormData({ name: '', email: '', phone: '', inquiry: '', message: '' });
+  };
+
   return (
-    <>
+    <div style={{ minHeight: '100vh', backgroundColor: '#fff' }}>
       <OncomHeader />
-      
-      <main style={{ paddingTop: isMobile ? '60px' : '64px', minHeight: '100vh', backgroundColor: '#fff' }}>
-        
-        {/* Hero Section - The Agency Style */}
+
+      <main style={{ paddingTop: isMobile ? '60px' : '64px' }}>
+
+        {/* Hero Section - Clean, Minimal on.com Style */}
         <section style={{
-          position: 'relative',
-          height: isMobile ? '60vh' : '70vh',
-          backgroundColor: '#f5f5f5',
-          overflow: 'hidden',
-          width: '100vw',
-          marginLeft: 'calc(-50vw + 50%)',
-          marginRight: 'calc(-50vw + 50%)'
+          padding: isMobile ? '60px 20px 80px' : '100px max(2rem, 3.33vw) 120px',
+          maxWidth: '1440px',
+          margin: '0 auto'
         }}>
-          {/* Background Image */}
           <div style={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${agent.heroImage || '/images/agent-hero-bg.jpg'})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }} />
-          
-          {/* Content */}
-          <div style={{
-            position: 'relative',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            maxWidth: '1440px',
-            margin: '0 auto',
-            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
-            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)'
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : '400px 1fr',
+            gap: isMobile ? '40px' : '80px',
+            alignItems: 'start'
           }}>
+            {/* Agent Photo - Large, Square */}
+            <div style={{
+              position: 'relative',
+              aspectRatio: '1',
+              backgroundColor: '#f5f5f5',
+              overflow: 'hidden'
+            }}>
+              <Image
+                src={agent.photo}
+                alt={agent.name}
+                fill
+                style={{ objectFit: 'cover' }}
+                priority
+              />
+            </div>
+
+            {/* Agent Info */}
             <div style={{
               display: 'flex',
-              alignItems: 'center',
-              gap: isMobile ? '24px' : '48px',
-              flexDirection: isMobile ? 'column' : 'row',
-              textAlign: isMobile ? 'center' : 'left'
+              flexDirection: 'column',
+              justifyContent: 'center'
             }}>
-              {/* Agent Photo - Full Width */}
+              <p style={{
+                fontSize: '13px',
+                fontWeight: '400',
+                color: '#666',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+                marginBottom: '16px'
+              }}>
+                Property Partner
+              </p>
+
+              <h1 style={{
+                fontSize: isMobile ? '40px' : '64px',
+                fontWeight: '300',
+                letterSpacing: '-0.03em',
+                lineHeight: '1.05',
+                marginBottom: '20px',
+                color: '#000'
+              }}>
+                {agent.name}
+              </h1>
+
+              <p style={{
+                fontSize: isMobile ? '18px' : '22px',
+                fontWeight: '300',
+                color: '#333',
+                marginBottom: '32px',
+                lineHeight: '1.4'
+              }}>
+                {agent.position}
+              </p>
+
+              {/* Quick Stats Row */}
               <div style={{
-                width: isMobile ? '200px' : '280px',
-                height: isMobile ? '120px' : '160px',
-                borderRadius: '8px',
-                overflow: 'hidden',
-                backgroundColor: '#fff',
-                border: '4px solid #fff',
-                flexShrink: 0
+                display: 'flex',
+                gap: isMobile ? '24px' : '48px',
+                marginBottom: '40px',
+                flexWrap: 'wrap'
               }}>
-                <Image
-                  src={agent.photo}
-                  alt={agent.name}
-                  width={280}
-                  height={160}
+                <div>
+                  <div style={{
+                    fontSize: isMobile ? '28px' : '36px',
+                    fontWeight: '300',
+                    letterSpacing: '-0.02em',
+                    color: '#000'
+                  }}>
+                    {agent.stats.soldThisYear}
+                  </div>
+                  <div style={{
+                    fontSize: '12px',
+                    color: '#666',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                    marginTop: '4px'
+                  }}>
+                    Sales this year
+                  </div>
+                </div>
+                <div>
+                  <div style={{
+                    fontSize: isMobile ? '28px' : '36px',
+                    fontWeight: '300',
+                    letterSpacing: '-0.02em',
+                    color: '#000'
+                  }}>
+                    {agent.stats.auctionClearanceRate}
+                  </div>
+                  <div style={{
+                    fontSize: '12px',
+                    color: '#666',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                    marginTop: '4px'
+                  }}>
+                    Clearance rate
+                  </div>
+                </div>
+                <div>
+                  <div style={{
+                    fontSize: isMobile ? '28px' : '36px',
+                    fontWeight: '300',
+                    letterSpacing: '-0.02em',
+                    color: '#000'
+                  }}>
+                    {agent.stats.avgDaysOnMarket}
+                  </div>
+                  <div style={{
+                    fontSize: '12px',
+                    color: '#666',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                    marginTop: '4px'
+                  }}>
+                    Avg days on market
+                  </div>
+                </div>
+              </div>
+
+              {/* Contact Buttons - Pill Shape */}
+              <div style={{
+                display: 'flex',
+                gap: '12px',
+                flexWrap: 'wrap'
+              }}>
+                <a
+                  href={`tel:${agent.phone}`}
                   style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover'
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    padding: '16px 32px',
+                    backgroundColor: '#000',
+                    color: '#fff',
+                    textDecoration: 'none',
+                    fontSize: '15px',
+                    fontWeight: '500',
+                    borderRadius: '500px',
+                    transition: 'all 0.2s ease'
                   }}
-                />
-              </div>
-              
-              {/* Agent Info */}
-              <div style={{ color: '#fff' }}>
-                <p style={{
-                  fontSize: isMobile ? '14px' : '16px',
-                  fontWeight: '300',
-                  marginBottom: '8px',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px'
-                }}>
-                  Property Partner
-                </p>
-                <h1 style={{
-                  fontSize: isMobile ? '40px' : '64px',
-                  fontWeight: '300',
-                  letterSpacing: '-0.02em',
-                  marginBottom: '16px',
-                  lineHeight: '1.1'
-                }}>
-                  {agent.name}
-                </h1>
-                <p style={{
-                  fontSize: isMobile ? '18px' : '24px',
-                  fontWeight: '300',
-                  marginBottom: '16px'
-                }}>
-                  {agent.position}
-                </p>
-                <div style={{
-                  display: 'flex',
-                  flexDirection: isMobile ? 'column' : 'row',
-                  gap: isMobile ? '8px' : '32px',
-                  alignItems: isMobile ? 'center' : 'flex-start',
-                  fontSize: '16px'
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontWeight: '600' }}>{agent.ranking}</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontWeight: '600' }}>{agent.clearanceRate}</span>
-                    <span style={{ fontWeight: '300' }}>Auction Clearance</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Bar */}
-        <section style={{
-          backgroundColor: '#000',
-          color: '#fff',
-          padding: isMobile ? '20px 0' : '24px 0'
-        }}>
-          <div style={{
-            maxWidth: '1440px',
-            margin: '0 auto',
-            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
-            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexDirection: isMobile ? 'column' : 'row',
-            gap: isMobile ? '16px' : '0'
-          }}>
-            <div style={{
-              display: 'flex',
-              gap: isMobile ? '16px' : '32px',
-              flexDirection: isMobile ? 'column' : 'row',
-              textAlign: isMobile ? 'center' : 'left'
-            }}>
-              <a href={`tel:${agent.phone}`} style={{
-                color: '#fff',
-                textDecoration: 'none',
-                fontSize: '18px',
-                fontWeight: '400'
-              }}>
-                Call {agent.phone}
-              </a>
-              <a href={`mailto:${agent.email}`} style={{
-                color: '#fff',
-                textDecoration: 'none',
-                fontSize: '18px',
-                fontWeight: '400'
-              }}>
-                {agent.email}
-              </a>
-            </div>
-            <button
-              onClick={() => setShowContactForm(true)}
-              style={{
-                backgroundColor: '#fff',
-                color: '#000',
-                border: 'none',
-                padding: '12px 24px',
-                fontSize: '16px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#f0f0f0';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = '#fff';
-              }}
-            >
-              Request Appraisal
-            </button>
-          </div>
-        </section>
-
-        {/* Stats Section */}
-        <section style={{
-          padding: isMobile ? '60px 0' : '80px 0',
-          backgroundColor: '#f8f8f8'
-        }}>
-          <div style={{
-            maxWidth: '1440px',
-            margin: '0 auto',
-            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
-            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)'
-          }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : isTablet ? 'repeat(3, 1fr)' : 'repeat(4, 1fr)',
-              gap: isMobile ? '40px' : '60px',
-              textAlign: 'center'
-            }}>
-              <div>
-                <div style={{
-                  fontSize: isMobile ? '32px' : '48px',
-                  fontWeight: '300',
-                  letterSpacing: '-0.02em',
-                  marginBottom: '8px',
-                  color: '#000'
-                }}>
-                  {agent.stats.soldThisYear}
-                </div>
-                <div style={{
-                  fontSize: '14px',
-                  color: '#666',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
-                }}>
-                  Sold This Year
-                </div>
-              </div>
-              <div>
-                <div style={{
-                  fontSize: isMobile ? '32px' : '48px',
-                  fontWeight: '300',
-                  letterSpacing: '-0.02em',
-                  marginBottom: '8px',
-                  color: '#000'
-                }}>
-                  {agent.stats.auctionClearanceRate}
-                </div>
-                <div style={{
-                  fontSize: '14px',
-                  color: '#666',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
-                }}>
-                  Auction Clearance
-                </div>
-              </div>
-              <div>
-                <div style={{
-                  fontSize: isMobile ? '32px' : '48px',
-                  fontWeight: '300',
-                  letterSpacing: '-0.02em',
-                  marginBottom: '8px',
-                  color: '#000'
-                }}>
-                  {agent.stats.avgDaysOnMarket}
-                </div>
-                <div style={{
-                  fontSize: '14px',
-                  color: '#666',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
-                }}>
-                  Days on Market
-                </div>
-              </div>
-              <div>
-                <div style={{
-                  fontSize: isMobile ? '32px' : '48px',
-                  fontWeight: '300',
-                  letterSpacing: '-0.02em',
-                  marginBottom: '8px',
-                  color: '#000'
-                }}>
-                  {agent.stats.totalSalesValue}
-                </div>
-                <div style={{
-                  fontSize: '14px',
-                  color: '#666',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
-                }}>
-                  Total Sales
-                </div>
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#333';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#000';
+                  }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  </svg>
+                  {agent.phone}
+                </a>
+                <button
+                  onClick={() => setShowContactForm(true)}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    padding: '16px 32px',
+                    backgroundColor: '#fff',
+                    color: '#000',
+                    border: '1.5px solid #000',
+                    fontSize: '15px',
+                    fontWeight: '500',
+                    borderRadius: '500px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#f5f5f5';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#fff';
+                  }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                  Send message
+                </button>
               </div>
             </div>
           </div>
@@ -443,360 +383,479 @@ export default function AgentDetailPage() {
 
         {/* About Section */}
         <section style={{
-          padding: isMobile ? '80px 0' : '120px 0'
+          padding: isMobile ? '60px 20px' : '80px max(2rem, 3.33vw)',
+          backgroundColor: '#f9f9f9'
         }}>
           <div style={{
             maxWidth: '1440px',
-            margin: '0 auto',
-            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
-            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)'
+            margin: '0 auto'
           }}>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : '2fr 1fr',
-              gap: isMobile ? '48px' : '80px'
+              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+              gap: isMobile ? '40px' : '80px'
             }}>
-              {/* Main Content */}
+              {/* Bio */}
               <div>
                 <h2 style={{
-                  fontSize: isMobile ? '36px' : '48px',
+                  fontSize: isMobile ? '28px' : '36px',
                   fontWeight: '300',
                   letterSpacing: '-0.02em',
                   marginBottom: '32px',
-                  lineHeight: '1.2'
+                  color: '#000'
                 }}>
                   About {agent.name.split(' ')[0]}
                 </h2>
                 <div style={{
-                  fontSize: isMobile ? '16px' : '18px',
-                  lineHeight: '1.7',
-                  color: '#333',
+                  fontSize: '16px',
+                  lineHeight: '1.8',
+                  color: '#444',
                   whiteSpace: 'pre-line'
                 }}>
                   {agent.bio}
                 </div>
+              </div>
 
-                {/* Specialties */}
-                <div style={{ marginTop: '48px' }}>
+              {/* Expertise & Achievements */}
+              <div>
+                <div style={{ marginBottom: '48px' }}>
                   <h3 style={{
-                    fontSize: '24px',
-                    fontWeight: '400',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px',
+                    color: '#666',
                     marginBottom: '24px'
                   }}>
-                    Areas of Expertise
+                    Areas of expertise
                   </h3>
                   <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                    gap: '16px'
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '10px'
                   }}>
                     {agent.specialties.map((specialty: string) => (
-                      <div key={specialty} style={{
-                        padding: '16px',
-                        backgroundColor: '#f8f8f8',
+                      <span key={specialty} style={{
+                        padding: '10px 20px',
+                        backgroundColor: '#fff',
                         fontSize: '14px',
-                        textAlign: 'center',
-                        fontWeight: '400'
+                        color: '#333',
+                        border: '1px solid #e5e5e5'
                       }}>
                         {specialty}
-                      </div>
+                      </span>
                     ))}
                   </div>
                 </div>
-              </div>
 
-              {/* Sidebar */}
-              <div>
-                {/* Achievements */}
-                <div style={{
-                  backgroundColor: '#f8f8f8',
-                  padding: '32px',
-                  marginBottom: '32px'
-                }}>
+                <div>
                   <h3 style={{
-                    fontSize: '20px',
-                    fontWeight: '400',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px',
+                    color: '#666',
                     marginBottom: '24px'
                   }}>
-                    Professional Recognition
+                    Recognition
                   </h3>
-                  <ul style={{
-                    listStyle: 'none',
-                    padding: 0,
-                    margin: 0
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '12px'
                   }}>
                     {agent.achievements.map((achievement: string) => (
-                      <li key={achievement} style={{
+                      <div key={achievement} style={{
                         display: 'flex',
-                        alignItems: 'flex-start',
+                        alignItems: 'center',
                         gap: '12px',
-                        marginBottom: '16px',
-                        fontSize: '14px',
-                        lineHeight: '1.5'
+                        fontSize: '15px',
+                        color: '#333'
                       }}>
-                        <span style={{
-                          width: '4px',
-                          height: '4px',
+                        <div style={{
+                          width: '6px',
+                          height: '6px',
                           backgroundColor: '#000',
                           borderRadius: '50%',
-                          marginTop: '8px',
                           flexShrink: 0
                         }} />
                         {achievement}
-                      </li>
+                      </div>
                     ))}
-                  </ul>
-                </div>
-
-                {/* Contact Card */}
-                <div style={{
-                  backgroundColor: '#000',
-                  color: '#fff',
-                  padding: '32px',
-                  textAlign: 'center'
-                }}>
-                  <h3 style={{
-                    fontSize: '20px',
-                    fontWeight: '400',
-                    marginBottom: '20px'
-                  }}>
-                    Get in Touch
-                  </h3>
-                  <div style={{
-                    marginBottom: '24px',
-                    lineHeight: '1.6'
-                  }}>
-                    <div style={{ marginBottom: '8px' }}>{agent.phone}</div>
-                    <div>{agent.email}</div>
                   </div>
-                  <button
-                    onClick={() => setShowContactForm(true)}
-                    style={{
-                      width: '100%',
-                      padding: '12px',
-                      backgroundColor: '#fff',
-                      color: '#000',
-                      border: 'none',
-                      fontSize: '14px',
-                      fontWeight: '500',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Send Message
-                  </button>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Now Selling Section */}
+        {/* Performance Stats - Full Width */}
         <section style={{
-          padding: isMobile ? '80px 0' : '120px 0',
-          backgroundColor: '#f8f8f8'
+          padding: isMobile ? '60px 20px' : '80px max(2rem, 3.33vw)',
+          backgroundColor: '#000',
+          color: '#fff'
         }}>
           <div style={{
             maxWidth: '1440px',
-            margin: '0 auto',
-            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
-            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)'
+            margin: '0 auto'
           }}>
-            <div style={{
-              textAlign: 'center',
-              marginBottom: isMobile ? '48px' : '64px'
+            <h2 style={{
+              fontSize: isMobile ? '28px' : '36px',
+              fontWeight: '300',
+              letterSpacing: '-0.02em',
+              marginBottom: isMobile ? '40px' : '60px',
+              textAlign: 'center'
             }}>
-              <h2 style={{
-                fontSize: isMobile ? '36px' : '48px',
-                fontWeight: '300',
-                letterSpacing: '-0.02em',
-                marginBottom: '16px'
-              }}>
-                Now Selling
-              </h2>
-              <p style={{
-                fontSize: '18px',
-                color: '#666'
-              }}>
-                {agent.stats.currentListings} properties currently on the market
-              </p>
-            </div>
+              Performance
+            </h2>
 
             <div style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
-              gap: '24px'
+              gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+              gap: isMobile ? '40px' : '0',
+              textAlign: 'center'
             }}>
-              {agentProperties.map((property) => (
-                <Link key={property.id} href={`/property/${property.id}`} style={{
-                  textDecoration: 'none',
-                  color: 'inherit',
-                  display: 'block'
+              <div style={{
+                borderRight: isMobile ? 'none' : '1px solid rgba(255,255,255,0.15)',
+                padding: '0 20px'
+              }}>
+                <div style={{
+                  fontSize: isMobile ? '48px' : '72px',
+                  fontWeight: '200',
+                  letterSpacing: '-0.03em',
+                  marginBottom: '12px',
+                  lineHeight: '1'
                 }}>
-                  <div style={{
-                    backgroundColor: '#fff',
-                    overflow: 'hidden',
-                    transition: 'transform 0.2s ease',
-                    cursor: 'pointer'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}>
-                    <div style={{
-                      position: 'relative',
-                      aspectRatio: '4/3',
-                      backgroundColor: '#f5f5f5'
-                    }}>
-                      {property.images && property.images[0] ? (
-                        <Image
-                          src={typeof property.images[0] === 'string' ? property.images[0] : property.images[0].url}
-                          alt={property.address}
-                          fill
-                          style={{ objectFit: 'cover' }}
-                        />
-                      ) : (
-                        <div style={{
-                          width: '100%',
-                          height: '100%',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: '#999'
-                        }}>
-                          No image
-                        </div>
-                      )}
-                      <div style={{
-                        position: 'absolute',
-                        top: '16px',
-                        right: '16px'
-                      }}>
-                        <SavePropertyButton property={property} />
-                      </div>
-                    </div>
-                    
-                    <div style={{ padding: '24px' }}>
-                      <p style={{
-                        fontSize: '12px',
-                        color: '#666',
-                        marginBottom: '8px',
-                        textTransform: 'uppercase',
-                        letterSpacing: '1px'
-                      }}>
-                        {property.suburb}
-                      </p>
-                      <h3 style={{
-                        fontSize: '16px',
-                        fontWeight: '400',
-                        marginBottom: '12px',
-                        lineHeight: '1.4'
-                      }}>
-                        {property.address.replace(', VIC', '')}
-                      </h3>
-                      <div style={{
-                        display: 'flex',
-                        gap: '16px',
-                        fontSize: '12px',
-                        color: '#666',
-                        marginBottom: '16px'
-                      }}>
-                        <span>{property.bedrooms} bed</span>
-                        <span>{property.bathrooms} bath</span>
-                        <span>{property.carSpaces} car</span>
-                      </div>
-                      <p style={{
-                        fontSize: '18px',
-                        fontWeight: '400',
-                        color: '#000'
-                      }}>
-                        {property.priceDisplay || formatPrice(property.price)}
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
+                  {agent.stats.propertiesSold}
+                </div>
+                <div style={{
+                  fontSize: '13px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  opacity: 0.7
+                }}>
+                  Properties sold
+                </div>
+              </div>
+
+              <div style={{
+                borderRight: isMobile ? 'none' : '1px solid rgba(255,255,255,0.15)',
+                padding: '0 20px'
+              }}>
+                <div style={{
+                  fontSize: isMobile ? '48px' : '72px',
+                  fontWeight: '200',
+                  letterSpacing: '-0.03em',
+                  marginBottom: '12px',
+                  lineHeight: '1'
+                }}>
+                  {agent.stats.totalSalesValue}
+                </div>
+                <div style={{
+                  fontSize: '13px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  opacity: 0.7
+                }}>
+                  Total sales value
+                </div>
+              </div>
+
+              <div style={{
+                borderRight: isMobile ? 'none' : '1px solid rgba(255,255,255,0.15)',
+                padding: '0 20px'
+              }}>
+                <div style={{
+                  fontSize: isMobile ? '48px' : '72px',
+                  fontWeight: '200',
+                  letterSpacing: '-0.03em',
+                  marginBottom: '12px',
+                  lineHeight: '1'
+                }}>
+                  {agent.stats.avgSellingPrice}
+                </div>
+                <div style={{
+                  fontSize: '13px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  opacity: 0.7
+                }}>
+                  Avg. of asking price
+                </div>
+              </div>
+
+              <div style={{ padding: '0 20px' }}>
+                <div style={{
+                  fontSize: isMobile ? '48px' : '72px',
+                  fontWeight: '200',
+                  letterSpacing: '-0.03em',
+                  marginBottom: '12px',
+                  lineHeight: '1'
+                }}>
+                  {agent.yearsExperience}+
+                </div>
+                <div style={{
+                  fontSize: '13px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  opacity: 0.7
+                }}>
+                  Years experience
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Client Reviews */}
+        {/* Current Listings */}
+        {agentProperties.length > 0 && (
+          <section style={{
+            padding: isMobile ? '60px 20px' : '100px max(2rem, 3.33vw)'
+          }}>
+            <div style={{
+              maxWidth: '1440px',
+              margin: '0 auto'
+            }}>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'flex-end',
+                marginBottom: isMobile ? '32px' : '48px'
+              }}>
+                <div>
+                  <h2 style={{
+                    fontSize: isMobile ? '28px' : '36px',
+                    fontWeight: '300',
+                    letterSpacing: '-0.02em',
+                    color: '#000',
+                    marginBottom: '8px'
+                  }}>
+                    Current listings
+                  </h2>
+                  <p style={{
+                    fontSize: '15px',
+                    color: '#666'
+                  }}>
+                    {agent.stats.currentListings} properties currently on the market
+                  </p>
+                </div>
+                <Link href="/buy" style={{
+                  display: isMobile ? 'none' : 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontSize: '14px',
+                  color: '#000',
+                  textDecoration: 'none',
+                  fontWeight: '500'
+                }}>
+                  View all properties
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </Link>
+              </div>
+
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+                gap: '24px'
+              }}>
+                {agentProperties.map((property) => (
+                  <Link key={property.id} href={`/property/${property.id}`} style={{
+                    textDecoration: 'none',
+                    color: 'inherit'
+                  }}>
+                    <article style={{
+                      backgroundColor: '#fff',
+                      transition: 'transform 0.2s ease',
+                      cursor: 'pointer'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-4px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }}>
+                      <div style={{
+                        position: 'relative',
+                        aspectRatio: '4/3',
+                        backgroundColor: '#f5f5f5',
+                        overflow: 'hidden'
+                      }}>
+                        {property.images && property.images[0] ? (
+                          <Image
+                            src={typeof property.images[0] === 'string' ? property.images[0] : property.images[0].url}
+                            alt={property.address}
+                            fill
+                            style={{ objectFit: 'cover' }}
+                          />
+                        ) : (
+                          <div style={{
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#999',
+                            fontSize: '14px'
+                          }}>
+                            No image
+                          </div>
+                        )}
+                        <div style={{
+                          position: 'absolute',
+                          top: '12px',
+                          right: '12px'
+                        }}>
+                          <SavePropertyButton property={property} />
+                        </div>
+                      </div>
+
+                      <div style={{ padding: '20px 0' }}>
+                        <p style={{
+                          fontSize: '12px',
+                          color: '#666',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.5px',
+                          marginBottom: '6px'
+                        }}>
+                          {property.suburb}
+                        </p>
+                        <h3 style={{
+                          fontSize: '16px',
+                          fontWeight: '400',
+                          marginBottom: '12px',
+                          lineHeight: '1.3',
+                          color: '#000'
+                        }}>
+                          {property.address?.replace(', VIC', '').replace(' VIC', '')}
+                        </h3>
+                        <div style={{
+                          display: 'flex',
+                          gap: '16px',
+                          fontSize: '13px',
+                          color: '#666',
+                          marginBottom: '12px'
+                        }}>
+                          <span>{property.bedrooms} bed</span>
+                          <span>{property.bathrooms} bath</span>
+                          <span>{property.carSpaces} car</span>
+                        </div>
+                        <p style={{
+                          fontSize: '16px',
+                          fontWeight: '500',
+                          color: '#000'
+                        }}>
+                          {property.priceDisplay || 'Contact Agent'}
+                        </p>
+                      </div>
+                    </article>
+                  </Link>
+                ))}
+              </div>
+
+              <div style={{
+                textAlign: 'center',
+                marginTop: '40px',
+                display: isMobile ? 'block' : 'none'
+              }}>
+                <Link href="/buy" style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '14px 28px',
+                  backgroundColor: '#000',
+                  color: '#fff',
+                  textDecoration: 'none',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  borderRadius: '500px'
+                }}>
+                  View all properties
+                </Link>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Reviews Section */}
         <section style={{
-          padding: isMobile ? '80px 0' : '120px 0'
+          padding: isMobile ? '60px 20px' : '100px max(2rem, 3.33vw)',
+          backgroundColor: '#f9f9f9'
         }}>
           <div style={{
             maxWidth: '1440px',
-            margin: '0 auto',
-            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
-            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)'
+            margin: '0 auto'
           }}>
             <div style={{
               textAlign: 'center',
-              marginBottom: isMobile ? '48px' : '64px'
+              marginBottom: isMobile ? '40px' : '60px'
             }}>
               <h2 style={{
-                fontSize: isMobile ? '36px' : '48px',
+                fontSize: isMobile ? '28px' : '36px',
                 fontWeight: '300',
                 letterSpacing: '-0.02em',
+                color: '#000',
                 marginBottom: '16px'
               }}>
-                Client Reviews
+                Client reviews
               </h2>
               <div style={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                gap: '12px',
+                gap: '8px',
                 marginBottom: '8px'
               }}>
-                <div style={{ display: 'flex', gap: '4px' }}>
+                <div style={{ display: 'flex', gap: '2px' }}>
                   {[...Array(5)].map((_, i) => (
-                    <svg key={i} width="20" height="20" viewBox="0 0 24 24" fill="#000">
+                    <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="#000">
                       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                     </svg>
                   ))}
                 </div>
-                <span style={{ fontSize: '18px', fontWeight: '400' }}>5.0</span>
+                <span style={{ fontSize: '16px', fontWeight: '400' }}>5.0</span>
               </div>
               <p style={{
-                fontSize: '16px',
+                fontSize: '14px',
                 color: '#666'
               }}>
-                Based on {agent.testimonials.length} verified reviews
+                {agent.testimonials.length} verified reviews
               </p>
             </div>
 
             <div style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '32px'
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+              gap: '24px'
             }}>
               {agent.testimonials.map((testimonial: any) => (
                 <div key={testimonial.id} style={{
-                  backgroundColor: '#f8f8f8',
+                  backgroundColor: '#fff',
                   padding: '32px'
                 }}>
                   <div style={{
                     display: 'flex',
                     gap: '2px',
-                    marginBottom: '16px'
+                    marginBottom: '20px'
                   }}>
                     {[...Array(5)].map((_, i) => (
-                      <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="#000">
+                      <svg key={i} width="12" height="12" viewBox="0 0 24 24" fill="#000">
                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                       </svg>
                     ))}
                   </div>
                   <p style={{
-                    fontSize: '16px',
-                    lineHeight: '1.6',
-                    marginBottom: '24px',
-                    fontStyle: 'italic'
+                    fontSize: '15px',
+                    lineHeight: '1.7',
+                    color: '#333',
+                    marginBottom: '24px'
                   }}>
                     "{testimonial.text}"
                   </p>
                   <div style={{
+                    borderTop: '1px solid #f0f0f0',
+                    paddingTop: '16px',
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'flex-end'
@@ -804,12 +863,13 @@ export default function AgentDetailPage() {
                     <div>
                       <div style={{
                         fontWeight: '500',
-                        marginBottom: '4px'
+                        fontSize: '14px',
+                        marginBottom: '2px'
                       }}>
                         {testimonial.author}
                       </div>
                       <div style={{
-                        fontSize: '14px',
+                        fontSize: '13px',
                         color: '#666'
                       }}>
                         {testimonial.suburb}
@@ -817,10 +877,11 @@ export default function AgentDetailPage() {
                     </div>
                     {testimonial.soldPrice && (
                       <div style={{
-                        fontSize: '14px',
-                        fontWeight: '500'
+                        fontSize: '13px',
+                        fontWeight: '500',
+                        color: '#000'
                       }}>
-                        Sold: {testimonial.soldPrice}
+                        {testimonial.soldPrice}
                       </div>
                     )}
                   </div>
@@ -832,64 +893,78 @@ export default function AgentDetailPage() {
 
         {/* CTA Section */}
         <section style={{
-          padding: isMobile ? '80px 0' : '120px 0',
-          backgroundColor: '#000',
-          color: '#fff',
+          padding: isMobile ? '80px 20px' : '120px max(2rem, 3.33vw)',
           textAlign: 'center'
         }}>
           <div style={{
-            maxWidth: '800px',
-            margin: '0 auto',
-            paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
-            paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)'
+            maxWidth: '640px',
+            margin: '0 auto'
           }}>
             <h2 style={{
-              fontSize: isMobile ? '36px' : '48px',
+              fontSize: isMobile ? '32px' : '48px',
               fontWeight: '300',
               letterSpacing: '-0.02em',
-              marginBottom: '24px'
+              marginBottom: '20px',
+              lineHeight: '1.1'
             }}>
               Ready to get started?
             </h2>
             <p style={{
-              fontSize: '18px',
+              fontSize: '17px',
+              color: '#666',
               marginBottom: '40px',
-              fontWeight: '300'
+              lineHeight: '1.6'
             }}>
-              Whether you're buying, selling, or just curious about your property's value, {agent.name.split(' ')[0]} is here to help.
+              Whether you're buying, selling, or curious about your property's value, {agent.name.split(' ')[0]} is here to help.
             </p>
             <div style={{
               display: 'flex',
-              gap: '16px',
+              gap: '12px',
               justifyContent: 'center',
-              flexDirection: isMobile ? 'column' : 'row'
+              flexWrap: 'wrap'
             }}>
               <button
                 onClick={() => setShowContactForm(true)}
                 style={{
-                  padding: '16px 32px',
-                  backgroundColor: '#fff',
-                  color: '#000',
+                  padding: '18px 40px',
+                  backgroundColor: '#000',
+                  color: '#fff',
                   border: 'none',
-                  fontSize: '16px',
+                  fontSize: '15px',
                   fontWeight: '500',
-                  cursor: 'pointer'
+                  borderRadius: '500px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#333';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#000';
                 }}
               >
-                Request Appraisal
+                Request an appraisal
               </button>
               <a
                 href={`tel:${agent.phone}`}
                 style={{
-                  display: 'inline-block',
-                  padding: '16px 32px',
-                  backgroundColor: 'transparent',
-                  color: '#fff',
-                  border: '2px solid #fff',
-                  fontSize: '16px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: '18px 40px',
+                  backgroundColor: '#fff',
+                  color: '#000',
+                  border: '1.5px solid #000',
+                  fontSize: '15px',
                   fontWeight: '500',
+                  borderRadius: '500px',
                   textDecoration: 'none',
-                  cursor: 'pointer'
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#f5f5f5';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#fff';
                 }}
               >
                 Call {agent.phone}
@@ -900,93 +975,135 @@ export default function AgentDetailPage() {
 
       </main>
 
+      <OncomFooter />
+
       {/* Contact Form Modal */}
       {showContactForm && (
         <div style={{
           position: 'fixed',
           inset: 0,
-          backgroundColor: 'rgba(0,0,0,0.5)',
+          backgroundColor: 'rgba(0,0,0,0.6)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           zIndex: 2000,
           padding: '20px'
-        }}>
-          <div style={{
-            backgroundColor: 'white',
-            padding: '48px',
-            maxWidth: '600px',
-            width: '100%',
-            position: 'relative'
-          }}>
+        }}
+        onClick={() => setShowContactForm(false)}>
+          <div
+            style={{
+              backgroundColor: '#fff',
+              padding: isMobile ? '32px 24px' : '48px',
+              maxWidth: '520px',
+              width: '100%',
+              position: 'relative',
+              maxHeight: '90vh',
+              overflowY: 'auto'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               onClick={() => setShowContactForm(false)}
               style={{
                 position: 'absolute',
-                top: '24px',
-                right: '24px',
+                top: '20px',
+                right: '20px',
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
                 padding: '8px'
               }}
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2">
                 <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             </button>
 
             <h3 style={{
-              fontSize: '32px',
+              fontSize: '28px',
               fontWeight: '300',
+              letterSpacing: '-0.02em',
+              marginBottom: '8px'
+            }}>
+              Contact {agent.name.split(' ')[0]}
+            </h3>
+            <p style={{
+              fontSize: '14px',
+              color: '#666',
               marginBottom: '32px'
-            }}>Contact {agent.name}</h3>
+            }}>
+              We'll get back to you within 2 hours
+            </p>
 
-            <form>
-              <div style={{ marginBottom: '24px' }}>
+            <form onSubmit={handleSubmit}>
+              <div style={{ marginBottom: '20px' }}>
                 <input
                   type="text"
                   placeholder="Your name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({...formData, name: e.target.value})}
+                  required
                   style={{
                     width: '100%',
                     padding: '16px',
                     border: '1px solid #e5e5e5',
-                    fontSize: '16px'
+                    fontSize: '15px',
+                    outline: 'none',
+                    transition: 'border-color 0.2s ease'
                   }}
+                  onFocus={(e) => e.currentTarget.style.borderColor = '#000'}
+                  onBlur={(e) => e.currentTarget.style.borderColor = '#e5e5e5'}
                 />
               </div>
-              <div style={{ marginBottom: '24px' }}>
+              <div style={{ marginBottom: '20px' }}>
                 <input
                   type="email"
                   placeholder="Email address"
+                  value={formData.email}
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  required
                   style={{
                     width: '100%',
                     padding: '16px',
                     border: '1px solid #e5e5e5',
-                    fontSize: '16px'
+                    fontSize: '15px',
+                    outline: 'none',
+                    transition: 'border-color 0.2s ease'
                   }}
+                  onFocus={(e) => e.currentTarget.style.borderColor = '#000'}
+                  onBlur={(e) => e.currentTarget.style.borderColor = '#e5e5e5'}
                 />
               </div>
-              <div style={{ marginBottom: '24px' }}>
+              <div style={{ marginBottom: '20px' }}>
                 <input
                   type="tel"
                   placeholder="Phone number"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
                   style={{
                     width: '100%',
                     padding: '16px',
                     border: '1px solid #e5e5e5',
-                    fontSize: '16px'
+                    fontSize: '15px',
+                    outline: 'none',
+                    transition: 'border-color 0.2s ease'
                   }}
+                  onFocus={(e) => e.currentTarget.style.borderColor = '#000'}
+                  onBlur={(e) => e.currentTarget.style.borderColor = '#e5e5e5'}
                 />
               </div>
-              <div style={{ marginBottom: '24px' }}>
+              <div style={{ marginBottom: '20px' }}>
                 <select
+                  value={formData.inquiry}
+                  onChange={(e) => setFormData({...formData, inquiry: e.target.value})}
                   style={{
                     width: '100%',
                     padding: '16px',
                     border: '1px solid #e5e5e5',
-                    fontSize: '16px',
-                    backgroundColor: '#fff'
+                    fontSize: '15px',
+                    backgroundColor: '#fff',
+                    outline: 'none',
+                    cursor: 'pointer'
                   }}
                 >
                   <option value="">How can we help?</option>
@@ -996,38 +1113,53 @@ export default function AgentDetailPage() {
                   <option value="other">Other inquiry</option>
                 </select>
               </div>
-              <div style={{ marginBottom: '32px' }}>
+              <div style={{ marginBottom: '24px' }}>
                 <textarea
                   placeholder="Your message..."
-                  rows={5}
+                  value={formData.message}
+                  onChange={(e) => setFormData({...formData, message: e.target.value})}
+                  rows={4}
                   style={{
                     width: '100%',
                     padding: '16px',
                     border: '1px solid #e5e5e5',
-                    fontSize: '16px',
-                    resize: 'vertical'
+                    fontSize: '15px',
+                    resize: 'vertical',
+                    outline: 'none',
+                    transition: 'border-color 0.2s ease',
+                    fontFamily: 'inherit'
                   }}
+                  onFocus={(e) => e.currentTarget.style.borderColor = '#000'}
+                  onBlur={(e) => e.currentTarget.style.borderColor = '#e5e5e5'}
                 />
               </div>
               <button
                 type="submit"
                 style={{
                   width: '100%',
-                  padding: '16px',
+                  padding: '18px',
                   backgroundColor: '#000',
                   color: '#fff',
                   border: 'none',
-                  fontSize: '16px',
+                  fontSize: '15px',
                   fontWeight: '500',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  borderRadius: '500px',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#333';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#000';
                 }}
               >
-                Send Message
+                Send message
               </button>
             </form>
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

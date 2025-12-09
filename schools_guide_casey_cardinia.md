@@ -61,6 +61,14 @@
 - **Hours**: 9:00 AM - 2:00 PM
 - **Summary**: Small, community-focused kindergarten with strong parent involvement and individual attention.
 
+**Timbarra Kindergarten**
+- **Address**: 20-26 Parkhill Drive, Berwick 3806
+- **Phone**: 03 9796 7356
+- **Email**: timbarra@casey.vic.gov.au
+- **Programs**: 4-year-old program
+- **Hours**: 9:15 AM - 2:15 PM (Tuesday, Wednesday, Thursday)
+- **Summary**: Council-operated kindergarten with Exceeding National Quality Standard rating. Stand-alone preschool with 30 approved places offering quality early childhood education.
+
 #### **Cranbourne Area**
 
 **Cranbourne East Kindergarten**
@@ -211,6 +219,66 @@
 - **Hours**: 9:00 AM - 3:00 PM
 - **Summary**: Rural kindergarten with emphasis on nature-based learning and environmental education in a beautiful setting.
 
+#### **Cockatoo Area**
+
+**Cockatoo Kindergarten**
+- **Address**: 23 Bailey Road, Cockatoo 3781
+- **Phone**: 03 5968 9105
+- **Email**: cockatoo.kin@cardinia.vic.gov.au
+- **Programs**: 3-year-old and 4-year-old programs
+- **Hours**: 10:00 AM - 12:00 PM
+- **Summary**: Community kindergarten operated by Cockatoo Committee, providing quality early learning in a natural bush setting.
+
+#### **Gembrook Area**
+
+**Gembrook Preschool**
+- **Address**: 19-21 Main Street, Gembrook 3783
+- **Phone**: 03 5968 1326
+- **Email**: gembrook.preschool@cardinia.vic.gov.au
+- **Programs**: 3-year-old and 4-year-old programs
+- **Hours**: 9:00 AM - 3:00 PM
+- **Summary**: Rural kindergarten in the scenic Dandenong Ranges offering nature-based early childhood education programs.
+
+#### **Lang Lang Area**
+
+**Lang Lang Preschool**
+- **Address**: 3 Whitstable Street, Lang Lang 3984
+- **Phone**: 03 5997 5353
+- **Email**: langlang.preschool@ecms.org.au
+- **Programs**: 3-year-old and 4-year-old programs
+- **Hours**: 9:00 AM - 3:00 PM
+- **Summary**: Vibrant kindergarten at the heart of the Lang Lang community, fostering curiosity and creativity in a nurturing environment. New kindergarten facility opening 2026.
+
+#### **Tooradin Area**
+
+**Tooradin Kindergarten**
+- **Address**: 102 South Gippsland Highway, Tooradin 3980
+- **Phone**: 03 5998 3522
+- **Email**: tooradin.kindergarten@cardinia.vic.gov.au
+- **Programs**: 3-year-old and 4-year-old programs
+- **Hours**: 9:00 AM - 3:00 PM
+- **Summary**: Community kindergarten serving the Tooradin coastal area with quality early childhood education programs.
+
+#### **Upper Beaconsfield Area**
+
+**Upper Beaconsfield Kindergarten (Stoney Creek Rd)**
+- **Address**: 36 Stoney Creek Road, Beaconsfield Upper 3808
+- **Phone**: 03 5944 4231
+- **Mobile**: 0409 908 892
+- **Email**: upperbeaconsfield.kinder@onetree.org.au
+- **Programs**: 4-year-old program
+- **Hours**: 9:00 AM - 3:00 PM
+- **Summary**: Nurtures children in beautiful bushland surroundings, using sustainable practices and eco-friendly activities to inspire environmental appreciation.
+
+**Upper Beaconsfield Kindergarten (McBride Rd)**
+- **Address**: 3 McBride Road, Beaconsfield Upper 3808
+- **Phone**: 03 5944 4137
+- **Mobile**: 0429 925 864
+- **Email**: upperbeaconsfield.prekinder@onetree.org.au
+- **Programs**: 3-year-old program
+- **Hours**: 9:00 AM - 3:00 PM
+- **Summary**: Pre-Kinder facility in spacious natural surroundings, focusing on nature-based learning and environmental education.
+
 #### **Officer Area**
 
 **Officer Kindergarten**
@@ -262,12 +330,20 @@
 #### **Lynbrook Area**
 
 **Lynbrook Kindergarten**
-- **Address**: 25-27 Lynbrook Drive, Lynbrook 3975
-- **Phone**: (03) 5996 0000
-- **Email**: lynbrook.kin@kindergarten.vic.gov.au
+- **Address**: 25i River Redgum Place, Lynbrook 3975
+- **Phone**: 03 8787 5780
+- **Email**: lynbrook@casey.vic.gov.au
 - **Programs**: 3-year-old and 4-year-old programs
-- **Hours**: 9:00 AM - 3:00 PM
-- **Summary**: Modern facility with excellent resources and focus on technology integration and environmental education.
+- **Hours**: 9:15 AM - 2:15 PM (Monday-Friday)
+- **Summary**: Modern Council-operated facility with 130 approved places. Excellent resources and focus on technology integration and environmental education.
+
+**Marriott Waters Kindergarten**
+- **Address**: 25 Boland Drive, Lyndhurst 3975
+- **Phone**: 03 9798 0189
+- **Email**: marriottwaters@casey.vic.gov.au
+- **Programs**: 3-year-old and 4-year-old programs
+- **Hours**: 8:30 AM - 4:00 PM
+- **Summary**: Exceeding National Quality Standard rated facility with 111 approved places. Part of Marriott Waters Family & Community Centre with modern facilities and comprehensive early learning programs.
 
 #### **Clyde Area**
 
@@ -330,6 +406,17 @@
 - **Summary**: Modern school with state-of-the-art facilities and comprehensive programs. Strong focus on technology integration.
 - **School Review**: Berwick Fields Primary School is a cutting-edge educational institution that prides itself on innovation and excellence in all areas. This modern school is particularly great for families seeking a comprehensive education with strong emphasis on technology, performing arts, and sports. The school's state-of-the-art facilities include a fully equipped performing arts center, modern science laboratories, and extensive sports facilities. Their STEM program is exceptional, with students regularly participating in robotics competitions and coding workshops. The performing arts program is outstanding, with annual musical productions and regular concerts that showcase student talent. The sports academy provides elite-level coaching in various sports, with many students achieving regional and state-level success. The school culture emphasizes creativity, critical thinking, and collaboration, preparing students for the challenges of the 21st century. With a diverse student population and inclusive environment, Berwick Fields creates a vibrant learning community where every child can discover and develop their unique talents.
 
+**Brentwood Park Primary School**
+- **Address**: Bemersyde Drive, Berwick 3806
+- **Phone**: 03 9702 2022
+- **Email**: brentwood.park.ps@education.vic.gov.au
+- **Enrollment**: 1,008 students (2025)
+- **Student-Teacher Ratio**: 1:15
+- **Year Levels**: Prep-6
+- **Special Programs**: Music, Art, Physical Education, Technology
+- **Summary**: Large, well-established government primary school providing quality education in a positive and supportive environment.
+- **School Review**: Brentwood Park Primary School is located in the City of Casey with excellent facilities and a strong focus on maximizing educational opportunities for all students. The school promotes positive self-esteem and personal best through differentiated educational programs. Located conveniently near a local preschool and secondary college, making it ideal for families seeking a complete educational pathway in one area.
+
 #### **Cranbourne Area**
 
 **Cranbourne Primary School**
@@ -364,6 +451,28 @@
 - **Special Programs**: Music, Art, Physical Education
 - **Summary**: Community-focused school with strong parent involvement and comprehensive programs.
 - **School Review**: Cranbourne West Primary School prides itself on its strong community spirit and collaborative approach to education. This school is particularly great for families who value active parent involvement and a supportive learning environment. The school has built a reputation for its inclusive culture where every family is welcomed and encouraged to participate in school life. Their music program is vibrant, with students regularly performing at community events and school concerts. The art program fosters creativity and self-expression, with regular exhibitions that celebrate student achievements. Physical education is comprehensive, with excellent facilities and a focus on developing teamwork and sportsmanship. The teaching staff is dedicated and approachable, working closely with parents to support each child's individual learning journey. The school's small size allows for personalized attention and strong relationships between students, teachers, and families. This is an ideal choice for families seeking a close-knit community school where their children can thrive in a supportive and nurturing environment.
+
+**Casey Fields Primary School**
+- **Address**: 25 Chapelton Road, Cranbourne East 3977
+- **Phone**: 03 5991 8200
+- **Email**: casey.fields.ps@education.vic.gov.au
+- **Enrollment**: 1,008 students (2025)
+- **Student-Teacher Ratio**: 1:16
+- **Year Levels**: Prep-6
+- **Special Programs**: Music, Art, Physical Education, STEM
+- **Summary**: Modern government primary school opened in 2019, offering rich and engaging curriculum tailored to individual learning styles.
+- **School Review**: Casey Fields Primary School fosters a culture of thinking, encourages independence, and builds resilience while promoting collaboration. The school takes pride in educational achievements and strives for excellence in academics, the arts, and sports. Located near the premier outdoor sports facility Casey Fields, making the school easily identifiable and connected to the area's sporting identity.
+
+**Tulliallan Primary School**
+- **Address**: 89 Wheelers Park Drive, Cranbourne North 3977
+- **Phone**: 03 8766 3100
+- **Email**: tulliallan.ps@education.vic.gov.au
+- **Enrollment**: 1,450-1,526 students
+- **Student-Teacher Ratio**: 1:14
+- **Year Levels**: Prep-6
+- **Special Programs**: Music, Art, Physical Education, Wellbeing
+- **Summary**: Large modern government primary school developing happy, resilient, and responsible students.
+- **School Review**: Tulliallan Primary School aims to develop students who demonstrate positive social skills and empathy towards others. The school provides comprehensive education with diverse opportunities for students to achieve their personal best. School values of Respect, Relationships, Responsibility, and Resilience underpin the positive culture and high achievement standards.
 
 #### **Narre Warren Area**
 
@@ -540,6 +649,28 @@
 - **Summary**: Modern primary school with excellent resources and focus on technology integration and environmental education.
 - **School Review**: Clyde North Primary School prides itself on its innovative approach to education with strong focus on technology integration and environmental sustainability.
 
+**Grayling Primary School**
+- **Address**: 25 Ferdinand Drive, Clyde North 3978
+- **Phone**: 03 8903 4000
+- **Email**: grayling.ps@education.vic.gov.au
+- **Enrollment**: 900 students (growing)
+- **Student-Teacher Ratio**: 1:15
+- **Year Levels**: Prep-6
+- **Special Programs**: Multilit synthetic phonics, STEM, Arts
+- **Summary**: Opened in 2020 to serve the growing Berwick Waters Estate community, with modern facilities and hands-on principal leadership.
+- **School Review**: Grayling Primary School, led by Principal Luke Abdullah since day one, has built a culture of pride, respect, and open communication. Each classroom has its own space with breakout zones for calm time and sensory needs. Uses the Multilit synthetic phonics program ahead of Victorian curriculum changes. Growing toward 900 students with a modern, inclusive approach making it a strong option for families seeking high-quality values-driven public education.
+
+**Lyndhurst Primary School**
+- **Address**: Lyndhurst (Precise address TBC)
+- **Phone**: 03 8768 6700
+- **Email**: lyndhurst.ps@education.vic.gov.au
+- **Enrollment**: 870 students
+- **Student-Teacher Ratio**: 1:15
+- **Year Levels**: Prep-6
+- **Special Programs**: Music, Art, Physical Education
+- **Summary**: Government primary school serving hundreds of students with quality education from Prep through Year 6.
+- **School Review**: Lyndhurst Primary School is a public-private partnership school, one of only a few in the state, built under the Partnerships Victoria in Schools model with 5-star energy rated facilities focused on sustainability.
+
 **Beaconsfield Primary School**
 - **Address**: O'Neil Road, Beaconsfield 3807
 - **Phone**: (03) 9707 1510
@@ -674,6 +805,132 @@
 - **Special Programs**: STEM, Environmental Education, Music
 - **Summary**: Modern school with excellent resources and focus on technology integration and environmental education.
 - **School Review**: Clyde North Primary School prides itself on its innovative approach to education and strong focus on technology integration and environmental sustainability. This modern school is particularly great for families who value environmental consciousness and technology integration. The school's STEM program is outstanding, with students participating in robotics workshops, coding classes, and science experiments that engage them in hands-on learning. Their environmental education program is comprehensive, with students participating in sustainability projects, waste reduction initiatives, and nature-based learning experiences. The music program is vibrant, with students regularly performing at community events and school concerts. The school culture emphasizes curiosity, problem-solving, and environmental responsibility, preparing students for future challenges. The teaching staff is highly qualified and enthusiastic about STEM education and environmental awareness, regularly participating in professional development to stay current with best practices. This is an ideal choice for families seeking a contemporary education that prepares students for the challenges of the modern world while fostering environmental responsibility.
+
+**Grayling Primary School** *(NEW 2024)*
+- **Address**: Clyde North 3978 (Opened 2024)
+- **Phone**: Contact via website
+- **Email**: grayling.ps@education.vic.gov.au
+- **Enrollment**: New school (2024)
+- **Student-Teacher Ratio**: 1:15 (estimated)
+- **Year Levels**: Prep-6
+- **Special Programs**: Modern learning spaces, STEM, Contemporary education
+- **Summary**: Brand new primary school opened in 2024 to serve the Clyde North growth corridor. Purpose-built modern facilities designed for 21st century learning.
+- **School Review**: Grayling Primary School represents the future of education in Melbourne's south-east, with cutting-edge facilities and innovative teaching practices from day one. This new school is particularly great for families in the rapidly growing Clyde North area who want access to modern educational facilities without overcrowding. The school's design incorporates flexible learning spaces, integrated technology, and outdoor learning environments. As a new school, it has the advantage of being built with the latest educational research and best practices in mind. This is an ideal choice for families seeking a fresh start in a new community with contemporary educational approaches.
+
+**Turrun Primary School** *(NEW 2025)*
+- **Address**: Clyde North 3978 (Opened Term 1, 2025)
+- **Phone**: Contact via website
+- **Email**: turrun.ps@education.vic.gov.au
+- **Enrollment**: New school (2025)
+- **Student-Teacher Ratio**: 1:15 (estimated)
+- **Year Levels**: Prep-6
+- **Principal**: Kristy Miller
+- **Special Programs**: Contemporary learning environments
+- **Summary**: The newest primary school in the Casey-Cardinia region, opened in Term 1, 2025. Purpose-built to accommodate growth in the Clyde North/Cardinia area.
+- **School Review**: Turrun Primary School is the most recent addition to the Casey-Cardinia education landscape, offering families in Clyde North access to brand new educational facilities. As the region's newest school, it features state-of-the-art design and modern teaching approaches. This is an ideal choice for families seeking enrollment in a brand new school with fresh facilities and small initial class sizes.
+
+**Clyde Creek Primary School** *(NEW)*
+- **Address**: Clyde area 3978
+- **Phone**: Contact via website
+- **Email**: clydecreek.ps@education.vic.gov.au
+- **Enrollment**: New/expanding
+- **Student-Teacher Ratio**: 1:15 (estimated)
+- **Year Levels**: Prep-6
+- **Special Programs**: Modern facilities, Contemporary learning
+- **Summary**: New primary school developed to ease enrollment pressures in the rapidly growing Clyde and Clyde North areas.
+- **School Review**: Clyde Creek Primary School was established to meet the education needs of Melbourne's fastest-growing residential areas, providing modern facilities and contemporary teaching approaches. This is an ideal choice for families in the Clyde growth corridor seeking quality local education.
+
+#### **Cranbourne East Area**
+
+**Casey Fields Primary School** *(NEW 2024)*
+- **Address**: Cranbourne East 3977 (Opened 2024)
+- **Phone**: Contact via website
+- **Email**: caseyfields.ps@education.vic.gov.au
+- **Enrollment**: New school (2024)
+- **Student-Teacher Ratio**: 1:15 (estimated)
+- **Year Levels**: Prep-6
+- **Special Programs**: STEM, Modern facilities
+- **Summary**: Brand new primary school opened in 2024 to serve the rapidly growing Cranbourne East community. Modern facilities with focus on contemporary learning environments.
+- **School Review**: Casey Fields Primary School is one of the newest schools in the region, opened in 2024 to meet the demands of Melbourne's fastest-growing suburbs. Features state-of-the-art facilities and contemporary teaching approaches. This is an ideal choice for families in Cranbourne East seeking modern educational facilities.
+
+#### **Cardinia Shire - Rural Areas**
+
+**Cockatoo Primary School**
+- **Address**: 19-33 Belgrave Gembrook Road, Cockatoo 3781
+- **Phone**: 03 5968 8017
+- **Email**: cockatoo.ps@education.vic.gov.au
+- **Enrollment**: 246 students
+- **Student-Teacher Ratio**: 1:15
+- **Year Levels**: Prep-6
+- **Special Programs**: Environmental Education, Outdoor Learning
+- **Summary**: Government primary school in the scenic Dandenong Ranges offering nature-based education with modern facilities.
+- **School Review**: Cockatoo Primary School is located in the beautiful Dandenong Ranges with emphasis on environmental education and outdoor learning. The school provides a quality education in a natural bushland setting, perfect for families valuing connection to nature.
+
+**Gembrook Primary School**
+- **Address**: Main Street, Gembrook 3783
+- **Phone**: 03 5968 1355
+- **Email**: gembrook.ps@education.vic.gov.au
+- **Enrollment**: Approximately 200 students
+- **Student-Teacher Ratio**: 1:14
+- **Year Levels**: Prep-6
+- **Special Programs**: Environmental Education, Rural Education
+- **Summary**: Government primary school in the hills of Gembrook providing quality education in a scenic rural setting.
+- **School Review**: Gembrook Primary School serves the hilltop community of Gembrook with strong emphasis on environmental awareness and community connections.
+
+**Lang Lang Primary School**
+- **Address**: Lang Lang (Precise address TBC)
+- **Phone**: 03 5997 5334
+- **Email**: lang.lang.ps@education.vic.gov.au
+- **Enrollment**: 189 students
+- **Student-Teacher Ratio**: 1:13
+- **Year Levels**: Prep-6
+- **Special Programs**: Rural Education, Community Programs
+- **Summary**: Rural primary school with core values of respect, positive mindsets, positive relationships, and community.
+- **School Review**: Situated in the rural town of Lang Lang, this school provides quality education with strong community values and personalized attention due to smaller class sizes.
+
+**Tooradin Primary School**
+- **Address**: Bayview Road, Tooradin 3980
+- **Phone**: 03 5998 3332
+- **Email**: tooradin.ps@education.vic.gov.au
+- **Enrollment**: 297 students
+- **Student-Teacher Ratio**: 1:18
+- **Year Levels**: Prep-6
+- **Special Programs**: Inclusive Learning, STEM
+- **Summary**: Coastal government primary school with outdoor inclusive learning spaces and quality education programs.
+- **School Review**: Tooradin Primary School received funding for inclusive outdoor learning spaces giving children of all abilities new ways to socialize, develop and learn. Located in the coastal town of Tooradin.
+
+**Pearcedale Primary School**
+- **Address**: 68 Pearcedale Road, Pearcedale 3912
+- **Phone**: 03 5978 7629
+- **Email**: pearcedale.ps@education.vic.gov.au
+- **Enrollment**: 711 students
+- **Student-Teacher Ratio**: 1:12
+- **Year Levels**: Prep-6
+- **Special Programs**: Music, Art, Physical Education
+- **Summary**: Large government primary school serving the Pearcedale community with comprehensive programs.
+- **School Review**: Pearcedale Primary School provides quality education to a large student body while maintaining excellent student-teacher ratios for personalized learning.
+
+**Beaconsfield Upper Primary School**
+- **Address**: 40-42 Stoney Creek Road, Beaconsfield Upper 3808
+- **Phone**: 03 5944 3591
+- **Email**: beaconsfield.upper.ps@edumail.vic.gov.au
+- **Enrollment**: Approximately 300 students
+- **Student-Teacher Ratio**: 1:14
+- **Year Levels**: Prep-6
+- **Special Programs**: Environmental Education, Outdoor Learning
+- **Summary**: Government co-educational primary school in the hills with strong emphasis on nature-based learning.
+- **School Review**: BUPS is located in the beautiful Upper Beaconsfield area providing quality education in a natural bushland setting with strong community connections.
+
+**Nar Nar Goon Primary School**
+- **Address**: 27 Spencer St, Nar Nar Goon 3812
+- **Phone**: 03 5942 5311
+- **Email**: nar.nar.goon.ps@education.vic.gov.au
+- **Enrollment**: 218 students
+- **Student-Teacher Ratio**: 1:13
+- **Year Levels**: Prep-6
+- **Special Programs**: Rural education, Community connections
+- **Summary**: Established government primary school serving the Nar Nar Goon community in Cardinia Shire. Strong community connections with small class sizes.
+- **School Review**: Nar Nar Goon Primary School prides itself on its rural setting and close-knit community atmosphere. Located 61km south-east of Melbourne's CBD, this school offers a unique blend of rural values with access to quality education. The small student population ensures personalized attention for every child, with teachers who know each family personally. The school is an integral part of the Nar Nar Goon community, participating in local events and fostering strong community connections. This is an ideal choice for families seeking a rural education experience with excellent student-teacher ratios and individualized learning approaches.
 
 ---
 
@@ -951,6 +1208,72 @@
 - **Summary**: Modern secondary school with excellent resources and focus on technology integration and environmental education.
 - **School Review**: Clyde North Secondary College prides itself on its innovative approach to education and strong focus on technology integration and environmental sustainability. This modern school is particularly great for families who value environmental consciousness and technology integration. The school's STEM program is outstanding, with students participating in advanced mathematics, science, and engineering programs that prepare them for university study. Their environmental education program is comprehensive, with students participating in sustainability projects, waste reduction initiatives, and nature-based learning experiences. The music program is vibrant, with students regularly performing at community events and school concerts. The school culture emphasizes curiosity, problem-solving, and environmental responsibility, preparing students for future challenges. The teaching staff is highly qualified and enthusiastic about STEM education and environmental awareness, regularly participating in professional development to stay current with best practices. This is an ideal choice for families seeking a contemporary secondary education that prepares students for the challenges of the 21st century.
 
+#### **Narre Warren Area**
+
+**Fountain Gate Secondary College**
+- **Address**: 45 Josephine Ave, Narre Warren 3805
+- **Phone**: (03) 8762 6839
+- **Email**: fountaingate.sc@education.vic.gov.au
+- **Enrollment**: 1,222 students
+- **Student-Teacher Ratio**: 1:13
+- **Year Levels**: 7-12
+- **Special Programs**: VCE, VCE-VM (Vocational Major), VET, High Achiever's Program, Rugby Academy
+- **Staffing**: Principal + 5 Assistant Principals + 10 Leading Teachers + 9 Learning Specialists + 74 Teachers
+- **Summary**: Large government secondary college with nearly 100 different subject choices. Located approximately 40km from Melbourne CBD. Strong focus on student pathways.
+- **School Review**: Fountain Gate Secondary College prides itself on its comprehensive curriculum and extensive subject offerings, providing students with exceptional choice and flexibility in their education. The school's High Achiever's Program fosters academic excellence, while the Rugby Academy develops both male and female rugby players across all forms of Rugby Union. With a rigorous Years 7-10 curriculum and strong VCE, VCE-VM and VET pathways, students are well-prepared for their chosen post-school destinations. The school values of Endeavour, Respect, Honesty, and Responsibility underpin all aspects of school life. This is an ideal choice for families seeking a large, well-resourced government secondary college with diverse program offerings.
+
+#### **Cranbourne West Area**
+
+**Cranbourne West Secondary College** *(OPENED 2021)*
+- **Address**: Cranbourne West 3977
+- **Phone**: Contact via website
+- **Email**: cranbournewest.sc@education.vic.gov.au
+- **Enrollment**: 1,600+ students
+- **Student-Teacher Ratio**: 1:14 (estimated)
+- **Year Levels**: 7-12
+- **Special Programs**: VCE, VCE-VM, VET, NAPLAN Excellence
+- **Summary**: One of Victoria's newest government secondary colleges, opened in 2021. Named one of the top four Melbourne secondary schools for NAPLAN progress in 2025.
+- **School Review**: Cranbourne West Secondary College has made exceptional progress since opening in 2021, quickly establishing itself as one of Victoria's standout schools for student improvement. The Herald Sun named it one of the top four Melbourne secondary schools for NAPLAN progress, while The Age included it among 41 stand-out Victorian schools for exceptional growth. With over 1,600 students, the college has built a strong reputation for academic improvement and comprehensive programs. This is an excellent choice for families in the rapidly growing Cranbourne West area seeking a modern school with proven results.
+
+#### **Berwick Area**
+
+**Timbarra P-9 College**
+- **Address**: Berwick 3806
+- **Phone**: Contact via website
+- **Email**: timbarra.p9@education.vic.gov.au
+- **Enrollment**: Growing
+- **Student-Teacher Ratio**: 1:13 (estimated)
+- **Year Levels**: Prep-9
+- **Special Programs**: Innovative teaching programs, seamless primary to secondary transition
+- **Summary**: Coeducational government P-9 college in Berwick committed to innovative teaching approaches. Unique structure covering primary through to Year 9.
+- **School Review**: Timbarra P-9 College offers a unique educational structure in the Berwick area, providing continuous education from Prep through to Year 9. This allows for seamless transitions and strong relationships built over many years. The college is committed to innovation in teaching programs and learning strategies, preparing students for success in senior secondary education. This is an ideal choice for families seeking continuity of education in a single school environment.
+
+#### **Lyndhurst/Cranbourne Area**
+
+**Lyndhurst Secondary College**
+- **Address**: 950 South Gippsland Highway, Cranbourne 3977
+- **Phone**: Contact via website
+- **Email**: lyndhurst.sc@education.vic.gov.au
+- **Enrollment**: Growing
+- **Student-Teacher Ratio**: 1:13 (estimated)
+- **Year Levels**: 7-12
+- **Special Programs**: VCE, VCE-VM, VET
+- **Summary**: Government co-educational secondary school serving the Cranbourne/Lyndhurst area. Comprehensive programs preparing students for diverse pathways.
+- **School Review**: Lyndhurst Secondary College serves students across the southern Casey region, offering comprehensive VCE, VCE-VM and VET programs that prepare students for university, TAFE, and employment pathways. This is an ideal choice for families in the Lyndhurst/Cranbourne growth corridor.
+
+#### **Doveton Area**
+
+**Doveton College**
+- **Address**: 62 Tristania Street, Doveton 3177
+- **Phone**: Contact via website
+- **Email**: doveton.college@education.vic.gov.au
+- **Enrollment**: 748 students, 61 teachers
+- **Student-Teacher Ratio**: 1:12
+- **Year Levels**: Prep-Year 9
+- **Special Programs**: Comprehensive community services, health services, maternal and child health integration
+- **Summary**: Pioneer in Australian education offering comprehensive services beyond traditional schooling. First government school of its kind combining education with community health services.
+- **School Review**: Doveton College is a groundbreaking educational institution that recognizes helping families is key to helping children thrive. The college includes a vibrant community centre with maternal and child health services, playgroups, paediatrician, GP, health and allied health services, social and recreational activities, and parent/guardian involvement programs. This holistic approach addresses not just educational needs but also the broader wellbeing of students and families. This is an ideal choice for families seeking comprehensive support services alongside quality education in a caring community environment.
+
 ---
 
 ## Private Schools
@@ -987,6 +1310,20 @@
 - **Summary**: Christian school offering comprehensive education from early learning to Year 12. Strong focus on character development and community service.
 - **School Review**: Hillcrest Christian College prides itself on its Christ-centered approach to education and strong focus on character development and community service. This school is particularly great for families seeking a Christian education with strong values and comprehensive programs. The school's academic program is well-rounded, with students participating in VCE, VCAL, and VET programs that prepare them for various career pathways. Their Christian studies program is comprehensive, with students participating in chapel services, Bible studies, and community service projects. The music program is vibrant, with students regularly performing at community events and school concerts. The art program encourages creativity and self-expression, with regular exhibitions that celebrate student achievements. Physical education is comprehensive, with excellent facilities and a focus on developing teamwork and sportsmanship. The school culture emphasizes respect, responsibility, and resilience, creating a positive learning environment where students feel safe and supported. This is an ideal choice for families seeking a Christian education that fosters character development and community service.
 
+**Haileybury College - Berwick Campus (Edrington)**
+- **Address**: 138 High Street, Berwick 3806
+- **Phone**: (03) 8768 2300
+- **Website**: www.haileybury.com.au
+- **Type**: Independent, Co-educational (single-gender Middle School classes)
+- **Year Levels**: ELC, Prep-12 (Junior School, Middle School, Senior School)
+- **Enrollment**: 4,000+ across all campuses; Berwick campus significant portion
+- **Student-Teacher Ratio**: 1:13 (estimated)
+- **Established**: Berwick campus (Edrington) opened 1989
+- **Special Programs**: Parallel education in Middle School (Years 5-8), IB and VCE pathways, extensive co-curricular
+- **Fees**: $4,596-$7,028+ depending on year level
+- **Summary**: Part of Australia's largest independent school network. Berwick campus (Edrington) opened in 1989 offering Early Learning Centre, Junior School, and separated Middle School (single-gender classes), with Senior School opened 2007.
+- **School Review**: Haileybury College's Berwick campus, known as Edrington, is part of Australia's largest independent school network with over 4,000 students across multiple campuses. The Berwick campus opened officially in 1989 after land was purchased in 1985, making it one of the region's most established independent schools. The campus features an Early Learning Centre, Junior School, Girls Middle School, Boys Middle School, two Pre-Senior Centres, and a Senior School (opened 2007). Haileybury's innovative approach includes parallel education in Middle School (Years 5-8), where students learn in single-gender classrooms for academics and sport but share the same campus and socialize during co-curricular activities. The school offers pathways through both IB and VCE, providing students with internationally recognized qualifications. With campuses also in Keysborough, Brighton East, Melbourne CBD, and Darwin, Haileybury provides a comprehensive, well-resourced education. This is an ideal choice for families seeking a large, established independent school with extensive facilities and diverse program offerings.
+
 #### **Cranbourne Area**
 
 **Chairo Christian School (Cranbourne Campus)**
@@ -1003,6 +1340,20 @@
 - **Summary**: Christian school offering comprehensive education with strong focus on academic achievement and personal growth.
 - **School Review**: Chairo Christian School prides itself on its Christ-centered approach to education and strong focus on academic achievement and personal growth. This school is particularly great for families seeking a Christian education with strong values and comprehensive programs. The school's academic program is well-rounded, with students participating in VCE, VCAL, and VET programs that prepare them for various career pathways. Their Christian studies program is comprehensive, with students participating in chapel services, Bible studies, and community service projects. The music program is vibrant, with students regularly performing at community events and school concerts. The art program encourages creativity and self-expression, with regular exhibitions that celebrate student achievements. Physical education is comprehensive, with excellent facilities and a focus on developing teamwork and sportsmanship. The school culture emphasizes respect, responsibility, and resilience, creating a positive learning environment where students feel safe and supported. This is an ideal choice for families seeking a Christian education that fosters academic achievement and personal growth.
 
+**Lighthouse Christian College - Cranbourne**
+- **Address**: 1785 South Gippsland Highway, Cranbourne East 3977
+- **Phone**: Contact via website
+- **Website**: www.lighthouse.vic.edu.au
+- **Type**: Independent Christian (Assemblies of God), Co-educational
+- **Year Levels**: Prep-12
+- **Enrollment**: 944 students
+- **Student-Teacher Ratio**: 1:19
+- **Established**: 2000
+- **Special Programs**: Biblical Christian values, literacy & numeracy programs, Science, IT, Music, Art, Indonesian, PE
+- **Accreditation**: Victorian Registration & Qualifications Authority (VRQA), Victorian Curriculum and Assessment Authority (VCAA), Independent Schools Victoria (ISV)
+- **Summary**: Founded in 2000 by TurningPoint Family Church to provide education grounded in Biblical Christian values.
+- **School Review**: Lighthouse Christian College Cranbourne was founded in 2000 out of a heartfelt desire to offer Cranbourne families a unique educational experience teaching and training in Biblical Christian values. Affiliated with Assemblies of God, the college serves 944 students from Prep to Year 12. The curriculum includes extensive literacy and numeracy programs alongside core subjects including Science, IT, SOSE, Music, Civics, Art, Indonesian, and Physical Education. The college is fully accredited and registered with Victorian authorities, ensuring compliance with all educational standards while maintaining its Christian foundation. This is an ideal choice for Christian families seeking education that integrates faith throughout the curriculum.
+
 #### **Narre Warren Area**
 
 **Rivercrest Christian College**
@@ -1018,6 +1369,18 @@
 - **Fees**: $10,000 - $18,000 per year
 - **Summary**: Christian school offering IB Primary Years Programme from Early Learning to Year 5. Focus on inquiry-based learning and character development.
 - **School Review**: Rivercrest Christian College prides itself on its innovative approach to education and strong focus on inquiry-based learning and character development. This school is particularly great for families seeking a Christian education with international perspective and comprehensive programs. The school's IB Primary Years Programme is outstanding, with students participating in inquiry-based learning that develops critical thinking and problem-solving skills. Their Christian studies program is comprehensive, with students participating in chapel services, Bible studies, and community service projects. The music program is vibrant, with students regularly performing at community events and school concerts. The art program encourages creativity and self-expression, with regular exhibitions that celebrate student achievements. Physical education is comprehensive, with excellent facilities and a focus on developing teamwork and sportsmanship. The school culture emphasizes respect, responsibility, and resilience, creating a positive learning environment where students feel safe and supported. This is an ideal choice for families seeking a Christian education with international perspective that fosters inquiry-based learning and character development.
+
+**Heritage College**
+- **Address**: Narre Warren South and Officer campuses
+- **Phone**: Contact via website
+- **Website**: heritagecollege.vic.edu.au
+- **Type**: Independent Christian, Co-educational
+- **Year Levels**: Early Learning (3-4 years) through to Year 12
+- **Enrollment**: Growing
+- **Student-Teacher Ratio**: 1:15 (estimated)
+- **Special Programs**: Christian education, comprehensive ELC-Year 12 programs
+- **Summary**: Provides Christ-centered education from Early Learning through to Year 12, located in picturesque semi-rural campus settings in Narre Warren South and Officer.
+- **School Review**: Heritage College offers Christ-centered education from Early Learning (3 and 4 years of age) through to Year 12 across picturesque, semi-rural campuses in Narre Warren South and Officer. The college provides continuity of education in a Christian environment, allowing students to develop strong relationships with teachers and peers over many years. The semi-rural setting provides a peaceful learning environment while maintaining accessibility to Melbourne's south-east suburbs. Heritage College emphasizes Christian values alongside academic excellence, preparing students for both tertiary education and life as active, faith-filled members of their community. This is an ideal choice for Christian families seeking comprehensive early learning through secondary education in a values-based, semi-rural environment.
 
 ### Cardinia Shire Private Schools
 
@@ -1084,6 +1447,169 @@
 - **Fees**: $3,000 - $5,000 per year
 - **Summary**: Catholic primary school offering comprehensive education with strong focus on faith formation and academic excellence.
 - **School Review**: St Francis Xavier Primary School prides itself on its Catholic identity and strong focus on faith formation and academic excellence. This school is particularly great for families seeking a Catholic education with strong values and comprehensive programs. The school's academic program is well-rounded, with students participating in music, art, and physical education programs that develop their talents and interests. Their religious education program is comprehensive, with students participating in Mass, prayer, and community service projects. The music program is vibrant, with students regularly performing at community events and school concerts. The art program encourages creativity and self-expression, with regular exhibitions that celebrate student achievements. Physical education is comprehensive, with excellent facilities and a focus on developing teamwork and sportsmanship. The school culture emphasizes respect, responsibility, and resilience, creating a positive learning environment where students feel safe and supported. This is an ideal choice for families seeking a Catholic education that fosters faith formation and academic excellence.
+
+**St Michael's Primary School (Berwick)**
+- **Address**: Berwick (contact school for precise location)
+- **Phone**: 03 8794 2400
+- **Email**: office@stmberwick.catholic.edu.au
+- **Website**: www.stmberwick.catholic.edu.au
+- **Type**: Catholic, Co-educational
+- **Diocese**: Diocese of Sale Catholic Education Limited
+- **Year Levels**: Foundation - Year 6
+- **Enrollment**: 600+ students
+- **Student-Teacher Ratio**: 1:14
+- **Special Programs**: Catholic faith formation, Music, Art, Physical Education, Religious Education
+- **Summary**: Catholic primary school located in picturesque Berwick Village, inspired by the teachings of Jesus, providing rich learning experiences.
+- **School Review**: St Michael's Primary School is located in the picturesque Berwick Village area. Priority of enrolment is given to baptised Catholic children residing within Parish boundaries (areas north of O'Shea Road, west of Cardinia Creek, and east of Hessel Road), covering parts of Berwick, Beaconsfield, Harkaway, and Upper Beaconsfield. The school provides students with rich learning experiences across all areas of the Victorian Curriculum.
+
+**St Catherine's Primary School (Berwick)**
+- **Address**: 73 Ridgemont Drive, Berwick 3806
+- **Phone**: 03 9702 1466
+- **Email**: principal@stcberwick.catholic.edu.au
+- **Website**: www.stcberwick.catholic.edu.au
+- **Type**: Catholic, Co-educational
+- **Diocese**: Diocese of Sale Catholic Education Limited
+- **Year Levels**: Prep - Year 6
+- **Enrollment**: 700 students
+- **Student-Teacher Ratio**: 1:14
+- **Special Programs**: Catholic faith formation, Music, Art, Physical Education, Religious Education
+- **Summary**: Integral part of the Sale Diocese and St Michael's Parish, sharing mission of bringing Catholic Education to Melbourne's southern growth corridor.
+- **School Review**: St Catherine's Primary School is inspired by the life of St Catherine of Siena, undertaking to be a Catholic community where God's love is experienced, shared and celebrated. Established in 1996 with 67 students, the school today has just under 700 students. The school logo proudly bears the motto 'Our Faith is Our Strength'. The school site is shared with St Francis Xavier Regional College, Berwick Junior Campus.
+
+**Mary MacKillop Primary School (Narre Warren North)**
+- **Address**: Narre Warren North 3804
+- **Phone**: Contact school for details
+- **Email**: principal@marymacnarre.catholic.edu.au
+- **Website**: www.marymacnarre.catholic.edu.au
+- **Type**: Catholic, Co-educational
+- **Diocese**: Diocese of Sale Catholic Education Limited
+- **Year Levels**: Foundation - Year 6
+- **Enrollment**: Growing
+- **Student-Teacher Ratio**: 1:14
+- **Special Programs**: Straight grades Foundation to Year 6, Catholic faith formation, comprehensive programs
+- **Summary**: Warm and friendly Catholic community where everyone is known by name, offering straight grades from Foundation to Year 6.
+- **School Review**: Mary MacKillop Primary School offers a nurturing environment with a focus on building strong relationships. Named after Australia's first saint, the school embodies her values of compassion, service, and dedication to education.
+
+**St Thomas More Catholic Primary School (Cranbourne East)**
+- **Address**: 5 Fiorelli Boulevard, Cranbourne East 3977
+- **Phone**: Contact school for details
+- **Email**: principal@stthomasmore.catholic.edu.au
+- **Website**: Contact school for details
+- **Type**: Catholic, Co-educational
+- **Diocese**: Diocese of Sale Catholic Education Limited
+- **Principal**: Mrs Kate Dourley
+- **Year Levels**: Prep - Year 6
+- **Enrollment**: Growing
+- **Student-Teacher Ratio**: 1:14
+- **Special Programs**: Catholic faith formation, Music, Art, Physical Education, Religious Education
+- **Summary**: Catholic primary school serving the growing Cranbourne East community with comprehensive faith-based education.
+- **School Review**: St Thomas More Catholic Primary School provides quality Catholic education to families in the rapidly growing Cranbourne East area, part of the Diocese of Sale Catholic Education network.
+
+**St Agatha's Catholic Primary School (Cranbourne)**
+- **Address**: Scott Street, Cranbourne 3977
+- **Phone**: Contact school for details
+- **Email**: principal@stagathas.catholic.edu.au
+- **Website**: Contact school for details
+- **Type**: Catholic, Co-educational
+- **Diocese**: Diocese of Sale Catholic Education Limited
+- **Principal**: Mrs Michelle Bruitzman
+- **Year Levels**: Prep - Year 6
+- **Enrollment**: 420+ students
+- **Student-Teacher Ratio**: 1:14
+- **Special Programs**: Catholic faith formation, Music, Art, Physical Education, Religious Education
+- **Summary**: Catholic primary school serving the Cranbourne community with faith-based education and comprehensive programs.
+- **School Review**: St Agatha's has been serving the Cranbourne Catholic community for many years, providing quality Catholic education within the Diocese of Sale network.
+
+**Trinity Catholic Primary School (Narre Warren South)**
+- **Address**: 103-129 Oakgrove Dr, Narre Warren South 3805
+- **Phone**: (03) 9704 1970
+- **Email**: principal@trinitynarre.catholic.edu.au
+- **Website**: www.trinitynarre.catholic.edu.au
+- **Type**: Catholic, Co-educational
+- **Diocese**: Diocese of Sale Catholic Education Limited
+- **Year Levels**: Prep - Year 6
+- **Enrollment**: Growing
+- **Student-Teacher Ratio**: 1:14 (estimated)
+- **Special Programs**: Catholic faith formation, Religious Education, Music, Art, Physical Education
+- **Summary**: Vibrant, inclusive Prep-6 Catholic school grounded in faith, hope & love, offering strong academic and spiritual growth.
+- **School Review**: Trinity Catholic Primary School prides itself on its vibrant, inclusive community grounded in faith, hope, and love. As part of the Diocese of Sale, the school offers strong academic programs alongside comprehensive faith formation. Students participate in sacramental programs, Mass, prayer services, and community outreach initiatives. The school fosters both academic excellence and spiritual development, creating well-rounded individuals who are prepared for success in secondary education and beyond. This is an ideal choice for Catholic families in Narre Warren South seeking quality education within a faith-based environment.
+
+**Don Bosco Catholic Primary School (Narre Warren)**
+- **Address**: Narre Warren 3805
+- **Phone**: Contact school for details
+- **Email**: principal@dbnarre.catholic.edu.au
+- **Website**: www.dbnarre.catholic.edu.au
+- **Type**: Catholic, Co-educational
+- **Diocese**: Diocese of Sale Catholic Education Limited
+- **Year Levels**: Prep - Year 6
+- **Enrollment**: Growing
+- **Student-Teacher Ratio**: 1:14 (estimated)
+- **Special Programs**: Salesian education, Catholic values, Religious Education, comprehensive programs
+- **Summary**: Faith-filled community where every child is empowered to thrive, guided by the teachings of Saint John Bosco.
+- **School Review**: Don Bosco Catholic Primary School fosters a vibrant, faith-filled community guided by the teachings of Saint John Bosco, the patron saint of young people. The school cultivates strong Catholic values of compassion, integrity, and service, preparing students to be active contributors to their community. Named after the founder of the Salesian order, the school emphasizes a preventive system of education based on reason, religion, and kindness. Students participate in comprehensive academic programs alongside rich faith formation experiences. This is an ideal choice for Catholic families in Narre Warren seeking an education rooted in Salesian spirituality and values.
+
+### Independent & Christian Primary Schools
+
+**Hillcrest Christian College (Clyde North)**
+- **Address**: 500 Soldiers Road, Clyde North 3978
+- **Phone**: 03 9702 2144
+- **Email**: enrolments@hillcrest.vic.edu.au
+- **Website**: www.hillcrest.vic.edu.au
+- **Type**: Independent, Christian, Co-educational
+- **Year Levels**: Early Learning Centre - Year 12
+- **Primary Levels**: ELC - Year 6
+- **Enrollment**: 1,586 students (total school, 1300+ students)
+- **Student-Teacher Ratio**: 1:13
+- **Special Programs**: Equestrian Centre, Environmental Centre, CREST Senior Learning Precinct, STEM
+- **School Hours**: 8:45am - 3:15pm (Mon-Fri)
+- **Summary**: Independent, interdenominational, co-educational and open-enrolment school with expansive campus including equestrian and environmental centres.
+- **School Review**: Hillcrest Christian College enjoys the best of both worlds - set on an expansive property with modern, well-resourced facilities. The Hillcrest Primary consists of Early Learning Centre and Prep through to Year 6. Students benefit from spacious grounds with excellent sports fields and specialized facilities while being close to major housing estates. OSHClub provides before and after school care.
+
+**Heritage College (Narre Warren South)**
+- **Address**: 333 Centre Road, Narre Warren South 3805
+- **Phone**: 03 9796 0100
+- **Email**: office@heritagecollege.vic.edu.au
+- **Website**: heritagecollege.vic.edu.au
+- **Type**: Seventh-Day Adventist, Christian, Co-educational
+- **Year Levels**: Early Learning (3-4 years) - Year 12
+- **Primary Campus**: Narre Warren South (Prep-Year 6)
+- **Secondary Campus**: Officer
+- **Enrollment**: 436 students (total)
+- **Student-Teacher Ratio**: 1:14
+- **Special Programs**: Kitchen gardens, Multi-purpose gymnasium, Step into Secondary program, French language
+- **Summary**: Seventh-Day Adventist Christian school offering education from Early Learning to VCE in picturesque semi-rural settings.
+- **School Review**: Heritage College provides Christian education with primary campus in Narre Warren South and secondary campus in Officer. Features indoor/outdoor learning environments, kitchen gardens, nature-based learning in lower primary, multi-purpose gymnasium, and classroom home economics kitchen. Strong focus on Community, Educational Support, Faith/Religion, Pastoral Care, and Social & Emotional Learning. Year 6 students transition to Officer campus with Step into Secondary support program.
+
+**Chairo Christian School (Pakenham Campus)**
+- **Address**: 585 Bald Hill Road, Nar Nar Goon 3812
+- **Phone**: 03 5623 3333
+- **Email**: enquiries@chairo.vic.edu.au
+- **Website**: www.chairo.vic.edu.au
+- **Type**: Independent, Non-denominational Christian, Co-educational
+- **Year Levels**: Pre-Kindergarten - Year 12
+- **Pakenham Campus**: Pre-Kindergarten - Year 12
+- **Total Enrollment**: 1,900 students across all campuses
+- **Student-Teacher Ratio**: 1:15
+- **Principal**: Simon Matthews
+- **Special Programs**: Christian education, STEM, Music, Sports
+- **Summary**: Growing non-denominational Christian school with 1,900 students across West Gippsland, South Gippsland, Latrobe Valley, and near Pakenham.
+- **School Review**: Founded in 1983 with 19 students, Chairo (from Greek "χαιρω" meaning "Rejoice") now serves 1,900 Kinder to Year 12 students across campuses in Drouin, Drouin East, Pakenham, Leongatha, and Traralgon. The Pakenham Campus offers Pre-Kindergarten to Year 12. Uniform shops operate at Drouin and Pakenham campuses with fittings available by appointment.
+
+**Beaconhills College (Berwick and Pakenham Campuses)**
+- **Berwick Campus**: Berwick 3806
+- **Pakenham Campus**: Toomuc Valley, Pakenham 3810
+- **Phone**: 1300 002 225
+- **Email**: enrol@beaconhills.vic.edu.au
+- **Website**: www.beaconhills.vic.edu.au
+- **Type**: Independent, Ecumenical, Co-educational
+- **Year Levels**: Early Years - Year 12
+- **Education Structure**: Early Years, Junior School, Middle School, Year 9, Senior School
+- **Total Students**: 2,000+ across both campuses
+- **Student-Teacher Ratio**: 1:14
+- **Special Programs**: Tony Sheumack Centre for Performing Arts (Berwick), Little Beacons Learning Centre, Year 9 precinct, Boarding house (Pakenham)
+- **2025/2026 News**: Adding additional Prep class at Pakenham Campus in 2026; most other 2026 places filled
+- **Summary**: Two-campus college providing holistic education from early learning to Year 12 with extensive facilities and programs.
+- **School Review**: Pakenham campus (opened 1982) sits on 18 hectares in picturesque Toomuc Valley with natural landscapes, Little Beacons Learning Centre, separate Year 9 precinct, and boarding house. Berwick campus (opened 2003) features the 630-seat Tony Sheumack Centre for Performing Arts. The college received $1 million for new Year 5 and 6 centre at Pakenham campus. Key entry levels are Early Years, Prep, Year 5 and Year 7. Reconciliation Action Plan active for 2025-2026.
 
 **St Francis Xavier College - Beaconsfield Campus**
 - **Address**: 4 Beaconsfield Avenue, Beaconsfield 3807
@@ -1394,4 +1920,4 @@ A: For kindergartens, register by 30 June. For schools, contact them in Term 2 o
 
 *This guide is updated regularly. For the most current information, please contact schools directly or visit the relevant council websites.*
 
-**Last Updated**: December 2024
+**Last Updated**: December 2025

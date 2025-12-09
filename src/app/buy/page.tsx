@@ -159,9 +159,12 @@ export default function BuyPageOncom() {
             paddingRight: 'max(2rem, 3.33vw)'
           }}>
             <h1 style={{
-              fontSize: isMobile ? '32px' : '48px',
+              fontSize: isMobile ? '42px' : '72px',
               fontWeight: '700',
-              marginBottom: 0
+              letterSpacing: '-0.03em',
+              lineHeight: '1.05',
+              marginBottom: 0,
+              color: '#000'
             }}>Properties for sale</h1>
           </div>
         </div>

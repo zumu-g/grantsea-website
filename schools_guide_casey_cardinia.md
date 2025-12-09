@@ -31,11 +31,13 @@
 
 ### Cardinia Shire Schools Summary
 - **Total Schools**: 30+ educational institutions
-- **Government Primary Schools**: 15+
+- **Government Primary Schools**: 17+ (including Garfield, Bunyip)
 - **Government Secondary Schools**: 3+
 - **Private Primary Schools**: 5+ (Independent, Catholic, Christian)
-- **Private Secondary Schools**: 6+ (Independent, Catholic, Christian)
+- **Private Secondary Schools**: 6+ (Independent, Catholic, Christian including St Thomas Aquinas College)
 - **Kindergartens**: 5+ (Council-managed & Private)
+
+**Note for Rural Areas**: Students in smaller rural communities like Tynong, Garfield, and Bunyip typically attend secondary schools in nearby towns such as Pakenham, Koo Wee Rup, or choose private options like St Thomas Aquinas College near Tynong.
 
 ---
 
@@ -932,6 +934,32 @@
 - **Summary**: Established government primary school serving the Nar Nar Goon community in Cardinia Shire. Strong community connections with small class sizes.
 - **School Review**: Nar Nar Goon Primary School prides itself on its rural setting and close-knit community atmosphere. Located 61km south-east of Melbourne's CBD, this school offers a unique blend of rural values with access to quality education. The small student population ensures personalized attention for every child, with teachers who know each family personally. The school is an integral part of the Nar Nar Goon community, participating in local events and fostering strong community connections. This is an ideal choice for families seeking a rural education experience with excellent student-teacher ratios and individualized learning approaches.
 
+#### **Garfield Area**
+
+**Garfield Primary School**
+- **Address**: 84 Railway Avenue, Garfield 3814
+- **Phone**: (03) 5629 2274
+- **Email**: garfield.ps@education.vic.gov.au
+- **Enrollment**: 148 students
+- **Student-Teacher Ratio**: 1:15
+- **Year Levels**: Prep-6
+- **Special Programs**: Rural education, Community connections
+- **Summary**: Government co-educational primary school serving the rural Garfield community with strong community values and personalized learning.
+- **School Review**: Garfield Primary School prides itself on its "Care to Learn, Learn to Care" motto lived through daily teaching practices. Located in the scenic rural area originally called Cannibal Creek, this small school creates a close-knit community atmosphere where every child receives individual attention. Recent playground upgrades include exciting new features with rockwall challenges for physical development. The school is an integral part of the Garfield community, fostering strong connections with local families and businesses. This is an ideal choice for families seeking a small, personalized rural education experience with excellent student-teacher ratios.
+
+#### **Bunyip Area**
+
+**Bunyip Primary School**
+- **Address**: 1290 Nar Nar Goon - Longwarry Road, Bunyip 3815
+- **Phone**: (03) 5629 5462
+- **Email**: bunyip.ps@education.vic.gov.au
+- **Enrollment**: 284 students
+- **Student-Teacher Ratio**: 1:16
+- **Year Levels**: Prep-6
+- **Special Programs**: Arts, Physical Education, Science
+- **Summary**: Government co-educational primary school serving the Bunyip community with comprehensive programs and modern facilities including playground, locker room, canteen, and swimming pool.
+- **School Review**: Bunyip Primary School supports the learning process of children through the early years with strong focus on reading, writing and mathematics. Located in the Cardinia Shire's Gippsland region, this school offers quality National Curriculum education with average class sizes of 28-32 students. The school provides comprehensive facilities including basketball courts, science labs, and after school care through OSHClub. The dedicated teaching staff for 2025 includes specialists in Arts, Physical Education, and Science/Learning Support. This is an ideal choice for families in the Bunyip area seeking a well-resourced government primary education with strong academic foundations.
+
 ---
 
 ## Secondary Schools
@@ -1385,6 +1413,18 @@
 ### Cardinia Shire Private Schools
 
 #### **Pakenham Area**
+
+**St Thomas Aquinas College**
+- **Address**: Near Tynong 3813
+- **Phone**: Contact via website
+- **Email**: Contact via website
+- **Type**: Catholic, Co-educational
+- **Year Levels**: Prep - Year 12
+- **Enrollment**: 944 students (estimated)
+- **Student-Teacher Ratio**: 1:15 (estimated)
+- **Special Programs**: Comprehensive literacy and numeracy, Science, IT, SOSE, Music, Civics, Art, Indonesian, Physical Education
+- **Summary**: Catholic college opened in 1997 near Tynong village providing comprehensive Prep-Year 12 education with strong academic and spiritual formation.
+- **School Review**: St Thomas Aquinas College serves the Tynong and surrounding communities with comprehensive Catholic education from Prep through Year 12. Opened in 1997, the college provides continuity of education allowing students to develop strong relationships with teachers and peers throughout their schooling journey. The curriculum balances extensive literacy and numeracy programs with comprehensive subjects including Science, IT, SOSE (Studies of Society and Environment), Music, Civics, Art, Indonesian language, and Physical Education. The college is fully accredited and registered with Victorian educational authorities, ensuring high-quality education standards while maintaining its Catholic identity. The rural location near Tynong village provides a peaceful learning environment. This is an ideal choice for Catholic families in the Pakenham, Tynong, Garfield, and surrounding rural areas seeking comprehensive primary and secondary education with strong faith formation and academic excellence.
 
 **Hillcrest Christian College (Officer Campus)**
 - **Address**: 12-14 Officer Road, Officer 3809

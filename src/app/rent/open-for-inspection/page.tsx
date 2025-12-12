@@ -1,19 +1,18 @@
 'use client';
-// Rental properties open for inspection page
+
 import React from 'react';
 import Link from 'next/link';
 import OncomHeader from '@/components/OncomHeader';
-import PropertySkeleton from '@/components/PropertySkeleton';
 
 function RentOpenForInspectionPage() {
-  const [openHomes, setOpenHomes] = React.useState<any[]>([]);
+  const [properties, setProperties] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
   const [selectedDay, setSelectedDay] = React.useState('all');
   const [selectedSuburb, setSelectedSuburb] = React.useState('all');
   const [sortBy, setSortBy] = React.useState('time');
   const [isMobile, setIsMobile] = React.useState(false);
   const [isTablet, setIsTablet] = React.useState(false);
-  const [viewMode, setViewMode] = React.useState<'grid' | 'list'>('grid');
 
   React.useEffect(() => {
     const checkDevice = () => {
@@ -26,402 +25,370 @@ function RentOpenForInspectionPage() {
   }, []);
 
   React.useEffect(() => {
-    fetchOpenHomes();
+    fetchLeaseProperties();
   }, []);
 
-  const fetchOpenHomes = async () => {
+  const fetchLeaseProperties = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/open-homes');
+      setError(null);
+
+      // Fetch lease properties from the API
+      const response = await fetch('/api/properties?type=lease');
       const data = await response.json();
-      
-      if (data.success) {
-        // Filter for rental properties only
-        const rentalOpenHomes = data.openHomes.filter((home: any) => 
-          home.property?.listingType === 'lease' || 
-          home.property?.category === 'lease' ||
-          (home.property?.price && typeof home.property.price === 'object' && home.property.price.per === 'week')
+
+      if (data.properties && Array.isArray(data.properties)) {
+        // Filter to only show lease properties with inspections
+        const leaseProps = data.properties.filter((p: any) =>
+          p.listingType === 'lease' || p.category === 'lease'
         );
-        setOpenHomes(rentalOpenHomes);
+        setProperties(leaseProps);
+      } else {
+        setError('Failed to fetch rental properties');
       }
     } catch (error) {
-      console.error('Error fetching rental open homes:', error);
+      console.error('Error fetching rental properties:', error);
+      setError('Unable to load rental properties. Please try again later.');
     } finally {
       setLoading(false);
     }
   };
 
-  const formatRentPrice = (price: any) => {
-    if (!price) return 'Price on application';
-    
-    if (typeof price === 'object') {
-      if (price.per === 'week' || price.per === 'pw') {
-        if (price.from && price.to) {
-          return `$${parseInt(price.from).toLocaleString()} - $${parseInt(price.to).toLocaleString()} per week`;
-        }
-        if (price.display) return price.display;
-        if (price.from) return `$${parseInt(price.from).toLocaleString()} per week`;
-        if (price.amount) return `$${parseInt(price.amount).toLocaleString()} per week`;
-      }
-    }
-    
+  const formatRentPrice = (property: any) => {
+    // Check various price fields for rental properties
+    const price = property.price || property.priceDisplay;
+
+    if (!price) return 'Price on Application';
+
     if (typeof price === 'string') {
-      // Check if it already contains 'per week' or 'pw'
-      if (price.toLowerCase().includes('per week') || price.toLowerCase().includes('pw')) {
+      if (price.toLowerCase().includes('per week') || price.toLowerCase().includes('pw') || price.toLowerCase().includes('p/w')) {
         return price;
       }
-      
       const numPrice = parseInt(price.replace(/[^0-9]/g, ''));
-      if (!isNaN(numPrice) && numPrice > 0) {
-        return `$${numPrice.toLocaleString()} per week`;
+      if (!isNaN(numPrice) && numPrice > 0 && numPrice < 5000) {
+        return `$${numPrice} per week`;
       }
       return price;
     }
-    
-    return 'Price on application';
-  };
 
-  const formatDateTime = (dateTime: string) => {
-    const date = new Date(dateTime);
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    
-    const isToday = date.toDateString() === today.toDateString();
-    const isTomorrow = date.toDateString() === tomorrow.toDateString();
-    
-    const timeStr = date.toLocaleTimeString('en-AU', { 
-      hour: 'numeric', 
-      minute: '2-digit',
-      hour12: true 
-    });
-    
-    if (isToday) return `Today ${timeStr}`;
-    if (isTomorrow) return `Tomorrow ${timeStr}`;
-    
-    return date.toLocaleDateString('en-AU', { 
-      weekday: 'short',
-      month: 'short', 
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true
-    });
-  };
+    if (typeof price === 'object') {
+      if (price.display) return price.display;
+      if (price.from) return `$${parseInt(price.from).toLocaleString()} per week`;
+    }
 
-  const getDayOfWeek = (dateTime: string) => {
-    const date = new Date(dateTime);
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    
-    if (date.toDateString() === today.toDateString()) return 'today';
-    if (date.toDateString() === tomorrow.toDateString()) return 'tomorrow';
-    
-    return date.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
+    return 'Price on Application';
   };
 
   const getUniqueSuburbs = () => {
-    const suburbs = [...new Set(openHomes.map(home => home.property?.address?.suburb).filter(Boolean))];
+    const suburbs = [...new Set(properties.map(p => p.suburb).filter(Boolean))];
     return suburbs.sort();
   };
 
-  const filteredOpenHomes = openHomes
-    .filter(home => {
-      if (selectedDay !== 'all') {
-        const dayOfWeek = getDayOfWeek(home.startTime);
-        if (selectedDay !== dayOfWeek) return false;
-      }
-      
+  const filteredProperties = properties
+    .filter(property => {
       if (selectedSuburb !== 'all') {
-        const suburb = home.property?.address?.suburb;
-        if (suburb !== selectedSuburb) return false;
+        if (property.suburb !== selectedSuburb) return false;
       }
-      
       return true;
     })
     .sort((a, b) => {
       switch (sortBy) {
-        case 'time':
-          return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
         case 'suburb':
-          return (a.property?.address?.suburb || '').localeCompare(b.property?.address?.suburb || '');
+          return (a.suburb || '').localeCompare(b.suburb || '');
         case 'price':
-          const priceA = a.property?.price?.from || a.property?.price?.amount || 0;
-          const priceB = b.property?.price?.from || b.property?.price?.amount || 0;
-          return parseInt(String(priceA).replace(/[^0-9]/g, '') || '0') - parseInt(String(priceB).replace(/[^0-9]/g, '') || '0');
+          const priceA = parseInt(String(a.price || '0').replace(/[^0-9]/g, '') || '0');
+          const priceB = parseInt(String(b.price || '0').replace(/[^0-9]/g, '') || '0');
+          return priceA - priceB;
+        case 'bedrooms':
+          return (b.bedrooms || 0) - (a.bedrooms || 0);
         default:
           return 0;
       }
     });
 
-  const getTimeStatus = (startTime: string, endTime: string) => {
-    const now = new Date();
-    const start = new Date(startTime);
-    const end = new Date(endTime);
-    
-    if (now < start) return 'upcoming';
-    if (now >= start && now <= end) return 'active';
-    return 'ended';
-  };
-
   return (
     <React.Fragment>
       <OncomHeader />
-      
+
       <main style={{
-        paddingTop: isMobile ? '90px' : '200px',
-        backgroundColor: '#fff'
+        paddingTop: isMobile ? '80px' : '120px',
+        backgroundColor: '#fff',
+        minHeight: '100vh'
       }}>
-        {/* Hero Section */}
+        {/* Hero Section - Minimalist on.com style */}
         <section style={{
-          backgroundColor: '#f8f9fa',
-          paddingTop: isMobile ? '60px' : isTablet ? '80px' : '96px',
-          paddingBottom: isMobile ? '60px' : isTablet ? '80px' : '96px',
-          textAlign: 'center'
+          padding: isMobile ? '60px 20px 40px' : '80px max(2rem, 3.33vw) 60px',
+          backgroundColor: '#fff'
         }}>
           <div style={{
             maxWidth: '1440px',
-            margin: '0 auto',
-            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
-            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
+            margin: '0 auto'
           }}>
             <h1 style={{
-              fontSize: isMobile ? '36px' : isTablet ? '44px' : '56px',
+              fontSize: isMobile ? '42px' : isTablet ? '56px' : '72px',
               fontWeight: '700',
-              letterSpacing: '-0.02em',
-              lineHeight: '1.1',
-              margin: '0 0 24px 0',
+              letterSpacing: '-0.03em',
+              lineHeight: '1.05',
+              margin: '0 0 20px 0',
               color: '#000'
             }}>
               Rental Inspections
             </h1>
             <p style={{
-              fontSize: isMobile ? '16px' : '20px',
+              fontSize: isMobile ? '16px' : '18px',
               color: '#666',
               maxWidth: '600px',
-              margin: '0 auto 40px auto',
+              margin: 0,
               lineHeight: '1.6'
             }}>
-              Find your perfect rental property. Browse upcoming open inspections for lease properties in Melbourne's south-east.
+              Browse our available rental properties in the Casey & Cardinia region
             </p>
           </div>
         </section>
 
-        {/* Filters */}
+        {/* Filter Bar - Clean minimal design */}
         <section style={{
+          padding: isMobile ? '0 20px 32px' : '0 max(2rem, 3.33vw) 48px',
           backgroundColor: '#fff',
-          paddingTop: isMobile ? '40px' : '60px',
-          paddingBottom: isMobile ? '40px' : '60px',
-          borderBottom: '1px solid #e5e5e5'
+          position: 'sticky',
+          top: isMobile ? '60px' : '80px',
+          zIndex: 10
         }}>
           <div style={{
             maxWidth: '1440px',
             margin: '0 auto',
-            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
-            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
+            paddingTop: '20px',
+            paddingBottom: '20px',
+            borderBottom: '1px solid #e5e5e5',
+            backgroundColor: '#fff'
           }}>
             <div style={{
               display: 'flex',
               flexDirection: isMobile ? 'column' : 'row',
-              gap: '20px',
-              marginBottom: '30px',
-              alignItems: isMobile ? 'stretch' : 'center'
+              gap: isMobile ? '12px' : '16px',
+              alignItems: isMobile ? 'stretch' : 'center',
+              flexWrap: 'wrap'
             }}>
-              <select
-                value={selectedDay}
-                onChange={(e) => setSelectedDay(e.target.value)}
-                style={{
-                  padding: '16px 20px',
-                  border: '2px solid #e5e5e5',
-                  borderRadius: '8px',
-                  fontSize: '16px',
-                  backgroundColor: '#fff',
-                  cursor: 'pointer',
-                  flex: 1,
-                  fontFamily: 'inherit'
-                }}
-              >
-                <option value="all">All Days</option>
-                <option value="today">Today</option>
-                <option value="tomorrow">Tomorrow</option>
-                <option value="saturday">Saturday</option>
-                <option value="sunday">Sunday</option>
-                <option value="monday">Monday</option>
-                <option value="tuesday">Tuesday</option>
-                <option value="wednesday">Wednesday</option>
-                <option value="thursday">Thursday</option>
-                <option value="friday">Friday</option>
-              </select>
-
-              <select
-                value={selectedSuburb}
-                onChange={(e) => setSelectedSuburb(e.target.value)}
-                style={{
-                  padding: '16px 20px',
-                  border: '2px solid #e5e5e5',
-                  borderRadius: '8px',
-                  fontSize: '16px',
-                  backgroundColor: '#fff',
-                  cursor: 'pointer',
-                  flex: 1,
-                  fontFamily: 'inherit'
-                }}
-              >
-                <option value="all">All Suburbs</option>
-                {getUniqueSuburbs().map(suburb => (
-                  <option key={suburb} value={suburb}>{suburb}</option>
-                ))}
-              </select>
-
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                style={{
-                  padding: '16px 20px',
-                  border: '2px solid #e5e5e5',
-                  borderRadius: '8px',
-                  fontSize: '16px',
-                  backgroundColor: '#fff',
-                  cursor: 'pointer',
-                  flex: 1,
-                  fontFamily: 'inherit'
-                }}
-              >
-                <option value="time">Sort by Time</option>
-                <option value="suburb">Sort by Suburb</option>
-                <option value="price">Sort by Weekly Rent</option>
-              </select>
-            </div>
-
-            {/* Results Count and View Toggle */}
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: '20px',
-              flexDirection: isMobile ? 'column' : 'row',
-              gap: isMobile ? '16px' : '0'
-            }}>
-              <div style={{
-                fontSize: '16px',
-                color: '#666'
-              }}>
-                {loading ? 'Loading...' : `Showing ${filteredOpenHomes.length} rental inspection${filteredOpenHomes.length !== 1 ? 's' : ''}`}
+              {/* Suburb Filter */}
+              <div style={{ position: 'relative', flex: isMobile ? '1' : '0 0 auto' }}>
+                <select
+                  value={selectedSuburb}
+                  onChange={(e) => setSelectedSuburb(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '12px 40px 12px 16px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '100px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    backgroundColor: '#fff',
+                    cursor: 'pointer',
+                    fontFamily: 'inherit',
+                    appearance: 'none',
+                    minWidth: '160px',
+                    color: '#000'
+                  }}
+                >
+                  <option value="all">All Suburbs</option>
+                  {getUniqueSuburbs().map(suburb => (
+                    <option key={suburb} value={suburb}>{suburb}</option>
+                  ))}
+                </select>
+                <svg style={{ position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
               </div>
-              
-              {/* View Mode Toggle */}
+
+              {/* Sort By */}
+              <div style={{ position: 'relative', flex: isMobile ? '1' : '0 0 auto' }}>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '12px 40px 12px 16px',
+                    border: '1px solid #e5e5e5',
+                    borderRadius: '100px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    backgroundColor: '#fff',
+                    cursor: 'pointer',
+                    fontFamily: 'inherit',
+                    appearance: 'none',
+                    minWidth: '140px',
+                    color: '#000'
+                  }}
+                >
+                  <option value="time">Featured</option>
+                  <option value="suburb">Suburb</option>
+                  <option value="price">Rent (Low to High)</option>
+                  <option value="bedrooms">Bedrooms</option>
+                </select>
+                <svg style={{ position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+
+              {/* Results Count - Right aligned on desktop */}
               <div style={{
-                display: 'flex',
-                gap: '8px',
-                padding: '4px',
-                backgroundColor: '#f8f8f8',
-                borderRadius: '8px'
+                marginLeft: isMobile ? '0' : 'auto',
+                fontSize: '14px',
+                color: '#666',
+                fontWeight: '500'
               }}>
-                <button
-                  onClick={() => setViewMode('grid')}
-                  style={{
-                    padding: '8px 16px',
-                    border: 'none',
-                    borderRadius: '6px',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    backgroundColor: viewMode === 'grid' ? '#002b7f' : 'transparent',
-                    color: viewMode === 'grid' ? '#fff' : '#666'
-                  }}
-                >
-                  Grid
-                </button>
-                <button
-                  onClick={() => setViewMode('list')}
-                  style={{
-                    padding: '8px 16px',
-                    border: 'none',
-                    borderRadius: '6px',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    backgroundColor: viewMode === 'list' ? '#002b7f' : 'transparent',
-                    color: viewMode === 'list' ? '#fff' : '#666'
-                  }}
-                >
-                  List
-                </button>
+                {loading ? 'Loading...' : `${filteredProperties.length} rental${filteredProperties.length !== 1 ? 's' : ''} available`}
               </div>
             </div>
           </div>
         </section>
 
-        {/* Open Homes List */}
+        {/* Properties List */}
         <section style={{
-          backgroundColor: '#fff',
-          paddingTop: isMobile ? '40px' : '60px',
-          paddingBottom: isMobile ? '40px' : '60px'
+          padding: isMobile ? '20px 20px 60px' : '20px max(2rem, 3.33vw) 80px'
         }}>
           <div style={{
             maxWidth: '1440px',
-            margin: '0 auto',
-            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
-            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
+            margin: '0 auto'
           }}>
             {loading ? (
               <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '200px'
+                display: 'grid',
+                gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+                gap: '24px'
               }}>
-                <div style={{
-                  fontSize: '18px',
-                  color: '#666'
-                }}>
-                  Loading rental inspections...
-                </div>
+                {[1, 2, 3, 4, 5, 6].map(i => (
+                  <div key={i} style={{
+                    backgroundColor: '#f8f8f8',
+                    borderRadius: '12px',
+                    height: '420px',
+                    animation: 'pulse 2s infinite'
+                  }} />
+                ))}
               </div>
-            ) : filteredOpenHomes.length === 0 ? (
+            ) : error ? (
               <div style={{
                 textAlign: 'center',
-                padding: '80px 20px',
-                color: '#666'
+                padding: '100px 20px'
               }}>
+                <div style={{
+                  width: '64px',
+                  height: '64px',
+                  backgroundColor: '#fef2f2',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 24px'
+                }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#AF272F" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                </div>
                 <h3 style={{
                   fontSize: '24px',
                   fontWeight: '600',
-                  marginBottom: '16px',
+                  marginBottom: '12px',
                   color: '#000'
                 }}>
-                  No Rental Inspections Found
+                  Unable to Load Rentals
                 </h3>
-                <p style={{ 
-                  fontSize: '16px', 
+                <p style={{
+                  fontSize: '16px',
+                  color: '#666',
                   marginBottom: '32px',
                   maxWidth: '400px',
-                  margin: '0 auto 32px auto',
+                  margin: '0 auto 32px',
                   lineHeight: '1.6'
                 }}>
-                  There are currently no scheduled rental inspections matching your criteria. Check back soon or contact us for private inspections.
+                  {error}
+                </p>
+                <button
+                  onClick={fetchLeaseProperties}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '14px 32px',
+                    backgroundColor: '#000',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '100px',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'opacity 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
+                  onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M23 4v6h-6"></path>
+                    <path d="M1 20v-6h6"></path>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                  </svg>
+                  Try Again
+                </button>
+              </div>
+            ) : filteredProperties.length === 0 ? (
+              <div style={{
+                textAlign: 'center',
+                padding: '100px 20px'
+              }}>
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  backgroundColor: '#f8f8f8',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 24px'
+                }}>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="1.5">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9,22 9,12 15,12 15,22"/>
+                  </svg>
+                </div>
+                <h3 style={{
+                  fontSize: '28px',
+                  fontWeight: '600',
+                  marginBottom: '12px',
+                  color: '#000',
+                  letterSpacing: '-0.02em'
+                }}>
+                  No Rentals Available
+                </h3>
+                <p style={{
+                  fontSize: '16px',
+                  color: '#666',
+                  marginBottom: '32px',
+                  maxWidth: '400px',
+                  margin: '0 auto 32px',
+                  lineHeight: '1.6'
+                }}>
+                  There are currently no rental properties matching your criteria. Try adjusting your filters or contact us for assistance.
                 </p>
                 <div style={{
                   display: 'flex',
-                  flexDirection: isMobile ? 'column' : 'row',
-                  gap: '16px',
-                  justifyContent: 'center'
+                  gap: '12px',
+                  justifyContent: 'center',
+                  flexWrap: 'wrap'
                 }}>
                   <Link
                     href="/rent"
                     style={{
-                      display: 'inline-block',
-                      padding: '14px 28px',
-                      backgroundColor: '#002b7f',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      padding: '14px 32px',
+                      backgroundColor: '#000',
                       color: '#fff',
                       textDecoration: 'none',
-                      borderRadius: '8px',
-                      fontSize: '16px',
+                      borderRadius: '100px',
+                      fontSize: '14px',
                       fontWeight: '600',
-                      transition: 'background-color 0.3s ease'
+                      transition: 'opacity 0.2s'
                     }}
                   >
                     Browse All Rentals
@@ -429,16 +396,17 @@ function RentOpenForInspectionPage() {
                   <Link
                     href="/contact"
                     style={{
-                      display: 'inline-block',
-                      padding: '14px 28px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      padding: '14px 32px',
                       backgroundColor: '#fff',
-                      color: '#002b7f',
+                      color: '#000',
                       textDecoration: 'none',
-                      borderRadius: '8px',
-                      fontSize: '16px',
+                      borderRadius: '100px',
+                      fontSize: '14px',
                       fontWeight: '600',
-                      border: '2px solid #002b7f',
-                      transition: 'all 0.3s ease'
+                      border: '1px solid #e5e5e5',
+                      transition: 'border-color 0.2s'
                     }}
                   >
                     Contact Us
@@ -447,261 +415,225 @@ function RentOpenForInspectionPage() {
               </div>
             ) : (
               <div style={{
-                display: viewMode === 'list' ? 'flex' : 'grid',
-                flexDirection: viewMode === 'list' ? 'column' : undefined,
-                gridTemplateColumns: viewMode === 'grid' ? (isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)') : undefined,
-                gap: viewMode === 'list' ? '16px' : (isMobile ? '16px' : '24px')
+                display: 'grid',
+                gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+                gap: '24px'
               }}>
-                {filteredOpenHomes.map((openHome, index) => {
-                  const property = openHome.property;
-                  const status = getTimeStatus(openHome.startTime, openHome.endTime);
-                  
-                  return (
-                    <Link
-                      key={index}
-                      href={`/property/${property?.id}`}
+                {filteredProperties.map((property: any, index: number) => (
+                  <Link
+                    key={property.id || index}
+                    href={`/property/${property.id}`}
+                    style={{
+                      textDecoration: 'none',
+                      color: 'inherit'
+                    }}
+                  >
+                    <article
                       style={{
-                        textDecoration: 'none',
-                        color: 'inherit',
-                        display: 'block'
-                      }}
-                    >
-                      <div style={{
                         backgroundColor: '#fff',
                         borderRadius: '12px',
                         overflow: 'hidden',
-                        border: '1px solid #e5e5e5',
-                        transition: 'all 0.3s ease',
+                        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
                         cursor: 'pointer',
-                        height: '100%',
-                        display: 'flex',
-                        flexDirection: viewMode === 'list' ? 'row' : 'column',
-                        boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+                        border: '1px solid #f0f0f0'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-2px)';
-                        e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)';
+                        e.currentTarget.style.transform = 'translateY(-4px)';
+                        e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.08)';
+                        const addressEl = e.currentTarget.querySelector('[data-address]') as HTMLElement;
+                        if (addressEl) addressEl.style.color = '#AF272F';
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.05)';
+                        e.currentTarget.style.boxShadow = 'none';
+                        const addressEl = e.currentTarget.querySelector('[data-address]') as HTMLElement;
+                        if (addressEl) addressEl.style.color = '#000';
+                      }}
+                    >
+                      {/* Image Container */}
+                      <div style={{
+                        position: 'relative',
+                        aspectRatio: '4/3',
+                        backgroundColor: '#f8f8f8',
+                        overflow: 'hidden'
                       }}>
-                        {/* Image */}
-                        <div style={{
-                          width: viewMode === 'list' ? (isMobile ? '120px' : '200px') : '100%',
-                          height: viewMode === 'list' ? (isMobile ? '120px' : '200px') : '240px',
-                          backgroundColor: '#f8f8f8',
-                          position: 'relative',
-                          overflow: 'hidden',
-                          flexShrink: 0
-                        }}>
-                          {property?.images && property.images[0] ? (
-                            <img
-                              src={property.images[0]}
-                              alt={`${property.address?.street}, ${property.address?.suburb}`}
-                              style={{
-                                width: '100%',
-                                height: '100%',
-                                objectFit: 'cover'
-                              }}
-                            />
-                          ) : (
-                            <div style={{
+                        {property.images && property.images[0] ? (
+                          <img
+                            src={typeof property.images[0] === 'string' ? property.images[0] : property.images[0].url}
+                            alt={property.address || 'Property'}
+                            style={{
                               width: '100%',
                               height: '100%',
-                              backgroundColor: '#f8f8f8',
+                              objectFit: 'cover'
+                            }}
+                          />
+                        ) : (
+                          <div style={{
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#999',
+                            fontSize: '14px'
+                          }}>
+                            No Image
+                          </div>
+                        )}
+
+                        {/* For Lease Badge */}
+                        <div style={{
+                          position: 'absolute',
+                          top: '16px',
+                          left: '16px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          backgroundColor: '#AF272F',
+                          color: '#fff',
+                          padding: '8px 14px',
+                          borderRadius: '100px',
+                          fontSize: '13px',
+                          fontWeight: '600'
+                        }}>
+                          For Lease
+                        </div>
+
+                        {/* Save Button */}
+                        <div style={{
+                          position: 'absolute',
+                          top: '16px',
+                          right: '16px'
+                        }}>
+                          <div
+                            onClick={(e) => e.preventDefault()}
+                            style={{
+                              width: '40px',
+                              height: '40px',
+                              backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                              borderRadius: '50%',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
-                              color: '#999'
-                            }}>
-                              No Image Available
-                            </div>
-                          )}
-                          
-                          {/* Status Badge */}
-                          <div style={{
-                            position: 'absolute',
-                            top: '16px',
-                            left: '16px',
-                            padding: '6px 12px',
-                            backgroundColor: status === 'active' ? '#27ae60' : status === 'upcoming' ? '#002b7f' : '#95a5a6',
-                            color: '#fff',
-                            borderRadius: '20px',
-                            fontSize: '12px',
-                            fontWeight: '600',
-                            textTransform: 'uppercase'
-                          }}>
-                            {status === 'active' ? 'Open Now' : status === 'upcoming' ? 'Upcoming' : 'Ended'}
+                              cursor: 'pointer',
+                              transition: 'transform 0.2s'
+                            }}
+                          >
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2">
+                              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
                           </div>
-
-                          {/* For Lease Badge */}
-                          <div style={{
-                            position: 'absolute',
-                            top: '16px',
-                            right: '16px',
-                            padding: '6px 12px',
-                            backgroundColor: '#e67e22',
-                            color: '#fff',
-                            borderRadius: '20px',
-                            fontSize: '12px',
-                            fontWeight: '600',
-                            textTransform: 'uppercase'
-                          }}>
-                            For Lease
-                          </div>
-                        </div>
-
-                        {/* Content */}
-                        <div style={{
-                          padding: viewMode === 'list' ? (isMobile ? '16px' : '24px') : '24px',
-                          flex: 1,
-                          display: 'flex',
-                          flexDirection: 'column'
-                        }}>
-                          {/* Time */}
-                          <div style={{
-                            fontSize: '16px',
-                            fontWeight: '600',
-                            color: '#002b7f',
-                            marginBottom: '12px'
-                          }}>
-                            📅 {formatDateTime(openHome.startTime)}
-                            {openHome.endTime && (
-                              <span style={{ color: '#666', fontWeight: '400' }}>
-                                {' '}- {new Date(openHome.endTime).toLocaleTimeString('en-AU', { 
-                                  hour: 'numeric', 
-                                  minute: '2-digit',
-                                  hour12: true 
-                                })}
-                              </span>
-                            )}
-                          </div>
-
-                          {/* Property Details */}
-                          <h3 style={{
-                            fontSize: '20px',
-                            fontWeight: '600',
-                            margin: '0 0 8px 0',
-                            color: '#000'
-                          }}>
-                            {property?.address?.street}, {property?.address?.suburb}
-                          </h3>
-
-                          <div style={{
-                            fontSize: '24px',
-                            fontWeight: '700',
-                            color: '#e67e22',
-                            marginBottom: '16px'
-                          }}>
-                            {formatRentPrice(property?.price)}
-                          </div>
-
-                          {/* Property Features */}
-                          {(property?.bedrooms || property?.bathrooms || property?.carSpaces) && (
-                            <div style={{
-                              display: 'flex',
-                              gap: '16px',
-                              marginBottom: '16px',
-                              fontSize: '14px',
-                              color: '#666'
-                            }}>
-                              {property.bedrooms && (
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                  🛏️ {property.bedrooms} bed{property.bedrooms !== 1 ? 's' : ''}
-                                </div>
-                              )}
-                              {property.bathrooms && (
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                  🚿 {property.bathrooms} bath{property.bathrooms !== 1 ? 's' : ''}
-                                </div>
-                              )}
-                              {property.carSpaces && (
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                  🚗 {property.carSpaces} car{property.carSpaces !== 1 ? 's' : ''}
-                                </div>
-                              )}
-                            </div>
-                          )}
-
-                          {/* Property Type for Rentals */}
-                          {property?.propertyType && (
-                            <div style={{
-                              padding: '8px 12px',
-                              backgroundColor: '#f0f4ff',
-                              borderRadius: '16px',
-                              fontSize: '12px',
-                              color: '#002b7f',
-                              fontWeight: '500',
-                              alignSelf: 'flex-start',
-                              marginBottom: '16px',
-                              textTransform: 'capitalize'
-                            }}>
-                              {property.propertyType}
-                            </div>
-                          )}
-
-                          {/* Contact Info */}
-                          {openHome.agent && (
-                            <div style={{
-                              marginTop: 'auto',
-                              padding: '16px 0',
-                              borderTop: '1px solid #e5e5e5',
-                              fontSize: '14px',
-                              color: '#666'
-                            }}>
-                              <div style={{ fontWeight: '600', color: '#000' }}>
-                                {openHome.agent.name || openHome.agent.firstName + ' ' + openHome.agent.lastName}
-                              </div>
-                              {openHome.agent.phone && (
-                                <div>{openHome.agent.phone}</div>
-                              )}
-                              {openHome.agent.email && (
-                                <div style={{ 
-                                  fontSize: '12px',
-                                  color: '#666',
-                                  marginTop: '4px'
-                                }}>
-                                  {openHome.agent.email}
-                                </div>
-                              )}
-                            </div>
-                          )}
                         </div>
                       </div>
-                    </Link>
-                  );
-                })}
+
+                      {/* Content */}
+                      <div style={{ padding: '20px' }}>
+                        {/* Suburb */}
+                        <p style={{
+                          fontSize: '12px',
+                          color: '#666',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.05em',
+                          fontWeight: '500',
+                          margin: '0 0 6px 0'
+                        }}>
+                          {property.suburb}
+                        </p>
+
+                        {/* Address */}
+                        <h3
+                          data-address="true"
+                          style={{
+                            fontSize: '18px',
+                            fontWeight: '600',
+                            margin: '0 0 12px 0',
+                            color: '#000',
+                            lineHeight: '1.3',
+                            transition: 'color 0.2s ease'
+                          }}
+                        >
+                          {property.address}
+                        </h3>
+
+                        {/* Features */}
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '16px',
+                          fontSize: '14px',
+                          color: '#666',
+                          marginBottom: '16px'
+                        }}>
+                          {property.bedrooms && (
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                <path d="M3 12h18M3 12v8h18v-8M3 12V8c0-1.1.9-2 2-2h2c1.1 0 2 .9 2 2v4M9 12V8c0-1.1.9-2 2-2h2c1.1 0 2 .9 2 2v4M15 12V8c0-1.1.9-2 2-2h2c1.1 0 2 .9 2 2v4"></path>
+                              </svg>
+                              {property.bedrooms}
+                            </span>
+                          )}
+                          {property.bathrooms && (
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                <path d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3a1 1 0 0 1 1-1zM6 12V5a2 2 0 0 1 2-2h3v2.25"></path>
+                                <circle cx="9" cy="6" r=".5" fill="currentColor"></circle>
+                              </svg>
+                              {property.bathrooms}
+                            </span>
+                          )}
+                          {property.carSpaces && (
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                <path d="M5 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM19 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path>
+                                <path d="M5 15H3a1 1 0 0 1-1-1v-3.5a.5.5 0 0 1 .5-.5h2l2-4h9l2 4h2a.5.5 0 0 1 .5.5V14a1 1 0 0 1-1 1h-2M7 15h10"></path>
+                              </svg>
+                              {property.carSpaces}
+                            </span>
+                          )}
+                          {property.propertyType && (
+                            <span style={{ color: '#999' }}>
+                              {property.propertyType}
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Price */}
+                        <p style={{
+                          fontSize: '18px',
+                          fontWeight: '700',
+                          color: '#000',
+                          margin: 0
+                        }}>
+                          {formatRentPrice(property)}
+                        </p>
+                      </div>
+                    </article>
+                  </Link>
+                ))}
               </div>
             )}
           </div>
         </section>
 
-        {/* Call to Action */}
+        {/* Call to Action - Clean minimalist */}
         <section style={{
-          backgroundColor: '#f8f9fa',
-          paddingTop: isMobile ? '60px' : isTablet ? '80px' : '96px',
-          paddingBottom: isMobile ? '60px' : isTablet ? '80px' : '96px',
-          textAlign: 'center'
+          backgroundColor: '#f8f8f8',
+          padding: isMobile ? '60px 20px' : '80px max(2rem, 3.33vw)'
         }}>
           <div style={{
-            maxWidth: '1440px',
+            maxWidth: '800px',
             margin: '0 auto',
-            paddingLeft: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)',
-            paddingRight: isMobile ? '20px' : isTablet ? '40px' : 'max(2rem, 3.33vw)'
-          }}>
-          <div style={{
-            maxWidth: '600px',
-            margin: '0 auto'
+            textAlign: 'center'
           }}>
             <h2 style={{
-              fontSize: isMobile ? '32px' : '40px',
-              fontWeight: '300',
-              marginBottom: '20px',
+              fontSize: isMobile ? '28px' : '36px',
+              fontWeight: '700',
+              marginBottom: '16px',
               color: '#000',
-              letterSpacing: '-0.02em'
+              letterSpacing: '-0.02em',
+              lineHeight: '1.2'
             }}>
-              Ready to Apply?
+              Looking for something specific?
             </h2>
             <p style={{
               fontSize: '16px',
@@ -709,26 +641,27 @@ function RentOpenForInspectionPage() {
               marginBottom: '32px',
               lineHeight: '1.6'
             }}>
-              Found your perfect rental? Contact us to arrange a private inspection or get application forms ready for your next viewing.
+              Contact us to discuss your rental requirements and we'll help you find the perfect property.
             </p>
             <div style={{
               display: 'flex',
-              flexDirection: isMobile ? 'column' : 'row',
-              gap: '16px',
-              justifyContent: 'center'
+              gap: '12px',
+              justifyContent: 'center',
+              flexWrap: 'wrap'
             }}>
               <Link
                 href="/contact"
                 style={{
-                  display: 'inline-block',
-                  padding: '14px 28px',
-                  backgroundColor: '#002b7f',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: '16px 36px',
+                  backgroundColor: '#000',
                   color: '#fff',
                   textDecoration: 'none',
-                  borderRadius: '8px',
-                  fontSize: '16px',
+                  borderRadius: '100px',
+                  fontSize: '15px',
                   fontWeight: '600',
-                  transition: 'background-color 0.3s ease'
+                  transition: 'opacity 0.2s'
                 }}
               >
                 Contact Us
@@ -736,24 +669,32 @@ function RentOpenForInspectionPage() {
               <Link
                 href="/rent"
                 style={{
-                  display: 'inline-block',
-                  padding: '14px 28px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: '16px 36px',
                   backgroundColor: '#fff',
-                  color: '#002b7f',
+                  color: '#000',
                   textDecoration: 'none',
-                  borderRadius: '8px',
-                  fontSize: '16px',
+                  borderRadius: '100px',
+                  fontSize: '15px',
                   fontWeight: '600',
-                  border: '2px solid #002b7f',
-                  transition: 'all 0.3s ease'
+                  border: '1px solid #e5e5e5',
+                  transition: 'border-color 0.2s'
                 }}
               >
-                Browse All Rentals
+                View All Rentals
               </Link>
             </div>
           </div>
-          </div>
         </section>
+
+        {/* CSS Keyframes */}
+        <style jsx>{`
+          @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+          }
+        `}</style>
       </main>
     </React.Fragment>
   );

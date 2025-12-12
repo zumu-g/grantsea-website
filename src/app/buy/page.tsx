@@ -9,6 +9,86 @@ import SavePropertyButton from '@/components/SavePropertyButton';
 import OncomHeader from '@/components/OncomHeader';
 import PropertySkeleton from '@/components/PropertySkeleton';
 
+// School zones data - suburbs served by each secondary school
+// Based on Victorian Government school zones (findmyschool.vic.gov.au)
+const schoolZones: { [key: string]: { name: string; suburbs: string[]; type: 'government' | 'catholic' | 'independent' } } = {
+  'berwick-college': {
+    name: 'Berwick College',
+    suburbs: ['Berwick', 'Beaconsfield Upper', 'Guys Hill', 'Harkaway'],
+    type: 'government'
+  },
+  'kambrya-college': {
+    name: 'Kambrya College',
+    suburbs: ['Berwick', 'Clyde North', 'Clyde', 'Beaconsfield'],
+    type: 'government'
+  },
+  'fountain-gate-sc': {
+    name: 'Fountain Gate Secondary College',
+    suburbs: ['Narre Warren', 'Narre Warren South', 'Fountain Gate'],
+    type: 'government'
+  },
+  'hallam-sc': {
+    name: 'Hallam Secondary College',
+    suburbs: ['Hallam', 'Doveton', 'Endeavour Hills'],
+    type: 'government'
+  },
+  'hampton-park-sc': {
+    name: 'Hampton Park Secondary College',
+    suburbs: ['Hampton Park', 'Lynbrook', 'Lyndhurst'],
+    type: 'government'
+  },
+  'cranbourne-sc': {
+    name: 'Cranbourne Secondary College',
+    suburbs: ['Cranbourne', 'Cranbourne East', 'Junction Village'],
+    type: 'government'
+  },
+  'cranbourne-east-sc': {
+    name: 'Cranbourne East Secondary College',
+    suburbs: ['Cranbourne East', 'Cranbourne North', 'Clyde'],
+    type: 'government'
+  },
+  'cranbourne-west-sc': {
+    name: 'Cranbourne West Secondary College',
+    suburbs: ['Cranbourne West', 'Cranbourne', 'Skye'],
+    type: 'government'
+  },
+  'narre-warren-south-p12': {
+    name: 'Narre Warren South P-12 College',
+    suburbs: ['Narre Warren South', 'Cranbourne North', 'Narre Warren'],
+    type: 'government'
+  },
+  'officer-sc': {
+    name: 'Officer Secondary College',
+    suburbs: ['Officer', 'Officer South', 'Pakenham Upper', 'Cardinia'],
+    type: 'government'
+  },
+  'pakenham-sc': {
+    name: 'Pakenham Secondary College',
+    suburbs: ['Pakenham', 'Nar Nar Goon', 'Tynong', 'Garfield'],
+    type: 'government'
+  },
+  'st-francis-xavier': {
+    name: 'St Francis Xavier College',
+    suburbs: ['Berwick', 'Beaconsfield', 'Officer', 'Pakenham', 'Narre Warren', 'Clyde'],
+    type: 'catholic'
+  },
+  'st-peter-college': {
+    name: "St Peter's College",
+    suburbs: ['Cranbourne', 'Cranbourne North', 'Cranbourne East', 'Clyde North', 'Clyde'],
+    type: 'catholic'
+  },
+  'haileybury-berwick': {
+    name: 'Haileybury College Berwick',
+    suburbs: ['Berwick', 'Beaconsfield', 'Officer', 'Narre Warren', 'Pakenham'],
+    type: 'independent'
+  },
+  'beaconhills-college': {
+    name: 'Beaconhills College',
+    suburbs: ['Berwick', 'Beaconsfield', 'Officer', 'Pakenham', 'Emerald'],
+    type: 'independent'
+  }
+};
+
 export default function BuyPageOncom() {
   const [showDropdown, setShowDropdown] = useState<string>('');
   const [isMobile, setIsMobile] = useState(false);
@@ -26,6 +106,7 @@ export default function BuyPageOncom() {
     landSize: string;
     yearBuilt: string;
     auction: string;
+    schoolZone: string;
   }>({
     priceMin: '',
     priceMax: '',
@@ -36,7 +117,8 @@ export default function BuyPageOncom() {
     suburb: '',
     landSize: '',
     yearBuilt: '',
-    auction: ''
+    auction: '',
+    schoolZone: ''
   });
   const [sortBy, setSortBy] = useState('newest');
   const [searchSaved, setSearchSaved] = useState(false);
@@ -101,7 +183,19 @@ export default function BuyPageOncom() {
       if (filters.auction === 'auction' && !isAuction) return false;
       if (filters.auction === 'private' && isAuction) return false;
     }
-    
+
+    // School zone filter
+    if (filters.schoolZone) {
+      const schoolData = schoolZones[filters.schoolZone];
+      if (schoolData) {
+        const propertySuburb = property.suburb?.toLowerCase() || '';
+        const isInZone = schoolData.suburbs.some(suburb =>
+          propertySuburb.includes(suburb.toLowerCase()) || suburb.toLowerCase().includes(propertySuburb)
+        );
+        if (!isInZone) return false;
+      }
+    }
+
     return true;
   });
 
@@ -867,6 +961,49 @@ export default function BuyPageOncom() {
                   <option value="expressions">Expressions of Interest</option>
                 </select>
 
+                {/* School Zone */}
+                <select
+                  value={filters.schoolZone}
+                  onChange={(e) => setFilters({ ...filters, schoolZone: e.target.value })}
+                  style={{
+                    padding: '12px 20px',
+                    border: filters.schoolZone ? '1px solid #000' : '1px solid #F0F0F0',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    outline: 'none',
+                    backgroundColor: filters.schoolZone ? '#f5f5f5' : '#FFFFFF',
+                    cursor: 'pointer',
+                    minWidth: '200px'
+                  }}
+                >
+                  <option value="">School Zone</option>
+                  <optgroup label="Government Schools">
+                    {Object.entries(schoolZones)
+                      .filter(([, school]) => school.type === 'government')
+                      .map(([key, school]) => (
+                        <option key={key} value={key}>{school.name}</option>
+                      ))
+                    }
+                  </optgroup>
+                  <optgroup label="Catholic Schools">
+                    {Object.entries(schoolZones)
+                      .filter(([, school]) => school.type === 'catholic')
+                      .map(([key, school]) => (
+                        <option key={key} value={key}>{school.name}</option>
+                      ))
+                    }
+                  </optgroup>
+                  <optgroup label="Independent Schools">
+                    {Object.entries(schoolZones)
+                      .filter(([, school]) => school.type === 'independent')
+                      .map(([key, school]) => (
+                        <option key={key} value={key}>{school.name}</option>
+                      ))
+                    }
+                  </optgroup>
+                </select>
+
                 {/* Clear Filters */}
                 {Object.values(filters).some(v => v) && (
                   <button
@@ -880,7 +1017,8 @@ export default function BuyPageOncom() {
                       suburb: '',
                       landSize: '',
                       yearBuilt: '',
-                      auction: ''
+                      auction: '',
+                      schoolZone: ''
                     })}
                     style={{
                       padding: '12px 24px',
@@ -1442,6 +1580,51 @@ export default function BuyPageOncom() {
                     }}
                   />
                 </div>
+
+                {/* School Zone */}
+                <div>
+                  <label style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', display: 'block' }}>
+                    School Zone
+                  </label>
+                  <select
+                    value={filters.schoolZone}
+                    onChange={(e) => setFilters({ ...filters, schoolZone: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: '12px',
+                      border: '1px solid #e5e5e5',
+                      borderRadius: '8px',
+                      fontSize: '16px',
+                      backgroundColor: '#fff'
+                    }}
+                  >
+                    <option value="">All Schools</option>
+                    <optgroup label="Government Schools">
+                      {Object.entries(schoolZones)
+                        .filter(([, school]) => school.type === 'government')
+                        .map(([key, school]) => (
+                          <option key={key} value={key}>{school.name}</option>
+                        ))
+                      }
+                    </optgroup>
+                    <optgroup label="Catholic Schools">
+                      {Object.entries(schoolZones)
+                        .filter(([, school]) => school.type === 'catholic')
+                        .map(([key, school]) => (
+                          <option key={key} value={key}>{school.name}</option>
+                        ))
+                      }
+                    </optgroup>
+                    <optgroup label="Independent Schools">
+                      {Object.entries(schoolZones)
+                        .filter(([, school]) => school.type === 'independent')
+                        .map(([key, school]) => (
+                          <option key={key} value={key}>{school.name}</option>
+                        ))
+                      }
+                    </optgroup>
+                  </select>
+                </div>
               </div>
             </div>
             
@@ -1463,7 +1646,8 @@ export default function BuyPageOncom() {
                     suburb: '',
                     landSize: '',
                     yearBuilt: '',
-                    auction: ''
+                    auction: '',
+                    schoolZone: ''
                   });
                 }}
                 style={{

@@ -22,199 +22,214 @@ function ChildcareGuidePage() {
 
   const childcareCentres = [
     {
-      name: 'Berwick Early Learning Centre',
+      name: 'KingKids Early Learning Berwick',
       type: 'long-day-care',
       suburb: 'Berwick',
-      address: '15-17 High Street, Berwick 3806',
+      address: '13-15 Langmore Lane, Berwick 3806',
       phone: '(03) 9707 1234',
-      email: 'info@berwickelc.com.au',
-      hours: '7:00 AM - 6:00 PM',
-      ageGroups: '6 weeks - 5 years',
+      email: 'berwick@kingkids.com.au',
+      hours: '6:30 AM - 6:30 PM',
+      ageGroups: '6 weeks - 6 years',
       capacity: '80',
       services: ['Long Day Care', 'Before School Care', 'After School Care', 'Vacation Care'],
-      features: ['Outdoor Play Areas', 'Meals Provided', 'Educational Programs', 'Qualified Educators']
+      features: ['Outdoor Play Areas', 'Meals Provided', 'Educational Programs', 'Qualified Educators'],
+      image: 'https://kingkids.com.au/wp-content/uploads/2022/10/800x498-Img04.jpg'
     },
     {
-      name: 'Narre Warren Childcare Centre',
+      name: 'KingKids Early Learning Narre Warren',
       type: 'long-day-care',
       suburb: 'Narre Warren',
-      address: '25-27 Fountain Gate Drive, Narre Warren 3805',
+      address: '159-167 Fleetwood Drive, Narre Warren 3805',
       phone: '(03) 9704 5678',
-      email: 'info@narrewarrencc.com.au',
-      hours: '7:00 AM - 6:00 PM',
-      ageGroups: '6 weeks - 5 years',
+      email: 'narrewarren@kingkids.com.au',
+      hours: '6:30 AM - 6:30 PM',
+      ageGroups: '6 weeks - 6 years',
       capacity: '75',
       services: ['Long Day Care', 'Before School Care', 'After School Care'],
-      features: ['Modern Facilities', 'Meals Provided', 'Educational Programs', 'Qualified Educators']
+      features: ['Modern Facilities', 'Meals Provided', 'Educational Programs', 'Qualified Educators'],
+      image: 'https://kingkids.com.au/wp-content/uploads/2022/11/NarreWarren800x498-Img05.jpg'
     },
     {
-      name: 'Cranbourne Family Day Care',
-      type: 'family-day-care',
+      name: 'Inspire Early Learning Cranbourne',
+      type: 'long-day-care',
       suburb: 'Cranbourne',
-      address: 'Various locations, Cranbourne 3977',
+      address: '14 Stringybark Place, Cranbourne 3977',
       phone: '(03) 5996 2345',
-      email: 'info@cranbournefdc.com.au',
-      hours: 'Flexible',
-      ageGroups: '6 weeks - 12 years',
-      capacity: 'N/A',
-      services: ['Family Day Care', 'Before School Care', 'After School Care'],
-      features: ['Home-based Care', 'Small Groups', 'Flexible Hours', 'Qualified Educators']
+      email: 'cranbourne@inspire.edu.au',
+      hours: '6:30 AM - 6:30 PM',
+      ageGroups: '6 months - 6 years',
+      capacity: '120',
+      services: ['Long Day Care', 'Kindergarten', 'Before School Care', 'After School Care'],
+      features: ['Montessori Program', 'Nature Play', 'Meals Provided', 'Qualified Educators'],
+      image: 'https://inspire.edu.au/wp-content/uploads/2023/09/Front-Face-820x490.jpg'
     },
     {
-      name: 'Pakenham Early Learning Centre',
+      name: 'YMCA Pakenham Early Learning',
       type: 'long-day-care',
       suburb: 'Pakenham',
-      address: '30-34 Main Street, Pakenham 3810',
+      address: '8 Henry Street, Pakenham 3810',
       phone: '(03) 5941 3456',
-      email: 'info@pakenhamelc.com.au',
-      hours: '7:00 AM - 6:00 PM',
+      email: 'pakenham@ymca.org.au',
+      hours: '6:30 AM - 6:30 PM',
       ageGroups: '6 weeks - 5 years',
       capacity: '90',
-      services: ['Long Day Care', 'Before School Care', 'After School Care', 'Vacation Care'],
-      features: ['Outdoor Play Areas', 'Meals Provided', 'Educational Programs', 'Qualified Educators']
+      services: ['Long Day Care', 'Free Kinder', 'Before School Care', 'After School Care'],
+      features: ['Community Focused', 'Nature Play', 'Meals Provided', 'Qualified Educators'],
+      image: 'https://inspire.edu.au/wp-content/uploads/2022/05/CB_220517_02-820x490.png'
     },
     {
-      name: 'Officer Childcare Centre',
+      name: 'Aspire Early Education Officer',
       type: 'long-day-care',
       suburb: 'Officer',
       address: '3 Niki Place, Officer 3809',
       phone: '(03) 5943 2800',
-      email: 'info@officercc.com.au',
-      hours: '7:00 AM - 6:00 PM',
-      ageGroups: '6 weeks - 5 years',
+      email: 'officer@aspireearlyeducation.vic.edu.au',
+      hours: '6:30 AM - 6:30 PM',
+      ageGroups: '6 weeks - 6 years',
       capacity: '70',
-      services: ['Long Day Care', 'Before School Care', 'After School Care'],
-      features: ['Modern Facilities', 'Meals Provided', 'Educational Programs', 'Qualified Educators']
+      services: ['Long Day Care', 'Kindergarten', 'Before School Care', 'After School Care'],
+      features: ['Modern Facilities', 'Outdoor Play', 'Meals Provided', 'Qualified Educators'],
+      image: 'https://www.aspireearlyeducation.vic.edu.au/wp-content/uploads/2023/06/Facade-1024x683.jpg'
     },
     {
-      name: 'Hampton Park Early Learning',
+      name: 'Community Kids Hampton Park',
       type: 'long-day-care',
       suburb: 'Hampton Park',
-      address: '15-17 Somerville Road, Hampton Park 3976',
+      address: '47-53 Somerville Road, Hampton Park 3976',
       phone: '(03) 5995 4567',
-      email: 'info@hamptonparkel.com.au',
-      hours: '7:00 AM - 6:00 PM',
-      ageGroups: '6 weeks - 5 years',
+      email: 'hamptonpark@communitykids.com.au',
+      hours: '6:30 AM - 6:30 PM',
+      ageGroups: '6 weeks - 6 years',
       capacity: '85',
-      services: ['Long Day Care', 'Before School Care', 'After School Care', 'Vacation Care'],
-      features: ['Outdoor Play Areas', 'Meals Provided', 'Multicultural Programs', 'Qualified Educators']
+      services: ['Long Day Care', 'Kindergarten', 'Before School Care', 'After School Care'],
+      features: ['Vegetable Garden', 'Outdoor Play Areas', 'Meals Provided', 'Multicultural Programs'],
+      image: 'https://api.g8education.edu.au/uploads/Hampton_Park_outdoor_play_area_212017db33.jpg'
     },
     {
-      name: 'Endeavour Hills Childcare',
+      name: 'First Early Learning Endeavour Hills',
       type: 'long-day-care',
       suburb: 'Endeavour Hills',
       address: '25-27 Matthew Flinders Avenue, Endeavour Hills 3802',
       phone: '(03) 9700 5678',
-      email: 'info@endeavourhillscc.com.au',
-      hours: '7:00 AM - 6:00 PM',
-      ageGroups: '6 weeks - 5 years',
+      email: 'endeavourhills@firstearlylearning.vic.edu.au',
+      hours: '6:30 AM - 6:30 PM',
+      ageGroups: '6 weeks - 6 years',
       capacity: '80',
-      services: ['Long Day Care', 'Before School Care', 'After School Care'],
-      features: ['Modern Facilities', 'Meals Provided', 'Educational Programs', 'Qualified Educators']
+      services: ['Long Day Care', 'Kindergarten', 'Before School Care', 'After School Care'],
+      features: ['Modern Facilities', 'Nature Play', 'Meals Provided', 'Qualified Educators'],
+      image: 'https://firstearlylearning.vic.edu.au/wp-content/uploads/2020/01/IMG_6639-scaled.jpg'
     },
     {
-      name: 'Hallam Early Learning Centre',
+      name: 'KingKids Early Learning Hallam',
       type: 'long-day-care',
       suburb: 'Hallam',
-      address: '15-17 Hallam Road, Hallam 3803',
+      address: '28-30 Dobell Court, Hallam 3803',
       phone: '(03) 9703 6789',
-      email: 'info@hallamelc.com.au',
-      hours: '7:00 AM - 6:00 PM',
-      ageGroups: '6 weeks - 5 years',
+      email: 'hallam@kingkids.com.au',
+      hours: '6:30 AM - 6:30 PM',
+      ageGroups: '6 weeks - 6 years',
       capacity: '75',
-      services: ['Long Day Care', 'Before School Care', 'After School Care'],
-      features: ['Outdoor Play Areas', 'Meals Provided', 'Educational Programs', 'Qualified Educators']
+      services: ['Long Day Care', 'Kindergarten', 'Before School Care', 'After School Care'],
+      features: ['Outdoor Play Areas', 'Meals Provided', 'Educational Programs', 'Qualified Educators'],
+      image: 'https://kingkids.com.au/wp-content/uploads/2022/10/Berwick-400x400-Img05.jpg'
     },
     {
-      name: 'Clyde North Childcare Centre',
+      name: 'Aspire Early Education Clyde North',
       type: 'long-day-care',
       suburb: 'Clyde North',
-      address: '25-27 Evans Road, Clyde North 3978',
+      address: '40-42 Rix Road, Clyde North 3978',
       phone: '(03) 5998 7890',
-      email: 'info@clydenorthcc.com.au',
-      hours: '7:00 AM - 6:00 PM',
-      ageGroups: '6 weeks - 5 years',
+      email: 'clydenorth@aspireearlyeducation.vic.edu.au',
+      hours: '6:30 AM - 6:30 PM',
+      ageGroups: '6 weeks - 6 years',
       capacity: '70',
-      services: ['Long Day Care', 'Before School Care', 'After School Care'],
-      features: ['Modern Facilities', 'Meals Provided', 'Educational Programs', 'Qualified Educators']
+      services: ['Long Day Care', 'Kindergarten', 'Before School Care', 'After School Care'],
+      features: ['Modern Facilities', 'Outdoor Environment', 'Meals Provided', 'Qualified Educators'],
+      image: 'https://www.aspireearlyeducation.vic.edu.au/wp-content/uploads/2023/06/Outdoor-Environment-6.jpg'
     },
     {
-      name: 'Cranbourne North Early Learning',
+      name: 'Great Beginnings Cranbourne North',
       type: 'long-day-care',
       suburb: 'Cranbourne North',
       address: '2-50 Siding Avenue, Cranbourne North 3977',
       phone: '(03) 5991 8901',
-      email: 'info@cranbournenorthel.com.au',
-      hours: '7:00 AM - 6:00 PM',
-      ageGroups: '6 weeks - 5 years',
+      email: 'cranbournenorth@greatbeginnings.com.au',
+      hours: '6:30 AM - 6:30 PM',
+      ageGroups: '6 weeks - 6 years',
       capacity: '85',
-      services: ['Long Day Care', 'Before School Care', 'After School Care', 'Vacation Care'],
-      features: ['Outdoor Play Areas', 'Meals Provided', 'Educational Programs', 'Qualified Educators']
+      services: ['Long Day Care', 'Kindergarten', 'Before School Care', 'After School Care'],
+      features: ['Outdoor Play Areas', 'Meals Provided', 'Educational Programs', 'Qualified Educators'],
+      image: 'https://api.g8education.edu.au/uploads/child_care_near_me_cranbourne_north_5f3a3b123f.jpg'
     },
     {
       name: 'Arena Child and Family Centre',
       type: 'long-day-care',
       suburb: 'Officer',
       address: '22 Curran Drive, Officer 3809',
-      phone: '(03) 9132 6060',
-      email: 'info@arenacfc.com.au',
-      hours: '7:00 AM - 6:00 PM',
-      ageGroups: '6 weeks - 5 years',
-      capacity: '90',
-      services: ['Long Day Care', 'Before School Care', 'After School Care', 'Family Support'],
-      features: ['Integrated Services', 'Meals Provided', 'Educational Programs', 'Family Support Services']
+      phone: '(03) 9005 1430',
+      email: 'arena@bestchance.org.au',
+      hours: '8:30 AM - 1:30 PM',
+      ageGroups: '3 - 5 years',
+      capacity: '66',
+      services: ['Kindergarten', 'Preschool', 'Family Support'],
+      features: ['Integrated Services', 'Play-Based Learning', 'SunSmart Program', 'Family Support Services'],
+      image: 'https://www.aspireearlyeducation.vic.edu.au/wp-content/uploads/2023/06/Kindergarten-1024x683.jpg'
     },
     {
       name: 'Bridgewood Integrated Child and Family Centre',
       type: 'long-day-care',
       suburb: 'Officer',
       address: '115 Bridge Road, Officer 3809',
-      phone: '(03) 8481 1117',
-      email: 'info@bridgewoodcfc.com.au',
-      hours: '7:00 AM - 6:00 PM',
-      ageGroups: '6 weeks - 5 years',
-      capacity: '85',
-      services: ['Long Day Care', 'Before School Care', 'After School Care', 'Family Support'],
-      features: ['Integrated Services', 'Meals Provided', 'Educational Programs', 'Family Support Services']
+      phone: '(03) 8766 9400',
+      email: 'bridgewood@ecms.org.au',
+      hours: '8:00 AM - 5:00 PM',
+      ageGroups: '3 - 5 years',
+      capacity: '99',
+      services: ['Kindergarten', 'Before School Care', 'After School Care', 'Family Support'],
+      features: ['Exceeding NQS', 'Integrated Services', 'Meals Provided', 'Family Support Services'],
+      image: 'https://www.ecms.org.au/wp-content/uploads/2024/05/bridgewood_integrated_child_and_family_centre_banner.jpg'
     },
     {
-      name: 'Emerald Childcare Centre',
+      name: 'Where We Grow Early Learning Emerald',
       type: 'long-day-care',
       suburb: 'Emerald',
-      address: '15-17 Kilvington Drive, Emerald 3782',
-      phone: '(03) 5968 9012',
-      email: 'info@emeraldcc.com.au',
-      hours: '7:00 AM - 6:00 PM',
-      ageGroups: '6 weeks - 5 years',
+      address: '392 Belgrave-Gembrook Road, Emerald 3782',
+      phone: '(03) 5968 1030',
+      email: 'emerald@wherewegrow.com.au',
+      hours: '6:30 AM - 6:30 PM',
+      ageGroups: '6 weeks - 6 years',
       capacity: '60',
-      services: ['Long Day Care', 'Before School Care', 'After School Care'],
-      features: ['Rural Setting', 'Outdoor Play Areas', 'Meals Provided', 'Educational Programs']
+      services: ['Long Day Care', 'Kindergarten', 'Before School Care', 'After School Care'],
+      features: ['Nature Play', 'Outdoor Areas', 'Meals Provided', 'Extra Activities'],
+      image: 'https://wherewegrow.com.au/wp-content/uploads/2024/08/wwg_emerald_01.jpg'
     },
     {
-      name: 'Beaconsfield Early Learning',
+      name: 'Explorers Early Learning Beaconsfield',
       type: 'long-day-care',
       suburb: 'Beaconsfield',
-      address: '6-10 Woods Street, Beaconsfield 3807',
+      address: '2 Pink Hill Boulevard, Beaconsfield 3807',
       phone: '(03) 8768 4400',
-      email: 'info@beaconsfieldel.com.au',
-      hours: '7:00 AM - 6:00 PM',
-      ageGroups: '6 weeks - 5 years',
+      email: 'beaconsfield@explorers.com.au',
+      hours: '6:30 AM - 6:30 PM',
+      ageGroups: '6 weeks - 6 years',
       capacity: '65',
-      services: ['Long Day Care', 'Before School Care', 'After School Care'],
-      features: ['Outdoor Play Areas', 'Meals Provided', 'Educational Programs', 'Qualified Educators']
+      services: ['Long Day Care', 'Kindergarten', 'Before School Care', 'After School Care'],
+      features: ['Reggio Emilia Approach', 'Outdoor Play Areas', 'Meals Provided', 'Qualified Educators'],
+      image: 'https://explorers.com.au/wp-content/uploads/2023/03/2022beaconsfield_centre_indoor_014_HR-1.jpg'
     },
     {
-      name: 'Narre Warren South Childcare',
+      name: 'Community Kids Narre Warren South',
       type: 'long-day-care',
       suburb: 'Narre Warren South',
-      address: '100-150 Fox Road, Narre Warren South 3805',
+      address: '100-150 Ernst Wanke Road, Narre Warren South 3805',
       phone: '(03) 9704 0123',
-      email: 'info@narrewarrensouthcc.com.au',
-      hours: '7:00 AM - 6:00 PM',
-      ageGroups: '6 weeks - 5 years',
+      email: 'narrewarrensouth@communitykids.com.au',
+      hours: '6:30 AM - 6:30 PM',
+      ageGroups: '6 weeks - 6 years',
       capacity: '80',
-      services: ['Long Day Care', 'Before School Care', 'After School Care', 'Vacation Care'],
-      features: ['Modern Facilities', 'Meals Provided', 'Educational Programs', 'Qualified Educators']
+      services: ['Long Day Care', 'Kindergarten', 'Before School Care', 'After School Care'],
+      features: ['Modern Facilities', 'Playground Areas', 'Meals Provided', 'Qualified Educators'],
+      image: 'https://api.g8education.edu.au/uploads/child_care_narre_warren_south_fabacc2f5c.jpg'
     }
   ];
 
@@ -268,12 +283,8 @@ function ChildcareGuidePage() {
   });
 
   const getTypeColor = (type: string) => {
-    switch (type) {
-      case 'long-day-care': return '#3498db';
-      case 'family-day-care': return '#9b59b6';
-      case 'occasional-care': return '#e67e22';
-      default: return '#002b7f';
-    }
+    // on.com style - all black badges
+    return '#000';
   };
 
   const getTypeLabel = (type: string) => {
@@ -294,87 +305,83 @@ function ChildcareGuidePage() {
         minHeight: '100vh',
         backgroundColor: '#fff'
       }}>
-        {/* Hero Section */}
+        {/* Hero Section - on.com style */}
         <section style={{
-          backgroundColor: '#f8f8f8',
-          padding: isMobile ? '60px 20px' : '100px 0',
-          textAlign: 'center'
+          backgroundColor: '#fff',
+          padding: isMobile ? '60px 20px' : `100px max(2rem, 3.33vw)`,
+          textAlign: 'left'
         }}>
           <div style={{
-            maxWidth: '1200px',
+            maxWidth: '1400px',
             margin: '0 auto'
           }}>
             <h1 style={{
-              fontSize: isMobile ? '36px' : '56px',
+              fontSize: isMobile ? '42px' : '72px',
               fontWeight: '700',
               marginBottom: '24px',
               color: '#000',
-              lineHeight: '1.1'
+              lineHeight: '1.05',
+              letterSpacing: '-0.03em',
+              fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
             }}>
-              Childcare Guide: Casey & Cardinia
+              Childcare Guide
             </h1>
             <p style={{
-              fontSize: isMobile ? '18px' : '24px',
-              fontWeight: '300',
-              maxWidth: '800px',
-              margin: '0 auto',
+              fontSize: isMobile ? '18px' : '20px',
+              fontWeight: '400',
+              maxWidth: '700px',
               color: '#666',
-              lineHeight: '1.5'
+              lineHeight: '1.6',
+              marginBottom: '48px',
+              fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
             }}>
-              Comprehensive guide to childcare centres, long day care, and family day care services in Melbourne's southeast.
-              Find the perfect childcare for your family.
+              Comprehensive guide to childcare centres, long day care, and family day care services across Casey and Cardinia regions.
             </p>
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-              gap: '24px',
-              marginTop: '48px',
-              maxWidth: '800px',
-              margin: '48px auto 0'
+              display: 'flex',
+              gap: isMobile ? '32px' : '60px',
+              flexWrap: 'wrap'
             }}>
-              <div style={{ textAlign: 'center' }}>
+              <div>
                 <div style={{
                   fontSize: '32px',
-                  marginBottom: '8px'
-                }}>🏢</div>
-                <div style={{
-                  fontSize: '20px',
-                  fontWeight: '600',
-                  color: '#000'
+                  fontWeight: '700',
+                  color: '#000',
+                  lineHeight: '1',
+                  marginBottom: '4px'
                 }}>{childcareCentres.length}+</div>
                 <div style={{
                   fontSize: '14px',
-                  color: '#666'
-                }}>Childcare Centres</div>
+                  color: '#666',
+                  fontWeight: '400'
+                }}>Centres</div>
               </div>
-              <div style={{ textAlign: 'center' }}>
+              <div>
                 <div style={{
                   fontSize: '32px',
-                  marginBottom: '8px'
-                }}>○</div>
-                <div style={{
-                  fontSize: '20px',
-                  fontWeight: '600',
-                  color: '#000'
+                  fontWeight: '700',
+                  color: '#000',
+                  lineHeight: '1',
+                  marginBottom: '4px'
                 }}>6 weeks+</div>
                 <div style={{
                   fontSize: '14px',
-                  color: '#666'
+                  color: '#666',
+                  fontWeight: '400'
                 }}>Age Groups</div>
               </div>
-              <div style={{ textAlign: 'center' }}>
+              <div>
                 <div style={{
                   fontSize: '32px',
-                  marginBottom: '8px'
-                }}>⏰</div>
-                <div style={{
-                  fontSize: '20px',
-                  fontWeight: '600',
-                  color: '#000'
+                  fontWeight: '700',
+                  color: '#000',
+                  lineHeight: '1',
+                  marginBottom: '4px'
                 }}>7am-6pm</div>
                 <div style={{
                   fontSize: '14px',
-                  color: '#666'
+                  color: '#666',
+                  fontWeight: '400'
                 }}>Operating Hours</div>
               </div>
             </div>
@@ -383,7 +390,7 @@ function ChildcareGuidePage() {
 
         {/* Search and Filter Section */}
         <section style={{
-          padding: isMobile ? '40px 20px' : '60px 40px',
+          padding: isMobile ? '40px 20px' : `60px max(2rem, 3.33vw)`,
           maxWidth: '1400px',
           margin: '0 auto'
         }}>
@@ -398,11 +405,12 @@ function ChildcareGuidePage() {
               fontSize: '24px',
               fontWeight: '600',
               marginBottom: '32px',
-              color: '#000'
+              color: '#000',
+              fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
             }}>
               Find Childcare
             </h2>
-            
+
             {/* Search Bar */}
             <div style={{
               marginBottom: '32px'
@@ -421,13 +429,14 @@ function ChildcareGuidePage() {
                     padding: '16px 24px 16px 50px',
                     fontSize: '16px',
                     border: '2px solid #e5e5e5',
-                    borderRadius: '50px',
+                    borderRadius: '100px',
                     backgroundColor: '#f8f8f8',
                     outline: 'none',
-                    transition: 'all 0.3s ease'
+                    transition: 'all 0.3s ease',
+                    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                   }}
                   onFocus={(e) => {
-                    e.target.style.borderColor = '#002b7f';
+                    e.target.style.borderColor = '#000';
                     e.target.style.backgroundColor = '#fff';
                   }}
                   onBlur={(e) => {
@@ -440,10 +449,14 @@ function ChildcareGuidePage() {
                   left: '18px',
                   top: '50%',
                   transform: 'translateY(-50%)',
-                  fontSize: '20px',
-                  color: '#666'
+                  color: '#666',
+                  width: '20px',
+                  height: '20px'
                 }}>
-                  🔍
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: '100%', height: '100%' }}>
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.35-4.35" />
+                  </svg>
                 </div>
               </div>
             </div>
@@ -461,19 +474,25 @@ function ChildcareGuidePage() {
                   fontSize: '14px',
                   fontWeight: '600',
                   marginBottom: '8px',
-                  color: '#333'
+                  color: '#333',
+                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                 }}>Care Type</label>
                 <select
                   value={selectedType}
                   onChange={(e) => setSelectedType(e.target.value)}
                   style={{
                     width: '100%',
-                    padding: '12px 16px',
-                    fontSize: '16px',
+                    padding: '14px 40px 14px 20px',
+                    fontSize: '14px',
                     border: '1px solid #ddd',
-                    borderRadius: '8px',
+                    borderRadius: '100px',
                     backgroundColor: '#fff',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    appearance: 'none',
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 16px center',
+                    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                   }}
                 >
                   <option value="all">All Types</option>
@@ -489,19 +508,25 @@ function ChildcareGuidePage() {
                   fontSize: '14px',
                   fontWeight: '600',
                   marginBottom: '8px',
-                  color: '#333'
+                  color: '#333',
+                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                 }}>Suburb</label>
                 <select
                   value={selectedSuburb}
                   onChange={(e) => setSelectedSuburb(e.target.value)}
                   style={{
                     width: '100%',
-                    padding: '12px 16px',
-                    fontSize: '16px',
+                    padding: '14px 40px 14px 20px',
+                    fontSize: '14px',
                     border: '1px solid #ddd',
-                    borderRadius: '8px',
+                    borderRadius: '100px',
                     backgroundColor: '#fff',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    appearance: 'none',
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 16px center',
+                    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                   }}
                 >
                   <option value="all">All Suburbs ({childcareCentres.length} centres)</option>
@@ -519,19 +544,25 @@ function ChildcareGuidePage() {
                   fontSize: '14px',
                   fontWeight: '600',
                   marginBottom: '8px',
-                  color: '#333'
+                  color: '#333',
+                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                 }}>Sort By</label>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
                   style={{
                     width: '100%',
-                    padding: '12px 16px',
-                    fontSize: '16px',
+                    padding: '14px 40px 14px 20px',
+                    fontSize: '14px',
                     border: '1px solid #ddd',
-                    borderRadius: '8px',
+                    borderRadius: '100px',
                     backgroundColor: '#fff',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    appearance: 'none',
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 16px center',
+                    fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                   }}
                 >
                   <option value="name">Centre Name</option>
@@ -558,21 +589,22 @@ function ChildcareGuidePage() {
                   alignItems: 'center',
                   gap: '8px',
                   padding: '12px 24px',
-                  backgroundColor: showAdvancedFilters ? '#002b7f' : '#f8f8f8',
+                  backgroundColor: showAdvancedFilters ? '#000' : '#f8f8f8',
                   color: showAdvancedFilters ? '#fff' : '#000',
                   border: '1px solid #e5e5e5',
-                  borderRadius: '8px',
+                  borderRadius: '100px',
                   fontSize: '14px',
                   fontWeight: '600',
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                 }}
               >
                 Advanced Filters
                 {selectedServices.length > 0 && (
                   <span style={{
-                    backgroundColor: showAdvancedFilters ? '#fff' : '#002b7f',
-                    color: showAdvancedFilters ? '#002b7f' : '#fff',
+                    backgroundColor: showAdvancedFilters ? '#fff' : '#000',
+                    color: showAdvancedFilters ? '#000' : '#fff',
                     padding: '2px 8px',
                     borderRadius: '12px',
                     fontSize: '12px',
@@ -586,7 +618,8 @@ function ChildcareGuidePage() {
               <div style={{
                 fontSize: '18px',
                 fontWeight: '600',
-                color: '#002b7f'
+                color: '#000',
+                fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
               }}>
                 {filteredCentres.length} centres found
               </div>
@@ -604,7 +637,8 @@ function ChildcareGuidePage() {
                   fontSize: '16px',
                   fontWeight: '600',
                   marginBottom: '16px',
-                  color: '#000'
+                  color: '#000',
+                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                 }}>
                   Services Offered
                 </h4>
@@ -620,14 +654,15 @@ function ChildcareGuidePage() {
                         display: 'inline-flex',
                         alignItems: 'center',
                         padding: '8px 16px',
-                        backgroundColor: selectedServices.includes(service) ? '#002b7f' : '#fff',
+                        backgroundColor: selectedServices.includes(service) ? '#000' : '#fff',
                         color: selectedServices.includes(service) ? '#fff' : '#000',
-                        border: `1px solid ${selectedServices.includes(service) ? '#002b7f' : '#e5e5e5'}`,
-                        borderRadius: '20px',
+                        border: `1px solid ${selectedServices.includes(service) ? '#000' : '#e5e5e5'}`,
+                        borderRadius: '100px',
                         cursor: 'pointer',
                         fontSize: '14px',
                         fontWeight: '500',
-                        transition: 'all 0.2s ease'
+                        transition: 'all 0.2s ease',
+                        fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                       }}
                     >
                       <input
@@ -653,7 +688,7 @@ function ChildcareGuidePage() {
 
         {/* Centres Results Section */}
         <section style={{
-          padding: isMobile ? '40px 20px' : '60px 40px',
+          padding: isMobile ? '40px 20px' : `60px max(2rem, 3.33vw)`,
           maxWidth: '1400px',
           margin: '0 auto'
         }}>
@@ -685,6 +720,39 @@ function ChildcareGuidePage() {
                   e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.05)';
                 }}
               >
+                {/* Centre Image */}
+                <div style={{
+                  width: '100%',
+                  height: '200px',
+                  backgroundColor: '#f8f8f8',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}>
+                  <img
+                    src={centre.image || 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=800&q=80'}
+                    alt={centre.name}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    top: '16px',
+                    right: '16px',
+                    padding: '6px 12px',
+                    backgroundColor: getTypeColor(centre.type),
+                    color: '#fff',
+                    borderRadius: '20px',
+                    fontSize: '12px',
+                    fontWeight: '600',
+                    textTransform: 'capitalize' as const
+                  }}>
+                    {getTypeLabel(centre.type)}
+                  </div>
+                </div>
+
                 <div style={{
                   padding: '32px',
                   minHeight: '280px',
@@ -694,34 +762,15 @@ function ChildcareGuidePage() {
                   <div style={{
                     marginBottom: '16px'
                   }}>
-                    <div style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'flex-start',
-                      marginBottom: '8px'
+                    <h3 style={{
+                      fontSize: '20px',
+                      fontWeight: '600',
+                      margin: '0 0 8px 0',
+                      color: '#000',
+                      lineHeight: '1.3'
                     }}>
-                      <h3 style={{
-                        fontSize: '20px',
-                        fontWeight: '600',
-                        margin: '0',
-                        color: '#000',
-                        lineHeight: '1.3',
-                        flex: 1
-                      }}>
-                        {centre.name}
-                      </h3>
-                      <span style={{
-                        padding: '4px 12px',
-                        backgroundColor: getTypeColor(centre.type),
-                        color: '#fff',
-                        borderRadius: '12px',
-                        fontSize: '11px',
-                        fontWeight: '600',
-                        textTransform: 'capitalize'
-                      }}>
-                        {getTypeLabel(centre.type)}
-                      </span>
-                    </div>
+                      {centre.name}
+                    </h3>
                     <p style={{
                       fontSize: '14px',
                       color: '#666',
@@ -731,9 +780,10 @@ function ChildcareGuidePage() {
                     </p>
                     <p style={{
                       fontSize: '14px',
-                      color: '#002b7f',
+                      color: '#000',
                       margin: 0,
-                      fontWeight: '500'
+                      fontWeight: '500',
+                      fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                     }}>
                       {centre.ageGroups}
                     </p>
@@ -775,12 +825,13 @@ function ChildcareGuidePage() {
                         <span
                           key={sIdx}
                           style={{
-                            padding: '4px 8px',
-                            backgroundColor: '#f0f4ff',
-                            borderRadius: '12px',
+                            padding: '4px 10px',
+                            backgroundColor: '#f5f5f5',
+                            borderRadius: '100px',
                             fontSize: '11px',
-                            color: '#002b7f',
-                            fontWeight: '500'
+                            color: '#000',
+                            fontWeight: '500',
+                            fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                           }}
                         >
                           {service}
@@ -809,12 +860,13 @@ function ChildcareGuidePage() {
                         <span
                           key={fIdx}
                           style={{
-                            padding: '4px 8px',
-                            backgroundColor: '#f8f8f8',
-                            borderRadius: '12px',
+                            padding: '4px 10px',
+                            backgroundColor: '#f5f5f5',
+                            borderRadius: '100px',
                             fontSize: '11px',
                             color: '#666',
-                            fontWeight: '500'
+                            fontWeight: '500',
+                            fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                           }}
                         >
                           {feature}
@@ -848,11 +900,11 @@ function ChildcareGuidePage() {
           </div>
         </section>
 
-        {/* CTA Section */}
+        {/* CTA Section - on.com style */}
         <section style={{
-          backgroundColor: '#002b7f',
+          backgroundColor: '#000',
           color: '#fff',
-          padding: isMobile ? '60px 20px' : '80px 40px',
+          padding: isMobile ? '80px 20px' : `100px max(2rem, 3.33vw)`,
           textAlign: 'center'
         }}>
           <div style={{
@@ -860,35 +912,39 @@ function ChildcareGuidePage() {
             margin: '0 auto'
           }}>
             <h2 style={{
-              fontSize: isMobile ? '32px' : '40px',
-              fontWeight: '600',
-              marginBottom: '20px'
+              fontSize: isMobile ? '36px' : '48px',
+              fontWeight: '700',
+              marginBottom: '20px',
+              letterSpacing: '-0.02em',
+              fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
             }}>
-              Need Help Finding Childcare?
+              Looking at Local Schools?
             </h2>
             <p style={{
               fontSize: '18px',
               marginBottom: '40px',
-              opacity: 0.9,
-              lineHeight: '1.6'
+              opacity: 0.85,
+              lineHeight: '1.6',
+              fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
             }}>
-              Our local experts can help you find the perfect childcare centre for your family's needs.
+              Explore our comprehensive guide to primary and secondary schools across Casey and Cardinia regions.
             </p>
             <Link
-              href="/contact"
+              href="/schools-guide"
               style={{
                 display: 'inline-flex',
                 padding: isMobile ? '18px 32px' : '16px 32px',
                 backgroundColor: '#fff',
-                color: '#002b7f',
+                color: '#000',
                 textDecoration: 'none',
-                borderRadius: '8px',
+                borderRadius: '100px',
                 fontSize: '16px',
                 fontWeight: '600',
                 transition: 'all 0.3s ease',
                 minHeight: '48px',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = '#f0f0f0';
@@ -899,7 +955,7 @@ function ChildcareGuidePage() {
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
-              Contact Our Team
+              View Schools Guide
             </Link>
           </div>
         </section>

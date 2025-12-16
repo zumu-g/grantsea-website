@@ -21,6 +21,39 @@ function SuburbsGuidePage() {
     return () => window.removeEventListener('resize', checkDevice);
   }, []);
 
+  // Curated images for each suburb - using high-quality Unsplash photos that represent each area
+  const suburbImages: Record<string, string> = {
+    // Established suburbs - family homes, parks, established streetscapes
+    'berwick': 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80', // Modern Australian home
+    'narre-warren': 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80', // Suburban family home
+    'narre-warren-south': 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80', // Quality residential home
+    'cranbourne-north': 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=80', // Family home with garden
+    'beaconsfield': 'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=800&q=80', // Charming heritage home
+    'hallam': 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80', // Established suburb home
+    'hampton-park': 'https://images.unsplash.com/photo-1598228723793-52759bba239c?auto=format&fit=crop&w=800&q=80', // Family-oriented home
+    'endeavour-hills': 'https://images.unsplash.com/photo-1599809275671-b5942cabc7a2?auto=format&fit=crop&w=800&q=80', // Well-planned residential area
+    'narre-warren-east': 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=800&q=80', // Quality established home
+
+    // Growth areas - modern developments, new estates
+    'cranbourne': 'https://images.unsplash.com/photo-1582407947304-fd86f734eddc?auto=format&fit=crop&w=800&q=80', // Modern development
+    'pakenham': 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=800&q=80', // New estate home
+    'officer': 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80', // Contemporary housing
+
+    // Emerging suburbs - brand new modern homes
+    'clyde': 'https://images.unsplash.com/photo-1600573472591-ee6981cf35b6?auto=format&fit=crop&w=800&q=80', // New development home
+    'clyde-north': 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80', // Premium new estate
+
+    // Premium - luxury homes with views
+    'beaconsfield-upper': 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?auto=format&fit=crop&w=800&q=80', // Large property with views
+
+    // Rural - countryside, acreage, farmland
+    'garfield': 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80', // Rural farmland
+    'harkaway': 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80', // Rural landscape
+    'koo-wee-rup': 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=800&q=80', // Agricultural land
+    'tynong': 'https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&w=800&q=80', // Semi-rural setting
+    'bunyip': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80', // Country landscape
+  };
+
   const suburbs = [
     {
       name: 'Berwick',
@@ -537,8 +570,8 @@ function SuburbsGuidePage() {
                         overflow: 'hidden'
                       }}>
                         <img
-                          src={`https://images.unsplash.com/photo-${index % 3 === 0 ? '1564013799919-ab600027ffc6' : index % 3 === 1 ? '1582407947304-fd86f734eddc' : '1600596542815-ffad4c1539a9'}?auto=format&fit=crop&w=800&q=80`}
-                          alt={suburb.name}
+                          src={suburbImages[suburb.slug] || 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80'}
+                          alt={`${suburb.name} - Melbourne's south-east suburb`}
                           style={{
                             width: '100%',
                             height: '100%',

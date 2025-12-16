@@ -154,12 +154,17 @@ export async function GET(request: NextRequest) {
     // If we have a suburb filter and the API doesn't support it natively,
     // filter the results client-side as a fallback
     if (suburb && allProperties.length > 0) {
-      allProperties = allProperties.filter((property: any) => 
-        property.address && 
-        property.address.toLowerCase().includes(suburb.toLowerCase()) ||
-        property.suburb && 
-        property.suburb.toLowerCase().includes(suburb.toLowerCase())
-      );
+      const suburbLower = suburb.toLowerCase();
+      allProperties = allProperties.filter((property: any) => {
+        // VaultRE returns address as an object with suburb info
+        const addressSuburb = property.address?.suburb?.name || '';
+        const displayAddress = property.displayAddress || '';
+        const directSuburb = property.suburb || '';
+
+        return addressSuburb.toLowerCase().includes(suburbLower) ||
+               displayAddress.toLowerCase().includes(suburbLower) ||
+               directSuburb.toLowerCase().includes(suburbLower);
+      });
     }
 
     // Transform the properties to our format and optimize aggressively for listing view

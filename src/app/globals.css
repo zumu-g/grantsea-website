@@ -102,10 +102,10 @@ html, body {
 }
 
 .logo-svg.logo-white path:first-child {
-  fill: rgba(255, 255, 255, 0.9);
+  fill: rgba(255, 255, 255, 0.9) !important;
   stroke: transparent;
 }
 
 .logo-svg.logo-white path:not(:first-child) {
-  fill: rgb(154, 35, 35);
+  fill: rgb(154, 35, 35) !important;
 }

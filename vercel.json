@@ -14,11 +14,11 @@
     "enabled": true
   },
   "functions": {
-    "src/app/api/appraisal/route.ts": {
-      "maxDuration": 10
+    "src/app/api/properties/route.ts": {
+      "maxDuration": 60
     },
-    "src/app/api/contact/route.ts": {
-      "maxDuration": 10
+    "src/app/api/open-homes/route.ts": {
+      "maxDuration": 60
     }
   }
 }

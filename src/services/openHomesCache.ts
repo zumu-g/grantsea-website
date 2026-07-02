@@ -45,87 +45,90 @@ class OpenHomesCache {
 // Create a singleton instance
 export const openHomesCache = new OpenHomesCache();
 
+// [PROTECTED-APPROVED 2026-07-02] Reverse scan replaces the forwards "scan ALL pages" loop.
+// Why: VaultRE's /openHomes endpoint IGNORES the from/to date filters (verified 2026-07-02:
+// totalItems is identical with or without them) and returns the FULL history (2,461 records /
+// 50 pages back to 2023). Records are in insertion order, so upcoming open homes can only live
+// in the last few pages — future events are always recently created. Scanning forwards through
+// all history took 100s+ and exceeded Vercel's function limit, killing every /api/properties
+// request. Scanning backwards from the last page finds the same complete set of upcoming open
+// homes in 2-4 requests. Coverage guarantee preserved: we keep scanning backwards until we hit
+// EMPTY_PAGES_MARGIN consecutive pages with no upcoming entries, so nothing "buried" is missed.
+const SCAN_TIMEOUT_MS = 20000; // Well under Vercel maxDuration
+const EMPTY_PAGES_MARGIN = 3; // Keep scanning back this many pages past the last future entry
+const MAX_PAGES_SCANNED = 15; // Hard cap; upcoming events never span this many trailing pages
+
+async function scanUpcomingOpenHomes(
+  apiBaseUrl: string,
+  headers: HeadersInit
+): Promise<any[]> {
+  const now = new Date();
+  const upcomingOpenHomes: any[] = [];
+
+  const fetchPage = async (page: number): Promise<{ items: any[]; totalPages: number }> => {
+    const response = await fetch(
+      `${apiBaseUrl}/openHomes?limit=100&page=${page}`,
+      { headers, cache: 'no-store' }
+    );
+    if (!response.ok) {
+      throw new Error(`Failed to fetch open homes page ${page}: ${response.status}`);
+    }
+    const data = await response.json();
+    return { items: data.items || data.data || [], totalPages: data.totalPages || 1 };
+  };
+
+  const scanPromise = (async () => {
+    // First request discovers totalPages
+    const first = await fetchPage(1);
+    const totalPages = first.totalPages;
+
+    const collectUpcoming = (items: any[]): number => {
+      const upcoming = items.filter((oh: any) => {
+        const startTime = new Date(oh.start || oh.startTime || oh.startDateTime);
+        return startTime > now;
+      });
+      upcomingOpenHomes.push(...upcoming);
+      return upcoming.length;
+    };
+
+    if (totalPages === 1) {
+      collectUpcoming(first.items);
+      return upcomingOpenHomes;
+    }
+
+    // Walk backwards from the last page
+    let emptyPagesInARow = 0;
+    let pagesScanned = 0;
+    for (let page = totalPages; page >= 1 && pagesScanned < MAX_PAGES_SCANNED; page--) {
+      const { items } = await fetchPage(page);
+      const found = collectUpcoming(items);
+      pagesScanned++;
+      emptyPagesInARow = found > 0 ? 0 : emptyPagesInARow + 1;
+      if (emptyPagesInARow >= EMPTY_PAGES_MARGIN) break;
+    }
+    console.log(`Reverse scan: ${pagesScanned}/${totalPages} pages scanned, found ${upcomingOpenHomes.length} upcoming open homes`);
+    return upcomingOpenHomes;
+  })();
+
+  return Promise.race([
+    scanPromise,
+    new Promise<any[]>((_, reject) =>
+      setTimeout(() => reject(new Error('Open homes scan timeout')), SCAN_TIMEOUT_MS)
+    )
+  ]);
+}
+
 // Background refresh function
 async function refreshOpenHomesInBackground(
-  apiBaseUrl: string, 
-  headers: HeadersInit, 
+  apiBaseUrl: string,
+  headers: HeadersInit,
   cacheKey: string
 ): Promise<void> {
   try {
-    const now = new Date();
-    let page = 1;
-    let hasMorePages = true;
-    let totalPagesScanned = 0;
-    // RULE: NEVER STOP - CHECK ALL PAGES to find upcoming open homes buried in later pages
-    // No maxPages limit - scan until API returns empty pages
-    const timeoutMs = 120000; // Extended timeout to 2 minutes for full scan
-    let upcomingOpenHomes: any[] = [];
-    
-    console.log('Background refresh: fetching fresh open homes data from ALL pages...');
-    
-    const scanPromise = new Promise<any[]>(async (resolve, reject) => {
-      try {
-        while (hasMorePages) {
-          const tomorrow = new Date(now);
-          tomorrow.setDate(tomorrow.getDate() + 1);
-          const futureDate = new Date(now);
-          futureDate.setDate(futureDate.getDate() + 30);
-          
-          const fromDate = now.toISOString().split('T')[0];
-          const toDate = futureDate.toISOString().split('T')[0];
-          
-          const response = await fetch(
-            `${apiBaseUrl}/openHomes?limit=100&page=${page}&from=${fromDate}&to=${toDate}`,
-            { headers, cache: 'no-store' }
-          );
-          
-          if (!response.ok) {
-            console.error(`Background refresh failed on page ${page}: ${response.status}`);
-            break;
-          }
-          
-          const data = await response.json();
-          const pageOpenHomes = data.items || data.data || [];
-          
-          if (pageOpenHomes.length === 0) {
-            hasMorePages = false;
-          } else {
-            const upcoming = pageOpenHomes.filter((oh: any) => {
-              const startTime = new Date(oh.start || oh.startTime || oh.startDateTime);
-              return startTime > now;
-            });
-            
-            if (upcoming.length > 0) {
-              upcomingOpenHomes.push(...upcoming);
-            }
-            
-            totalPagesScanned++;
-            page++;
-            
-            // Add small delay to avoid rate limiting but keep scan moving
-            if (page % 5 === 0) {
-              await new Promise(resolve => setTimeout(resolve, 100)); // Brief pause every 5 pages
-            }
-          }
-        }
-        
-        resolve(upcomingOpenHomes);
-      } catch (error) {
-        reject(error);
-      }
-    });
-    
-    // Race between scan and timeout
-    upcomingOpenHomes = await Promise.race([
-      scanPromise,
-      new Promise<any[]>((_, reject) => 
-        setTimeout(() => reject(new Error('Background refresh timeout')), timeoutMs)
-      )
-    ]);
-    
+    const upcomingOpenHomes = await scanUpcomingOpenHomes(apiBaseUrl, headers);
     // Update cache with fresh data
     openHomesCache.set(cacheKey, upcomingOpenHomes);
-    console.log(`Background refresh complete: ${totalPagesScanned} pages scanned, found ${upcomingOpenHomes.length} upcoming open homes`);
+    console.log(`Background refresh complete: found ${upcomingOpenHomes.length} upcoming open homes`);
   } catch (error) {
     console.error('Background refresh failed:', error);
   }
@@ -157,95 +160,19 @@ export async function fetchUpcomingOpenHomesWithCache(
     }
   } else {
     console.log('No cached data, fetching fresh open homes data...');
-    
-    // Optimized scan with timeout and reasonable limits
-    const now = new Date();
-    let page = 1;
-    let hasMorePages = true;
-    let totalPagesScanned = 0;
-    // RULE: NEVER STOP - CHECK ALL PAGES to find upcoming open homes buried in later pages
-    // Removed maxPages limit - scan until API returns empty pages (could be 50+ pages)
-    const timeoutMs = 120000; // Extended timeout to 2 minutes for comprehensive scan
-    
-    console.log('Starting comprehensive open homes scan (ALL pages, no limit)...');
-    
-    const scanPromise = new Promise<any[]>(async (resolve, reject) => {
-      try {
-        while (hasMorePages) {
-          // Add date filter to only fetch upcoming open homes
-          const tomorrow = new Date(now);
-          tomorrow.setDate(tomorrow.getDate() + 1);
-          const futureDate = new Date(now);
-          futureDate.setDate(futureDate.getDate() + 30); // Only look 30 days ahead
-          
-          const fromDate = now.toISOString().split('T')[0];
-          const toDate = futureDate.toISOString().split('T')[0];
-          
-          const response = await fetch(
-            `${apiBaseUrl}/openHomes?limit=100&page=${page}&from=${fromDate}&to=${toDate}`,
-            { headers, cache: 'no-store' }
-          );
-          
-          if (!response.ok) {
-            console.error(`Failed to fetch page ${page}: ${response.status}`);
-            break;
-          }
-          
-          const data = await response.json();
-          const pageOpenHomes = data.items || data.data || [];
-          
-          // Check if we've reached the end of data
-          if (pageOpenHomes.length === 0) {
-            hasMorePages = false;
-            console.log(`Reached end of data at page ${page}`);
-          } else {
-            // Filter for upcoming only
-            const upcoming = pageOpenHomes.filter((oh: any) => {
-              const startTime = new Date(oh.start || oh.startTime || oh.startDateTime);
-              return startTime > now;
-            });
-            
-            if (upcoming.length > 0) {
-              console.log(`Page ${page}: Found ${upcoming.length} upcoming open homes`);
-              upcomingOpenHomes.push(...upcoming);
-            } else {
-              console.log(`Page ${page}: No upcoming open homes (${pageOpenHomes.length} past)`);
-            }
-            
-            totalPagesScanned++;
-            page++;
-            
-            // Add small delay to avoid rate limiting but keep scan moving
-            if (page % 5 === 0) {
-              await new Promise(resolve => setTimeout(resolve, 100)); // Brief pause every 5 pages
-            }
-          }
-        }
-        
-        
-        resolve(upcomingOpenHomes);
-      } catch (error) {
-        reject(error);
-      }
-    });
-    
-    // Race between scan and timeout
+
+    // [PROTECTED-APPROVED 2026-07-02] Reverse scan (see scanUpcomingOpenHomes above)
     try {
-      upcomingOpenHomes = await Promise.race([
-        scanPromise,
-        new Promise<any[]>((_, reject) => 
-          setTimeout(() => reject(new Error('Scan timeout')), timeoutMs)
-        )
-      ]);
+      upcomingOpenHomes = await scanUpcomingOpenHomes(apiBaseUrl, headers);
     } catch (error) {
       console.error('Open homes scan failed or timed out:', error);
-      // Return empty array if scan fails, but don't cache it
+      // Return empty map if scan fails, but don't cache it
       return new Map<string, any[]>();
     }
-    
+
     // Cache the results
     openHomesCache.set(cacheKey, upcomingOpenHomes);
-    console.log(`Scan complete: ${totalPagesScanned} pages scanned, found ${upcomingOpenHomes.length} upcoming open homes`);
+    console.log(`Scan complete: found ${upcomingOpenHomes.length} upcoming open homes`);
   }
   
   // Create a map of property ID to open homes

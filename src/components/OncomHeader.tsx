@@ -1046,8 +1046,8 @@ export default function OncomHeader() {
             {[
               { label: 'Saved Properties', href: '/saved-properties' },
               { label: 'Property Alerts', href: '/alerts' },
-              { label: 'Recent Searches', href: '/searches' },
-              { label: 'Contact Preferences', href: '/preferences' },
+              { label: 'Search Properties', href: '/search' },
+              { label: 'Contact Us', href: '/contact' },
               { label: 'Help & Support', href: '/help' }
             ].map((link) => (
               <Link
@@ -1286,43 +1286,6 @@ export default function OncomHeader() {
               }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
                 All Guides
-              </Link>
-              <Link href="/guides/first-time-buyer" onClick={() => setShowBurgerPanel(false)} style={{
-                display: 'block',
-                padding: '12px 20px 12px 40px',
-                color: '#666',
-                textDecoration: 'none',
-                fontSize: '14px',
-                fontWeight: '400',
-                transition: 'background 0.2s'
-              }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
-                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                First Time Buyer
-              </Link>
-              <Link href="/guides/investment" onClick={() => setShowBurgerPanel(false)} style={{
-                display: 'block',
-                padding: '12px 20px 12px 40px',
-                color: '#666',
-                textDecoration: 'none',
-                fontSize: '14px',
-                fontWeight: '400',
-                transition: 'background 0.2s'
-              }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
-                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                Investment Guide
-              </Link>
-              <Link href="/guides/selling" onClick={() => setShowBurgerPanel(false)} style={{
-                display: 'block',
-                padding: '12px 20px 12px 40px',
-                color: '#666',
-                textDecoration: 'none',
-                fontSize: '14px',
-                fontWeight: '400',
-                borderBottom: '1px solid #f8f8f8',
-                transition: 'background 0.2s'
-              }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
-                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
-                Selling Guide
               </Link>
             </div>
             <Link href="/appraisal" onClick={() => setShowBurgerPanel(false)} style={{

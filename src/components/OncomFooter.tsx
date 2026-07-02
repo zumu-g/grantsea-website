@@ -145,7 +145,7 @@ export default function OncomFooter() {
               fontWeight: '600',
               marginBottom: '16px',
               color: '#000'
-            }}>Become a member</h4>
+            }}>Explore</h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               <li style={{ marginBottom: '12px' }}>
                 <Link href="/coming-soon" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
@@ -183,10 +183,10 @@ export default function OncomFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/portal" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
+                <Link href="/appraisal" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
                   onMouseEnter={(e) => e.currentTarget.style.color = '#000'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
-                  Supplier portal
+                  Free appraisal
                 </Link>
               </li>
             </ul>
@@ -209,10 +209,10 @@ export default function OncomFooter() {
                 </Link>
               </li>
               <li style={{ marginBottom: '12px' }}>
-                <Link href="/investors" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
+                <Link href="/suburbs-guide" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
                   onMouseEnter={(e) => e.currentTarget.style.color = '#000'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
-                  Investors
+                  Suburb guides
                 </Link>
               </li>
               <li style={{ marginBottom: '12px' }}>
@@ -223,10 +223,10 @@ export default function OncomFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/backstage" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
+                <Link href="/reviews" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
                   onMouseEnter={(e) => e.currentTarget.style.color = '#000'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
-                  Backstage
+                  Reviews
                 </Link>
               </li>
             </ul>
@@ -277,7 +277,7 @@ export default function OncomFooter() {
             flexWrap: 'wrap',
             fontSize: '12px'
           }}>
-            <span style={{ color: '#666' }}>© Grants 2025</span>
+            <span style={{ color: '#666' }}>© Grant&apos;s Estate Agents 2026</span>
             <Link href="/terms" style={{ color: '#666', textDecoration: 'none', transition: 'color 0.2s' }}
               onMouseEnter={(e) => e.currentTarget.style.color = '#000'}
               onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>

@@ -9,7 +9,8 @@ import SavePropertyButton from '@/components/SavePropertyButton';
 
 export default function SearchPageOncomExact() {
   const searchParams = useSearchParams();
-  const searchQuery = searchParams.get('q') || '';
+  // Accept both ?q= and ?suburb= (homepage "Popular Searches" links use suburb=)
+  const searchQuery = searchParams.get('q') || searchParams.get('suburb') || '';
   const [showFilters, setShowFilters] = useState(false);
   const [selectedSuburbs, setSelectedSuburbs] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState('featured'); // 'featured', 'price-asc', 'price-desc', 'newest', 'oldest'
@@ -113,24 +114,12 @@ export default function SearchPageOncomExact() {
                 fontSize: '14px',
                 fontWeight: '500'
               }}>Rent</Link>
-              <Link href="/sold" style={{
-                color: '#000',
-                textDecoration: 'none',
-                fontSize: '14px',
-                fontWeight: '500'
-              }}>Sold</Link>
               <Link href="/agents" style={{
                 color: '#000',
                 textDecoration: 'none',
                 fontSize: '14px',
                 fontWeight: '500'
               }}>Find agents</Link>
-              <Link href="/new-homes" style={{
-                color: '#000',
-                textDecoration: 'none',
-                fontSize: '14px',
-                fontWeight: '500'
-              }}>New homes</Link>
             </nav>
           </div>
 
@@ -140,7 +129,7 @@ export default function SearchPageOncomExact() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </Link>
-            <Link href="/sign-in" style={{
+            <Link href="/signup" style={{
               padding: '8px 16px',
               fontSize: '14px',
               fontWeight: '500',

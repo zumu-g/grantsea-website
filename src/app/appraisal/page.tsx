@@ -27,6 +27,8 @@ export default function AppraisalPage() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   useEffect(() => {
     const checkDevice = () => {
@@ -45,19 +47,34 @@ export default function AppraisalPage() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Appraisal request submitted:', formData);
+    setSubmitting(true);
+    setSubmitError('');
 
-    const appraisals = JSON.parse(localStorage.getItem('appraisalRequests') || '[]');
-    appraisals.push({
-      ...formData,
-      submittedAt: new Date().toISOString()
-    });
-    localStorage.setItem('appraisalRequests', JSON.stringify(appraisals));
+    try {
+      const res = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'appraisal',
+          name: `${formData.firstName} ${formData.lastName}`.trim(),
+          ...formData
+        }),
+      });
 
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (!res.ok) {
+        throw new Error(`Lead API responded ${res.status}`);
+      }
+
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+      console.error('Appraisal submission failed:', error);
+      setSubmitError('Something went wrong sending your request. Please try again, or call us on (03) 9704 8888.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -649,8 +666,19 @@ export default function AppraisalPage() {
 
               {/* Submit Button */}
               <div style={{ textAlign: 'center' }}>
+                {submitError && (
+                  <p style={{
+                    marginBottom: '1rem',
+                    fontSize: '15px',
+                    color: '#C0392B',
+                    fontWeight: '500'
+                  }}>
+                    {submitError}
+                  </p>
+                )}
                 <button
                   type="submit"
+                  disabled={submitting}
                   style={{
                     padding: 'clamp(0.75rem, 1.5vw, 1rem) clamp(1.5rem, 3vw, 2rem)',
                     backgroundColor: '#000',
@@ -659,7 +687,8 @@ export default function AppraisalPage() {
                     borderRadius: '2rem',
                     fontSize: '18px',
                     fontWeight: '500',
-                    cursor: 'pointer',
+                    cursor: submitting ? 'wait' : 'pointer',
+                    opacity: submitting ? 0.6 : 1,
                     transition: 'all 0.3s ease',
                     fontFamily: 'inherit'
                   }}
@@ -672,7 +701,7 @@ export default function AppraisalPage() {
                     e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
-                  Get My Free Appraisal
+                  {submitting ? 'Sending…' : 'Get My Free Appraisal'}
                 </button>
                 <p style={{
                   marginTop: 'clamp(0.5rem, 1.5vw, 1rem)',

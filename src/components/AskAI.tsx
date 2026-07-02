@@ -50,9 +50,9 @@ export default function AskAI({
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       // Add welcome message when chat opens
-      const welcomeMessage = propertyAddress 
+      const welcomeMessage = propertyAddress
         ? `Hi! I'm here to help answer any questions about ${propertyAddress}. What would you like to know?`
-        : "Hi! I'm here to help answer any questions about this property. What would you like to know?";
+        : "Hi! I'm Grant's property assistant. Ask me about buying, selling, renting, or any of our current listings.";
       
       setMessages([{ role: 'ai', content: welcomeMessage }]);
     }

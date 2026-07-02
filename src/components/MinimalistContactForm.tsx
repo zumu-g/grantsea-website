@@ -41,16 +41,21 @@ export default function MinimalistContactForm() {
     setSubmitStatus({ type: null, message: '' });
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      console.log('Form submitted:', formData);
-      
+      const res = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'contact', ...formData }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Lead API responded ${res.status}`);
+      }
+
       setSubmitStatus({
         type: 'success',
         message: 'Thank you for your inquiry. We\'ll get back to you within 24 hours.',
       });
-      
+
       // Reset form
       setFormData({
         name: '',
@@ -63,7 +68,7 @@ export default function MinimalistContactForm() {
     } catch (error) {
       setSubmitStatus({
         type: 'error',
-        message: 'Something went wrong. Please try again or call us directly.',
+        message: 'Something went wrong sending your message. Please try again, or call us on (03) 9704 8888.',
       });
     } finally {
       setIsSubmitting(false);

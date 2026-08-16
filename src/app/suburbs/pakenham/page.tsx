@@ -2,14 +2,17 @@ import PageClient from './SuburbPageClient';
 import CrawlerListings from '@/components/CrawlerListings';
 import SuburbStats from '@/components/SuburbStats';
 import SuburbFAQ from '@/components/SuburbFAQ';
-import { getListingsForSuburb, getSuburbSalesStats, getCurrentSaleListingCount, asAtToday } from '@/lib/serverProperties';
+import { getSuburbListingsAndCount, getSuburbSalesStats, asAtToday } from '@/lib/serverProperties';
 
 export const revalidate = 86400;
 
 export default async function Page() {
   const suburb = 'Pakenham';
-  const [listings, stats] = await Promise.all([getListingsForSuburb(suburb), getSuburbSalesStats(suburb)]);
-  const currentCount = stats?.currentListingCount ?? (await getCurrentSaleListingCount(suburb));
+  const listingsAndCount = getSuburbListingsAndCount(suburb);
+  const [{ listings, currentListingCount: currentCount }, stats] = await Promise.all([
+    listingsAndCount,
+    getSuburbSalesStats(suburb, listingsAndCount.then((r) => r.currentListingCount)),
+  ]);
   return (
     <>
       <PageClient />

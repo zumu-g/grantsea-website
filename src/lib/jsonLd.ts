@@ -4,7 +4,8 @@ import React from 'react';
 
 export const SITE_URL = 'https://grantsea.com.au';
 
-const AREA_SERVED = [
+/** Canonical service-area suburb list — shared with the lead API's suburb validation. */
+export const SUBURBS = [
   'Beaconsfield',
   'Beaconsfield Upper',
   'Berwick',
@@ -49,7 +50,7 @@ export function realEstateAgent(overrides?: Record<string, unknown>) {
     geo: { '@type': 'GeoCoordinates', latitude: -38.0395, longitude: 145.3464 },
     telephone: '+61-1300-472687',
     email: 'info@grantsea.com.au',
-    areaServed: AREA_SERVED.map((name) => ({ '@type': 'City', name })),
+    areaServed: SUBURBS.map((name) => ({ '@type': 'City', name })),
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
@@ -84,7 +85,7 @@ export function breadcrumb(items: [name: string, path: string][]) {
       '@type': 'ListItem',
       position: i + 1,
       name,
-      item: `${SITE_URL}${path === '/' ? '' : path}` || SITE_URL,
+      item: `${SITE_URL}${path === '/' ? '' : path}`,
     })),
   };
 }

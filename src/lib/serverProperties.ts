@@ -64,18 +64,24 @@ const MIN_SAMPLE = 5;
 export const asAtToday = () =>
   new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
 
-/** Exact-suburb count of current sale listings (independent of sold stats,
- *  so listing-count Q&As still work when stats are withheld). */
-export async function getCurrentSaleListingCount(suburb: string): Promise<number> {
+/** One VaultRE call for both the crawler listings slice and the exact-suburb
+ *  current-listing count (for suburb queries getListings always fetches a
+ *  200-item pool, so slicing and counting share the same request). */
+export async function getSuburbListingsAndCount(suburb: string, limit = 6): Promise<{ listings: Property[]; currentListingCount: number }> {
+  const pool = await getListings({ type: 'sale', suburb, limit: 200 });
   const s = suburb.toLowerCase();
-  return (await getListings({ type: 'sale', suburb, limit: 200 }))
-    .filter((p: any) => (p.suburb || '').toLowerCase() === s).length;
+  return {
+    listings: pool.slice(0, limit),
+    currentListingCount: pool.filter((p: any) => (p.suburb || '').toLowerCase() === s).length,
+  };
 }
 
 /** Agency-scoped sales stats for a suburb, from VaultRE sold data
  *  (/properties/residential/sale/sold — unconditional/settled sales).
- *  Last 12 months only. Returns null when sample < 5 sales or API fails. */
-export async function getSuburbSalesStats(suburb: string): Promise<SuburbSalesStats | null> {
+ *  Last 12 months only. Returns null when sample < 5 sales or API fails.
+ *  `currentListingCount` comes from getSuburbListingsAndCount (may be a
+ *  promise so pages can run both fetches in parallel). */
+export async function getSuburbSalesStats(suburb: string, currentListingCount: number | Promise<number>): Promise<SuburbSalesStats | null> {
   if (!API_KEY || !ACCESS_TOKEN) return null;
   try {
     // ponytail: 3 pages (300 sold records, newest first) comfortably covers 12
@@ -119,7 +125,7 @@ export async function getSuburbSalesStats(suburb: string): Promise<SuburbSalesSt
       medianPrice,
       daysOnMarket,
       saleCount: sales.length,
-      currentListingCount: await getCurrentSaleListingCount(suburb),
+      currentListingCount: await currentListingCount,
       asAt: asAtToday(),
     };
   } catch (err) {

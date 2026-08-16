@@ -4,8 +4,7 @@
 // depending on withheld stats are simply omitted.
 import { SuburbSalesStats } from '@/lib/serverProperties';
 import { JsonLd, faqPage } from '@/lib/jsonLd';
-
-const fmtPrice = (n: number) => `$${n.toLocaleString('en-AU')}`;
+import { formatPrice } from '@/services/api';
 
 export function buildSuburbQAs(
   suburb: string,
@@ -17,7 +16,7 @@ export function buildSuburbQAs(
   if (stats) {
     qas.push({
       question: `What have houses sold for in ${suburb} recently?`,
-      answer: `Grant's Estate Agents sold ${stats.saleCount} properties in ${suburb} over the 12 months to ${stats.asAt}, with a median sale price of ${fmtPrice(stats.medianPrice)}. Sale prices vary with property size, condition and location within ${suburb}, so contact us for a free appraisal of your specific home.`,
+      answer: `Grant's Estate Agents sold ${stats.saleCount} properties in ${suburb} over the 12 months to ${stats.asAt}, with a median sale price of ${formatPrice(stats.medianPrice)}. Sale prices vary with property size, condition and location within ${suburb}, so contact us for a free appraisal of your specific home.`,
     });
     if (stats.daysOnMarket !== null) {
       qas.push({

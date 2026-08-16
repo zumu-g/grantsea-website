@@ -2,13 +2,12 @@
 // initial HTML. All numbers come from real VaultRE sold data via
 // getSuburbSalesStats; renders nothing when the sample is below 5 sales.
 import { SuburbSalesStats } from '@/lib/serverProperties';
-
-const fmtPrice = (n: number) => `$${n.toLocaleString('en-AU')}`;
+import { formatPrice } from '@/services/api';
 
 export default function SuburbStats({ suburb, stats }: { suburb: string; stats: SuburbSalesStats | null }) {
   if (!stats) return null;
   const rows: [string, string][] = [
-    ['Median sale price', fmtPrice(stats.medianPrice)],
+    ['Median sale price', formatPrice(stats.medianPrice)],
     ...(stats.daysOnMarket !== null ? ([['Average days on market', `${stats.daysOnMarket} days`]] as [string, string][]) : []),
     ['Properties sold (last 12 months)', String(stats.saleCount)],
     ['Current listings', String(stats.currentListingCount)],

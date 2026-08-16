@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { SUBURBS } from '@/lib/jsonLd';
 
 // Lead capture endpoint for contact, appraisal, property-enquiry, and
 // market-report forms. Delivers via Resend's HTTP API (no SDK needed).
@@ -8,13 +9,6 @@ import { NextRequest, NextResponse } from 'next/server';
 //   LEAD_EMAIL_FROM - verified sender (defaults to onboarding@resend.dev for testing)
 // Without RESEND_API_KEY this returns 503 so forms can show an honest
 // "call us" fallback instead of a fake success message. NEVER fake success.
-
-const KNOWN_SUBURBS = [
-  'Beaconsfield', 'Beaconsfield Upper', 'Berwick', 'Bunyip', 'Clyde', 'Clyde North',
-  'Cranbourne', 'Cranbourne North', 'Endeavour Hills', 'Garfield', 'Hallam',
-  'Hampton Park', 'Harkaway', 'Koo Wee Rup', 'Narre Warren', 'Narre Warren East',
-  'Narre Warren South', 'Officer', 'Pakenham', 'Tynong',
-];
 
 // Fields we accept per lead type. Anything else in the body is dropped before
 // it reaches the email — an attacker sending extra keys just has them ignored
@@ -147,7 +141,7 @@ export async function POST(request: NextRequest) {
 
   if (type === 'market-report') {
     const suburb = String(extra.suburb || '');
-    if (!KNOWN_SUBURBS.includes(suburb)) {
+    if (!SUBURBS.includes(suburb)) {
       return NextResponse.json({ error: 'Unknown suburb' }, { status: 400 });
     }
   }

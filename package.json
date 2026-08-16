@@ -14,7 +14,7 @@
     "check-all": "npm run typecheck && npm run lint && npm run build",
     "prepare": "husky install",
     "generate-sitemap": "node scripts/generate-sitemap.js",
-    "postbuild": "node scripts/generate-sitemap.js",
+    "prebuild": "node scripts/generate-sitemap.js",
     "check-protected": "node scripts/check-protected-files.js",
     "precommit": "npm run check-protected",
     "protected-status": "echo '🛡️ Checking protected files status...' && node scripts/check-protected-files.js"

@@ -28,6 +28,11 @@ const staticPages = [
   '/map',
   '/search',
   '/reviews',
+  '/advice',
+  '/advice/declutter-before-selling',
+  '/advice/styling-your-home-for-sale',
+  '/advice/preparing-for-photography',
+  '/advice/interior-design-trends-2026',
 ];
 
 // Suburb pages

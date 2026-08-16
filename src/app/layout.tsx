@@ -46,9 +46,6 @@ export const metadata: Metadata = {
   viewport: 'width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover',
   themeColor: '#000000',
   manifest: '/manifest.json',
-  alternates: {
-    canonical: 'https://grantsea.com.au',
-  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -133,7 +130,6 @@ export default function RootLayout({
   return (
     <html lang="en-AU">
       <head>
-        <link rel="canonical" href="https://grantsea.com.au" />
         <meta name="geo.region" content="AU-VIC" />
         <meta name="geo.placename" content="Melbourne" />
         <meta name="geo.position" content="-38.0395;145.3464" />

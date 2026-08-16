@@ -1,0 +1,20 @@
+# Grant's Estate Agents
+
+> Real estate agency serving Casey and Cardinia in Melbourne's south-east — residential sales, rentals, appraisals and local market guides across Berwick, Narre Warren, Pakenham and surrounding suburbs.
+
+## Key pages
+
+- [Properties for sale](https://grantsea.com.au/buy): Current residential listings across Casey and Cardinia
+- [Properties for rent](https://grantsea.com.au/rent): Rental listings and open-for-inspection times
+- [Sell with us](https://grantsea.com.au/sell): Selling process, recent sales and free property appraisal
+- [Our agents](https://grantsea.com.au/agents): Local agent profiles and contact details
+- [Suburb guides](https://grantsea.com.au/suburbs): Guides to 20 south-east Melbourne suburbs
+- [Advice](https://grantsea.com.au/advice): Buying, selling and renting advice articles
+
+## Top suburb guides
+
+- [Berwick](https://grantsea.com.au/suburbs/berwick): Established family suburb with heritage village centre
+- [Narre Warren](https://grantsea.com.au/suburbs/narre-warren): Central Casey hub around Fountain Gate
+- [Cranbourne](https://grantsea.com.au/suburbs/cranbourne): Growth corridor suburb with strong affordability
+- [Pakenham](https://grantsea.com.au/suburbs/pakenham): Cardinia's major centre with rail to Melbourne CBD
+- [Officer](https://grantsea.com.au/suburbs/officer): New estates in the Pakenham growth corridor

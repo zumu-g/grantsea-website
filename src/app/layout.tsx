@@ -122,6 +122,8 @@ const organizationSchema = {
   ]
 };
 
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -147,6 +149,24 @@ export default function RootLayout({
           <FloatingAI />
         </AuthProvider>
         
+        {/* Google Analytics 4 — rendered only when a measurement ID is configured */}
+        {GA_MEASUREMENT_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_MEASUREMENT_ID}');
+              `}
+            </Script>
+          </>
+        )}
+
         {/* Additional Schema Markup Helper */}
         <Script id="schema-website" type="application/ld+json">
           {`

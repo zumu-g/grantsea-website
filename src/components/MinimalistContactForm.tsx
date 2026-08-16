@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import OncomHeader from './OncomHeader';
+import { trackLead } from '@/lib/analytics';
 
 interface FormData {
   name: string;
@@ -51,6 +52,7 @@ export default function MinimalistContactForm() {
         throw new Error(`Lead API responded ${res.status}`);
       }
 
+      trackLead('contact');
       setSubmitStatus({
         type: 'success',
         message: 'Thank you for your inquiry. We\'ll get back to you within 24 hours.',

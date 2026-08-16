@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import OncomHeader from '@/components/OncomHeader';
 import { motion } from 'framer-motion';
+import { trackLead } from '@/lib/analytics';
 
 export default function AppraisalPage() {
   const [isMobile, setIsMobile] = useState(false);
@@ -67,6 +68,7 @@ export default function AppraisalPage() {
         throw new Error(`Lead API responded ${res.status}`);
       }
 
+      trackLead('appraisal');
       setSubmitted(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {

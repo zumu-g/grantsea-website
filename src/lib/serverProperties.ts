@@ -50,3 +50,80 @@ export async function getListingsForSuburb(suburb: string, limit = 6): Promise<P
   // ponytail: sale listings only for the crawler summary; add lease if needed
   return getListings({ type: 'sale', suburb, limit });
 }
+
+export interface SuburbSalesStats {
+  medianPrice: number;
+  daysOnMarket: number | null;
+  saleCount: number;
+  currentListingCount: number;
+  asAt: string; // e.g. "17 August 2026"
+}
+
+const MIN_SAMPLE = 5;
+
+export const asAtToday = () =>
+  new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
+
+/** Exact-suburb count of current sale listings (independent of sold stats,
+ *  so listing-count Q&As still work when stats are withheld). */
+export async function getCurrentSaleListingCount(suburb: string): Promise<number> {
+  const s = suburb.toLowerCase();
+  return (await getListings({ type: 'sale', suburb, limit: 200 }))
+    .filter((p: any) => (p.suburb || '').toLowerCase() === s).length;
+}
+
+/** Agency-scoped sales stats for a suburb, from VaultRE sold data
+ *  (/properties/residential/sale/sold — unconditional/settled sales).
+ *  Last 12 months only. Returns null when sample < 5 sales or API fails. */
+export async function getSuburbSalesStats(suburb: string): Promise<SuburbSalesStats | null> {
+  if (!API_KEY || !ACCESS_TOKEN) return null;
+  try {
+    // ponytail: 3 pages (300 sold records, newest first) comfortably covers 12
+    // months of agency sales; bump pagesToFetch if volume ever exceeds that.
+    const pagesToFetch = 3;
+    const sold: any[] = [];
+    for (let page = 1; page <= pagesToFetch; page++) {
+      const qs = new URLSearchParams({ limit: '100', page: String(page), sort: 'unconditional', sortOrder: 'desc' }).toString();
+      const res = await fetch(`${API_BASE_URL}/properties/residential/sale/sold?${qs}`, { headers });
+      if (!res.ok) throw new Error(`VaultRE sold ${res.status}`);
+      const data = await res.json();
+      const items = data.items || [];
+      sold.push(...items);
+      if (page >= (data.totalPages || 1)) break;
+    }
+
+    const s = suburb.toLowerCase();
+    const cutoff = new Date();
+    cutoff.setFullYear(cutoff.getFullYear() - 1);
+    const sales = sold.filter((p: any) =>
+      (p.address?.suburb?.name || '').toLowerCase() === s &&
+      p.unconditional && new Date(p.unconditional) >= cutoff &&
+      typeof p.salePrice === 'number' && p.salePrice > 0
+    );
+    if (sales.length < MIN_SAMPLE) return null;
+
+    const prices = sales.map((p: any) => p.salePrice).sort((a: number, b: number) => a - b);
+    const mid = Math.floor(prices.length / 2);
+    const medianPrice = prices.length % 2 ? prices[mid] : Math.round((prices[mid - 1] + prices[mid]) / 2);
+
+    const doms = sales
+      .map((p: any) => p.internalMarketingLiveDate
+        ? (new Date(p.unconditional).getTime() - new Date(p.internalMarketingLiveDate).getTime()) / 86400000
+        : null)
+      .filter((d): d is number => d !== null && d > 0 && d < 365);
+    const daysOnMarket = doms.length >= MIN_SAMPLE
+      ? Math.round(doms.reduce((a, b) => a + b, 0) / doms.length)
+      : null;
+
+    return {
+      medianPrice,
+      daysOnMarket,
+      saleCount: sales.length,
+      currentListingCount: await getCurrentSaleListingCount(suburb),
+      asAt: asAtToday(),
+    };
+  } catch (err) {
+    console.error('getSuburbSalesStats failed:', err);
+    return null;
+  }
+}

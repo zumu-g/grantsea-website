@@ -126,6 +126,19 @@ export function realEstateListing(property: any, id: string) {
   return node;
 }
 
+/** FAQPage node from the same Q&A array rendered visibly on the page. */
+export function faqPage(questions: { question: string; answer: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: questions.map((q) => ({
+      '@type': 'Question',
+      name: q.question,
+      acceptedAnswer: { '@type': 'Answer', text: q.answer },
+    })),
+  };
+}
+
 /** Renders a JSON-LD script tag. `<` escaped to prevent script injection. */
 export function JsonLd({ data }: { data: object | object[] }) {
   const json = JSON.stringify(data).replace(/</g, '\\u003c');

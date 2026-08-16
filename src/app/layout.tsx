@@ -3,6 +3,7 @@ import Script from 'next/script';
 import './globals.css';
 import FloatingAI from '@/components/FloatingAI';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { JsonLd, realEstateAgent } from '@/lib/jsonLd';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://grantsea.com.au'),
@@ -56,72 +57,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Organization structured data for AI understanding
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "RealEstateAgent",
-  "name": "Grant's Estate Agents",
-  "alternateName": "Grants Estate Agents",
-  "url": "https://grantsea.com.au",
-  "logo": "https://grantsea.com.au/logo.png",
-  "description": "Leading real estate agency serving Berwick, Narre Warren, Cranbourne, Pakenham, and Officer in Southeast Melbourne. Specializing in residential property sales, rentals, and property management.",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Berwick",
-    "addressRegion": "VIC",
-    "postalCode": "3806",
-    "addressCountry": "AU"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": -38.0395,
-    "longitude": 145.3464
-  },
-  "areaServed": [
-    {
-      "@type": "City",
-      "name": "Berwick"
-    },
-    {
-      "@type": "City", 
-      "name": "Narre Warren"
-    },
-    {
-      "@type": "City",
-      "name": "Cranbourne"
-    },
-    {
-      "@type": "City",
-      "name": "Pakenham"
-    },
-    {
-      "@type": "City",
-      "name": "Officer"
-    }
-  ],
-  "telephone": "+61-1300-472687",
-  "email": "info@grantsea.com.au",
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      "opens": "09:00",
-      "closes": "17:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Saturday",
-      "opens": "09:00",
-      "closes": "16:00"
-    }
-  ],
-  "sameAs": [
-    "https://www.facebook.com/grantsestateagents",
-    "https://www.instagram.com/grantsestateagents",
-    "https://www.linkedin.com/company/grants-estate-agents"
-  ]
-};
-
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 export default function RootLayout({
@@ -138,10 +73,7 @@ export default function RootLayout({
         <meta name="ICBM" content="-38.0395, 145.3464" />
         
         {/* Structured Data for AI Crawlers */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
+        <JsonLd data={realEstateAgent()} />
       </head>
       <body className="antialiased">
         <AuthProvider>

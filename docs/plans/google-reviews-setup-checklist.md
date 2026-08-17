@@ -12,7 +12,7 @@ Open [Google Business Profile Manager](https://business.google.com/) and count t
 
 1. Create or choose a project at [console.cloud.google.com](https://console.cloud.google.com/).
 2. Enable **"Places API (New)"** (not the legacy "Places API").
-3. Attach billing. Free tier covers 1,000 Enterprise-SKU calls/month; our usage is ~120/month, so expected cost is $0.
+3. Attach billing. Free tier covers 1,000 Enterprise-SKU calls/month; our usage is ~240/month (two pages refreshing every 6 hours), so expected cost is $0.
 4. **Create a budget alert at $1/month** (Billing → Budgets & alerts) as a tripwire.
 
 ## 3. Create a restricted API key

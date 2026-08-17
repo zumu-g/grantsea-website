@@ -35,6 +35,8 @@ async function fetchPlace(apiKey: string, placeId: string): Promise<Response> {
   );
 }
 
+class NonRetryableError extends Error {}
+
 async function fetchReviews(): Promise<GoogleReviewsData | null> {
   const apiKey = process.env.GOOGLE_PLACES_API_KEY;
   const placeId = process.env.GOOGLE_PLACE_ID;
@@ -45,9 +47,14 @@ async function fetchReviews(): Promise<GoogleReviewsData | null> {
     try {
       const res = await fetchPlace(apiKey, placeId);
       if (res.ok) return mapPlaceReviews(await res.json());
-      if (res.status >= 500 && attempt === 0) continue;
+      if (res.status < 500) {
+        // 4xx (bad key, wrong place ID, API disabled) — retrying cannot help
+        throw new NonRetryableError(`Google Places API responded ${res.status}`);
+      }
+      if (attempt === 0) continue;
       throw new Error(`Google Places API responded ${res.status}`);
     } catch (err) {
+      if (err instanceof NonRetryableError) throw err;
       if (attempt === 0) continue;
       throw err;
     }
@@ -56,6 +63,7 @@ async function fetchReviews(): Promise<GoogleReviewsData | null> {
 }
 
 /** Never throws. Returns null when unconfigured or on any failure. */
+// ponytail: no callers yet — kept as the non-ISR entry point for the planned GBP API source swap (plan KTD5)
 export async function getGoogleReviews(): Promise<GoogleReviewsData | null> {
   try {
     return await fetchReviews();

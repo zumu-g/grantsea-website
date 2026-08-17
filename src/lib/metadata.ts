@@ -181,6 +181,13 @@ export const pageMetadata = {
     keywords: ["property calculator", "borrowing capacity", "stamp duty calculator", "mortgage calculator"],
   }),
 
+  reviews: (): Metadata => generateMetadata({
+    path: '/reviews',
+    title: "Client Reviews",
+    description: "Read Google reviews and client stories from buyers, sellers, landlords, and tenants who have worked with Grant's Estate Agents.",
+    keywords: ["reviews", "Google reviews", "testimonials", "client stories", "estate agent reviews"],
+  }),
+
   blog: (): Metadata => generateMetadata({
     path: '/blog',
     title: "Property Blog & News",

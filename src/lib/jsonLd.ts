@@ -34,6 +34,7 @@ export function realEstateAgent(overrides?: Record<string, unknown>) {
   return {
     '@context': 'https://schema.org',
     '@type': 'RealEstateAgent',
+    '@id': `${SITE_URL}/#organization`,
     name: "Grant's Estate Agents",
     alternateName: 'Grants Estate Agents',
     url: SITE_URL,

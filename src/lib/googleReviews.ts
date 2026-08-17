@@ -62,8 +62,7 @@ async function fetchReviews(): Promise<GoogleReviewsData | null> {
   return null; // unreachable
 }
 
-/** Never throws. Returns null when unconfigured or on any failure. */
-// ponytail: no callers yet — kept as the non-ISR entry point for the planned GBP API source swap (plan KTD5)
+/** Never throws. Returns null when unconfigured or on any failure. Used by /sell (strip absence beats a 500). */
 export async function getGoogleReviews(): Promise<GoogleReviewsData | null> {
   try {
     return await fetchReviews();
@@ -83,7 +82,10 @@ export async function getGoogleReviewsOrThrow(): Promise<GoogleReviewsData | nul
   try {
     return await fetchReviews();
   } catch (err) {
-    if (process.env.NEXT_PHASE === 'phase-production-build') return null;
+    if (process.env.NEXT_PHASE === 'phase-production-build') {
+      console.error('[googleReviews] fetch failed during build — building without review data:', err);
+      return null;
+    }
     throw err;
   }
 }

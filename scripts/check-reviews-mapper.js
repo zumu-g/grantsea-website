@@ -65,4 +65,34 @@ assert.strictEqual(mapPlaceReviews('nope'), null);
 const bare = mapPlaceReviews({ rating: 5, userRatingCount: 1 });
 assert.deepStrictEqual(bare.reviews, []);
 
+// Whitespace-only text -> filtered
+const ws = mapPlaceReviews({
+  reviews: [{ rating: 5, text: { text: '   \n\t ' }, authorAttribution: { displayName: 'A' } }],
+});
+assert.deepStrictEqual(ws.reviews, [], 'whitespace-only text filtered');
+
+// No authorAttribution key at all -> no throw, author '' and null links
+const noAuthor = mapPlaceReviews({
+  reviews: [{ rating: 5, text: { text: 'Solid agents.' } }],
+});
+assert.strictEqual(noAuthor.reviews.length, 1);
+assert.strictEqual(noAuthor.reviews[0].author, '');
+assert.strictEqual(noAuthor.reviews[0].photoUrl, null);
+assert.strictEqual(noAuthor.reviews[0].profileUrl, null);
+
+// reviews field non-array -> empty list, no throw
+const nonArray = mapPlaceReviews({ rating: 4.2, userRatingCount: 9, reviews: 'nope' });
+assert.deepStrictEqual(nonArray.reviews, [], 'non-array reviews -> empty list');
+
+// Missing or non-numeric rating -> filtered
+const badRating = mapPlaceReviews({
+  reviews: [
+    { text: { text: 'No rating at all.' }, authorAttribution: { displayName: 'B' } },
+    { rating: '5', text: { text: 'String rating.' }, authorAttribution: { displayName: 'C' } },
+    { rating: 5, text: { text: 'Keeps this one.' }, authorAttribution: { displayName: 'D' } },
+  ],
+});
+assert.strictEqual(badRating.reviews.length, 1, 'missing/non-numeric rating filtered');
+assert.strictEqual(badRating.reviews[0].author, 'D');
+
 console.log('check-reviews-mapper: all assertions passed');

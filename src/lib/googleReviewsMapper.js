@@ -16,7 +16,7 @@
  * Map a raw Places API (New) place response to the site's review shape.
  * `reviews[].text` / `originalText` are LocalizedText objects {text, languageCode};
  * the inner `.text` is extracted, preferring originalText. Reviews with empty or
- * missing text are filtered out (R7).
+ * missing text are filtered out (R7), as are reviews without a numeric rating.
  * @param {any} raw
  * @returns {{rating: number | null, count: number | null, reviews: MappedReview[]} | null}
  */
@@ -34,7 +34,7 @@ function mapPlaceReviews(raw) {
         text: typeof text === 'string' ? text.trim() : '',
       };
     })
-    .filter((r) => r.text.length > 0);
+    .filter((r) => r.text.length > 0 && typeof r.rating === 'number');
   return {
     rating: typeof raw.rating === 'number' ? raw.rating : null,
     count: typeof raw.userRatingCount === 'number' ? raw.userRatingCount : null,

@@ -2,6 +2,7 @@
 // Mirrors the env pattern in src/app/api/properties/route.ts — direct VaultRE
 // calls, never a self-fetch of our own API routes.
 import { transformVaultREProperty, Property } from '@/services/api';
+import { medianOf, avgDaysOnMarket, filterByExactSuburb } from '@/lib/stats';
 
 const API_BASE_URL = process.env.CRM_API_URL || process.env.NEXT_PUBLIC_CRM_API_URL || 'https://ap-southeast-2.api.vaultre.com.au/api/v1.3';
 const API_KEY = process.env.CRM_API_KEY || process.env.NEXT_PUBLIC_CRM_API_KEY || '';
@@ -33,11 +34,7 @@ export async function getListings(params: { type: 'sale' | 'lease'; suburb?: str
     if (params.suburb) query.suburb = params.suburb;
     let items = await fetchItems(`/properties/residential/${params.type}`, query);
     if (params.suburb) {
-      const s = params.suburb.toLowerCase();
-      items = items.filter((p: any) =>
-        (p.address?.suburb?.name || '').toLowerCase().includes(s) ||
-        (p.displayAddress || '').toLowerCase().includes(s)
-      );
+      items = filterByExactSuburb(items, params.suburb);
     }
     return items.slice(0, limit).map(transformVaultREProperty);
   } catch (err) {
@@ -69,10 +66,10 @@ export const asAtToday = () =>
  *  200-item pool, so slicing and counting share the same request). */
 export async function getSuburbListingsAndCount(suburb: string, limit = 6): Promise<{ listings: Property[]; currentListingCount: number }> {
   const pool = await getListings({ type: 'sale', suburb, limit: 200 });
-  const s = suburb.toLowerCase();
+  // getListings already exact-matches on suburb, so the pool IS the suburb set.
   return {
     listings: pool.slice(0, limit),
-    currentListingCount: pool.filter((p: any) => (p.suburb || '').toLowerCase() === s).length,
+    currentListingCount: pool.length,
   };
 }
 
@@ -108,18 +105,8 @@ export async function getSuburbSalesStats(suburb: string, currentListingCount: n
     );
     if (sales.length < MIN_SAMPLE) return null;
 
-    const prices = sales.map((p: any) => p.salePrice).sort((a: number, b: number) => a - b);
-    const mid = Math.floor(prices.length / 2);
-    const medianPrice = prices.length % 2 ? prices[mid] : Math.round((prices[mid - 1] + prices[mid]) / 2);
-
-    const doms = sales
-      .map((p: any) => p.internalMarketingLiveDate
-        ? (new Date(p.unconditional).getTime() - new Date(p.internalMarketingLiveDate).getTime()) / 86400000
-        : null)
-      .filter((d): d is number => d !== null && d > 0 && d < 365);
-    const daysOnMarket = doms.length >= MIN_SAMPLE
-      ? Math.round(doms.reduce((a, b) => a + b, 0) / doms.length)
-      : null;
+    const medianPrice = medianOf(sales.map((p: any) => p.salePrice))!;
+    const daysOnMarket = avgDaysOnMarket(sales, MIN_SAMPLE);
 
     return {
       medianPrice,

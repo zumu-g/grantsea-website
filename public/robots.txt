@@ -29,7 +29,8 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-# Sitemap location
+# Sitemap location (index references static + dynamic property sitemaps)
+Sitemap: https://grantsea.com.au/sitemap-index.xml
 Sitemap: https://grantsea.com.au/sitemap.xml
 
 # Crawl-delay for bots (optional)

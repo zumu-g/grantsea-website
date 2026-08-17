@@ -23,7 +23,7 @@ In Bing WMT > Sitemaps, submit:
 ## 3. Confirm IndexNow key serves
 
 - Open `https://grantsea.com.au/f016139c24ecc21175d71e4831953380.txt` — it must return the key `f016139c24ecc21175d71e4831953380` as plain text.
-- Set the `CRON_SECRET` env var in Vercel, then trigger a submission after deploys: `https://grantsea.com.au/api/indexnow?secret=<CRON_SECRET>`.
+- Set the `CRON_SECRET` env var in Vercel, then trigger a submission after deploys: `curl -H "Authorization: Bearer <CRON_SECRET>" https://grantsea.com.au/api/indexnow`.
 
 ## 4. Log the GSC baseline (do this now)
 

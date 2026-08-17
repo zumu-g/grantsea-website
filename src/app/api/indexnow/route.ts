@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { timingSafeEqual } from 'node:crypto';
 
 export const dynamic = 'force-dynamic';
 
@@ -44,7 +45,13 @@ async function submit(request: NextRequest) {
     // Not configured — do nothing rather than expose an open trigger.
     return NextResponse.json({ ok: false, skipped: 'CRON_SECRET not set' });
   }
-  if (request.nextUrl.searchParams.get('secret') !== secret) {
+  // Secret via Authorization: Bearer header (not query string, which leaks
+  // into logs). Constant-time comparison to avoid timing attacks.
+  const auth = request.headers.get('authorization') || '';
+  const provided = auth.startsWith('Bearer ') ? auth.slice(7) : '';
+  const a = Buffer.from(provided);
+  const b = Buffer.from(secret);
+  if (a.length !== b.length || !timingSafeEqual(a, b)) {
     return NextResponse.json({ ok: false, error: 'unauthorised' }, { status: 401 });
   }
 

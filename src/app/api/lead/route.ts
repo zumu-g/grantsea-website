@@ -35,6 +35,12 @@ const RATE_LIMIT_MAX = 5;
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
+  // Prune expired buckets so the map can't grow unbounded on a long-lived instance.
+  if (rateLimitBuckets.size > 1000) {
+    for (const [key, b] of rateLimitBuckets) {
+      if (b.resetAt < now) rateLimitBuckets.delete(key);
+    }
+  }
   const bucket = rateLimitBuckets.get(ip);
   if (!bucket || now > bucket.resetAt) {
     rateLimitBuckets.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
@@ -61,19 +67,25 @@ async function resolvePropertyDetails(origin: string, propertyId: string) {
   }
 }
 
-// Fire-and-forget GA4 Measurement Protocol conversion event. Must never
-// fail or delay the lead response; skips silently when env vars missing.
-function trackLeadConversion(leadType: string) {
+// GA4 Measurement Protocol conversion event. Awaited (with a 2s timeout)
+// because a fire-and-forget fetch can be killed when the serverless lambda
+// freezes after the response returns. Must never fail the lead response;
+// skips silently when env vars missing.
+// Note: the client-side gtag `generate_lead` event is the canonical
+// conversion; this server event uses a distinct name so GA4 reports count
+// each lead once.
+async function trackLeadConversion(leadType: string) {
   const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
   const apiSecret = process.env.GA_API_SECRET;
   if (!measurementId || !apiSecret) return;
-  fetch(
+  await fetch(
     `https://www.google-analytics.com/mp/collect?measurement_id=${measurementId}&api_secret=${apiSecret}`,
     {
       method: 'POST',
+      signal: AbortSignal.timeout(2000),
       body: JSON.stringify({
         client_id: `server.${Date.now()}`,
-        events: [{ name: 'generate_lead', params: { lead_type: leadType, source: 'server' } }],
+        events: [{ name: 'generate_lead_server', params: { lead_type: leadType, source: 'server' } }],
       }),
     }
   ).catch(() => {});
@@ -194,7 +206,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to deliver enquiry' }, { status: 502 });
     }
 
-    trackLeadConversion(type);
+    await trackLeadConversion(type);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Lead delivery error:', error);

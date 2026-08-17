@@ -1,7 +1,7 @@
-import { pageMetadata } from '@/lib/metadata';
 import { JsonLd, breadcrumb } from '@/lib/jsonLd';
 
-export const metadata = pageMetadata.buy();
+// Metadata lives in page.tsx, not here — a layout metadata export (with its
+// canonical) would cascade to every /buy/* sub-page.
 
 export default function BuyLayout({ children }: { children: React.ReactNode }) {
   return (

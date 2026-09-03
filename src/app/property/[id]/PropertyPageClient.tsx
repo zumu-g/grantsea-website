@@ -10,6 +10,8 @@ import VirtualTourEmbed from '@/components/VirtualTourEmbed';
 import { fetchPropertyOpenHomes } from '@/services/openHomes';
 import { trackLead } from '@/lib/analytics';
 import { fetchPropertyAuctions, AuctionDetails } from '@/services/auctions';
+import { schoolsForSuburb } from '@/data/schools';
+import OpenHomeRegisterButton from '@/components/OpenHomeRegisterButton';
 
 interface Property {
   id: string;
@@ -77,53 +79,6 @@ interface Property {
 }
 
 
-// Helper function to get default features for properties without feature data
-const getDefaultFeatures = (property: Property): string[] => {
-  const features: string[] = [];
-  
-  // Add basic property features based on property data
-  if (property.propertyType === 'House') {
-    features.push('Spacious family home');
-    if (property.landSize && property.landSize > 600) {
-      features.push('Large land size');
-    }
-    if (property.bedrooms && property.bedrooms >= 4) {
-      features.push('Multiple living areas');
-    }
-    if (property.carSpaces && property.carSpaces >= 2) {
-      features.push('Secure parking');
-    }
-  } else if (property.propertyType === 'Apartment' || property.propertyType === 'Unit') {
-    features.push('Modern apartment living');
-    features.push('Low maintenance lifestyle');
-    if (property.bathrooms && property.bathrooms >= 2) {
-      features.push('Multiple bathrooms');
-    }
-  } else if (property.propertyType === 'Townhouse') {
-    features.push('Contemporary townhouse');
-    features.push('Private courtyard');
-    features.push('Modern fixtures');
-  }
-  
-  // Add listing-type specific features
-  if (property.listingType === 'sale') {
-    features.push('Excellent investment opportunity');
-    features.push('Prime location');
-    if (property.suburb) {
-      features.push(`Sought-after ${property.suburb} location`);
-    }
-  } else if (property.listingType === 'lease') {
-    features.push('Available now');
-    features.push('Well-maintained property');
-  }
-  
-  // Add general features
-  features.push('Close to schools and transport');
-  features.push('Near shopping and amenities');
-  
-  return features.slice(0, 8); // Limit to 8 features
-};
-
 export default function PropertyPageClient() {
   const params = useParams();
   const [property, setProperty] = useState<Property | null>(null);
@@ -149,8 +104,11 @@ export default function PropertyPageClient() {
     name: '',
     email: '',
     phone: '',
-    message: "I'm interested in this property..."
+    message: "I'm interested in this property...",
+    preferredContact: 'phone'
   });
+  const [enquiryConsent, setEnquiryConsent] = useState(false);
+  const [enquiryHoneypot, setEnquiryHoneypot] = useState('');
 
   // Detect mobile
   useEffect(() => {
@@ -347,6 +305,9 @@ export default function PropertyPageClient() {
           email: enquiryForm.email,
           phone: enquiryForm.phone,
           message: enquiryForm.message,
+          preferredContact: enquiryForm.preferredContact,
+          marketingConsent: enquiryConsent ? 'Yes' : 'No',
+          website: enquiryHoneypot,
           propertyId: property.id,
         }),
       });
@@ -834,6 +795,12 @@ export default function PropertyPageClient() {
                           minute: '2-digit'
                         })}
                       </div>
+                      <div style={{ marginTop: '10px' }}>
+                        <OpenHomeRegisterButton
+                          propertyId={String(property.id)}
+                          openHomeId={String(inspection.id)}
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -1308,6 +1275,12 @@ export default function PropertyPageClient() {
                             timeZone: 'Australia/Melbourne'
                           })}
                         </p>
+                        <div style={{ marginTop: '8px' }}>
+                          <OpenHomeRegisterButton
+                            propertyId={String(property.id)}
+                            openHomeId={String(inspection.id)}
+                          />
+                        </div>
                       </div>
                     ))
                   ) : (
@@ -1565,6 +1538,28 @@ export default function PropertyPageClient() {
 
               </div>
 
+            {/* Property Video — rendered only when VaultRE supplies a video link */}
+            {property.videoUrl && (
+              <div id="video" style={{ marginBottom: '64px', scrollMarginTop: '120px' }}>
+                <h2 style={{
+                  fontSize: '17px',
+                  fontWeight: '700',
+                  marginBottom: '24px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.1em',
+                  color: '#000000',
+                  fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                }}>Property Video</h2>
+                <div style={{ aspectRatio: '16 / 9', width: '100%' }}>
+                  <VirtualTourEmbed
+                    url={property.videoUrl}
+                    type={/youtu/i.test(property.videoUrl) ? 'youtube' : /vimeo/i.test(property.videoUrl) ? 'vimeo' : 'other'}
+                    title="Property video"
+                  />
+                </div>
+              </div>
+            )}
+
             {/* Interactive Features - ON RUNNING STYLE */}
             <div style={{ marginBottom: '64px' }}>
               <div style={{
@@ -1698,9 +1693,40 @@ export default function PropertyPageClient() {
               </div>
             </div>
 
+            {/* Section jump nav */}
+            <nav style={{
+              display: 'flex',
+              gap: '24px',
+              flexWrap: 'wrap',
+              marginBottom: '48px',
+              paddingBottom: '16px',
+              borderBottom: '1px solid #e5e5e5'
+            }}>
+              {[
+                property.description && ['Description', '#description'],
+                property.features && property.features.length > 0 && ['Features', '#features'],
+                property.videoUrl && ['Video', '#video'],
+                property.suburb && schoolsForSuburb(property.suburb).length > 0 && ['Schools', '#schools'],
+                ['Enquire', '#enquire'],
+              ].filter(Boolean).map((item) => {
+                const [label, href] = item as [string, string];
+                return (
+                  <a key={href} href={href} style={{
+                    fontSize: '13px',
+                    fontWeight: '700',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                  }}>{label}</a>
+                );
+              })}
+            </nav>
+
             {/* Description - ON RUNNING STYLE */}
             {property.description && (
-              <div style={{ marginBottom: '64px' }}>
+              <div id="description" style={{ marginBottom: '64px', scrollMarginTop: '120px' }}>
                 <h2 style={{
                   fontSize: '24px',
                   fontWeight: '700',
@@ -1733,16 +1759,10 @@ export default function PropertyPageClient() {
               </div>
             )}
 
-            {/* Key Features - Always show for all properties */}
-            {(() => {
-              // Get features from property data or provide defaults based on property type
-              const features = property.features && property.features.length > 0 
-                ? property.features 
-                : getDefaultFeatures(property);
-              
-              return features && features.length > 0;
-            })() && (
-              <div style={{
+            {/* Key Features - real VaultRE feature data only (no-mock-data policy) */}
+            {property.features && property.features.length > 0 && (
+              <div id="features" style={{
+                scrollMarginTop: '120px',
                 marginBottom: '64px',
                 paddingTop: '48px',
                 paddingBottom: '48px',
@@ -1767,12 +1787,7 @@ export default function PropertyPageClient() {
                   padding: 0,
                   margin: 0
                 }}>
-                  {(() => {
-                    const features = property.features && property.features.length > 0 
-                      ? property.features 
-                      : getDefaultFeatures(property);
-                    return features;
-                  })().map((feature, index) => (
+                  {property.features.map((feature, index) => (
                     <li key={index} style={{
                       display: 'flex',
                       alignItems: 'flex-start',
@@ -2570,7 +2585,18 @@ export default function PropertyPageClient() {
                 }}>Contact Agent</h3>
 
                 {/* Enquiry Form - ON RUNNING STYLE */}
-                <form onSubmit={handleEnquiry}>
+                <form id="enquire" onSubmit={handleEnquiry} style={{ scrollMarginTop: '120px' }}>
+                  {/* Honeypot — hidden from humans; the lead API drops submissions that fill it */}
+                  <input
+                    type="text"
+                    name="website"
+                    value={enquiryHoneypot}
+                    onChange={(e) => setEnquiryHoneypot(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    style={{ position: 'absolute', left: '-9999px', height: 0, width: 0, opacity: 0 }}
+                  />
                   <input
                     type="text"
                     placeholder="YOUR NAME"
@@ -2652,6 +2678,66 @@ export default function PropertyPageClient() {
                     }}
                     required
                   />
+                  <div style={{ marginBottom: '24px' }}>
+                    <div style={{
+                      fontSize: '12px',
+                      fontWeight: '700',
+                      color: '#ffffff',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      marginBottom: '12px',
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>Preferred contact</div>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      {['phone', 'sms', 'email'].map((method) => (
+                        <button
+                          key={method}
+                          type="button"
+                          onClick={() => setEnquiryForm({ ...enquiryForm, preferredContact: method })}
+                          style={{
+                            flex: 1,
+                            padding: '10px 0',
+                            minHeight: '44px',
+                            backgroundColor: enquiryForm.preferredContact === method ? '#ffffff' : '#000000',
+                            color: enquiryForm.preferredContact === method ? '#000000' : '#ffffff',
+                            border: '2px solid #ffffff',
+                            fontSize: '12px',
+                            fontWeight: '700',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.08em',
+                            cursor: 'pointer',
+                            fontFamily: '"Helvetica Neue", Arial, sans-serif',
+                            transition: 'all 200ms ease-out'
+                          }}
+                        >
+                          {method === 'sms' ? 'SMS' : method === 'phone' ? 'Call' : 'Email'}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <label style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '10px',
+                    marginBottom: '24px',
+                    cursor: 'pointer'
+                  }}>
+                    <input
+                      type="checkbox"
+                      checked={enquiryConsent}
+                      onChange={(e) => setEnquiryConsent(e.target.checked)}
+                      style={{ marginTop: '2px', minWidth: '16px', minHeight: '16px' }}
+                    />
+                    <span style={{
+                      fontSize: '12px',
+                      color: '#cccccc',
+                      lineHeight: 1.5,
+                      fontFamily: '"Helvetica Neue", Arial, sans-serif'
+                    }}>
+                      Keep me informed with market updates and new listings from Grant&apos;s
+                      Estate Agents, in line with our Privacy Policy.
+                    </span>
+                  </label>
                   {enquiryError && (
                     <p style={{
                       color: '#ff6b6b',
@@ -2757,9 +2843,9 @@ export default function PropertyPageClient() {
           </div>
         </div>
 
-        {/* Nearest Schools Section */}
-        {property.suburb && (
-          <div style={{ marginTop: '96px', marginBottom: '64px' }}>
+        {/* Nearest Schools Section — real schools-guide data; hidden when the suburb has none */}
+        {property.suburb && schoolsForSuburb(property.suburb).length > 0 && (
+          <div id="schools" style={{ marginTop: '96px', marginBottom: '64px', scrollMarginTop: '120px' }}>
             <h2 style={{
               fontSize: isMobile ? '28px' : '36px',
               fontWeight: '700',
@@ -2778,164 +2864,8 @@ export default function PropertyPageClient() {
             </p>
             
             {(() => {
-              // Get schools based on suburb - using real data from the schools guide
-              const getSchoolsForSuburb = (suburb: string) => {
-                const suburbLower = suburb.toLowerCase();
-                const schools = [];
-                
-                if (suburbLower.includes('berwick')) {
-                  schools.push(
-                    {
-                      name: 'Berwick Primary School',
-                      type: 'Government Primary',
-                      levels: 'Prep - Year 6',
-                      address: '15 Lyall Street, Berwick 3806',
-                      phone: '(03) 9707 3771',
-                      distance: '0.8km'
-                    },
-                    {
-                      name: 'Berwick Secondary College',
-                      type: 'Government Secondary',
-                      levels: 'Year 7-12',
-                      address: '55 Kangan Drive, Berwick 3806',
-                      phone: '(03) 9702 3055',
-                      distance: '1.2km'
-                    },
-                    {
-                      name: 'Berwick Fields Kindergarten',
-                      type: 'Kindergarten',
-                      levels: '3-4 year programs',
-                      address: '15-17 Berwick Fields Drive, Berwick 3806',
-                      phone: '(03) 9707 0000',
-                      distance: '0.5km'
-                    }
-                  );
-                } else if (suburbLower.includes('narre warren')) {
-                  schools.push(
-                    {
-                      name: 'Narre Warren Primary School',
-                      type: 'Government Primary',
-                      levels: 'Prep - Year 6',
-                      address: '35 Webb Street, Narre Warren 3805',
-                      phone: '(03) 9704 6313',
-                      distance: '0.6km'
-                    },
-                    {
-                      name: 'Narre Warren South P-12 College',
-                      type: 'Government P-12',
-                      levels: 'Prep - Year 12',
-                      address: '101 Glasscocks Road, Narre Warren South 3805',
-                      phone: '(03) 8773 4211',
-                      distance: '1.5km'
-                    },
-                    {
-                      name: 'Narre Warren Kindergarten',
-                      type: 'Kindergarten',
-                      levels: '3-4 year programs',
-                      address: '15-17 Webb Street, Narre Warren 3805',
-                      phone: '(03) 9704 0000',
-                      distance: '0.4km'
-                    }
-                  );
-                } else if (suburbLower.includes('cranbourne')) {
-                  schools.push(
-                    {
-                      name: 'Cranbourne Primary School',
-                      type: 'Government Primary',
-                      levels: 'Prep - Year 6',
-                      address: '66 Sladen Street, Cranbourne 3977',
-                      phone: '(03) 5996 2054',
-                      distance: '0.7km'
-                    },
-                    {
-                      name: 'Cranbourne Secondary College',
-                      type: 'Government Secondary',
-                      levels: 'Year 7-12',
-                      address: '79 Sladen Street, Cranbourne 3977',
-                      phone: '(03) 5991 0055',
-                      distance: '0.9km'
-                    },
-                    {
-                      name: 'Cranbourne East Kindergarten',
-                      type: 'Kindergarten',
-                      levels: '3-4 year programs',
-                      address: '45-47 Berwick-Cranbourne Road, Cranbourne East 3977',
-                      phone: '(03) 5996 0000',
-                      distance: '1.1km'
-                    }
-                  );
-                } else if (suburbLower.includes('pakenham')) {
-                  schools.push(
-                    {
-                      name: 'Pakenham Primary School',
-                      type: 'Government Primary',
-                      levels: 'Prep - Year 6',
-                      address: '25 Main Street, Pakenham 3810',
-                      phone: '(03) 5941 0431',
-                      distance: '0.5km'
-                    },
-                    {
-                      name: 'Pakenham Secondary College',
-                      type: 'Government Secondary',
-                      levels: 'Year 7-12',
-                      address: '53 MacGregor Street, Pakenham 3810',
-                      phone: '(03) 5940 0300',
-                      distance: '0.8km'
-                    },
-                    {
-                      name: 'Pakenham Kindergarten',
-                      type: 'Kindergarten',
-                      levels: '3-4 year programs',
-                      address: '25-27 Main Street, Pakenham 3810',
-                      phone: '(03) 5941 0000',
-                      distance: '0.3km'
-                    }
-                  );
-                } else if (suburbLower.includes('officer')) {
-                  schools.push(
-                    {
-                      name: 'Officer Primary School',
-                      type: 'Government Primary',
-                      levels: 'Prep - Year 6',
-                      address: '45 Starling Road, Officer 3809',
-                      phone: '(03) 5943 2144',
-                      distance: '0.6km'
-                    },
-                    {
-                      name: 'Officer Secondary College',
-                      type: 'Government Secondary',
-                      levels: 'Year 7-12',
-                      address: '45 Cardinia Road, Officer 3809',
-                      phone: '(03) 5943 2677',
-                      distance: '1.0km'
-                    }
-                  );
-                } else {
-                  // Default schools for other suburbs
-                  schools.push(
-                    {
-                      name: 'Local Primary School',
-                      type: 'Government Primary',
-                      levels: 'Prep - Year 6',
-                      address: 'Contact for details',
-                      phone: 'Contact for details',
-                      distance: 'Nearby'
-                    },
-                    {
-                      name: 'Local Secondary School',
-                      type: 'Government Secondary',
-                      levels: 'Year 7-12',
-                      address: 'Contact for details',
-                      phone: 'Contact for details',
-                      distance: 'Nearby'
-                    }
-                  );
-                }
-                
-                return schools;
-              };
-              
-              const nearbySchools = getSchoolsForSuburb(property.suburb);
+              const nearbySchools = schoolsForSuburb(property.suburb);
+              if (nearbySchools.length === 0) return null;
               
               return (
                 <div style={{
@@ -2984,7 +2914,7 @@ export default function PropertyPageClient() {
                           marginLeft: '12px',
                           whiteSpace: 'nowrap'
                         }}>
-                          {school.distance}
+                          {school.suburb}
                         </span>
                       </div>
                       <div style={{
@@ -2996,16 +2926,16 @@ export default function PropertyPageClient() {
                         gap: '8px'
                       }}>
                         <span style={{
-                          backgroundColor: school.type.includes('Primary') ? '#4F46E5' : 
-                                         school.type.includes('Secondary') ? '#059669' : 
-                                         school.type.includes('P-12') ? '#7C3AED' : '#F59E0B',
+                          backgroundColor: school.type === 'primary' ? '#4F46E5' :
+                                         school.type === 'secondary' ? '#059669' :
+                                         school.type === 'combined' ? '#7C3AED' : '#F59E0B',
                           color: '#fff',
                           padding: '2px 6px',
                           borderRadius: '3px',
                           fontSize: '12px',
                           fontWeight: '500'
                         }}>
-                          {school.type}
+                          {school.type === 'combined' ? 'P-12' : school.type.charAt(0).toUpperCase() + school.type.slice(1)}
                         </span>
                         <span>{school.levels}</span>
                       </div>

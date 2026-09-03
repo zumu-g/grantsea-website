@@ -6,12 +6,16 @@ import './profile.css';
 import OncomHeader from '@/components/OncomHeader';
 import { useSavedProperties } from '@/hooks/useSavedProperties';
 import { formatPrice } from '@/services/api';
+import { useAuth } from '@/contexts/AuthContext';
+import { createClient } from '@/lib/supabase/client';
 
 export default function ProfilePage() {
   const { savedPropertyIds } = useSavedProperties();
+  const { user } = useAuth();
   const [savedProperties, setSavedProperties] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState('profile');
-  
+  const [prefsSaved, setPrefsSaved] = useState(false);
+
   // Load full saved property data
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -25,19 +29,59 @@ export default function ProfilePage() {
       }
     }
   }, [savedPropertyIds]);
-  
-  // Mock user data - in production this would come from authentication
+
+  // Real user data (from Supabase auth + profiles). notificationsEnabled is the
+  // master "stop notifications" toggle.
   const [userData, setUserData] = useState({
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@example.com',
-    phone: '0412 345 678',
-    notifications: {
-      emailAlerts: true,
-      smsAlerts: false,
-      newsletter: true
-    }
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
   });
+
+  // Notification preferences — shared notification_prefs table (drives the
+  // hourly push/email pipeline used by web and the iOS app).
+  const [prefs, setPrefs] = useState({ push_enabled: true, open_home: true });
+
+  // Populate identity from auth + notification prefs from the profiles row.
+  useEffect(() => {
+    if (!user) return;
+    setUserData((prev) => ({
+      ...prev,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      phone: user.phone ?? '',
+    }));
+    const supabase = createClient();
+    supabase
+      .from('notification_prefs')
+      .select('push_enabled, open_home')
+      .eq('user_id', user.id)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (!data) return;
+        setPrefs({
+          push_enabled: data.push_enabled ?? true,
+          open_home: data.open_home ?? true,
+        });
+      });
+  }, [user]);
+
+  const savePreferences = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPrefsSaved(false);
+    if (!user) return;
+    const supabase = createClient();
+    // Upsert only the columns this UI owns — other pipeline prefs stay untouched.
+    const { error } = await supabase
+      .from('notification_prefs')
+      .upsert(
+        { user_id: user.id, push_enabled: prefs.push_enabled, open_home: prefs.open_home },
+        { onConflict: 'user_id' }
+      );
+    if (!error) setPrefsSaved(true);
+  };
 
   // Mock saved searches
   const [savedSearches] = useState([
@@ -253,49 +297,31 @@ export default function ProfilePage() {
         {activeTab === 'settings' && (
           <div className="settings-section">
             <h2>Notification Preferences</h2>
-            <form className="settings-form">
+            <form className="settings-form" onSubmit={savePreferences}>
               <div className="setting-item">
                 <label className="checkbox-label">
                   <input
                     type="checkbox"
-                    checked={userData.notifications.emailAlerts}
-                    onChange={(e) => setUserData({
-                      ...userData,
-                      notifications: {...userData.notifications, emailAlerts: e.target.checked}
-                    })}
+                    checked={prefs.push_enabled}
+                    onChange={(e) => setPrefs({ ...prefs, push_enabled: e.target.checked })}
                   />
-                  <span>Email alerts for saved searches</span>
+                  <span><strong>Push notifications</strong></span>
                 </label>
-                <p className="setting-description">Get notified when new properties match your saved searches</p>
+                <p className="setting-description">Master switch for notifications from Grant&apos;s Estate Agents (applies on web and in the app)</p>
               </div>
-              <div className="setting-item">
+              <div className="setting-item" style={{ opacity: prefs.push_enabled ? 1 : 0.5 }}>
                 <label className="checkbox-label">
                   <input
                     type="checkbox"
-                    checked={userData.notifications.smsAlerts}
-                    onChange={(e) => setUserData({
-                      ...userData,
-                      notifications: {...userData.notifications, smsAlerts: e.target.checked}
-                    })}
+                    disabled={!prefs.push_enabled}
+                    checked={prefs.push_enabled && prefs.open_home}
+                    onChange={(e) => setPrefs({ ...prefs, open_home: e.target.checked })}
                   />
-                  <span>SMS alerts for urgent updates</span>
+                  <span>Open home alerts for saved properties</span>
                 </label>
-                <p className="setting-description">Receive text messages for time-sensitive property alerts</p>
+                <p className="setting-description">Get notified when an open home is scheduled for a property you&apos;ve saved</p>
               </div>
-              <div className="setting-item">
-                <label className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    checked={userData.notifications.newsletter}
-                    onChange={(e) => setUserData({
-                      ...userData,
-                      notifications: {...userData.notifications, newsletter: e.target.checked}
-                    })}
-                  />
-                  <span>Monthly newsletter</span>
-                </label>
-                <p className="setting-description">Market insights and featured properties</p>
-              </div>
+              {prefsSaved && <p style={{ color: '#15803d' }}>Preferences saved.</p>}
               <button type="submit" className="save-button">Save Preferences</button>
             </form>
 

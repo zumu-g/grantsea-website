@@ -1,6 +1,13 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+// Real authentication backed by Supabase Auth (replaces the previous mock).
+// Public interface is unchanged so existing call sites keep working.
+// Saved properties persist in Supabase; saved searches remain local (deferred).
+// See docs/plans/2026-06-27-002-feat-real-auth-user-settings-plan.md (U4)
+
+import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
+import type { SupabaseClient } from '@supabase/supabase-js';
+import { createClient } from '@/lib/supabase/client';
 
 interface User {
   id: string;
@@ -21,6 +28,9 @@ interface SavedProperty {
   id: string;
   propertyId: string;
   savedAt: string;
+  // Nullable in the shared table — iOS-app saves don't set it; the
+  // /api/properties/[id] route resolves type by trying sale then lease.
+  listingType?: 'sale' | 'lease' | null;
   notes?: string;
 }
 
@@ -42,24 +52,20 @@ interface SavedSearch {
 }
 
 interface AuthContextType {
-  // Auth state
   user: User | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  
-  // Auth methods
+
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   register: (userData: RegisterData) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
   updateProfile: (updates: Partial<User>) => Promise<{ success: boolean; error?: string }>;
-  
-  // Saved properties
+
   savedProperties: SavedProperty[];
-  saveProperty: (propertyId: string, notes?: string) => void;
+  saveProperty: (propertyId: string, listingType?: 'sale' | 'lease') => void;
   unsaveProperty: (propertyId: string) => void;
   isPropertySaved: (propertyId: string) => boolean;
-  
-  // Saved searches
+
   savedSearches: SavedSearch[];
   saveSearch: (search: Omit<SavedSearch, 'id' | 'createdAt'>) => void;
   updateSearch: (searchId: string, updates: Partial<SavedSearch>) => void;
@@ -77,262 +83,223 @@ interface RegisterData {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const STORAGE_KEYS = {
-  USER: 'gea_user',
-  TOKEN: 'gea_token',
-  SAVED_PROPERTIES: 'gea_saved_properties',
-  SAVED_SEARCHES: 'gea_saved_searches',
-};
+// Saved searches remain client-only for now (deferred to follow-up).
+const SAVED_SEARCHES_KEY = 'gea_saved_searches';
+
+// Build the app User shape from a Supabase user + its profile row.
+function toUser(authUser: any, profile: any): User {
+  return {
+    id: authUser.id,
+    email: authUser.email ?? '',
+    firstName: profile?.first_name ?? authUser.user_metadata?.first_name ?? '',
+    lastName: profile?.last_name ?? authUser.user_metadata?.last_name ?? '',
+    phone: profile?.phone ?? authUser.user_metadata?.phone ?? undefined,
+    createdAt: authUser.created_at ?? new Date(0).toISOString(),
+    preferences: {
+      propertyTypes: [],
+      priceRange: { min: 0, max: 2000000 },
+      locations: [],
+      notifications: profile?.notifications_enabled ?? true,
+    },
+  };
+}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
+  const [supabase] = useState<SupabaseClient>(() => createClient());
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [savedProperties, setSavedProperties] = useState<SavedProperty[]>([]);
   const [savedSearches, setSavedSearches] = useState<SavedSearch[]>([]);
 
-  // Initialize auth state from localStorage
+  // Load profile + saved properties for the current auth user.
+  const hydrateUser = useCallback(
+    async (authUser: any | null) => {
+      if (!authUser) {
+        setUser(null);
+        setSavedProperties([]);
+        return;
+      }
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', authUser.id)
+        .single();
+
+      setUser(toUser(authUser, profile));
+
+      const { data: saved } = await supabase
+        .from('saved_properties')
+        .select('id, property_id, listing_type, saved_at')
+        .eq('user_id', authUser.id);
+
+      setSavedProperties(
+        (saved ?? []).map((row: any) => ({
+          id: row.id,
+          propertyId: row.property_id,
+          savedAt: row.saved_at,
+          listingType: row.listing_type ?? null,
+        }))
+      );
+    },
+    [supabase]
+  );
+
+  // Initial session + auth state subscription.
   useEffect(() => {
-    const initializeAuth = () => {
-      try {
-        const storedUser = localStorage.getItem(STORAGE_KEYS.USER);
-        const storedToken = localStorage.getItem(STORAGE_KEYS.TOKEN);
-        
-        if (storedUser && storedToken) {
-          const userData = JSON.parse(storedUser);
-          setUser(userData);
-          
-          // Load user's saved data
-          loadSavedData(userData.id);
-        }
-      } catch (error) {
-        console.error('Error initializing auth:', error);
-        // Clear corrupted data
-        clearStorage();
-      } finally {
-        setIsLoading(false);
-      }
+    let mounted = true;
+
+    supabase.auth.getUser().then(({ data }) => {
+      if (!mounted) return;
+      hydrateUser(data.user).finally(() => setIsLoading(false));
+    });
+
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!mounted) return;
+      hydrateUser(session?.user ?? null);
+    });
+
+    // Saved searches (local, deferred).
+    try {
+      const raw = localStorage.getItem(SAVED_SEARCHES_KEY);
+      if (raw) setSavedSearches(JSON.parse(raw));
+    } catch {
+      /* ignore */
+    }
+
+    return () => {
+      mounted = false;
+      sub.subscription.unsubscribe();
     };
+  }, [supabase, hydrateUser]);
 
-    initializeAuth();
-  }, []);
-
-  // Load saved properties and searches for user
-  const loadSavedData = (userId: string) => {
-    try {
-      const properties = localStorage.getItem(`${STORAGE_KEYS.SAVED_PROPERTIES}_${userId}`);
-      const searches = localStorage.getItem(`${STORAGE_KEYS.SAVED_SEARCHES}_${userId}`);
-      
-      if (properties) {
-        setSavedProperties(JSON.parse(properties));
-      }
-      
-      if (searches) {
-        setSavedSearches(JSON.parse(searches));
-      }
-    } catch (error) {
-      console.error('Error loading saved data:', error);
-    }
+  // Auth methods.
+  const login = async (email: string, password: string) => {
+    const { error } = await supabase.auth.signInWithPassword({
+      email: email.toLowerCase(),
+      password,
+    });
+    if (error) return { success: false, error: error.message };
+    return { success: true };
   };
 
-  // Save data to localStorage
-  const saveSavedProperties = (properties: SavedProperty[], userId: string) => {
-    localStorage.setItem(`${STORAGE_KEYS.SAVED_PROPERTIES}_${userId}`, JSON.stringify(properties));
-  };
-
-  const saveSavedSearches = (searches: SavedSearch[], userId: string) => {
-    localStorage.setItem(`${STORAGE_KEYS.SAVED_SEARCHES}_${userId}`, JSON.stringify(searches));
-  };
-
-  const clearStorage = () => {
-    localStorage.removeItem(STORAGE_KEYS.USER);
-    localStorage.removeItem(STORAGE_KEYS.TOKEN);
-    setSavedProperties([]);
-    setSavedSearches([]);
-  };
-
-  // Auth methods
-  const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
-    try {
-      setIsLoading(true);
-      
-      // Simulate API call - replace with actual authentication
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Mock user data - in real implementation, this would come from your API
-      const userData: User = {
-        id: `user_${Date.now()}`,
-        email: email.toLowerCase(),
-        firstName: email.split('@')[0].split('.')[0] || 'User',
-        lastName: email.split('@')[0].split('.')[1] || '',
-        createdAt: new Date().toISOString(),
-        preferences: {
-          propertyTypes: [],
-          priceRange: { min: 0, max: 2000000 },
-          locations: [],
-          notifications: true
-        }
-      };
-      
-      // Generate mock token
-      const token = `token_${userData.id}_${Date.now()}`;
-      
-      // Store in localStorage
-      localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(userData));
-      localStorage.setItem(STORAGE_KEYS.TOKEN, token);
-      
-      setUser(userData);
-      loadSavedData(userData.id);
-      
-      return { success: true };
-    } catch (error) {
-      return { success: false, error: 'Login failed. Please try again.' };
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const register = async (userData: RegisterData): Promise<{ success: boolean; error?: string }> => {
-    try {
-      setIsLoading(true);
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      const newUser: User = {
-        id: `user_${Date.now()}`,
-        email: userData.email.toLowerCase(),
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        phone: userData.phone,
-        createdAt: new Date().toISOString(),
-        preferences: {
-          propertyTypes: [],
-          priceRange: { min: 0, max: 2000000 },
-          locations: [],
-          notifications: true
-        }
-      };
-      
-      const token = `token_${newUser.id}_${Date.now()}`;
-      
-      localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(newUser));
-      localStorage.setItem(STORAGE_KEYS.TOKEN, token);
-      
-      setUser(newUser);
-      loadSavedData(newUser.id);
-      
-      return { success: true };
-    } catch (error) {
-      return { success: false, error: 'Registration failed. Please try again.' };
-    } finally {
-      setIsLoading(false);
-    }
+  const register = async (userData: RegisterData) => {
+    const { error } = await supabase.auth.signUp({
+      email: userData.email.toLowerCase(),
+      password: userData.password,
+      options: {
+        data: {
+          first_name: userData.firstName,
+          last_name: userData.lastName,
+          phone: userData.phone,
+        },
+        emailRedirectTo:
+          typeof window !== 'undefined' ? `${window.location.origin}/` : undefined,
+      },
+    });
+    if (error) return { success: false, error: error.message };
+    return { success: true };
   };
 
   const logout = () => {
-    clearStorage();
+    supabase.auth.signOut();
     setUser(null);
+    setSavedProperties([]);
   };
 
-  const updateProfile = async (updates: Partial<User>): Promise<{ success: boolean; error?: string }> => {
+  const updateProfile = async (updates: Partial<User>) => {
     if (!user) return { success: false, error: 'Not authenticated' };
-    
-    try {
-      const updatedUser = { ...user, ...updates };
-      localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(updatedUser));
-      setUser(updatedUser);
-      return { success: true };
-    } catch (error) {
-      return { success: false, error: 'Failed to update profile' };
-    }
+    const { error } = await supabase
+      .from('profiles')
+      .update({
+        first_name: updates.firstName ?? user.firstName,
+        last_name: updates.lastName ?? user.lastName,
+        phone: updates.phone ?? user.phone,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', user.id);
+    if (error) return { success: false, error: error.message };
+    setUser({ ...user, ...updates });
+    return { success: true };
   };
 
-  // Saved properties methods
-  const saveProperty = (propertyId: string, notes?: string) => {
+  // Saved properties (Supabase-backed, shared with the iOS app).
+  const saveProperty = (propertyId: string, listingType?: 'sale' | 'lease') => {
     if (!user) return;
-    
-    const savedProperty: SavedProperty = {
-      id: `saved_${Date.now()}`,
-      propertyId,
-      savedAt: new Date().toISOString(),
-      notes
-    };
-    
-    const updated = [...savedProperties, savedProperty];
-    setSavedProperties(updated);
-    saveSavedProperties(updated, user.id);
+    setSavedProperties((prev) =>
+      prev.some((p) => p.propertyId === propertyId)
+        ? prev
+        : [...prev, { id: `tmp_${propertyId}`, propertyId, savedAt: new Date().toISOString(), listingType: listingType ?? null }]
+    );
+    supabase
+      .from('saved_properties')
+      .upsert(
+        { user_id: user.id, property_id: propertyId, listing_type: listingType ?? null },
+        { onConflict: 'user_id,property_id' }
+      )
+      .then(() =>
+        hydrateUser({ id: user.id, email: user.email, created_at: user.createdAt })
+      );
   };
 
   const unsaveProperty = (propertyId: string) => {
     if (!user) return;
-    
-    const updated = savedProperties.filter(p => p.propertyId !== propertyId);
-    setSavedProperties(updated);
-    saveSavedProperties(updated, user.id);
+    setSavedProperties((prev) => prev.filter((p) => p.propertyId !== propertyId));
+    supabase
+      .from('saved_properties')
+      .delete()
+      .eq('user_id', user.id)
+      .eq('property_id', propertyId);
   };
 
-  const isPropertySaved = (propertyId: string): boolean => {
-    return savedProperties.some(p => p.propertyId === propertyId);
+  const isPropertySaved = (propertyId: string) =>
+    savedProperties.some((p) => p.propertyId === propertyId);
+
+  // Saved searches (local, deferred).
+  const persistSearches = (next: SavedSearch[]) => {
+    setSavedSearches(next);
+    try {
+      localStorage.setItem(SAVED_SEARCHES_KEY, JSON.stringify(next));
+    } catch {
+      /* ignore */
+    }
   };
 
-  // Saved searches methods
   const saveSearch = (search: Omit<SavedSearch, 'id' | 'createdAt'>) => {
     if (!user) return;
-    
-    const savedSearch: SavedSearch = {
-      ...search,
-      id: `search_${Date.now()}`,
-      createdAt: new Date().toISOString()
-    };
-    
-    const updated = [...savedSearches, savedSearch];
-    setSavedSearches(updated);
-    saveSavedSearches(updated, user.id);
+    persistSearches([
+      ...savedSearches,
+      {
+        ...search,
+        id: `search_${savedSearches.length + 1}_${user.id}`,
+        createdAt: new Date().toISOString(),
+      },
+    ]);
   };
 
   const updateSearch = (searchId: string, updates: Partial<SavedSearch>) => {
-    if (!user) return;
-    
-    const updated = savedSearches.map(search => 
-      search.id === searchId ? { ...search, ...updates } : search
-    );
-    setSavedSearches(updated);
-    saveSavedSearches(updated, user.id);
+    persistSearches(savedSearches.map((s) => (s.id === searchId ? { ...s, ...updates } : s)));
   };
 
   const deleteSearch = (searchId: string) => {
-    if (!user) return;
-    
-    const updated = savedSearches.filter(search => search.id !== searchId);
-    setSavedSearches(updated);
-    saveSavedSearches(updated, user.id);
+    persistSearches(savedSearches.filter((s) => s.id !== searchId));
   };
 
   const runSearch = (searchId: string) => {
-    if (!user) return;
-    
     updateSearch(searchId, { lastRun: new Date().toISOString() });
   };
 
   const value: AuthContextType = {
-    // Auth state
     user,
     isLoading,
     isAuthenticated: !!user,
-    
-    // Auth methods
     login,
     register,
     logout,
     updateProfile,
-    
-    // Saved properties
     savedProperties,
     saveProperty,
     unsaveProperty,
     isPropertySaved,
-    
-    // Saved searches
     savedSearches,
     saveSearch,
     updateSearch,
@@ -340,11 +307,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     runSearch,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {

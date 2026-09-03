@@ -42,7 +42,12 @@ export default function SavePropertyButton({ property, className = '', showLabel
     if (isSaved) {
       unsaveProperty(property.id);
     } else {
-      saveProperty(property.id);
+      saveProperty(
+        property.id,
+        property.listingType === 'sale' || property.listingType === 'lease'
+          ? property.listingType
+          : undefined
+      );
     }
   };
 

@@ -6,6 +6,7 @@ import OncomHeader from '@/components/OncomHeader';
 import { formatPrice } from '@/services/api';
 import SavePropertyButton from '@/components/SavePropertyButton';
 import { motion } from 'framer-motion';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface SavedProperty {
   id: string;
@@ -42,44 +43,56 @@ interface SavedSearch {
 }
 
 export default function SavedPage() {
+  const {
+    isLoading: authLoading,
+    savedProperties: savedRows,
+    unsaveProperty,
+  } = useAuth();
   const [activeTab, setActiveTab] = useState<'properties' | 'searches'>('properties');
   const [savedProperties, setSavedProperties] = useState<SavedProperty[]>([]);
   const [savedSearches, setSavedSearches] = useState<SavedSearch[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Resolve saved rows (shared Supabase table — includes iOS-app saves, whose
+  // listing_type is null) into full property details. /api/properties/[id]
+  // tries the sale endpoint then falls back to lease, so no type is needed.
   useEffect(() => {
-    loadSavedData();
-  }, []);
+    if (authLoading) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const details = await Promise.all(
+          savedRows.map(async (row) => {
+            try {
+              const res = await fetch(`/api/properties/${encodeURIComponent(row.propertyId)}`);
+              if (!res.ok) return null;
+              const json = await res.json();
+              return (json.data || json.property || null) as SavedProperty | null;
+            } catch {
+              return null;
+            }
+          })
+        );
+        if (!cancelled) setSavedProperties(details.filter(Boolean) as SavedProperty[]);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
 
-  const loadSavedData = () => {
     try {
-      // Load saved properties
-      const savedPropsData = localStorage.getItem('savedPropertiesData');
-      if (savedPropsData) {
-        setSavedProperties(JSON.parse(savedPropsData));
-      }
-
-      // Load saved searches
       const savedSearchData = localStorage.getItem('savedSearches');
-      if (savedSearchData) {
-        setSavedSearches(JSON.parse(savedSearchData));
-      }
-    } catch (error) {
-      console.error('Error loading saved data:', error);
-    } finally {
-      setLoading(false);
+      if (savedSearchData) setSavedSearches(JSON.parse(savedSearchData));
+    } catch {
+      /* ignore */
     }
-  };
+    return () => {
+      cancelled = true;
+    };
+  }, [authLoading, savedRows]);
 
   const removeSavedProperty = (propertyId: string) => {
-    const updatedProperties = savedProperties.filter(p => p.id !== propertyId);
-    setSavedProperties(updatedProperties);
-    localStorage.setItem('savedPropertiesData', JSON.stringify(updatedProperties));
-    
-    // Also update the savedProperties list
-    const savedIds = JSON.parse(localStorage.getItem('savedProperties') || '[]');
-    const updatedIds = savedIds.filter((id: string) => id !== propertyId);
-    localStorage.setItem('savedProperties', JSON.stringify(updatedIds));
+    setSavedProperties((prev) => prev.filter((p) => p.id !== propertyId));
+    unsaveProperty(propertyId);
   };
 
   const removeSavedSearch = (searchId: string) => {

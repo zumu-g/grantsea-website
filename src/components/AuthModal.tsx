@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { createClient } from '@/lib/supabase/client';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -9,9 +10,11 @@ interface AuthModalProps {
   initialMode?: 'login' | 'register';
 }
 
+type Mode = 'login' | 'register' | 'reset';
+
 export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: AuthModalProps) {
   const { login, register, isLoading } = useAuth();
-  const [mode, setMode] = useState<'login' | 'register'>(initialMode);
+  const [mode, setMode] = useState<Mode>(initialMode);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -20,25 +23,48 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
     phone: ''
   });
   const [error, setError] = useState('');
+  const [notice, setNotice] = useState('');
+  const [busy, setBusy] = useState(false);
+
+  const resetForm = () =>
+    setFormData({ email: '', password: '', firstName: '', lastName: '', phone: '' });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setNotice('');
 
     if (mode === 'login') {
       const result = await login(formData.email, formData.password);
       if (result.success) {
         onClose();
-        setFormData({ email: '', password: '', firstName: '', lastName: '', phone: '' });
+        resetForm();
       } else {
         setError(result.error || 'Login failed');
+      }
+    } else if (mode === 'reset') {
+      if (!formData.email) {
+        setError('Enter your email address');
+        return;
+      }
+      setBusy(true);
+      try {
+        const supabase = createClient();
+        const { error: resetError } = await supabase.auth.resetPasswordForEmail(
+          formData.email.toLowerCase(),
+          { redirectTo: `${window.location.origin}/auth/reset` }
+        );
+        if (resetError) setError(resetError.message);
+        else setNotice('Check your email for a link to reset your password.');
+      } finally {
+        setBusy(false);
       }
     } else {
       if (!formData.firstName || !formData.lastName) {
         setError('Please fill in all required fields');
         return;
       }
-      
+
       const result = await register({
         email: formData.email,
         password: formData.password,
@@ -46,10 +72,10 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
         lastName: formData.lastName,
         phone: formData.phone
       });
-      
+
       if (result.success) {
-        onClose();
-        setFormData({ email: '', password: '', firstName: '', lastName: '', phone: '' });
+        setNotice('Account created. Check your email to verify your address before signing in.');
+        resetForm();
       } else {
         setError(result.error || 'Registration failed');
       }
@@ -63,11 +89,14 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
     }));
   };
 
-  const switchMode = () => {
-    setMode(mode === 'login' ? 'register' : 'login');
+  const goToMode = (next: Mode) => {
+    setMode(next);
     setError('');
-    setFormData({ email: '', password: '', firstName: '', lastName: '', phone: '' });
+    setNotice('');
+    resetForm();
   };
+
+  const switchMode = () => goToMode(mode === 'login' ? 'register' : 'login');
 
   if (!isOpen) return null;
 
@@ -118,7 +147,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
               letterSpacing: '-0.01em',
               lineHeight: '1.2'
             }}>
-              {mode === 'login' ? 'Welcome back' : 'Create account'}
+              {mode === 'login' ? 'Welcome back' : mode === 'reset' ? 'Reset password' : 'Create account'}
             </h2>
             <p style={{
               margin: '8px 0 0 0',
@@ -127,8 +156,10 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
               fontWeight: '300',
               lineHeight: '1.4'
             }}>
-              {mode === 'login' 
+              {mode === 'login'
                 ? 'Sign in to access your saved properties and searches'
+                : mode === 'reset'
+                ? 'Enter your email and we\'ll send you a reset link'
                 : 'Join Grant\'s Estate Agents to save properties and searches'
               }
             </p>
@@ -184,6 +215,20 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
               fontSize: '14px'
             }}>
               {error}
+            </div>
+          )}
+
+          {notice && (
+            <div style={{
+              padding: '1rem',
+              backgroundColor: '#f0fdf4',
+              border: '1px solid #bbf7d0',
+              borderRadius: '2px',
+              marginBottom: '1.5rem',
+              color: '#15803d',
+              fontSize: '14px'
+            }}>
+              {notice}
             </div>
           )}
 
@@ -320,6 +365,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
               </div>
             )}
 
+            {mode !== 'reset' && (
             <div>
               <label style={{
                 display: 'block',
@@ -351,20 +397,41 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
                 onBlur={(e) => e.target.style.borderColor = '#e8e8e8'}
               />
             </div>
+            )}
+
+            {mode === 'login' && (
+              <button
+                type="button"
+                onClick={() => goToMode('reset')}
+                style={{
+                  alignSelf: 'flex-start',
+                  background: 'none',
+                  border: 'none',
+                  color: '#666',
+                  textDecoration: 'underline',
+                  cursor: 'pointer',
+                  fontSize: '14px',
+                  padding: 0,
+                  marginTop: '-0.5rem'
+                }}
+              >
+                Forgot password?
+              </button>
+            )}
 
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading || busy}
               style={{
                 width: '100%',
-                backgroundColor: isLoading ? '#f5f5f5' : '#000',
-                color: isLoading ? '#999' : '#fff',
+                backgroundColor: (isLoading || busy) ? '#f5f5f5' : '#000',
+                color: (isLoading || busy) ? '#999' : '#fff',
                 border: '1px solid #e8e8e8',
                 borderRadius: '2px',
                 padding: '16px',
                 fontSize: '16px',
                 fontWeight: '500',
-                cursor: isLoading ? 'not-allowed' : 'pointer',
+                cursor: (isLoading || busy) ? 'not-allowed' : 'pointer',
                 transition: 'all 0.2s ease',
                 display: 'flex',
                 alignItems: 'center',
@@ -382,7 +449,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
                 }
               }}
             >
-              {isLoading ? (
+              {(isLoading || busy) ? (
                 <>
                   <div style={{
                     width: '16px',
@@ -392,10 +459,10 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
                     borderRadius: '50%',
                     animation: 'spin 1s linear infinite'
                   }} />
-                  {mode === 'login' ? 'Signing in...' : 'Creating account...'}
+                  {mode === 'login' ? 'Signing in...' : mode === 'reset' ? 'Sending...' : 'Creating account...'}
                 </>
               ) : (
-                mode === 'login' ? 'Sign In' : 'Create Account'
+                mode === 'login' ? 'Sign In' : mode === 'reset' ? 'Send reset link' : 'Create Account'
               )}
             </button>
           </div>
@@ -406,7 +473,26 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
             fontSize: '14px',
             color: '#666'
           }}>
-            {mode === 'login' ? (
+            {mode === 'reset' ? (
+              <>
+                Remembered it?{' '}
+                <button
+                  type="button"
+                  onClick={() => goToMode('login')}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#000',
+                    textDecoration: 'underline',
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                    fontWeight: '500'
+                  }}
+                >
+                  Back to sign in
+                </button>
+              </>
+            ) : mode === 'login' ? (
               <>
                 Don't have an account?{' '}
                 <button

@@ -23,6 +23,8 @@ export default function MinimalistContactForm() {
     propertyInterest: '',
   });
   
+  const [marketingConsent, setMarketingConsent] = useState(false);
+  const [honeypot, setHoneypot] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
     type: 'success' | 'error' | null;
@@ -45,7 +47,12 @@ export default function MinimalistContactForm() {
       const res = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'contact', ...formData }),
+        body: JSON.stringify({
+          type: 'contact',
+          ...formData,
+          website: honeypot,
+          marketingConsent: marketingConsent ? 'Yes' : 'No',
+        }),
       });
 
       if (!res.ok) {
@@ -67,6 +74,7 @@ export default function MinimalistContactForm() {
         message: '',
         propertyInterest: '',
       });
+      setMarketingConsent(false);
     } catch (error) {
       setSubmitStatus({
         type: 'error',
@@ -174,6 +182,17 @@ export default function MinimalistContactForm() {
             {/* Contact Form */}
             <div className="contact-form-section">
               <form onSubmit={handleSubmit} className="contact-form">
+                {/* Honeypot — hidden from humans, bots fill it and the API drops the lead */}
+                <input
+                  type="text"
+                  name="website"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  style={{ position: 'absolute', left: '-9999px', height: 0, width: 0, opacity: 0 }}
+                />
                 <div className="form-group">
                   <label htmlFor="name" className="form-label">
                     Full Name *
@@ -268,6 +287,21 @@ export default function MinimalistContactForm() {
                     className="form-textarea"
                     placeholder="Tell us how we can help you..."
                   />
+                </div>
+
+                <div className="form-group" style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                  <input
+                    type="checkbox"
+                    id="marketingConsent"
+                    name="marketingConsent"
+                    checked={marketingConsent}
+                    onChange={(e) => setMarketingConsent(e.target.checked)}
+                    style={{ marginTop: '3px', minWidth: '16px', minHeight: '16px' }}
+                  />
+                  <label htmlFor="marketingConsent" style={{ fontSize: '14px', color: '#666', lineHeight: 1.5 }}>
+                    Keep me informed with market updates, new listings and property insights
+                    from Grant&apos;s Estate Agents, in line with our Privacy Policy.
+                  </label>
                 </div>
 
                 {submitStatus.type && (

@@ -261,6 +261,19 @@ export default function OncomFooter() {
             </Link>
           </div>
         </div>
+        {/* Acknowledgement of Country */}
+        <p style={{
+          fontSize: '12px',
+          color: '#666',
+          lineHeight: 1.6,
+          maxWidth: '720px',
+          marginBottom: '24px'
+        }}>
+          Grant&apos;s Estate Agents acknowledges the Bunurong and Wurundjeri peoples as the
+          Traditional Owners of the lands on which we live and work, and pays respect to their
+          Elders past and present.
+        </p>
+
         {/* Bottom Links and Social */}
         <div style={{
           paddingTop: '24px',

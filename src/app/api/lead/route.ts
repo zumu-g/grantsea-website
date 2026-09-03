@@ -14,13 +14,13 @@ import { SUBURBS } from '@/lib/jsonLd';
 // it reaches the email — an attacker sending extra keys just has them ignored
 // rather than stuffed into the staff inbox.
 const ALLOWED_FIELDS: Record<string, string[]> = {
-  contact: ['subject', 'propertyInterest', 'message', 'agentName', 'agentEmail'],
+  contact: ['subject', 'propertyInterest', 'message', 'agentName', 'agentEmail', 'marketingConsent'],
   appraisal: [
     'propertyType', 'address', 'suburb', 'postcode', 'bedrooms', 'bathrooms',
     'parking', 'propertyCondition', 'sellingTimeframe', 'preferredContact',
     'appraisalType', 'preferredTime', 'additionalInfo',
   ],
-  'property-enquiry': ['propertyId', 'message'],
+  'property-enquiry': ['propertyId', 'message', 'preferredContact', 'marketingConsent'],
   'market-report': ['suburb'],
 };
 

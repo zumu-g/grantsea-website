@@ -529,7 +529,22 @@ export default function OncomHeader() {
           )}
 
           <div style={{ display: 'flex', gap: isMobile ? '8px' : '24px', alignItems: 'center' }}>
-            <button 
+            {!isMobile && (
+              <a
+                href="tel:1300472687"
+                style={{
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  textDecoration: 'none',
+                  whiteSpace: 'nowrap',
+                  color: isHomePage && !isScrolled ? '#fff' : '#000',
+                  transition: 'color 0.3s ease'
+                }}
+              >
+                1300 472 687
+              </a>
+            )}
+            <button
               onClick={() => {
                 setShowSearch(true);
                 setShowSavedPanel(false);
@@ -1352,6 +1367,19 @@ export default function OncomHeader() {
             }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
               Calculators
+            </Link>
+            <Link href="/advice" onClick={() => setShowBurgerPanel(false)} style={{
+              display: 'block',
+              padding: '16px 20px',
+              color: '#000',
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '500',
+              borderBottom: '1px solid #f0f0f0',
+              transition: 'background 0.2s'
+            }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+              Advice for Sellers
             </Link>
             <Link href="/contact" onClick={() => setShowBurgerPanel(false)} style={{
               display: 'block',

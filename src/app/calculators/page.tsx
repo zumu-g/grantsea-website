@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import OncomHeader from '@/components/OncomHeader';
+import SellerCTA from '@/components/SellerCTA';
 
 export default function CalculatorsPage() {
   const [isMobile, setIsMobile] = useState(false);
@@ -310,6 +311,21 @@ export default function CalculatorsPage() {
                 </p>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Seller CTA - working out costs is often the first step before selling */}
+        <section style={{
+          paddingTop: isMobile ? '40px' : '60px',
+          paddingLeft: isMobile ? '20px' : 'max(2rem, 3.33vw)',
+          paddingRight: isMobile ? '20px' : 'max(2rem, 3.33vw)'
+        }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+            <SellerCTA
+              headline="Working out the numbers to sell?"
+              subtext="Get a free, no-obligation appraisal to see what your home is really worth."
+              isMobile={isMobile}
+            />
           </div>
         </section>
 

@@ -188,6 +188,7 @@ export async function GET(request: NextRequest) {
         carSpaces: transformed.carSpaces,
         propertyType: transformed.propertyType,
         status: transformed.status,
+        agent: transformed.agent,
         // Only include first image to minimize payload
         images: transformed.images?.slice(0, 1) || [],
         // Shortened description for listing
@@ -231,8 +232,13 @@ export async function GET(request: NextRequest) {
       properties: transformedProperties // For backward compatibility
     });
     
-    // Add aggressive cache headers for speed
-    response.headers.set('Cache-Control', 'public, max-age=90, s-maxage=180'); // 90s browser, 3min CDN
+    // Cache headers matching the open-homes/auctions pattern: the CDN serves
+    // the last-known-good response instantly while revalidating in the
+    // background, instead of every visitor after expiry paying the full
+    // VaultRE round-trip (observed at 14s cold in production).
+    response.headers.set('Cache-Control', 'public, s-maxage=90, stale-while-revalidate=300');
+    response.headers.set('CDN-Cache-Control', 'public, s-maxage=90, stale-while-revalidate=300');
+    response.headers.set('Vercel-CDN-Cache-Control', 'public, s-maxage=90, stale-while-revalidate=300');
     response.headers.set('X-Cache-Status', 'MISS');
     return response;
 

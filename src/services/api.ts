@@ -594,11 +594,16 @@ function determineListingType(vaultProperty: any): 'sale' | 'lease' | 'both' {
     return vaultProperty.commercialListingType as 'sale' | 'lease' | 'both';
   }
 
-  // Check if property has rental price fields (without calling getRentalPrice)
+  // Check if property has sale price fields
+  const hasSalePrice = !!(vaultProperty.priceFrom || vaultProperty.priceTo);
+
+  // Check if property has rental-specific price fields. Deliberately excludes
+  // `searchPrice` — VaultRE populates that as a generic sortable price on
+  // BOTH sale and lease listings (it holds the sale price on sale listings),
+  // so treating it as a rental signal misclassified plain sale listings as
+  // "both" and caused the sale price to be displayed as a weekly rent.
   const hasRentalPrice = !!(
-    vaultProperty.searchPrice ||
     vaultProperty.commercialLeasePrice ||
-    vaultProperty.leasePrice ||
     vaultProperty.rent ||
     vaultProperty.weeklyRent ||
     vaultProperty.currentTenancy?.rent ||
@@ -606,20 +611,12 @@ function determineListingType(vaultProperty: any): 'sale' | 'lease' | 'both' {
     vaultProperty.leaseLife?.rent
   );
 
-  // Check if property has sale price fields
-  const hasSalePrice = !!(
-    vaultProperty.priceFrom ||
-    vaultProperty.priceTo ||
-    (vaultProperty.searchPrice && vaultProperty.status !== 'management')
-  );
-
-  // For management status with searchPrice, it's a rental
-  if (vaultProperty.status === 'management' && vaultProperty.searchPrice) {
-    return 'lease';
-  }
+  // searchPrice only counts as a rental signal when there's no sale price
+  // range to explain it — i.e. it's the only price present.
+  const searchPriceIsRent = !!vaultProperty.searchPrice && !hasSalePrice;
 
   // Determine based on available prices
-  if (hasRentalPrice && !hasSalePrice) {
+  if ((hasRentalPrice || searchPriceIsRent) && !hasSalePrice) {
     return 'lease';
   } else if (hasSalePrice && !hasRentalPrice) {
     return 'sale';
@@ -788,6 +785,19 @@ export function transformVaultREProperty(vaultProperty: any): Property {
   // Extract virtual tour and video URLs from externalLinks
   const mediaUrls = extractMediaUrls(vaultProperty.externalLinks || []);
 
+  // Determine listing type first — lease-only fields (searchPrice, etc.) must
+  // never populate for a pure sale listing, and vice versa. Previously
+  // leasePrice/leasePriceDisplay were computed unconditionally, so a sale
+  // listing's searchPrice (its sale price) was mis-read as a weekly rent.
+  const listingType = determineListingType(vaultProperty);
+  const isLease = listingType === 'lease' || listingType === 'both';
+
+  const genericPriceDisplay = vaultProperty.displayPrice ||
+                  vaultProperty.priceDisplay ||
+                  (vaultProperty.priceFrom && vaultProperty.priceTo ?
+                    `${formatPrice(vaultProperty.priceFrom)} - ${formatPrice(vaultProperty.priceTo)}` :
+                    null);
+
   return {
     id: vaultProperty.id?.toString() || '',
     address: addressString,
@@ -795,14 +805,12 @@ export function transformVaultREProperty(vaultProperty: any): Property {
     state: state.abbreviation || state.name || 'VIC',
     postcode: suburb.postcode || vaultProperty.postcode || '',
     price: vaultProperty.searchPrice?.toString() || vaultProperty.priceFrom?.toString() || '0',
-    priceDisplay: vaultProperty.displayPrice || 
-                  vaultProperty.priceDisplay ||
-                  (vaultProperty.priceFrom && vaultProperty.priceTo ? 
-                    `${formatPrice(vaultProperty.priceFrom)} - ${formatPrice(vaultProperty.priceTo)}` :
-                    'Contact Agent'),
-    leasePrice: getRentalPrice(vaultProperty),
-    leasePriceDisplay: getRentalPriceDisplay(vaultProperty),
-    listingType: determineListingType(vaultProperty),
+    // For lease listings, fall back to the real weekly rent instead of
+    // "Contact Agent" when no generic sale-style price display is set.
+    priceDisplay: genericPriceDisplay || (isLease ? getRentalPriceDisplay(vaultProperty) : 'Contact Agent'),
+    leasePrice: isLease ? getRentalPrice(vaultProperty) : '',
+    leasePriceDisplay: isLease ? getRentalPriceDisplay(vaultProperty) : '',
+    listingType,
     bedrooms: vaultProperty.bed || 0,
     bathrooms: vaultProperty.bath || 0,
     carSpaces: (vaultProperty.garages || 0) + (vaultProperty.carports || 0) + (vaultProperty.openSpaces || 0),

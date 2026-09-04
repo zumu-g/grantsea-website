@@ -9,6 +9,7 @@ import OncomFooter from '@/components/OncomFooter';
 import SavePropertyButton from '@/components/SavePropertyButton';
 import { useProperties } from '@/hooks/useProperties';
 import { trackLead } from '@/lib/analytics';
+import { profileForAgent, placeholderQA, APPRAISAL_FAQ } from '@/data/agentProfiles';
 
 interface Agent {
   id: string;
@@ -27,7 +28,9 @@ export default function AgentDetailPage() {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
+  const [honeypot, setHoneypot] = useState('');
   const [submitState, setSubmitState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [allAgents, setAllAgents] = useState<Agent[]>([]);
 
   const { properties } = useProperties({ type: 'sale', limit: 20 });
   const agentProperties = properties.filter((p: any) => p.agent?.id === params.id);
@@ -43,7 +46,9 @@ export default function AgentDetailPage() {
     fetch('/api/agents')
       .then(res => res.json())
       .then(data => {
-        const found = data.success ? data.agents.find((a: Agent) => a.id === params.id) : null;
+        const roster: Agent[] = data.success ? data.agents : [];
+        setAllAgents(roster);
+        const found = roster.find((a: Agent) => a.id === params.id) ?? null;
         if (found) {
           setAgent(found);
         } else {
@@ -70,6 +75,7 @@ export default function AgentDetailPage() {
           message: formData.message,
           agentName: agent.name,
           agentEmail: agent.email,
+          website: honeypot,
         }),
       });
       if (!res.ok) throw new Error('Delivery failed');
@@ -287,6 +293,112 @@ export default function AgentDetailPage() {
           </section>
         )}
 
+        {/* Getting to know the agent — Q&A bio */}
+        {(() => {
+          const profile = profileForAgent(agent.email);
+          const first = agent.name.split(' ')[0];
+          const qa = profile?.qa ?? placeholderQA(first);
+          return (
+            <section style={{ padding: isMobile ? '60px 20px' : '100px max(2rem, 3.33vw)', backgroundColor: '#fafafa' }}>
+              <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+                <h2 style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: 300, letterSpacing: '-0.02em', marginBottom: isMobile ? '32px' : '48px', color: '#000' }}>
+                  Getting to know {first}
+                </h2>
+                {qa.map((item) => (
+                  <div key={item.question} style={{ marginBottom: '36px' }}>
+                    <h3 style={{ fontSize: '18px', fontWeight: 500, marginBottom: '10px', color: '#000' }}>
+                      {item.question}
+                    </h3>
+                    <p style={{ fontSize: '16px', color: item.answer.startsWith('[Placeholder') ? '#999' : '#444', lineHeight: 1.7, fontStyle: item.answer.startsWith('[Placeholder') ? 'italic' : 'normal' }}>
+                      {item.answer}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          );
+        })()}
+
+        {/* Client reviews — only real, attributed reviews from agentProfiles */}
+        {(() => {
+          const profile = profileForAgent(agent.email);
+          if (!profile?.reviews?.length) return null;
+          return (
+            <section style={{ padding: isMobile ? '60px 20px' : '100px max(2rem, 3.33vw)' }}>
+              <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+                <h2 style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: 300, letterSpacing: '-0.02em', marginBottom: '16px', color: '#000' }}>
+                  What clients say
+                </h2>
+                {profile.rating && (
+                  <p style={{ fontSize: '14px', color: '#666', marginBottom: '40px' }}>
+                    {agent.name.split(' ')[0]} has a {profile.rating.value.toFixed(2)} star rating, according to {profile.rating.source}. Last updated: {profile.rating.updated}
+                  </p>
+                )}
+                {profile.reviews.map((review, i) => (
+                  <blockquote key={i} style={{ margin: '0 0 32px', padding: '0 0 32px', borderBottom: '1px solid #eee' }}>
+                    <p style={{ fontSize: '17px', lineHeight: 1.7, color: '#222', marginBottom: '12px' }}>
+                      &ldquo;{review.text}&rdquo;
+                    </p>
+                    <footer style={{ fontSize: '14px', color: '#666' }}>
+                      {review.author} · {review.source}, {review.date}
+                    </footer>
+                  </blockquote>
+                ))}
+              </div>
+            </section>
+          );
+        })()}
+
+        {/* Appraisal FAQ */}
+        <section style={{ padding: isMobile ? '60px 20px' : '100px max(2rem, 3.33vw)' }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+            <h2 style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: 300, letterSpacing: '-0.02em', marginBottom: '16px', color: '#000' }}>
+              Frequently asked
+            </h2>
+            <p style={{ fontSize: '16px', color: '#666', marginBottom: '40px', lineHeight: 1.6 }}>
+              A clear view of what an appraisal involves — a practical conversation grounded in real data and local insight.
+            </p>
+            {APPRAISAL_FAQ.map((item) => (
+              <details key={item.question} style={{ borderBottom: '1px solid #eee', padding: '20px 0' }}>
+                <summary style={{ fontSize: '17px', fontWeight: 500, cursor: 'pointer', color: '#000', listStyle: 'none' }}>
+                  {item.question}
+                </summary>
+                <p style={{ fontSize: '15px', color: '#555', lineHeight: 1.7, marginTop: '12px' }}>
+                  {item.answer}
+                </p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        {/* More of the team */}
+        {allAgents.filter((a) => a.id !== agent.id).length > 0 && (
+          <section style={{ padding: isMobile ? '60px 20px' : '100px max(2rem, 3.33vw)', backgroundColor: '#fafafa' }}>
+            <div style={{ maxWidth: '1440px', margin: '0 auto' }}>
+              <h2 style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: 300, letterSpacing: '-0.02em', marginBottom: isMobile ? '32px' : '48px', color: '#000' }}>
+                More of the team
+              </h2>
+              <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: '24px' }}>
+                {allAgents.filter((a) => a.id !== agent.id).slice(0, 8).map((a) => (
+                  <Link key={a.id} href={`/agent/${a.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <div style={{ aspectRatio: '3/4', backgroundColor: '#eee', overflow: 'hidden', marginBottom: '12px' }}>
+                      {a.photo ? (
+                        <img src={a.photo} alt={a.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
+                      ) : (
+                        <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '48px', fontWeight: 300, color: '#ccc' }}>
+                          {a.name.charAt(0)}
+                        </div>
+                      )}
+                    </div>
+                    <p style={{ fontSize: '15px', fontWeight: 500, color: '#000', marginBottom: '4px' }}>{a.name}</p>
+                    {a.position && <p style={{ fontSize: '13px', color: '#666' }}>{a.position}</p>}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* CTA Section */}
         <section style={{ padding: isMobile ? '80px 20px' : '120px max(2rem, 3.33vw)', textAlign: 'center' }}>
           <div style={{ maxWidth: '640px', margin: '0 auto' }}>
@@ -358,6 +470,17 @@ export default function AgentDetailPage() {
               </p>
             ) : (
               <form onSubmit={handleSubmit}>
+                {/* Honeypot — hidden from humans; the lead API drops submissions that fill it */}
+                <input
+                  type="text"
+                  name="website"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  style={{ position: 'absolute', left: '-9999px', height: 0, width: 0, opacity: 0 }}
+                />
                 <div style={{ marginBottom: '20px' }}>
                   <input
                     type="text" placeholder="Your name" value={formData.name}

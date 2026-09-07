@@ -73,7 +73,7 @@ export default function HelpPage() {
         { text: "Suburb guides", href: "/suburbs-guide" },
         { text: "Schools guide", href: "/schools-guide" },
         { text: "Borrowing calculator", href: "/calculators/borrowing-capacity" },
-        { text: "Market insights", href: "/market-analytics" }
+        { text: "Market insights", href: "/property-values" }
       ]
     }
   ];

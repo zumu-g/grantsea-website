@@ -7,7 +7,7 @@ import OncomHeader from '@/components/OncomHeader';
 import SellerCTA from '@/components/SellerCTA';
 import TrendLine from '@/components/TrendLine';
 import type { SuburbValuesPayload, SuburbValues, ValuesTypeSeries } from '@/lib/valuesGuide';
-import type { SuburbStatsPayload, SuburbStats, SuburbTypeStats } from '@/lib/suburbStats';
+import type { SuburbStatsPayload, SuburbStats, SuburbTypeStats, StatsReason } from '@/lib/suburbStats';
 // valuesMath.js is a plain CJS module (KTD7 self-check runs it via require()); import works via esModuleInterop.
 import { formatChange, periodLabel, shortTermLabel, rankByChange } from '@/lib/valuesMath';
 
@@ -17,11 +17,11 @@ type SortColumn = 'change3m' | 'change12m' | 'change5y';
 // Domain-correct wording for the stock/rental empty state (R5) -- distinct from
 // valuesMath.js's reasonText, which says "not enough sales" for the sale-values
 // domain; this is listings/rentals, a different noun for the same UX pattern.
-const STATS_REASON_TEXT: Record<string, string> = {
+const STATS_REASON_TEXT: Record<StatsReason, string> = {
   'thin-sample': 'not enough listings',
   'no-data': 'no data available',
 };
-function statsReasonText(reason: string | null | undefined): string {
+function statsReasonText(reason: StatsReason | null | undefined): string {
   return (reason && STATS_REASON_TEXT[reason]) || 'not enough listings';
 }
 
@@ -127,6 +127,23 @@ function StockRentYieldCard({ stats }: { stats: SuburbTypeStats }) {
               ) : null;
             })}
           </div>
+          {/* Visually-hidden equivalent of the bar's per-segment title tooltips --
+              a tooltip alone is unavailable to screen readers and touch devices. */}
+          <span
+            style={{
+              position: 'absolute',
+              width: '1px',
+              height: '1px',
+              padding: 0,
+              margin: '-1px',
+              overflow: 'hidden',
+              clip: 'rect(0, 0, 0, 0)',
+              whiteSpace: 'nowrap',
+              border: 0,
+            }}
+          >
+            Days on market: {DOM_BUCKET_LABELS.map(([key, label]) => `${label}: ${stats.stock.buckets[key]}`).join(', ')}
+          </span>
         </>
       )}
     </div>
@@ -194,8 +211,7 @@ export default function ValuesGuideClient({
 
   const typeSeries: ValuesTypeSeries | null = selected ? selected[propertyType] : null;
   const selectedStatsSuburb: SuburbStats | null = selected ? statsBySlug.get(selected.slug) ?? null : null;
-  const propertyTypeKey: 'houses' | 'units' = propertyType;
-  const selectedTypeStats: SuburbTypeStats | null = selectedStatsSuburb ? selectedStatsSuburb[propertyTypeKey] : null;
+  const selectedTypeStats: SuburbTypeStats | null = selectedStatsSuburb ? selectedStatsSuburb[propertyType] : null;
   const pad = 'max(2rem, 3.33vw)';
   const fontFamily = '"Helvetica Neue", Helvetica, Arial, sans-serif';
 
@@ -353,7 +369,7 @@ export default function ValuesGuideClient({
             {statsPayload && (
               <>
                 <br />
-                {statsPayload.attribution.everyproperty}. Live stock/rent/yield as at{' '}
+                {statsPayload.attribution.everyProperty}. Live stock/rent/yield as at{' '}
                 {new Date(statsPayload.generatedAt).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}.
               </>
             )}

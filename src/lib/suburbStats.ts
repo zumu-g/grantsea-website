@@ -59,7 +59,7 @@ export interface SuburbStats {
 export interface SuburbStatsPayload {
   schemaVersion: number;
   generatedAt: string;
-  attribution: { everyproperty: string };
+  attribution: { everyProperty: string };
   suburbs: SuburbStats[];
 }
 

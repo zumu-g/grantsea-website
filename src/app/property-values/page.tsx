@@ -22,10 +22,22 @@ export default async function PropertyValuesPage() {
   // Missing env (deploy mistake) -> null -> configuration-error state.
   // A throw (non-OK response / bad schemaVersion) propagates: Next's data
   // cache keeps serving the last good cached payload for this route while
-  // the origin is down (R13), rather than rendering a broken page. Stats
-  // reuses the exact same outage handling (R9) -- both fetches throw the
-  // same way, so one page-level cache protects both data domains.
-  const [payload, statsPayload] = await Promise.all([getSuburbValues(), getSuburbStats()]);
+  // the origin is down (R13), rather than rendering a broken page.
+  //
+  // Stats is deliberately NOT the same all-or-nothing dependency: it's a
+  // purely additive enhancement (ValuesGuideClient already renders correctly
+  // with statsPayload=null -- the stock/rent/yield card just doesn't render).
+  // Coupling it via Promise.all would let a stats-endpoint outage take down
+  // the whole page over a card that isn't core to the feature; instead an
+  // outage here degrades to the same missing-env "no stats block" state,
+  // same as a deploy that never configured the stats endpoint at all.
+  const [payload, statsPayload] = await Promise.all([
+    getSuburbValues(),
+    getSuburbStats().catch((err) => {
+      console.error('[property-values] suburb-stats fetch failed, degrading gracefully:', err);
+      return null;
+    }),
+  ]);
 
   if (!payload) {
     return (

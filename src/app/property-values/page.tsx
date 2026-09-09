@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { getSuburbValues } from '@/lib/valuesGuide';
+import { getSuburbStats } from '@/lib/suburbStats';
 import { JsonLd, breadcrumb, realEstateAgent } from '@/lib/jsonLd';
 import ValuesGuideClient from './ValuesGuideClient';
 
@@ -21,8 +22,10 @@ export default async function PropertyValuesPage() {
   // Missing env (deploy mistake) -> null -> configuration-error state.
   // A throw (non-OK response / bad schemaVersion) propagates: Next's data
   // cache keeps serving the last good cached payload for this route while
-  // the origin is down (R13), rather than rendering a broken page.
-  const payload = await getSuburbValues();
+  // the origin is down (R13), rather than rendering a broken page. Stats
+  // reuses the exact same outage handling (R9) -- both fetches throw the
+  // same way, so one page-level cache protects both data domains.
+  const [payload, statsPayload] = await Promise.all([getSuburbValues(), getSuburbStats()]);
 
   if (!payload) {
     return (
@@ -42,7 +45,7 @@ export default async function PropertyValuesPage() {
         ]}
       />
       <Suspense fallback={<div style={{ padding: '80px 24px' }}>Loading…</div>}>
-        <ValuesGuideClient payload={payload} />
+        <ValuesGuideClient payload={payload} statsPayload={statsPayload} />
       </Suspense>
     </>
   );

@@ -7,11 +7,31 @@ import OncomHeader from '@/components/OncomHeader';
 import SellerCTA from '@/components/SellerCTA';
 import TrendLine from '@/components/TrendLine';
 import type { SuburbValuesPayload, SuburbValues, ValuesTypeSeries } from '@/lib/valuesGuide';
+import type { SuburbStatsPayload, SuburbStats, SuburbTypeStats } from '@/lib/suburbStats';
 // valuesMath.js is a plain CJS module (KTD7 self-check runs it via require()); import works via esModuleInterop.
 import { formatChange, periodLabel, shortTermLabel, rankByChange } from '@/lib/valuesMath';
 
 type PropertyType = 'houses' | 'units';
 type SortColumn = 'change3m' | 'change12m' | 'change5y';
+
+// Domain-correct wording for the stock/rental empty state (R5) -- distinct from
+// valuesMath.js's reasonText, which says "not enough sales" for the sale-values
+// domain; this is listings/rentals, a different noun for the same UX pattern.
+const STATS_REASON_TEXT: Record<string, string> = {
+  'thin-sample': 'not enough listings',
+  'no-data': 'no data available',
+};
+function statsReasonText(reason: string | null | undefined): string {
+  return (reason && STATS_REASON_TEXT[reason]) || 'not enough listings';
+}
+
+const DOM_BUCKET_LABELS: Array<[keyof SuburbTypeStats['stock']['buckets'], string]> = [
+  ['under30', 'Under 30 days'],
+  ['30to60', '30-60 days'],
+  ['60to90', '60-90 days'],
+  ['90to180', '90-180 days'],
+  ['over180', 'Over 180 days'],
+];
 
 function slugify(name: string) {
   return name.toLowerCase().replace(/\s+/g, '-');
@@ -34,7 +54,92 @@ function ChangeCell({ label, value, reason }: { label: string; value: number | n
   );
 }
 
-export default function ValuesGuideClient({ payload }: { payload: SuburbValuesPayload }) {
+function rentText(v: number | null) {
+  if (v === null || v === undefined) return '—';
+  return `${v.toLocaleString('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 })}/wk`;
+}
+
+function yieldText(v: number | null) {
+  if (v === null || v === undefined) return '—';
+  return `${v.toFixed(1)}%`;
+}
+
+/**
+ * Live stock/asking-price/rental/indicative-yield card for the selected
+ * suburb + type. Distinct data domain from the Valuer-General sale-values
+ * card above it (R7 -- separate attribution/as-at). When every figure in
+ * this domain is thin-sample or no-data, collapses to a single muted line
+ * rather than four stacked empty cells, so a data-rich suburb for sale
+ * values but data-poor for live listings doesn't visibly degrade the page
+ * this card was merged into (KTD1's own condition).
+ */
+function StockRentYieldCard({ stats }: { stats: SuburbTypeStats }) {
+  const allEmpty = stats.stock.reason != null && stats.rental.reason != null;
+  if (allEmpty) {
+    return (
+      <p style={{ fontSize: '13px', color: '#999', marginTop: '16px' }}>
+        Live stock and rental figures: {statsReasonText(stats.stock.reason)} for this suburb yet.
+      </p>
+    );
+  }
+
+  const bucketTotal = Object.values(stats.stock.buckets).reduce((a, b) => a + b, 0);
+
+  return (
+    <div style={{ marginTop: '24px', paddingTop: '16px', borderTop: '1px solid #eee' }}>
+      <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', marginBottom: '16px' }}>
+        <div>
+          <div style={{ fontSize: '12px', color: '#999' }}>On the market today</div>
+          <div style={{ fontSize: '20px', fontWeight: 700 }}>
+            {stats.stock.count} {stats.stock.count === 1 ? 'listing' : 'listings'}
+          </div>
+        </div>
+        <div>
+          <div style={{ fontSize: '12px', color: '#999' }}>Median asking price</div>
+          <div style={{ fontSize: '20px', fontWeight: 700 }}>
+            {stats.stock.medianAskingPrice != null ? medianText(stats.stock.medianAskingPrice) : statsReasonText(stats.stock.reason)}
+          </div>
+        </div>
+        <div>
+          <div style={{ fontSize: '12px', color: '#999' }}>Median asking rent</div>
+          <div style={{ fontSize: '20px', fontWeight: 700 }}>
+            {stats.rental.medianAskingRent != null ? rentText(stats.rental.medianAskingRent) : statsReasonText(stats.rental.reason)}
+          </div>
+        </div>
+        <div>
+          <div style={{ fontSize: '12px', color: '#999' }}>Indicative gross yield</div>
+          <div style={{ fontSize: '20px', fontWeight: 700 }}>
+            {stats.yield.grossYieldPercent != null ? yieldText(stats.yield.grossYieldPercent) : statsReasonText(stats.yield.reason)}
+          </div>
+        </div>
+      </div>
+
+      {bucketTotal > 0 && (
+        <>
+          <div style={{ fontSize: '12px', color: '#999', marginBottom: '4px' }}>Days on market (today&apos;s snapshot)</div>
+          <div style={{ display: 'flex', height: '10px', width: '100%', maxWidth: '480px', overflow: 'hidden' }}>
+            {DOM_BUCKET_LABELS.map(([key, label], i) => {
+              const count = stats.stock.buckets[key];
+              const pct = (count / bucketTotal) * 100;
+              const shades = ['#1a1a1a', '#4d4d4d', '#808080', '#b3b3b3', '#d9d9d9'];
+              return count > 0 ? (
+                <div key={key} title={`${label}: ${count}`} style={{ width: `${pct}%`, background: shades[i], minWidth: pct > 0 ? '2px' : 0 }} />
+              ) : null;
+            })}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+export default function ValuesGuideClient({
+  payload,
+  statsPayload,
+}: {
+  payload: SuburbValuesPayload;
+  statsPayload: SuburbStatsPayload | null;
+}) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const requested = searchParams.get('suburb');
@@ -44,6 +149,12 @@ export default function ValuesGuideClient({ payload }: { payload: SuburbValuesPa
     payload.suburbs.forEach((s) => map.set(s.slug, s));
     return map;
   }, [payload.suburbs]);
+
+  const statsBySlug = useMemo(() => {
+    const map = new Map<string, SuburbStats>();
+    statsPayload?.suburbs.forEach((s) => map.set(s.slug, s));
+    return map;
+  }, [statsPayload]);
 
   // R6: unknown/malformed ?suburb= falls back to the default (no-selection) state.
   const initialSelected = requested && bySlug.has(requested) ? requested : null;
@@ -82,6 +193,9 @@ export default function ValuesGuideClient({ payload }: { payload: SuburbValuesPa
   }
 
   const typeSeries: ValuesTypeSeries | null = selected ? selected[propertyType] : null;
+  const selectedStatsSuburb: SuburbStats | null = selected ? statsBySlug.get(selected.slug) ?? null : null;
+  const propertyTypeKey: 'houses' | 'units' = propertyType;
+  const selectedTypeStats: SuburbTypeStats | null = selectedStatsSuburb ? selectedStatsSuburb[propertyTypeKey] : null;
   const pad = 'max(2rem, 3.33vw)';
   const fontFamily = '"Helvetica Neue", Helvetica, Arial, sans-serif';
 
@@ -183,6 +297,7 @@ export default function ValuesGuideClient({ payload }: { payload: SuburbValuesPa
                   {formatChange(null, typeSeries.reason).text}
                 </p>
               )}
+              {selectedTypeStats && <StockRentYieldCard stats={selectedTypeStats} />}
             </div>
           )}
 
@@ -234,7 +349,14 @@ export default function ValuesGuideClient({ payload }: { payload: SuburbValuesPa
           <p style={{ fontSize: '13px', color: '#999', marginTop: '24px' }}>
             {payload.attribution.valuerGeneral} · {payload.attribution.everyProperty}
             <br />
-            Data as at {new Date(payload.generatedAt).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}.
+            Sale values as at {new Date(payload.generatedAt).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}.
+            {statsPayload && (
+              <>
+                <br />
+                {statsPayload.attribution.everyproperty}. Live stock/rent/yield as at{' '}
+                {new Date(statsPayload.generatedAt).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}.
+              </>
+            )}
           </p>
 
           <p style={{ fontSize: '13px', marginTop: '8px' }}>

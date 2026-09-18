@@ -53,7 +53,7 @@ export default function HelpPage() {
         { text: "Request an appraisal", href: "/appraisal" },
         { text: "Why sell with us", href: "/sell" },
         { text: "Buy & sell calculator", href: "/calculators/buy-sell" },
-        { text: "Recent sales", href: "/search?type=sold" }
+        { text: "Recent sales", href: "/sold" }
       ]
     },
     {

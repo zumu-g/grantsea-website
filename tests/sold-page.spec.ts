@@ -59,4 +59,21 @@ test.describe('/sold navigation', () => {
     const staleLinks = await page.locator('a[href*="/search?type=sold"]').count();
     expect(staleLinks).toBe(0);
   });
+
+  test('the help page recent-sales link points at /sold', async ({ page }) => {
+    await page.goto('/help');
+    const staleLinks = await page.locator('a[href*="/search?type=sold"]').count();
+    expect(staleLinks).toBe(0);
+    await expect(page.locator('a[href="/sold"]').first()).toBeAttached();
+  });
+
+  test('the mobile burger panel links to Recent Sales', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+    await page.getByRole('button', { name: /menu/i }).first().click();
+    const recentSales = page.getByRole('link', { name: 'Recent Sales' }).first();
+    await expect(recentSales).toBeVisible();
+    await recentSales.click();
+    await expect(page).toHaveURL(/\/sold$/);
+  });
 });

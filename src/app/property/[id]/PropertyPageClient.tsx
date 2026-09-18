@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { formatPrice } from '@/services/api';
@@ -8,7 +8,7 @@ import SavePropertyButton from '@/components/SavePropertyButton';
 import AskAI from '@/components/AskAI';
 import VirtualTourEmbed from '@/components/VirtualTourEmbed';
 import { fetchPropertyOpenHomes } from '@/services/openHomes';
-import { trackLead } from '@/lib/analytics';
+import { trackLead, trackGalleryDepth, trackShare, trackRequestInspection, PropertyEventContext } from '@/lib/analytics';
 import { fetchPropertyAuctions, AuctionDetails } from '@/services/auctions';
 import { schoolsForSuburb } from '@/data/schools';
 import OpenHomeRegisterButton from '@/components/OpenHomeRegisterButton';
@@ -278,16 +278,95 @@ export default function PropertyPageClient() {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [showFullscreenCarousel, currentImageIndex, property?.images]);
 
+  // Buyer-engagement instrumentation (R9). Gallery depth measures distinct
+  // images seen -- grid tiles entering the viewport, plus carousel index
+  // changes -- not carousel position alone, so a visitor who only scrolls
+  // the grid still registers depth. Nothing fires until the first user
+  // interaction, so a listing's on-load render never counts as "seen" on
+  // its own (R10 -- no visible change, this is instrumentation only).
+  const seenImageIndicesRef = useRef<Set<number>>(new Set());
+  const firedMilestonesRef = useRef<Set<number>>(new Set());
+  const hasInteractedRef = useRef(false);
+  const galleryTileRefs = useRef<Map<number, HTMLElement>>(new Map());
+
+  const propertyEventContext: PropertyEventContext | null = property
+    ? { propertyId: property.id, suburb: property.suburb || '', listingType: (property.listingType as any) || 'sale' }
+    : null;
+  // Computed here (not from the later `images`/`displayImages` consts) so
+  // these hook declarations don't reference a binding declared further down
+  // the same function body.
+  const imageCount = property?.images?.length || 0;
+
+  // Reset engagement state when the property changes.
+  useEffect(() => {
+    seenImageIndicesRef.current = new Set();
+    firedMilestonesRef.current = new Set();
+    hasInteractedRef.current = false;
+  }, [property?.id]);
+
+  const maybeFireGalleryMilestones = useCallback(() => {
+    if (!hasInteractedRef.current || !propertyEventContext || imageCount === 0) return;
+    const seenPercent = (seenImageIndicesRef.current.size / imageCount) * 100;
+    for (const threshold of [25, 50, 75, 100] as const) {
+      if (seenPercent >= threshold && !firedMilestonesRef.current.has(threshold)) {
+        firedMilestonesRef.current.add(threshold);
+        trackGalleryDepth(propertyEventContext, threshold, imageCount);
+      }
+    }
+  }, [propertyEventContext, imageCount]);
+
+  const markGalleryInteraction = useCallback(() => {
+    hasInteractedRef.current = true;
+    maybeFireGalleryMilestones();
+  }, [maybeFireGalleryMilestones]);
+
+  // Grid tiles: an IntersectionObserver records which of the visible grid
+  // images have actually entered the viewport (not just "rendered somewhere
+  // on the page"). Recorded regardless of interaction state; the milestone
+  // only fires once markGalleryInteraction() has run at least once.
+  useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver((entries) => {
+      let changed = false;
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          const index = Number(entry.target.getAttribute('data-gallery-index'));
+          if (!seenImageIndicesRef.current.has(index)) {
+            seenImageIndicesRef.current.add(index);
+            changed = true;
+          }
+        }
+      }
+      if (changed) maybeFireGalleryMilestones();
+    }, { threshold: 0.5 });
+    galleryTileRefs.current.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [showAllPhotos, imageCount, maybeFireGalleryMilestones]);
+
+  // Fullscreen carousel: stepping to an image marks it seen.
+  useEffect(() => {
+    if (!showFullscreenCarousel) return;
+    if (!seenImageIndicesRef.current.has(currentImageIndex)) {
+      seenImageIndicesRef.current.add(currentImageIndex);
+      maybeFireGalleryMilestones();
+    }
+  }, [showFullscreenCarousel, currentImageIndex, maybeFireGalleryMilestones]);
+
   const handleShare = () => {
     if (navigator.share && property) {
       navigator.share({
         title: property.address,
         text: `Check out this property: ${property.address}, ${property.suburb}`,
         url: window.location.href,
+      }).then(() => {
+        if (propertyEventContext) trackShare(propertyEventContext, 'native');
+      }).catch(() => {
+        // User cancelled the native share sheet -- not a completed share, no event.
       });
     } else {
       navigator.clipboard.writeText(window.location.href);
       alert('Link copied to clipboard!');
+      if (propertyEventContext) trackShare(propertyEventContext, 'copy');
     }
   };
 
@@ -1000,6 +1079,11 @@ export default function PropertyPageClient() {
               {displayImages.map((image, index) => (
                 <div
                   key={index}
+                  data-gallery-index={index}
+                  ref={(el) => {
+                    if (el) galleryTileRefs.current.set(index, el);
+                    else galleryTileRefs.current.delete(index);
+                  }}
                   style={{
                     gridRow: !isMobile && index === 0 ? 'span 2' : 'span 1',
                     gridColumn: !isMobile && index === 0 && images.length > 1 ? 'span 1' : 'span 1',
@@ -1013,6 +1097,7 @@ export default function PropertyPageClient() {
                   onClick={() => {
                     setCurrentImageIndex(index);
                     setShowFullscreenCarousel(true);
+                    markGalleryInteraction();
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'scale(1.02)';
@@ -2781,7 +2866,10 @@ export default function PropertyPageClient() {
 
               {/* Request Inspection Button */}
               <button
-                onClick={() => setShowInspectionRequest(true)}
+                onClick={() => {
+                  setShowInspectionRequest(true);
+                  if (propertyEventContext) trackRequestInspection(propertyEventContext);
+                }}
                 style={{
                   width: '100%',
                   padding: '14px',

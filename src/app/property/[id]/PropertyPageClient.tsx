@@ -289,9 +289,17 @@ export default function PropertyPageClient() {
   const hasInteractedRef = useRef(false);
   const galleryTileRefs = useRef<Map<number, HTMLElement>>(new Map());
 
-  const propertyEventContext: PropertyEventContext | null = property
-    ? { propertyId: property.id, suburb: property.suburb || '', listingType: (property.listingType as any) || 'sale' }
-    : null;
+  // Memoized so it's referentially stable across renders that don't change
+  // these three fields -- otherwise every render would recreate it, which
+  // would cascade through maybeFireGalleryMilestones into the
+  // IntersectionObserver effect below, tearing it down and rebuilding it
+  // on every unrelated re-render (scroll, resize, image index changes).
+  const propertyEventContext: PropertyEventContext | null = React.useMemo(
+    () => property
+      ? { propertyId: property.id, suburb: property.suburb || '', listingType: (property.listingType as any) || 'sale' }
+      : null,
+    [property?.id, property?.suburb, property?.listingType]
+  );
   // Computed here (not from the later `images`/`displayImages` consts) so
   // these hook declarations don't reference a binding declared further down
   // the same function body.

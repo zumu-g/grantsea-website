@@ -112,6 +112,12 @@ async function fetchSoldPool(): Promise<any[]> {
   const promise = (async () => {
     const sold: any[] = [];
     let cappedOut = true;
+    // The oldest-dated record seen so far across all pages -- not just the
+    // last item on the current page, which may be undated. sort=unconditional
+    // desc typically places null-dated records last within a page (or a
+    // whole trailing page), which would otherwise mask the real cutoff and
+    // page all the way to SOLD_PAGE_CAP every time.
+    let oldestDatedSoFar: any = null;
     for (let page = 1; page <= SOLD_PAGE_CAP; page++) {
       const qs = new URLSearchParams({
         limit: '100',
@@ -128,9 +134,13 @@ async function fetchSoldPool(): Promise<any[]> {
       const data = await res.json();
       const items: any[] = data.items || [];
       sold.push(...items);
-      const oldestOnPage = items[items.length - 1];
-      const oldestHasDate = oldestOnPage && oldestOnPage.unconditional;
-      if (oldestHasDate && !withinMonths(oldestOnPage, SOLD_MONTHS)) {
+      for (let i = items.length - 1; i >= 0; i--) {
+        if (items[i].unconditional) {
+          oldestDatedSoFar = items[i];
+          break;
+        }
+      }
+      if (oldestDatedSoFar && !withinMonths(oldestDatedSoFar, SOLD_MONTHS)) {
         cappedOut = false;
         break;
       }

@@ -10,6 +10,8 @@
     "typecheck": "tsc --noEmit",
     "style-check": "node scripts/pre-commit-style-check.js",
     "check-values-math": "node scripts/check-values-math.js",
+    "check-sold": "node scripts/check-sold.js",
+    "check-analytics": "node scripts/check-analytics.js",
     "style-check-full": "node scripts/full-style-validation.js",
     "pre-push": "./scripts/pre-push-check.sh",
     "check-all": "npm run typecheck && npm run lint && npm run build",

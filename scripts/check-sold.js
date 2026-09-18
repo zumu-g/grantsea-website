@@ -98,4 +98,22 @@ assert.ok(serverPropsSrc.includes('next: { revalidate: 86400 }'), 'sold fetch pi
 assert.ok(!/getSoldResults[\s\S]{0,400}catch[\s\S]{0,80}return \[\]/.test(serverPropsSrc), 'getSoldResults must not swallow errors into an empty array (R8 — throw-through is the contract)');
 console.log('check-sold: serverProperties.ts source contract passed');
 
+// --- U4: all 20 suburb pages carry SuburbStats + RecentlySold + revalidate ---
+const SUBURB_SLUGS = [
+  'beaconsfield', 'beaconsfield-upper', 'berwick', 'bunyip', 'clyde', 'clyde-north',
+  'cranbourne', 'cranbourne-north', 'endeavour-hills', 'garfield', 'hallam',
+  'hampton-park', 'harkaway', 'koo-wee-rup', 'narre-warren', 'narre-warren-east',
+  'narre-warren-south', 'officer', 'pakenham', 'tynong',
+];
+assert.strictEqual(SUBURB_SLUGS.length, 20, 'test fixture itself must list all 20 suburbs');
+for (const slug of SUBURB_SLUGS) {
+  const pagePath = path.join(__dirname, `../src/app/suburbs/${slug}/page.tsx`);
+  const src = fs.readFileSync(pagePath, 'utf8');
+  assert.ok(src.includes("from '@/components/SuburbStats'"), `${slug}/page.tsx imports SuburbStats`);
+  assert.ok(src.includes("from '@/components/RecentlySold'"), `${slug}/page.tsx imports RecentlySold`);
+  assert.ok(src.includes('export const revalidate'), `${slug}/page.tsx exports revalidate`);
+  assert.ok(src.includes('.catch(() => [])'), `${slug}/page.tsx swallows a sold-fetch failure so an outage drops the section, not the guide (R8)`);
+}
+console.log(`check-sold: all 20 suburb pages carry the U4 structural contract`);
+
 console.log('check-sold: all checks passed');

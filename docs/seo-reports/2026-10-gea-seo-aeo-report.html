@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GEA SEO + AEO Report — October 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fg: #111111;
+    --muted: #555555;
+    --faint: #888888;
+    --rule: #dddddd;
+    --bg: #ffffff;
+    --pass: #1a1a1a;
+    --warn: #1a1a1a;
+    --fail: #1a1a1a;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    background: var(--bg);
+    color: var(--fg);
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+  }
+  h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0 0 4px;
+    letter-spacing: -0.01em;
+  }
+  .dateline {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 0 0 32px;
+  }
+  h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 48px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+    letter-spacing: -0.01em;
+  }
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 24px 0 8px;
+  }
+  p { margin: 0 0 14px; }
+  a { color: var(--fg); }
+  a:visited { color: var(--fg); }
+  .note {
+    font-size: 13px;
+    color: var(--muted);
+    border-left: 2px solid var(--rule);
+    padding: 10px 16px;
+    margin: 16px 0;
+  }
+  /* tiles */
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 0 0 8px;
+  }
+  .tile {
+    background: #fff;
+    padding: 20px 18px;
+  }
+  .tile .label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .tile .value {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .tile .sub {
+    font-size: 12px;
+    color: var(--faint);
+    margin-top: 6px;
+  }
+  @media (max-width: 640px) {
+    .tiles { grid-template-columns: 1fr; }
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    margin: 0 0 8px;
+  }
+  th, td {
+    text-align: left;
+    padding: 9px 10px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  th {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    font-weight: 600;
+    border-bottom: 1px solid var(--fg);
+  }
+  td.status { white-space: nowrap; font-weight: 600; }
+  .s-pass::before { content: "PASS"; }
+  .s-warn::before { content: "WARN"; }
+  .s-fail::before { content: "FAIL"; }
+  .s-notchecked::before { content: "NOT CHECKED"; color: var(--faint); font-weight: 500; }
+  code, .mono {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 12.5px;
+    background: #f4f4f4;
+    padding: 1px 4px;
+  }
+  ol.actions { padding-left: 20px; margin: 0; }
+  ol.actions li { margin-bottom: 12px; }
+  .owner { color: var(--muted); font-size: 13px; }
+  ul.sources { padding-left: 18px; margin: 0; font-size: 13.5px; }
+  ul.sources li { margin-bottom: 6px; }
+  footer {
+    margin-top: 56px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    font-size: 12px;
+    color: var(--faint);
+  }
+  .methodbox {
+    border: 1px solid var(--rule);
+    padding: 16px 18px;
+    margin: 0 0 24px;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+  .methodbox strong { color: var(--fg); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>GEA SEO + AEO Report</h1>
+  <p class="dateline">October 2026 · covering 1 September – 1 October 2026 · prepared 1 October 2026</p>
+
+  <div class="methodbox">
+    <strong>Methodology note — read before the audit table.</strong> This session's network policy blocked outbound access to <span class="mono">grantsea.com.au</span> itself (and to unrelated domains such as <span class="mono">google.com</span> and the PageSpeed API) for every tool available, including direct curl and WebFetch — confirmed by a 403 policy denial at the egress proxy and an <span class="mono">EGRESS_BLOCKED</span> error from WebFetch. As a result, every check in Step 2 that requires fetching a live page (structured-data extraction, debug-route status codes, robots.txt/sitemap as actually served, title/meta tags, Core Web Vitals, suburb-page live content, the homepage/reviews rating strip) could not be run this month and is marked <strong>Not checked</strong> below with that reason. The audit instead draws directly on the Next.js source in this repository, which is a reliable proxy for what ships to production but is not a substitute for a live check. Recommend re-running the live portion of this audit from an environment permitted to reach the site, or supplying this report with a manual curl/PageSpeed pass next cycle.
+  </div>
+
+  <div class="tiles">
+    <div class="tile">
+      <div class="label">Google rating / reviews</div>
+      <div class="value">Not checked</div>
+      <div class="sub">Live homepage/reviews strip unreachable this session (see methodology note); repo confirms the number is pulled live from Google, not hardcoded</div>
+    </div>
+    <div class="tile">
+      <div class="label">Critical findings</div>
+      <div class="value">5</div>
+      <div class="sub">Fabricated office addresses, missing Person/LocalBusiness schema, empty agent profiles, fabricated homepage stats, no analytics archive</div>
+    </div>
+    <div class="tile">
+      <div class="label">New industry changes</div>
+      <div class="value">2 confirmed</div>
+      <div class="sub">September 2026 spam update; VideoObject structured-data update. Several other claims circulating this month did not hold up to verification (see below)</div>
+    </div>
+  </div>
+
+  <h2>What changed this month</h2>
+
+  <h3>Confirmed Google changes</h3>
+  <p><strong>September 2026 spam update (confirmed).</strong> Google began rolling this out globally on 24 September, warning it could take up to two weeks — its longest spam-update rollout yet. It's the fourth confirmed spam update of 2026 (after March, June and August) and Google hasn't disclosed what tactic it specifically targets. No action is indicated for GEA beyond the standing advice to avoid thin/duplicate content — see the suburb-page finding below. Sources: <a href="https://www.searchenginejournal.com/google-september-2026-spam-update/590828/">Search Engine Journal</a>, <a href="https://ppc.land/googles-september-spam-update-gets-a-two-week-rollout-its-longest-yet/">ppc.land</a>.</p>
+  <p><strong>VideoObject structured-data update (24 September).</strong> Google added a <span class="mono">creator</span> property and clarified <span class="mono">interactionStatistic</span> support for VideoObject schema. Not urgent for GEA today (no video schema is in use), but worth keeping in mind if property video tours get structured data later. Source: <a href="https://www.seroundtable.com/google-video-structured-data-creator-update-42162.html">Search Engine Roundtable</a>.</p>
+
+  <h3>Reported but not independently verified</h3>
+  <p>AI-generated search summaries this month repeatedly mentioned a "September 2026 core update" and a "product reviews update," but no single, clearly-dated primary article from Search Engine Journal, Search Engine Land or Google itself could be confirmed for either — one Search Engine Watch headline on the topic was phrased speculatively ("<a href="https://searchenginewatch.com/could-googles-next-core-update-arrive-in-september-2026/">Could Google's next core update arrive in September 2026?</a>"), which is inconsistent with a settled update. <span class="mono">status.search.google.com</span> could not be reached this session to check Google's own record directly — recommend a manual check next cycle before treating either as real.</p>
+  <p>Google's new anti-spam system, "SAFE" (Scaled Abuse Forensics Examiner), aimed at AI-generated spam networks, was newly discussed in the trade press this month (<a href="https://searchenginewatch.com/google-safe/">Search Engine Watch</a>), but commentators note the underlying documentation dates to roughly May–June 2026 — so this is wider awareness of an existing system, not a September deployment.</p>
+
+  <h3>AI-assistant citation behaviour</h3>
+  <p>No rigorous, independently verifiable, real-estate-specific study on how ChatGPT/Claude/Gemini/Perplexity cite local businesses was published in this exact 30-day window. The closest in-window data point is a vendor (Uberall) analysis of roughly 120,000 AI mentions, reportedly finding Gemini surfaces around 8× more unique local businesses than ChatGPT — directional only, and its own publication could not be independently located, so treat it as low-to-moderate confidence. Two broader, credible studies exist but fall outside the window and should not be re-cited as "this month's" news: BrightLocal's 2026 survey (45% of consumers now use AI to find local businesses, up from 6%) and Semrush's 2026 AI Visibility Index (126M AI prompts analysed) — both published earlier in 2026.</p>
+  <p><strong>Per standing policy for this report:</strong> there is no literal ranking system inside ChatGPT, Claude, Gemini or Perplexity the way there is in Google Search — these produce generative answers, not a ranked index you can "optimise into." A number of this month's search results were SEO-content-farm/affiliate listicles and PR-distributed "studies" promising to get a business to "rank #1 in ChatGPT" via an undisclosed "AI visibility score." These are marketing hype, not credible technique, and are excluded from the recommendations below.</p>
+
+  <h3>Australian real estate specific</h3>
+  <p>No Elite Agent, REB or Stepps article specifically about SEO or AI-answer visibility for Australian real estate agents was confirmed published in this window. The nearest relevant pieces — Elite Agent's "<a href="https://eliteagent.com/ai-search-real-estate-agents-be-the-answer/">AI Search for Real Estate Agents: Be the Answer</a>" and "<a href="https://eliteagent.com/the-new-1-ranking-how-to-get-recommended-by-chatgpt-and-win-more-listings/">The new #1 ranking: how to get recommended by ChatGPT</a>," and REB's "<a href="https://www.realestatebusiness.com.au/marketing/31534-how-ai-is-reshaping-seo-for-real-estate-agents">How AI is reshaping SEO for real estate agents</a>" — all date from March–May 2026 and are worth a read if not already seen, but are not new this month. Stepps' own AI-category content is notable for explicitly warning against vendors overselling guaranteed ChatGPT placement, which lines up with the caution above.</p>
+
+  <h3>Trending tools (one line each, unverified against primary sources where noted)</h3>
+  <p>Ahrefs' Brand Radar reportedly moved to a pay-as-you-go AI Visibility Index (~US$199/mo, ~83 prompts/day) as of September — reported only via third-party GEO-tool review sites, not Ahrefs' own blog, so treat as plausible but unconfirmed. SEOApp launched "SERP Sensor," a native AI Overviews tracker, via a 23 September newswire release — a vendor announcement, not an independent endorsement.</p>
+
+  <h2>Site audit</h2>
+  <p>Audited against the Next.js source in this repository (<span class="mono">src/lib/jsonLd.ts</span>, <span class="mono">src/data/agentProfiles.ts</span>, <span class="mono">src/app/offices/page.tsx</span>, <span class="mono">src/app/page-oncom-style.tsx</span>, and the relevant layout files). Live-page checks are marked Not checked per the methodology note above.</p>
+
+  <table>
+    <tr><th style="width:17%">Check</th><th style="width:9%">Status</th><th style="width:44%">Evidence</th><th style="width:30%">Fix</th></tr>
+
+    <tr>
+      <td>Org-level structured data</td>
+      <td class="status s-pass"></td>
+      <td>Root layout (<span class="mono">src/app/layout.tsx</span>) renders a sitewide <span class="mono">RealEstateAgent</span> node via <span class="mono">realEstateAgent()</span> in <span class="mono">src/lib/jsonLd.ts</span>, with NAP, geo, hours and <span class="mono">sameAs</span> social links. <span class="mono">FAQPage</span>/<span class="mono">BreadcrumbList</span> schema is also wired into 20 suburb layouts, /sell, /reviews, /agents, /agent/[id], /property/[id], /rent, /buy, /appraisal and /calculators.</td>
+      <td>None — this is a solid foundation.</td>
+    </tr>
+
+    <tr>
+      <td>Person schema — agent pages</td>
+      <td class="status s-fail"></td>
+      <td><span class="mono">src/app/agent/[id]/layout.tsx</span> emits only <span class="mono">realEstateAgent()</span>, a breadcrumb and the appraisal FAQ. No <span class="mono">Person</span> helper exists anywhere in <span class="mono">jsonLd.ts</span>, and no <span class="mono">Person</span> @type appears in the codebase.</td>
+      <td>Add a <span class="mono">Person</span> node per agent (name, jobTitle, worksFor, image, telephone, url) to the agent layout.</td>
+    </tr>
+
+    <tr>
+      <td>LocalBusiness per office</td>
+      <td class="status s-fail"></td>
+      <td><span class="mono">src/app/offices/page.tsx</span> has no sibling <span class="mono">layout.tsx</span>, so /offices renders with <strong>no JSON-LD at all</strong> — no per-office LocalBusiness/RealEstateAgent node exists.</td>
+      <td>Add a layout emitting one LocalBusiness node per office, once real addresses are confirmed (see next row).</td>
+    </tr>
+
+    <tr>
+      <td>Offices page — address accuracy (NAP)</td>
+      <td class="status s-fail"></td>
+      <td><strong>Critical.</strong> All three offices in <span class="mono">src/app/offices/page.tsx</span> use fabricated placeholder addresses: Narre Warren "123 Main Street," Berwick "456 High Street," Pakenham "789 Prince Highway" — each with matching fake Google Maps links built from the same placeholder text, and manager names (Sarah Thompson, Michael Chen, Emma Wilson) that could not be verified as real. This is live on production and is both a user-trust and NAP-accuracy problem for local SEO.</td>
+      <td>Replace with real, verified addresses, suite numbers, managers and Google Maps links for all three offices before any further local-SEO work on this page. Stuart to confirm correct details.</td>
+    </tr>
+
+    <tr>
+      <td>NAP consistency — org vs offices vs contact</td>
+      <td class="status s-warn"></td>
+      <td>The sitewide org schema uses one HQ phone number (+61 1300 472 687) and a single Berwick address. The /offices page shows three different local phone numbers per office. This isn't necessarily wrong (a head-office number plus branch lines is normal), but it couldn't be cross-checked against the live /contact page or Google Business Profile this session.</td>
+      <td>Once live-site access is restored, confirm all phone numbers and addresses match exactly across schema, /offices, /contact and each office's Google Business Profile.</td>
+    </tr>
+
+    <tr>
+      <td>Agent profile content (Q&amp;A / reviews)</td>
+      <td class="status s-fail"></td>
+      <td><span class="mono">src/data/agentProfiles.ts</span>: <span class="mono">AGENT_PROFILES</span> is an empty object — <strong>0 agents</strong> have real Q&amp;A or reviews populated. Every agent currently falls back to <span class="mono">placeholderQA()</span>, which renders clearly-marked placeholder text ("[Placeholder — awaiting &lt;name&gt;'s answer...]"). To the codebase's credit, this is handled responsibly — placeholders are visibly marked rather than disguised, and the file's own comments note fabricated reviews are an ACL legal risk, so the reviews section stays hidden until genuine quotes exist.</td>
+      <td>Collect real Q&amp;A answers and verified reviews from agents, starting with the highest-listing-volume agents, and add them to <span class="mono">agentProfiles.ts</span>.</td>
+    </tr>
+
+    <tr>
+      <td>Homepage proof stats</td>
+      <td class="status s-fail"></td>
+      <td><span class="mono">src/app/page-oncom-style.tsx</span> (~L1898–1956) hardcodes "250+ Properties sold monthly," "4.9 Average rating," "98% Success rate" and "15+ Expert agents" as static JSX with no fetch or computation nearby. This directly contradicts the repo's own <span class="mono">NO_MOCK_DATA_POLICY.md</span>, which explicitly lists "placeholder responses that appear real" as never allowed. Notably, a real, live Google rating is already wired up elsewhere (<span class="mono">getGoogleReviews()</span>, used on /sell and /reviews with 6-hour ISR) — the homepage tile just doesn't use it.</td>
+      <td>Replace the hero stat tile with real numbers: reuse <span class="mono">getGoogleReviews()</span> for the rating, compute agent count from the live roster, and either substantiate or remove "properties sold monthly" and "success rate."</td>
+    </tr>
+
+    <tr>
+      <td>Debug/test routes reachable in production</td>
+      <td class="status s-notchecked"></td>
+      <td>Not checked: live egress blocked this session. Repo confirms these exist as real routes: <span class="mono">/debug-properties</span>, <span class="mono">/test-navigation</span>, <span class="mono">/test-nav-debug</span>, <span class="mono">/demo-chat</span>, <span class="mono">/backstage</span>, <span class="mono">/api-test</span>, <span class="mono">/api/debug</span>, <span class="mono">/api/debug-open-homes</span>, <span class="mono">/api/debug-vault</span>, <span class="mono">/api/properties/debug</span>, <span class="mono">/api/properties/inspect-debug</span>. <span class="mono">public/robots.txt</span> disallows crawling of <span class="mono">/api-test</span>, <span class="mono">/debug-properties</span>, <span class="mono">/test-navigation</span>, <span class="mono">/test-nav-debug</span>, <span class="mono">/test-simple-nav</span>, <span class="mono">/property/test</span> and broadly <span class="mono">/api/</span> — but does <strong>not</strong> disallow <span class="mono">/demo-chat</span> or <span class="mono">/backstage</span>, and robots.txt only discourages crawling, it doesn't block direct access.</td>
+      <td>Manually curl these paths next cycle (or from an unrestricted environment). Add <span class="mono">/demo-chat</span> and <span class="mono">/backstage</span> to the robots.txt disallow list, and consider gating all debug/test routes behind auth or removing them from production builds entirely.</td>
+    </tr>
+
+    <tr>
+      <td>Suburb pages — doorway-page risk</td>
+      <td class="status s-notchecked"></td>
+      <td>Not checked live. Repo evidence is encouraging: each of the 20 suburb pages has its own content source file (e.g. <span class="mono">docs/berwick_guide.md</span>, <span class="mono">docs/cranbourne_guide.md</span>) and its own <span class="mono">layout.tsx</span> with distinct FAQ/breadcrumb schema, suggesting genuinely authored per-suburb content rather than one template with the name swapped — but this can't be confirmed without rendering the live pages.</td>
+      <td>Spot-check three live suburb pages next cycle for genuinely distinct body copy, given this month's spam update specifically risks thin/duplicate-template pages.</td>
+    </tr>
+
+    <tr>
+      <td>robots.txt (as checked into the repo)</td>
+      <td class="status s-pass"></td>
+      <td><span class="mono">public/robots.txt</span> explicitly allows AI crawlers — GPTBot, OAI-SearchBot, ClaudeBot, Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User, Google-Extended and CCBot all get "Allow: /" — a deliberate, AEO-aware choice already in place. It references both <span class="mono">sitemap-index.xml</span> and <span class="mono">sitemap.xml</span>.</td>
+      <td>None on the repo copy. Confirm the live-served file matches once site access is available.</td>
+    </tr>
+
+    <tr>
+      <td>Sitemap validity &amp; coverage</td>
+      <td class="status s-notchecked"></td>
+      <td>Not checked: live egress blocked. Repo has <span class="mono">src/app/sitemap.ts</span>, <span class="mono">src/app/sitemap-properties.xml</span> and an <span class="mono">api/sitemap</span> route, consistent with the index-plus-dynamic-property-sitemap setup the robots.txt comment describes.</td>
+      <td>Verify live next cycle.</td>
+    </tr>
+
+    <tr>
+      <td>Title / meta description / canonical tags</td>
+      <td class="status s-notchecked"></td>
+      <td>Not checked: live egress blocked.</td>
+      <td>Verify live next cycle.</td>
+    </tr>
+
+    <tr>
+      <td>Core Web Vitals / PageSpeed</td>
+      <td class="status s-notchecked"></td>
+      <td>Not checked: the PageSpeed Insights API (googleapis.com) was also blocked by this session's egress policy, independent of the target site.</td>
+      <td>Run <a href="https://pagespeed.web.dev/">pagespeed.web.dev</a> manually for mobile and desktop next cycle.</td>
+    </tr>
+
+    <tr>
+      <td>Mobile viewport tag</td>
+      <td class="status s-notchecked"></td>
+      <td>Not checked: live egress blocked.</td>
+      <td>Verify live next cycle.</td>
+    </tr>
+
+    <tr>
+      <td>Google Business Profile rating vs homepage/reviews strip</td>
+      <td class="status s-notchecked"></td>
+      <td>Not checked: live egress blocked, and this is the first report in this series so there is nothing to trend against yet.</td>
+      <td>Verify live next cycle; this report's number becomes next month's baseline.</td>
+    </tr>
+
+    <tr>
+      <td>Analytics archive</td>
+      <td class="status s-fail"></td>
+      <td><span class="mono">docs/analytics/</span> does not exist in the repository — no GA4 or Search Console exports are being kept anywhere this report can read.</td>
+      <td>See Analytics section below.</td>
+    </tr>
+
+  </table>
+
+  <h2>Analytics</h2>
+  <p><strong>No analytics data was available.</strong> The repository has no <span class="mono">docs/analytics/</span> folder at all, so sessions, organic sessions, top landing pages, top queries, branded-vs-non-branded split, and page-group trends could not be reported this month.</p>
+  <p><strong>Recommendation:</strong> export GA4 and Google Search Console data monthly into <span class="mono">docs/analytics/YYYY-MM/</span> (CSV or JSON) so this report can track real trends going forward. Until that exists, this section will read "not available" every month.</p>
+
+  <h2>AI mention check</h2>
+  <p>Run via WebSearch only (no ChatGPT access, and this tool is not a direct read of Google's live SERP or its AI Overview box — treat the AI Overview columns as unverified and confirm manually from an Australia-located browser next cycle).</p>
+  <table>
+    <tr><th>Query</th><th>GEA/agent in top results?</th><th>AI Overview visible?</th><th>AI Overview mentions GEA?</th><th>Notable competitors seen</th></tr>
+    <tr>
+      <td>"Grant's Estate Agents" Berwick</td>
+      <td>Y — own site, Domain.com.au, RateMyAgent, Facebook, LinkedIn, Allhomes</td>
+      <td>Not verifiable via this tool</td>
+      <td>Not verifiable via this tool</td>
+      <td>None (brand query)</td>
+    </tr>
+    <tr>
+      <td>best real estate agent Berwick</td>
+      <td>N — results were dominated by Berwick, Maine/Pennsylvania (US) agents; query needs "VIC"/"Australia" to disambiguate</td>
+      <td>Not verifiable via this tool</td>
+      <td>Not verifiable via this tool</td>
+      <td>N/A — wrong-country results</td>
+    </tr>
+    <tr>
+      <td>best real estate agent Narre Warren</td>
+      <td>N — GEA did not appear in the result set returned</td>
+      <td>Not verifiable via this tool</td>
+      <td>Not verifiable via this tool</td>
+      <td>Ray White, Only Estate Agents, Rexhepi Real Estate, LJ Hooker, Raine &amp; Horne, First National Neilson Partners, O'Brien Real Estate, Barry Plant</td>
+    </tr>
+    <tr>
+      <td>best real estate agent Pakenham</td>
+      <td>Y — "Grants Estate Agents Pakenham" appeared</td>
+      <td>Not verifiable via this tool</td>
+      <td>Not verifiable via this tool</td>
+      <td>LJ Hooker, Barry Plant, Rebecca O'Brien/Area Specialist, Gerard Collins Real Estate, Ray White, Neilson Partners</td>
+    </tr>
+  </table>
+  <p>GEA surfaces for its own brand name and for "Pakenham," but not for the generic "Narre Warren" query in this tool's results, and the "Berwick" generic query is confounded by same-named US towns. Worth re-testing the exact phrasing manually from an Australia-located, logged-out browser to get a true read, since this tool's search isn't geo-localised to Melbourne.</p>
+
+  <h2>Top five actions for next month</h2>
+  <ol class="actions">
+    <li>Replace the three fabricated office addresses, managers and map links on /offices with real, verified details. <span class="owner">Owner: Stuart · Effort: Low</span></li>
+    <li>Add Person schema to each agent bio page and a LocalBusiness node per office once addresses are confirmed. <span class="owner">Owner: Stepps web developer · Effort: Medium</span></li>
+    <li>Replace the homepage hero stat tile ("250+", "98%", "4.9", "15+") with real figures, reusing the live Google rating already wired up on /sell and /reviews. <span class="owner">Owner: Stepps web developer · Effort: Low–Medium</span></li>
+    <li>Collect and publish real Q&amp;A answers and verified reviews for at least the top five highest-volume agents in <span class="mono">agentProfiles.ts</span>. <span class="owner">Owner: Marketing Manager · Effort: Medium</span></li>
+    <li>Start monthly GA4 + Search Console exports into <span class="mono">docs/analytics/YYYY-MM/</span>, and manually run the live-site checks this report couldn't reach (debug-route status codes, PageSpeed, meta tags, sitemap). <span class="owner">Owner: Marketing Manager · Effort: Low</span></li>
+  </ol>
+
+  <h2>Since last month</h2>
+  <p>Not applicable — this is the first report of this kind; no prior audit exists in <span class="mono">docs/seo-reports/</span> to compare against. This report is the baseline going forward.</p>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="https://www.searchenginejournal.com/google-september-2026-spam-update/590828/">Search Engine Journal — Google's September 2026 Spam Update</a></li>
+    <li><a href="https://ppc.land/googles-september-spam-update-gets-a-two-week-rollout-its-longest-yet/">ppc.land — Google's September spam update rollout</a></li>
+    <li><a href="https://searchenginewatch.com/could-googles-next-core-update-arrive-in-september-2026/">Search Engine Watch — speculative September core update piece</a></li>
+    <li><a href="https://searchenginewatch.com/google-safe/">Search Engine Watch — Google's SAFE anti-spam system</a></li>
+    <li><a href="https://www.seroundtable.com/google-video-structured-data-creator-update-42162.html">Search Engine Roundtable — VideoObject structured data update</a></li>
+    <li><a href="https://eliteagent.com/ai-search-real-estate-agents-be-the-answer/">Elite Agent — AI Search for Real Estate Agents: Be the Answer (May 2026, outside window, background reading)</a></li>
+    <li><a href="https://eliteagent.com/the-new-1-ranking-how-to-get-recommended-by-chatgpt-and-win-more-listings/">Elite Agent — The new #1 ranking (March 2026, outside window, background reading)</a></li>
+    <li><a href="https://www.realestatebusiness.com.au/marketing/31534-how-ai-is-reshaping-seo-for-real-estate-agents">REB — How AI is reshaping SEO for real estate agents (March 2026, outside window, background reading)</a></li>
+    <li><a href="https://www.tryprofound.com/blog/ahrefs-brand-radar-review">tryprofound.com — Ahrefs Brand Radar pricing (third-party, unverified against primary source)</a></li>
+    <li><a href="https://manilatimes.net/2026/09/30/tmt-newswire/plentisoft/seo-app-launches-serp-sensor-to-monitor-ai-overviews/2436436">Newswire — SEOApp SERP Sensor launch announcement</a></li>
+  </ul>
+
+  <footer>
+    Prepared for Stuart Grant and the Marketing Manager, Grant's Estate Agents. Generated from the grantsea-website repository source and WebSearch research; no site source files were modified in producing this report.
+  </footer>
+
+</div>
+</body>
+</html>

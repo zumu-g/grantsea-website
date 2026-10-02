@@ -9,26 +9,117 @@ import { formatPrice } from '@/services/api';
 import { useAuth } from '@/contexts/AuthContext';
 import { createClient } from '@/lib/supabase/client';
 
+// Registration history shows past inspections too, so this can't use
+// formatNextInspection (which filters to upcoming and returns null otherwise).
+function formatInspectionWindow(startAt: string, endAt?: string | null): string {
+  const start = new Date(startAt);
+  if (Number.isNaN(start.getTime())) return 'Time to be confirmed';
+  const date = start.toLocaleDateString('en-AU', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+  });
+  const time = (d: Date) =>
+    d.toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit' }).toLowerCase();
+  const end = endAt ? new Date(endAt) : null;
+  const endValid = end && !Number.isNaN(end.getTime());
+  return `${date}, ${time(start)}${endValid ? `–${time(end!)}` : ''}`;
+}
+
 export default function ProfilePage() {
   const { savedPropertyIds } = useSavedProperties();
   const { user } = useAuth();
   const [savedProperties, setSavedProperties] = useState<any[]>([]);
+  const [savedLoading, setSavedLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('profile');
   const [prefsSaved, setPrefsSaved] = useState(false);
 
-  // Load full saved property data
+  // useSavedProperties maps a new array each render, so depend on a stable
+  // string key — passing the array itself would refetch on every render.
+  const savedIdsKey = savedPropertyIds.join(',');
+
+  // Hydrate saved properties by id from the API. The ids come from the
+  // Supabase-backed saved_properties table (shared with the iOS app), so a
+  // property saved on the app must resolve here too — the previous
+  // localStorage read only ever saw saves made in this browser.
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const savedData = localStorage.getItem('savedPropertiesData');
-        if (savedData) {
-          setSavedProperties(JSON.parse(savedData));
-        }
-      } catch (error) {
-        console.error('Error loading saved properties data:', error);
-      }
+    let cancelled = false;
+    const ids = savedIdsKey ? savedIdsKey.split(',') : [];
+
+    if (ids.length === 0) {
+      setSavedProperties([]);
+      setSavedLoading(false);
+      return;
     }
-  }, [savedPropertyIds]);
+
+    setSavedLoading(true);
+    Promise.all(
+      ids.map((id) =>
+        fetch(`/api/properties/${encodeURIComponent(id)}`)
+          .then((res) => (res.ok ? res.json() : null))
+          .then((json) => json?.data ?? null)
+          // A delisted/sold property 404s — drop it rather than failing the whole list.
+          .catch(() => null)
+      )
+    ).then((results) => {
+      if (cancelled) return;
+      setSavedProperties(results.filter(Boolean));
+      setSavedLoading(false);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [savedIdsKey]);
+
+  // Open-home registrations — shared open_home_registrations table (same rows
+  // the iOS app writes). Address/time live in open_home_snapshots, matched on
+  // open_home_id. There is no FK between the two tables, so PostgREST can't
+  // embed them; fetch both and join here.
+  const [registrations, setRegistrations] = useState<any[]>([]);
+  const [registrationsLoading, setRegistrationsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!user) {
+      setRegistrations([]);
+      setRegistrationsLoading(false);
+      return;
+    }
+    let cancelled = false;
+    setRegistrationsLoading(true);
+    const supabase = createClient();
+
+    (async () => {
+      const { data: regs } = await supabase
+        .from('open_home_registrations')
+        .select('id, property_id, open_home_id, status, created_at')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+      if (cancelled) return;
+      if (!regs?.length) {
+        setRegistrations([]);
+        setRegistrationsLoading(false);
+        return;
+      }
+
+      const { data: snaps } = await supabase
+        .from('open_home_snapshots')
+        .select('open_home_id, address, start_at, end_at')
+        .in('open_home_id', regs.map((r) => r.open_home_id));
+
+      if (cancelled) return;
+      const byId = new Map((snaps ?? []).map((s) => [String(s.open_home_id), s]));
+      setRegistrations(
+        regs.map((r) => ({ ...r, snapshot: byId.get(String(r.open_home_id)) ?? null }))
+      );
+      setRegistrationsLoading(false);
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [user]);
 
   // Real user data (from Supabase auth + profiles). notificationsEnabled is the
   // master "stop notifications" toggle.
@@ -149,6 +240,12 @@ export default function ProfilePage() {
           Saved Properties ({savedProperties.length})
         </button>
         <button
+          className={`tab-button ${activeTab === 'inspections' ? 'active' : ''}`}
+          onClick={() => setActiveTab('inspections')}
+        >
+          Open Homes ({registrations.length})
+        </button>
+        <button
           className={`tab-button ${activeTab === 'searches' ? 'active' : ''}`}
           onClick={() => setActiveTab('searches')}
         >
@@ -219,9 +316,11 @@ export default function ProfilePage() {
         {activeTab === 'properties' && (
           <div className="properties-section">
             <h2>Saved Properties</h2>
-            {savedProperties.length === 0 ? (
+            {savedLoading ? (
+              <p>Loading your saved properties…</p>
+            ) : savedProperties.length === 0 ? (
               <div className="empty-state">
-                <p>You haven't saved any properties yet.</p>
+                <p>You haven&apos;t saved any properties yet.</p>
                 <Link href="/search" className="browse-link">Browse Properties</Link>
               </div>
             ) : (
@@ -229,25 +328,67 @@ export default function ProfilePage() {
                 {savedProperties.map(property => (
                   <div key={property.id} className="property-card">
                     <Link href={`/property/${property.id}`}>
-                      <div className="property-image">
-                        <img 
-                          src={property.images?.[0]?.url || 'https://via.placeholder.com/400x300'} 
-                          alt={property.address?.display || 'Property'}
-                        />
-                      </div>
+                      {property.images?.[0]?.url && (
+                        <div className="property-image">
+                          <img src={property.images[0].url} alt={property.address || 'Property'} />
+                        </div>
+                      )}
                       <div className="property-details">
-                        <h3>{property.address?.display || 'Address not available'}</h3>
+                        <h3>{property.address || 'Address not available'}</h3>
                         <p className="property-price">
-                          {property.listingType === 'Lease' 
-                            ? `${formatPrice(property.price || 0)} per week`
-                            : formatPrice(property.price || 0)
-                          }
+                          {property.listingType === 'lease'
+                            ? property.leasePriceDisplay || property.priceDisplay
+                            : property.priceDisplay}
                         </p>
                         <p className="property-features">
-                          {property.bedrooms || 0} beds • {property.bathrooms || 0} baths • {property.parking || 0} cars
+                          {property.bedrooms || 0} beds • {property.bathrooms || 0} baths • {property.carSpaces || 0} cars
                         </p>
                       </div>
                     </Link>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Open Home Registrations Tab */}
+        {activeTab === 'inspections' && (
+          <div className="properties-section">
+            <h2>Open Homes You&apos;ve Registered For</h2>
+            {registrationsLoading ? (
+              <p>Loading your registrations…</p>
+            ) : registrations.length === 0 ? (
+              <div className="empty-state">
+                <p>You haven&apos;t registered for any open homes yet.</p>
+                <Link href="/buy/open-for-inspection" className="browse-link">
+                  Browse Open Homes
+                </Link>
+              </div>
+            ) : (
+              <div className="searches-list">
+                {registrations.map((reg) => (
+                  <div key={reg.id} className="search-card">
+                    <div className="search-header">
+                      <h3>{reg.snapshot?.address || 'Property'}</h3>
+                      {reg.status && reg.status !== 'pending' && (
+                        <span className="new-badge">{reg.status}</span>
+                      )}
+                    </div>
+                    <div className="search-criteria">
+                      {reg.snapshot?.start_at ? (
+                        <p>
+                          <strong>Inspection:</strong> {formatInspectionWindow(reg.snapshot.start_at, reg.snapshot.end_at)}
+                        </p>
+                      ) : (
+                        <p>Inspection time to be confirmed.</p>
+                      )}
+                    </div>
+                    <div className="search-actions">
+                      <Link href={`/property/${reg.property_id}`} className="view-button">
+                        View Property
+                      </Link>
+                    </div>
                   </div>
                 ))}
               </div>

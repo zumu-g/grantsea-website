@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { SUBURBS } from '@/lib/jsonLd';
+import { createClient } from '@/lib/supabase/server';
 
 // Lead capture endpoint for contact, appraisal, property-enquiry, and
 // market-report forms. Delivers via Resend's HTTP API (no SDK needed).
@@ -149,6 +150,36 @@ export async function POST(request: NextRequest) {
     extra.agentName = details.agentName;
     extra.agentEmail = details.agentEmail;
     delete extra.propertyId;
+
+    // Property enquiries go into the shared `enquiries` table — the same rows
+    // the iOS app writes. A DB trigger forwards each row to the notify-enquiry
+    // edge function, which does the CRM write and emails the agent, so this
+    // path must NOT also send its own Resend email or the agent is notified
+    // twice. Writing user_id when signed in is what makes the enquiry appear in
+    // the user's profile on both web and app; anonymous enquiries insert null.
+    // A failed insert falls through to the Resend path so a lead is never lost.
+    try {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      const { error } = await supabase.from('enquiries').insert({
+        type: 'inquiry',
+        property_id: propertyId,
+        property_title: details.address,
+        agent_email: details.agentEmail || null,
+        name,
+        email,
+        phone: phone || null,
+        message: (extra.message as string) || null,
+        user_id: user?.id ?? null,
+      });
+      if (!error) {
+        await trackLeadConversion(type);
+        return NextResponse.json({ success: true });
+      }
+      console.error('enquiries insert failed, falling back to email:', error.message);
+    } catch (e) {
+      console.error('enquiries insert threw, falling back to email:', e);
+    }
   }
 
   if (type === 'market-report') {

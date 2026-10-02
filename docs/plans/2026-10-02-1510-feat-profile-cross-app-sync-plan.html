@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Profile Cross-App Sync — Plan</title>
+<style>
+  :root{--ink:#111;--sub:#555;--line:#ddd;--bg:#fff;--mono:ui-monospace,Menlo,Consolas,monospace;}
+  body{font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;color:var(--ink);background:var(--bg);
+       max-width:880px;margin:0 auto;padding:48px 32px 96px;line-height:1.5;}
+  h1{font-size:28px;font-weight:700;letter-spacing:-0.01em;margin:0 0 6px;}
+  .meta{color:var(--sub);font-size:13px;margin-bottom:40px;}
+  h2{font-size:19px;font-weight:700;margin:44px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line);}
+  h3{font-size:15px;font-weight:700;margin:22px 0 8px;}
+  p{margin:0 0 12px;}
+  ul,ol{margin:0 0 14px;padding-left:22px;}
+  li{margin-bottom:6px;}
+  code,.mono{font-family:var(--mono);font-size:13px;background:#f4f4f4;padding:1px 5px;border-radius:3px;}
+  pre{font-family:var(--mono);font-size:12.5px;background:#f6f6f6;border:1px solid var(--line);
+      padding:14px 16px;border-radius:4px;overflow-x:auto;margin:0 0 14px;}
+  table{border-collapse:collapse;width:100%;margin:0 0 16px;font-size:13.5px;}
+  th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  th{background:#fafafa;font-weight:700;}
+  .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;
+       padding:2px 7px;border-radius:3px;margin-right:6px;}
+  .tag-flag{background:#fff3cd;color:#8a6100;}
+  .tag-decided{background:#e6f4ea;color:#1e6b34;}
+  .tag-out{background:#fde2e2;color:#9b1c1c;}
+  .callout{background:#f8f8f8;border-left:3px solid #999;padding:10px 16px;margin:0 0 16px;font-size:14px;}
+</style>
+</head>
+<body>
+
+<h1>Profile Cross-App Sync — Website Side</h1>
+<div class="meta">Grant's Estate Agents website · docs/plans/2026-10-02-1510-feat-profile-cross-app-sync-plan.html</div>
+
+<h2>1. What and why</h2>
+<p>Confirmed with the GEA app project: saves, open-home registrations, and enquiries all already share one Supabase backend across the website and the iOS app. But the website's own profile page and lead-capture route don't fully use what's there yet. Three concrete gaps, all fixable without touching the shared schema:</p>
+<ol>
+<li>Profile page hydrates saved-property detail from <code>localStorage</code> instead of fetching by id — so a property saved on the app doesn't appear on the web profile.</li>
+<li>Profile page has no "your open home registrations" section at all, despite the data being fully queryable per <code>user_id</code>.</li>
+<li>The website's lead-capture route (<code>/api/lead</code>) emails property enquiries straight through Resend and never writes to the shared <code>enquiries</code> table — so a property enquiry made on the website never shows in anyone's profile, on either app, and bypasses the CRM pipeline the app already uses.</li>
+</ol>
+
+<h2>2. Confirmed shared schema (from the app project)</h2>
+<table>
+<tr><th>Table</th><th>Columns</th><th>Notes</th></tr>
+<tr><td><code>saved_properties</code></td><td>id, user_id, property_id (text, raw VaultRE id), saved_at, listing_type</td><td>unique(user_id, property_id)</td></tr>
+<tr><td><code>open_home_registrations</code></td><td>id, user_id, property_id, open_home_id, status (default 'pending'), vaultre_ref, created_at, updated_at</td><td>unique(user_id, open_home_id); join <code>open_home_snapshots</code> on <code>open_home_id</code> for address/time</td></tr>
+<tr><td><code>enquiries</code></td><td>id, type ('inquiry' | 'inspection'), property_id, property_title, agent_email, name, email, phone, message, preferred_at, created_at, user_id (nullable)</td><td>insert triggers <code>notify-enquiry</code> edge function &rarr; CRM write + agent email, via shared <code>supabase/functions/_shared/crm.ts</code>. Anon or authenticated insert both work.</td></tr>
+</table>
+<p class="callout"><span class="tag tag-flag">flag</span> This repo has no Supabase migrations/schema of its own — <code>enquiries</code>, its type check, and the <code>notify-enquiry</code> trigger live in the app project. Any schema change is a request back to that project (§6), not something built here.</p>
+
+<h2>3. Decisions</h2>
+<table>
+<tr><th>Decision</th><th>Outcome</th></tr>
+<tr><td>Which lead types move to <code>enquiries</code></td><td><span class="tag tag-decided">decided</span> Only <code>property-enquiry</code>. It already carries a real <code>property_id</code> and the server already resolves address/agent from it (<code>resolvePropertyDetails</code> in <code>route.ts</code>) — a clean fit for <code>type: 'inquiry'</code>. <code>contact</code> and <code>market-report</code> have no property context and don't fit the schema; <code>appraisal</code> would need the type check extended (out of scope here, see §6) — all three stay on the existing Resend-only path for now.</td></tr>
+<tr><td>Resend email for <code>property-enquiry</code></td><td><span class="tag tag-decided">decided</span> Drop the direct Resend call for this type once the <code>enquiries</code> insert lands — the <code>notify-enquiry</code> trigger already emails the agent via the shared CRM path. Keeping both would double-email the agent on every property enquiry.</td></tr>
+<tr><td>Anonymous visitors</td><td><span class="tag tag-decided">decided</span> Still allowed. <code>user_id</code> is nullable on <code>enquiries</code> and anon insert is confirmed to work; write <code>user_id</code> when <code>createClient()</code> resolves a session, leave it <code>null</code> otherwise. No sign-in wall added to the enquiry form.</td></tr>
+</table>
+
+<h2>4. Website-side tasks</h2>
+
+<h3>4.1 Fix saved-properties hydration on the profile page</h3>
+<p><code>src/app/profile/page.tsx</code> currently loads full property data from <code>localStorage.getItem('savedPropertiesData')</code> (lines ~19-31). Replace with: for each id in <code>savedPropertyIds</code> (from <code>useSavedProperties</code>, already Supabase-backed), fetch <code>/api/properties/[id]</code> in parallel and build the display list from the responses. Drop the <code>localStorage</code> read entirely — it's the actual bug, not a fallback worth keeping.</p>
+
+<h3>4.2 Add an "Open home registrations" section to the profile</h3>
+<ul>
+<li>New Supabase query (client-side, via <code>useAuth</code>'s <code>user.id</code>, or server component if the page is restructured): <code>open_home_registrations</code> for the current user, joined to <code>open_home_snapshots</code> on <code>open_home_id</code> for address/date/time.</li>
+<li>New tab alongside "Saved Properties" / "Saved Searches" (matches the existing tab pattern in <code>profile/page.tsx</code>), listing registered inspections with status, linking each to <code>/property/[id]</code>.</li>
+<li>Empty state: "You haven't registered for any open homes yet," matching the existing empty-state style for saved properties.</li>
+</ul>
+
+<h3>4.3 Route property enquiries through the shared <code>enquiries</code> table</h3>
+<p>In <code>src/app/api/lead/route.ts</code>, for <code>type === 'property-enquiry'</code>, after <code>resolvePropertyDetails</code> resolves address/agent:</p>
+<pre>const supabase = createClient(); // src/lib/supabase/server.ts — cookie-aware, anon fallback
+const { data: { user } } = await supabase.auth.getUser();
+
+const { error } = await supabase.from('enquiries').insert({
+  type: 'inquiry',
+  property_id: propertyId,
+  property_title: details.address,
+  agent_email: details.agentEmail,
+  name, email, phone,
+  message: extra.message ?? null,
+  user_id: user?.id ?? null,
+});
+if (error) {
+  // fall back to the existing Resend path rather than silently losing the lead
+}</pre>
+<ul>
+<li>Keep the existing GA4 <code>trackLeadConversion</code> call unchanged.</li>
+<li>Keep a Resend fallback path <em>only</em> for insert failure (never fake success, per this route's existing policy) — don't send Resend when the insert succeeds, to avoid double-notifying the agent.</li>
+<li>Rate limiting, honeypot, body-size cap, and field allow-listing all stay exactly as they are — this only changes where a successful <code>property-enquiry</code> submission is delivered.</li>
+<li><code>contact</code>, <code>appraisal</code>, <code>market-report</code> types are untouched — same Resend-only path as today.</li>
+</ul>
+
+<h2>5. Explicitly out of scope</h2>
+<ul>
+<li>Any Supabase schema or migration change — not owned by this repo (§2 flag).</li>
+<li>Moving <code>contact</code>, <code>appraisal</code>, or <code>market-report</code> leads onto the <code>enquiries</code> table.</li>
+<li>Building a unified "saved / registered / enquired" timeline UI beyond three separate profile sections — a combined feed is a nice-to-have, not needed to close the gaps raised.</li>
+<li>Changing anything in the app project itself.</li>
+</ul>
+
+<h2>6. Follow-up asks back to the app project (not blocking this plan)</h2>
+<ul>
+<li>Add a <code>source text default 'app'</code> column to <code>enquiries</code> (website would write <code>'web'</code>) so enquiry origin is distinguishable in the CRM/reporting.</li>
+<li>If appraisal requests should also flow through the shared CRM path, extend the <code>type</code> check constraint to allow <code>'appraisal'</code> — only needed if/when that migration ships; website's appraisal form stays on Resend-only until then.</li>
+</ul>
+
+<h2>7. Verification</h2>
+<ul>
+<li><code>npm run typecheck</code> and a production <code>npm run build</code> after each task.</li>
+<li>Manually confirm: saving a property as one test account in the iOS app simulator (or directly inserting a test row) shows up on the website profile after the fetch-by-id fix.</li>
+<li>Manually confirm: a test property-enquiry submission produces exactly one agent notification (not two) and a new row in <code>enquiries</code> with <code>user_id</code> set when signed in.</li>
+</ul>
+
+<h2>8. Rollout</h2>
+<p>New branch off <code>main</code> (this is unrelated to the sold-results/about-page work already shipped): <code>feat/profile-cross-app-sync</code>. Three independent-ish tasks (4.1, 4.2, 4.3) — fine to land as one PR given the shared theme and small size of each.</p>
+
+</body>
+</html>

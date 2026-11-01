@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEA SEO + AEO Report — November 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1c1c;
+    --secondary:#5e5e5e;
+    --hairline:#cfc4c5;
+    --surface:#fff;
+    --bg:#f9f9f9;
+  }
+  *{box-sizing:border-box;}
+  @page{size:A4 portrait;margin:0;}
+  html,body{margin:0;padding:0;background:var(--bg);}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    font-feature-settings:'tnum' 1;
+    font-variant-numeric:tabular-nums;
+  }
+  .sheet{
+    width:210mm;
+    height:297mm;
+    margin:0 auto;
+    background:var(--surface);
+    padding:16mm 18mm;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    page-break-after:always;
+  }
+  .sheet:last-of-type{page-break-after:auto;}
+  @media screen{
+    body{padding:10mm 0;}
+    .sheet{margin-bottom:10mm;box-shadow:none;border:1px solid var(--hairline);}
+  }
+
+  /* Masthead */
+  .masthead{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:8px;
+    margin-bottom:10mm;
+  }
+  .masthead-logo{width:44px;height:auto;display:block;}
+  .masthead-meta{
+    text-align:right;
+    font-size:7.5pt;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    line-height:1.5;
+    color:var(--ink);
+  }
+  .masthead-meta .ref{color:var(--secondary);}
+
+  .body{flex:1;min-height:0;display:flex;flex-direction:column;}
+
+  footer.sheetfoot{margin-top:auto;}
+  .footrow{
+    display:flex;
+    justify-content:space-between;
+    font-size:7.5pt;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--secondary);
+    padding-top:6px;
+    border-top:1px solid var(--hairline);
+  }
+
+  .kicker{
+    font-size:8.5pt;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--secondary);
+    margin:0 0 6px 0;
+  }
+  h1{
+    font-size:28pt;
+    font-weight:600;
+    letter-spacing:-0.04em;
+    margin:0 0 10px 0;
+    line-height:1.08;
+  }
+  .subtitle{
+    font-size:11pt;
+    color:var(--secondary);
+    margin:0 0 20px 0;
+    max-width:150mm;
+  }
+  h2{
+    font-size:14pt;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    border-top:1px solid var(--ink);
+    padding-top:8px;
+    margin:22px 0 10px 0;
+  }
+  h2:first-child{margin-top:0;}
+  h3{
+    font-size:11pt;
+    font-weight:600;
+    margin:0 0 6px 0;
+  }
+  p{font-size:10pt;line-height:1.45;margin:0 0 8px 0;}
+  ul,ol{font-size:10pt;line-height:1.45;margin:0 0 8px 0;padding-left:16px;}
+  li{margin-bottom:4px;}
+  a{color:var(--ink);text-decoration:underline;}
+
+  .stat-row{display:flex;gap:16px;margin:14px 0 18px 0;}
+  .stat{flex:1;border-top:1px solid var(--ink);padding-top:8px;}
+  .stat .num{font-size:22pt;font-weight:600;letter-spacing:-0.02em;line-height:1.1;}
+  .stat .label{font-size:8.5pt;color:var(--secondary);margin-top:4px;line-height:1.35;}
+
+  .readfirst{font-size:9.5pt;}
+  .readfirst li{margin-bottom:5px;}
+
+  .recommend{
+    border-top:2px solid var(--ink);
+    padding-top:10px;
+    margin-top:auto;
+  }
+  .recommend .kicker{margin-bottom:4px;}
+  .recommend p{margin-top:4px;}
+
+  table{width:100%;border-collapse:collapse;font-size:9pt;margin-bottom:4px;}
+  th{
+    text-align:left;
+    font-size:7.5pt;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    font-weight:600;
+    border-bottom:1px solid var(--ink);
+    padding:0 8px 6px 0;
+  }
+  td{
+    border-bottom:1px solid var(--hairline);
+    padding:5px 8px 5px 0;
+    vertical-align:top;
+  }
+  td.status, th.status{white-space:nowrap;}
+  .status-tag{
+    font-size:8pt;
+    font-weight:700;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+  }
+  .col-check{width:19%;}
+  .col-status{width:10%;}
+  .col-evidence{width:40%;}
+  .col-fix{width:31%;}
+
+  .small{font-size:8.5pt;color:var(--secondary);}
+  .mono{font-family:'Inter',monospace;font-size:8.5pt;}
+
+  .section-stack{display:flex;flex-direction:column;gap:2px;}
+  .tool-list li{margin-bottom:6px;}
+</style>
+</head>
+<body>
+
+<!-- Reusable logo markup (monochrome): tile fill ink, lettering white -->
+
+<!-- ============ SHEET 1 ============ -->
+<section class="sheet">
+  <div class="masthead">
+    <svg class="masthead-logo" viewBox="0 0 329 211" xmlns="http://www.w3.org/2000/svg">
+      <g transform="matrix(1,0,0,1,0,0.54)"><path d="M314.652,103.526C317.028,112.38 311.772,121.488 302.91,123.861L46.235,192.64C37.372,195.012 28.268,189.754 25.894,180.893L1.82,91.058C-0.554,82.198 4.706,73.091 13.564,70.716L270.243,1.944C279.101,-0.433 288.208,4.825 290.585,13.688L314.652,103.526Z" fill="#1a1c1c"/></g>
+      <g transform="matrix(1,0,0,1,0,65.09)"><path d="M69.69,54.668C71.438,61.182 72.265,67.856 64.774,69.861C57.285,71.871 54.582,65.696 52.841,59.185C51.094,52.669 50.352,45.977 57.834,43.971C65.332,41.963 67.948,48.154 69.69,54.668ZM83.668,73.612L72.674,32.58L64.614,34.738L65.79,39.132C61.695,36.221 58.052,35.978 53.654,37.155C49.5,38.266 46.354,40.503 44.685,43.393C41.762,48.454 42.66,54.406 44.536,61.409C46.412,68.41 48.61,74.015 53.668,76.938C56.563,78.605 60.347,79.071 64.5,77.961C68.737,76.827 71.851,74.77 73.901,70.379L75.32,75.671C76.803,81.213 75.448,86.894 68.444,88.773C64.372,89.862 61.77,89.251 58.512,87.507L54.635,94.216C60.022,97.05 64.402,97.446 70.67,95.765C81.658,92.817 86.374,83.706 83.668,73.612Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,29.28)"><path d="M108.322,69.232C105.951,67.858 104.243,67.357 101.395,68.121C96.911,69.319 94.13,73.906 95.658,79.605L102.376,104.674L94.074,106.9L83.013,65.627L91.152,63.446L92.353,67.923C93.685,64.424 97.37,61.258 102.012,60.012C106,58.944 109.296,59.196 112.911,61.282L108.322,69.232Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,9)"><path d="M147.067,97.014C147.85,99.944 147.808,102.052 146.909,103.599C145.279,106.3 142.983,107.179 139.807,108.03C134.601,109.426 131.674,107.946 130.668,104.201C129.664,100.455 131.601,97.58 136.486,96.272L146.171,93.677L147.067,97.014ZM159.36,109.684L151.964,82.088C149.458,72.727 142.476,69.449 131.157,72.484C124.316,74.316 120.616,76.788 117.929,82.391L124.762,86.058C126.254,82.523 128.173,80.872 132.733,79.651C139.158,77.927 142.445,79.751 143.835,84.964L144.622,87.894L133.711,90.821C124.27,93.349 120.8,99.599 122.653,106.521C123.593,110.022 125.577,112.895 128.287,114.522C131.486,116.37 135.234,116.672 140.359,115.298C145.49,113.924 148.01,111.941 150.214,108.124L151.223,111.868L159.36,109.684Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,-11.31)"><path d="M194.854,120.486L188.113,95.334C186.392,88.901 181.986,87.112 177.346,88.362C172.706,89.604 169.562,93.496 171.263,99.848L178.002,125.002L169.702,127.227L158.641,85.956L166.783,83.772L167.892,87.924C169.915,84.069 173.489,81.453 177.641,80.34C181.875,79.207 185.747,79.65 188.824,81.359C192.824,83.6 194.85,87.246 196.093,91.886L203.164,118.26L194.854,120.486Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,-44.86)"><path d="M228.235,145.089C220.504,147.159 215.435,142.584 213.845,136.64L207.754,113.929L203.034,115.195L201.335,108.844L206.055,107.578L202.696,95.04L210.995,92.818L214.361,105.356L222.334,103.217L224.037,109.568L216.064,111.703L222.042,134.01C222.843,137.021 224.788,138.421 227.879,137.592L231.3,136.674L233.197,143.757L228.235,145.089Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,-53.38)"><path d="M261.579,145.193C254.821,147.005 248.813,147.393 242.643,143.898L246.641,136.981C250.896,139.506 255.612,139.198 259.683,138.112C264.73,136.758 268.234,133.899 267.193,129.994C266.45,127.222 264.423,125.846 260.347,126.593L253.6,127.786C245.688,129.209 240.274,126.907 238.335,119.661C236.172,111.602 241.87,105.191 250.501,102.878C256.687,101.224 262.326,101.102 267.049,103.414L263.26,110.104C260.062,108.605 256.178,108.773 252.273,109.821C247.308,111.15 245.376,114.025 246.199,117.117C246.857,119.559 248.662,121.083 253.167,120.314L259.834,119.138C267.738,117.711 273.28,120.157 275.241,127.485C277.556,136.114 271.431,142.553 261.579,145.193Z" fill="white"/></g>
+    </svg>
+    <div class="masthead-meta">
+      Grant's Estate Agents · Marketing<br>
+      Monthly report / November 2026<br>
+      <span class="ref">GEA-MT-SEO-R-2026-11</span>
+    </div>
+  </div>
+
+  <div class="body">
+    <p class="kicker">SEO + AEO Monthly Report</p>
+    <h1>Search &amp; AI visibility<br>— November 2026</h1>
+    <p class="subtitle">A monthly check of how Grant's Estate Agents shows up in Google and in AI answer engines, and what in the site and the repo needs attention.</p>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="num">4.8★</div>
+        <div class="label">Third-party review proxy (247–332 reviews across offices). Google Business Profile itself and the live site could not be reached this session — see "Read first".</div>
+      </div>
+      <div class="stat">
+        <div class="num">5</div>
+        <div class="label">Critical findings this month: office NAP/placeholder data, zero agents with real profiles, no per-office or per-agent schema, fabricated-looking homepage stats.</div>
+      </div>
+      <div class="stat">
+        <div class="num">2</div>
+        <div class="label">Confirmed industry changes in the last 30 days: the September 2026 spam update finished rolling out; Google is testing WhatsApp buttons on local search panels.</div>
+      </div>
+    </div>
+
+    <h2>Read first</h2>
+    <ul class="readfirst">
+      <li><strong>Live site not reachable this session.</strong> This session's network policy blocked both the HTTP proxy and the fetch tool for <span class="mono">grantsea.com.au</span>. No live HTML, robots.txt, sitemap, canonical tag, or rendered page could be checked against production — every structured-data and technical finding below comes from the Next.js source in the repository instead, dated to commit <span class="mono">83eac0d</span>.</li>
+      <li><strong>Core Web Vitals not checked.</strong> <span class="mono">www.googleapis.com</span> (PageSpeed Insights API) was likewise blocked by the session's network policy.</li>
+      <li><strong>Google Business Profile not checked directly</strong> (no login access, as intended). The rating/review figures above are a third-party directory proxy only, not GBP itself.</li>
+      <li><strong>No analytics data available.</strong> <span class="mono">docs/analytics/</span> does not exist in the repository, so sessions, queries and landing-page trends cannot be reported this month.</li>
+      <li><strong>No prior report exists.</strong> This is the first report in <span class="mono">docs/seo-reports/</span>, so nothing here is compared month-on-month yet — it is this month's baseline.</li>
+    </ul>
+
+    <div class="recommend">
+      <p class="kicker">Our recommendation</p>
+      <h3>Fix the Offices page and the NAP mismatch before anything else.</h3>
+      <p>The offices page carries placeholder addresses ("123 Main Street") and phone numbers that match neither the site's own schema.org markup nor the real addresses third-party directories already show for Grant's Estate Agents — this is both a trust problem for human visitors and, per this month's research, exactly the kind of brand-controlled inconsistency AI assistants are most sensitive to when deciding whether to cite a business at all.</p>
+    </div>
+  </div>
+
+  <footer class="sheetfoot">
+    <div class="footrow"><span>GEA SEO + AEO Report — November 2026</span><span>1 / 6</span></div>
+  </footer>
+</section>
+
+<!-- ============ SHEET 2 ============ -->
+<section class="sheet">
+  <div class="masthead">
+    <svg class="masthead-logo" viewBox="0 0 329 211" xmlns="http://www.w3.org/2000/svg">
+      <g transform="matrix(1,0,0,1,0,0.54)"><path d="M314.652,103.526C317.028,112.38 311.772,121.488 302.91,123.861L46.235,192.64C37.372,195.012 28.268,189.754 25.894,180.893L1.82,91.058C-0.554,82.198 4.706,73.091 13.564,70.716L270.243,1.944C279.101,-0.433 288.208,4.825 290.585,13.688L314.652,103.526Z" fill="#1a1c1c"/></g>
+      <g transform="matrix(1,0,0,1,0,65.09)"><path d="M69.69,54.668C71.438,61.182 72.265,67.856 64.774,69.861C57.285,71.871 54.582,65.696 52.841,59.185C51.094,52.669 50.352,45.977 57.834,43.971C65.332,41.963 67.948,48.154 69.69,54.668ZM83.668,73.612L72.674,32.58L64.614,34.738L65.79,39.132C61.695,36.221 58.052,35.978 53.654,37.155C49.5,38.266 46.354,40.503 44.685,43.393C41.762,48.454 42.66,54.406 44.536,61.409C46.412,68.41 48.61,74.015 53.668,76.938C56.563,78.605 60.347,79.071 64.5,77.961C68.737,76.827 71.851,74.77 73.901,70.379L75.32,75.671C76.803,81.213 75.448,86.894 68.444,88.773C64.372,89.862 61.77,89.251 58.512,87.507L54.635,94.216C60.022,97.05 64.402,97.446 70.67,95.765C81.658,92.817 86.374,83.706 83.668,73.612Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,29.28)"><path d="M108.322,69.232C105.951,67.858 104.243,67.357 101.395,68.121C96.911,69.319 94.13,73.906 95.658,79.605L102.376,104.674L94.074,106.9L83.013,65.627L91.152,63.446L92.353,67.923C93.685,64.424 97.37,61.258 102.012,60.012C106,58.944 109.296,59.196 112.911,61.282L108.322,69.232Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,9)"><path d="M147.067,97.014C147.85,99.944 147.808,102.052 146.909,103.599C145.279,106.3 142.983,107.179 139.807,108.03C134.601,109.426 131.674,107.946 130.668,104.201C129.664,100.455 131.601,97.58 136.486,96.272L146.171,93.677L147.067,97.014ZM159.36,109.684L151.964,82.088C149.458,72.727 142.476,69.449 131.157,72.484C124.316,74.316 120.616,76.788 117.929,82.391L124.762,86.058C126.254,82.523 128.173,80.872 132.733,79.651C139.158,77.927 142.445,79.751 143.835,84.964L144.622,87.894L133.711,90.821C124.27,93.349 120.8,99.599 122.653,106.521C123.593,110.022 125.577,112.895 128.287,114.522C131.486,116.37 135.234,116.672 140.359,115.298C145.49,113.924 148.01,111.941 150.214,108.124L151.223,111.868L159.36,109.684Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,-11.31)"><path d="M194.854,120.486L188.113,95.334C186.392,88.901 181.986,87.112 177.346,88.362C172.706,89.604 169.562,93.496 171.263,99.848L178.002,125.002L169.702,127.227L158.641,85.956L166.783,83.772L167.892,87.924C169.915,84.069 173.489,81.453 177.641,80.34C181.875,79.207 185.747,79.65 188.824,81.359C192.824,83.6 194.85,87.246 196.093,91.886L203.164,118.26L194.854,120.486Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,-44.86)"><path d="M228.235,145.089C220.504,147.159 215.435,142.584 213.845,136.64L207.754,113.929L203.034,115.195L201.335,108.844L206.055,107.578L202.696,95.04L210.995,92.818L214.361,105.356L222.334,103.217L224.037,109.568L216.064,111.703L222.042,134.01C222.843,137.021 224.788,138.421 227.879,137.592L231.3,136.674L233.197,143.757L228.235,145.089Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,-53.38)"><path d="M261.579,145.193C254.821,147.005 248.813,147.393 242.643,143.898L246.641,136.981C250.896,139.506 255.612,139.198 259.683,138.112C264.73,136.758 268.234,133.899 267.193,129.994C266.45,127.222 264.423,125.846 260.347,126.593L253.6,127.786C245.688,129.209 240.274,126.907 238.335,119.661C236.172,111.602 241.87,105.191 250.501,102.878C256.687,101.224 262.326,101.102 267.049,103.414L263.26,110.104C260.062,108.605 256.178,108.773 252.273,109.821C247.308,111.15 245.376,114.025 246.199,117.117C246.857,119.559 248.662,121.083 253.167,120.314L259.834,119.138C267.738,117.711 273.28,120.157 275.241,127.485C277.556,136.114 271.431,142.553 261.579,145.193Z" fill="white"/></g>
+    </svg>
+    <div class="masthead-meta">
+      Grant's Estate Agents · Marketing<br>
+      Monthly report / November 2026<br>
+      <span class="ref">GEA-MT-SEO-R-2026-11</span>
+    </div>
+  </div>
+
+  <div class="body">
+    <h2 style="margin-top:0;border-top:none;padding-top:0;">What changed this month</h2>
+    <p class="small">Window checked: 1 October – 1 November 2026. Everything below is trade-press and vendor reporting, not official Google confirmation unless stated — read it as directional.</p>
+
+    <h3>Google algorithm &amp; spam updates</h3>
+    <p>The <strong>September 2026 spam update finished rolling out on 8 October 2026</strong>, the only confirmed ranking-system change in the window (<a href="https://status.search.google.com/summary">status.search.google.com/summary</a>; trade coverage via Search Engine Roundtable). Independent rank trackers also logged volatility around 20–21 and 24–25 October, but Google's own dashboard shows no matching entry for those dates — treat that chatter as unconfirmed.</p>
+
+    <h3>AI Overviews, structured data &amp; Google Business Profile</h3>
+    <p>No new Search Central policy post was found in the window. Google's standing guidance is unchanged: no special schema is required to appear in AI Overviews or AI Mode, and markup only helps if the marked-up content is also visible on the page — it does not guarantee a rich result. The one concrete local-search change seen this month is a <strong>WhatsApp contact button test in local search/Business Profile panels</strong>, reported 23 October 2026 (<a href="https://www.optimixed.com/platform/google-business-profile">optimixed.com/platform/google-business-profile</a> — a third-party changelog, not a Google announcement). Separately, from 1 October Google began charging Local Services Ads advertisers for certain missed calls — a paid-ads change, included here only because it affects local lead-gen budgets, not organic visibility.</p>
+
+    <h3>How AI assistants cite local/real estate businesses</h3>
+    <p>All sources here are vendor studies, not independent research — read the numbers as directional, not fact:</p>
+    <ul>
+      <li>A Yext-based study (seen only via secondary summary) reports <strong>86% of AI citations trace back to brand-controlled sources</strong> — a business's own website and Google Business Profile — rather than third parties.</li>
+      <li>A cross-industry test of 200 local-business queries across five assistants found only 8.4% of businesses were mentioned at all; Gemini surfaced the most (11%), ChatGPT the fewest (1.2%) (<a href="https://site-business-found-by-ai.pages.dev/resources/200-queries-research">site-business-found-by-ai.pages.dev</a>).</li>
+      <li>A real-estate-specific vendor study (AgentCite, testing gpt-4o-mini/claude-haiku-4.5 directly, not the consumer apps) estimated 40–60% of agent names returned for "best agent in {metro}" prompts were fabricated or unverifiable (<a href="https://agentcite.vercel.app/blog/50-percent-of-realtors-chatgpt-recommends-do-not-exist">agentcite.vercel.app</a>).</li>
+      <li>A separate press release (FlyDragon) claims 91% of US agents are "invisible" to AI search; methodology is not public — treat as marketing, not evidence.</li>
+    </ul>
+
+    <h3>Australian real estate press</h3>
+    <p>No October-dated article from Elite Agent, REB or Stepps on search/AI visibility turned up in this window's search — <strong>no confirmed update found</strong> for this category.</p>
+
+    <h3>Free tooling</h3>
+    <p>No new open-source SEO/schema tool was confirmed released in the window. The free tools already in use for this audit — Google's own Rich Results Test and PageSpeed Insights — remain the right (and only necessary) choice; there is nothing paid worth adding.</p>
+
+    <h3>AI ranking games — a caution</h3>
+    <p>Several vendors (Agent Elite, FlyDragon, AgentCite, Trakkr, Realbot) are actively selling "AI visibility audits" and "rank in ChatGPT" packages this quarter. One of their own guides concedes the obvious problem: <em>no tool can reliably tell you where you rank in ChatGPT or Perplexity</em>, because answers are generated per-query, not retrieved from a fixed index — there is no ranking system to buy your way into. The one lever every source agrees on is accurate, brand-controlled data: your own site, your Google Business Profile, your reviews. That is what this report's recommendations focus on.</p>
+  </div>
+
+  <footer class="sheetfoot">
+    <div class="footrow"><span>GEA SEO + AEO Report — November 2026</span><span>2 / 6</span></div>
+  </footer>
+</section>
+
+<!-- ============ SHEET 3 ============ -->
+<section class="sheet">
+  <div class="masthead">
+    <svg class="masthead-logo" viewBox="0 0 329 211" xmlns="http://www.w3.org/2000/svg">
+      <g transform="matrix(1,0,0,1,0,0.54)"><path d="M314.652,103.526C317.028,112.38 311.772,121.488 302.91,123.861L46.235,192.64C37.372,195.012 28.268,189.754 25.894,180.893L1.82,91.058C-0.554,82.198 4.706,73.091 13.564,70.716L270.243,1.944C279.101,-0.433 288.208,4.825 290.585,13.688L314.652,103.526Z" fill="#1a1c1c"/></g>
+      <g transform="matrix(1,0,0,1,0,65.09)"><path d="M69.69,54.668C71.438,61.182 72.265,67.856 64.774,69.861C57.285,71.871 54.582,65.696 52.841,59.185C51.094,52.669 50.352,45.977 57.834,43.971C65.332,41.963 67.948,48.154 69.69,54.668ZM83.668,73.612L72.674,32.58L64.614,34.738L65.79,39.132C61.695,36.221 58.052,35.978 53.654,37.155C49.5,38.266 46.354,40.503 44.685,43.393C41.762,48.454 42.66,54.406 44.536,61.409C46.412,68.41 48.61,74.015 53.668,76.938C56.563,78.605 60.347,79.071 64.5,77.961C68.737,76.827 71.851,74.77 73.901,70.379L75.32,75.671C76.803,81.213 75.448,86.894 68.444,88.773C64.372,89.862 61.77,89.251 58.512,87.507L54.635,94.216C60.022,97.05 64.402,97.446 70.67,95.765C81.658,92.817 86.374,83.706 83.668,73.612Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,29.28)"><path d="M108.322,69.232C105.951,67.858 104.243,67.357 101.395,68.121C96.911,69.319 94.13,73.906 95.658,79.605L102.376,104.674L94.074,106.9L83.013,65.627L91.152,63.446L92.353,67.923C93.685,64.424 97.37,61.258 102.012,60.012C106,58.944 109.296,59.196 112.911,61.282L108.322,69.232Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,9)"><path d="M147.067,97.014C147.85,99.944 147.808,102.052 146.909,103.599C145.279,106.3 142.983,107.179 139.807,108.03C134.601,109.426 131.674,107.946 130.668,104.201C129.664,100.455 131.601,97.58 136.486,96.272L146.171,93.677L147.067,97.014ZM159.36,109.684L151.964,82.088C149.458,72.727 142.476,69.449 131.157,72.484C124.316,74.316 120.616,76.788 117.929,82.391L124.762,86.058C126.254,82.523 128.173,80.872 132.733,79.651C139.158,77.927 142.445,79.751 143.835,84.964L144.622,87.894L133.711,90.821C124.27,93.349 120.8,99.599 122.653,106.521C123.593,110.022 125.577,112.895 128.287,114.522C131.486,116.37 135.234,116.672 140.359,115.298C145.49,113.924 148.01,111.941 150.214,108.124L151.223,111.868L159.36,109.684Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,-11.31)"><path d="M194.854,120.486L188.113,95.334C186.392,88.901 181.986,87.112 177.346,88.362C172.706,89.604 169.562,93.496 171.263,99.848L178.002,125.002L169.702,127.227L158.641,85.956L166.783,83.772L167.892,87.924C169.915,84.069 173.489,81.453 177.641,80.34C181.875,79.207 185.747,79.65 188.824,81.359C192.824,83.6 194.85,87.246 196.093,91.886L203.164,118.26L194.854,120.486Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,-44.86)"><path d="M228.235,145.089C220.504,147.159 215.435,142.584 213.845,136.64L207.754,113.929L203.034,115.195L201.335,108.844L206.055,107.578L202.696,95.04L210.995,92.818L214.361,105.356L222.334,103.217L224.037,109.568L216.064,111.703L222.042,134.01C222.843,137.021 224.788,138.421 227.879,137.592L231.3,136.674L233.197,143.757L228.235,145.089Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,-53.38)"><path d="M261.579,145.193C254.821,147.005 248.813,147.393 242.643,143.898L246.641,136.981C250.896,139.506 255.612,139.198 259.683,138.112C264.73,136.758 268.234,133.899 267.193,129.994C266.45,127.222 264.423,125.846 260.347,126.593L253.6,127.786C245.688,129.209 240.274,126.907 238.335,119.661C236.172,111.602 241.87,105.191 250.501,102.878C256.687,101.224 262.326,101.102 267.049,103.414L263.26,110.104C260.062,108.605 256.178,108.773 252.273,109.821C247.308,111.15 245.376,114.025 246.199,117.117C246.857,119.559 248.662,121.083 253.167,120.314L259.834,119.138C267.738,117.711 273.28,120.157 275.241,127.485C277.556,136.114 271.431,142.553 261.579,145.193Z" fill="white"/></g>
+    </svg>
+    <div class="masthead-meta">
+      Grant's Estate Agents · Marketing<br>
+      Monthly report / November 2026<br>
+      <span class="ref">GEA-MT-SEO-R-2026-11</span>
+    </div>
+  </div>
+
+  <div class="body">
+    <h2 style="margin-top:0;border-top:none;padding-top:0;">Site audit — structured data &amp; content (1 of 2)</h2>
+    <p class="small">Checked against the Next.js source at commit <span class="mono">83eac0d</span>, not the live site (see "Read first", sheet 1).</p>
+    <table>
+      <tr><th class="col-check">Check</th><th class="col-status status">Status</th><th class="col-evidence">Evidence</th><th class="col-fix">Fix</th></tr>
+      <tr><td>Sitewide organisation schema</td><td class="status"><span class="status-tag">PASS</span></td><td><span class="mono">RealEstateAgent</span> node renders on every page via root layout.</td><td class="small">No action needed.</td></tr>
+      <tr><td colspan="4" class="small" style="padding-top:0;"><span class="mono">src/app/layout.tsx</span>:76</td></tr>
+      <tr><td>Person schema on agent pages</td><td class="status"><span class="status-tag">FAIL</span></td><td>No <span class="mono">Person</span> type exists anywhere in the codebase. Agent bio pages carry only the sitewide org schema, breadcrumb and FAQ — nothing identifying the agent as a person.</td><td class="small">Add a <span class="mono">Person</span> node (name, jobTitle, worksFor, image, sameAs) per agent in <span class="mono">jsonLd.ts</span> and render it on <span class="mono">agent/[id]</span>.</td></tr>
+      <tr><td colspan="4" class="small" style="padding-top:0;"><span class="mono">src/app/agent/[id]/layout.tsx</span></td></tr>
+      <tr><td>LocalBusiness per physical office</td><td class="status"><span class="status-tag">FAIL</span></td><td><span class="mono">offices/page.tsx</span> has zero schema.org markup. <span class="mono">jsonLd.ts</span> defines only one sitewide node with a single Berwick address, despite 3 offices.</td><td class="small">Add a <span class="mono">LocalBusiness</span>/<span class="mono">RealEstateAgent</span> node per office with its own address, phone and hours.</td></tr>
+      <tr><td colspan="4" class="small" style="padding-top:0;"><span class="mono">src/app/offices/page.tsx</span>, <span class="mono">src/lib/jsonLd.ts</span></td></tr>
+      <tr><td>NAP consistency (name/address/phone)</td><td class="status"><span class="status-tag">FAIL</span></td><td>Offices page lists placeholder addresses ("123 Main Street", "456 High Street", "789 Prince Highway") and phone numbers that match neither the schema.org phone (+61 1300 472 687) nor the real addresses third-party directories already show (e.g. 3A Gloucester Avenue, Berwick, 03 9707 5555; 9 Webb Street, Narre Warren — per RateMyAgent).</td><td class="small">Replace with each office's verified real address/phone; align schema, offices page and <span class="mono">/contact</span>.</td></tr>
+      <tr><td colspan="4" class="small" style="padding-top:0;"><span class="mono">src/app/offices/page.tsx</span>:8–57</td></tr>
+      <tr><td>Duplicate org schema on agent pages</td><td class="status"><span class="status-tag">WARN</span></td><td>Agent layout calls <span class="mono">realEstateAgent()</span> again on top of the copy the root layout already emits — two identical org nodes per agent page.</td><td class="small">Remove the duplicate call in the agent layout.</td></tr>
+      <tr><td colspan="4" class="small" style="padding-top:0;"><span class="mono">src/app/agent/[id]/layout.tsx</span>:11</td></tr>
+      <tr><td>RealEstateListing schema on property pages</td><td class="status"><span class="status-tag">PASS</span></td><td>Present via <span class="mono">realEstateListing()</span>, used in <span class="mono">property/[id]/page.tsx</span>.</td><td class="small">No action needed.</td></tr>
+      <tr><td>BreadcrumbList schema</td><td class="status"><span class="status-tag">PASS</span></td><td>Used consistently across suburb, sell, agents, agent, reviews, calculators and more.</td><td class="small">No action needed.</td></tr>
+      <tr><td>Agent profiles: real Q&amp;A / reviews</td><td class="status"><span class="status-tag">FAIL</span></td><td><span class="mono">AGENT_PROFILES</span> is an empty object — <strong>0 of the site's agents</strong> have real answers or reviews. Every bio currently falls back to visible placeholder text.</td><td class="small">Populate real Q&amp;A and genuine, sourced reviews for at least the top agents.</td></tr>
+      <tr><td colspan="4" class="small" style="padding-top:0;"><span class="mono">src/data/agentProfiles.ts</span>:47–58</td></tr>
+    </table>
+  </div>
+
+  <footer class="sheetfoot">
+    <div class="footrow"><span>GEA SEO + AEO Report — November 2026</span><span>3 / 6</span></div>
+  </footer>
+</section>
+
+<!-- ============ SHEET 4 ============ -->
+<section class="sheet">
+  <div class="masthead">
+    <svg class="masthead-logo" viewBox="0 0 329 211" xmlns="http://www.w3.org/2000/svg">
+      <g transform="matrix(1,0,0,1,0,0.54)"><path d="M314.652,103.526C317.028,112.38 311.772,121.488 302.91,123.861L46.235,192.64C37.372,195.012 28.268,189.754 25.894,180.893L1.82,91.058C-0.554,82.198 4.706,73.091 13.564,70.716L270.243,1.944C279.101,-0.433 288.208,4.825 290.585,13.688L314.652,103.526Z" fill="#1a1c1c"/></g>
+      <g transform="matrix(1,0,0,1,0,65.09)"><path d="M69.69,54.668C71.438,61.182 72.265,67.856 64.774,69.861C57.285,71.871 54.582,65.696 52.841,59.185C51.094,52.669 50.352,45.977 57.834,43.971C65.332,41.963 67.948,48.154 69.69,54.668ZM83.668,73.612L72.674,32.58L64.614,34.738L65.79,39.132C61.695,36.221 58.052,35.978 53.654,37.155C49.5,38.266 46.354,40.503 44.685,43.393C41.762,48.454 42.66,54.406 44.536,61.409C46.412,68.41 48.61,74.015 53.668,76.938C56.563,78.605 60.347,79.071 64.5,77.961C68.737,76.827 71.851,74.77 73.901,70.379L75.32,75.671C76.803,81.213 75.448,86.894 68.444,88.773C64.372,89.862 61.77,89.251 58.512,87.507L54.635,94.216C60.022,97.05 64.402,97.446 70.67,95.765C81.658,92.817 86.374,83.706 83.668,73.612Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,29.28)"><path d="M108.322,69.232C105.951,67.858 104.243,67.357 101.395,68.121C96.911,69.319 94.13,73.906 95.658,79.605L102.376,104.674L94.074,106.9L83.013,65.627L91.152,63.446L92.353,67.923C93.685,64.424 97.37,61.258 102.012,60.012C106,58.944 109.296,59.196 112.911,61.282L108.322,69.232Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,9)"><path d="M147.067,97.014C147.85,99.944 147.808,102.052 146.909,103.599C145.279,106.3 142.983,107.179 139.807,108.03C134.601,109.426 131.674,107.946 130.668,104.201C129.664,100.455 131.601,97.58 136.486,96.272L146.171,93.677L147.067,97.014ZM159.36,109.684L151.964,82.088C149.458,72.727 142.476,69.449 131.157,72.484C124.316,74.316 120.616,76.788 117.929,82.391L124.762,86.058C126.254,82.523 128.173,80.872 132.733,79.651C139.158,77.927 142.445,79.751 143.835,84.964L144.622,87.894L133.711,90.821C124.27,93.349 120.8,99.599 122.653,106.521C123.593,110.022 125.577,112.895 128.287,114.522C131.486,116.37 135.234,116.672 140.359,115.298C145.49,113.924 148.01,111.941 150.214,108.124L151.223,111.868L159.36,109.684Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,-11.31)"><path d="M194.854,120.486L188.113,95.334C186.392,88.901 181.986,87.112 177.346,88.362C172.706,89.604 169.562,93.496 171.263,99.848L178.002,125.002L169.702,127.227L158.641,85.956L166.783,83.772L167.892,87.924C169.915,84.069 173.489,81.453 177.641,80.34C181.875,79.207 185.747,79.65 188.824,81.359C192.824,83.6 194.85,87.246 196.093,91.886L203.164,118.26L194.854,120.486Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,-44.86)"><path d="M228.235,145.089C220.504,147.159 215.435,142.584 213.845,136.64L207.754,113.929L203.034,115.195L201.335,108.844L206.055,107.578L202.696,95.04L210.995,92.818L214.361,105.356L222.334,103.217L224.037,109.568L216.064,111.703L222.042,134.01C222.843,137.021 224.788,138.421 227.879,137.592L231.3,136.674L233.197,143.757L228.235,145.089Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,-53.38)"><path d="M261.579,145.193C254.821,147.005 248.813,147.393 242.643,143.898L246.641,136.981C250.896,139.506 255.612,139.198 259.683,138.112C264.73,136.758 268.234,133.899 267.193,129.994C266.45,127.222 264.423,125.846 260.347,126.593L253.6,127.786C245.688,129.209 240.274,126.907 238.335,119.661C236.172,111.602 241.87,105.191 250.501,102.878C256.687,101.224 262.326,101.102 267.049,103.414L263.26,110.104C260.062,108.605 256.178,108.773 252.273,109.821C247.308,111.15 245.376,114.025 246.199,117.117C246.857,119.559 248.662,121.083 253.167,120.314L259.834,119.138C267.738,117.711 273.28,120.157 275.241,127.485C277.556,136.114 271.431,142.553 261.579,145.193Z" fill="white"/></g>
+    </svg>
+    <div class="masthead-meta">
+      Grant's Estate Agents · Marketing<br>
+      Monthly report / November 2026<br>
+      <span class="ref">GEA-MT-SEO-R-2026-11</span>
+    </div>
+  </div>
+
+  <div class="body">
+    <h2 style="margin-top:0;border-top:none;padding-top:0;">Site audit — homepage, routes &amp; technical (2 of 2)</h2>
+    <table>
+      <tr><th class="col-check">Check</th><th class="col-status status">Status</th><th class="col-evidence">Evidence</th><th class="col-fix">Fix</th></tr>
+      <tr><td>Homepage proof points</td><td class="status"><span class="status-tag">FAIL</span></td><td>"250+ Properties sold monthly", "4.9 Average rating", "98% Success rate" and "10,000+ subscribers" are hardcoded literals in JSX — not pulled from any API or data source.</td><td class="small">Replace with real, sourced figures or remove until data exists.</td></tr>
+      <tr><td colspan="4" class="small" style="padding-top:0;"><span class="mono">src/app/page-oncom-style.tsx</span>:1878,1898,1916,1934</td></tr>
+      <tr><td>/reviews Google rating vs homepage</td><td class="status"><span class="status-tag">WARN</span></td><td>/reviews fetches a real, live Google rating via <span class="mono">getGoogleReviewsOrThrow()</span> (6-hour cache) — good practice — but the homepage's hardcoded "4.9" is not wired to the same source, so the two can disagree.</td><td class="small">Point the homepage stat at the same live feed used on /reviews.</td></tr>
+      <tr><td colspan="4" class="small" style="padding-top:0;"><span class="mono">src/app/reviews/page.tsx</span> vs <span class="mono">page-oncom-style.tsx</span></td></tr>
+      <tr><td>Debug/test routes excluded from crawling</td><td class="status"><span class="status-tag">WARN</span></td><td>robots.txt disallows most test paths and all of <span class="mono">/api/</span>, but two page routes — <span class="mono">/demo-chat</span> and <span class="mono">/backstage</span> — exist in the repo and are not disallowed. Live reachability not checked (network policy).</td><td class="small">Add both to robots.txt disallow, or remove the routes if unused in production.</td></tr>
+      <tr><td colspan="4" class="small" style="padding-top:0;"><span class="mono">public/robots.txt</span>; <span class="mono">src/app/demo-chat</span>, <span class="mono">src/app/backstage</span></td></tr>
+      <tr><td>Suburb pages — doorway risk</td><td class="status"><span class="status-tag">WARN</span></td><td>Berwick has real sales stats + FAQ + a 1,291-line client component; Tynong and Harkaway (787–788 lines) share near-identical structure with thinner, undifferentiated content and no stats/FAQ wired in.</td><td class="small">Extend <span class="mono">SuburbStats</span>/<span class="mono">SuburbFAQ</span> and genuine local detail to the smaller suburb pages.</td></tr>
+      <tr><td colspan="4" class="small" style="padding-top:0;"><span class="mono">src/app/suburbs/berwick</span> vs <span class="mono">/tynong</span>, <span class="mono">/harkaway</span></td></tr>
+      <tr><td>robots.txt present &amp; AI-crawler friendly</td><td class="status"><span class="status-tag">PASS</span></td><td>Explicitly allows GPTBot, ClaudeBot, PerplexityBot, Google-Extended and CCBot — good AEO practice — and disallows most test paths.</td><td class="small">No action needed.</td></tr>
+      <tr><td>Sitemap validity &amp; completeness</td><td class="status"><span class="status-tag">WARN</span></td><td>Two conflicting <span class="mono">/sitemap.xml</span> sources: dynamic <span class="mono">src/app/sitemap.ts</span> (only 9 of 20 suburbs) vs. static <span class="mono">public/sitemap*.xml</span> frozen since 3 Sep 2026. Which one serves live not confirmed.</td><td class="small">Remove the stale static files; make the dynamic sitemap cover all 20 suburbs.</td></tr>
+      <tr><td colspan="4" class="small" style="padding-top:0;"><span class="mono">src/app/sitemap.ts</span>; <span class="mono">public/sitemap*.xml</span></td></tr>
+      <tr><td>Canonical tags &amp; per-page title/description</td><td class="status"><span class="status-tag">FAIL</span></td><td>Pages using the <span class="mono">pageMetadata</span> helper get a correct canonical + unique title/description. Agent bio and offices pages call <span class="mono">generateMetadata</span> nowhere, so they silently share the site's generic title/description.</td><td class="small">Add <span class="mono">generateMetadata</span> to <span class="mono">agent/[id]</span> and <span class="mono">offices</span>.</td></tr>
+      <tr><td colspan="4" class="small" style="padding-top:0;"><span class="mono">src/app/agent/[id]/page.tsx</span>, <span class="mono">src/app/offices/page.tsx</span>, <span class="mono">src/lib/metadata.ts</span></td></tr>
+      <tr><td>Core Web Vitals &amp; mobile viewport (live render)</td><td class="status"><span class="status-tag">NOT CHECKED</span></td><td>Session network policy blocked <span class="mono">www.googleapis.com</span> (PageSpeed API) and the live site itself, so neither Core Web Vitals nor the rendered viewport tag could be confirmed.</td><td class="small">Re-run next month, or check manually via pagespeed.web.dev.</td></tr>
+    </table>
+  </div>
+
+  <footer class="sheetfoot">
+    <div class="footrow"><span>GEA SEO + AEO Report — November 2026</span><span>4 / 6</span></div>
+  </footer>
+</section>
+
+<!-- ============ SHEET 5 ============ -->
+<section class="sheet">
+  <div class="masthead">
+    <svg class="masthead-logo" viewBox="0 0 329 211" xmlns="http://www.w3.org/2000/svg">
+      <g transform="matrix(1,0,0,1,0,0.54)"><path d="M314.652,103.526C317.028,112.38 311.772,121.488 302.91,123.861L46.235,192.64C37.372,195.012 28.268,189.754 25.894,180.893L1.82,91.058C-0.554,82.198 4.706,73.091 13.564,70.716L270.243,1.944C279.101,-0.433 288.208,4.825 290.585,13.688L314.652,103.526Z" fill="#1a1c1c"/></g>
+      <g transform="matrix(1,0,0,1,0,65.09)"><path d="M69.69,54.668C71.438,61.182 72.265,67.856 64.774,69.861C57.285,71.871 54.582,65.696 52.841,59.185C51.094,52.669 50.352,45.977 57.834,43.971C65.332,41.963 67.948,48.154 69.69,54.668ZM83.668,73.612L72.674,32.58L64.614,34.738L65.79,39.132C61.695,36.221 58.052,35.978 53.654,37.155C49.5,38.266 46.354,40.503 44.685,43.393C41.762,48.454 42.66,54.406 44.536,61.409C46.412,68.41 48.61,74.015 53.668,76.938C56.563,78.605 60.347,79.071 64.5,77.961C68.737,76.827 71.851,74.77 73.901,70.379L75.32,75.671C76.803,81.213 75.448,86.894 68.444,88.773C64.372,89.862 61.77,89.251 58.512,87.507L54.635,94.216C60.022,97.05 64.402,97.446 70.67,95.765C81.658,92.817 86.374,83.706 83.668,73.612Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,29.28)"><path d="M108.322,69.232C105.951,67.858 104.243,67.357 101.395,68.121C96.911,69.319 94.13,73.906 95.658,79.605L102.376,104.674L94.074,106.9L83.013,65.627L91.152,63.446L92.353,67.923C93.685,64.424 97.37,61.258 102.012,60.012C106,58.944 109.296,59.196 112.911,61.282L108.322,69.232Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,9)"><path d="M147.067,97.014C147.85,99.944 147.808,102.052 146.909,103.599C145.279,106.3 142.983,107.179 139.807,108.03C134.601,109.426 131.674,107.946 130.668,104.201C129.664,100.455 131.601,97.58 136.486,96.272L146.171,93.677L147.067,97.014ZM159.36,109.684L151.964,82.088C149.458,72.727 142.476,69.449 131.157,72.484C124.316,74.316 120.616,76.788 117.929,82.391L124.762,86.058C126.254,82.523 128.173,80.872 132.733,79.651C139.158,77.927 142.445,79.751 143.835,84.964L144.622,87.894L133.711,90.821C124.27,93.349 120.8,99.599 122.653,106.521C123.593,110.022 125.577,112.895 128.287,114.522C131.486,116.37 135.234,116.672 140.359,115.298C145.49,113.924 148.01,111.941 150.214,108.124L151.223,111.868L159.36,109.684Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,-11.31)"><path d="M194.854,120.486L188.113,95.334C186.392,88.901 181.986,87.112 177.346,88.362C172.706,89.604 169.562,93.496 171.263,99.848L178.002,125.002L169.702,127.227L158.641,85.956L166.783,83.772L167.892,87.924C169.915,84.069 173.489,81.453 177.641,80.34C181.875,79.207 185.747,79.65 188.824,81.359C192.824,83.6 194.85,87.246 196.093,91.886L203.164,118.26L194.854,120.486Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,-44.86)"><path d="M228.235,145.089C220.504,147.159 215.435,142.584 213.845,136.64L207.754,113.929L203.034,115.195L201.335,108.844L206.055,107.578L202.696,95.04L210.995,92.818L214.361,105.356L222.334,103.217L224.037,109.568L216.064,111.703L222.042,134.01C222.843,137.021 224.788,138.421 227.879,137.592L231.3,136.674L233.197,143.757L228.235,145.089Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,-53.38)"><path d="M261.579,145.193C254.821,147.005 248.813,147.393 242.643,143.898L246.641,136.981C250.896,139.506 255.612,139.198 259.683,138.112C264.73,136.758 268.234,133.899 267.193,129.994C266.45,127.222 264.423,125.846 260.347,126.593L253.6,127.786C245.688,129.209 240.274,126.907 238.335,119.661C236.172,111.602 241.87,105.191 250.501,102.878C256.687,101.224 262.326,101.102 267.049,103.414L263.26,110.104C260.062,108.605 256.178,108.773 252.273,109.821C247.308,111.15 245.376,114.025 246.199,117.117C246.857,119.559 248.662,121.083 253.167,120.314L259.834,119.138C267.738,117.711 273.28,120.157 275.241,127.485C277.556,136.114 271.431,142.553 261.579,145.193Z" fill="white"/></g>
+    </svg>
+    <div class="masthead-meta">
+      Grant's Estate Agents · Marketing<br>
+      Monthly report / November 2026<br>
+      <span class="ref">GEA-MT-SEO-R-2026-11</span>
+    </div>
+  </div>
+
+  <div class="body">
+    <h2 style="margin-top:0;border-top:none;padding-top:0;">Analytics</h2>
+    <p><span class="mono">docs/analytics/</span> does not exist in the repository, so sessions, organic sessions, top landing pages, top queries, branded-vs-non-branded impressions and any page-group drop cannot be reported this month. <strong>Recommendation:</strong> export GA4 and Search Console monthly into <span class="mono">docs/analytics/YYYY-MM/</span> so this report can start tracking trends from December 2026 onward.</p>
+
+    <h2>AI mention check</h2>
+    <p class="small">Via WebSearch only (no direct ChatGPT access). This is a proxy for Google's organic results, not a direct view of an AI Overview panel — AI Overview presence/absence could not be confirmed either way.</p>
+    <table>
+      <tr><th style="width:34%;">Query</th><th style="width:22%;">GEA appears?</th><th>Notes</th></tr>
+      <tr><td>"Grant's Estate Agents"</td><td>Yes — directories only</td><td>Surfaced via RateMyAgent, Domain, Horseproperty, Seek, ZoomInfo; grantsea.com.au itself did not appear among the fetched results for this query.</td></tr>
+      <tr><td>best real estate agent Berwick</td><td>No</td><td>Alex Scott &amp; Staff, LJ Hooker Berwick and Barry Plant Berwick dominate.</td></tr>
+      <tr><td>best real estate agent Narre Warren</td><td>Yes</td><td>Named directly — "4.8 rating from 332 reviews... 5 agents" (9 Webb Street office).</td></tr>
+      <tr><td>best real estate agent Pakenham</td><td>No</td><td>Craig Currie, Century 21, Harcourts, LJ Hooker and Ray White dominate.</td></tr>
+    </table>
+
+    <h2>Tools seen this month</h2>
+    <ul class="tool-list">
+      <li><strong>Google Rich Results Test</strong> (official, free) — the right tool for validating the schema fixes in this report; no new free alternative emerged worth switching to.</li>
+      <li><strong>Google Search Status Dashboard</strong> (status.search.google.com) — the only authoritative, free source for confirming whether a ranking update actually happened; used for this month's research.</li>
+      <li>No genuinely new open-source SEO/schema tool was confirmed released in the window — nothing else to add, and nothing paid is recommended.</li>
+    </ul>
+
+    <h2>Since last month</h2>
+    <p>Not applicable — this is the first report in <span class="mono">docs/seo-reports/</span>. It is this month's baseline; from December 2026 this section will compare the Google rating/review count, confirmed critical findings, and analytics trend against this report.</p>
+  </div>
+
+  <footer class="sheetfoot">
+    <div class="footrow"><span>GEA SEO + AEO Report — November 2026</span><span>5 / 6</span></div>
+  </footer>
+</section>
+
+<!-- ============ SHEET 6 ============ -->
+<section class="sheet">
+  <div class="masthead">
+    <svg class="masthead-logo" viewBox="0 0 329 211" xmlns="http://www.w3.org/2000/svg">
+      <g transform="matrix(1,0,0,1,0,0.54)"><path d="M314.652,103.526C317.028,112.38 311.772,121.488 302.91,123.861L46.235,192.64C37.372,195.012 28.268,189.754 25.894,180.893L1.82,91.058C-0.554,82.198 4.706,73.091 13.564,70.716L270.243,1.944C279.101,-0.433 288.208,4.825 290.585,13.688L314.652,103.526Z" fill="#1a1c1c"/></g>
+      <g transform="matrix(1,0,0,1,0,65.09)"><path d="M69.69,54.668C71.438,61.182 72.265,67.856 64.774,69.861C57.285,71.871 54.582,65.696 52.841,59.185C51.094,52.669 50.352,45.977 57.834,43.971C65.332,41.963 67.948,48.154 69.69,54.668ZM83.668,73.612L72.674,32.58L64.614,34.738L65.79,39.132C61.695,36.221 58.052,35.978 53.654,37.155C49.5,38.266 46.354,40.503 44.685,43.393C41.762,48.454 42.66,54.406 44.536,61.409C46.412,68.41 48.61,74.015 53.668,76.938C56.563,78.605 60.347,79.071 64.5,77.961C68.737,76.827 71.851,74.77 73.901,70.379L75.32,75.671C76.803,81.213 75.448,86.894 68.444,88.773C64.372,89.862 61.77,89.251 58.512,87.507L54.635,94.216C60.022,97.05 64.402,97.446 70.67,95.765C81.658,92.817 86.374,83.706 83.668,73.612Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,29.28)"><path d="M108.322,69.232C105.951,67.858 104.243,67.357 101.395,68.121C96.911,69.319 94.13,73.906 95.658,79.605L102.376,104.674L94.074,106.9L83.013,65.627L91.152,63.446L92.353,67.923C93.685,64.424 97.37,61.258 102.012,60.012C106,58.944 109.296,59.196 112.911,61.282L108.322,69.232Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,9)"><path d="M147.067,97.014C147.85,99.944 147.808,102.052 146.909,103.599C145.279,106.3 142.983,107.179 139.807,108.03C134.601,109.426 131.674,107.946 130.668,104.201C129.664,100.455 131.601,97.58 136.486,96.272L146.171,93.677L147.067,97.014ZM159.36,109.684L151.964,82.088C149.458,72.727 142.476,69.449 131.157,72.484C124.316,74.316 120.616,76.788 117.929,82.391L124.762,86.058C126.254,82.523 128.173,80.872 132.733,79.651C139.158,77.927 142.445,79.751 143.835,84.964L144.622,87.894L133.711,90.821C124.27,93.349 120.8,99.599 122.653,106.521C123.593,110.022 125.577,112.895 128.287,114.522C131.486,116.37 135.234,116.672 140.359,115.298C145.49,113.924 148.01,111.941 150.214,108.124L151.223,111.868L159.36,109.684Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,-11.31)"><path d="M194.854,120.486L188.113,95.334C186.392,88.901 181.986,87.112 177.346,88.362C172.706,89.604 169.562,93.496 171.263,99.848L178.002,125.002L169.702,127.227L158.641,85.956L166.783,83.772L167.892,87.924C169.915,84.069 173.489,81.453 177.641,80.34C181.875,79.207 185.747,79.65 188.824,81.359C192.824,83.6 194.85,87.246 196.093,91.886L203.164,118.26L194.854,120.486Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,-44.86)"><path d="M228.235,145.089C220.504,147.159 215.435,142.584 213.845,136.64L207.754,113.929L203.034,115.195L201.335,108.844L206.055,107.578L202.696,95.04L210.995,92.818L214.361,105.356L222.334,103.217L224.037,109.568L216.064,111.703L222.042,134.01C222.843,137.021 224.788,138.421 227.879,137.592L231.3,136.674L233.197,143.757L228.235,145.089Z" fill="white"/></g>
+      <g transform="matrix(1,0,0,1,0,-53.38)"><path d="M261.579,145.193C254.821,147.005 248.813,147.393 242.643,143.898L246.641,136.981C250.896,139.506 255.612,139.198 259.683,138.112C264.73,136.758 268.234,133.899 267.193,129.994C266.45,127.222 264.423,125.846 260.347,126.593L253.6,127.786C245.688,129.209 240.274,126.907 238.335,119.661C236.172,111.602 241.87,105.191 250.501,102.878C256.687,101.224 262.326,101.102 267.049,103.414L263.26,110.104C260.062,108.605 256.178,108.773 252.273,109.821C247.308,111.15 245.376,114.025 246.199,117.117C246.857,119.559 248.662,121.083 253.167,120.314L259.834,119.138C267.738,117.711 273.28,120.157 275.241,127.485C277.556,136.114 271.431,142.553 261.579,145.193Z" fill="white"/></g>
+    </svg>
+    <div class="masthead-meta">
+      Grant's Estate Agents · Marketing<br>
+      Monthly report / November 2026<br>
+      <span class="ref">GEA-MT-SEO-R-2026-11</span>
+    </div>
+  </div>
+
+  <div class="body">
+    <h2 style="margin-top:0;border-top:none;padding-top:0;">Top five actions for next month</h2>
+    <table>
+      <tr><th style="width:5%;">#</th><th style="width:48%;">Action</th><th style="width:22%;">Owner</th><th style="width:25%;">Effort</th></tr>
+      <tr><td>1</td><td>Replace the placeholder office addresses/phone numbers in the Offices page with each office's real details, and align them with the schema.org NAP.</td><td>Stuart Grant / Marketing Manager (content) + developer (schema)</td><td>Low</td></tr>
+      <tr><td>2</td><td>Add a Person schema block per agent and populate real Q&amp;A plus genuine, sourced reviews for at least the top agents in <span class="mono">agentProfiles.ts</span>.</td><td>Marketing Manager + agents</td><td>Medium</td></tr>
+      <tr><td>3</td><td>Add a LocalBusiness schema node per physical office, replacing the single sitewide node for office-specific pages.</td><td>Developer</td><td>Low</td></tr>
+      <tr><td>4</td><td>Replace hardcoded homepage stats with real figures (or remove until sourced), and wire the homepage rating to the same live Google Reviews feed already used on /reviews.</td><td>Marketing Manager + developer</td><td>Low</td></tr>
+      <tr><td>5</td><td>Resolve the sitemap.xml conflict (dynamic route vs stale static files), extend it to all 20 suburb pages, and start exporting GA4 + Search Console monthly into <span class="mono">docs/analytics/YYYY-MM/</span>.</td><td>Developer</td><td>Medium</td></tr>
+    </table>
+
+    <h2>Sources</h2>
+    <ul class="small" style="padding-left:16px;">
+      <li>Google Search Status Dashboard — <a href="https://status.search.google.com/summary">status.search.google.com/summary</a></li>
+      <li>Search Engine Roundtable, September 2026 spam update completion coverage — <a href="https://www.seroundtable.com/">seroundtable.com</a></li>
+      <li>Optimixed GBP platform changelog, WhatsApp button test (23 Oct 2026) — <a href="https://www.optimixed.com/platform/google-business-profile">optimixed.com/platform/google-business-profile</a></li>
+      <li>200-query cross-industry AI citation test — <a href="https://site-business-found-by-ai.pages.dev/resources/200-queries-research">site-business-found-by-ai.pages.dev</a></li>
+      <li>AgentCite, real-estate AI-citation accuracy study — <a href="https://agentcite.vercel.app/blog/50-percent-of-realtors-chatgpt-recommends-do-not-exist">agentcite.vercel.app</a></li>
+      <li>RateMyAgent — Grant's Estate Agents, Berwick &amp; Narre Warren profiles — <a href="https://www.ratemyagent.com.au/">ratemyagent.com.au</a></li>
+      <li>WebSearch results for "Grant's Estate Agents", "best real estate agent Berwick/Narre Warren/Pakenham" — queried 1 November 2026</li>
+    </ul>
+
+    <p class="small" style="margin-top:auto;padding-top:10px;border-top:1px solid var(--hairline);">Generated automatically from the grantsea-website repository (commit 83eac0d) and public web search on 1 November 2026. The live site and Google APIs were unreachable from this session's network policy — see "Read first" on sheet 1 for what could not be checked.</p>
+  </div>
+
+  <footer class="sheetfoot">
+    <div class="footrow"><span>GEA SEO + AEO Report — November 2026</span><span>6 / 6</span></div>
+  </footer>
+</section>
+
+</body>
+</html>

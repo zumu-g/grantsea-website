@@ -674,7 +674,7 @@ export default function OncomHeaderEnhanced() {
                     }}>Success Stories</Link>
                   </li>
                   <li style={{ marginBottom: '12px' }}>
-                    <Link href="/market-analytics" onClick={() => setShowDropdown(false)} style={{
+                    <Link href="/property-values" onClick={() => setShowDropdown(false)} style={{
                       color: '#333',
                       textDecoration: 'none',
                       fontSize: '14px',

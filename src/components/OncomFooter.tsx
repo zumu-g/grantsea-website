@@ -155,14 +155,14 @@ export default function OncomFooter() {
                 </Link>
               </li>
               <li style={{ marginBottom: '12px' }}>
-                <Link href="/market-report" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
+                <Link href="/property-values" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
                   onMouseEnter={(e) => e.currentTarget.style.color = '#000'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
                   Market Report
                 </Link>
               </li>
               <li style={{ marginBottom: '12px' }}>
-                <Link href="/market-analytics" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
+                <Link href="/property-values" style={{ color: '#666', textDecoration: 'none', fontSize: '13px', transition: 'color 0.2s' }}
                   onMouseEnter={(e) => e.currentTarget.style.color = '#000'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#666'}>
                   Market Analytics

@@ -1,6 +1,7 @@
 // Server component: agency-scoped sales stats for a suburb, rendered in
 // initial HTML. All numbers come from real VaultRE sold data via
 // getSuburbSalesStats; renders nothing when the sample is below 5 sales.
+import Link from 'next/link';
 import { SuburbSalesStats } from '@/lib/serverProperties';
 import { formatPrice } from '@/services/api';
 
@@ -29,6 +30,11 @@ export default function SuburbStats({ suburb, stats }: { suburb: string; stats: 
         ))}
       </dl>
       <p style={{ fontSize: '13px', color: '#999', marginTop: '16px' }}>Data as at {stats.asAt}</p>
+      <p style={{ fontSize: '14px', marginTop: '16px' }}>
+        <Link href={`/property-values?suburb=${encodeURIComponent(suburb.toLowerCase())}`} style={{ color: '#000', fontWeight: 700 }}>
+          See how {suburb} compares →
+        </Link>
+      </p>
     </section>
   );
 }

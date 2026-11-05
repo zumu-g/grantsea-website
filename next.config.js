@@ -103,7 +103,9 @@ const nextConfig = {
       { source: '/uncategorized/:path*', destination: '/advice', permanent: true },
       { source: '/category/:path*', destination: '/advice', permanent: true },
       { source: '/tag/:path*', destination: '/advice', permanent: true },
-      { source: '/auction-results/:path*', destination: '/market-report', permanent: true },
+      { source: '/auction-results/:path*', destination: '/property-values', permanent: true },
+      { source: '/market-report/:path*', destination: '/property-values', permanent: true },
+      { source: '/market-analytics/:path*', destination: '/property-values', permanent: true },
     ];
   },
 };

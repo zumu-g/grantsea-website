@@ -16,6 +16,21 @@ function medianOf(numbers) {
 }
 
 /**
+ * Days on market for one sold record (unconditional minus marketing-live
+ * date), bounded to (0, 365). Returns null when either date is missing or
+ * the gap falls outside that range — a single scrape glitch must not show
+ * as a DOM figure.
+ * @param {string | undefined} listedDate
+ * @param {string | undefined} unconditionalDate
+ * @returns {number | null}
+ */
+function avgDaysOnMarketForPair(listedDate, unconditionalDate) {
+  if (!listedDate || !unconditionalDate) return null;
+  const dom = (new Date(unconditionalDate).getTime() - new Date(listedDate).getTime()) / 86400000;
+  return dom > 0 && dom < 365 ? Math.round(dom) : null;
+}
+
+/**
  * Average days-on-market for sold records, rounded. Excludes records without
  * internalMarketingLiveDate and any DOM outside (0, 365). Returns null when
  * fewer than minSample valid records remain.
@@ -25,10 +40,8 @@ function medianOf(numbers) {
  */
 function avgDaysOnMarket(sales, minSample) {
   const doms = sales
-    .map((p) => p.internalMarketingLiveDate
-      ? (new Date(p.unconditional).getTime() - new Date(p.internalMarketingLiveDate).getTime()) / 86400000
-      : null)
-    .filter((d) => d !== null && d > 0 && d < 365);
+    .map((p) => avgDaysOnMarketForPair(p.internalMarketingLiveDate, p.unconditional))
+    .filter((d) => d !== null);
   return doms.length >= minSample
     ? Math.round(doms.reduce((a, b) => a + b, 0) / doms.length)
     : null;
@@ -44,4 +57,4 @@ function filterByExactSuburb(items, suburb) {
   return items.filter((p) => ((p.address && p.address.suburb && p.address.suburb.name) || '').trim().toLowerCase() === s);
 }
 
-module.exports = { medianOf, avgDaysOnMarket, filterByExactSuburb };
+module.exports = { medianOf, avgDaysOnMarket, avgDaysOnMarketForPair, filterByExactSuburb };

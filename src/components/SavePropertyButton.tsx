@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import AuthModal from './AuthModal';
+import { trackSaveProperty } from '@/lib/analytics';
 
 interface SavePropertyButtonProps {
   property: {
@@ -39,8 +40,11 @@ export default function SavePropertyButton({ property, className = '', showLabel
       return;
     }
     
+    const eventContext = { propertyId: property.id, suburb: property.suburb, listingType: property.listingType || 'sale' } as const;
+
     if (isSaved) {
       unsaveProperty(property.id);
+      trackSaveProperty(eventContext, false);
     } else {
       saveProperty(
         property.id,
@@ -48,6 +52,7 @@ export default function SavePropertyButton({ property, className = '', showLabel
           ? property.listingType
           : undefined
       );
+      trackSaveProperty(eventContext, true);
     }
   };
 

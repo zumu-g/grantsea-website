@@ -113,6 +113,17 @@ export const pageMetadata = {
     },
   }),
 
+  sold: (suburbName?: string): Metadata => generateMetadata({
+    path: suburbName ? `/sold/${suburbName.toLowerCase().replace(/\s+/g, '-')}` : '/sold',
+    title: suburbName ? `Recent Sales in ${suburbName}` : 'Recent Sales',
+    description: suburbName
+      ? `Grant's Estate Agents' recent sold properties in ${suburbName} — real prices, sold dates and days on market.`
+      : "Grant's Estate Agents' recent sold properties across Berwick, Casey and Cardinia — real prices, sold dates and days on market.",
+    keywords: suburbName
+      ? [`${suburbName} recent sales`, `${suburbName} sold properties`, 'property sold prices']
+      : ['recent sales', 'sold properties', 'property sold prices', 'real estate sold'],
+  }),
+
   suburb: (suburbName: string): Metadata => generateMetadata({
     path: `/suburbs/${suburbName.toLowerCase().replace(/\s+/g, '-')}`,
     title: `${suburbName} Real Estate & Property`,

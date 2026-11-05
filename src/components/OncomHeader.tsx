@@ -10,6 +10,7 @@ export default function OncomHeader() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showBuyDropdown, setShowBuyDropdown] = useState(false);
   const [showRentDropdown, setShowRentDropdown] = useState(false);
+  const [showSellDropdown, setShowSellDropdown] = useState(false);
   const [showResearchDropdown, setShowResearchDropdown] = useState(false);
   const [showGrantsGuidesDropdown, setShowGrantsGuidesDropdown] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
@@ -256,27 +257,142 @@ export default function OncomHeader() {
                 </div>
               )}
             </div>
-            <Link href="/sell" style={{
-              color: isHomePage && !isScrolled ? '#fff' : '#000',
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: '500',
-              padding: '8px 12px',
-              position: 'relative',
-              outline: 'none',
-              borderBottom: '2px solid transparent',
-              transition: 'border-color 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderBottomColor = isHomePage && !isScrolled ? '#fff' : '#000';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderBottomColor = 'transparent';
-            }}
-            onFocus={(e) => {
-              e.currentTarget.style.outline = 'none';
-              e.currentTarget.style.boxShadow = 'none';
-            }}>Sell</Link>
+            <div style={{ position: 'relative' }}>
+              <button
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: isHomePage && !isScrolled ? '#fff' : '#000',
+                  textDecoration: 'none',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  padding: '8px 12px',
+                  position: 'relative',
+                  outline: 'none',
+                  borderBottom: '2px solid transparent',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderBottomColor = isHomePage && !isScrolled ? '#fff' : '#000';
+                  setShowSellDropdown(true);
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderBottomColor = 'transparent';
+                }}
+                onFocus={(e) => {
+                  e.currentTarget.style.outline = 'none';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                Sell
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  style={{
+                    transform: showSellDropdown ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.2s ease'
+                  }}
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+
+              {showSellDropdown && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    marginTop: '8px',
+                    backgroundColor: '#fff',
+                    border: '1px solid #e5e5e5',
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
+                    borderRadius: '8px',
+                    minWidth: '200px',
+                    zIndex: 1001,
+                    opacity: 1,
+                    animation: 'dropdownFadeIn 0.2s ease-out'
+                  }}
+                  onMouseEnter={() => setShowSellDropdown(true)}
+                  onMouseLeave={() => setShowSellDropdown(false)}
+                >
+                  <Link href="/sell" style={{
+                    display: 'block',
+                    padding: '14px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    fontWeight: '400',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.15s ease'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Why Sell with Us
+                  </Link>
+                  <Link href="/appraisal" style={{
+                    display: 'block',
+                    padding: '14px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    fontWeight: '400',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.15s ease'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Free Appraisal
+                  </Link>
+                  <Link href="/sold" style={{
+                    display: 'block',
+                    padding: '14px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    fontWeight: '400',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.15s ease'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Recent Sales
+                  </Link>
+                  <Link href="/property-values" style={{
+                    display: 'block',
+                    padding: '14px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    fontWeight: '400',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'background 0.15s ease'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Property Values
+                  </Link>
+                  <Link href="/calculators" style={{
+                    display: 'block',
+                    padding: '14px 20px',
+                    color: '#000',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    fontWeight: '400',
+                    transition: 'background 0.15s ease',
+                    borderRadius: '0 0 8px 8px'
+                  }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+                    Calculators
+                  </Link>
+                </div>
+              )}
+            </div>
             <div style={{ position: 'relative' }}>
               <button
                 style={{
@@ -1211,6 +1327,19 @@ export default function OncomHeader() {
             }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
               Sell
+            </Link>
+            <Link href="/sold" onClick={() => setShowBurgerPanel(false)} style={{
+              display: 'block',
+              padding: '16px 20px',
+              color: '#000',
+              textDecoration: 'none',
+              fontSize: '16px',
+              fontWeight: '500',
+              borderBottom: '1px solid #f0f0f0',
+              transition: 'background 0.2s'
+            }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
+               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#fff'}>
+              Recent Sales
             </Link>
             <Link href="/agents" onClick={() => setShowBurgerPanel(false)} style={{
               display: 'block',

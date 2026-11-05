@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About Page — AEO Rebuild Plan</title>
+<style>
+  :root{--ink:#111;--sub:#555;--line:#ddd;--bg:#fff;--mono:ui-monospace,Menlo,Consolas,monospace;}
+  body{font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;color:var(--ink);background:var(--bg);
+       max-width:880px;margin:0 auto;padding:48px 32px 96px;line-height:1.5;}
+  h1{font-size:28px;font-weight:700;letter-spacing:-0.01em;margin:0 0 6px;}
+  .meta{color:var(--sub);font-size:13px;margin-bottom:40px;}
+  h2{font-size:19px;font-weight:700;margin:44px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line);}
+  h3{font-size:15px;font-weight:700;margin:22px 0 8px;}
+  p{margin:0 0 12px;}
+  ul,ol{margin:0 0 14px;padding-left:22px;}
+  li{margin-bottom:6px;}
+  code,.mono{font-family:var(--mono);font-size:13px;background:#f4f4f4;padding:1px 5px;border-radius:3px;}
+  pre{font-family:var(--mono);font-size:12.5px;background:#f6f6f6;border:1px solid var(--line);
+      padding:14px 16px;border-radius:4px;overflow-x:auto;margin:0 0 14px;}
+  table{border-collapse:collapse;width:100%;margin:0 0 16px;font-size:13.5px;}
+  th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  th{background:#fafafa;font-weight:700;}
+  .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;
+       padding:2px 7px;border-radius:3px;margin-right:6px;}
+  .tag-flag{background:#fff3cd;color:#8a6100;}
+  .tag-decided{background:#e6f4ea;color:#1e6b34;}
+  .callout{background:#f8f8f8;border-left:3px solid #999;padding:10px 16px;margin:0 0 16px;font-size:14px;}
+</style>
+</head>
+<body>
+
+<h1>About Page — AEO/AI-Search Rebuild</h1>
+<div class="meta">Grant's Estate Agents website · docs/plans/2026-09-24-1431-feat-about-page-aeo-plan.html · branch feat/sold-results-buyer-engagement (or new branch — see Rollout)</div>
+
+<h2>1. What and why</h2>
+<p>The live <code>/about</code> page (<code>src/app/about/page.tsx</code>) is a hero banner and a stub reading "Full content coming soon" — no real content, no structured data, nothing for search or AI answer engines to read.</p>
+<p>Source: a Rob Hoffman (<code>@RobHoffman_</code>) X post outlining an 8-section "About Us" structure aimed at AI Search / LLM answer engines — clear value prop, services, differentiators, ICP, team, how-we-work, a crawlable key-facts table, and FAQ. The reasoning: it trains AI to describe the brand accurately, strengthens domain E-E-A-T, and reads as human rather than templated.</p>
+<p>Goal: rebuild <code>/about</code> as a real, fact-based page following that structure, adapted for a local real-estate agency rather than a SaaS company.</p>
+
+<h2>2. Decisions already made</h2>
+<table>
+<tr><th>Decision</th><th>Outcome</th></tr>
+<tr><td>Where it lives</td><td><span class="tag tag-decided">decided</span> Replace the existing <code>/about</code> stub in place — no new route, no orphaned page.</td></tr>
+<tr><td>Competitor comparisons (framework's step 3)</td><td><span class="tag tag-decided">decided</span> Differentiate on quantifiable facts (years established, local coverage, team size, response commitments) <strong>without naming other agencies</strong> — Berwick/Casey-Cardinia is a small, reputation-sensitive market; naming competitors is a legal/reputational risk for no real SEO upside.</td></tr>
+<tr><td>Founder/team content (step 5) &amp; Key Facts table</td><td><span class="tag tag-decided">decided</span> Sourced from the approved <code>gea-agent-profile</code> library, not invented. See §3.</td></tr>
+</table>
+
+<h2>3. Verified facts (from gea-agent-profile + codebase)</h2>
+<p>Everything below is either already-approved copy or pulled from the live site. Nothing here is invented — where a fact doesn't exist yet, it's flagged for Stuart rather than guessed.</p>
+<table>
+<tr><th>Field</th><th>Value</th><th>Source</th></tr>
+<tr><td>Founded</td><td>1994 ("EST. 1994")</td><td><code>src/app/page-oncom-style.tsx:99</code></td></tr>
+<tr><td>Director / founder</td><td>Stuart Grant, Director, Grants Berwick &amp; Pakenham</td><td>gea-agent-profile</td></tr>
+<tr><td>Offices</td><td>Berwick and Pakenham, servicing Casey and Cardinia</td><td>gea-agent-profile</td></tr>
+<tr><td>Contact email</td><td><code>stuart@grantsea.com.au</code> (canonical, confirmed 16 Sep 2026 — not the older address in some PDFs)</td><td>gea-agent-profile</td></tr>
+<tr><td>Contact phone</td><td>0438 554 522</td><td>gea-agent-profile</td></tr>
+<tr><td>Approved bio</td><td>Standard two-paragraph bio + pull quote + three pillars (Trust / Leadership / Innovation) + four-step approach (Understand → Strategise → Execute → Deliver)</td><td>gea-agent-profile</td></tr>
+<tr><td>Portrait</td><td><code>portrait2_s.jpg</code> (933×1400)</td><td>gea-agent-profile library</td></tr>
+</table>
+<p class="callout"><span class="tag tag-flag">flag</span> Sales-volume, clearance-rate, and days-on-market stats in the 2026 profile deck are explicit placeholders (<code>$XX.XM</code>, <code>XX%</code>) — <strong>do not publish them</strong>. If Stuart supplies real current figures, use them; otherwise the page ships without a stats block, per the profile skill's own rule ("a page with no numbers beats a page with invented ones").</p>
+<p class="callout"><span class="tag tag-flag">flag</span> Footer social links (<code>OncomFooter.tsx:317-345</code>) are placeholder generic URLs (<code>facebook.com</code>, <code>instagram.com</code>, etc.), not GEA's real handles. Pre-existing gap, out of scope for this page — noting it because step 5/7 of the framework wants real social links. Ask Stuart for GEA's actual profile URLs before wiring the Key Facts "Social" row and team socials.</p>
+
+<h2>4. Section-by-section content plan</h2>
+<p>Adapting the tweet's 8-point SaaS framework to a local real-estate agency — some fields don't map (e.g. "Pricing", "Contract Terms" as in a SaaS quote) and are swapped for the real-estate equivalent or dropped.</p>
+
+<h3>1 — Value prop (H1 + intro paragraph)</h3>
+<p>"Grant's Estate Agents is a family-owned real estate agency that has been selling, leasing and managing property across Berwick, Pakenham and the wider Casey-Cardinia corridor since 1994." (Exact wording to be finalised, but the pattern is fixed: Company → Category → What it does → ICP/area.)</p>
+
+<h3>2 — "What Grant's Estate Agents does" (H2, each service as H3)</h3>
+<p>Residential sales, property management/leasing, appraisals, auctions, suburb market reporting. Pull real page links (<code>/buy</code>, <code>/rent</code>, <code>/sell</code>, <code>/appraisal</code>, <code>/sold</code>) so this section also does internal-linking work.</p>
+
+<h3>3 — "What makes Grant's Estate Agents different" (H2, ~5 H3 differentiators)</h3>
+<p>Quantifiable, no competitor naming: 30+ years established (1994), two-office local coverage (Berwick + Pakenham), dedicated suburb guides for 20 local suburbs, published sold-results data (<code>/sold</code>), response-time commitment if one exists (check with Stuart — don't invent).</p>
+
+<h3>4 — "Who uses Grant's Estate Agents" (H2, bullet ICP segments)</h3>
+<p>e.g. "Homeowners selling in Casey and Cardinia", "Investors and landlords seeking property management", "First-home buyers in Berwick, Pakenham, Cranbourne and surrounding suburbs", "Tenants seeking rental properties".</p>
+
+<h3>5 — "The team behind Grant's Estate Agents" (H2)</h3>
+<p>Stuart Grant's approved bio (verbatim, §3), portrait, pull quote, and a link through to <code>/agents</code> for the rest of the team rather than duplicating every agent bio on this page.</p>
+
+<h3>6 — "How Grant's Estate Agents works" (H2)</h3>
+<p>Communication channels, who the client works with (their agent + Stuart as director), the appraisal → listing → sale process. Reuse the four-step approach (Understand → Strategise → Execute → Deliver) already approved in the profile copy rather than writing a new process.</p>
+
+<h3>7 — Key Facts table (H2, real <code>&lt;table&gt;</code>, the AEO-critical section)</h3>
+<table>
+<tr><th>Row</th><th>Value / source</th></tr>
+<tr><td>Company Name</td><td>Grant's Estate Agents</td></tr>
+<tr><td>Type</td><td>Real Estate Agency</td></tr>
+<tr><td>Founded</td><td>1994</td></tr>
+<tr><td>Director</td><td>Stuart Grant</td></tr>
+<tr><td>Headquarters</td><td>Berwick, VIC (+ Pakenham office)</td></tr>
+<tr><td>Website</td><td>grantsea-website.vercel.app (or production domain if different — confirm)</td></tr>
+<tr><td>Core Services</td><td>Sales, Leasing/Property Management, Appraisals, Auctions</td></tr>
+<tr><td>Areas Served</td><td>Berwick, Pakenham, Casey &amp; Cardinia (20 suburb pages already live)</td></tr>
+<tr><td>Contact</td><td>0438 554 522 · stuart@grantsea.com.au</td></tr>
+<tr><td>Social</td><td><span class="tag tag-flag">flag</span> pending real handles — see §3</td></tr>
+</table>
+<p>"Pricing", "Contract Terms", "Notable Clients", "Customers Served", "Projects Delivered" and "Competitors" rows from the original SaaS framework are dropped: commission/contract terms aren't publicly quoted, and naming individual vendor clients is a privacy issue in real estate.</p>
+
+<h3>8 — FAQ (H2, questions as H3, 2-3 sentence answers)</h3>
+<p>Real, likely-searched questions rather than invented ones — draft candidates: "What areas does Grant's Estate Agents cover?", "How long has Grant's Estate Agents been operating?", "Does Grant's Estate Agents manage rental properties?", "How do I get a property appraisal?". Final list to be confirmed with Stuart before writing copy — content only, no code decision here.</p>
+
+<h2>5. Technical approach</h2>
+<ul>
+<li><strong>Convert to a server component.</strong> Current page is <code>'use client'</code> with a resize listener purely for two breakpoint numbers. Rebuild as an <code>async</code> server component (matches the pattern in <code>src/app/page.tsx</code> and <code>src/app/sell/layout.tsx</code>) so headings/content are present in the initial HTML for crawlers and AI fetchers — the whole point of this page is machine-readability. Use CSS media queries instead of a JS resize listener for the mobile/desktop split.</li>
+<li><strong>Structured data.</strong> Emit a JSON-LD <code>RealEstateAgent</code> (or <code>LocalBusiness</code>) block with <code>name</code>, <code>foundingDate</code>, <code>address</code>, <code>telephone</code>, <code>email</code>, <code>areaServed</code>, mirroring the Key Facts table so structured data and visible content agree — check <code>src/app/sell/layout.tsx</code>/<code>page.tsx</code> first, since it already emits <code>aggregateRating</code> JSON-LD for the Google reviews work; extend the same organisation object rather than creating a second, conflicting one.</li>
+<li><strong>Semantic HTML.</strong> Real <code>&lt;h2&gt;</code>/<code>&lt;h3&gt;</code> hierarchy (not styled <code>&lt;div&gt;</code>s), a genuine <code>&lt;table&gt;</code> for Key Facts, and <code>&lt;dl&gt;</code> or <code>&lt;details&gt;</code>/<code>&lt;summary&gt;</code> for the FAQ so it's crawlable and optionally an FAQPage schema block.</li>
+<li><strong>Metadata.</strong> Add/verify <code>generateMetadata</code> (title, description) — check whether <code>/about</code> currently has any; the file has none today.</li>
+<li><strong>Reuse, don't rebuild.</strong> <code>OncomHeader</code> and <code>OncomFooter</code> stay as-is. Styling follows the same inline-style / on.com pattern already used across the site (per project CLAUDE.md — no new design system for one page).</li>
+</ul>
+
+<h2>6. Task breakdown</h2>
+<ol>
+<li>Confirm remaining open facts with Stuart before writing final copy: production domain for the Key Facts table, real social handles, any current response-time commitment, final FAQ list, whether current sales-volume/clearance stats exist (or ship without a stats block).</li>
+<li>Draft final section copy (content only) using the verified facts in §3 and the structure in §4 — no fabricated numbers.</li>
+<li>Rebuild <code>src/app/about/page.tsx</code> as an async server component with the 8 sections, semantic headings, and a real <code>&lt;table&gt;</code> for Key Facts.</li>
+<li>Add/extend JSON-LD structured data (reuse the org object pattern from the sell-page reviews work rather than duplicating it).</li>
+<li>Add <code>generateMetadata</code> for title/description.</li>
+<li>Add internal links from the services section to <code>/buy</code>, <code>/rent</code>, <code>/sell</code>, <code>/appraisal</code>, <code>/sold</code>, <code>/agents</code>.</li>
+<li><code>npm run typecheck</code> and <code>npm run lint</code>; visual check on mobile + desktop breakpoints.</li>
+<li>Regenerate sitemap if <code>/about</code>'s <code>lastmod</code>/priority needs updating (check whatever script produced the sitemap diffs in the last commit).</li>
+</ol>
+
+<h2>7. Explicitly out of scope</h2>
+<ul>
+<li>Rewriting the rest of the team's individual bios — link to <code>/agents</code> instead of duplicating.</li>
+<li>Fixing the placeholder social URLs in <code>OncomFooter.tsx</code> — flagged in §3, separate piece of work.</li>
+<li>Any new stats/analytics dashboard — this is a content + structured-data page, not a reporting feature.</li>
+<li>A visual redesign beyond what's needed to fit 8 sections — reuse existing on.com-style patterns from the current stub and other pages (e.g. <code>/sell</code>).</li>
+</ul>
+
+<h2>8. Rollout</h2>
+<p>Small, single-page, no schema/DB/auth risk — fits on the current branch (<code>feat/sold-results-buyer-engagement</code>) or a fresh <code>feat/about-page-aeo</code> branch, implementer's call. Standard flow: implement → typecheck/lint → <code>ce-code-review</code> → PR. No feature flag needed.</p>
+
+</body>
+</html>

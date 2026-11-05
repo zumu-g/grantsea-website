@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import PageClient from './SuburbPageClient';
 import CrawlerListings from '@/components/CrawlerListings';
@@ -19,6 +20,11 @@ export default async function Page({ params }: { params: { suburb: string } }) {
     <>
       <PageClient />
       <CrawlerListings heading={`Current listings in ${name}`} listings={listings} />
+      <p style={{ padding: '0 max(2rem, 3.33vw) 2rem', fontSize: '14px', fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif' }}>
+        <Link href={`/property-values?suburb=${encodeURIComponent(params.suburb)}`} style={{ color: '#000', fontWeight: 700 }}>
+          See how {name} compares →
+        </Link>
+      </p>
     </>
   );
 }
